@@ -24,7 +24,7 @@
 #define CATEGORY_ENCTEXT @"ENC"	
 //wifi文本
 #define CATEGORY_WIFI @"WIFI"
-
+#define CATEGORY_MEDIA @"RICHMEDIA"
 
 // 解析时使用
 #define CATEGORY_URL @"URL"

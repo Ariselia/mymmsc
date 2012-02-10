@@ -19,7 +19,13 @@
 #import "EncodeUrlViewController.h"
 #import "EncodeWifiViewController.h"
 #import "EncodeWeiboViewController.h"
+
+// WangFeng: 增加富媒体生码类
+#import "UCCreateCode.h"
+
 #define Interval 0.3f
+
+
 @implementation EncodeViewController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -75,6 +81,9 @@
     
     DATA_ENV.encodeImageType = EncodeImageTypeCommon;
     _curType = EncodeImageTypeCommon;
+    
+    // 设定为传统模式
+    [Api setKma:NO];
 }
 
 -(void)animationEnd:(NSTimer *) timer{
@@ -183,6 +192,9 @@
             break;
         case BusinessTypeSchedule:
             viewController = [[EncodeScheduleViewController alloc] initWithNibName:@"EncodeScheduleViewController" bundle:nil];
+            break;
+        case BusinessTypeRichMedia: // WangFeng: 增加生码类
+            viewController = [[UCCreateCode alloc] initWithNibName:@"UCCreateCode" bundle:nil];
             break;
         default:
             viewController = [[EncodeCardViewController alloc] initWithNibName:@"EncodeCardViewController" bundle:nil];

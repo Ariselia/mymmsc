@@ -17,6 +17,7 @@
 #import <iOSApi/iOSToast.h>
 #import <iOSApi/iOSApi+Crypto.h>
 
+
 #define kCellIconHeight 24.0f
 
 #define API_INTERFACE_TEST (1)
@@ -28,11 +29,11 @@
 #define API_INTERFACE_TONKEN @"uLN9UhI9Uhd-UhGGuh78uQ"
 
 // 富媒体接口地址
-#define API_URL_RICHMEDIA    @"http://220.231.48.34:7000/mb"
+#define API_URL_RICHMEDIA    @"http://m.fengxiafei.com/mb"
 // 空码接口地址
-#define API_URL_KMA          @"http://fengxiafei.com/mb"
+#define API_URL_KMA          @"http://m.fengxiafei.com/mb"
 // 用户中心借口地质
-#define API_URL_USERCENTER   @"http://220.231.48.34:7000"
+#define API_URL_USERCENTER   @"http://ifengzi.cn"
 // 商城
 #define API_URL_ESHOP        @"http://220.231.48.34:9000/eshop"
 
@@ -44,11 +45,12 @@
 #define API_CACHE_ISSAVE @"app_isSave"
 
 @interface UserInfo : NSObject {
-    int       userId; // 用户Id
-    NSString *userName; // 姓名
+    int       userId;      // 用户Id
+    NSString *userName;    // 姓名
     NSString *phoneNumber; // 用户手机号码
-    NSString *nikeName; // 用户昵称
-    NSString *password; // 用户密码
+    NSString *nikeName;    // 用户昵称
+    NSString *password;    // 用户密码
+    NSString *sessionPassword; // 密码明文进行base64加密的结果
 }
 
 @property (nonatomic, assign) int userId;
@@ -56,6 +58,7 @@
 @property (nonatomic, retain) NSString *phoneNumber;
 @property (nonatomic, retain) NSString *nikeName;
 @property (nonatomic, retain) NSString *password;
+@property (nonatomic, retain) NSString *sessionPassword;
 
 @end
 

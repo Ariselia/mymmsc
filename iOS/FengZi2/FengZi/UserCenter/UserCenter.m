@@ -107,13 +107,13 @@
         if ([Api isOnLine]) {
             message.text = [NSString stringWithFormat: @"Hi, %@", [Api nikeName]];
             action = [iOSAction initWithName: @"修改昵称" class: @"UCUpdateNikename"];
-            [action setIcon: @"uc-edit"];
+            [action setIcon: @"Images/usercenter/uc-edit"];
             //[action setNib: @"TableView"];
             [items addObject: action];
             //[action release];
             
             action = [iOSAction initWithName: @"修改密码" class: @"UCUpdatePassword"];
-            [action setIcon: @"uc-passwd"];
+            [action setIcon: @"Images/usercenter/uc-passwd"];
             //[action setNib: @"MoneyTrans"];
             [items addObject: action];
             //[action release];
@@ -128,13 +128,13 @@
         }
         
         action = [iOSAction initWithName: @"我的码" class: @"UCMyCode"];
-        [action setIcon: @"uc-coder"];
+        [action setIcon: @"Images/usercenter/uc-coder"];
         //[action setNib: @"MoneyTrans"];
         [items addObject: action];
         //[action release];
         
         action = [iOSAction initWithName: @"收藏" class: @"FaviroteViewController"];
-        [action setIcon: @"uc-star"];
+        [action setIcon: @"Images/usercenter/uc-star"];
         //[action setNib: @"MoneyTrans"];
         [items addObject: action];
         //[action release];

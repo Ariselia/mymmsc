@@ -97,6 +97,9 @@ static DataEnvironment *sharedInst = nil;
         case BusinessTypeSchedule:
             path = @"schedule_rainbow";
             break;
+        case BusinessTypeRichMedia:
+            path = @"richmedia_rainbow";
+            break;
         default:
             break;
     }
@@ -293,7 +296,11 @@ static DataEnvironment *sharedInst = nil;
         case BusinessTypeUrl:
             return [UIImage imageNamed:@"table_website.png"];
             break;
+        case BusinessTypeRichMedia:
+            return [UIImage imageNamed:@"table_richmedia.png"];
+            break;
         default:
+            return nil;
             break;
     }
 }
@@ -325,7 +332,9 @@ static DataEnvironment *sharedInst = nil;
         return @"appUrl";
     } else if([type isEqualToString:CATEGORY_CARD]){
         return @"card";
-    }else {
+    } else if([type isEqualToString:CATEGORY_MEDIA]) {
+        return @"richMedia";
+    } else {
         return @"text";
     }
 }
@@ -358,6 +367,8 @@ static DataEnvironment *sharedInst = nil;
             return @"weibo";
         case BusinessTypeUrl:
             return @"url";
+        case BusinessTypeRichMedia:
+            return @"richMedia";
         default:
             return @"text";
     }
@@ -389,7 +400,9 @@ static DataEnvironment *sharedInst = nil;
         return BusinessTypeAppUrl;
     } else if([type isEqualToString:CATEGORY_CARD]){
         return BusinessTypeCard;
-    }else {
+    } else if([type isEqualToString:CATEGORY_MEDIA]) {
+        return BusinessTypeRichMedia;
+    } else {
         return BusinessTypeText;
     }
 

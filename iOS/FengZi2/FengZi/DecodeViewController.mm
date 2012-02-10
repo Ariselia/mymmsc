@@ -21,8 +21,16 @@
 #import "QREncoder.h"
 #import "DataMatrix.h"
 
+#import "UCLogin.h"
+
 #define AniInterval 0.3f
 @implementation DecodeViewController
+
+- (IBAction)doLogin:(id)sender {
+    UCLogin *nextView = [[UCLogin alloc] init];
+    [self.navigationController pushViewController:nextView animated:YES];
+    [nextView release];
+}
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {

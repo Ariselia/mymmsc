@@ -23,9 +23,18 @@
 #import "BookMark.h"
 #import "GMap.h"
 #import "EncText.h"
+
+#import "RichMedia.h"
+
 @interface BusEncoder : NSObject
 
 +(NSString*) filterQRBusiness:(NSString*)src;
+
+/**
+ * 富媒体编码
+ * @remark 王锋增加
+ */
++ (NSString *)encodeRichMedia:(RichMedia *)media;
 
 /**
  * 对名片编码

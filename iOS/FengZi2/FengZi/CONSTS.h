@@ -14,7 +14,7 @@
 #define DEFAULT_MAP_SEARCH @"http://maps.google.com/maps?q=%@"
 #define VERSION_NUMBER @"1" // 版本号
 #define CHANNEL_NUMBER @"0" // 渠道号
-#define BUSINESS_NUM 12 //业务数目
+#define BUSINESS_NUM 14 //业务数目
 #define HELPSHOW @"HELPSHOW"
 //
 #define DECODE_FAIL @"识别的码非标准QR码或破损严重，请调整重新识别"
@@ -105,7 +105,8 @@ typedef enum{
     BusinessTypeWifiText,
     BusinessTypeGmap,
     BusinessTypeSchedule,
-    BusinessTypeAppUrl
+    BusinessTypeAppUrl,
+    BusinessTypeRichMedia
 }BusinessType;
 
 typedef enum{

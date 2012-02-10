@@ -11,6 +11,8 @@
 #import "MoreViewController.h"
 #import "DecodeViewController.h"
 
+#import "UserCenter.h"
+
 #define TAB_CONTROLLER_TAB_HIDDEN_Y 480.0f
 #define TAB_CONTROLLER_TAB_VISIBLE_Y 433.0f
 #define TAB_CONTROLLER_TAB_HEIGHT 47.0f
@@ -107,8 +109,13 @@ static TabBarController *_tabBarInstance;
         decodeViewController.title = @"解码";
         UINavigationController *naviImageDecodeViewController = [[[UINavigationController alloc] initWithRootViewController:decodeViewController] autorelease];
         
+#if 0
         FaviroteViewController *favViewController = [[[FaviroteViewController alloc] init] autorelease];
         favViewController.title = @"收藏";
+        UINavigationController *naviFavViewController = [[[UINavigationController alloc] initWithRootViewController:favViewController] autorelease];
+#endif   
+        UserCenter *favViewController = [[[UserCenter alloc] init] autorelease];
+        favViewController.title = @"个人中心";
         UINavigationController *naviFavViewController = [[[UINavigationController alloc] initWithRootViewController:favViewController] autorelease];
         
         HistoryViewController *hisViewController = [[[HistoryViewController alloc] init] autorelease];

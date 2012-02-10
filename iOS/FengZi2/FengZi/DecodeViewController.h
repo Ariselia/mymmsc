@@ -17,4 +17,6 @@
 }
 
 - (IBAction)tapOnSelectImageBtn:(id)sender;
+- (IBAction)doLogin:(id)sender;
+
 @end

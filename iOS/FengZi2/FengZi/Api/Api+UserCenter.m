@@ -182,6 +182,7 @@
     NSString *pwd = [Api base64e:passwd];
     NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
                             API_INTERFACE_TONKEN, @"token",
+                            [Api base64e:passwd], @"sessionPassword",
                             userId, @"userid",
                             pwd, @"password",
                             nikename, @"nicname",
@@ -220,6 +221,7 @@
     static NSString *action = API_URL_KMA "/kma/m_getCodeList.action";
     NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
                             API_INTERFACE_TONKEN, @"token",
+                            [Api base64e:[Api passwd]], @"sessionPassword",
                             [NSString valueOf:[Api userId]], @"userid",
                             [Api passwd], @"password",
                             [NSString valueOf:number], @"curPage",

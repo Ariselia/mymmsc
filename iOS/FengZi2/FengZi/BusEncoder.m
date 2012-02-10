@@ -24,6 +24,20 @@
 }
 
 /**
+ * 富媒体编码
+ * @remark 王锋增加
+ */
++ (NSString *)encodeRichMedia:(RichMedia *)media {
+    NSMutableString *buffer = [[[NSMutableString alloc] initWithCapacity:0] autorelease];
+    if(media == nil){
+        return buffer;
+    }
+    
+    [buffer appendString:media.url];
+    return buffer;
+}
+
+/**
  * 对名片编码
  * @param card
  * @return

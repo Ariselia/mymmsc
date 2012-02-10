@@ -20,13 +20,14 @@
 
 @implementation UserInfo
 
-@synthesize userId, userName, phoneNumber, nikeName, password;
+@synthesize userId, userName, phoneNumber, nikeName, password, sessionPassword;
 
 - (void)dealloc {
     [userName release];
     [phoneNumber release];
     [nikeName release];
     [password release];
+    [sessionPassword release];
     
     [super dealloc];
 }

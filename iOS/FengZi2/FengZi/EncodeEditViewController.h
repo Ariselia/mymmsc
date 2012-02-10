@@ -12,6 +12,7 @@
 #import "CodeAttribute.h"
 #import "ITTDataRequest.h"
 #import "ITTImageView.h"
+
 @interface EncodeEditViewController : UIViewController<DecorateViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,EditImageViewDelegate,DataRequestDelegate>{
     UIImageView *_encodeImageView;
     IBOutlet ITTImageView *_backgoundImage;
@@ -37,6 +38,7 @@
 }
 @property (retain, nonatomic) IBOutlet UIImageView *encodeImageView;
 @property (assign, nonatomic) EditImageType type;
+@property (nonatomic, retain) NSString *content;
 
 - (IBAction)tapOnSaveBtn:(id)sender;
 

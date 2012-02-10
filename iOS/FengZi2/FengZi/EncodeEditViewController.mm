@@ -17,9 +17,13 @@
 #import "EncryptTools.h"
 #import "SHK.h"
 #import "ShareView.h"
+
+#import "RichMedia.h"
+
 @implementation EncodeEditViewController
+
 @synthesize encodeImageView =_encodeImageView;
-@synthesize type = _type;
+@synthesize type = _type, content = _content;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -283,6 +287,13 @@
             obj.logId = _logId;
             _showInfo = obj.contente;
             _content = [[BusEncoder encodeShortmessage:obj]retain];
+            break;
+        }
+        case BusinessTypeRichMedia:{
+            RichMedia *obj = _codeObject;
+            obj.logId = _logId;
+            _showInfo = obj.title;
+            _content = [BusEncoder encodeRichMedia:obj];
             break;
         }
         default:
