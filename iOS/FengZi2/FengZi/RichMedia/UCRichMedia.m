@@ -104,23 +104,26 @@
     self.navigationItem.rightBarButtonItem = rightItem;
     [rightItem release];
     
-    // 14822e79-7c4e-4760-86a1-34f2786beaf0
+    // bebe13af-287d-424d-b817-be0504a0850b
     NSDictionary *dict = [Api parseUrl:urlMedia];
     NSString *code = [dict objectForKey:@"id"];
     [Api kmaSetId:code];
     iOSLog(@"uuid1=[%@]", code);
     iOSLog(@"uuid2=[%@]", [Api kmaId]);
-    //MediaInfo *iRet = [Api kmaRichMedia:[Api kmaId]];
-    //if (iRet.status == 0) {
-        //[iOSApi Alert:@"提示" message:@"获取内容正确"];
-    //} else
-    {
-        //[iOSApi Alert:@"提示" message:iRet.message];
-        //[iOSApi Alert:@"提示" message:@"获取内容正确"];
+    
+    // 获取媒体美容
+    MediaContent *mc = [Api getContent:code];
+    if (mc.status == 0) {
+        [iOSApi Alert:@"提示" message:@"获取内容正确"];
+    } else {
+        [iOSApi Alert:@"提示" message:mc.message];
+        [iOSApi Alert:@"提示" message:@"获取内容正确"];
     }
     int xHeight = 411;
-    scrollViewX.contentSize = CGSizeMake(960, xHeight);
-    for (int i = 0; i < 3; i++) {
+    int num = [mc.pageList count];
+    scrollViewX.contentSize = CGSizeMake(320 * num, xHeight);
+    for (int i = 0; i < mc.pageList.count; i++) {
+        MediaObject *info = [mc.pageList objectAtIndex:i];
         UCMediaPage *page = [[UCMediaPage alloc] init];
         CGRect frame = page.view.frame;
         frame.origin.x = 320 * i;
@@ -128,8 +131,9 @@
         frame.size.height = 411;
         page.view.frame = frame;
         [self.scrollViewX addSubview:page.view];
-        page.subject.text = [NSString stringWithFormat:@"%d 短片《Big Buck》", i];
-        page.content.text = [NSString stringWithFormat:@"%d 短片《Big Buck》简介, 大雄兔（Big Buck Bunny）是Blender基金会第2部开放版权、创作共用的动画电影，代号Peach。片长10分钟，Big Buck Bunny全部使用开放源代码软件制作（如 Blender、Linux），渲染的计算机集群使用太阳微系统公司的Sun Grid亦是开放源代码的（如：OpenSolaris、Sun Grid Engine等），[1] [2] 制作技术和素材彻底公开。不同于上一个项目Elephants Dream，本篇全程无语音。本片完成之后，其素材适用在blender官方的游戏项目Yo Frankie!之中，反派Frankie这次成为主角。", i];
+        page.subject.text = mc.title;
+        page.content.text = info.textContent;
+        page.info = info;
     }
     picView1.image = [UIImage imageNamed:@"diandian.png"];
     picView2.image = [UIImage imageNamed:@"dian.png"];

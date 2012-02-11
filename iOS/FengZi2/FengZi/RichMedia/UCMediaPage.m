@@ -15,7 +15,7 @@
 @implementation UCMediaPage
 
 @synthesize subject, content, pic;
-@synthesize urlPic, urlSound, urlMedia;
+@synthesize info;
 @synthesize button, btnText;
 @synthesize moviePlayer, state, stText;
 
@@ -43,8 +43,25 @@
     // Release any cached data, images, etc that aren't in use.
 }
 
+// 下载图片
+- (void)downImage:(NSString *)url {
+    UIImage *im = [[[UIImage alloc] initWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:url]]] autorelease];
+    if (im != nil) {
+        [pic setImage: [im scaleToSize:pic.frame.size]];
+    }
+}
+
 // 下载媒体文件
 - (void)doDownload {
+    NSString *urlMedia = info.mediaUrl;
+    if (urlMedia == nil || urlMedia.length < 10) {
+        [iOSApi Alert:@"没有影音内容" message:nil];
+        return;
+    }
+    if (info.picType == API_RICHMEDIA_PICTYPE_IMAGE) {
+        [self downImage:urlMedia];
+        return;
+    }
     HttpDownload *hd = [HttpDownload new];
     hd.delegate = self;
     iOSLog(@"下载路径: [%@]", urlMedia);
@@ -68,22 +85,13 @@
 - (BOOL)httpDownload:(HttpDownload *)httpDownload didFinished:(NSMutableData *)buffer {
     [iOSApi closeAlert];
     // 下载完毕保存到本地
-    NSString *filePath = [Api filePath:urlMedia];
+    NSString *filePath = [Api filePath:info.mediaUrl];
     NSLog(@"1: %@", filePath);
     NSFileHandle *fileHandle = [iOSFile create:filePath];
     [fileHandle writeData:buffer];
     [fileHandle closeFile];
     state = MS_READY;
     return YES;
-}
-
-// 下载图片
-- (void)downImage {
-    NSString *url = urlPic;
-    UIImage *im = [[[UIImage alloc] initWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:url]]] autorelease];
-    if (im != nil) {
-        [pic setImage: [im scaleToSize:pic.frame.size]];
-    }
 }
 
 -(IBAction)allText:(id)sender {
@@ -134,7 +142,7 @@
     } else if(state == MS_READY || state == MS_STOPPED) {
         // 如果处在准备状态, 加载媒体文件
         if (state == MS_READY) {
-            NSString *filePath = [iOSFile path:[Api filePath:urlMedia]];
+            NSString *filePath = [iOSFile path:[Api filePath:info.mediaUrl]];
             iOSLog(@"1: %@", filePath);
             NSURL *fileURL = [NSString stringWithFormat:@"file://%@", filePath];
             fileURL = [NSURL fileURLWithPath:filePath];

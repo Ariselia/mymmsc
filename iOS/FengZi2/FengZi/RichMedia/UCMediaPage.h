@@ -8,13 +8,13 @@
 
 #import <UIKit/UIKit.h>
 #import <iOSApi/HttpDownload.h>
-#import <MediaPlayer/MediaPlayer.h> 
+#import <MediaPlayer/MediaPlayer.h>
+#import "Api+RichMedia.h"
+
 @interface UCMediaPage : UIViewController<HttpDownloadDelegate> {
-    //MPMoviePlayerController *player;
-    //int state;
+    MediaObject *info;
 }
-@property (nonatomic, retain) NSString *urlPic, *urlSound;
-@property (nonatomic, retain) NSString *urlMedia;
+@property (nonatomic, retain) MediaObject *info;
 @property (nonatomic, retain) IBOutlet UILabel *subject;
 @property (nonatomic, retain) IBOutlet UILabel  *content;
 @property (nonatomic, retain) IBOutlet UIImageView *pic;
