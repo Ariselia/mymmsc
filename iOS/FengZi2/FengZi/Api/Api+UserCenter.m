@@ -80,6 +80,8 @@
             } else if([key isSame:@"userid"]) {
                 NSNumber *t = value;
                 [Api setUserId:t.intValue];
+            } else if([key isSame:@"sessionPassword"]) {
+                [Api setSessionPassword:value];
             }
         }
         //[Api setUser:ui];
@@ -202,6 +204,7 @@
     static NSString *action = API_URL_USERCENTER "/uc/m_modpass.action";
     NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
                             API_INTERFACE_TONKEN, @"token",
+                            [Api base64e:passwd], @"sessionPassword",
                             [NSString valueOf:[Api userId]], @"userid",
                             [Api base64e:passwd], @"password",
                             [Api base64e:newpasswd], @"newpassword",

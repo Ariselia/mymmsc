@@ -81,8 +81,13 @@
     
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
     btn.frame =CGRectMake(0, 0, 60, 32);
-    [btn setImage:[UIImage imageNamed:@"generate_code.png"] forState:UIControlStateNormal];
-    [btn setImage:[UIImage imageNamed:@"generate_code_tap.png"] forState:UIControlStateHighlighted];
+    if ([Api kma]) {
+        [btn setImage:[UIImage imageNamed:@"uc-save.png"] forState:UIControlStateNormal];
+        [btn setImage:[UIImage imageNamed:@"uc-save.png"] forState:UIControlStateHighlighted];
+    } else {
+        [btn setImage:[UIImage imageNamed:@"generate_code.png"] forState:UIControlStateNormal];
+        [btn setImage:[UIImage imageNamed:@"generate_code_tap.png"] forState:UIControlStateHighlighted];
+    }
     [btn addTarget:self action:@selector(generateCode) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithCustomView:btn];
     self.navigationItem.rightBarButtonItem = item;

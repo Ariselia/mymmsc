@@ -10,6 +10,7 @@
 #import "Api+RichMedia.h"
 #import "EncodeEditViewController.h"
 
+
 @implementation UCCreateCode
 
 @synthesize subject, content, mtype, bKma, code;
@@ -20,8 +21,8 @@
     if (self) {
         // Custom initialization
         media = [[RichMedia alloc] init];
-        subject.text = @"iOS测试富媒体";
-        content.text = @"试试看～～～";
+        subject.text = @"输入标题，少于15字";
+        content.text = @"输入点内容吧，少于500字";
         tmpKey = @"123.mp4";
         bKma = NO;
     }
@@ -41,6 +42,20 @@
     [content resignFirstResponder];
 }
 
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+	switch (textField.returnKeyType) {
+		case UIReturnKeyNext:
+			[textField resignFirstResponder];
+			break;
+		case UIReturnKeyGo:
+			[textField resignFirstResponder];
+			break;
+		default:
+			break;
+	}
+	return YES;
+}
+
 #pragma mark - View lifecycle
 
 //--------------------< 富媒体 - 插入 - 图片 >--------------------
@@ -58,13 +73,6 @@ static int iTimes = -1;
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)xInfo {
     iTimes = 0;
     UIImage *img = nil;
-    
-    UIAlertView *alert = [[UIAlertView alloc]
-						  initWithTitle:[NSString stringWithFormat:@"", @""]
-						  message:[NSString stringWithFormat:@"\n\n\n\n\n\n\n\n\n\n\n\n\n"]
-						  delegate:self
-						  cancelButtonTitle:@"不好看"
-						  otherButtonTitles:@"嗯，不错～", nil];
     
     NSString *mediaType = [xInfo objectForKey:UIImagePickerControllerMediaType];
     if ([mediaType isEqualToString:@"public.image"]){
@@ -114,16 +122,9 @@ static int iTimes = -1;
     //UIGraphicsEndImageContext();
     UIImage *scaledImage = [img thumb:&size];
     fmtBuffer = [UIImagePNGRepresentation(scaledImage) retain];
-    //fmtBuffer = UIImageJPEGRepresentation(scaledImage, 1);
-    //UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(38, 10, 210, 280)];
-	UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake((280-size.width)/2, (300-size.height) / 2, size.width, size.height)];
-	//UIImageView *imageView = [[UIImageView alloc] initWithImage:scaledImage];
-    [imageView setImage: scaledImage];
-	[imageView setTag: 2001];
-	[alert addSubview: imageView];
-	[alert show];
-	[alert release];
-    [imageView release];
+    iOSImageView *iv = [[iOSImageView alloc] initWithImage:scaledImage superView:self.view];
+    iv.delegate = self;
+    [iv release];
 }
 
 - (void)startUploadImage{
@@ -133,8 +134,9 @@ static int iTimes = -1;
     [hc formAddImage:@"content" filename:@"image.png" data:fmtBuffer];
     [hc formAddField:@"token" value:API_INTERFACE_TONKEN];
     NSData *tmpData = [hc post];
+    [iOSApi closeAlert];
     if (tmpData == nil) {
-        [iOSApi Alert:@"提示" message:@"服务器正忙，请稍候重新登录。"];
+        [iOSApi showCompleted:@"服务器正忙，请稍候重新登录。"];
     } else {
         iOSLog(@"Date=%@", [hc header:@"Date"]);
         NSMutableDictionary *ret = nil;
@@ -149,7 +151,7 @@ static int iTimes = -1;
         info = [[MediaInfo alloc] init];
         NSDictionary *data = [info parse:ret];
         if (data.count > 0) {
-            [iOSApi Alert:@"提示" message:@"上传成功!"];
+            [iOSApi showCompleted:@"上传成功!"];
             NSString *value = [data objectForKey:@"key"];
             if (value != nil) {
                 info.key = value;
@@ -214,29 +216,6 @@ static int iTimes = -1;
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
 	NSLog(@"选取照片 -> 取消");
 	[self dismissModalViewControllerAnimated:YES];
-}
-
--(void) alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger) buttonIndex {
-	if (iTimes == 0) {
-		switch (buttonIndex) {
-			case 1:
-			{
-                if (type == 1) {
-                    [NSThread detachNewThreadSelector:@selector(startUploadImage) toTarget:self withObject:nil];
-                } else {
-                    [NSThread detachNewThreadSelector:@selector(startUploadVedio) toTarget:self withObject:nil];
-                }
-			}
-				break;
-			default:
-				//imageView = nil;
-				content = nil;
-				iTimes = 1;
-				break;
-		}
-	} else if (iTimes == 1) {
-        //
-	}
 }
 
 //--------------------< 富媒体 - 插入 - 视频 >--------------------
@@ -353,6 +332,10 @@ static NSMutableArray *urlList = nil;
         NSURL *url = [song valueForProperty:MPMediaItemPropertyAssetURL];
         [urlList addObject:url];
     }
+    if (mp3List.count < 1) {
+        [iOSApi Alert:@"iPod音乐库中没有音乐" message:nil];
+        return;
+    }
     ddTypes = [[DropDownList alloc] initWithStyle:UITableViewStylePlain];
 	ddTypes.delegate = self;
     [ddTypes._resultList removeAllObjects];
@@ -372,12 +355,11 @@ static NSMutableArray *urlList = nil;
 
 - (void)uploadAudio:(NSData *)data {
     NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-    //[iOSApi showAlert:@"正在上传背景音乐"];
+    [iOSApi showAlert:@"正在上传背景音乐"];
     HttpClient *hc = [[HttpClient alloc] initWithURL:API_URL_RICHMEDIA "/dynamic/m_soundUpload.action" timeout:10];
     
     [hc formAddFile:@"content" filename:@"item.mp3" type:@"audio/mpeg" data:data];
     [hc formAddField:@"token" value:API_INTERFACE_TONKEN];
-    /*
     NSData *tmpData = [hc post];
     if (tmpData == nil) {
         [iOSApi Alert:@"提示" message:@"服务器正忙，请稍候重新登录。"];
@@ -405,11 +387,9 @@ static NSMutableArray *urlList = nil;
             info.type = [Api getInt:[data objectForKey:@"type"]];
         }
     }
-     */
     [hc release];
-    //[iOSApi closeAlert];
+    [iOSApi closeAlert];
     [pool release];
-    [iOSApi Alert:@"提示" message:@"背景音乐上传成功!"];
 }
 
 - (void)dropDown:(DropDownList *)dropDown index:(int)index {
@@ -506,6 +486,16 @@ static NSMutableArray *urlList = nil;
     [self fmtAddAudio];
 }
 
+- (void)imageViewWillClose:(iOSImageView *)imageView {
+    if (type == 1) {
+        //[NSThread detachNewThreadSelector:@selector(startUploadImage) toTarget:self withObject:nil];
+        [self startUploadImage];
+    } else {
+        //[NSThread detachNewThreadSelector:@selector(startUploadVedio) toTarget:self withObject:nil];
+        [self startUploadVedio];
+    }
+}
+
 // 生码
 - (void)generateCode{
     /*
@@ -548,7 +538,7 @@ static NSMutableArray *urlList = nil;
     media.url = xRet.url;
     media.type = nType;
     
-    EncodeEditViewController *editView =[[EncodeEditViewController alloc] initWithNibName:@"EncodeEditViewController" bundle:nil];
+    EncodeEditViewController *editView =[[[EncodeEditViewController alloc] initWithNibName:@"EncodeEditViewController" bundle:nil] autorelease];
     if (![Api kma]) {
         [self.navigationController pushViewController:editView animated:YES];
         [editView loadObject:media];
@@ -558,9 +548,7 @@ static NSMutableArray *urlList = nil;
         [Api uploadKma:ss];
         [editView tapOnSaveBtn:nil];
     }
-
-    [editView release];
-    
+    //[editView release];
 }
 
 - (void)goBack{
@@ -638,9 +626,21 @@ static NSMutableArray *urlList = nil;
         code = [dict objectForKey:@"id"];
         [iOSApi Alert:@"空码赋值" message:[NSString stringWithFormat:@"id=%@", code]];
     } else {
-        subject.text = @"iOS测试富媒体";
-        content.text = @"试试看～～～";
+        subject.text = @"输入标题，少于15字";
+        content.text = @"输入点内容吧，少于500字";
     }
+    
+    // 键盘事件代理
+    //content.delegate = self;
+    content.editable = YES;
+}
+
+- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
+    if ([text isEqualToString:@"\n"]) {
+        [textView resignFirstResponder];
+        return NO;
+    }
+    return YES;
 }
 
 @end

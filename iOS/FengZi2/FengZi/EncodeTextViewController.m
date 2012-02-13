@@ -47,8 +47,15 @@
     Text *t  = [[[Text alloc]init]autorelease];
     t.content =_contentText.text;
     EncodeEditViewController *editView =[[EncodeEditViewController alloc] initWithNibName:@"EncodeEditViewController" bundle:nil];
-    [self.navigationController pushViewController:editView animated:YES];
-    [editView loadObject:t];
+    if (![Api kma]) {
+        [self.navigationController pushViewController:editView animated:YES];
+        [editView loadObject:t];
+    } else {
+        [editView loadObject:t];
+        NSString *ss = editView.content;
+        [Api uploadKma:ss];
+        [editView tapOnSaveBtn:nil];
+    }
     RELEASE_SAFELY(editView);
 }
 #pragma mark - View lifecycle
@@ -76,15 +83,24 @@
     
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
     btn.frame =CGRectMake(0, 0, 60, 32);
-    [btn setImage:[UIImage imageNamed:@"generate_code.png"] forState:UIControlStateNormal];
-    [btn setImage:[UIImage imageNamed:@"generate_code_tap.png"] forState:UIControlStateHighlighted];
+    if ([Api kma]) {
+        [btn setImage:[UIImage imageNamed:@"uc-save.png"] forState:UIControlStateNormal];
+        [btn setImage:[UIImage imageNamed:@"uc-save.png"] forState:UIControlStateHighlighted];
+    } else {
+        [btn setImage:[UIImage imageNamed:@"generate_code.png"] forState:UIControlStateNormal];
+        [btn setImage:[UIImage imageNamed:@"generate_code_tap.png"] forState:UIControlStateHighlighted];
+    }
     [btn addTarget:self action:@selector(generateCode) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithCustomView:btn];
     self.navigationItem.rightBarButtonItem = item;
     [item release];
+    
     _discribLabel = [[UILabel alloc] initWithFrame:CGRectMake(9, 7, 120, 20)];
     _discribLabel.font = [UIFont systemFontOfSize:14];
     _discribLabel.text = @"内容小于110字";
+    if ([self kmaContent] != nil) {
+        _discribLabel.text = [self kmaContent];
+    }
     _discribLabel.backgroundColor = [UIColor clearColor];
     _discribLabel.textColor = [UIColor colorWithWhite:0.8 alpha:1];
     [_contentText addSubview:_discribLabel];

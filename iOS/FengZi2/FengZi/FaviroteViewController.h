@@ -20,4 +20,5 @@
     IBOutlet UIView *_noResultView;
 }
 - (void)doneLoadingTableViewData;
+- (IBAction)goBack:(id)sender;
 @end

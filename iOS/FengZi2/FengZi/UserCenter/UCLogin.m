@@ -46,7 +46,7 @@
 #pragma mark - View lifecycle
 
 // 返回上一个界面
--(void)goBack{
+- (void)goBack{
     [self.navigationController popViewControllerAnimated:YES];
 }
 
@@ -224,6 +224,7 @@
     ucLoginResult *iRet = [Api login:uid passwd:pwd authcode:authcode];
     [iOSApi closeAlert];
     if (iRet.status == 0) {
+        [Api setPasswd:pwd];
         if (bDownload) {
             [iOSApi showAlert:@"登录成功, 返回商城"];
             //[self testDataInit];

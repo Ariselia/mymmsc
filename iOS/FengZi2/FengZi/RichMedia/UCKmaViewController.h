@@ -18,7 +18,7 @@
     EncodeImageType _curType;
     NSString *code;
 }
-
+@property (nonatomic, retain) UIImage *curImage;
 @property (nonatomic, retain) NSString *code;
 
 @end

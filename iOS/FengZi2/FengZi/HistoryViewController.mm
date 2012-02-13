@@ -45,7 +45,7 @@
         DecodeCardViewControlle *cardView = [[DecodeCardViewControlle alloc] initWithNibName:@"DecodeCardViewControlle" category:category result:input withImage:_curImage withType:HistoryTypeHistory withSaveImage:_curImage];
         [self.navigationController pushViewController:cardView animated:YES];
         [cardView release];
-    }else if([category.type isEqualToString:CATEGORY_MEDIA]) {
+    } else if([category.type isEqualToString:CATEGORY_MEDIA]) {
         // 富媒体业务
         UCRichMedia *nextView = [[UCRichMedia alloc] init];
         nextView.urlMedia = input;

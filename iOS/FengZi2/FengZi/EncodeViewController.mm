@@ -50,6 +50,8 @@
     if (_arcView) {
         [_arcView resetScrollContent:NO];
     }
+    // 设定为传统模式
+    [Api setKma:NO];
 }
 
 -(void)viewWillDisappear:(BOOL)animated{
@@ -81,9 +83,6 @@
     
     DATA_ENV.encodeImageType = EncodeImageTypeCommon;
     _curType = EncodeImageTypeCommon;
-    
-    // 设定为传统模式
-    [Api setKma:NO];
 }
 
 -(void)animationEnd:(NSTimer *) timer{

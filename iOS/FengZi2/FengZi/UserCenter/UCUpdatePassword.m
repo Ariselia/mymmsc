@@ -76,6 +76,7 @@
     NSString *msg = nil;
     if (iRet.status == API_USERCENTET_SUCCESS) {
         msg = @"修改成功";
+        [Api setPasswd:npwd];
     } else {
         msg = iRet.message;
     }

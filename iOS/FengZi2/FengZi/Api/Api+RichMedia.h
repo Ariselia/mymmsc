@@ -61,6 +61,20 @@
 }
 @property (nonatomic, copy) NSString *title;
 @property (nonatomic, copy) NSMutableArray *pageList;
+
+@end
+
+//--------------------< 富媒体 - 对象 - 空码内容类 >--------------------
+@interface KmaObject : ucResult {
+    int      isKma;              // 是否空码
+    int      type;               // 类型
+    NSString *tranditionContent; // 属性编码?
+    NSString *mediaContent;      // 资源内容
+}
+@property (nonatomic, assign) int isKma, type;
+@property (nonatomic, copy) NSString *tranditionContent;
+@property (nonatomic, copy) NSString *mediaContent;
+
 @end
 
 //--------------------< 富媒体 - 接口 - 应用程序相关 >--------------------
@@ -87,11 +101,14 @@
 + (void)kmaSetId:(NSString *)code;
 + (NSString *)kmaId;
 
+// 空码扫码, 确定业务及内容
++ (KmaObject *)kmaContent:(NSString *)pid;
+
 + (ucResult *)kmaUpload:(NSString *)pid
                    type:(int)type
                 content:(NSString *)content;
 
-+ (MediaInfo *)kmaRichMedia:(NSString *)pid;
+
 
 + (void)uploadKma:(NSString *)_content;
 

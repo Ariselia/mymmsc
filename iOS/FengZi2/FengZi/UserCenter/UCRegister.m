@@ -196,7 +196,7 @@
                 [field resignFirstResponder];
 #if UC_AUTHCODE_FROM_USERNAME
                 //[NSThread detachNewThreadSelector:@selector(authWaiting:) toTarget:self withObject:field];
-                [self authWaiting:field];
+                //[self authWaiting:field];
 #endif
             } else {
                 // 非手机号码
@@ -370,11 +370,60 @@
         [btn setTitle:btnText forState:UIControlStateSelected];
         [btn addTarget:self action:@selector(getCheckCode:event:) forControlEvents:UIControlEventTouchUpInside];
         [cell.contentView addSubview:btn];
+    } else if(obj.tag == TAG_REG_PROTO) {
+        // 密码区域, 点击忘记密码
+        UIButton *btn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+        btn.frame = frame;
+        NSString *btnText = @"查看协议";
+        [btn setTitle:btnText forState:UIControlStateNormal];
+        [btn setTitle:btnText forState:UIControlStateSelected];
+        [btn addTarget:self action:@selector(readProto:event:) forControlEvents:UIControlEventTouchUpInside];
+        [cell.contentView addSubview:btn];
     }
     [cell.contentView addSubview:[obj object]];
     return cell;
 }
 
+static int iTimes = -1;
+
+// 阅读协议
+- (void)readProto:(id)sender event:(id)event {
+    iTimes = 0;
+    NSString *filename = @"protocol.txt";
+    filename = [[NSBundle mainBundle] pathForResource:@"protocol" ofType:@"txt"];
+    NSError *error = nil;
+    NSString *proto = [[NSString alloc] initWithContentsOfFile:filename encoding:NSUTF8StringEncoding error:&error];
+    UIAlertView *alert = [[UIAlertView alloc]
+						  initWithTitle:@"蜂子协议"
+						  message:[NSString stringWithFormat:proto]
+						  delegate:self
+						  cancelButtonTitle:@"不同意"
+						  otherButtonTitles:@"同意", nil];
+    //UITextView *text = [[UITextView alloc] initWithFrame:CGRectMake(5, 50, 280, 120)];
+    //[text setText:proto];
+    [proto release];
+    //[alert addSubview:text];
+    [alert show];
+    [alert release];
+}
+
+-(void) alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger) buttonIndex {
+	if (iTimes == 0) {
+		switch (buttonIndex) {
+			case 1:
+			{
+                // 同意协议
+                [confirmProto setOn:YES];
+			}
+				break;
+			default:
+                [confirmProto setOn:NO];
+				break;
+		}
+	} else if (iTimes == 1) {
+        //
+	}
+}
 - (void)getCheckCode:(id)sender event:(id)event {
     //NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
     NSString *msg = [userId.text trim];

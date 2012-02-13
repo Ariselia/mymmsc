@@ -96,9 +96,33 @@
     [self.navigationController pushViewController:nextView animated:YES];
 }
 
+- (void)doLogout:(id)sender {
+    [Api setUser:nil];
+    [self viewWillAppear:YES];
+}
+
 - (void)viewWillAppear:(BOOL)animated {
     if (items != nil) {
         [items removeAllObjects];
+    }
+    if (![Api isOnLine]) {
+        _btnRight = [UIButton buttonWithType:UIButtonTypeCustom];
+        _btnRight.frame = CGRectMake(0, 0, 60, 32);
+        [_btnRight setImage:[UIImage imageNamed:@"uc-reg2.png"] forState:UIControlStateNormal];
+        [_btnRight setImage:[UIImage imageNamed:@"uc-reg2.png"] forState:UIControlStateHighlighted];
+        [_btnRight addTarget:self action:@selector(doReg:) forControlEvents:UIControlEventTouchUpInside];
+        UIBarButtonItem *rightItem = [[UIBarButtonItem alloc] initWithCustomView:_btnRight];
+        self.navigationItem.rightBarButtonItem = rightItem;
+        [rightItem release];
+    } else {
+        _btnRight = [UIButton buttonWithType:UIButtonTypeCustom];
+        _btnRight.frame = CGRectMake(0, 0, 60, 32);
+        [_btnRight setImage:[UIImage imageNamed:@"uc-logout.png"] forState:UIControlStateNormal];
+        [_btnRight setImage:[UIImage imageNamed:@"uc-logout.png"] forState:UIControlStateHighlighted];
+        [_btnRight addTarget:self action:@selector(doLogout:) forControlEvents:UIControlEventTouchUpInside];
+        UIBarButtonItem *rightItem = [[UIBarButtonItem alloc] initWithCustomView:_btnRight];
+        self.navigationItem.rightBarButtonItem = rightItem;
+        [rightItem release];
     }
     if ([items count] == 0) {
         // 预加载项
@@ -119,7 +143,7 @@
             //[action release];
         } else {
             // 没有登录
-            message.text = @"您还未登录，请登录！";
+            message.text = @"您还未登录，请点击［此处登录］！";
             UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
             btn.frame = message.frame;
             btn.backgroundColor = [UIColor clearColor];
@@ -194,10 +218,13 @@
     // Navigation logic may go here. Create and push another view controller.
     NSLog(@"module goto...");
     iOSAction *action = [items objectAtIndex:indexPath.row];
-    //Class cls = NSClassFromString(action.action);
-    //id nextView = [[[cls alloc] initWithNibName:nil bundle:nil] autorelease];
+    if ([action.action isSame:@"UCMyCode"]) {
+        if (![Api isOnLine]) {
+            [self gotoLogin];
+            return;
+        }
+    }
     id nextView = [action newInstance];
-    //[nextView retain];
     [self.navigationController pushViewController:nextView animated:YES];
     [nextView release];
 }

@@ -30,6 +30,7 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
+        _content = @"";
     }
     return self;
 }
@@ -293,7 +294,7 @@
             RichMedia *obj = _codeObject;
             obj.logId = _logId;
             _showInfo = obj.title;
-            _content = [BusEncoder encodeRichMedia:obj];
+            _content = [[BusEncoder encodeRichMedia:obj] retain];
             break;
         }
         default:

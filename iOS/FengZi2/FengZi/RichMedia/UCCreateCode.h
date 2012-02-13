@@ -13,12 +13,13 @@
 #import <iOSApi/DropDownList.h>
 #import "RichMedia.h"
 #import "Api+RichMedia.h"
+#import <iOSApi/iOSImageView.h>
 
 #define VideoPickerItemImageWidth  (320)
 #define VideoPickerItemImageHeight (480)
 
 @interface UCCreateCode : UIViewController<UIImagePickerControllerDelegate,
-    MPMediaPickerControllerDelegate, UINavigationControllerDelegate, DropDownListDelegate> {
+    MPMediaPickerControllerDelegate, UINavigationControllerDelegate, DropDownListDelegate, ImageViewDelegate> {
     UIButton *_btnRight; // 导航条按钮
     UIImage *_curImage;
     NSData *fmtBuffer;

@@ -28,7 +28,9 @@
 #import "UCCreateCode.h"
 
 #define AniInterval 0.3f
+
 @implementation DecodeViewController
+@synthesize btnLogin;
 
 - (IBAction)doLogin:(id)sender {
     UCLogin *nextView = [[UCLogin alloc] init];
@@ -59,6 +61,11 @@
 //    _camecaScanImagevView.image = [UIImage imageNamed:@"camera_scan1.png"];
 //    _webSiteScanImageView.image = [UIImage imageNamed:@"website_scan1.png"];
     self.navigationController.navigationBarHidden = YES;
+    if ([Api isOnLine]) {
+        btnLogin.hidden = YES;
+    } else {
+        btnLogin.hidden = NO;
+    }
 }
 
 -(void)viewWillDisappear:(BOOL)animated{
@@ -68,7 +75,7 @@
     }
 }
 
--(UIImage*)generateImageWithInput:(NSString*)input{
+- (UIImage*)generateImageWithInput:(NSString*)input{
     int qrcodeImageDimension = 250;
     //the string can be very long
     NSString* aVeryLongURL = input;
@@ -144,8 +151,7 @@
     Class ios5Class = (NSClassFromString(@"CIImage"));
     if (nil != ios5Class) {
         [self.navigationController.navigationBar setBackgroundImage:image forBarMetrics:UIBarMetricsDefault];
-    }else
-    {
+    } else {
         self.navigationController.navigationBar.layer.contents = (id)image.CGImage;
     }
 }

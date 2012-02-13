@@ -13,7 +13,9 @@
 
 @interface UCMediaPage : UIViewController<HttpDownloadDelegate> {
     MediaObject *info;
+    NSString *filePath;
 }
+@property (nonatomic, copy) NSString *filePath;
 @property (nonatomic, retain) MediaObject *info;
 @property (nonatomic, retain) IBOutlet UILabel *subject;
 @property (nonatomic, retain) IBOutlet UILabel  *content;

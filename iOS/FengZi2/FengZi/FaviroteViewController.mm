@@ -18,6 +18,7 @@
 #import "TwoDDecoderResult.h"
 #import "FileUtil.h"
 
+#import "UCRichMedia.h"
 @implementation FaviroteViewController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -43,7 +44,15 @@
         DecodeCardViewControlle *cardView = [[DecodeCardViewControlle alloc] initWithNibName:@"DecodeCardViewControlle" category:category result:input withImage:_curImage withType:HistoryTypeNone withSaveImage:_curImage];
         [self.navigationController pushViewController:cardView animated:YES];
         [cardView release];
-    }else{
+    } else if([category.type isEqualToString:CATEGORY_MEDIA]) {
+        // 富媒体业务
+        UCRichMedia *nextView = [[UCRichMedia alloc] init];
+        nextView.urlMedia = input;
+        [self.navigationController pushViewController:nextView animated:YES];
+        [nextView release];
+    } else if([category.type isEqualToString:CATEGORY_KMA]) {
+        // 空码
+    } else{
         DecodeBusinessViewController *businessView = [[DecodeBusinessViewController alloc] initWithNibName:@"DecodeBusinessViewController" category:category result:input image:_curImage withType:HistoryTypeNone withSaveImage:_curImage];
         [self.navigationController pushViewController:businessView animated:YES];
         [businessView release];
@@ -200,6 +209,10 @@
 
 #pragma mark - View lifecycle
 
+- (IBAction)goBack:(id)sender{
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -207,11 +220,10 @@
     Class ios5Class = (NSClassFromString(@"CIImage"));
     if (nil != ios5Class) {
         [self.navigationController.navigationBar setBackgroundImage:image forBarMetrics:UIBarMetricsDefault];
-    }else
-    {
+    } else {
         self.navigationController.navigationBar.layer.contents = (id)[UIImage imageNamed:@"navigation_bg.png"].CGImage;
     }
-    
+        
     _favArray = [[NSMutableArray alloc] initWithCapacity:0];
         
     _refreshFooterView = [[RefreshTableFooterView alloc] init];

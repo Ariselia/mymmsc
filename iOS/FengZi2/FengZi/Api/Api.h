@@ -108,6 +108,8 @@
 // 设定用户密码
 + (void)setPasswd:(NSString *)passwd;
 
++ (NSString *)sessionPassword;
++ (void)setSessionPassword:(NSString *)passwd;
 // 获取昵称
 + (NSString *)nikeName;
 
@@ -130,6 +132,9 @@
 + (int)getInt:(id)value;
 + (float)getFloat:(id)value;
 + (NSString *)getString:(id)value;
+// JSON串字典转换对象
++ (id)dictToObject:(NSDictionary *)dict class:(Class)clazz;
++ (void)dictToObject:(NSDictionary *)dict object:(id)obj;
 
 + (NSMutableDictionary *)post:(NSString *)action params:(NSDictionary *)param;
 

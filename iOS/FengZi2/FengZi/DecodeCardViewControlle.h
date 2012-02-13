@@ -11,7 +11,8 @@
 #import "DecodeCardCell.h"
 #import "AddressBookUtils.h"
 #import "ITTDataRequest.h"
-@interface DecodeCardViewControlle : UIViewController<DecodeCardCellDelegate,DataRequestDelegate>{
+
+@interface DecodeCardViewControlle : UIViewController<DecodeCardCellDelegate, DataRequestDelegate> {
     Card *_card;
     BusCategory *_category;
     NSString *_content;
@@ -23,5 +24,11 @@
     HistoryType _historyType;
 }
 
--(id)initWithNibName:(NSString *)nibNameOrNil category:(BusCategory *)cate  result:(NSString *)input withImage:(UIImage *)image withType:(HistoryType)type withSaveImage:(UIImage*)sImage;
+- (id)initWithNibName:(NSString *)nibNameOrNil
+             category:(BusCategory *)cate
+               result:(NSString *)input
+            withImage:(UIImage *)image
+             withType:(HistoryType)type
+        withSaveImage:(UIImage*)sImage;
+
 @end

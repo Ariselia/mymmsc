@@ -195,7 +195,7 @@
                 [field resignFirstResponder];
 #if UC_AUTHCODE_FROM_USERNAME
                 //[NSThread detachNewThreadSelector:@selector(authWaiting:) toTarget:self withObject:field];
-                [self authWaiting:field];
+                //[self authWaiting:field];
 #endif
             } else {
                 // 非手机号码

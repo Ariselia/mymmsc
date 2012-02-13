@@ -457,7 +457,6 @@
 		B8D49E1614E4B0FD0057203A /* uc-right.png in Resources */ = {isa = PBXBuildFile; fileRef = B8D49E0614E4B0FD0057203A /* uc-right.png */; };
 		B8D49E1714E4B0FD0057203A /* uc-save.png in Resources */ = {isa = PBXBuildFile; fileRef = B8D49E0714E4B0FD0057203A /* uc-save.png */; };
 		B8D49E1814E4B0FD0057203A /* uc-star.png in Resources */ = {isa = PBXBuildFile; fileRef = B8D49E0814E4B0FD0057203A /* uc-star.png */; };
-		B8D49E1914E4B0FD0057203A /* usercenter-selected.png in Resources */ = {isa = PBXBuildFile; fileRef = B8D49E0914E4B0FD0057203A /* usercenter-selected.png */; };
 		B8D49E3514E4B2400057203A /* Api.m in Sources */ = {isa = PBXBuildFile; fileRef = B8D49E2A14E4B2400057203A /* Api.m */; };
 		B8D49E3614E4B2400057203A /* Api+AppStore.m in Sources */ = {isa = PBXBuildFile; fileRef = B8D49E2C14E4B2400057203A /* Api+AppStore.m */; };
 		B8D49E3714E4B2400057203A /* Api+Database.m in Sources */ = {isa = PBXBuildFile; fileRef = B8D49E2E14E4B2400057203A /* Api+Database.m */; };
@@ -478,13 +477,13 @@
 		B8D4A70814E4B2A20057203A /* UserCenter.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8D4A3A514E4B2A00057203A /* UserCenter.xib */; };
 		B8D4A70A14E4B3000057203A /* iOSApi.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B8D4A70914E4B3000057203A /* iOSApi.framework */; };
 		B8D4A70C14E4FB8B0057203A /* main_login_btn.png in Resources */ = {isa = PBXBuildFile; fileRef = B8D4A70B14E4FB8B0057203A /* main_login_btn.png */; };
-		B8D4A71014E51D6A0057203A /* UCMyCode.m in Sources */ = {isa = PBXBuildFile; fileRef = B8D4A70E14E51D690057203A /* UCMyCode.m */; };
+		B8D4A71014E51D6A0057203A /* UCMyCode.mm in Sources */ = {isa = PBXBuildFile; fileRef = B8D4A70E14E51D690057203A /* UCMyCode.mm */; };
 		B8D4A71114E51D6A0057203A /* UCMyCode.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8D4A70F14E51D6A0057203A /* UCMyCode.xib */; };
 		B8D4A71914E51DE70057203A /* UCMediaPage.m in Sources */ = {isa = PBXBuildFile; fileRef = B8D4A71414E51DE70057203A /* UCMediaPage.m */; };
 		B8D4A71A14E51DE70057203A /* UCMediaPage.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8D4A71514E51DE70057203A /* UCMediaPage.xib */; };
 		B8D4A71B14E51DE70057203A /* UCRichMedia.m in Sources */ = {isa = PBXBuildFile; fileRef = B8D4A71714E51DE70057203A /* UCRichMedia.m */; };
 		B8D4A71C14E51DE70057203A /* UCRichMedia.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8D4A71814E51DE70057203A /* UCRichMedia.xib */; };
-		B8D4A72014E51E3B0057203A /* UCKmaViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8D4A71E14E51E3B0057203A /* UCKmaViewController.m */; };
+		B8D4A72014E51E3B0057203A /* UCKmaViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = B8D4A71E14E51E3B0057203A /* UCKmaViewController.mm */; };
 		B8D4A72114E51E3B0057203A /* UCKmaViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8D4A71F14E51E3B0057203A /* UCKmaViewController.xib */; };
 		B8D4A72514E51E9E0057203A /* UCCreateCode.m in Sources */ = {isa = PBXBuildFile; fileRef = B8D4A72314E51E9E0057203A /* UCCreateCode.m */; };
 		B8D4A72614E51E9E0057203A /* UCCreateCode.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8D4A72414E51E9E0057203A /* UCCreateCode.xib */; };
@@ -504,6 +503,13 @@
 		B8D4A74714E53C980057203A /* dian.png in Resources */ = {isa = PBXBuildFile; fileRef = B8D4A73E14E53C890057203A /* dian.png */; };
 		B8D4A74814E53C980057203A /* dotted-pattern@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B8D4A73F14E53C8F0057203A /* dotted-pattern@2x.png */; };
 		B8D4A74914E53C980057203A /* dotted-pattern.png in Resources */ = {isa = PBXBuildFile; fileRef = B8D4A74014E53C940057203A /* dotted-pattern.png */; };
+		B8ECE07C14E6A351005DF9AF /* usercenter_button.png in Resources */ = {isa = PBXBuildFile; fileRef = B8ECE07A14E6A351005DF9AF /* usercenter_button.png */; };
+		B8ECE07D14E6A351005DF9AF /* usercenter_button_tap.png in Resources */ = {isa = PBXBuildFile; fileRef = B8ECE07B14E6A351005DF9AF /* usercenter_button_tap.png */; };
+		B8ECE07F14E6A45E005DF9AF /* table_richmedia.png in Resources */ = {isa = PBXBuildFile; fileRef = B8ECE07E14E6A45E005DF9AF /* table_richmedia.png */; };
+		B8ECE08F14E705FC005DF9AF /* protocol.txt in Resources */ = {isa = PBXBuildFile; fileRef = B8ECE08E14E705FC005DF9AF /* protocol.txt */; };
+		B8ECE09214E70E58005DF9AF /* UIViewController+Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = B8ECE09114E70E58005DF9AF /* UIViewController+Utils.m */; };
+		B8ECE09B14E75375005DF9AF /* uc-logout.png in Resources */ = {isa = PBXBuildFile; fileRef = B8ECE09A14E75375005DF9AF /* uc-logout.png */; };
+		B8ECE0A014E7ABAE005DF9AF /* iTunesArtwork in Resources */ = {isa = PBXBuildFile; fileRef = B8ECE09F14E7ABA9005DF9AF /* iTunesArtwork */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1173,7 +1179,6 @@
 		B8D49E0614E4B0FD0057203A /* uc-right.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "uc-right.png"; sourceTree = "<group>"; };
 		B8D49E0714E4B0FD0057203A /* uc-save.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "uc-save.png"; sourceTree = "<group>"; };
 		B8D49E0814E4B0FD0057203A /* uc-star.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "uc-star.png"; sourceTree = "<group>"; };
-		B8D49E0914E4B0FD0057203A /* usercenter-selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "usercenter-selected.png"; sourceTree = "<group>"; };
 		B8D49E2914E4B2400057203A /* Api.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Api.h; sourceTree = "<group>"; };
 		B8D49E2A14E4B2400057203A /* Api.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Api.m; sourceTree = "<group>"; };
 		B8D49E2B14E4B2400057203A /* Api+AppStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Api+AppStore.h"; sourceTree = "<group>"; };
@@ -1207,7 +1212,7 @@
 		B8D4A70914E4B3000057203A /* iOSApi.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iOSApi.framework; path = ../../../../runtime/SDK/iOSApi.framework; sourceTree = "<group>"; };
 		B8D4A70B14E4FB8B0057203A /* main_login_btn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = main_login_btn.png; sourceTree = "<group>"; };
 		B8D4A70D14E51D690057203A /* UCMyCode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UCMyCode.h; sourceTree = "<group>"; };
-		B8D4A70E14E51D690057203A /* UCMyCode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UCMyCode.m; sourceTree = "<group>"; };
+		B8D4A70E14E51D690057203A /* UCMyCode.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = UCMyCode.mm; sourceTree = "<group>"; };
 		B8D4A70F14E51D6A0057203A /* UCMyCode.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UCMyCode.xib; sourceTree = "<group>"; };
 		B8D4A71314E51DE70057203A /* UCMediaPage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UCMediaPage.h; sourceTree = "<group>"; };
 		B8D4A71414E51DE70057203A /* UCMediaPage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UCMediaPage.m; sourceTree = "<group>"; };
@@ -1216,7 +1221,7 @@
 		B8D4A71714E51DE70057203A /* UCRichMedia.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UCRichMedia.m; sourceTree = "<group>"; };
 		B8D4A71814E51DE70057203A /* UCRichMedia.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UCRichMedia.xib; sourceTree = "<group>"; };
 		B8D4A71D14E51E3B0057203A /* UCKmaViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UCKmaViewController.h; sourceTree = "<group>"; };
-		B8D4A71E14E51E3B0057203A /* UCKmaViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UCKmaViewController.m; sourceTree = "<group>"; };
+		B8D4A71E14E51E3B0057203A /* UCKmaViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = UCKmaViewController.mm; sourceTree = "<group>"; };
 		B8D4A71F14E51E3B0057203A /* UCKmaViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UCKmaViewController.xib; sourceTree = "<group>"; };
 		B8D4A72214E51E9E0057203A /* UCCreateCode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UCCreateCode.h; sourceTree = "<group>"; };
 		B8D4A72314E51E9E0057203A /* UCCreateCode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UCCreateCode.m; sourceTree = "<group>"; };
@@ -1238,6 +1243,14 @@
 		B8D4A73E14E53C890057203A /* dian.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dian.png; sourceTree = "<group>"; };
 		B8D4A73F14E53C8F0057203A /* dotted-pattern@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dotted-pattern@2x.png"; sourceTree = "<group>"; };
 		B8D4A74014E53C940057203A /* dotted-pattern.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dotted-pattern.png"; sourceTree = "<group>"; };
+		B8ECE07A14E6A351005DF9AF /* usercenter_button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = usercenter_button.png; sourceTree = "<group>"; };
+		B8ECE07B14E6A351005DF9AF /* usercenter_button_tap.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = usercenter_button_tap.png; sourceTree = "<group>"; };
+		B8ECE07E14E6A45E005DF9AF /* table_richmedia.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = table_richmedia.png; path = Images/table_richmedia.png; sourceTree = "<group>"; };
+		B8ECE08E14E705FC005DF9AF /* protocol.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = protocol.txt; path = Resources/protocol.txt; sourceTree = "<group>"; };
+		B8ECE09014E70E58005DF9AF /* UIViewController+Utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+Utils.h"; sourceTree = "<group>"; };
+		B8ECE09114E70E58005DF9AF /* UIViewController+Utils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+Utils.m"; sourceTree = "<group>"; };
+		B8ECE09A14E75375005DF9AF /* uc-logout.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "uc-logout.png"; sourceTree = "<group>"; };
+		B8ECE09F14E7ABA9005DF9AF /* iTunesArtwork */ = {isa = PBXFileReference; lastKnownFileType = file; path = iTunesArtwork; sourceTree = "<group>"; };
 		B8F31B2614E357860081DD59 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -1280,6 +1293,7 @@
 		3E11F11C1472686800ACC436 = {
 			isa = PBXGroup;
 			children = (
+				B8ECE09F14E7ABA9005DF9AF /* iTunesArtwork */,
 				71C9FED81491B6EA00514BA7 /* Default@2x.png */,
 				71AE6D1514887DD5005EB4F1 /* icon114.png */,
 				71AE6D1314887DCD005EB4F1 /* icon57.png */,
@@ -1651,6 +1665,7 @@
 		3E11F21014726C8400ACC436 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				B8ECE08E14E705FC005DF9AF /* protocol.txt */,
 				7135663F149F02A2006DC948 /* scan_tip.mp3 */,
 				3E11F21314726CA900ACC436 /* Xibs */,
 				3E11F21114726C8D00ACC436 /* Images */,
@@ -2079,6 +2094,7 @@
 		716ADCDA14975346005E82B1 /* favirote */ = {
 			isa = PBXGroup;
 			children = (
+				B8ECE07E14E6A45E005DF9AF /* table_richmedia.png */,
 				7135660D149EF003006DC948 /* table_app.png */,
 				7135660E149EF003006DC948 /* table_card.png */,
 				7135660F149EF003006DC948 /* table_email.png */,
@@ -2440,6 +2456,9 @@
 		B8D49DF914E4B0CE0057203A /* usercenter */ = {
 			isa = PBXGroup;
 			children = (
+				B8ECE09A14E75375005DF9AF /* uc-logout.png */,
+				B8ECE07A14E6A351005DF9AF /* usercenter_button.png */,
+				B8ECE07B14E6A351005DF9AF /* usercenter_button_tap.png */,
 				B8D49DFA14E4B0FD0057203A /* uc-bar.png */,
 				B8D49DFB14E4B0FD0057203A /* uc-coder.png */,
 				B8D49DFC14E4B0FD0057203A /* uc-down.png */,
@@ -2455,7 +2474,6 @@
 				B8D49E0614E4B0FD0057203A /* uc-right.png */,
 				B8D49E0714E4B0FD0057203A /* uc-save.png */,
 				B8D49E0814E4B0FD0057203A /* uc-star.png */,
-				B8D49E0914E4B0FD0057203A /* usercenter-selected.png */,
 			);
 			name = usercenter;
 			path = Images/usercenter;
@@ -2476,6 +2494,8 @@
 				B8D49E3214E4B2400057203A /* Api+RichMedia.m */,
 				B8D49E3314E4B2400057203A /* Api+UserCenter.h */,
 				B8D49E3414E4B2400057203A /* Api+UserCenter.m */,
+				B8ECE09014E70E58005DF9AF /* UIViewController+Utils.h */,
+				B8ECE09114E70E58005DF9AF /* UIViewController+Utils.m */,
 			);
 			path = Api;
 			sourceTree = "<group>";
@@ -2484,7 +2504,7 @@
 			isa = PBXGroup;
 			children = (
 				B8D4A70D14E51D690057203A /* UCMyCode.h */,
-				B8D4A70E14E51D690057203A /* UCMyCode.m */,
+				B8D4A70E14E51D690057203A /* UCMyCode.mm */,
 				B8D4A70F14E51D6A0057203A /* UCMyCode.xib */,
 				B8D49E3C14E4B29F0057203A /* UCForget.h */,
 				B8D49E3D14E4B29F0057203A /* UCForget.m */,
@@ -2517,7 +2537,7 @@
 				B8D4A72314E51E9E0057203A /* UCCreateCode.m */,
 				B8D4A72414E51E9E0057203A /* UCCreateCode.xib */,
 				B8D4A71D14E51E3B0057203A /* UCKmaViewController.h */,
-				B8D4A71E14E51E3B0057203A /* UCKmaViewController.m */,
+				B8D4A71E14E51E3B0057203A /* UCKmaViewController.mm */,
 				B8D4A71F14E51E3B0057203A /* UCKmaViewController.xib */,
 				B8D4A71314E51DE70057203A /* UCMediaPage.h */,
 				B8D4A71414E51DE70057203A /* UCMediaPage.m */,
@@ -2883,7 +2903,6 @@
 				B8D49E1614E4B0FD0057203A /* uc-right.png in Resources */,
 				B8D49E1714E4B0FD0057203A /* uc-save.png in Resources */,
 				B8D49E1814E4B0FD0057203A /* uc-star.png in Resources */,
-				B8D49E1914E4B0FD0057203A /* usercenter-selected.png in Resources */,
 				B8D4A3A714E4B2A20057203A /* UCForget.xib in Resources */,
 				B8D4A3A914E4B2A20057203A /* UCLogin.xib in Resources */,
 				B8D4A3AB14E4B2A20057203A /* UCRegister.xib in Resources */,
@@ -2909,6 +2928,12 @@
 				B8D4A74714E53C980057203A /* dian.png in Resources */,
 				B8D4A74814E53C980057203A /* dotted-pattern@2x.png in Resources */,
 				B8D4A74914E53C980057203A /* dotted-pattern.png in Resources */,
+				B8ECE07C14E6A351005DF9AF /* usercenter_button.png in Resources */,
+				B8ECE07D14E6A351005DF9AF /* usercenter_button_tap.png in Resources */,
+				B8ECE07F14E6A45E005DF9AF /* table_richmedia.png in Resources */,
+				B8ECE08F14E705FC005DF9AF /* protocol.txt in Resources */,
+				B8ECE09B14E75375005DF9AF /* uc-logout.png in Resources */,
+				B8ECE0A014E7ABAE005DF9AF /* iTunesArtwork in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3093,12 +3118,13 @@
 				B8D4A3AC14E4B2A20057203A /* UCUpdateNikename.m in Sources */,
 				B8D4A3AE14E4B2A20057203A /* UCUpdatePassword.m in Sources */,
 				B8D4A70714E4B2A20057203A /* UserCenter.m in Sources */,
-				B8D4A71014E51D6A0057203A /* UCMyCode.m in Sources */,
+				B8D4A71014E51D6A0057203A /* UCMyCode.mm in Sources */,
 				B8D4A71914E51DE70057203A /* UCMediaPage.m in Sources */,
 				B8D4A71B14E51DE70057203A /* UCRichMedia.m in Sources */,
-				B8D4A72014E51E3B0057203A /* UCKmaViewController.m in Sources */,
+				B8D4A72014E51E3B0057203A /* UCKmaViewController.mm in Sources */,
 				B8D4A72514E51E9E0057203A /* UCCreateCode.m in Sources */,
 				B8D4A72914E51ECE0057203A /* RichMedia.m in Sources */,
+				B8ECE09214E70E58005DF9AF /* UIViewController+Utils.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

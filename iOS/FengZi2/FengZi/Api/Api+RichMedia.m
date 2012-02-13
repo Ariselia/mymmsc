@@ -47,9 +47,17 @@
 
 @end
 
+//--------------------< 富媒体 - 对象 - 内容类 >--------------------
 @implementation MediaContent
 
 @synthesize title, pageList;
+
+@end
+
+//--------------------< 富媒体 - 对象 - 空码内容类 >--------------------
+@implementation KmaObject
+
+@synthesize type, isKma, tranditionContent, mediaContent;
 
 @end
 
@@ -258,6 +266,29 @@ static NSString *kma_id = nil;
     return  kma_id;
 }
 
+// 空码扫码, 确定业务及内容
++ (KmaObject *)kmaContent:(NSString *)pid {
+    static NSString *path = @"kma/getContent.action";
+    NSString *action = [NSString stringWithFormat:@"%@/%@?userid=%d", API_URL_RICHMEDIA, path, [Api userId]];
+    
+    NSString *app = [Api base64e:[Api appAttribute:DATA_ENV.curBusinessType]];
+    
+    NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
+                            API_RICHMEDIA_TOKEN, @"token",
+                            pid, @"id",
+                            app, @"a",
+                            nil];
+    
+    NSDictionary *map = [Api post:action params:params];
+    KmaObject *iRet = [KmaObject new];
+    NSDictionary *data = [iRet parse:map];
+    if (data.count > 0) {
+        [Api dictToObject:data object:iRet];
+    }
+    
+    return [iRet autorelease];
+}
+
 + (ucResult *)kmaUpload:(NSString *)pid
                    type:(int)type
                 content:(NSString *)content{
@@ -268,7 +299,8 @@ static NSString *kma_id = nil;
     NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
                             API_RICHMEDIA_TOKEN, @"token",
                             [NSString valueOf:[Api userId]], @"userid",
-                            [Api passwd], @"password",
+                            [Api base64e:[Api passwd]], @"sessionPassword",
+                            [Api base64e:[Api passwd]], @"password",
                             pid, @"id",
                             [NSString valueOf:type], @"type",
                             [content copy], @"tranditionContent",
@@ -283,32 +315,7 @@ static NSString *kma_id = nil;
     return [iRet autorelease];
 }
 
-+ (MediaInfo*)kmaRichMedia:(NSString *)pid {
-    static NSString *path = @"kma/getContent.action";
-    NSString *action = [NSString stringWithFormat:@"%@/%@?userid=%d", API_URL_RICHMEDIA, path, [Api userId]];
-    
-    NSString *app = [Api base64e:[Api appAttribute:DATA_ENV.curBusinessType]];
-    
-    NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
-                            API_RICHMEDIA_TOKEN, @"token",
-                            pid, @"id",
-                            app, @"a",
-                            nil];
-    
-    NSDictionary *map = [Api post:action params:params];
-    MediaInfo *iRet = [[MediaInfo alloc] init];
-    NSDictionary *data = [iRet parse:map];
-    if (data.count > 0) {
-        NSString *value = [data objectForKey:@"key"];
-        if (value != nil) {
-            iRet.key = value;
-        }
-        iRet.tinyName = [data objectForKey:@"tinyKey"];
-        iRet.type = [Api getInt:[data objectForKey:@"type"]];
-    }
-    
-    return [iRet autorelease];
-}
+
 
 + (void)uploadKma:(NSString *)_content{
     // 视图加载完毕, 上传业务信息

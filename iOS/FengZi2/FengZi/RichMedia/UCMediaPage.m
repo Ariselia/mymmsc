@@ -14,6 +14,7 @@
 
 @implementation UCMediaPage
 
+@synthesize filePath;
 @synthesize subject, content, pic;
 @synthesize info;
 @synthesize button, btnText;
@@ -85,12 +86,15 @@
 - (BOOL)httpDownload:(HttpDownload *)httpDownload didFinished:(NSMutableData *)buffer {
     [iOSApi closeAlert];
     // 下载完毕保存到本地
-    NSString *filePath = [Api filePath:info.mediaUrl];
+    
+    filePath = [Api filePath:info.mediaUrl];
+    filePath = [httpDownload.filename copy];
     NSLog(@"1: %@", filePath);
     NSFileHandle *fileHandle = [iOSFile create:filePath];
     [fileHandle writeData:buffer];
     [fileHandle closeFile];
     state = MS_READY;
+    [self playMovie: nil];
     return YES;
 }
 
@@ -142,10 +146,10 @@
     } else if(state == MS_READY || state == MS_STOPPED) {
         // 如果处在准备状态, 加载媒体文件
         if (state == MS_READY) {
-            NSString *filePath = [iOSFile path:[Api filePath:info.mediaUrl]];
+            NSString *tfilePath = [iOSFile path:filePath];
             iOSLog(@"1: %@", filePath);
-            NSURL *fileURL = [NSString stringWithFormat:@"file://%@", filePath];
-            fileURL = [NSURL fileURLWithPath:filePath];
+            NSURL *fileURL = [NSString stringWithFormat:@"file://%@", tfilePath];
+            fileURL = [NSURL fileURLWithPath:tfilePath];
             moviePlayer = [[MPMoviePlayerController alloc] initWithContentURL:fileURL];
                         
             [[NSNotificationCenter defaultCenter] addObserver:self

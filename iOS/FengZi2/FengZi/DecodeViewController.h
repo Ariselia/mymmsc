@@ -17,6 +17,8 @@
     BOOL _isHideNavi;
 }
 
+@property (nonatomic, retain) IBOutlet UIButton *btnLogin;
+
 - (IBAction)tapOnSelectImageBtn:(id)sender;
 - (IBAction)doLogin:(id)sender;
 
