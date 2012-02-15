@@ -60,8 +60,16 @@
     mail.mail = _mailText.text;
     mail.contente = _contentText.text;
     EncodeEditViewController *editView =[[EncodeEditViewController alloc] initWithNibName:@"EncodeEditViewController" bundle:nil];
-    [self.navigationController pushViewController:editView animated:YES];
-    [editView loadObject:mail];
+    if (![Api kma]) {
+        [self.navigationController pushViewController:editView animated:YES];
+        [editView loadObject:mail];
+    } else {
+        [editView viewDidLoad];
+        [editView loadObject:mail];
+        NSString *ss = editView.content;
+        [Api uploadKma:ss];
+        //[editView tapOnSaveBtn:nil];
+    }
     [editView release];
 }
 #pragma mark - View lifecycle

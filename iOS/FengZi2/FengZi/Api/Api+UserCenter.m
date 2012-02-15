@@ -221,7 +221,7 @@
 // 我的码
 + (NSMutableArray *)codeMyList:(int)number
                            size:(int)size {
-    static NSString *action = API_URL_KMA "/kma/m_getCodeList.action";
+    static NSString *action = @"http://m.ifengzi.cn/mb" "/kma/m_getCodeList.action";
     NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
                             API_INTERFACE_TONKEN, @"token",
                             [Api base64e:[Api passwd]], @"sessionPassword",
@@ -236,15 +236,11 @@
     NSMutableArray *aRet = [[[NSMutableArray alloc] initWithCapacity:0] autorelease];
     if (iRet.status == API_USERCENTET_SUCCESS && data.count > 0) {
         // 业务数据处理
-        //NSDictionary *codeList = [data objectForKey:@"codeList"];
+        NSArray *codeList = [data objectForKey:@"codeList"];
         // 找到我的码数据区
-        for (int i = 0; i < 1; i++) {
+        for (NSDictionary *dict in codeList) {
             CodeInfo *obj = [[[CodeInfo alloc] init] autorelease];
-            obj.createTime = @"2011-12-13 09:51:25";
-            obj.title = [NSString stringWithFormat:@"我的码%d", i];
-            obj.key = [NSString stringWithFormat:@"key%d", i];
-            obj.url = [NSString stringWithFormat:@"http://m.fengxiafei.com/mb/kma/getContent.action?id=14822e79-7c4e-4760-86a1-34f2786beaf0&xid=%d", i];
-            obj.type = 6;
+            [Api dictToObject:dict object:obj];
             [aRet addObject:obj];
         }
     }

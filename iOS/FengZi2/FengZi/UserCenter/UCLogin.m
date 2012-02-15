@@ -45,6 +45,20 @@
 
 #pragma mark - View lifecycle
 
+- (IBAction)btnSelectIsSavePasswd:(id)sender {
+    toSave = (!toSave);
+    [isSavePasswd setOn:toSave];
+    NSString *value = nil;
+    if (isSavePasswd) {
+        value = @"1";
+    } else {
+        value = @"0";
+        [iOSApi cacheSetObject: API_CACHE_USERID value: @""];
+        [iOSApi cacheSetObject: API_CACHE_PASSWD value: @""];
+    }
+    [iOSApi cacheSetObject: API_CACHE_ISSAVE value: value];
+}
+
 // 返回上一个界面
 - (void)goBack{
     [self.navigationController popViewControllerAnimated:YES];
@@ -224,6 +238,9 @@
     ucLoginResult *iRet = [Api login:uid passwd:pwd authcode:authcode];
     [iOSApi closeAlert];
     if (iRet.status == 0) {
+        if (isSavePasswd.isOn) {
+            [[iOSApi cache] setObject:@"1" forKey:API_CACHE_ISSAVE];
+        }
         [Api setPasswd:pwd];
         if (bDownload) {
             [iOSApi showAlert:@"登录成功, 返回商城"];
@@ -245,6 +262,17 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     if ([items count] == 0) {
+        toSave = NO;
+        NSString *sUserId = [iOSApi objectForCache: API_CACHE_USERID];
+        NSString *sPasswd = [iOSApi objectForCache: API_CACHE_PASSWD];
+        NSString *flag = [iOSApi objectForCache: API_CACHE_ISSAVE];
+        if ([flag isEqualToString: @"1"]) {
+            toSave = YES;
+            [passwd setText: sPasswd];
+        } else {
+            toSave = NO;
+        }
+        //[self btnSelected: toSave isSelected: isSavePasswd];
         // 预加载项
         CGRect frame = CGRectMake(90.f, 8.0f, 120, 25);
         iOSInput *input = nil;
@@ -255,6 +283,7 @@
         [input setTag:TAG_LOGIN_NAME];
         userId = [[UITextField alloc] initWithFrame:frame];
         userId.tag = input.tag;
+        userId.text = sUserId;
 		userId.returnKeyType = UIReturnKeyNext;
 		userId.borderStyle = _borderStyle;
         userId.placeholder = @"输入手机号";
@@ -272,6 +301,7 @@
         passwd = [[UITextField alloc] initWithFrame:frame];
         [passwd setSecureTextEntry:YES];
         passwd.tag = input.tag;
+        passwd.text = sPasswd;
 		passwd.returnKeyType = UIReturnKeyDone;
 		//userId.delegate = self;
 		passwd.borderStyle = _borderStyle;
@@ -316,7 +346,7 @@
         // 绑定事件
 		//[isSavePasswd addTarget:self action:@selector(textRestore:) forControlEvents:UIControlEventEditingDidEndOnExit];
 		//[isSavePasswd addTarget:self action:@selector(textUpdate:) forControlEvents:UIControlEventEditingChanged];
-        
+        [isSavePasswd setOn:toSave];
         [input setObject: isSavePasswd];
         [items addObject: input];
     }

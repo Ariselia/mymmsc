@@ -10,10 +10,11 @@
 
 //====================================< 富媒体 - 接口 >====================================
 
+#define API_KMA_INVAILD             (-1)
 // 媒体内容 类型
 #define API_RICHMEDIA_PICTYPE_IMAGE (0)
 #define API_RICHMEDIA_PICTYPE_FLASH (1)
-#define API_RICHMEDIA_PICTYPE_VIDEO (2)
+#define API_RICHMEDIA_PICTYPE_VIDEO (3)
 
 //--------------------< 富媒体 - 对象 - 媒体信息类 >--------------------
 @interface MediaInfo : ucResult {
@@ -70,10 +71,12 @@
     int      type;               // 类型
     NSString *tranditionContent; // 属性编码?
     NSString *mediaContent;      // 资源内容
+    MediaContent *mediaObj;       // 媒体对象
 }
 @property (nonatomic, assign) int isKma, type;
 @property (nonatomic, copy) NSString *tranditionContent;
 @property (nonatomic, copy) NSString *mediaContent;
+@property (nonatomic, retain) MediaContent *mediaObj;
 
 @end
 
@@ -85,13 +88,13 @@
 
 + (MediaInfo *)uploadImage:(NSData *)buffer;
 
-// 上传模板
 + (ModelInfo *)uploadModel:(NSString *)title
-                  content:(NSString *)content
-                    sound:(NSString *)sound
-                    vedio:(NSString *)vedio
-                     type:(int)type
-                     tiny:(NSString *)tiny;
+                   content:(NSString *)content
+                     sound:(NSString *)sound
+                     vedio:(NSString *)vedio
+                      type:(int)type
+                      tiny:(NSString *)tiny
+                      uuid:(NSString *)uuid;
 
 // 获取媒体内容
 + (MediaContent *)getContent:(NSString *)uuid;

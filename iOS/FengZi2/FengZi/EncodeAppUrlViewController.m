@@ -57,8 +57,16 @@
     app.url = _textField.text;
     app.title = _titleField.text;
     EncodeEditViewController *editView =[[EncodeEditViewController alloc] initWithNibName:@"EncodeEditViewController" bundle:nil];
-    [self.navigationController pushViewController:editView animated:YES];
-    [editView loadObject:app];
+    if (![Api kma]) {
+        [self.navigationController pushViewController:editView animated:YES];
+        [editView loadObject:app];
+    } else {
+        [editView viewDidLoad];
+        [editView loadObject:app];
+        NSString *ss = editView.content;
+        [Api uploadKma:ss];
+        //[editView tapOnSaveBtn:nil];
+    }
     [editView release];
 }
 

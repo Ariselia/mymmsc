@@ -48,8 +48,16 @@
     Url *u = [[[Url alloc]init]autorelease];
     u.content = _webText.text;
     EncodeEditViewController *editView =[[EncodeEditViewController alloc] initWithNibName:@"EncodeEditViewController" bundle:nil];
-    [self.navigationController pushViewController:editView animated:YES];
-    [editView loadObject:u];
+    if (![Api kma]) {
+        [self.navigationController pushViewController:editView animated:YES];
+        [editView loadObject:u];
+    } else {
+        [editView viewDidLoad];
+        [editView loadObject:u];
+        NSString *ss = editView.content;
+        [Api uploadKma:ss];
+        //[editView tapOnSaveBtn:nil];
+    }
     [editView release];
 }
 #pragma mark - View lifecycle

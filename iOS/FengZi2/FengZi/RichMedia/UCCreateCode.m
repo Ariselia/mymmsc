@@ -168,7 +168,8 @@ static int iTimes = -1;
 - (void)startUploadVedio{
     NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
     [iOSApi showAlert:@"正在上传视频"];
-    HttpClient *hc = [[HttpClient alloc] initWithURL:API_URL_RICHMEDIA "/dynamic/m_vedioUpload.action" timeout:10];
+    HttpClient *hc = [[HttpClient alloc] initWithURL:API_URL_RICHMEDIA "/dynamic/m_videoUpload.action" timeout:10];
+    iOSLog(@"file=%@", urlFile);
     NSData *data = [NSData dataWithContentsOfURL:urlFile];
     NSString *filename = [urlFile path];
     NSString *fileext = [[filename pathExtension] lowercaseString];
@@ -521,8 +522,11 @@ static NSMutableArray *urlList = nil;
         nType = 0;
     }
     [iOSApi showAlert:@"上传富媒体模板中"];
-    
-    ModelInfo *xRet= [Api uploadModel:title content:desc sound:nameAudio vedio:nameVideo type:nType tiny:nameTiny];
+    NSString *xCode = @"";
+    if ([Api kma]) {
+        xCode = [Api kmaId];
+    }
+    ModelInfo *xRet= [[Api uploadModel:title content:desc sound:nameAudio vedio:nameVideo type:nType tiny:nameTiny uuid:xCode] retain];
     [iOSApi closeAlert];
     if (xRet.status != 0) {
         [iOSApi Alert:@"提示" message:xRet.message];
@@ -543,10 +547,11 @@ static NSMutableArray *urlList = nil;
         [self.navigationController pushViewController:editView animated:YES];
         [editView loadObject:media];
     } else {
+        [editView viewDidLoad];
         [editView loadObject:media];
-        NSString *ss = editView.content;
-        [Api uploadKma:ss];
-        [editView tapOnSaveBtn:nil];
+        //NSString *ss = editView.content;
+        //[Api uploadKma:ss];
+        //[editView tapOnSaveBtn:nil];
     }
     //[editView release];
 }
@@ -616,7 +621,7 @@ static NSMutableArray *urlList = nil;
     UIBarButtonItem *rightItem = [[UIBarButtonItem alloc] initWithCustomView:_btnRight];
     self.navigationItem.rightBarButtonItem = rightItem;
     [rightItem release];
-    
+    /*
     if (bKma) {
         subject.text = @"";
         subject.placeholder = @"我是空码，输入属于自己的名字";
@@ -629,7 +634,7 @@ static NSMutableArray *urlList = nil;
         subject.text = @"输入标题，少于15字";
         content.text = @"输入点内容吧，少于500字";
     }
-    
+    */
     // 键盘事件代理
     //content.delegate = self;
     content.editable = YES;

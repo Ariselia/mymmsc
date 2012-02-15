@@ -42,8 +42,16 @@
     wf.name=_titleText.text;
     wf.password=_pwdText.text;
     EncodeEditViewController *editView =[[EncodeEditViewController alloc] initWithNibName:@"EncodeEditViewController" bundle:nil];
-    [self.navigationController pushViewController:editView animated:YES];
-    [editView loadObject:wf];
+    if (![Api kma]) {
+        [self.navigationController pushViewController:editView animated:YES];
+        [editView loadObject:wf];
+    } else {
+        [editView viewDidLoad];
+        [editView loadObject:wf];
+        NSString *ss = editView.content;
+        [Api uploadKma:ss];
+        //[editView tapOnSaveBtn:nil];
+    }
     [editView release];
 }
 #pragma mark - View lifecycle

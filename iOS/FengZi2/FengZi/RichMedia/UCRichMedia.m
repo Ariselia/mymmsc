@@ -12,9 +12,14 @@
 #import "SHKItem.h"
 #import "ShareView.h"
 
+#import "SHK.h"
+#import "ShareView.h"
+
 @implementation UCRichMedia
 @synthesize urlMedia, scrollViewX;
 @synthesize picView1,picView2,picView3;
+@synthesize curImage=_curImage;
+@synthesize code;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -58,13 +63,13 @@
 }
 
 -(void)shareCode{
-    SHKItem *item = [SHKItem text:@"快来扫码，即有惊喜！"];
-    //item.image = _image;
+    [[SHK currentHelper] setRootViewController:self];
+    SHKItem *item = [SHKItem text:@"我制做一个超炫的二维码，大家快来扫扫看！\n来自蜂子客户端"];
+    item.image = _curImage;
     item.shareType = SHKShareTypeImage;
-    item.title = @"快来扫码，即有惊喜！\n来自蜂子客户端";
-    ShareView *actionSheet = [[ShareView alloc] initWithItem:item];
+    item.title = @"我制做一个超炫的二维码，大家快来扫扫看！";
+    SHKActionSheet *actionSheet = [SHKActionSheet actionSheetForItem:item];
     [actionSheet showInView:self.view];
-    [actionSheet release];
 }
 
 - (void)viewWillAppear:(BOOL)animated{
@@ -105,19 +110,29 @@
     [rightItem release];
     
     // bebe13af-287d-424d-b817-be0504a0850b
-    NSDictionary *dict = [Api parseUrl:urlMedia];
-    NSString *code = [dict objectForKey:@"id"];
+    if (urlMedia != nil) {
+        NSDictionary *dict = [Api parseUrl:urlMedia];
+        code = [dict objectForKey:@"id"];
+    }
+    
     [Api kmaSetId:code];
     iOSLog(@"uuid1=[%@]", code);
     iOSLog(@"uuid2=[%@]", [Api kmaId]);
     
     // 获取媒体美容
-    MediaContent *mc = [Api getContent:code];
+    MediaContent *mc = nil;
+    if (urlMedia != nil) {
+       mc = [[Api getContent:code] retain];
+    } else {
+        KmaObject *ko = [[Api kmaContent:code] retain];
+        mc = ko.mediaObj;
+    }
+    
     if (mc.status == 0) {
         [iOSApi Alert:@"提示" message:@"获取内容正确"];
     } else {
         [iOSApi Alert:@"提示" message:mc.message];
-        [iOSApi Alert:@"提示" message:@"获取内容正确"];
+        //[iOSApi Alert:@"提示" message:@"获取内容正确"];
     }
     int xHeight = 411;
     int num = [mc.pageList count];
@@ -130,14 +145,21 @@
         frame.origin.y = 0;
         frame.size.height = 411;
         page.view.frame = frame;
-        [self.scrollViewX addSubview:page.view];
+        
         page.subject.text = mc.title;
         page.content.text = info.textContent;
         page.info = info;
+        [page loadData];
+        [self.scrollViewX addSubview:page.view];
+        
     }
     picView1.image = [UIImage imageNamed:@"diandian.png"];
     picView2.image = [UIImage imageNamed:@"dian.png"];
     picView3.image = [UIImage imageNamed:@"dian.png"];
+    
+    picView1.hidden = YES;
+    picView2.hidden = YES;
+    picView3.hidden = YES;
 }
 
 

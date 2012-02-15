@@ -66,8 +66,16 @@
     sc.title = _titleText.text;
     sc.content = _contentText.text;
     EncodeEditViewController *editView =[[EncodeEditViewController alloc] initWithNibName:@"EncodeEditViewController" bundle:nil];
-    [self.navigationController pushViewController:editView animated:YES];
-    [editView loadObject:sc];
+    if (![Api kma]) {
+        [self.navigationController pushViewController:editView animated:YES];
+        [editView loadObject:sc];
+    } else {
+        [editView viewDidLoad];
+        [editView loadObject:sc];
+        NSString *ss = editView.content;
+        [Api uploadKma:ss];
+        //[editView tapOnSaveBtn:nil];
+    }
     [editView release];
 }
 #pragma mark - View lifecycle

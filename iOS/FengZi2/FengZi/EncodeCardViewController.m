@@ -99,8 +99,16 @@
     card.msn = [dic objectForKey:Msn_field];
     card.weibo = [dic objectForKey:Weibo_field];
     EncodeEditViewController *editView =[[EncodeEditViewController alloc] initWithNibName:@"EncodeEditViewController" bundle:nil];
-    [self.navigationController pushViewController:editView animated:YES];
-    [editView loadObject:card];
+    if (![Api kma]) {
+        [self.navigationController pushViewController:editView animated:YES];
+        [editView loadObject:card];
+    } else {
+        [editView viewDidLoad];
+        [editView loadObject:card];
+        NSString *ss = editView.content;
+        [Api uploadKma:ss];
+        //[editView tapOnSaveBtn:nil];
+    }
     [editView release];
 }
 

@@ -18,7 +18,7 @@
     UIFont            *font;
     UITextBorderStyle  _borderStyle;
     
-    CodeInfo          *input;
+    CodeInfo          *xInput;
     
     UIView* sideSwipeView;
     NSArray* buttonData;

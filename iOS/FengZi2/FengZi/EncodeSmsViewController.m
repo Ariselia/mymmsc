@@ -54,8 +54,16 @@
     sm.cellphone = _receiverText.text;
     sm.contente = _contentText.text;
     EncodeEditViewController *editView =[[EncodeEditViewController alloc] initWithNibName:@"EncodeEditViewController" bundle:nil];
-    [self.navigationController pushViewController:editView animated:YES];
-    [editView loadObject:sm];
+    if (![Api kma]) {
+        [self.navigationController pushViewController:editView animated:YES];
+        [editView loadObject:sm];
+    } else {
+        [editView viewDidLoad];
+        [editView loadObject:sm];
+        NSString *ss = editView.content;
+        [Api uploadKma:ss];
+        //[editView tapOnSaveBtn:nil];
+    }
     [editView release];
 }
 #pragma mark - View lifecycle

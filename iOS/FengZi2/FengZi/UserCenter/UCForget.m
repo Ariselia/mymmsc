@@ -41,6 +41,10 @@
     // Release any cached data, images, etc that aren't in use.
 }
 
+-(void)goBack{
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
 - (void)doReg:(id)sender{
     UCRegister *nextView = [[UCRegister alloc] init];
     [self.navigationController pushViewController:nextView animated:YES];
@@ -81,13 +85,10 @@
     [iOSApi showAlert:@"正在提交信息..."];
     [Api forget:uid passwd:pwd newpasswd:pwd authcode:acd];
     [iOSApi closeAlert];
+    [self goBack];
 }
 
 #pragma mark - View lifecycle
-
--(void)goBack{
-    [self.navigationController popViewControllerAnimated:YES];
-}
 
 - (void)viewDidLoad
 {
@@ -174,7 +175,7 @@
         srvAuthcode = [ac.code retain];
         [authcode setText:srvAuthcode];
     } else {
-        [iOSApi Alert:@"提示" message:ac.message];
+        //[iOSApi Alert:@"提示" message:ac.message];
     }
     [iOSApi closeAlert];
     //[pool release];

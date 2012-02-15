@@ -57,7 +57,7 @@
 //--------------------< 富媒体 - 对象 - 空码内容类 >--------------------
 @implementation KmaObject
 
-@synthesize type, isKma, tranditionContent, mediaContent;
+@synthesize type, isKma, tranditionContent, mediaContent, mediaObj;
 
 @end
 
@@ -145,11 +145,12 @@
 
 // 上传模板
 + (ModelInfo *)uploadModel:(NSString *)title
-                  content:(NSString *)content
-                    sound:(NSString *)sound
-                    vedio:(NSString *)vedio
-                     type:(int)type
-                     tiny:(NSString *)tiny{
+                   content:(NSString *)content
+                     sound:(NSString *)sound
+                     vedio:(NSString *)vedio
+                      type:(int)type
+                      tiny:(NSString *)tiny
+                      uuid:(NSString *)uuid{
     /*
     {
         "totalCount": 1,
@@ -181,11 +182,16 @@
     [pageList addObject:media];
     [jsonDic setObject:pageList forKey:@"pageList"];
     
-    static NSString *path = @"dynamic/m_uploadMediaInfo.action";
+    NSString *path = @"dynamic/m_uploadMediaInfo.action";
+    if ([Api kma]) {
+        path = @"kma/m_uploadMediaInfo.action";
+    }
     NSString *action = [NSString stringWithFormat:@"%@/%@?userid=%d", API_URL_RICHMEDIA, path, [Api userId]];
-    NSString *jsonStr = [jsonDic JSONString]; 
+    NSString *jsonStr = [jsonDic JSONString];
     NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
                             API_RICHMEDIA_TOKEN, @"token",
+                            uuid, @"id",
+                            [Api base64e:[Api passwd]], @"sessionPassword",
                             jsonStr, @"mediaContent",
                             nil];
     
@@ -198,6 +204,14 @@
             iRet.mediaKey = value;
         }
         iRet.url = [data objectForKey:@"url"];
+        
+    }
+    if (iRet.url == nil || iRet.url.length < 5) {
+        path = API_URL_RICHMEDIA "dynamic/getContent.action";
+        if ([Api kma]) {
+            path = API_URL_KMA "kma/getContent.action";
+        }
+        iRet.url = [NSString stringWithFormat:@"%@?id=$@", path, uuid];
     }
     /*
     if (iRet.url == nil) {
@@ -281,9 +295,39 @@ static NSString *kma_id = nil;
     
     NSDictionary *map = [Api post:action params:params];
     KmaObject *iRet = [KmaObject new];
+    iRet.type = API_KMA_INVAILD;
     NSDictionary *data = [iRet parse:map];
     if (data.count > 0) {
         [Api dictToObject:data object:iRet];
+        if (iRet.type == 14) {
+            // 富媒体
+            MediaContent *media = [[[MediaContent alloc] init] autorelease];
+            NSDictionary *mo = [data objectForKey:@"mediacontent"];
+            NSString *value = [mo objectForKey:@"title"];
+            
+            if (value != nil) {
+                media.title = value;
+            } else {
+                media.title = @"富媒体 内容";
+            }
+            NSArray *pageList = [mo objectForKey:@"pageList"];
+            if (pageList.count > 0) {
+                NSMutableArray *list = [[NSMutableArray alloc] initWithCapacity:0];
+                media.pageList = [[NSMutableArray alloc] initWithCapacity:0];
+                for (NSDictionary *dict in pageList) {
+                    MediaObject *obj = [MediaObject new];
+                    for (NSString *key in [dict allKeys]) {
+                        id value = [dict objectForKey:key];
+                        [obj setValue:value forSameKey:key];
+                    }
+                    [list addObject:obj];
+                    [obj release];
+                }
+                media.status = iRet.status;
+                media.pageList = list;
+            }
+            iRet.mediaObj = media;
+        }
     }
     
     return [iRet autorelease];
@@ -302,7 +346,7 @@ static NSString *kma_id = nil;
                             [Api base64e:[Api passwd]], @"sessionPassword",
                             [Api base64e:[Api passwd]], @"password",
                             pid, @"id",
-                            [NSString valueOf:type], @"type",
+                            [NSString valueOf:type+1], @"type",
                             [content copy], @"tranditionContent",
                             nil];
     

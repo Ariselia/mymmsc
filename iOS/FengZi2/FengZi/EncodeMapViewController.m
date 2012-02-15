@@ -48,8 +48,16 @@
     float lon = _mapView.centerCoordinate.longitude;
     map.url = [NSString stringWithFormat:@"http://ditu.google.cn/maps?ll=%f,%f&z=%@",lat,lon,ZoomLevel];
     EncodeEditViewController *editView =[[EncodeEditViewController alloc] initWithNibName:@"EncodeEditViewController" bundle:nil];
-    [self.navigationController pushViewController:editView animated:YES];
-    [editView loadObject:map];
+    if (![Api kma]) {
+        [self.navigationController pushViewController:editView animated:YES];
+        [editView loadObject:map];
+    } else {
+        [editView viewDidLoad];
+        [editView loadObject:map];
+        NSString *ss = editView.content;
+        [Api uploadKma:ss];
+        //[editView tapOnSaveBtn:nil];
+    }
     [editView release];
 }
 - (IBAction)locationMap:(id)sender {

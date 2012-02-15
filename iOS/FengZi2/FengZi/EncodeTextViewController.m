@@ -51,10 +51,11 @@
         [self.navigationController pushViewController:editView animated:YES];
         [editView loadObject:t];
     } else {
+        [editView viewDidLoad];
         [editView loadObject:t];
         NSString *ss = editView.content;
         [Api uploadKma:ss];
-        [editView tapOnSaveBtn:nil];
+        //[editView tapOnSaveBtn:nil];
     }
     RELEASE_SAFELY(editView);
 }

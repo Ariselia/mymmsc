@@ -16,6 +16,7 @@
     UITextField *userId;
     UITextField *passwd;
     UITextField *vailed;
+    BOOL         toSave;
     UISwitch    *isSavePasswd;
     
     UIButton *_btnRight; // 导航条按钮
@@ -31,5 +32,5 @@
 @property (nonatomic, assign) BOOL bDownload;
 
 - (IBAction)doLogin:(id)sender;
-
+-(IBAction) btnSelectIsSavePasswd:(id)sender;
 @end

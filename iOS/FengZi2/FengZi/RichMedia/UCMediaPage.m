@@ -15,7 +15,7 @@
 @implementation UCMediaPage
 
 @synthesize filePath;
-@synthesize subject, content, pic;
+@synthesize subject, content, pic, bgAudio, btnAudio;
 @synthesize info;
 @synthesize button, btnText;
 @synthesize moviePlayer, state, stText;
@@ -44,16 +44,105 @@
     // Release any cached data, images, etc that aren't in use.
 }
 
+- (void)playVideo{
+    btnDown.hidden = YES;
+    if(state == MS_READY || state == MS_STOPPED) {
+        // 如果处在准备状态, 加载媒体文件
+        if (state == MS_READY) {
+            NSString *tfilePath = [iOSFile path:filePath];
+            iOSLog(@"1: %@", filePath);
+            NSURL *fileURL = [NSString stringWithFormat:@"file://%@", tfilePath];
+            fileURL = [NSURL fileURLWithPath:tfilePath];
+            moviePlayer = [[MPMoviePlayerController alloc] initWithContentURL:fileURL];
+            
+            [[NSNotificationCenter defaultCenter] addObserver:self
+                                                     selector:@selector(moviePlaybackComplete:)
+                                                         name:MPMoviePlayerPlaybackDidFinishNotification
+                                                       object:moviePlayer];
+            moviePlayer.movieSourceType = MPMovieControlStyleFullscreen;
+            [moviePlayer.view setFrame:CGRectMake(pic.frame.origin.x, 
+                                                  pic.frame.origin.y, 
+                                                  pic.frame.size.width, 
+                                                  pic.frame.size.height)];
+            
+            [self.view addSubview:moviePlayer.view];
+            [self.view sendSubviewToBack:moviePlayer.view];
+            state = MS_STOPPED;
+            stText = 0;
+        } else {
+            [[NSNotificationCenter defaultCenter] addObserver:self
+                                                     selector:@selector(moviePlaybackComplete:)
+                                                         name:MPMoviePlayerPlaybackDidFinishNotification
+                                                       object:moviePlayer];
+        }
+        // 暂停状态, 播放
+        //[pic setHidden:YES];
+        [self.view sendSubviewToBack:pic];
+        [moviePlayer play];
+        state = MS_PLAYING;
+    }
+}
+
 // 下载图片
 - (void)downImage:(NSString *)url {
     UIImage *im = [[[UIImage alloc] initWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:url]]] autorelease];
     if (im != nil) {
-        [pic setImage: [im scaleToSize:pic.frame.size]];
+        int xHeight = pic.frame.origin.y;
+        //[pic setImage: [im scaleToSize:pic.frame.size]];
+        CGSize size = pic.frame.size;
+        CGFloat max_width = size.width;
+        CGFloat max_height = size.height;
+        float sc = max_width / max_height;
+        
+        max_height = 410 - xHeight;
+        int _width = sc * max_width;
+        if (_width >= 300) {
+            _width = 300;
+        }
+        max_width = _width;
+        max_height = max_width /sc;
+        
+        CGSize imgSize = im.size;
+        // 图片宽高比例
+        CGFloat scale = 0;
+        // 确定以高还是宽为主进行缩放
+        if ((imgSize.width / imgSize.height) > (max_width / max_height)) {
+            // 以宽
+            if (max_width < imgSize.width) {
+                // 图片宽
+                scale = max_width / imgSize.width;
+            } else {
+                // 图片窄
+                scale = 1;
+            }
+        } else {
+            // 以高
+            if (max_height < imgSize.height) {
+                // 图片高
+                scale = max_height / imgSize.height;
+            } else {
+                scale = 1;
+            }
+        }
+        
+        CGFloat w = imgSize.width * scale;
+        CGFloat h = imgSize.height * scale;
+        
+        CGFloat x = (size.width - w) / 2;
+        CGFloat y = (size.height - h) / 2;
+        y = xHeight;
+        CGRect frame = CGRectMake(x, y, w, h);
+        [pic setImage:im];
+        pic.frame = frame;
     }
 }
 
 // 下载媒体文件
 - (void)doDownload {
+    if (filePath != nil) {
+        [self playVideo];
+        return ;
+    }
     NSString *urlMedia = info.mediaUrl;
     if (urlMedia == nil || urlMedia.length < 10) {
         [iOSApi Alert:@"没有影音内容" message:nil];
@@ -72,6 +161,7 @@
     [hd bufferFromURL:url];
     [iOSApi showAlert:@"正在下载"];
     state = MS_DOWNLOADING;
+    btnDown.hidden = YES;
 }
 
 // 下载异常
@@ -79,6 +169,7 @@
     [iOSApi closeAlert];
     [iOSApi Alert:@"下载提示" message:@"下载失败"];
     state = MS_ERROR;
+    btnDown.hidden = NO;
     return YES;
 }
 
@@ -94,7 +185,12 @@
     [fileHandle writeData:buffer];
     [fileHandle closeFile];
     state = MS_READY;
-    [self playMovie: nil];
+    //if (info.picType == API_RICHMEDIA_PICTYPE_VIDEO) {
+        [NSThread detachNewThreadSelector:@selector(playVideo) toTarget:self withObject:nil];
+    //} else if (info.picType == API_RICHMEDIA_PICTYPE_VIDEO) {
+    //    [NSThread detachNewThreadSelector:@selector(playAudio:) toTarget:self withObject:nil];
+    //}
+    
     return YES;
 }
 
@@ -113,11 +209,38 @@
 }
 #pragma mark - View lifecycle
 
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    subject.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"bg33.png"]];
+    /*
+    // 没有背景音乐, 隐藏音乐背景条
+    if (info.soundUrl == nil) {
+        subject.hidden = YES;
+    }
+    // 少4(3)行, 每行核定33个字节/17个汉字, 隐藏文本扩展按钮
+    if (info.textContent.length < 99) {
+        btnText.hidden = YES;
+    }
+    if (info.picType == API_RICHMEDIA_PICTYPE_VIDEO) {
+        // 视频, 增加下载按钮
+        CGRect frame = pic.frame;
+        frame.origin.x /= 2 + 30;
+        frame.origin.y /= 2 + 30;
+        frame.size.width = 120;
+        frame.size.height = 120;
+        UIButton *btnDown = [UIButton buttonWithType:UIButtonTypeCustom];
+        btnDown.frame =frame;
+        [btnDown setImage:[UIImage imageNamed:@"video_play.png"] forState:UIControlStateNormal];
+        [btnDown setImage:[UIImage imageNamed:@"video_play.png"] forState:UIControlStateHighlighted];
+        [btnDown addTarget:self action:@selector(doDownload) forControlEvents:UIControlEventTouchUpInside];
+        //
+        [self.view addSubview:btnDown];
+        [self.view sendSubviewToBack:btnDown];
+        [btnDown release];
+    }
+    */
 }
 
 - (void)viewDidUnload
@@ -135,11 +258,76 @@
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
-- (void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:YES];
+- (void)loadData {
+    // Do any additional setup after loading the view from its nib.
+    bgAudio.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"bg33.png"]];
+    // 没有背景音乐, 隐藏音乐背景条
+    if (info.soundUrl == nil || info.soundUrl.length < 5) {
+        bgAudio.hidden = YES;
+        btnAudio.hidden = YES;
+    }
+    // 少4(3)行, 每行核定33个字节/17个汉字, 隐藏文本扩展按钮
+    if (info.textContent.length < 120) {
+        btnText.hidden = YES;
+    }
+    if (info.tinyPicUrl != nil) {
+        [self downImage:info.tinyPicUrl];
+    }
+    if (info.picType == API_RICHMEDIA_PICTYPE_IMAGE) {
+        [self downImage:info.mediaUrl];
+    } else if (info.picType == API_RICHMEDIA_PICTYPE_VIDEO) {
+        // 视频, 增加下载按钮
+        CGRect frame = pic.frame;
+        frame.origin.x += frame.size.width / 2 - 60;
+        frame.origin.y += frame.size.height / 2 - 60;
+        frame.size.width = 120;
+        frame.size.height = 120;
+        btnDown = [UIButton buttonWithType:UIButtonTypeCustom];
+        btnDown.frame =frame;
+        [btnDown setImage:[UIImage imageNamed:@"video_play.png"] forState:UIControlStateNormal];
+        [btnDown setImage:[UIImage imageNamed:@"video_play.png"] forState:UIControlStateHighlighted];
+        [btnDown addTarget:self action:@selector(doDownload) forControlEvents:UIControlEventTouchUpInside];
+        //
+        [self.view addSubview:btnDown];
+        [self.view bringSubviewToFront:btnDown];
+    }
 }
 
--(IBAction)playMovie:(id)sender {
+static NSString *sFile = nil;
+static int sButton = 0;
+
+-(IBAction)playAudio:(id)sender {
+    NSURL *fileURL = nil;
+    if (audioPlayer != nil) {
+        [audioPlayer stop];
+        [audioPlayer release];
+        audioPlayer = nil;
+        [btnAudio setImage:[UIImage imageNamed:@"duomeiti_play.png"] forState:UIControlStateNormal];
+        [btnAudio setImage:[UIImage imageNamed:@"duomeiti_play.png"] forState:UIControlStateHighlighted];
+        sButton = MS_STOPPED;
+        return;
+    }
+    if (sFile == nil) {
+        [iOSApi showAlert:@"正在下载音乐文件"];
+        fileURL = [NSURL URLWithString:info.soundUrl];
+        NSData *data = [NSData dataWithContentsOfURL:fileURL];
+        NSString *tFile = @"123.mp3";
+        NSLog(@"1: %@", tFile);
+        NSFileHandle *fileHandle = [iOSFile create:tFile];
+        [fileHandle writeData:data];
+        [fileHandle closeFile];
+        sFile = [[NSString alloc] initWithString:[iOSFile path:tFile]];
+        [iOSApi closeAlert];
+    }
+    fileURL = [NSURL fileURLWithPath:sFile];
+    audioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:fileURL error:nil];
+    [audioPlayer play];
+    [btnAudio setImage:[UIImage imageNamed:@"duomeiti_stop.png"] forState:UIControlStateNormal];
+    [btnAudio setImage:[UIImage imageNamed:@"duomeiti_stop.png"] forState:UIControlStateHighlighted];
+    sButton = MS_PLAYING;
+}
+
+-(IBAction)playMovie2:(id)sender {
     if (state == MS_INITED) {
         // 开始下载
         [self doDownload];
@@ -172,6 +360,7 @@
         [self.view sendSubviewToBack:pic];
         [moviePlayer play];
         state = MS_PLAYING;
+        
         [button setImage:[UIImage imageNamed:@"duomeiti_stop.png"] forState:UIControlStateNormal];
         [button setImage:[UIImage imageNamed:@"duomeiti_stop.png"] forState:UIControlStateHighlighted];
     } else if(state == MS_PLAYING) {
@@ -188,16 +377,62 @@
     }
 }
 
+-(IBAction)playMovie:(id)sender {
+    if (state == MS_INITED) {
+        // 开始下载
+        [self doDownload];
+    } else if(state == MS_READY || state == MS_STOPPED) {
+        // 如果处在准备状态, 加载媒体文件
+        if (state == MS_READY) {
+            NSString *tfilePath = [iOSFile path:filePath];
+            iOSLog(@"1: %@", filePath);
+            NSURL *fileURL = [NSString stringWithFormat:@"file://%@", tfilePath];
+            fileURL = [NSURL fileURLWithPath:tfilePath];
+            moviePlayer = [[MPMoviePlayerController alloc] initWithContentURL:fileURL];
+            
+            [[NSNotificationCenter defaultCenter] addObserver:self
+                                                     selector:@selector(moviePlaybackComplete:)
+                                                         name:MPMoviePlayerPlaybackDidFinishNotification
+                                                       object:moviePlayer];
+            moviePlayer.movieSourceType = MPMovieControlStyleFullscreen;
+            [moviePlayer.view setFrame:CGRectMake(pic.frame.origin.x, 
+                                                  pic.frame.origin.y, 
+                                                  pic.frame.size.width, 
+                                                  pic.frame.size.height)];
+            
+            [self.view addSubview:moviePlayer.view];
+            [self.view sendSubviewToBack:moviePlayer.view];
+            state = MS_STOPPED;
+            stText = 0;
+        }
+        // 暂停状态, 播放
+        //[pic setHidden:YES];
+        [self.view sendSubviewToBack:pic];
+        [moviePlayer play];
+        state = MS_PLAYING;
+    } else if(state == MS_PLAYING) {
+        // 播放状态, 显示停止
+        state = MS_STOPPED;
+        [moviePlayer stop];
+        [self.view sendSubviewToBack:moviePlayer.view];
+    } else if(state == MS_ERROR) {
+        [iOSApi Alert:@"错误提示" message:@"媒体资源文件不能播放"];
+        // 下载失败, 可以重置初始状态, 以便可以再次下载
+        state = MS_INITED;
+    }
+}
+
 - (void)moviePlaybackComplete:(NSNotification *)notification
 {
     MPMoviePlayerController *moviePlayerController = [notification object];
     [[NSNotificationCenter defaultCenter] removeObserver:self
 													name:MPMoviePlayerPlaybackDidFinishNotification
 												  object:moviePlayerController];
-	
+    [self.view sendSubviewToBack:moviePlayer.view];
+    [self.view bringSubviewToFront:btnDown];
+    [moviePlayer stop];
+    btnDown.hidden = NO;
     // 播放状态, 显示停止
-    [button setImage:[UIImage imageNamed:@"duomeiti_play.png"] forState:UIControlStateNormal];
-    [button setImage:[UIImage imageNamed:@"duomeiti_play.png"] forState:UIControlStateHighlighted];
     state = MS_STOPPED;
 }
 

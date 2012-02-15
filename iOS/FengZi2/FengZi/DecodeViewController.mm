@@ -29,8 +29,14 @@
 
 #define AniInterval 0.3f
 
+static int iTimes = -1;
+#define kCODE_NONE (0)
+#define kCODE_KMA  (9)
+
+
 @implementation DecodeViewController
 @synthesize btnLogin;
+
 
 - (IBAction)doLogin:(id)sender {
     UCLogin *nextView = [[UCLogin alloc] init];
@@ -43,6 +49,7 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
+        iTimes = kCODE_NONE;
     }
     return self;
 }
@@ -66,6 +73,7 @@
     } else {
         btnLogin.hidden = NO;
     }
+    iTimes = kCODE_NONE;
 }
 
 -(void)viewWillDisappear:(BOOL)animated{
@@ -89,8 +97,13 @@
 
 -(void) chooseShowController:(NSString*)input{
     BusCategory *category = [BusDecoder classify:input];
+    UIImage *saveImage = [self generateImageWithInput:input];
+    UIImage *inputImage = saveImage;
+    if (iTimes == kCODE_KMA) {
+        inputImage = saveImage;
+    }
     if ([category.type isEqualToString:CATEGORY_CARD]) {
-        DecodeCardViewControlle *cardView = [[DecodeCardViewControlle alloc] initWithNibName:@"DecodeCardViewControlle" category:category result:input withImage:_curImage withType:HistoryTypeFavAndHistory withSaveImage:[self generateImageWithInput:input]];
+        DecodeCardViewControlle *cardView = [[DecodeCardViewControlle alloc] initWithNibName:@"DecodeCardViewControlle" category:category result:input withImage:inputImage withType:HistoryTypeFavAndHistory withSaveImage:saveImage];
         [self.navigationController pushViewController:cardView animated:YES];
         RELEASE_SAFELY(cardView);
     } else if([category.type isEqualToString:CATEGORY_MEDIA]) {
@@ -101,13 +114,37 @@
         [nextView release];
     } else if([category.type isEqualToString:CATEGORY_KMA]) {
         // 空码, 可以调到空码赋值页面, 默认为富媒体
+        NSDictionary *dict = [Api parseUrl:input];
+        NSString *xcode = [dict objectForKey:@"id"];
+        [Api kmaSetId:xcode];
+        iOSLog(@"uuid=[%@]", xcode);
+        //[iOSApi Alert:@"赋值码" message:[NSString stringWithFormat:@"id=%@", xcode]];
+        // 扫码
+        KmaObject *info = [Api kmaContent:xcode];
+        if (info.isKma == 0) {
+            // 不是空码, 展示
+            if (info.type >= 14) {
+                // 富媒体业务
+                UCRichMedia *nextView = [[UCRichMedia alloc] init];
+                nextView.urlMedia = nil;
+                nextView.code = xcode;
+                [self.navigationController pushViewController:nextView animated:YES];
+                [nextView release];
+                return;
+            } else {
+                iTimes = kCODE_KMA;
+                [self chooseShowController:info.tranditionContent];
+                return;
+            }
+        }
         UCKmaViewController *nextView = [[UCKmaViewController alloc] init];
         //nextView.bKma = YES; // 标记为空码赋值富媒体
-        nextView.code = input;
+        nextView.code = xcode;
+        nextView.curImage = [self generateImageWithInput:input];
         [self.navigationController pushViewController:nextView animated:YES];
         [nextView release];
     } else{
-        DecodeBusinessViewController *businessView = [[DecodeBusinessViewController alloc] initWithNibName:@"DecodeBusinessViewController" category:category result:input image:_curImage withType:HistoryTypeFavAndHistory withSaveImage:[self generateImageWithInput:input]];
+        DecodeBusinessViewController *businessView = [[DecodeBusinessViewController alloc] initWithNibName:@"DecodeBusinessViewController" category:category result:input image:inputImage withType:HistoryTypeFavAndHistory withSaveImage:saveImage];
         [self.navigationController pushViewController:businessView animated:YES];
         RELEASE_SAFELY(businessView);
     }
