@@ -289,7 +289,7 @@
         userId.placeholder = @"输入手机号";
         userId.font = font;
 		// 绑定事件
-		//[userId addTarget:self action:@selector(textRestore:) forControlEvents:UIControlEventEditingDidEndOnExit];
+		[userId addTarget:self action:@selector(textRestore:) forControlEvents:UIControlEventEditingDidEndOnExit];
 		[userId addTarget:self action:@selector(textRestore:) forControlEvents:UIControlEventEditingDidEnd];
 		[userId addTarget:self action:@selector(textUpdate:) forControlEvents:UIControlEventEditingChanged];
         [input setObject: userId];

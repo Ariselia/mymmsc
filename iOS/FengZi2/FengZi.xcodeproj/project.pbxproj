@@ -442,6 +442,8 @@
 		71F4D8C614837C9A00DB5650 /* CardTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 71F4D8C514837C9900DB5650 /* CardTableViewCell.xib */; };
 		71F4D8D1148386D900DB5650 /* generate_code_tap.png in Resources */ = {isa = PBXBuildFile; fileRef = 71F4D8CF148386D800DB5650 /* generate_code_tap.png */; };
 		71F4D8D2148386D900DB5650 /* generate_code.png in Resources */ = {isa = PBXBuildFile; fileRef = 71F4D8D0148386D900DB5650 /* generate_code.png */; };
+		B82C075014E9856200393609 /* line.png in Resources */ = {isa = PBXBuildFile; fileRef = B82C074F14E9856200393609 /* line.png */; };
+		B82C076014E991C400393609 /* video_play.png in Resources */ = {isa = PBXBuildFile; fileRef = B82C075F14E991C300393609 /* video_play.png */; };
 		B8D49E0A14E4B0FD0057203A /* uc-bar.png in Resources */ = {isa = PBXBuildFile; fileRef = B8D49DFA14E4B0FD0057203A /* uc-bar.png */; };
 		B8D49E0B14E4B0FD0057203A /* uc-coder.png in Resources */ = {isa = PBXBuildFile; fileRef = B8D49DFB14E4B0FD0057203A /* uc-coder.png */; };
 		B8D49E0C14E4B0FD0057203A /* uc-down.png in Resources */ = {isa = PBXBuildFile; fileRef = B8D49DFC14E4B0FD0057203A /* uc-down.png */; };
@@ -510,6 +512,7 @@
 		B8ECE09214E70E58005DF9AF /* UIViewController+Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = B8ECE09114E70E58005DF9AF /* UIViewController+Utils.m */; };
 		B8ECE09B14E75375005DF9AF /* uc-logout.png in Resources */ = {isa = PBXBuildFile; fileRef = B8ECE09A14E75375005DF9AF /* uc-logout.png */; };
 		B8ECE0A014E7ABAE005DF9AF /* iTunesArtwork in Resources */ = {isa = PBXBuildFile; fileRef = B8ECE09F14E7ABA9005DF9AF /* iTunesArtwork */; };
+		B8F123E414E9B76C0042EAA9 /* bg33.png in Resources */ = {isa = PBXBuildFile; fileRef = B8F123E314E9B76C0042EAA9 /* bg33.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1164,6 +1167,8 @@
 		71F4D8C514837C9900DB5650 /* CardTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CardTableViewCell.xib; sourceTree = "<group>"; };
 		71F4D8CF148386D800DB5650 /* generate_code_tap.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = generate_code_tap.png; sourceTree = "<group>"; };
 		71F4D8D0148386D900DB5650 /* generate_code.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = generate_code.png; sourceTree = "<group>"; };
+		B82C074F14E9856200393609 /* line.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = line.png; sourceTree = "<group>"; };
+		B82C075F14E991C300393609 /* video_play.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = video_play.png; sourceTree = "<group>"; };
 		B8D49DFA14E4B0FD0057203A /* uc-bar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "uc-bar.png"; sourceTree = "<group>"; };
 		B8D49DFB14E4B0FD0057203A /* uc-coder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "uc-coder.png"; sourceTree = "<group>"; };
 		B8D49DFC14E4B0FD0057203A /* uc-down.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "uc-down.png"; sourceTree = "<group>"; };
@@ -1251,6 +1256,7 @@
 		B8ECE09114E70E58005DF9AF /* UIViewController+Utils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+Utils.m"; sourceTree = "<group>"; };
 		B8ECE09A14E75375005DF9AF /* uc-logout.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "uc-logout.png"; sourceTree = "<group>"; };
 		B8ECE09F14E7ABA9005DF9AF /* iTunesArtwork */ = {isa = PBXFileReference; lastKnownFileType = file; path = iTunesArtwork; sourceTree = "<group>"; };
+		B8F123E314E9B76C0042EAA9 /* bg33.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bg33.png; sourceTree = "<group>"; };
 		B8F31B2614E357860081DD59 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -1676,6 +1682,9 @@
 		3E11F21114726C8D00ACC436 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				B8F123E314E9B76C0042EAA9 /* bg33.png */,
+				B82C075F14E991C300393609 /* video_play.png */,
+				B82C074F14E9856200393609 /* line.png */,
 				B8D4A73814E53C7D0057203A /* duomeiti_img.png */,
 				B8D4A73914E53C7F0057203A /* duomeiti_down.png */,
 				B8D4A73A14E53C800057203A /* duomeiti_up.png */,
@@ -2934,6 +2943,9 @@
 				B8ECE08F14E705FC005DF9AF /* protocol.txt in Resources */,
 				B8ECE09B14E75375005DF9AF /* uc-logout.png in Resources */,
 				B8ECE0A014E7ABAE005DF9AF /* iTunesArtwork in Resources */,
+				B82C075014E9856200393609 /* line.png in Resources */,
+				B82C076014E991C400393609 /* video_play.png in Resources */,
+				B8F123E414E9B76C0042EAA9 /* bg33.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3202,6 +3214,7 @@
 		3E11F1401472686900ACC436 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: WANG FENG (5B26BP896X)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3226,6 +3239,7 @@
 		3E11F1411472686900ACC436 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: WANG FENG (5B26BP896X)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
