@@ -7,6 +7,24 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0AE7932D14FAB2330018367B /* UCAppStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AE7931314FAB2330018367B /* UCAppStore.m */; };
+		0AE7932E14FAB2330018367B /* UCAppStore.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0AE7931414FAB2330018367B /* UCAppStore.xib */; };
+		0AE7932F14FAB2330018367B /* UCBookReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AE7931614FAB2330018367B /* UCBookReader.m */; };
+		0AE7933014FAB2330018367B /* UCBookReader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0AE7931714FAB2330018367B /* UCBookReader.xib */; };
+		0AE7933114FAB2330018367B /* UCMoviePlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AE7931914FAB2330018367B /* UCMoviePlayer.m */; };
+		0AE7933214FAB2330018367B /* UCMoviePlayer.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0AE7931A14FAB2330018367B /* UCMoviePlayer.xib */; };
+		0AE7933314FAB2330018367B /* UCMusicPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AE7931C14FAB2330018367B /* UCMusicPlayer.m */; };
+		0AE7933414FAB2330018367B /* UCMusicPlayer.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0AE7931D14FAB2330018367B /* UCMusicPlayer.xib */; };
+		0AE7933514FAB2330018367B /* UCStoreBBS.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AE7931F14FAB2330018367B /* UCStoreBBS.m */; };
+		0AE7933614FAB2330018367B /* UCStoreBBS.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0AE7932014FAB2330018367B /* UCStoreBBS.xib */; };
+		0AE7933714FAB2330018367B /* UCStoreInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AE7932214FAB2330018367B /* UCStoreInfo.m */; };
+		0AE7933814FAB2330018367B /* UCStoreInfo.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0AE7932314FAB2330018367B /* UCStoreInfo.xib */; };
+		0AE7933914FAB2330018367B /* UCStorePerson.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AE7932514FAB2330018367B /* UCStorePerson.m */; };
+		0AE7933A14FAB2330018367B /* UCStorePerson.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0AE7932614FAB2330018367B /* UCStorePerson.xib */; };
+		0AE7933B14FAB2330018367B /* UCStoreSubscribe.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AE7932814FAB2330018367B /* UCStoreSubscribe.m */; };
+		0AE7933C14FAB2330018367B /* UCStoreSubscribe.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0AE7932914FAB2330018367B /* UCStoreSubscribe.xib */; };
+		0AE7933D14FAB2330018367B /* UCStoreTable.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AE7932B14FAB2330018367B /* UCStoreTable.m */; };
+		0AE7933E14FAB2330018367B /* UCStoreTable.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0AE7932C14FAB2330018367B /* UCStoreTable.xib */; };
 		3E11F12C1472686800ACC436 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E11F12B1472686800ACC436 /* UIKit.framework */; };
 		3E11F12E1472686800ACC436 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E11F12D1472686800ACC436 /* Foundation.framework */; };
 		3E11F1301472686800ACC436 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E11F12F1472686800ACC436 /* CoreGraphics.framework */; };
@@ -460,7 +478,7 @@
 		B8D49E1714E4B0FD0057203A /* uc-save.png in Resources */ = {isa = PBXBuildFile; fileRef = B8D49E0714E4B0FD0057203A /* uc-save.png */; };
 		B8D49E1814E4B0FD0057203A /* uc-star.png in Resources */ = {isa = PBXBuildFile; fileRef = B8D49E0814E4B0FD0057203A /* uc-star.png */; };
 		B8D49E3514E4B2400057203A /* Api.m in Sources */ = {isa = PBXBuildFile; fileRef = B8D49E2A14E4B2400057203A /* Api.m */; };
-		B8D49E3614E4B2400057203A /* Api+AppStore.m in Sources */ = {isa = PBXBuildFile; fileRef = B8D49E2C14E4B2400057203A /* Api+AppStore.m */; };
+		B8D49E3614E4B2400057203A /* Api+eShop.m in Sources */ = {isa = PBXBuildFile; fileRef = B8D49E2C14E4B2400057203A /* Api+eShop.m */; };
 		B8D49E3714E4B2400057203A /* Api+Database.m in Sources */ = {isa = PBXBuildFile; fileRef = B8D49E2E14E4B2400057203A /* Api+Database.m */; };
 		B8D49E3814E4B2400057203A /* Api+Ebuy.m in Sources */ = {isa = PBXBuildFile; fileRef = B8D49E3014E4B2400057203A /* Api+Ebuy.m */; };
 		B8D49E3914E4B2400057203A /* Api+RichMedia.m in Sources */ = {isa = PBXBuildFile; fileRef = B8D49E3214E4B2400057203A /* Api+RichMedia.m */; };
@@ -554,6 +572,33 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0AE7931214FAB2330018367B /* UCAppStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UCAppStore.h; sourceTree = "<group>"; };
+		0AE7931314FAB2330018367B /* UCAppStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UCAppStore.m; sourceTree = "<group>"; };
+		0AE7931414FAB2330018367B /* UCAppStore.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UCAppStore.xib; sourceTree = "<group>"; };
+		0AE7931514FAB2330018367B /* UCBookReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UCBookReader.h; sourceTree = "<group>"; };
+		0AE7931614FAB2330018367B /* UCBookReader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UCBookReader.m; sourceTree = "<group>"; };
+		0AE7931714FAB2330018367B /* UCBookReader.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UCBookReader.xib; sourceTree = "<group>"; };
+		0AE7931814FAB2330018367B /* UCMoviePlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UCMoviePlayer.h; sourceTree = "<group>"; };
+		0AE7931914FAB2330018367B /* UCMoviePlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UCMoviePlayer.m; sourceTree = "<group>"; };
+		0AE7931A14FAB2330018367B /* UCMoviePlayer.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UCMoviePlayer.xib; sourceTree = "<group>"; };
+		0AE7931B14FAB2330018367B /* UCMusicPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UCMusicPlayer.h; sourceTree = "<group>"; };
+		0AE7931C14FAB2330018367B /* UCMusicPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UCMusicPlayer.m; sourceTree = "<group>"; };
+		0AE7931D14FAB2330018367B /* UCMusicPlayer.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UCMusicPlayer.xib; sourceTree = "<group>"; };
+		0AE7931E14FAB2330018367B /* UCStoreBBS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UCStoreBBS.h; sourceTree = "<group>"; };
+		0AE7931F14FAB2330018367B /* UCStoreBBS.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UCStoreBBS.m; sourceTree = "<group>"; };
+		0AE7932014FAB2330018367B /* UCStoreBBS.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UCStoreBBS.xib; sourceTree = "<group>"; };
+		0AE7932114FAB2330018367B /* UCStoreInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UCStoreInfo.h; sourceTree = "<group>"; };
+		0AE7932214FAB2330018367B /* UCStoreInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UCStoreInfo.m; sourceTree = "<group>"; };
+		0AE7932314FAB2330018367B /* UCStoreInfo.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UCStoreInfo.xib; sourceTree = "<group>"; };
+		0AE7932414FAB2330018367B /* UCStorePerson.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UCStorePerson.h; sourceTree = "<group>"; };
+		0AE7932514FAB2330018367B /* UCStorePerson.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UCStorePerson.m; sourceTree = "<group>"; };
+		0AE7932614FAB2330018367B /* UCStorePerson.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UCStorePerson.xib; sourceTree = "<group>"; };
+		0AE7932714FAB2330018367B /* UCStoreSubscribe.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UCStoreSubscribe.h; sourceTree = "<group>"; };
+		0AE7932814FAB2330018367B /* UCStoreSubscribe.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UCStoreSubscribe.m; sourceTree = "<group>"; };
+		0AE7932914FAB2330018367B /* UCStoreSubscribe.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UCStoreSubscribe.xib; sourceTree = "<group>"; };
+		0AE7932A14FAB2330018367B /* UCStoreTable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UCStoreTable.h; sourceTree = "<group>"; };
+		0AE7932B14FAB2330018367B /* UCStoreTable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UCStoreTable.m; sourceTree = "<group>"; };
+		0AE7932C14FAB2330018367B /* UCStoreTable.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UCStoreTable.xib; sourceTree = "<group>"; };
 		3E11F1271472686800ACC436 /* FengZi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FengZi.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3E11F12B1472686800ACC436 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		3E11F12D1472686800ACC436 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -1186,8 +1231,8 @@
 		B8D49E0814E4B0FD0057203A /* uc-star.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "uc-star.png"; sourceTree = "<group>"; };
 		B8D49E2914E4B2400057203A /* Api.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Api.h; sourceTree = "<group>"; };
 		B8D49E2A14E4B2400057203A /* Api.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Api.m; sourceTree = "<group>"; };
-		B8D49E2B14E4B2400057203A /* Api+AppStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Api+AppStore.h"; sourceTree = "<group>"; };
-		B8D49E2C14E4B2400057203A /* Api+AppStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Api+AppStore.m"; sourceTree = "<group>"; };
+		B8D49E2B14E4B2400057203A /* Api+eShop.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Api+eShop.h"; sourceTree = "<group>"; };
+		B8D49E2C14E4B2400057203A /* Api+eShop.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Api+eShop.m"; sourceTree = "<group>"; };
 		B8D49E2D14E4B2400057203A /* Api+Database.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Api+Database.h"; sourceTree = "<group>"; };
 		B8D49E2E14E4B2400057203A /* Api+Database.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Api+Database.m"; sourceTree = "<group>"; };
 		B8D49E2F14E4B2400057203A /* Api+Ebuy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Api+Ebuy.h"; sourceTree = "<group>"; };
@@ -1296,6 +1341,40 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0AE7931114FAB1550018367B /* eShop */ = {
+			isa = PBXGroup;
+			children = (
+				0AE7931214FAB2330018367B /* UCAppStore.h */,
+				0AE7931314FAB2330018367B /* UCAppStore.m */,
+				0AE7931414FAB2330018367B /* UCAppStore.xib */,
+				0AE7931514FAB2330018367B /* UCBookReader.h */,
+				0AE7931614FAB2330018367B /* UCBookReader.m */,
+				0AE7931714FAB2330018367B /* UCBookReader.xib */,
+				0AE7931814FAB2330018367B /* UCMoviePlayer.h */,
+				0AE7931914FAB2330018367B /* UCMoviePlayer.m */,
+				0AE7931A14FAB2330018367B /* UCMoviePlayer.xib */,
+				0AE7931B14FAB2330018367B /* UCMusicPlayer.h */,
+				0AE7931C14FAB2330018367B /* UCMusicPlayer.m */,
+				0AE7931D14FAB2330018367B /* UCMusicPlayer.xib */,
+				0AE7931E14FAB2330018367B /* UCStoreBBS.h */,
+				0AE7931F14FAB2330018367B /* UCStoreBBS.m */,
+				0AE7932014FAB2330018367B /* UCStoreBBS.xib */,
+				0AE7932114FAB2330018367B /* UCStoreInfo.h */,
+				0AE7932214FAB2330018367B /* UCStoreInfo.m */,
+				0AE7932314FAB2330018367B /* UCStoreInfo.xib */,
+				0AE7932414FAB2330018367B /* UCStorePerson.h */,
+				0AE7932514FAB2330018367B /* UCStorePerson.m */,
+				0AE7932614FAB2330018367B /* UCStorePerson.xib */,
+				0AE7932714FAB2330018367B /* UCStoreSubscribe.h */,
+				0AE7932814FAB2330018367B /* UCStoreSubscribe.m */,
+				0AE7932914FAB2330018367B /* UCStoreSubscribe.xib */,
+				0AE7932A14FAB2330018367B /* UCStoreTable.h */,
+				0AE7932B14FAB2330018367B /* UCStoreTable.m */,
+				0AE7932C14FAB2330018367B /* UCStoreTable.xib */,
+			);
+			path = eShop;
+			sourceTree = "<group>";
+		};
 		3E11F11C1472686800ACC436 = {
 			isa = PBXGroup;
 			children = (
@@ -1375,6 +1454,7 @@
 			isa = PBXGroup;
 			children = (
 				B8D49E2814E4B2230057203A /* Api */,
+				0AE7931114FAB1550018367B /* eShop */,
 				B8D4A71214E51DA00057203A /* RichMedia */,
 				B8D49E3B14E4B2480057203A /* UserCenter */,
 				71CFC9D91485F8B500709F77 /* Business */,
@@ -2493,8 +2573,8 @@
 			children = (
 				B8D49E2914E4B2400057203A /* Api.h */,
 				B8D49E2A14E4B2400057203A /* Api.m */,
-				B8D49E2B14E4B2400057203A /* Api+AppStore.h */,
-				B8D49E2C14E4B2400057203A /* Api+AppStore.m */,
+				B8D49E2B14E4B2400057203A /* Api+eShop.h */,
+				B8D49E2C14E4B2400057203A /* Api+eShop.m */,
 				B8D49E2D14E4B2400057203A /* Api+Database.h */,
 				B8D49E2E14E4B2400057203A /* Api+Database.m */,
 				B8D49E2F14E4B2400057203A /* Api+Ebuy.h */,
@@ -2946,6 +3026,15 @@
 				B82C075014E9856200393609 /* line.png in Resources */,
 				B82C076014E991C400393609 /* video_play.png in Resources */,
 				B8F123E414E9B76C0042EAA9 /* bg33.png in Resources */,
+				0AE7932E14FAB2330018367B /* UCAppStore.xib in Resources */,
+				0AE7933014FAB2330018367B /* UCBookReader.xib in Resources */,
+				0AE7933214FAB2330018367B /* UCMoviePlayer.xib in Resources */,
+				0AE7933414FAB2330018367B /* UCMusicPlayer.xib in Resources */,
+				0AE7933614FAB2330018367B /* UCStoreBBS.xib in Resources */,
+				0AE7933814FAB2330018367B /* UCStoreInfo.xib in Resources */,
+				0AE7933A14FAB2330018367B /* UCStorePerson.xib in Resources */,
+				0AE7933C14FAB2330018367B /* UCStoreSubscribe.xib in Resources */,
+				0AE7933E14FAB2330018367B /* UCStoreTable.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3119,7 +3208,7 @@
 				7195461814ADC53900FE5A69 /* HelpViewController.m in Sources */,
 				71B5C39D14B57949001DE06D /* ImageDecodeViewController.mm in Sources */,
 				B8D49E3514E4B2400057203A /* Api.m in Sources */,
-				B8D49E3614E4B2400057203A /* Api+AppStore.m in Sources */,
+				B8D49E3614E4B2400057203A /* Api+eShop.m in Sources */,
 				B8D49E3714E4B2400057203A /* Api+Database.m in Sources */,
 				B8D49E3814E4B2400057203A /* Api+Ebuy.m in Sources */,
 				B8D49E3914E4B2400057203A /* Api+RichMedia.m in Sources */,
@@ -3137,6 +3226,15 @@
 				B8D4A72514E51E9E0057203A /* UCCreateCode.m in Sources */,
 				B8D4A72914E51ECE0057203A /* RichMedia.m in Sources */,
 				B8ECE09214E70E58005DF9AF /* UIViewController+Utils.m in Sources */,
+				0AE7932D14FAB2330018367B /* UCAppStore.m in Sources */,
+				0AE7932F14FAB2330018367B /* UCBookReader.m in Sources */,
+				0AE7933114FAB2330018367B /* UCMoviePlayer.m in Sources */,
+				0AE7933314FAB2330018367B /* UCMusicPlayer.m in Sources */,
+				0AE7933514FAB2330018367B /* UCStoreBBS.m in Sources */,
+				0AE7933714FAB2330018367B /* UCStoreInfo.m in Sources */,
+				0AE7933914FAB2330018367B /* UCStorePerson.m in Sources */,
+				0AE7933B14FAB2330018367B /* UCStoreSubscribe.m in Sources */,
+				0AE7933D14FAB2330018367B /* UCStoreTable.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
