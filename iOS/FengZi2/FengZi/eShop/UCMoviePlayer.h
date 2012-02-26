@@ -1,0 +1,22 @@
+//
+//  UCMoviePlayer.h
+//  FengZi
+//
+//  Created by  on 12-1-5.
+//  Copyright (c) 2012年 iTotemStudio. All rights reserved.
+//
+
+#import <UIKit/UIKit.h>
+#import "Api+AppStore.h"
+#import <MediaPlayer/MediaPlayer.h>
+
+@interface UCMoviePlayer : UIViewController {
+    UIButton *playButton;
+    MPMoviePlayerController *player;
+    ProductInfo *info;
+    
+}
+
+@property (nonatomic, retain) ProductInfo *info;
+
+@end
