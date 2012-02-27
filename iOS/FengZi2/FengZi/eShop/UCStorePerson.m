@@ -7,7 +7,7 @@
 //
 
 #import "UCStorePerson.h"
-#import "Api+AppStore.h"
+#import "Api+eShop.h"
 #import <iOSApi/UIImage+Scale.h>
 #import "UCStoreTable.h"
 
