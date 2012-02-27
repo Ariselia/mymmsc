@@ -7,7 +7,7 @@
 //
 
 #import <iOSApi/UIViewController+KeyBoard.h>
-#import "Api+AppStore.h"
+#import "Api+eShop.h"
 #import <iOSApi/iOSTableViewController.h>
 
 @interface UCStoreBBS : iOSTableViewController<iOSTableDataDelegate>{
