@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "Api+AppStore.h"
+#import "Api+eShop.h"
 #import <MediaPlayer/MediaPlayer.h>
 
 @interface UCMoviePlayer : UIViewController {
