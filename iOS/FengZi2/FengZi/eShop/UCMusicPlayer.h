@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import <AVFoundation/AVFoundation.h>
-#import "Api+AppStore.h"
+#import "Api+eShop.h"
 
 @interface UCMusicPlayer : UIViewController {
     UIButton *playButton;
