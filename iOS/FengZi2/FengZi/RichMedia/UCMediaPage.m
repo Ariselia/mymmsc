@@ -10,7 +10,7 @@
 #import <iOSApi/UIImage+Scale.h>
 #import <iOSApi/iOSImageView.h>
 #import "Api+RichMedia.h"
-#import "Api+AppStore.h"
+#import "Api+eShop.h"
 
 @implementation UCMediaPage
 
