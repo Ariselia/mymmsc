@@ -37,11 +37,54 @@ static int iTimes = -1;
 @implementation DecodeViewController
 @synthesize btnLogin;
 
+#define VIEW_TAG_APPASTORE (1001)
 
 - (IBAction)doLogin:(id)sender {
     UCLogin *nextView = [[UCLogin alloc] init];
     [self.navigationController pushViewController:nextView animated:YES];
     [nextView release];
+}
+
+- (IBAction)gotoStore:(id)sender {
+    UCAppStore *as = [[UCAppStore alloc] init];
+    
+    as.proxy = self;
+    as.view.tag = VIEW_TAG_APPASTORE;
+    
+    [UIView beginAnimations:nil context:nil];
+	//display mode, slow at beginning and end
+	[UIView setAnimationCurve:UIViewAnimationCurveEaseOut];
+	//动画时间
+	[UIView setAnimationDuration:1.0f];
+	//使用当前正在运行的状态开始下一段动画
+	[UIView setAnimationBeginsFromCurrentState:YES];
+	//给视图添加过渡效果
+	[UIView setAnimationTransition:UIViewAnimationTransitionCurlDown forView:self.view cache:YES];
+	[UIView commitAnimations];
+    [self.view addSubview:as.view];
+    //[self presentModalViewController:as animated:YES];
+    //[as release];
+}
+
+- (void)hideAppStor {
+    [UIView beginAnimations:nil context:nil];
+	//display mode, slow at beginning and end
+	[UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
+	//动画时间
+	[UIView setAnimationDuration:1.0f];
+	//使用当前正在运行的状态开始下一段动画
+	[UIView setAnimationBeginsFromCurrentState:YES];
+	//给视图添加过渡效果
+	[UIView setAnimationTransition:UIViewAnimationTransitionCurlUp forView:self.view cache:YES];
+	[UIView commitAnimations];
+    UIView *view = [self.view viewWithTag:VIEW_TAG_APPASTORE];
+    [view removeFromSuperview];
+    [view release];
+}
+
+- (void)closeAppStore{
+    [NSTimer scheduledTimerWithTimeInterval:0 target:self selector:@selector(hideAppStor) userInfo:nil repeats:NO];
+    //[self dismissModalViewControllerAnimated:YES];
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
