@@ -7,7 +7,7 @@
 //
 
 #import "UCStoreBBS.h"
-#import "Api+AppStore.h"
+#import "Api+eShop.h"
 
 @implementation UCStoreBBS
 @synthesize info;
