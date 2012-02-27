@@ -7,7 +7,7 @@
 //
 
 #import "UCStoreInfo.h"
-#import "Api+AppStore.h"
+#import "Api+eShop.h"
 #import "SHKItem.h"
 #import "ShareView.h"
 #import "UCLogin.h"
