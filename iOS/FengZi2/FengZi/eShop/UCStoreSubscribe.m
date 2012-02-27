@@ -7,7 +7,7 @@
 //
 
 #import "UCStoreSubscribe.h"
-#import "Api+AppStore.h"
+#import "Api+eShop.h"
 #import <iOSApi/UIImage+Scale.h>
 #import <iOSApi/iOSImageView.h>
 #import "UCStoreInfo.h"
