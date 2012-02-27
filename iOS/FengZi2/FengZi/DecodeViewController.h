@@ -8,8 +8,9 @@
 #import <UIKit/UIKit.h>
 #import "ZXingWidgetController.h"
 #import "Decoder.h"
+#import "UCAppStore.h"
 
-@interface DecodeViewController : UIViewController<UIImagePickerControllerDelegate,UINavigationControllerDelegate,ZXingDelegate,DecoderDelegate,UIAlertViewDelegate>{
+@interface DecodeViewController : UIViewController<UIImagePickerControllerDelegate,UINavigationControllerDelegate,ZXingDelegate,DecoderDelegate,UIAlertViewDelegate,UCAppStoreDelegate>{
     UIImage *_curImage;
     IBOutlet UIImageView *_camecaScanImagevView;
     IBOutlet UIImageView *_imageScanImageVew;
@@ -21,5 +22,7 @@
 
 - (IBAction)tapOnSelectImageBtn:(id)sender;
 - (IBAction)doLogin:(id)sender;
+
+- (IBAction)gotoStore:(id)sender;
 
 @end
