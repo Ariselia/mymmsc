@@ -35,7 +35,7 @@
     //[iOSToast show:msg];
     [iOSApi showCompleted:msg];
     [iOSApi closeAlert];
-    
+    [self reloadData];    
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
