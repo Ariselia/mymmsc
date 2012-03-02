@@ -12,18 +12,24 @@
 #import "ShareView.h"
 #import "UCLogin.h"
 #import <iOSApi/HttpDownload.h>
-#import "UCBookReader.h"
 #import "UCStoreSubscribe.h"
 #import "UCStoreBBS.h"
+#import <iOSApi/iOSAsyncImageView.h>
+
+#import <iOSApi/UIImage+Scale.h>
+#import <iOSApi/iOSImageView.h>
+#import "UCBookReader.h"
+#import "UCMoviePlayer.h"
+#import "UCMusicPlayer.h"
 
 @implementation UCStoreInfo
 
 @synthesize info, infoInfo, infoType, infoWriter, infoUploader, infoName, infoPrice, infoImage;
+@synthesize btnAction;
 @synthesize page;
 
 static int iTimes = -1;
 static BOOL bRead = NO;
-static UIButton *theBtn = nil;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -31,6 +37,7 @@ static UIButton *theBtn = nil;
     if (self) {
         // Custom initialization
         self.proxy = self;
+        bRead = NO;
     }
     return self;
 }
@@ -60,8 +67,40 @@ static UIButton *theBtn = nil;
     [nextView release];
 }
 
-- (IBAction)doDownload:(id)sender {
-    theBtn = sender;
+- (void)changeState:(BOOL)isOrder{
+    NSString *btnTitle = @"下载";
+    if (isOrder) {
+        btnTitle = @"阅读";
+        switch (info.type) {
+            case 1: // 电子书
+                btnTitle = @"阅读";
+                break;
+            case 2: // 音乐
+                btnTitle = @"收听";
+                break;
+            case 3: // 游戏
+                btnTitle = @"安装";
+                break;
+            case 4: // 美图
+                btnTitle = @"查看";
+                break;
+            case 5: // 视频
+                btnTitle = @"播放";
+                break;
+            case 6: // 漫画
+                btnTitle = @"阅览";
+                break;
+            default:
+                btnTitle = @"XX";
+                break;
+        }
+    }
+    [btnAction setTitle:btnTitle forState:UIControlStateNormal];
+    [btnAction setTitle:btnTitle forState:UIControlStateSelected];
+}
+
+// 判断是否登录
+- (IBAction)doDownload_ISONLINE:(id)sender {
     if (!bRead) {
         //判断是否登录
         if (![Api isOnLine]) {
@@ -93,6 +132,88 @@ static UIButton *theBtn = nil;
         [nextView release];
     }
     
+}
+
+// 根据最新流程, 不用判断是否登录 [WangFeng@2012-03-01 18:00:00]
+- (IBAction)doDownload:(id)sender{
+    // 是否可展示
+    if (bRead) {
+        // 可以显示
+        if (info.type == 5) {
+            UCMoviePlayer *nextView = [[UCMoviePlayer alloc] init];
+            nextView.info = info;
+            [self.navigationController pushViewController:nextView animated:YES];
+            [nextView release];
+        } else if(info.type == 4) {
+            // 图片
+            NSString *filePath = [iOSFile path:[Api filePath:info.orderProductUrl]];
+            UIImage *im = [UIImage imageWithData:[NSData dataWithContentsOfFile:filePath]];
+            iOSImageView *iv = [[iOSImageView alloc] initWithImage:im superView:self.view];
+            [iv release];
+        } else if(info.type == 2) {
+            // 音频
+            UCMusicPlayer *nextView = [[UCMusicPlayer alloc] init];
+            nextView.info = info;
+            [self.navigationController pushViewController:nextView animated:YES];
+            [nextView release];
+        } else if(info.type == 1){
+            // 电子书
+            UCBookReader *nextView = [UCBookReader new];
+            nextView.subject = info.name;
+            NSString *filePath = [iOSFile path:[Api filePath:info.orderProductUrl]];
+            NSLog(@"1: %@", filePath);
+            NSData *buffer = [NSData dataWithContentsOfFile:filePath]; 
+            nextView.bookContent = [[[NSString alloc] initWithData:buffer encoding:NSUTF8StringEncoding] autorelease];
+            
+            [self.navigationController pushViewController:nextView animated:YES];
+            [nextView release];
+        } else {
+            [iOSApi Alert:@"提示" message:[NSString stringWithFormat:@"暂不支持%@格式文件", [Api typeName:info.type]]];
+        }
+    } else {
+        // 不能展示进行下载
+        HttpDownload *hd = [HttpDownload new];
+        hd.delegate = self;
+        iOSLog(@"下载路径: [%@]", info2.productUrl);
+        NSString *result = [iOSApi urlDecode:info2.productUrl];
+        iOSLog(@"正在下载: [%@]", result);
+        //theUrl = obj.orderProductUrl;
+        //theBtn = sender;
+        //theObj = obj;
+        NSURL *url = [NSURL URLWithString:result];
+        [hd bufferFromURL:url];
+        [iOSApi showAlert:@"正在下载"];
+    }
+}
+
+- (BOOL)httpDownload:(HttpDownload *)httpDownload didError:(BOOL)isError {
+    [iOSApi closeAlert];
+    [iOSApi Alert:@"下载提示" message:@"下载失败"];
+    //iDownload = API_DOWNLOAD_NONE;
+    //theBtn = nil;
+    //theObj = nil;
+    return YES;
+}
+
+- (BOOL)httpDownload:(HttpDownload *)httpDownload didFinished:(NSMutableData *)buffer {
+    [iOSApi closeAlert];
+    
+    NSString *filePath = [Api filePath:info2.productUrl];
+    NSLog(@"1: %@", filePath);
+    NSFileHandle *fileHandle = [iOSFile create:filePath];
+    if (info.type == 1) {
+        NSStringEncoding enc = CFStringConvertEncodingToNSStringEncoding(kCFStringEncodingGB_18030_2000);
+        NSString *content = [[[NSString alloc] initWithData:buffer encoding:enc] autorelease];
+        [fileHandle writeData:[content dataUsingEncoding:NSUTF8StringEncoding]];
+    } else {
+        [fileHandle writeData:buffer];
+    }
+    [fileHandle closeFile];
+    //iDownload = API_DOWNLOAD_NONE;
+    //theObj.state = 1;
+    [self changeState:YES];
+    bRead = YES;
+    return YES;
 }
 
 -(void) alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger) buttonIndex {
@@ -156,8 +277,8 @@ static UIButton *theBtn = nil;
                             btnTitle = @"XX";
                             break;
                     }
-                    [theBtn setTitle:btnTitle forState:UIControlStateNormal];
-                    [theBtn setTitle:btnTitle forState:UIControlStateSelected];
+                    [btnAction setTitle:btnTitle forState:UIControlStateNormal];
+                    [btnAction setTitle:btnTitle forState:UIControlStateSelected];
                 }
                 
                 [iOSApi Alert:@"提示" message:msg];
@@ -215,10 +336,30 @@ static UIButton *theBtn = nil;
     infoInfo.text     = [NSString stringWithFormat:@"内容描述:  %@", info.info];;
     infoPrice.text    = [NSString stringWithFormat:@"收费金额:  %0.2f", info.price];;
     
-    ProductInfo2 *info2 = [Api proinfo:info.pid];
-    UIImage *im = [[[UIImage alloc] initWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:info2.picurl]]] autorelease];
+    info2 = [[Api proinfo:info.pid] retain];
+    // 修订类型名称
+    if (info2 != nil) {
+        infoType.text     = [NSString stringWithFormat:@"商品类型:  %@", info2.typename];
+    }
+    UIImage *im = nil;
+    if ([info2.picurl length] > 10) {
+        im = [[[UIImage alloc] initWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:info2.picurl]]] autorelease];
+    }
+    if (im == nil) {
+        im = [UIImage imageNamed:@"unknown.png"];
+    }
     if (im != nil) {
         [infoImage setImage: [im scaleToSize:infoImage.frame.size]];
+    }
+    
+    // 如果已经下载, 显示展示内容按钮
+    BOOL isDownload = [Api fileIsExists:info2.productUrl];
+    if (isDownload) {
+        [self changeState:YES];
+        bRead = YES;
+    } else {
+        [self changeState:NO];
+        bRead = NO;
     }
 }
 
@@ -245,13 +386,55 @@ static UIButton *theBtn = nil;
 - (BOOL)configure:(UITableViewCell *)cell withObject:(id)object {
     ProductInfo *obj = object;
     // 设置字体
-    UIFont *textFont = [UIFont systemFontOfSize:15.0];
-    UIFont *detailFont = [UIFont systemFontOfSize:10.0];
-    cell.imageView.image = [[iOSApi imageNamed:[Api typeIcon:obj.type]] scaleToSize:CGSizeMake(36, 36)];
+    UIFont *textFont = [UIFont systemFontOfSize:17.0];
+    UIFont *detailFont = [UIFont systemFontOfSize:12.0];
+    int imageHeight = 36;
+    
+    //cell.imageView.image = [[iOSApi imageNamed:[Api typeIcon:obj.type]] scaleToSize:CGSizeMake(36, 36)];
+    // 占位
+    cell.imageView.image = [[UIImage imageNamed:@"unknown.png"] scaleToSize:CGSizeMake(imageHeight, imageHeight)];
+    NSString *tmpUrl = [iOSApi urlDecode:obj.productLogo];
+    //UIImage *im = [[[UIImage alloc] initWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:tmpUrl]]] autorelease];
+    //cell.imageView.image = im;
+    CGRect frame;
+    frame.size.width = imageHeight;
+    frame.size.height = imageHeight;
+    frame.origin.x = 0;
+    frame.origin.y = 0;
+    iOSAsyncImageView *ai = nil; //[info aimage];
+    if (ai == nil)
+    {
+        // 默认图片
+        cell.imageView.image = [[UIImage imageNamed:@"unknown.png"] scaleToSize:CGSizeMake(imageHeight, imageHeight)];
+        ai = [[[iOSAsyncImageView alloc] initWithFrame:frame] autorelease];
+        //ai.tag = tagImage;
+        //NSString *tmpUrl;
+        
+        NSURL *url = [NSURL URLWithString: tmpUrl];
+        [ai loadImageFromURL:url];
+    }
+    [cell.imageView addSubview:ai];
+    //[cell.imageView setImage:ai.image];
+    
     cell.textLabel.text = [Api typeName:obj.type];
     cell.textLabel.font = textFont;
-    cell.detailTextLabel.text = [NSString stringWithFormat:@"%@  %@  %.02f", obj.name, obj.writer, obj.price];
+    cell.detailTextLabel.textColor = [UIColor blueColor];
+    NSString *tmpPrice = [NSString stringWithFormat:@"%.02f元", obj.price];
+    if (obj.price < 0.01) {
+        tmpPrice = @"免费";
+    }
+    cell.detailTextLabel.text = [NSString stringWithFormat:@"%@　%@", obj.name, obj.writer];
     cell.detailTextLabel.font = detailFont;
+    
+    frame.origin.x = 240;
+    frame.origin.y = 15;
+    frame.size.width = 100;
+    frame.size.height = 18;
+    UILabel *price = [[UILabel alloc] initWithFrame:frame];
+    price.textColor = [UIColor blueColor];
+    price.text = tmpPrice;
+    [cell.contentView addSubview:price];
+    
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     return YES;
 }
