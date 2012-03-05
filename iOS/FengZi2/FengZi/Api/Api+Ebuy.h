@@ -6,6 +6,9 @@
 //  Copyright (c) 2012年 iTotemStudio. All rights reserved.
 //
 
+/**
+ * 电子商城接口
+ */
 #import "Api.h"
 
 @interface Api (Ebuy)
