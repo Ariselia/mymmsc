@@ -8,6 +8,7 @@
 
 #import "UCAppStore.h"
 #import "UCStoreTable.h"
+#import "EBuyPortal.h"
 
 @implementation UCAppStore
 
@@ -42,6 +43,12 @@
     //[self.navigationController pushViewController:nextView animated:YES];
     [self presentModalViewController:nextView animated:YES];
     [nextView release];
+}
+
+- (IBAction)gotoEBuy:(id)sender {
+    EBuyPortal *theView = [[[EBuyPortal alloc] init] autorelease];
+    UINavigationController *nextView = [[UINavigationController alloc] initWithRootViewController:theView];
+    [self presentModalViewController:nextView animated:YES];
 }
 
 #pragma mark - View lifecycle

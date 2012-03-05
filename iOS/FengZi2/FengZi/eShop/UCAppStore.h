@@ -18,7 +18,10 @@
 
 - (IBAction)hideWindow:(id)sender;
 
+// 转向数字商城
 - (IBAction)gotoStoreTable:(id)sender;
+// 转向电子商城
+- (IBAction)gotoEBuy:(id)sender;
 
 @end
 
