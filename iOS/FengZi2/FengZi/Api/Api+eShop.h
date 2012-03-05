@@ -18,11 +18,12 @@
     int pid, type;
     float price;
     NSString *picurl;
+    NSString *productLogo;
     
     int state;
 }
 
-@property (nonatomic, retain) NSString *name, *info, *writer, *orderProductUrl, *realUrl, *picurl;
+@property (nonatomic, retain) NSString *name, *info, *writer, *orderProductUrl, *realUrl, *picurl, *productLogo;
 @property (nonatomic, assign) int pid, type;
 @property (nonatomic, assign) float price;
 @property (nonatomic, assign) int state;
@@ -41,10 +42,11 @@
     NSString *info;
     NSString *picurl;
     BOOL      isOrder;
+    NSString *productUrl;
 }
 
 @property (nonatomic, assign) int id;
-@property (nonatomic, retain) NSString *typename, *shopname, *info, *writer, *publisher, *pricetype, *picurl;
+@property (nonatomic, retain) NSString *typename, *shopname, *info, *writer, *publisher, *pricetype, *picurl, *productUrl;
 @property (nonatomic, assign) BOOL isOrder;
 
 @end
@@ -110,6 +112,7 @@
                        page:(int)page;
 // 提交评论
 + (ucResult *)conmment:(int)pid
+              username:(NSString *)username
                    msg:(NSString *)msg;
 
 + (ProductInfo2 *)proinfo:(int)pid;

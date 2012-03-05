@@ -24,6 +24,8 @@
 
 #define API_INTERFACE_TEST (1)
 
+#define API_TEXT_SPACE @"　"
+
 // 文件缓冲路径
 #define API_CACHE_FILEPATH   @"cache/files"
 
@@ -36,8 +38,11 @@
 #define API_URL_KMA          @"http://m.fengxiafei.com/mb"
 // 用户中心借口地质
 #define API_URL_USERCENTER   @"http://ifengzi.cn"
-// 商城
-#define API_URL_ESHOP        @"http://220.231.48.34:9000/eshop"
+// 数字商城
+#define API_URL_ESHOP        @"http://220.231.48.34:38080/eshop"
+//#define API_URL_ESHOP        @"http://220.231.48.34:9000/eshop"
+
+// 电子商城
 
 //====================================< 用户信息 >====================================
 

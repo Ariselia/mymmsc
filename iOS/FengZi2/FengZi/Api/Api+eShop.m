@@ -12,7 +12,7 @@
 
 @implementation ProductInfo
 
-@synthesize pid, type, name, price, info, writer, orderProductUrl, realUrl, picurl;
+@synthesize pid, type, name, price, info, writer, orderProductUrl, realUrl, picurl, productLogo;
 @synthesize state;
 
 - (void)dealloc {
@@ -34,7 +34,7 @@
 
 @implementation ProductInfo2
 
-@synthesize picurl, id, pricetype, publisher, typename, info, writer, shopname,isOrder;
+@synthesize picurl, id, pricetype, publisher, typename, info, writer, shopname,isOrder, productUrl;
 
 @end
 
@@ -146,6 +146,7 @@
             obj.writer = [item objectForKey:@"writer"];
             obj.price = [Api getFloat:[item objectForKey:@"price"]];
             obj.orderProductUrl = [item objectForKey:@"orderProductUrl"];
+            obj.productLogo = [item objectForKey:@"productLogo"];
             [aRet addObject:obj];
             [obj release];
         }
@@ -184,6 +185,7 @@
             obj.writer = [item objectForKey:@"writer"];
             obj.price = [Api getFloat:[item objectForKey:@"price"]];
             obj.orderProductUrl = [item objectForKey:@"orderProductUrl"];
+            obj.productLogo = [item objectForKey:@"productLogo"];
             [aRet addObject:obj];
             [obj release];
         }        
@@ -236,6 +238,7 @@
             obj.writer = [item objectForKey:@"writer"];
             obj.price = [Api getFloat:[item objectForKey:@"price"]];
             obj.orderProductUrl = [item objectForKey:@"orderProductUrl"];
+            obj.productLogo = [item objectForKey:@"productLogo"];
             [aRet addObject:obj];
             [obj release];
         }
@@ -262,7 +265,7 @@
         for (NSDictionary *item in list) {
             obj = [ContentInfo new];
             obj.pid = [Api getInt:[item objectForKey:@"id"]];
-            obj.username = [item objectForKey:@"username"];
+            obj.username = [item objectForKey:@"userName"];
             obj.content = [item objectForKey:@"content"];
             [aRet addObject:obj];
             [obj release];
@@ -274,18 +277,20 @@
 }
 
 + (ucResult *)conmment:(int)pid
+              username:(NSString *)username
                    msg:(NSString *)msg {
     //http://220.231.48.34:9000/eshop/eshop/commnet.action;jsessionid=9E4C07BB88579E5C14033C64EC218D8D?content=aebcs&id=1&userid=1
     static NSString *path = @"eshop/commnet.action";
     NSString *action = [NSString stringWithFormat:@"%@/%@?userid=%d&id=%d", API_URL_ESHOP, path, [Api userId], pid];
     NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
+                            username, @"username",
                             msg, @"content",
                             nil];
     NSDictionary *map = [Api post:action params:params];
     
     ucResult *iRet = [[ucResult alloc] init];
     [iRet parse:map];
-    return [iRet autorelease];;
+    return [iRet autorelease];
 }
 
 + (ProductInfo2 *)proinfo:(int)pid {
