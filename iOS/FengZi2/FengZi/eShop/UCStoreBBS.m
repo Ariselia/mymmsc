@@ -22,10 +22,20 @@
 
 - (IBAction)bbsSubmit:(id)sender {
     [self textFieldShouldReturn:sender];
-    //NSString *nk = [nikename.text trim];
+    NSString *nk = [nikename.text trim];
     NSString *msg = [content.text trim];
+    if (msg.length < 1) {
+        [iOSToast show:@"请输入评论内容!"];
+        return;
+    } else if(msg.length > 140) {
+        [iOSToast show:@"字数超出限制，请控制在140字以内!"];
+        return;
+    }
+    if (nk.length < 1) {
+        nk = @"匿名";
+    }
     [iOSApi showAlert:@"提交评论中"];
-    ucResult *iRet = [Api conmment:info.pid msg:msg];
+    ucResult *iRet = [Api conmment:info.pid username:nk msg:msg];
     msg = nil;
     if (iRet.status == 0) {
         msg = @"评论信息提交成功";
