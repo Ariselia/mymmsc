@@ -12,6 +12,8 @@
 #import "UCStoreInfo.h"
 #import "UCStoreSubscribe.h"
 #import "UCStorePerson.h"
+#import <iOSApi/iOSAsyncImageView.h>
+#import "DetailedInfo.h"
 
 @implementation UCStoreTable
 
@@ -216,13 +218,55 @@ static int nClickTimes = 0;
 - (BOOL)configure:(UITableViewCell *)cell withObject:(id)object {
     ProductInfo *obj = object;
     // 设置字体
-    UIFont *textFont = [UIFont systemFontOfSize:15.0];
-    UIFont *detailFont = [UIFont systemFontOfSize:10.0];
-    cell.imageView.image = [[iOSApi imageNamed:[Api typeIcon:obj.type]] scaleToSize:CGSizeMake(36, 36)];
+    UIFont *textFont = [UIFont systemFontOfSize:17.0];
+    UIFont *detailFont = [UIFont systemFontOfSize:12.0];
+    int imageHeight = 36;
+    
+    //cell.imageView.image = [[iOSApi imageNamed:[Api typeIcon:obj.type]] scaleToSize:CGSizeMake(36, 36)];
+    // 占位
+    cell.imageView.image = [[UIImage imageNamed:@"unknown.png"] scaleToSize:CGSizeMake(imageHeight, imageHeight)];
+    NSString *tmpUrl = [iOSApi urlDecode:obj.productLogo];
+    //UIImage *im = [[[UIImage alloc] initWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:tmpUrl]]] autorelease];
+    //cell.imageView.image = im;
+    CGRect frame;
+    frame.size.width = imageHeight;
+    frame.size.height = imageHeight;
+    frame.origin.x = 0;
+    frame.origin.y = 0;
+    iOSAsyncImageView *ai = nil; //[info aimage];
+    if (ai == nil)
+    {
+        // 默认图片
+        cell.imageView.image = [[UIImage imageNamed:@"unknown.png"] scaleToSize:CGSizeMake(imageHeight, imageHeight)];
+        ai = [[[iOSAsyncImageView alloc] initWithFrame:frame] autorelease];
+        //ai.tag = tagImage;
+        //NSString *tmpUrl;
+        
+        NSURL *url = [NSURL URLWithString: tmpUrl];
+        [ai loadImageFromURL:url];
+    }
+    [cell.imageView addSubview:ai];
+    //[cell.imageView setImage:ai.image];
+    
     cell.textLabel.text = [Api typeName:obj.type];
     cell.textLabel.font = textFont;
-    cell.detailTextLabel.text = [NSString stringWithFormat:@"%@  %@  %.02f", obj.name, obj.writer, obj.price];
+    cell.detailTextLabel.textColor = [UIColor blueColor];
+    NSString *tmpPrice = [NSString stringWithFormat:@"%.02f元", obj.price];
+    if (obj.price < 0.01) {
+        tmpPrice = @"免费";
+    }
+    cell.detailTextLabel.text = [NSString stringWithFormat:@"%@　%@", obj.name, obj.writer];
     cell.detailTextLabel.font = detailFont;
+    
+    frame.origin.x = 240;
+    frame.origin.y = 15;
+    frame.size.width = 100;
+    frame.size.height = 18;
+    UILabel *price = [[UILabel alloc] initWithFrame:frame];
+    price.textColor = [UIColor blueColor];
+    price.text = tmpPrice;
+    [cell.contentView addSubview:price];
+    
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     return YES;
 }
@@ -236,7 +280,13 @@ static int nClickTimes = 0;
 }
 
 - (NSArray *)reloadData:(iOSTableViewController *)tableView {
-    return [Api storeList:_type sorttype:_sorttype pricetype:_pricetype person:_person page:_page];
+    [iOSApi showAlert:@"正在获取商品信息"];
+    NSArray *data = [Api storeList:_type sorttype:_sorttype pricetype:_pricetype person:_person page:_page];
+    if (data == nil || data.count < 1) {
+        [iOSApi showCompleted:@"服务器正忙，请稍候"];
+    }
+    [iOSApi closeAlert];
+    return data;
 }
 
 - (NSArray *)arrayOfHeader:(iOSTableViewController *)tableView {

@@ -81,6 +81,8 @@ static ProductInfo *theObj = nil;
     UIBarButtonItem *backitem = [[UIBarButtonItem alloc] initWithCustomView:backbtn];
     self.navigationItem.leftBarButtonItem = backitem;
     [backitem release];
+    iTimes = -1;
+    iDownload = API_DOWNLOAD_NONE;
 }
 
 - (void)viewDidUnload

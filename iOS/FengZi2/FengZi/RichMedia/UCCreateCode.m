@@ -78,9 +78,14 @@ static int iTimes = -1;
     if ([mediaType isEqualToString:@"public.image"]){
         urlFile = nil;
         NSLog(@"found a image");
-        UIGraphicsBeginImageContext(CGSizeMake(320, 480));
+        UIImage *origImage = (UIImage *)[xInfo objectForKey:UIImagePickerControllerOriginalImage];
+        CGFloat origScale = origImage.size.width / origImage.size.height;
+        CGSize dstSize = CGSizeMake(0, 0);
+        dstSize.height = 480;
+        dstSize.width = dstSize.height * origScale;
+        UIGraphicsBeginImageContext(dstSize);
         // This is where we resize captured image
-        [(UIImage *)[xInfo objectForKey:UIImagePickerControllerOriginalImage] drawInRect:CGRectMake(0, 0, 320, 480)];
+        [origImage drawInRect:CGRectMake(0, 0, dstSize.width, dstSize.height)];
         // And add the watermark on top of it
         //[[UIImage imageNamed:@"logo.png"] drawAtPoint:CGPointMake(0, 0) blendMode:kCGBlendModeNormal alpha: 1];
         // Save the results directly to the image view property

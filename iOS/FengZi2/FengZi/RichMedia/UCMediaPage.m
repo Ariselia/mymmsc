@@ -199,7 +199,8 @@
         [btnText setImage:[UIImage imageNamed:@"duomeiti_up.png"] forState:UIControlStateNormal];
         [btnText setImage:[UIImage imageNamed:@"duomeiti_up.png"] forState:UIControlStateHighlighted];
         stText = 1;
-        [content setNumberOfLines:5];
+        [content setNumberOfLines:10];
+        //self.view.autoresizesSubviews = YES;
     } else {
         [btnText setImage:[UIImage imageNamed:@"duomeiti_down.png"] forState:UIControlStateNormal];
         [btnText setImage:[UIImage imageNamed:@"duomeiti_down.png"] forState:UIControlStateHighlighted];
@@ -273,7 +274,7 @@
     if (info.tinyPicUrl != nil) {
         [self downImage:info.tinyPicUrl];
     }
-    if (info.picType == API_RICHMEDIA_PICTYPE_IMAGE) {
+    if (info.picType == API_RICHMEDIA_PICTYPE_IMAGE || info.picType == API_RICHMEDIA_PICTYPE_FLASH) {
         [self downImage:info.mediaUrl];
     } else if (info.picType == API_RICHMEDIA_PICTYPE_VIDEO) {
         // 视频, 增加下载按钮

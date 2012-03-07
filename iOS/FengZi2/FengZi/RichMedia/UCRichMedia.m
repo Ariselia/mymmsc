@@ -17,7 +17,7 @@
 
 @implementation UCRichMedia
 @synthesize urlMedia, scrollViewX;
-@synthesize picView1,picView2,picView3;
+@synthesize picView1,picView2,picView3,picView4,picView5,picView6;
 @synthesize curImage=_curImage;
 @synthesize code;
 
@@ -72,6 +72,54 @@
     [actionSheet showInView:self.view];
 }
 
+- (void)changePage:(int)pos {
+    picView1.hidden = YES;
+    picView2.hidden = YES;
+    picView3.hidden = YES;
+    picView4.hidden = YES;
+    picView5.hidden = YES;
+    picView6.hidden = YES;
+    picView1.image = [UIImage imageNamed:@"dian.png"];
+    picView2.image = [UIImage imageNamed:@"dian.png"];
+    picView3.image = [UIImage imageNamed:@"dian.png"];
+    picView4.image = [UIImage imageNamed:@"dian.png"];
+    picView5.image = [UIImage imageNamed:@"dian.png"];
+    picView6.image = [UIImage imageNamed:@"dian.png"];
+    if (xCount == 1) {
+        return;
+    }
+    for (int i = 0; i < xCount; i++) {
+        if (i == 0) {
+            picView1.hidden = NO;
+        } else if (i == 1) {
+            picView2.hidden = NO;
+        } else if (i == 2) {
+            picView3.hidden = NO;
+        } else if (i == 3) {
+            picView4.hidden = NO;
+        } else if (i == 4) {
+            picView5.hidden = NO;
+        } else if (i == 5) {
+            picView6.hidden = NO;
+        }
+        if (i == pos) {
+            if (i == 0) {
+                picView1.image = [UIImage imageNamed:@"diandian.png"];
+            } else if (i == 1) {
+                picView2.image = [UIImage imageNamed:@"diandian.png"];
+            } else if (i == 2) {
+                picView3.image = [UIImage imageNamed:@"diandian.png"];
+            } else if (i == 3) {
+                picView4.image = [UIImage imageNamed:@"diandian.png"];
+            } else if (i == 4) {
+                picView5.image = [UIImage imageNamed:@"diandian.png"];
+            } else if (i == 5) {
+                picView6.image = [UIImage imageNamed:@"diandian.png"];
+            }
+        }
+    }
+}
+
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     
@@ -119,7 +167,7 @@
     iOSLog(@"uuid1=[%@]", code);
     iOSLog(@"uuid2=[%@]", [Api kmaId]);
     
-    // 获取媒体美容
+    // 获取媒体内容
     MediaContent *mc = nil;
     if (urlMedia != nil) {
        mc = [[Api getContent:code] retain];
@@ -127,17 +175,21 @@
         KmaObject *ko = [[Api kmaContent:code] retain];
         mc = ko.mediaObj;
     }
-    
+    xCount = 0;
     if (mc.status == 0) {
+        xCount = mc.pageList.count;
         [iOSApi Alert:@"提示" message:@"获取内容正确"];
     } else {
         [iOSApi Alert:@"提示" message:mc.message];
         //[iOSApi Alert:@"提示" message:@"获取内容正确"];
     }
+    if (xCount >= 6) {
+        xCount = 6;
+    }
     int xHeight = 411;
     int num = [mc.pageList count];
     scrollViewX.contentSize = CGSizeMake(320 * num, xHeight);
-    for (int i = 0; i < mc.pageList.count; i++) {
+    for (int i = 0; i < xCount; i++) {
         MediaObject *info = [mc.pageList objectAtIndex:i];
         UCMediaPage *page = [[UCMediaPage alloc] init];
         CGRect frame = page.view.frame;
@@ -151,15 +203,8 @@
         page.info = info;
         [page loadData];
         [self.scrollViewX addSubview:page.view];
-        
     }
-    picView1.image = [UIImage imageNamed:@"diandian.png"];
-    picView2.image = [UIImage imageNamed:@"dian.png"];
-    picView3.image = [UIImage imageNamed:@"dian.png"];
-    
-    picView1.hidden = YES;
-    picView2.hidden = YES;
-    picView3.hidden = YES;
+    [self changePage:0];
 }
 
 
@@ -187,21 +232,12 @@
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
     CGPoint currentOffset = [scrollView contentOffset];
-    if (currentOffset.x >= 0 && currentOffset.x < 320) {
-        // 第一页
-        picView1.image = [UIImage imageNamed:@"diandian.png"];
-        picView2.image = [UIImage imageNamed:@"dian.png"];
-        picView3.image = [UIImage imageNamed:@"dian.png"];
-    } else if(currentOffset.x >= 320 && currentOffset.x < 640) {
-        // 第二页
-        picView1.image = [UIImage imageNamed:@"dian.png"];
-        picView2.image = [UIImage imageNamed:@"diandian.png"];
-        picView3.image = [UIImage imageNamed:@"dian.png"];
-    } else {
-        // 第三页
-        picView1.image = [UIImage imageNamed:@"dian.png"];
-        picView2.image = [UIImage imageNamed:@"dian.png"];
-        picView3.image = [UIImage imageNamed:@"diandian.png"];
+    int offset = currentOffset.x;
+    int pos = offset / 320;
+    int min = pos * 320;
+    int max = min + 320;
+    if (currentOffset.x >= min && currentOffset.x < max) {
+        [self changePage:pos];
     }
 }
 @end
