@@ -131,7 +131,7 @@
 }
 
 // 注册账号
-+ (ucResult *)createId:(NSString *)username
++ (ApiResult *)createId:(NSString *)username
                 passwd:(NSString *)passwd
               authcode:(NSString *)authcode
               nikename:(NSString *)nikename {
@@ -146,7 +146,7 @@
                             nil];
     NSDictionary *map = [Api post:action params:params];
     
-    ucResult *iRet = [[ucResult alloc] init];
+    ApiResult *iRet = [[ApiResult alloc] init];
     NSDictionary *data = [iRet parse:map];
     if (data.count > 0) {
         // 业务数据处理
@@ -155,7 +155,7 @@
 }
 
 // 忘记密码, 密码重置
-+ (ucResult *)forget:(NSString *)username
++ (ApiResult *)forget:(NSString *)username
               passwd:(NSString *)passwd
            newpasswd:(NSString *)newpasswd
             authcode:(NSString *)authcode {
@@ -168,7 +168,7 @@
                             authcode, @"checkcode",
                             nil];
     NSDictionary *map = [Api post:action params:params];
-    ucResult *iRet = [[ucResult alloc] init];
+    ApiResult *iRet = [[ApiResult alloc] init];
     NSDictionary *data = [iRet parse:map];
     if (data.count > 0) {
         // 业务数据处理
@@ -177,7 +177,7 @@
 }
 
 // 修改昵称
-+ (ucResult *)updateNikename:(NSString *)passwd
++ (ApiResult *)updateNikename:(NSString *)passwd
                     nikename:(NSString *)nikename{
     static NSString *action = API_URL_USERCENTER "/uc/m_modnicname.action";
     NSString *userId = [NSString valueOf:[Api userId]];
@@ -190,7 +190,7 @@
                             nikename, @"nicname",
                             nil];
     NSDictionary *map = [Api post:action params:params];
-    ucResult *iRet = [[ucResult alloc] init];
+    ApiResult *iRet = [[ApiResult alloc] init];
     NSDictionary *data = [iRet parse:map];
     if (data.count > 0) {
         // 业务数据处理
@@ -199,7 +199,7 @@
 }
 
 // 修改密码
-+ (ucResult *)updatePassword:(NSString *)passwd
++ (ApiResult *)updatePassword:(NSString *)passwd
                    newpasswd:(NSString *)newpasswd {
     static NSString *action = API_URL_USERCENTER "/uc/m_modpass.action";
     NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
@@ -210,7 +210,7 @@
                             [Api base64e:newpasswd], @"newpassword",
                             nil];
     NSDictionary *map = [Api post:action params:params];
-    ucResult *iRet = [[ucResult alloc] init];
+    ApiResult *iRet = [[ApiResult alloc] init];
     NSDictionary *data = [iRet parse:map];
     if (data.count > 0) {
         // 业务数据处理
@@ -231,7 +231,7 @@
                             [NSString valueOf:size], @"pageSize",
                             nil];
     NSDictionary *map = [Api post:action params:params];
-    ucResult *iRet = [[ucResult alloc] init];
+    ApiResult *iRet = [[ApiResult alloc] init];
     NSDictionary *data = [iRet parse:map];
     NSMutableArray *aRet = [[[NSMutableArray alloc] initWithCapacity:0] autorelease];
     if (iRet.status == API_USERCENTET_SUCCESS && data.count > 0) {
@@ -239,8 +239,8 @@
         NSArray *codeList = [data objectForKey:@"codeList"];
         // 找到我的码数据区
         for (NSDictionary *dict in codeList) {
-            CodeInfo *obj = [[[CodeInfo alloc] init] autorelease];
-            [Api dictToObject:dict object:obj];
+            //CodeInfo *obj = [[[CodeInfo alloc] init] autorelease];
+            CodeInfo *obj = [dict toObject:CodeInfo.class];
             [aRet addObject:obj];
         }
     }

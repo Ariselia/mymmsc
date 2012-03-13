@@ -15,9 +15,9 @@
 #import "UCStoreSubscribe.h"
 #import "UCStoreBBS.h"
 #import <iOSApi/iOSAsyncImageView.h>
-
 #import <iOSApi/UIImage+Scale.h>
 #import <iOSApi/iOSImageView.h>
+#import <iOSApi/ImageView.h>
 #import "UCBookReader.h"
 #import "UCMoviePlayer.h"
 #import "UCMusicPlayer.h"
@@ -198,13 +198,13 @@
     if (info2 != nil) {
         infoType.text     = [NSString stringWithFormat:@"商品类型:  %@", info2.typename];
     }
-    UIImage *im = nil;
+    UIImage *im = [UIImage imageNamed:@"unknown.png"];
     if ([info2.picurl length] > 10) {
-        im = [[[UIImage alloc] initWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:info2.picurl]]] autorelease];
+        //im = [[[UIImage alloc] initWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:info2.picurl]]] autorelease];
+        [infoImage imageWithURL:info2.picurl];
+        [infoImage autoresizingMask];
     }
-    if (im == nil) {
-        im = [UIImage imageNamed:@"unknown.png"];
-    }
+    
     if (im != nil) {
         //[infoImage setImage: [im scaleToSize:infoImage.frame.size]];
         int xHeight = infoImage.frame.origin.y;

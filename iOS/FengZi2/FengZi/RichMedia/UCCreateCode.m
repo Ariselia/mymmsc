@@ -93,9 +93,14 @@ static int iTimes = -1;
         UIGraphicsEndImageContext();
     } else if ([mediaType isEqualToString:@"public.movie"]){
         urlFile = [xInfo objectForKey:UIImagePickerControllerMediaURL];
-        int fileSize = [iOSFile fileSize:urlFile.absoluteString];
-        if (fileSize >= iOSApi_MB(1)) {
+        NSURL *tmpFile = urlFile.filePathURL;
+        iOSLog(@"Video File=%@", tmpFile);
+        iOSLog(@"Video File=%@", tmpFile.relativeString);
+        iOSLog(@"Video File=%@", tmpFile.relativePath);
+        int fileSize = [iOSFile fileSize:tmpFile.relativePath];
+        if (fileSize >= IOSAPI_MB(1)) {
             [iOSApi Alert:@"提示" message:@"上传影音文件不能超过1MB。"];
+            [picker dismissModalViewControllerAnimated:YES];
             return;
         }
         //NSURL *videoURL = [xInfo objectForKey:UIImagePickerControllerMediaURL];

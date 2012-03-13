@@ -71,7 +71,7 @@
     }
     
     [iOSApi showAlert:@"正在提交信息..."];
-    ucResult *iRet = [Api updatePassword:pwd newpasswd:npwd];
+    ApiResult *iRet = [Api updatePassword:pwd newpasswd:npwd];
     [iOSApi closeAlert];
     NSString *msg = nil;
     if (iRet.status == API_USERCENTET_SUCCESS) {

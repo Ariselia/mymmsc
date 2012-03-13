@@ -15,14 +15,14 @@
 
 //====================================< 用户中心 - 登录信息 >====================================
 
-@interface ucLoginResult : ucResult {
+@interface ucLoginResult : ApiResult {
     NSString *userId; // 用户ID, 这个和用户是什么关系，没搞明白
 }
 
 @end
 
 //====================================< 用户中心 - 验证码 >====================================
-@interface ucAuthCode : ucResult {
+@interface ucAuthCode : ApiResult {
     NSString *code;
 }
 
@@ -60,23 +60,23 @@
 + (ucAuthCode *)authcode:(NSString *)phone;
 
 // 注册账号
-+ (ucResult *)createId:(NSString *)username
++ (ApiResult *)createId:(NSString *)username
                 passwd:(NSString *)passwd
               authcode:(NSString *)authcode
               nikename:(NSString *)nikename;
 
 // 忘记密码, 密码重置
-+ (ucResult *)forget:(NSString *)username
++ (ApiResult *)forget:(NSString *)username
               passwd:(NSString *)passwd
            newpasswd:(NSString *)newpasswd
             authcode:(NSString *)authcode;
 
 // 修改昵称
-+ (ucResult *)updateNikename:(NSString *)passwd
++ (ApiResult *)updateNikename:(NSString *)passwd
                     nikename:(NSString *)nikename;
 
 // 修改密码
-+ (ucResult *)updatePassword:(NSString *)passwd
++ (ApiResult *)updatePassword:(NSString *)passwd
                    newpasswd:(NSString *)newpasswd;
 
 // 我的码

@@ -131,7 +131,7 @@
     static NSString *path = @"eshop/main.action";
     NSString *action = [NSString stringWithFormat:@"%@/%@?type=%d&sortype=%d&pricetype=%d&person=%d&page=%d", API_URL_ESHOP, path, type, sorttype, pricetype, person, page];
     NSDictionary *map = [Api post:action params:nil];
-    ucResult *iRet = [[ucResult alloc] init];
+    ApiResult *iRet = [[ApiResult alloc] init];
     NSArray *list = (NSArray *)map;
     NSMutableArray *aRet = [[[NSMutableArray alloc] initWithCapacity:0] autorelease];
     if (list.count > 0) {
@@ -156,11 +156,11 @@
 }
 
 // 订购
-+ (ucResult *)subscribe:(int)pid {
++ (ApiResult *)subscribe:(int)pid {
     static NSString *path = @"eshop/order.action";
     NSString *action = [NSString stringWithFormat:@"%@/%@?userid=%d&id=%d", API_URL_ESHOP, path, [Api userId], pid];
     NSDictionary *map = [Api post:action params:nil];
-    ucResult *iRet = [[ucResult alloc] init];
+    ApiResult *iRet = [[ApiResult alloc] init];
     [iRet parse:map];
     return [iRet autorelease];
 }
@@ -170,7 +170,7 @@
     static NSString *path = @"eshop/orderlist.action";
     NSString *action = [NSString stringWithFormat:@"%@/%@?userid=%d&page=%d", API_URL_ESHOP, path, [Api userId], page];
     NSDictionary *map = [Api post:action params:nil];
-    ucResult *iRet = [[ucResult alloc] init];
+    ApiResult *iRet = [[ApiResult alloc] init];
     NSArray *list = (NSArray *)map;
     NSMutableArray *aRet = [[[NSMutableArray alloc] initWithCapacity:0] autorelease];
     if (list.count > 0) {
@@ -198,7 +198,7 @@
     static NSString *path = @"eshop/person.action";
     NSString *action = [NSString stringWithFormat:@"%@/%@?userid=%d&page=%d", API_URL_ESHOP, path, [Api userId], 1];
     NSDictionary *map = [Api post:action params:nil];
-    ucResult *iRet = [[ucResult alloc] init];
+    ApiResult *iRet = [[ApiResult alloc] init];
     NSArray *list = (NSArray *)map;
     NSMutableArray *aRet = [[[NSMutableArray alloc] initWithCapacity:0] autorelease];
     if (list.count > 0) {
@@ -223,7 +223,7 @@
     static NSString *path = @"eshop/relation.action";
     NSString *action = [NSString stringWithFormat:@"%@/%@?userid=%d&page=%d&id=%d", API_URL_ESHOP, path, [Api userId], page, pid];
     NSDictionary *map = [Api post:action params:nil];
-    ucResult *iRet = [[ucResult alloc] init];
+    ApiResult *iRet = [[ApiResult alloc] init];
     NSArray *list = (NSArray *)map;
     NSMutableArray *aRet = [[[NSMutableArray alloc] initWithCapacity:0] autorelease];
     if (list.count > 0) {
@@ -256,7 +256,7 @@
     if (map.count == 0) {
         map = [@"[{\"id\":\"1001\",\"username\":\"孙超\",\"content\":\"孙超喜欢刘玉珠\"},{\"id\":\"1002\",\"username\":\"白志鹏\",\"content\":\"白志鹏喜欢王继红\"}]" objectFromJSONString];
     }
-    ucResult *iRet = [[ucResult alloc] init];
+    ApiResult *iRet = [[ApiResult alloc] init];
     NSArray *list = (NSArray *)map;
     NSMutableArray *aRet = [[[NSMutableArray alloc] initWithCapacity:0] autorelease];
     if (list.count > 0) {
@@ -276,7 +276,7 @@
     return aRet;
 }
 
-+ (ucResult *)conmment:(int)pid
++ (ApiResult *)conmment:(int)pid
               username:(NSString *)username
                    msg:(NSString *)msg {
     //http://220.231.48.34:9000/eshop/eshop/commnet.action;jsessionid=9E4C07BB88579E5C14033C64EC218D8D?content=aebcs&id=1&userid=1
@@ -288,7 +288,7 @@
                             nil];
     NSDictionary *map = [Api post:action params:params];
     
-    ucResult *iRet = [[ucResult alloc] init];
+    ApiResult *iRet = [[ApiResult alloc] init];
     [iRet parse:map];
     return [iRet autorelease];
 }

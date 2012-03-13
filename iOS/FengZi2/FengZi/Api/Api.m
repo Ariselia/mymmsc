@@ -35,7 +35,7 @@
 @end
 
 //====================================< 接口响应类 >====================================
-@implementation ucResult
+@implementation ApiResult
 
 @synthesize status, message;
 
@@ -254,24 +254,6 @@ static UserInfo *cache_info = nil;
     return sRet;
 }
 
-// JSON串字典转换对象
-+ (id)dictToObject:(NSDictionary *)dict class:(Class)clazz{
-    id obj = [[clazz new] autorelease];
-    for (NSString *key in [dict allKeys]) {
-        id value = [dict objectForKey:key];
-        [obj setValue:value forSameKey:key];
-    }
-    return obj;
-}
-
-// JSON串字典转换对象
-+ (void)dictToObject:(NSDictionary *)dict object:(id)obj{
-    for (NSString *key in [dict allKeys]) {
-        id value = [dict objectForKey:key];
-        [obj setValue:value forSameKey:key];
-    }
-}
-
 + (NSMutableDictionary *)post:(NSString *)action params:(NSDictionary *)params {
     NSMutableDictionary *ret = nil;
     
@@ -282,7 +264,6 @@ static UserInfo *cache_info = nil;
         
     HttpClient *client = [[HttpClient alloc] initWithURL:url timeout:API_TIMEOUT];
     
-    //[client formAddField:@"username" value:@"18632523200"];
     [client formAddFields:params];
     NSData *response = [client post];
     if (response == nil) {

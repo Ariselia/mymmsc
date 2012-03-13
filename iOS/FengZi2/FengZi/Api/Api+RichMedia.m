@@ -113,9 +113,9 @@
 }
 
 // 上传音频文件
-+ (ucResult *)uploadAudio:(NSString *)filename
++ (ApiResult *)uploadAudio:(NSString *)filename
                      type:(NSString *)type {
-    ucResult *iRet = [ucResult new];
+    ApiResult *iRet = [ApiResult new];
     
     
     
@@ -123,9 +123,9 @@
 }
 
 // 上传Flash
-+ (ucResult *)uploadFlash:(NSString *)filename
++ (ApiResult *)uploadFlash:(NSString *)filename
                      type:(NSString *)type {
-    ucResult *iRet = [ucResult new];
+    ApiResult *iRet = [ApiResult new];
     
     
     
@@ -133,9 +133,9 @@
 }
 
 // 上传视频
-+ (ucResult *)uploadMovie:(NSString *)filename
++ (ApiResult *)uploadMovie:(NSString *)filename
                      type:(NSString *)type {
-    ucResult *iRet = [ucResult new];
+    ApiResult *iRet = [ApiResult new];
     
     
     
@@ -298,7 +298,8 @@ static NSString *kma_id = nil;
     iRet.type = API_KMA_INVAILD;
     NSDictionary *data = [iRet parse:map];
     if (data.count > 0) {
-        [Api dictToObject:data object:iRet];
+        // 填充对象数值
+        [data fillObject:iRet];
         if (iRet.type == 14) {
             // 富媒体
             MediaContent *media = [[[MediaContent alloc] init] autorelease];
@@ -333,7 +334,7 @@ static NSString *kma_id = nil;
     return [iRet autorelease];
 }
 
-+ (ucResult *)kmaUpload:(NSString *)pid
++ (ApiResult *)kmaUpload:(NSString *)pid
                    type:(int)type
                 content:(NSString *)content{
     // http://m.fengxiafei.com/mb/kma/m_uploadTraditionInfo.action
@@ -351,7 +352,7 @@ static NSString *kma_id = nil;
                             nil];
     
     NSDictionary *map = [Api post:action params:params];
-    ucResult *iRet = [[ucResult alloc] init];
+    ApiResult *iRet = [[ApiResult alloc] init];
     NSDictionary *data = [iRet parse:map];
     if (data.count > 0) {
         // 业务数据处理
@@ -359,13 +360,11 @@ static NSString *kma_id = nil;
     return [iRet autorelease];
 }
 
-
-
 + (void)uploadKma:(NSString *)_content{
     // 视图加载完毕, 上传业务信息
     [iOSApi showAlert:@"上传空码赋值信息"];
     NSString *msg = _content;
-    ucResult *iRet = [Api kmaUpload:[Api kmaId] type:DATA_ENV.curBusinessType content:msg];
+    ApiResult *iRet = [Api kmaUpload:[Api kmaId] type:DATA_ENV.curBusinessType content:msg];
     if (iRet.status == 0) {
         //[iOSApi Alert:@"空码赋值 提示" message:@"上传成功"];
     } else {

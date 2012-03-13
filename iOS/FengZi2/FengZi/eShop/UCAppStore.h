@@ -10,6 +10,9 @@
 
 @protocol UCAppStoreDelegate;
 
+/**
+ * 商城总入口
+ */
 @interface UCAppStore : UIViewController {
     //
 }
@@ -27,6 +30,7 @@
 
 @protocol UCAppStoreDelegate
 
+// 关闭商城视图
 - (void)closeAppStore;
 
 @end

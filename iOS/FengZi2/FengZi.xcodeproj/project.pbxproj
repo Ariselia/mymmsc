@@ -7,6 +7,52 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0A5052A0150855B000C27DB4 /* ebuy_comment_dfimg.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A505272150855B000C27DB4 /* ebuy_comment_dfimg.png */; };
+		0A5052A1150855B000C27DB4 /* ebuy_comment_photo.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A505273150855B000C27DB4 /* ebuy_comment_photo.png */; };
+		0A5052A2150855B000C27DB4 /* ebuy_comment_pointstar_h.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A505274150855B000C27DB4 /* ebuy_comment_pointstar_h.png */; };
+		0A5052A3150855B000C27DB4 /* ebuy_comment_pointstar.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A505275150855B000C27DB4 /* ebuy_comment_pointstar.png */; };
+		0A5052A4150855B000C27DB4 /* ebuy_comment_revert.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A505276150855B000C27DB4 /* ebuy_comment_revert.png */; };
+		0A5052A5150855B000C27DB4 /* ebuy_comment_send_h.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A505277150855B000C27DB4 /* ebuy_comment_send_h.png */; };
+		0A5052A6150855B000C27DB4 /* ebuy_comment_send.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A505278150855B000C27DB4 /* ebuy_comment_send.png */; };
+		0A5052A7150855B000C27DB4 /* ebuy_comment_sendcomment.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A505279150855B000C27DB4 /* ebuy_comment_sendcomment.png */; };
+		0A5052A8150855B000C27DB4 /* ebuy_form_but_1.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A50527A150855B000C27DB4 /* ebuy_form_but_1.png */; };
+		0A5052A9150855B000C27DB4 /* ebuy_form_but_2.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A50527B150855B000C27DB4 /* ebuy_form_but_2.png */; };
+		0A5052AA150855B000C27DB4 /* ebuy_form_mytopbg.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A50527C150855B000C27DB4 /* ebuy_form_mytopbg.png */; };
+		0A5052AB150855B000C27DB4 /* ebuy_main_icon_left.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A50527D150855B000C27DB4 /* ebuy_main_icon_left.png */; };
+		0A5052AC150855B000C27DB4 /* ebuy_main_icon_right.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A50527E150855B000C27DB4 /* ebuy_main_icon_right.png */; };
+		0A5052AD150855B000C27DB4 /* ebuy_main_select_bg_h.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A50527F150855B000C27DB4 /* ebuy_main_select_bg_h.png */; };
+		0A5052AE150855B000C27DB4 /* ebuy_main_select_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A505280150855B000C27DB4 /* ebuy_main_select_bg.png */; };
+		0A5052AF150855B000C27DB4 /* ebuy_main_userphoto.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A505281150855B000C27DB4 /* ebuy_main_userphoto.png */; };
+		0A5052B0150855B000C27DB4 /* ebuy_order_r.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A505282150855B000C27DB4 /* ebuy_order_r.png */; };
+		0A5052B1150855B000C27DB4 /* ebuy_shop_butdel.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A505283150855B000C27DB4 /* ebuy_shop_butdel.png */; };
+		0A5052B2150855B000C27DB4 /* ebuy_shopping_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A505284150855B000C27DB4 /* ebuy_shopping_bg.png */; };
+		0A5052B3150855B000C27DB4 /* ebuy_shopping_go.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A505285150855B000C27DB4 /* ebuy_shopping_go.png */; };
+		0A5052B4150855B000C27DB4 /* ebuy_shopping_save.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A505286150855B000C27DB4 /* ebuy_shopping_save.png */; };
+		0A5052B5150855B000C27DB4 /* ebuy_sun_main_ad.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A505287150855B000C27DB4 /* ebuy_sun_main_ad.png */; };
+		0A5052B6150855B000C27DB4 /* ebuy_sun_main_comment.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A505288150855B000C27DB4 /* ebuy_sun_main_comment.png */; };
+		0A5052B7150855B000C27DB4 /* ebuy_sun_main_groupclss.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A505289150855B000C27DB4 /* ebuy_sun_main_groupclss.png */; };
+		0A5052B8150855B000C27DB4 /* ebuy_sun_main_message.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A50528A150855B000C27DB4 /* ebuy_sun_main_message.png */; };
+		0A5052B9150855B000C27DB4 /* ebuy_sun_main_messagein_h.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A50528B150855B000C27DB4 /* ebuy_sun_main_messagein_h.png */; };
+		0A5052BA150855B000C27DB4 /* ebuy_sun_main_messagein.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A50528C150855B000C27DB4 /* ebuy_sun_main_messagein.png */; };
+		0A5052BB150855B000C27DB4 /* ebuy_sun_main_messagesend_h.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A50528D150855B000C27DB4 /* ebuy_sun_main_messagesend_h.png */; };
+		0A5052BC150855B000C27DB4 /* ebuy_sun_main_messagesend.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A50528E150855B000C27DB4 /* ebuy_sun_main_messagesend.png */; };
+		0A5052BD150855B000C27DB4 /* ebuy_sun_main_mycollection.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A50528F150855B000C27DB4 /* ebuy_sun_main_mycollection.png */; };
+		0A5052BE150855B000C27DB4 /* ebuy_sun_main_myorder.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A505290150855B000C27DB4 /* ebuy_sun_main_myorder.png */; };
+		0A5052BF150855B000C27DB4 /* ebuy_sun_main_newsicon.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A505291150855B000C27DB4 /* ebuy_sun_main_newsicon.png */; };
+		0A5052C0150855B000C27DB4 /* ebuy_sun_main_product_h.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A505292150855B000C27DB4 /* ebuy_sun_main_product_h.png */; };
+		0A5052C1150855B000C27DB4 /* ebuy_sun_main_product.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A505293150855B000C27DB4 /* ebuy_sun_main_product.png */; };
+		0A5052C2150855B000C27DB4 /* ebuy_sun_main_putbg.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A505294150855B000C27DB4 /* ebuy_sun_main_putbg.png */; };
+		0A5052C3150855B000C27DB4 /* ebuy_sun_main_putleft.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A505295150855B000C27DB4 /* ebuy_sun_main_putleft.png */; };
+		0A5052C4150855B000C27DB4 /* ebuy_sun_main_putpro.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A505296150855B000C27DB4 /* ebuy_sun_main_putpro.png */; };
+		0A5052C5150855B000C27DB4 /* ebuy_sun_main_putright.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A505297150855B000C27DB4 /* ebuy_sun_main_putright.png */; };
+		0A5052C6150855B000C27DB4 /* ebuy_sun_main_resend_h.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A505298150855B000C27DB4 /* ebuy_sun_main_resend_h.png */; };
+		0A5052C7150855B000C27DB4 /* ebuy_sun_main_resend.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A505299150855B000C27DB4 /* ebuy_sun_main_resend.png */; };
+		0A5052C8150855B000C27DB4 /* ebuy_sun_main_search_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A50529A150855B000C27DB4 /* ebuy_sun_main_search_bg.png */; };
+		0A5052C9150855B000C27DB4 /* ebuy_sun_main_shopcar.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A50529B150855B000C27DB4 /* ebuy_sun_main_shopcar.png */; };
+		0A5052CA150855B000C27DB4 /* ebuy_sun_main_store_h.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A50529C150855B000C27DB4 /* ebuy_sun_main_store_h.png */; };
+		0A5052CB150855B000C27DB4 /* ebuy_sun_main_store.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A50529D150855B000C27DB4 /* ebuy_sun_main_store.png */; };
+		0A5052CC150855B000C27DB4 /* ebuy_sun_main_storebtn_h.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A50529E150855B000C27DB4 /* ebuy_sun_main_storebtn_h.png */; };
+		0A5052CD150855B000C27DB4 /* ebuy_sun_main_storebtn.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A50529F150855B000C27DB4 /* ebuy_sun_main_storebtn.png */; };
 		0A71F1E515044580007714BB /* ebuy_shopping_logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A71F1E415044580007714BB /* ebuy_shopping_logo.png */; };
 		0A71F1EF15044A41007714BB /* EBuyPortal.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A71F1ED15044A41007714BB /* EBuyPortal.m */; };
 		0A71F1F015044A41007714BB /* EBuyPortal.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A71F1EE15044A41007714BB /* EBuyPortal.xib */; };
@@ -14,6 +60,8 @@
 		0AB8584814FC34E50062C1C5 /* send_btn_nor.png in Resources */ = {isa = PBXBuildFile; fileRef = 0AB8584614FC34E50062C1C5 /* send_btn_nor.png */; };
 		0AB8584914FC34E50062C1C5 /* send_btn_sel.png in Resources */ = {isa = PBXBuildFile; fileRef = 0AB8584714FC34E50062C1C5 /* send_btn_sel.png */; };
 		0AB8584B14FC370F0062C1C5 /* eshop_info_popup.png in Resources */ = {isa = PBXBuildFile; fileRef = 0AB8584A14FC370F0062C1C5 /* eshop_info_popup.png */; };
+		0ABA1C5015084B6D00B503D0 /* EBuyRecommend.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ABA1C4F15084B6D00B503D0 /* EBuyRecommend.m */; };
+		0ABA1C5215084B9900B503D0 /* EBuyRecommend.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0ABA1C5115084B9900B503D0 /* EBuyRecommend.xib */; };
 		0ABBBAB4150210240021C47C /* InfoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0ABBBAB3150210240021C47C /* InfoView.xib */; };
 		0ABBBAB715042BAE0021C47C /* eShopProducerInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ABBBAB615042BAD0021C47C /* eShopProducerInfo.m */; };
 		0ABBBAB915042BCD0021C47C /* eShopProducerInfo.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0ABBBAB815042BCD0021C47C /* eShopProducerInfo.xib */; };
@@ -613,6 +661,52 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0A505272150855B000C27DB4 /* ebuy_comment_dfimg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ebuy_comment_dfimg.png; sourceTree = "<group>"; };
+		0A505273150855B000C27DB4 /* ebuy_comment_photo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ebuy_comment_photo.png; sourceTree = "<group>"; };
+		0A505274150855B000C27DB4 /* ebuy_comment_pointstar_h.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ebuy_comment_pointstar_h.png; sourceTree = "<group>"; };
+		0A505275150855B000C27DB4 /* ebuy_comment_pointstar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ebuy_comment_pointstar.png; sourceTree = "<group>"; };
+		0A505276150855B000C27DB4 /* ebuy_comment_revert.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ebuy_comment_revert.png; sourceTree = "<group>"; };
+		0A505277150855B000C27DB4 /* ebuy_comment_send_h.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ebuy_comment_send_h.png; sourceTree = "<group>"; };
+		0A505278150855B000C27DB4 /* ebuy_comment_send.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ebuy_comment_send.png; sourceTree = "<group>"; };
+		0A505279150855B000C27DB4 /* ebuy_comment_sendcomment.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ebuy_comment_sendcomment.png; sourceTree = "<group>"; };
+		0A50527A150855B000C27DB4 /* ebuy_form_but_1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ebuy_form_but_1.png; sourceTree = "<group>"; };
+		0A50527B150855B000C27DB4 /* ebuy_form_but_2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ebuy_form_but_2.png; sourceTree = "<group>"; };
+		0A50527C150855B000C27DB4 /* ebuy_form_mytopbg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ebuy_form_mytopbg.png; sourceTree = "<group>"; };
+		0A50527D150855B000C27DB4 /* ebuy_main_icon_left.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ebuy_main_icon_left.png; sourceTree = "<group>"; };
+		0A50527E150855B000C27DB4 /* ebuy_main_icon_right.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ebuy_main_icon_right.png; sourceTree = "<group>"; };
+		0A50527F150855B000C27DB4 /* ebuy_main_select_bg_h.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ebuy_main_select_bg_h.png; sourceTree = "<group>"; };
+		0A505280150855B000C27DB4 /* ebuy_main_select_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ebuy_main_select_bg.png; sourceTree = "<group>"; };
+		0A505281150855B000C27DB4 /* ebuy_main_userphoto.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ebuy_main_userphoto.png; sourceTree = "<group>"; };
+		0A505282150855B000C27DB4 /* ebuy_order_r.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ebuy_order_r.png; sourceTree = "<group>"; };
+		0A505283150855B000C27DB4 /* ebuy_shop_butdel.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ebuy_shop_butdel.png; sourceTree = "<group>"; };
+		0A505284150855B000C27DB4 /* ebuy_shopping_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ebuy_shopping_bg.png; sourceTree = "<group>"; };
+		0A505285150855B000C27DB4 /* ebuy_shopping_go.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ebuy_shopping_go.png; sourceTree = "<group>"; };
+		0A505286150855B000C27DB4 /* ebuy_shopping_save.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ebuy_shopping_save.png; sourceTree = "<group>"; };
+		0A505287150855B000C27DB4 /* ebuy_sun_main_ad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ebuy_sun_main_ad.png; sourceTree = "<group>"; };
+		0A505288150855B000C27DB4 /* ebuy_sun_main_comment.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ebuy_sun_main_comment.png; sourceTree = "<group>"; };
+		0A505289150855B000C27DB4 /* ebuy_sun_main_groupclss.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ebuy_sun_main_groupclss.png; sourceTree = "<group>"; };
+		0A50528A150855B000C27DB4 /* ebuy_sun_main_message.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ebuy_sun_main_message.png; sourceTree = "<group>"; };
+		0A50528B150855B000C27DB4 /* ebuy_sun_main_messagein_h.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ebuy_sun_main_messagein_h.png; sourceTree = "<group>"; };
+		0A50528C150855B000C27DB4 /* ebuy_sun_main_messagein.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ebuy_sun_main_messagein.png; sourceTree = "<group>"; };
+		0A50528D150855B000C27DB4 /* ebuy_sun_main_messagesend_h.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ebuy_sun_main_messagesend_h.png; sourceTree = "<group>"; };
+		0A50528E150855B000C27DB4 /* ebuy_sun_main_messagesend.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ebuy_sun_main_messagesend.png; sourceTree = "<group>"; };
+		0A50528F150855B000C27DB4 /* ebuy_sun_main_mycollection.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ebuy_sun_main_mycollection.png; sourceTree = "<group>"; };
+		0A505290150855B000C27DB4 /* ebuy_sun_main_myorder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ebuy_sun_main_myorder.png; sourceTree = "<group>"; };
+		0A505291150855B000C27DB4 /* ebuy_sun_main_newsicon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ebuy_sun_main_newsicon.png; sourceTree = "<group>"; };
+		0A505292150855B000C27DB4 /* ebuy_sun_main_product_h.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ebuy_sun_main_product_h.png; sourceTree = "<group>"; };
+		0A505293150855B000C27DB4 /* ebuy_sun_main_product.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ebuy_sun_main_product.png; sourceTree = "<group>"; };
+		0A505294150855B000C27DB4 /* ebuy_sun_main_putbg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ebuy_sun_main_putbg.png; sourceTree = "<group>"; };
+		0A505295150855B000C27DB4 /* ebuy_sun_main_putleft.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ebuy_sun_main_putleft.png; sourceTree = "<group>"; };
+		0A505296150855B000C27DB4 /* ebuy_sun_main_putpro.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ebuy_sun_main_putpro.png; sourceTree = "<group>"; };
+		0A505297150855B000C27DB4 /* ebuy_sun_main_putright.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ebuy_sun_main_putright.png; sourceTree = "<group>"; };
+		0A505298150855B000C27DB4 /* ebuy_sun_main_resend_h.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ebuy_sun_main_resend_h.png; sourceTree = "<group>"; };
+		0A505299150855B000C27DB4 /* ebuy_sun_main_resend.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ebuy_sun_main_resend.png; sourceTree = "<group>"; };
+		0A50529A150855B000C27DB4 /* ebuy_sun_main_search_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ebuy_sun_main_search_bg.png; sourceTree = "<group>"; };
+		0A50529B150855B000C27DB4 /* ebuy_sun_main_shopcar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ebuy_sun_main_shopcar.png; sourceTree = "<group>"; };
+		0A50529C150855B000C27DB4 /* ebuy_sun_main_store_h.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ebuy_sun_main_store_h.png; sourceTree = "<group>"; };
+		0A50529D150855B000C27DB4 /* ebuy_sun_main_store.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ebuy_sun_main_store.png; sourceTree = "<group>"; };
+		0A50529E150855B000C27DB4 /* ebuy_sun_main_storebtn_h.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ebuy_sun_main_storebtn_h.png; sourceTree = "<group>"; };
+		0A50529F150855B000C27DB4 /* ebuy_sun_main_storebtn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ebuy_sun_main_storebtn.png; sourceTree = "<group>"; };
 		0A71F1E415044580007714BB /* ebuy_shopping_logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ebuy_shopping_logo.png; sourceTree = "<group>"; };
 		0A71F1EC15044A41007714BB /* EBuyPortal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EBuyPortal.h; sourceTree = "<group>"; };
 		0A71F1ED15044A41007714BB /* EBuyPortal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EBuyPortal.m; sourceTree = "<group>"; };
@@ -621,6 +715,9 @@
 		0AB8584614FC34E50062C1C5 /* send_btn_nor.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = send_btn_nor.png; sourceTree = "<group>"; };
 		0AB8584714FC34E50062C1C5 /* send_btn_sel.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = send_btn_sel.png; sourceTree = "<group>"; };
 		0AB8584A14FC370F0062C1C5 /* eshop_info_popup.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = eshop_info_popup.png; sourceTree = "<group>"; };
+		0ABA1C4E15084B6D00B503D0 /* EBuyRecommend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EBuyRecommend.h; sourceTree = "<group>"; };
+		0ABA1C4F15084B6D00B503D0 /* EBuyRecommend.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EBuyRecommend.m; sourceTree = "<group>"; };
+		0ABA1C5115084B9900B503D0 /* EBuyRecommend.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EBuyRecommend.xib; sourceTree = "<group>"; };
 		0ABBBAB3150210240021C47C /* InfoView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InfoView.xib; sourceTree = "<group>"; };
 		0ABBBAB515042BAC0021C47C /* eShopProducerInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = eShopProducerInfo.h; sourceTree = "<group>"; };
 		0ABBBAB615042BAD0021C47C /* eShopProducerInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = eShopProducerInfo.m; sourceTree = "<group>"; };
@@ -1429,6 +1526,52 @@
 		0A71F1E31504453D007714BB /* eBuy */ = {
 			isa = PBXGroup;
 			children = (
+				0A505272150855B000C27DB4 /* ebuy_comment_dfimg.png */,
+				0A505273150855B000C27DB4 /* ebuy_comment_photo.png */,
+				0A505274150855B000C27DB4 /* ebuy_comment_pointstar_h.png */,
+				0A505275150855B000C27DB4 /* ebuy_comment_pointstar.png */,
+				0A505276150855B000C27DB4 /* ebuy_comment_revert.png */,
+				0A505277150855B000C27DB4 /* ebuy_comment_send_h.png */,
+				0A505278150855B000C27DB4 /* ebuy_comment_send.png */,
+				0A505279150855B000C27DB4 /* ebuy_comment_sendcomment.png */,
+				0A50527A150855B000C27DB4 /* ebuy_form_but_1.png */,
+				0A50527B150855B000C27DB4 /* ebuy_form_but_2.png */,
+				0A50527C150855B000C27DB4 /* ebuy_form_mytopbg.png */,
+				0A50527D150855B000C27DB4 /* ebuy_main_icon_left.png */,
+				0A50527E150855B000C27DB4 /* ebuy_main_icon_right.png */,
+				0A50527F150855B000C27DB4 /* ebuy_main_select_bg_h.png */,
+				0A505280150855B000C27DB4 /* ebuy_main_select_bg.png */,
+				0A505281150855B000C27DB4 /* ebuy_main_userphoto.png */,
+				0A505282150855B000C27DB4 /* ebuy_order_r.png */,
+				0A505283150855B000C27DB4 /* ebuy_shop_butdel.png */,
+				0A505284150855B000C27DB4 /* ebuy_shopping_bg.png */,
+				0A505285150855B000C27DB4 /* ebuy_shopping_go.png */,
+				0A505286150855B000C27DB4 /* ebuy_shopping_save.png */,
+				0A505287150855B000C27DB4 /* ebuy_sun_main_ad.png */,
+				0A505288150855B000C27DB4 /* ebuy_sun_main_comment.png */,
+				0A505289150855B000C27DB4 /* ebuy_sun_main_groupclss.png */,
+				0A50528A150855B000C27DB4 /* ebuy_sun_main_message.png */,
+				0A50528B150855B000C27DB4 /* ebuy_sun_main_messagein_h.png */,
+				0A50528C150855B000C27DB4 /* ebuy_sun_main_messagein.png */,
+				0A50528D150855B000C27DB4 /* ebuy_sun_main_messagesend_h.png */,
+				0A50528E150855B000C27DB4 /* ebuy_sun_main_messagesend.png */,
+				0A50528F150855B000C27DB4 /* ebuy_sun_main_mycollection.png */,
+				0A505290150855B000C27DB4 /* ebuy_sun_main_myorder.png */,
+				0A505291150855B000C27DB4 /* ebuy_sun_main_newsicon.png */,
+				0A505292150855B000C27DB4 /* ebuy_sun_main_product_h.png */,
+				0A505293150855B000C27DB4 /* ebuy_sun_main_product.png */,
+				0A505294150855B000C27DB4 /* ebuy_sun_main_putbg.png */,
+				0A505295150855B000C27DB4 /* ebuy_sun_main_putleft.png */,
+				0A505296150855B000C27DB4 /* ebuy_sun_main_putpro.png */,
+				0A505297150855B000C27DB4 /* ebuy_sun_main_putright.png */,
+				0A505298150855B000C27DB4 /* ebuy_sun_main_resend_h.png */,
+				0A505299150855B000C27DB4 /* ebuy_sun_main_resend.png */,
+				0A50529A150855B000C27DB4 /* ebuy_sun_main_search_bg.png */,
+				0A50529B150855B000C27DB4 /* ebuy_sun_main_shopcar.png */,
+				0A50529C150855B000C27DB4 /* ebuy_sun_main_store_h.png */,
+				0A50529D150855B000C27DB4 /* ebuy_sun_main_store.png */,
+				0A50529E150855B000C27DB4 /* ebuy_sun_main_storebtn_h.png */,
+				0A50529F150855B000C27DB4 /* ebuy_sun_main_storebtn.png */,
 				0A71F1E415044580007714BB /* ebuy_shopping_logo.png */,
 			);
 			path = eBuy;
@@ -1440,6 +1583,9 @@
 				0A71F1EC15044A41007714BB /* EBuyPortal.h */,
 				0A71F1ED15044A41007714BB /* EBuyPortal.m */,
 				0A71F1EE15044A41007714BB /* EBuyPortal.xib */,
+				0ABA1C4E15084B6D00B503D0 /* EBuyRecommend.h */,
+				0ABA1C4F15084B6D00B503D0 /* EBuyRecommend.m */,
+				0ABA1C5115084B9900B503D0 /* EBuyRecommend.xib */,
 			);
 			path = eBuy;
 			sourceTree = "<group>";
@@ -3227,6 +3373,53 @@
 				0ABBBAB915042BCD0021C47C /* eShopProducerInfo.xib in Resources */,
 				0A71F1E515044580007714BB /* ebuy_shopping_logo.png in Resources */,
 				0A71F1F015044A41007714BB /* EBuyPortal.xib in Resources */,
+				0ABA1C5215084B9900B503D0 /* EBuyRecommend.xib in Resources */,
+				0A5052A0150855B000C27DB4 /* ebuy_comment_dfimg.png in Resources */,
+				0A5052A1150855B000C27DB4 /* ebuy_comment_photo.png in Resources */,
+				0A5052A2150855B000C27DB4 /* ebuy_comment_pointstar_h.png in Resources */,
+				0A5052A3150855B000C27DB4 /* ebuy_comment_pointstar.png in Resources */,
+				0A5052A4150855B000C27DB4 /* ebuy_comment_revert.png in Resources */,
+				0A5052A5150855B000C27DB4 /* ebuy_comment_send_h.png in Resources */,
+				0A5052A6150855B000C27DB4 /* ebuy_comment_send.png in Resources */,
+				0A5052A7150855B000C27DB4 /* ebuy_comment_sendcomment.png in Resources */,
+				0A5052A8150855B000C27DB4 /* ebuy_form_but_1.png in Resources */,
+				0A5052A9150855B000C27DB4 /* ebuy_form_but_2.png in Resources */,
+				0A5052AA150855B000C27DB4 /* ebuy_form_mytopbg.png in Resources */,
+				0A5052AB150855B000C27DB4 /* ebuy_main_icon_left.png in Resources */,
+				0A5052AC150855B000C27DB4 /* ebuy_main_icon_right.png in Resources */,
+				0A5052AD150855B000C27DB4 /* ebuy_main_select_bg_h.png in Resources */,
+				0A5052AE150855B000C27DB4 /* ebuy_main_select_bg.png in Resources */,
+				0A5052AF150855B000C27DB4 /* ebuy_main_userphoto.png in Resources */,
+				0A5052B0150855B000C27DB4 /* ebuy_order_r.png in Resources */,
+				0A5052B1150855B000C27DB4 /* ebuy_shop_butdel.png in Resources */,
+				0A5052B2150855B000C27DB4 /* ebuy_shopping_bg.png in Resources */,
+				0A5052B3150855B000C27DB4 /* ebuy_shopping_go.png in Resources */,
+				0A5052B4150855B000C27DB4 /* ebuy_shopping_save.png in Resources */,
+				0A5052B5150855B000C27DB4 /* ebuy_sun_main_ad.png in Resources */,
+				0A5052B6150855B000C27DB4 /* ebuy_sun_main_comment.png in Resources */,
+				0A5052B7150855B000C27DB4 /* ebuy_sun_main_groupclss.png in Resources */,
+				0A5052B8150855B000C27DB4 /* ebuy_sun_main_message.png in Resources */,
+				0A5052B9150855B000C27DB4 /* ebuy_sun_main_messagein_h.png in Resources */,
+				0A5052BA150855B000C27DB4 /* ebuy_sun_main_messagein.png in Resources */,
+				0A5052BB150855B000C27DB4 /* ebuy_sun_main_messagesend_h.png in Resources */,
+				0A5052BC150855B000C27DB4 /* ebuy_sun_main_messagesend.png in Resources */,
+				0A5052BD150855B000C27DB4 /* ebuy_sun_main_mycollection.png in Resources */,
+				0A5052BE150855B000C27DB4 /* ebuy_sun_main_myorder.png in Resources */,
+				0A5052BF150855B000C27DB4 /* ebuy_sun_main_newsicon.png in Resources */,
+				0A5052C0150855B000C27DB4 /* ebuy_sun_main_product_h.png in Resources */,
+				0A5052C1150855B000C27DB4 /* ebuy_sun_main_product.png in Resources */,
+				0A5052C2150855B000C27DB4 /* ebuy_sun_main_putbg.png in Resources */,
+				0A5052C3150855B000C27DB4 /* ebuy_sun_main_putleft.png in Resources */,
+				0A5052C4150855B000C27DB4 /* ebuy_sun_main_putpro.png in Resources */,
+				0A5052C5150855B000C27DB4 /* ebuy_sun_main_putright.png in Resources */,
+				0A5052C6150855B000C27DB4 /* ebuy_sun_main_resend_h.png in Resources */,
+				0A5052C7150855B000C27DB4 /* ebuy_sun_main_resend.png in Resources */,
+				0A5052C8150855B000C27DB4 /* ebuy_sun_main_search_bg.png in Resources */,
+				0A5052C9150855B000C27DB4 /* ebuy_sun_main_shopcar.png in Resources */,
+				0A5052CA150855B000C27DB4 /* ebuy_sun_main_store_h.png in Resources */,
+				0A5052CB150855B000C27DB4 /* ebuy_sun_main_store.png in Resources */,
+				0A5052CC150855B000C27DB4 /* ebuy_sun_main_storebtn_h.png in Resources */,
+				0A5052CD150855B000C27DB4 /* ebuy_sun_main_storebtn.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3430,6 +3623,7 @@
 				0AE03308150195BB00B1B27B /* DetailedInfo.m in Sources */,
 				0ABBBAB715042BAE0021C47C /* eShopProducerInfo.m in Sources */,
 				0A71F1EF15044A41007714BB /* EBuyPortal.m in Sources */,
+				0ABA1C5015084B6D00B503D0 /* EBuyRecommend.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

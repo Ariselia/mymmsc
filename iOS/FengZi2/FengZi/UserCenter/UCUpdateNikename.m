@@ -58,7 +58,7 @@
     }
     
     [iOSApi showAlert:@"正在提交信息..."];
-    ucResult *iRet = [Api updateNikename:pwd nikename:nkm];
+    ApiResult *iRet = [Api updateNikename:pwd nikename:nkm];
     [iOSApi closeAlert];
     NSString *msg = nil;
     if (iRet.status == API_USERCENTET_SUCCESS) {

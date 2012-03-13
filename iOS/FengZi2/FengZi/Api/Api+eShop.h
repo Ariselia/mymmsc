@@ -96,7 +96,7 @@
                          page:(int)page;
 
 // 订购
-+ (ucResult *)subscribe:(int)pid;
++ (ApiResult *)subscribe:(int)pid;
 
 // 我的订购
 + (NSMutableArray *)orderList:(int)page;
@@ -111,7 +111,7 @@
 + (NSMutableArray *)bbsList:(int)pid
                        page:(int)page;
 // 提交评论
-+ (ucResult *)conmment:(int)pid
++ (ApiResult *)conmment:(int)pid
               username:(NSString *)username
                    msg:(NSString *)msg;
 

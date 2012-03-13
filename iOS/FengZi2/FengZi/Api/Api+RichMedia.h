@@ -17,7 +17,7 @@
 #define API_RICHMEDIA_PICTYPE_VIDEO (3)
 
 //--------------------< 富媒体 - 对象 - 媒体信息类 >--------------------
-@interface MediaInfo : ucResult {
+@interface MediaInfo : ApiResult {
     
     NSString *key;
     int type;
@@ -31,7 +31,7 @@
 @end
 
 //--------------------< 富媒体 - 对象 - 模板类 >--------------------
-@interface ModelInfo : ucResult {
+@interface ModelInfo : ApiResult {
     NSString *mediaKey;
     NSString *url;
 }
@@ -56,7 +56,7 @@
 @property (nonatomic, copy) NSString *mediaUrl;
 @end
 
-@interface MediaContent : ucResult {
+@interface MediaContent : ApiResult {
     NSString *title;
     NSMutableArray *pageList;
 }
@@ -66,7 +66,7 @@
 @end
 
 //--------------------< 富媒体 - 对象 - 空码内容类 >--------------------
-@interface KmaObject : ucResult {
+@interface KmaObject : ApiResult {
     int      isKma;              // 是否空码
     int      type;               // 类型
     NSString *tranditionContent; // 属性编码?
@@ -107,7 +107,7 @@
 // 空码扫码, 确定业务及内容
 + (KmaObject *)kmaContent:(NSString *)pid;
 
-+ (ucResult *)kmaUpload:(NSString *)pid
++ (ApiResult *)kmaUpload:(NSString *)pid
                    type:(int)type
                 content:(NSString *)content;
 

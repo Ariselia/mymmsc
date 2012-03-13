@@ -9,6 +9,7 @@
 #import "ITTDataRequest.h"
 #import "Reachability.h"
 #import <CoreLocation/CoreLocation.h>
+
 @interface AppDelegate : UIResponder <UIApplicationDelegate,CLLocationManagerDelegate,DataRequestDelegate,UIAlertViewDelegate>{
     UIImageView *_defaultImageView;
     UIActivityIndicatorView *_acivityIndicatorView;

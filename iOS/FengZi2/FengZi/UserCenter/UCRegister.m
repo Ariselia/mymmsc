@@ -81,7 +81,7 @@
         return;
     }
     [iOSApi showAlert:@"正在注册..."];
-    ucResult *iRet = [Api createId:uid passwd:pwd authcode:acd nikename:nicname];
+    ApiResult *iRet = [Api createId:uid passwd:pwd authcode:acd nikename:nicname];
     [iOSApi closeAlert];
     if (iRet.status == 0) {
         [iOSApi showAlert:@"注册成功"];

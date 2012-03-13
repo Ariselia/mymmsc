@@ -35,7 +35,7 @@
         nk = @"匿名";
     }
     [iOSApi showAlert:@"提交评论中"];
-    ucResult *iRet = [Api conmment:info.pid username:nk msg:msg];
+    ApiResult *iRet = [Api conmment:info.pid username:nk msg:msg];
     msg = nil;
     if (iRet.status == 0) {
         msg = @"评论信息提交成功";

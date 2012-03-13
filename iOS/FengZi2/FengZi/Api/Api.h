@@ -8,17 +8,18 @@
 
 #import <iOSApi/iOSApi.h>
 #import <iOSApi/iOSApi+Window.h>
+#import <iOSApi/iOSApi+Crypto.h>
+#import <iOSApi/iOSAction.h>
+#import <iOSApi/iOSFile.h>
+#import <iOSApi/iOSInput.h>
 #import <iOSApi/JSONKit.h>
 #import <iOSApi/HttpClient.h>
 #import <iOSApi/UIImage+Scale.h>
-#import <iOSApi/iOSAction.h>
-#import <iOSApi/iOSInput.h>
-#import <iOSApi/NSString+Utils.h>
+#import <iOSApi/NSArray+Utils.h>
 #import <iOSApi/NSObject+Utils.h>
+#import <iOSApi/NSString+Utils.h>
+#import <iOSApi/NSDictionary+Utils.h>
 #import <iOSApi/iOSToast.h>
-#import <iOSApi/iOSApi+Crypto.h>
-#import <iOSApi/iOSFile.h>
-
 
 #define kCellIconHeight 24.0f
 
@@ -43,6 +44,7 @@
 //#define API_URL_ESHOP        @"http://220.231.48.34:9000/eshop"
 
 // 电子商城
+#define API_URL_EBUY         @"http://220.231.48.34:38080/ebuy"
 
 //====================================< 用户信息 >====================================
 
@@ -70,13 +72,13 @@
 @end
 
 //====================================< 接口响应类 >====================================
-@interface ucResult : NSObject {
+@interface ApiResult : NSObject {
     int       status;
     NSString *message;
 }
 
 @property (nonatomic, assign) int status;
-@property (nonatomic, retain) NSString *message;
+@property (nonatomic, copy) NSString *message;
 
 - (NSDictionary *)parse:(NSDictionary *)map;
 
@@ -137,9 +139,6 @@
 + (int)getInt:(id)value;
 + (float)getFloat:(id)value;
 + (NSString *)getString:(id)value;
-// JSON串字典转换对象
-+ (id)dictToObject:(NSDictionary *)dict class:(Class)clazz;
-+ (void)dictToObject:(NSDictionary *)dict object:(id)obj;
 
 + (NSMutableDictionary *)post:(NSString *)action params:(NSDictionary *)param;
 
