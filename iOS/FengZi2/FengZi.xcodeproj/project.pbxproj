@@ -17,7 +17,6 @@
 		0AB8584B14FC370F0062C1C5 /* eshop_info_popup.png in Resources */ = {isa = PBXBuildFile; fileRef = 0AB8584A14FC370F0062C1C5 /* eshop_info_popup.png */; };
 		0ABA1C5015084B6D00B503D0 /* EBuyRecommend.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ABA1C4F15084B6D00B503D0 /* EBuyRecommend.m */; };
 		0ABA1C5215084B9900B503D0 /* EBuyRecommend.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0ABA1C5115084B9900B503D0 /* EBuyRecommend.xib */; };
-		0ABBBAB4150210240021C47C /* InfoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0ABBBAB3150210240021C47C /* InfoView.xib */; };
 		0ABBBAB715042BAE0021C47C /* eShopProducerInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ABBBAB615042BAD0021C47C /* eShopProducerInfo.m */; };
 		0ABBBAB915042BCD0021C47C /* eShopProducerInfo.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0ABBBAB815042BCD0021C47C /* eShopProducerInfo.xib */; };
 		0ABD84EB15100100005BD93B /* ebuy_comment_dfimg.png in Resources */ = {isa = PBXBuildFile; fileRef = 0ABD84BC15100100005BD93B /* ebuy_comment_dfimg.png */; };
@@ -67,8 +66,6 @@
 		0ABD851715100100005BD93B /* ebuy_sun_main_store.png in Resources */ = {isa = PBXBuildFile; fileRef = 0ABD84E815100100005BD93B /* ebuy_sun_main_store.png */; };
 		0ABD851815100100005BD93B /* ebuy_sun_main_storebtn_h.png in Resources */ = {isa = PBXBuildFile; fileRef = 0ABD84E915100100005BD93B /* ebuy_sun_main_storebtn_h.png */; };
 		0ABD851915100100005BD93B /* ebuy_sun_main_storebtn.png in Resources */ = {isa = PBXBuildFile; fileRef = 0ABD84EA15100100005BD93B /* ebuy_sun_main_storebtn.png */; };
-		0AE03308150195BB00B1B27B /* DetailedInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AE03306150195BB00B1B27B /* DetailedInfo.m */; };
-		0AE03309150195BB00B1B27B /* DetailedInfo.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0AE03307150195BB00B1B27B /* DetailedInfo.xib */; };
 		0AE7932D14FAB2330018367B /* UCAppStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AE7931314FAB2330018367B /* UCAppStore.m */; };
 		0AE7932E14FAB2330018367B /* UCAppStore.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0AE7931414FAB2330018367B /* UCAppStore.xib */; };
 		0AE7932F14FAB2330018367B /* UCBookReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AE7931614FAB2330018367B /* UCBookReader.m */; };
@@ -676,7 +673,6 @@
 		0ABA1C4E15084B6D00B503D0 /* EBuyRecommend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EBuyRecommend.h; sourceTree = "<group>"; };
 		0ABA1C4F15084B6D00B503D0 /* EBuyRecommend.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EBuyRecommend.m; sourceTree = "<group>"; };
 		0ABA1C5115084B9900B503D0 /* EBuyRecommend.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EBuyRecommend.xib; sourceTree = "<group>"; };
-		0ABBBAB3150210240021C47C /* InfoView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InfoView.xib; sourceTree = "<group>"; };
 		0ABBBAB515042BAC0021C47C /* eShopProducerInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = eShopProducerInfo.h; sourceTree = "<group>"; };
 		0ABBBAB615042BAD0021C47C /* eShopProducerInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = eShopProducerInfo.m; sourceTree = "<group>"; };
 		0ABBBAB815042BCD0021C47C /* eShopProducerInfo.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = eShopProducerInfo.xib; sourceTree = "<group>"; };
@@ -727,9 +723,6 @@
 		0ABD84E815100100005BD93B /* ebuy_sun_main_store.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ebuy_sun_main_store.png; sourceTree = "<group>"; };
 		0ABD84E915100100005BD93B /* ebuy_sun_main_storebtn_h.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ebuy_sun_main_storebtn_h.png; sourceTree = "<group>"; };
 		0ABD84EA15100100005BD93B /* ebuy_sun_main_storebtn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ebuy_sun_main_storebtn.png; sourceTree = "<group>"; };
-		0AE03305150195BB00B1B27B /* DetailedInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailedInfo.h; sourceTree = "<group>"; };
-		0AE03306150195BB00B1B27B /* DetailedInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailedInfo.m; sourceTree = "<group>"; };
-		0AE03307150195BB00B1B27B /* DetailedInfo.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DetailedInfo.xib; sourceTree = "<group>"; };
 		0AE7931214FAB2330018367B /* UCAppStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UCAppStore.h; sourceTree = "<group>"; };
 		0AE7931314FAB2330018367B /* UCAppStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UCAppStore.m; sourceTree = "<group>"; };
 		0AE7931414FAB2330018367B /* UCAppStore.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UCAppStore.xib; sourceTree = "<group>"; };
@@ -1629,10 +1622,6 @@
 				0AE7932A14FAB2330018367B /* UCStoreTable.h */,
 				0AE7932B14FAB2330018367B /* UCStoreTable.m */,
 				0AE7932C14FAB2330018367B /* UCStoreTable.xib */,
-				0AE03305150195BB00B1B27B /* DetailedInfo.h */,
-				0AE03306150195BB00B1B27B /* DetailedInfo.m */,
-				0AE03307150195BB00B1B27B /* DetailedInfo.xib */,
-				0ABBBAB3150210240021C47C /* InfoView.xib */,
 				0ABBBAB515042BAC0021C47C /* eShopProducerInfo.h */,
 				0ABBBAB615042BAD0021C47C /* eShopProducerInfo.m */,
 				0ABBBAB815042BCD0021C47C /* eShopProducerInfo.xib */,
@@ -3377,8 +3366,6 @@
 				0AB8584814FC34E50062C1C5 /* send_btn_nor.png in Resources */,
 				0AB8584914FC34E50062C1C5 /* send_btn_sel.png in Resources */,
 				0AB8584B14FC370F0062C1C5 /* eshop_info_popup.png in Resources */,
-				0AE03309150195BB00B1B27B /* DetailedInfo.xib in Resources */,
-				0ABBBAB4150210240021C47C /* InfoView.xib in Resources */,
 				0ABBBAB915042BCD0021C47C /* eShopProducerInfo.xib in Resources */,
 				0A71F1F015044A41007714BB /* EBuyPortal.xib in Resources */,
 				0ABA1C5215084B9900B503D0 /* EBuyRecommend.xib in Resources */,
@@ -3630,7 +3617,6 @@
 				0AE7933914FAB2330018367B /* UCStorePerson.m in Sources */,
 				0AE7933B14FAB2330018367B /* UCStoreSubscribe.m in Sources */,
 				0AE7933D14FAB2330018367B /* UCStoreTable.m in Sources */,
-				0AE03308150195BB00B1B27B /* DetailedInfo.m in Sources */,
 				0ABBBAB715042BAE0021C47C /* eShopProducerInfo.m in Sources */,
 				0A71F1EF15044A41007714BB /* EBuyPortal.m in Sources */,
 				0ABA1C5015084B6D00B503D0 /* EBuyRecommend.m in Sources */,
