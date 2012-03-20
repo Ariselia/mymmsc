@@ -20,7 +20,7 @@
     [key release];
     [tinyName release];
     
-    [super release];
+    [super dealloc];
 }
 
 @end
