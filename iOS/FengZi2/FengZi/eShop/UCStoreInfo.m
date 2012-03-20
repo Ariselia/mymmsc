@@ -21,7 +21,6 @@
 #import "UCBookReader.h"
 #import "UCMoviePlayer.h"
 #import "UCMusicPlayer.h"
-#import "DetailedInfo.h"
 #import "eShopProducerInfo.h"
 
 @implementation UCStoreInfo
@@ -170,19 +169,6 @@ static BOOL dLoaded = NO;
         topView.info = info;
         topView.idInfo = self;
         [topView loadData:info];
-        /*
-        CGRect frame = topView.frame;
-        frame.origin.x = 0;
-        frame.origin.y = 0;
-        frame.size.height = 270;
-        frame.size.width = 320;
-        topView.frame = frame;
-        [topView awakeFromNib];
-        [cell addSubview:topView];
-        cell.selectionStyle=UITableViewCellSelectionStyleGray;
-        [tableView selectRowAtIndexPath:indexPath animated:NO scrollPosition:UITableViewScrollPositionMiddle];
-        //[self.tableView bringSubviewToFront:topView.view];
-        */
         cell = topView;
         dLoaded = YES;
     } else {
@@ -192,7 +178,6 @@ static BOOL dLoaded = NO;
         UIFont *detailFont = [UIFont systemFontOfSize:12.0];
         int imageHeight = 36;
         
-        //cell.imageView.image = [[iOSApi imageNamed:[Api typeIcon:obj.type]] scaleToSize:CGSizeMake(36, 36)];
         // 占位
         cell.imageView.image = [[UIImage imageNamed:@"unknown.png"] scaleToSize:CGSizeMake(imageHeight, imageHeight)];
         NSString *tmpUrl = [iOSApi urlDecode:obj.productLogo];
