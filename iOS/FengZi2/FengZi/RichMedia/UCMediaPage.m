@@ -201,42 +201,21 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    /*
-    // 没有背景音乐, 隐藏音乐背景条
-    if (info.soundUrl == nil) {
-        subject.hidden = YES;
-    }
-    // 少4(3)行, 每行核定33个字节/17个汉字, 隐藏文本扩展按钮
-    if (info.textContent.length < 99) {
-        btnText.hidden = YES;
-    }
-    if (info.picType == API_RICHMEDIA_PICTYPE_VIDEO) {
-        // 视频, 增加下载按钮
-        CGRect frame = pic.frame;
-        frame.origin.x /= 2 + 30;
-        frame.origin.y /= 2 + 30;
-        frame.size.width = 120;
-        frame.size.height = 120;
-        UIButton *btnDown = [UIButton buttonWithType:UIButtonTypeCustom];
-        btnDown.frame =frame;
-        [btnDown setImage:[UIImage imageNamed:@"video_play.png"] forState:UIControlStateNormal];
-        [btnDown setImage:[UIImage imageNamed:@"video_play.png"] forState:UIControlStateHighlighted];
-        [btnDown addTarget:self action:@selector(doDownload) forControlEvents:UIControlEventTouchUpInside];
-        //
-        [self.view addSubview:btnDown];
-        [self.view sendSubviewToBack:btnDown];
-        [btnDown release];
-    }
-    */
 }
 
 - (void)viewDidUnload
 {
     [super viewDidUnload];
     if (moviePlayer != nil) {
+        [moviePlayer stop];
         [moviePlayer release];
-    }    
+    }
     moviePlayer = nil;
+    if (audioPlayer != nil) {
+        [audioPlayer stop];
+        [audioPlayer release];
+    }
+    audioPlayer = nil;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
