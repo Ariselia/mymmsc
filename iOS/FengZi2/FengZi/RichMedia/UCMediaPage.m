@@ -17,7 +17,7 @@
 @synthesize filePath;
 @synthesize subject, content, pic, bgAudio, btnAudio;
 @synthesize info;
-@synthesize button, btnText;
+@synthesize button;
 @synthesize moviePlayer, state, stText;
 
 // 媒体状态
@@ -194,20 +194,6 @@
     return YES;
 }
 
--(IBAction)allText:(id)sender {
-    if (stText == 0) {
-        [btnText setImage:[UIImage imageNamed:@"duomeiti_up.png"] forState:UIControlStateNormal];
-        [btnText setImage:[UIImage imageNamed:@"duomeiti_up.png"] forState:UIControlStateHighlighted];
-        stText = 1;
-        [content setNumberOfLines:10];
-        //self.view.autoresizesSubviews = YES;
-    } else {
-        [btnText setImage:[UIImage imageNamed:@"duomeiti_down.png"] forState:UIControlStateNormal];
-        [btnText setImage:[UIImage imageNamed:@"duomeiti_down.png"] forState:UIControlStateHighlighted];
-        stText = 0;
-        [content setNumberOfLines:2];
-    }
-}
 #pragma mark - View lifecycle
 
 
@@ -259,17 +245,17 @@
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
+static NSString *sFile = nil;
+static int sButton = 0;
+
 - (void)loadData {
+    sFile = nil;
     // Do any additional setup after loading the view from its nib.
     bgAudio.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"bg33.png"]];
     // 没有背景音乐, 隐藏音乐背景条
     if (info.soundUrl == nil || info.soundUrl.length < 5) {
         bgAudio.hidden = YES;
         btnAudio.hidden = YES;
-    }
-    // 少4(3)行, 每行核定33个字节/17个汉字, 隐藏文本扩展按钮
-    if (info.textContent.length < 120) {
-        btnText.hidden = YES;
     }
     if (info.tinyPicUrl != nil) {
         [self downImage:info.tinyPicUrl];
@@ -293,9 +279,6 @@
         [self.view bringSubviewToFront:btnDown];
     }
 }
-
-static NSString *sFile = nil;
-static int sButton = 0;
 
 -(IBAction)playAudio:(id)sender {
     NSURL *fileURL = nil;
