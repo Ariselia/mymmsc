@@ -158,9 +158,12 @@
     [rightItem release];
     
     // bebe13af-287d-424d-b817-be0504a0850b
+    [iOSApi showAlert:@"Loading..."];
+    
     if (urlMedia != nil) {
         NSDictionary *dict = [Api parseUrl:urlMedia];
         code = [dict objectForKey:@"id"];
+
     }
     
     [Api kmaSetId:code];
@@ -178,7 +181,8 @@
     xCount = 0;
     if (mc.status == 0) {
         xCount = mc.pageList.count;
-        [iOSApi Alert:@"提示" message:@"获取内容正确"];
+        //[iOSApi Alert:@"提示" message:@"获取内容正确"];
+        [iOSApi showCompleted:@"媒体加载完成"];
     } else {
         [iOSApi Alert:@"提示" message:mc.message];
         //[iOSApi Alert:@"提示" message:@"获取内容正确"];
@@ -205,6 +209,7 @@
         [self.scrollViewX addSubview:page.view];
     }
     [self changePage:0];
+    [iOSApi closeAlert];
 }
 
 
