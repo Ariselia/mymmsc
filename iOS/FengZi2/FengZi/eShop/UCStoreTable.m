@@ -13,7 +13,6 @@
 #import "UCStoreSubscribe.h"
 #import "UCStorePerson.h"
 #import <iOSApi/iOSAsyncImageView.h>
-#import "DetailedInfo.h"
 
 @implementation UCStoreTable
 
