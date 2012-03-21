@@ -21,15 +21,14 @@
 @property (nonatomic, copy) NSString *filePath;
 @property (nonatomic, retain) MediaObject *info;
 @property (nonatomic, retain) IBOutlet UILabel *subject, *bgAudio;
-@property (nonatomic, retain) IBOutlet UILabel  *content;
+@property (nonatomic, retain) IBOutlet UITextView *content;
 @property (nonatomic, retain) IBOutlet UIImageView *pic;
 
 @property (nonatomic, retain) MPMoviePlayerController *moviePlayer;
 @property (nonatomic, assign) int state, stText;
-@property (nonatomic, retain) IBOutlet UIButton *button, *btnText, *btnAudio;
+@property (nonatomic, retain) IBOutlet UIButton *button, *btnAudio;
 
 -(IBAction)playAudio:(id)sender;
--(IBAction)allText:(id)sender;
 -(IBAction)playMovie:(id)sender;
 - (void)loadData;
 
