@@ -97,7 +97,7 @@ static unsigned char workspace[64];
     state[3] += d;
     state[4] += e;
     /* Wipe variables */
-    a = b = c = d = e = 0;
+    //a = b = c = d = e = 0;
 }
 
 
