@@ -139,6 +139,7 @@ static int iTimes = -1;
 }
 
 -(void) chooseShowController:(NSString*)input{
+    iOSLog(@"decode input = %@", input);
     BusCategory *category = [BusDecoder classify:input];
     UIImage *saveImage = [self generateImageWithInput:input];
     UIImage *inputImage = saveImage;
