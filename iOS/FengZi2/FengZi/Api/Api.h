@@ -40,7 +40,7 @@
 // 用户中心借口地质
 #define API_URL_USERCENTER   @"http://ifengzi.cn"
 // 数字商城
-#define API_URL_ESHOP        @"http://220.231.48.34:38080"
+#define API_URL_ESHOP        @"http://220.231.48.34:38090"
 //#define API_URL_ESHOP        @"http://220.231.48.34:9000/eshop"
 
 // 电子商城
