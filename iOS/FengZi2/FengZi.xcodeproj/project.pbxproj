@@ -2964,7 +2964,7 @@
 		3E11F11E1472686800ACC436 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0420;
+				LastUpgradeCheck = 0430;
 				ORGANIZATIONNAME = iTotemStudio;
 			};
 			buildConfigurationList = 3E11F1211472686800ACC436 /* Build configuration list for PBXProject "FengZi" */;
