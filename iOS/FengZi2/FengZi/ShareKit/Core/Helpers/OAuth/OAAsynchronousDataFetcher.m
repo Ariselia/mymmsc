@@ -123,8 +123,9 @@
 
 - (void)connection:(NSURLConnection *)aConnection didReceiveResponse:(NSURLResponse *)aResponse
 {
-	if (response)
+	if (response){
 		[response release];
+    }
 	response = [aResponse retain];
 	[responseData setLength:0];
 }
