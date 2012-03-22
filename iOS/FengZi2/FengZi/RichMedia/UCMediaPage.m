@@ -249,7 +249,7 @@ static int sButton = 0;
         frame.size.width = 120;
         frame.size.height = 120;
         btnDown = [UIButton buttonWithType:UIButtonTypeCustom];
-        btnDown.frame =frame;
+        btnDown.frame = frame;
         [btnDown setImage:[UIImage imageNamed:@"video_play.png"] forState:UIControlStateNormal];
         [btnDown setImage:[UIImage imageNamed:@"video_play.png"] forState:UIControlStateHighlighted];
         [btnDown addTarget:self action:@selector(doDownload) forControlEvents:UIControlEventTouchUpInside];
