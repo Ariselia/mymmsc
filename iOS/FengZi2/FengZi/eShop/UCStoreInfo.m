@@ -17,7 +17,7 @@
 #import <iOSApi/iOSAsyncImageView.h>
 
 #import <iOSApi/UIImage+Scale.h>
-#import <iOSApi/iOSImageView.h>
+#import <iOSApi/iOSImageView2.h>
 #import "UCBookReader.h"
 #import "UCMoviePlayer.h"
 #import "UCMusicPlayer.h"

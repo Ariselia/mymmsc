@@ -16,8 +16,8 @@
 #import "UCStoreBBS.h"
 #import <iOSApi/iOSAsyncImageView.h>
 #import <iOSApi/UIImage+Scale.h>
+#import <iOSApi/iOSImageView2.h>
 #import <iOSApi/iOSImageView.h>
-#import <iOSApi/ImageView.h>
 #import "UCBookReader.h"
 #import "UCMoviePlayer.h"
 #import "UCMusicPlayer.h"
@@ -115,7 +115,7 @@
             // 图片
             NSString *filePath = [iOSFile path:[Api filePath:info.orderProductUrl]];
             UIImage *im = [UIImage imageWithData:[NSData dataWithContentsOfFile:filePath]];
-            iOSImageView *iv = [[iOSImageView alloc] initWithImage:im superView:self];
+            iOSImageView2 *iv = [[iOSImageView2 alloc] initWithImage:im superView:self];
             [iv release];
         } else if(info.type == 2) {
             // 音频

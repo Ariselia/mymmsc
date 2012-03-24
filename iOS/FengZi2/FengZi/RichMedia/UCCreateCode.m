@@ -132,7 +132,7 @@ static int iTimes = -1;
     //UIGraphicsEndImageContext();
     UIImage *scaledImage = [img thumb:&size];
     fmtBuffer = [UIImagePNGRepresentation(scaledImage) retain];
-    iOSImageView *iv = [[iOSImageView alloc] initWithImage:scaledImage superView:self.view];
+    iOSImageView2 *iv = [[iOSImageView2 alloc] initWithImage:scaledImage superView:self.view];
     iv.delegate = self;
     [iv release];
 }
@@ -497,7 +497,7 @@ static NSMutableArray *urlList = nil;
     [self fmtAddAudio];
 }
 
-- (void)imageViewWillClose:(iOSImageView *)imageView {
+- (void)imageViewWillClose:(iOSImageView2 *)imageView {
     if (type == 1) {
         //[NSThread detachNewThreadSelector:@selector(startUploadImage) toTarget:self withObject:nil];
         [self startUploadImage];

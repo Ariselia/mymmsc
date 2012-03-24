@@ -8,7 +8,7 @@
 
 #import "UCMediaPage.h"
 #import <iOSApi/UIImage+Scale.h>
-#import <iOSApi/iOSImageView.h>
+#import <iOSApi/iOSImageView2.h>
 #import "Api+RichMedia.h"
 #import "Api+eShop.h"
 
@@ -196,16 +196,13 @@
 
 #pragma mark - View lifecycle
 
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
 }
 
-- (void)viewDidUnload
-{
-    [super viewDidUnload];
+- (void)cancel{
     if (moviePlayer != nil) {
         [moviePlayer stop];
         [moviePlayer release];
@@ -218,10 +215,20 @@
     audioPlayer = nil;
 }
 
+- (void)viewDidUnload
+{
+    [super viewDidUnload];
+    [self cancel];
+}
+
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     // Return YES for supported orientations
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
+}
+
+- (void)viewDidDisappear:(BOOL)animated{
+    [self cancel];
 }
 
 static NSString *sFile = nil;

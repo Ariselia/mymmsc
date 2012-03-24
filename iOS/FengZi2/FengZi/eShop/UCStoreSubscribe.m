@@ -9,7 +9,7 @@
 #import "UCStoreSubscribe.h"
 #import "Api+eShop.h"
 #import <iOSApi/UIImage+Scale.h>
-#import <iOSApi/iOSImageView.h>
+#import <iOSApi/iOSImageView2.h>
 #import "UCStoreInfo.h"
 #import "UCLogin.h"
 #import "UCBookReader.h"
@@ -200,7 +200,7 @@ static ProductInfo *theObj = nil;
             // 图片
             NSString *filePath = [iOSFile path:[Api filePath:obj.orderProductUrl]];
             UIImage *im = [UIImage imageWithData:[NSData dataWithContentsOfFile:filePath]];
-            iOSImageView *iv = [[iOSImageView alloc] initWithImage:im superView:self.view];
+            iOSImageView2 *iv = [[iOSImageView2 alloc] initWithImage:im superView:self.view];
             [iv release];
         } else if(obj.type == 2) {
             // 音频

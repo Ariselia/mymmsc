@@ -8,13 +8,13 @@
 
 #import <UIKit/UIKit.h>
 #import "Api+eShop.h"
-#import <iOSApi/ImageView.h>
+#import <iOSApi/iOSImageView.h>
 #import <iOSApi/iOSTableViewController.h>
 #import <iOSApi/HttpDownload.h>
 
 @interface eShopProducerInfo : UITableViewCell<HttpDownloadDelegate>{
     ProductInfo *info;
-    ImageView *infoImage;
+    iOSImageView *infoImage;
     UILabel    *infoType;
     UILabel    *infoName;
     UILabel    *infoWriter;
@@ -26,7 +26,7 @@
 }
 
 @property (nonatomic, retain) ProductInfo *info;
-@property (nonatomic, retain) IBOutlet ImageView *infoImage;
+@property (nonatomic, retain) IBOutlet iOSImageView *infoImage;
 @property (nonatomic, retain) IBOutlet UILabel *infoType;
 @property (nonatomic, retain) IBOutlet UILabel *infoName;
 @property (nonatomic, retain) IBOutlet UILabel *infoWriter;

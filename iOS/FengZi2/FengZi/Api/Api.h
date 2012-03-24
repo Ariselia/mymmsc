@@ -12,6 +12,7 @@
 #import <iOSApi/iOSAction.h>
 #import <iOSApi/iOSFile.h>
 #import <iOSApi/iOSInput.h>
+#import <iOSApi/iOSImageView.h>
 #import <iOSApi/JSONKit.h>
 #import <iOSApi/HttpClient.h>
 #import <iOSApi/UIImage+Scale.h>

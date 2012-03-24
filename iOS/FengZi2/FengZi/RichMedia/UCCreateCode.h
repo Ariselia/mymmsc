@@ -13,7 +13,7 @@
 #import <iOSApi/DropDownList.h>
 #import "RichMedia.h"
 #import "Api+RichMedia.h"
-#import <iOSApi/iOSImageView.h>
+#import <iOSApi/iOSImageView2.h>
 
 #define VideoPickerItemImageWidth  (320)
 #define VideoPickerItemImageHeight (480)
