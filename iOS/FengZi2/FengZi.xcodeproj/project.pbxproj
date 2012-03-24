@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0A000776151D633400BEA5E9 /* ZXingWidget.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A000775151D633300BEA5E9 /* ZXingWidget.framework */; };
 		0A00FF0D151D53DB00BEA5E9 /* QRCode.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A00FF0C151D53DA00BEA5E9 /* QRCode.framework */; };
 		0A71F1EF15044A41007714BB /* EBuyPortal.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A71F1ED15044A41007714BB /* EBuyPortal.m */; };
 		0A71F1F015044A41007714BB /* EBuyPortal.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A71F1EE15044A41007714BB /* EBuyPortal.xib */; };
@@ -195,7 +196,6 @@
 		3EAEC9A6147272260091A88C /* EncodeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3EAEC99E147272260091A88C /* EncodeViewController.xib */; };
 		3EAEC9A9147272260091A88C /* DecodeViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3EAEC9A3147272260091A88C /* DecodeViewController.mm */; };
 		3EAEC9AA147272260091A88C /* DecodeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3EAEC9A4147272260091A88C /* DecodeViewController.xib */; };
-		3EAEC9B0147277110091A88C /* libZXingWidget.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3EAEC9931472710E0091A88C /* libZXingWidget.a */; };
 		71047A411490AA2300561713 /* color_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 71047A401490AA2300561713 /* color_bg.png */; };
 		71047A4B1490AB1900561713 /* camera_scan1.png in Resources */ = {isa = PBXBuildFile; fileRef = 71047A421490AB1900561713 /* camera_scan1.png */; };
 		71047A4C1490AB1900561713 /* camera_scan2.png in Resources */ = {isa = PBXBuildFile; fileRef = 71047A431490AB1900561713 /* camera_scan2.png */; };
@@ -627,31 +627,8 @@
 		B8F123E414E9B76C0042EAA9 /* bg33.png in Resources */ = {isa = PBXBuildFile; fileRef = B8F123E314E9B76C0042EAA9 /* bg33.png */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXContainerItemProxy section */
-		3EAEC9921472710E0091A88C /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 3EAEC98A1472710E0091A88C /* ZXingWidget.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = D2AAC07E0554694100DB518D;
-			remoteInfo = ZXingWidget;
-		};
-		3EAEC9941472710E0091A88C /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 3EAEC98A1472710E0091A88C /* ZXingWidget.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 1D60398D13DF7CAD006F4B51;
-			remoteInfo = ZXingTests;
-		};
-		3EAEC9AD1472743B0091A88C /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 3EAEC98A1472710E0091A88C /* ZXingWidget.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = D2AAC07D0554694100DB518D;
-			remoteInfo = ZXingWidget;
-		};
-/* End PBXContainerItemProxy section */
-
 /* Begin PBXFileReference section */
+		0A000775151D633300BEA5E9 /* ZXingWidget.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ZXingWidget.framework; path = ../../../../runtime/SDK/ZXingWidget.framework; sourceTree = "<group>"; };
 		0A00FF0C151D53DA00BEA5E9 /* QRCode.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QRCode.framework; path = ../../../../runtime/SDK/QRCode.framework; sourceTree = "<group>"; };
 		0A71F1EC15044A41007714BB /* EBuyPortal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EBuyPortal.h; sourceTree = "<group>"; };
 		0A71F1ED15044A41007714BB /* EBuyPortal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EBuyPortal.m; sourceTree = "<group>"; };
@@ -908,7 +885,6 @@
 		3E11F23614726E3100ACC436 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		3E11F23B14726E8F00ACC436 /* RIButtonItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RIButtonItem.h; sourceTree = "<group>"; };
 		3E11F23C14726E8F00ACC436 /* RIButtonItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RIButtonItem.m; sourceTree = "<group>"; };
-		3EAEC98A1472710E0091A88C /* ZXingWidget.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ZXingWidget.xcodeproj; path = QRReferences/ZXingWidget/ZXingWidget.xcodeproj; sourceTree = "<group>"; };
 		3EAEC996147271E80091A88C /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		3EAEC998147271F60091A88C /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
 		3EAEC99A147272020091A88C /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
@@ -1491,12 +1467,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0A000776151D633400BEA5E9 /* ZXingWidget.framework in Frameworks */,
 				0A00FF0D151D53DB00BEA5E9 /* QRCode.framework in Frameworks */,
 				B8D4A72D14E5206E0057203A /* AssetsLibrary.framework in Frameworks */,
 				B8D4A72B14E51FF80057203A /* MediaPlayer.framework in Frameworks */,
 				B8D4A70A14E4B3000057203A /* iOSApi.framework in Frameworks */,
 				716ADCCA14974385005E82B1 /* libsqlite3.0.dylib in Frameworks */,
-				3EAEC9B0147277110091A88C /* libZXingWidget.a in Frameworks */,
 				3EAEC99B147272020091A88C /* CoreVideo.framework in Frameworks */,
 				3EAEC999147271F60091A88C /* CoreMedia.framework in Frameworks */,
 				3EAEC997147271E80091A88C /* AVFoundation.framework in Frameworks */,
@@ -1705,6 +1681,7 @@
 			children = (
 				B8D4A70914E4B3000057203A /* iOSApi.framework */,
 				716ADCC914974385005E82B1 /* libsqlite3.0.dylib */,
+				0A000775151D633300BEA5E9 /* ZXingWidget.framework */,
 				0A00FF0C151D53DA00BEA5E9 /* QRCode.framework */,
 				B8D4A72A14E51FF80057203A /* MediaPlayer.framework */,
 				B8D4A72C14E5206D0057203A /* AssetsLibrary.framework */,
@@ -1904,7 +1881,6 @@
 		3E11F1AE14726BD900ACC436 /* References */ = {
 			isa = PBXGroup;
 			children = (
-				3EAEC98A1472710E0091A88C /* ZXingWidget.xcodeproj */,
 				3E11F1ED14726C4900ACC436 /* JSON */,
 				3E11F1CD14726C3700ACC436 /* ASIHttpRequest */,
 			);
@@ -2157,15 +2133,6 @@
 			children = (
 			);
 			name = ViewControllers;
-			sourceTree = "<group>";
-		};
-		3EAEC98B1472710E0091A88C /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				3EAEC9931472710E0091A88C /* libZXingWidget.a */,
-				3EAEC9951472710E0091A88C /* ZXingTests.octest */,
-			);
-			name = Products;
 			sourceTree = "<group>";
 		};
 		71356639149EF0B2006DC948 /* More */ = {
@@ -2952,7 +2919,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				3EAEC9AE1472743B0091A88C /* PBXTargetDependency */,
 			);
 			name = FengZi;
 			productName = FengZi;
@@ -2979,35 +2945,12 @@
 			mainGroup = 3E11F11C1472686800ACC436;
 			productRefGroup = 3E11F1281472686800ACC436 /* Products */;
 			projectDirPath = "";
-			projectReferences = (
-				{
-					ProductGroup = 3EAEC98B1472710E0091A88C /* Products */;
-					ProjectRef = 3EAEC98A1472710E0091A88C /* ZXingWidget.xcodeproj */;
-				},
-			);
 			projectRoot = "";
 			targets = (
 				3E11F1261472686800ACC436 /* FengZi */,
 			);
 		};
 /* End PBXProject section */
-
-/* Begin PBXReferenceProxy section */
-		3EAEC9931472710E0091A88C /* libZXingWidget.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libZXingWidget.a;
-			remoteRef = 3EAEC9921472710E0091A88C /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		3EAEC9951472710E0091A88C /* ZXingTests.octest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = ZXingTests.octest;
-			remoteRef = 3EAEC9941472710E0091A88C /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		3E11F1251472686800ACC436 /* Resources */ = {
@@ -3621,14 +3564,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		3EAEC9AE1472743B0091A88C /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = ZXingWidget;
-			targetProxy = 3EAEC9AD1472743B0091A88C /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		3E11F1341472686900ACC436 /* InfoPlist.strings */ = {
