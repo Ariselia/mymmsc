@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0A00FF0D151D53DB00BEA5E9 /* QRCode.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A00FF0C151D53DA00BEA5E9 /* QRCode.framework */; };
 		0A71F1EF15044A41007714BB /* EBuyPortal.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A71F1ED15044A41007714BB /* EBuyPortal.m */; };
 		0A71F1F015044A41007714BB /* EBuyPortal.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A71F1EE15044A41007714BB /* EBuyPortal.xib */; };
 		0AAECA6E1517EAD000D5DDBE /* EBExpressDetail.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AAECA6C1517EAD000D5DDBE /* EBExpressDetail.m */; };
@@ -19,6 +20,12 @@
 		0ABA1C5215084B9900B503D0 /* EBuyRecommend.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0ABA1C5115084B9900B503D0 /* EBuyRecommend.xib */; };
 		0ABBBAB715042BAE0021C47C /* eShopProducerInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ABBBAB615042BAD0021C47C /* eShopProducerInfo.m */; };
 		0ABBBAB915042BCD0021C47C /* eShopProducerInfo.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0ABBBAB815042BCD0021C47C /* eShopProducerInfo.xib */; };
+		0ABBBF2C151B7CAE00C4A6F2 /* EBProductDetail.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ABBBF2A151B7CAE00C4A6F2 /* EBProductDetail.m */; };
+		0ABBBF2D151B7CAE00C4A6F2 /* EBProductDetail.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0ABBBF2B151B7CAE00C4A6F2 /* EBProductDetail.xib */; };
+		0ABBBF35151B990400C4A6F2 /* EBAdBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ABBBF34151B990400C4A6F2 /* EBAdBar.m */; };
+		0ABBBF37151B992000C4A6F2 /* EBAdBar.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0ABBBF36151B992000C4A6F2 /* EBAdBar.xib */; };
+		0ABBBF3B151B9C3800C4A6F2 /* EBShopList.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ABBBF39151B9C3700C4A6F2 /* EBShopList.m */; };
+		0ABBBF3C151B9C3800C4A6F2 /* EBShopList.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0ABBBF3A151B9C3700C4A6F2 /* EBShopList.xib */; };
 		0ABD84EB15100100005BD93B /* ebuy_comment_dfimg.png in Resources */ = {isa = PBXBuildFile; fileRef = 0ABD84BC15100100005BD93B /* ebuy_comment_dfimg.png */; };
 		0ABD84EC15100100005BD93B /* ebuy_comment_photo.png in Resources */ = {isa = PBXBuildFile; fileRef = 0ABD84BD15100100005BD93B /* ebuy_comment_photo.png */; };
 		0ABD84ED15100100005BD93B /* ebuy_comment_pointstar_h.png in Resources */ = {isa = PBXBuildFile; fileRef = 0ABD84BE15100100005BD93B /* ebuy_comment_pointstar_h.png */; };
@@ -188,7 +195,6 @@
 		3EAEC9A6147272260091A88C /* EncodeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3EAEC99E147272260091A88C /* EncodeViewController.xib */; };
 		3EAEC9A9147272260091A88C /* DecodeViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3EAEC9A3147272260091A88C /* DecodeViewController.mm */; };
 		3EAEC9AA147272260091A88C /* DecodeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3EAEC9A4147272260091A88C /* DecodeViewController.xib */; };
-		3EAEC9AF147277110091A88C /* libqrencoder.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3EAEC989147271060091A88C /* libqrencoder.a */; };
 		3EAEC9B0147277110091A88C /* libZXingWidget.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3EAEC9931472710E0091A88C /* libZXingWidget.a */; };
 		71047A411490AA2300561713 /* color_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 71047A401490AA2300561713 /* color_bg.png */; };
 		71047A4B1490AB1900561713 /* camera_scan1.png in Resources */ = {isa = PBXBuildFile; fileRef = 71047A421490AB1900561713 /* camera_scan1.png */; };
@@ -622,13 +628,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		3EAEC988147271060091A88C /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 3EAEC981147271050091A88C /* QRCodeEncoder.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 9672D35713BD662F0002B0E2;
-			remoteInfo = qrencoder;
-		};
 		3EAEC9921472710E0091A88C /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 3EAEC98A1472710E0091A88C /* ZXingWidget.xcodeproj */;
@@ -643,13 +642,6 @@
 			remoteGlobalIDString = 1D60398D13DF7CAD006F4B51;
 			remoteInfo = ZXingTests;
 		};
-		3EAEC9AB1472743B0091A88C /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 3EAEC981147271050091A88C /* QRCodeEncoder.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 9672D35613BD662F0002B0E2;
-			remoteInfo = qrencoder;
-		};
 		3EAEC9AD1472743B0091A88C /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 3EAEC98A1472710E0091A88C /* ZXingWidget.xcodeproj */;
@@ -660,6 +652,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0A00FF0C151D53DA00BEA5E9 /* QRCode.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QRCode.framework; path = ../../../../runtime/SDK/QRCode.framework; sourceTree = "<group>"; };
 		0A71F1EC15044A41007714BB /* EBuyPortal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EBuyPortal.h; sourceTree = "<group>"; };
 		0A71F1ED15044A41007714BB /* EBuyPortal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EBuyPortal.m; sourceTree = "<group>"; };
 		0A71F1EE15044A41007714BB /* EBuyPortal.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EBuyPortal.xib; sourceTree = "<group>"; };
@@ -676,6 +669,15 @@
 		0ABBBAB515042BAC0021C47C /* eShopProducerInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = eShopProducerInfo.h; sourceTree = "<group>"; };
 		0ABBBAB615042BAD0021C47C /* eShopProducerInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = eShopProducerInfo.m; sourceTree = "<group>"; };
 		0ABBBAB815042BCD0021C47C /* eShopProducerInfo.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = eShopProducerInfo.xib; sourceTree = "<group>"; };
+		0ABBBF29151B7CAE00C4A6F2 /* EBProductDetail.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EBProductDetail.h; sourceTree = "<group>"; };
+		0ABBBF2A151B7CAE00C4A6F2 /* EBProductDetail.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EBProductDetail.m; sourceTree = "<group>"; };
+		0ABBBF2B151B7CAE00C4A6F2 /* EBProductDetail.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EBProductDetail.xib; sourceTree = "<group>"; };
+		0ABBBF33151B990400C4A6F2 /* EBAdBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EBAdBar.h; sourceTree = "<group>"; };
+		0ABBBF34151B990400C4A6F2 /* EBAdBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EBAdBar.m; sourceTree = "<group>"; };
+		0ABBBF36151B992000C4A6F2 /* EBAdBar.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EBAdBar.xib; sourceTree = "<group>"; };
+		0ABBBF38151B9C3600C4A6F2 /* EBShopList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EBShopList.h; sourceTree = "<group>"; };
+		0ABBBF39151B9C3700C4A6F2 /* EBShopList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EBShopList.m; sourceTree = "<group>"; };
+		0ABBBF3A151B9C3700C4A6F2 /* EBShopList.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EBShopList.xib; sourceTree = "<group>"; };
 		0ABD84BC15100100005BD93B /* ebuy_comment_dfimg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ebuy_comment_dfimg.png; sourceTree = "<group>"; };
 		0ABD84BD15100100005BD93B /* ebuy_comment_photo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ebuy_comment_photo.png; sourceTree = "<group>"; };
 		0ABD84BE15100100005BD93B /* ebuy_comment_pointstar_h.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ebuy_comment_pointstar_h.png; sourceTree = "<group>"; };
@@ -906,7 +908,6 @@
 		3E11F23614726E3100ACC436 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		3E11F23B14726E8F00ACC436 /* RIButtonItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RIButtonItem.h; sourceTree = "<group>"; };
 		3E11F23C14726E8F00ACC436 /* RIButtonItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RIButtonItem.m; sourceTree = "<group>"; };
-		3EAEC981147271050091A88C /* QRCodeEncoder.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = QRCodeEncoder.xcodeproj; path = QRReferences/QREncode/QRCodeEncoder.xcodeproj; sourceTree = "<group>"; };
 		3EAEC98A1472710E0091A88C /* ZXingWidget.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ZXingWidget.xcodeproj; path = QRReferences/ZXingWidget/ZXingWidget.xcodeproj; sourceTree = "<group>"; };
 		3EAEC996147271E80091A88C /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		3EAEC998147271F60091A88C /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
@@ -1490,11 +1491,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0A00FF0D151D53DB00BEA5E9 /* QRCode.framework in Frameworks */,
 				B8D4A72D14E5206E0057203A /* AssetsLibrary.framework in Frameworks */,
 				B8D4A72B14E51FF80057203A /* MediaPlayer.framework in Frameworks */,
 				B8D4A70A14E4B3000057203A /* iOSApi.framework in Frameworks */,
 				716ADCCA14974385005E82B1 /* libsqlite3.0.dylib in Frameworks */,
-				3EAEC9AF147277110091A88C /* libqrencoder.a in Frameworks */,
 				3EAEC9B0147277110091A88C /* libZXingWidget.a in Frameworks */,
 				3EAEC99B147272020091A88C /* CoreVideo.framework in Frameworks */,
 				3EAEC999147271F60091A88C /* CoreMedia.framework in Frameworks */,
@@ -1588,6 +1589,15 @@
 				0AAECA6B1517EAD000D5DDBE /* EBExpressDetail.h */,
 				0AAECA6C1517EAD000D5DDBE /* EBExpressDetail.m */,
 				0AAECA6D1517EAD000D5DDBE /* EBExpressDetail.xib */,
+				0ABBBF29151B7CAE00C4A6F2 /* EBProductDetail.h */,
+				0ABBBF2A151B7CAE00C4A6F2 /* EBProductDetail.m */,
+				0ABBBF2B151B7CAE00C4A6F2 /* EBProductDetail.xib */,
+				0ABBBF33151B990400C4A6F2 /* EBAdBar.h */,
+				0ABBBF34151B990400C4A6F2 /* EBAdBar.m */,
+				0ABBBF36151B992000C4A6F2 /* EBAdBar.xib */,
+				0ABBBF38151B9C3600C4A6F2 /* EBShopList.h */,
+				0ABBBF39151B9C3700C4A6F2 /* EBShopList.m */,
+				0ABBBF3A151B9C3700C4A6F2 /* EBShopList.xib */,
 			);
 			path = eBuy;
 			sourceTree = "<group>";
@@ -1695,6 +1705,7 @@
 			children = (
 				B8D4A70914E4B3000057203A /* iOSApi.framework */,
 				716ADCC914974385005E82B1 /* libsqlite3.0.dylib */,
+				0A00FF0C151D53DA00BEA5E9 /* QRCode.framework */,
 				B8D4A72A14E51FF80057203A /* MediaPlayer.framework */,
 				B8D4A72C14E5206D0057203A /* AssetsLibrary.framework */,
 				3EAEC99A147272020091A88C /* CoreVideo.framework */,
@@ -1894,7 +1905,6 @@
 			isa = PBXGroup;
 			children = (
 				3EAEC98A1472710E0091A88C /* ZXingWidget.xcodeproj */,
-				3EAEC981147271050091A88C /* QRCodeEncoder.xcodeproj */,
 				3E11F1ED14726C4900ACC436 /* JSON */,
 				3E11F1CD14726C3700ACC436 /* ASIHttpRequest */,
 			);
@@ -2147,14 +2157,6 @@
 			children = (
 			);
 			name = ViewControllers;
-			sourceTree = "<group>";
-		};
-		3EAEC982147271050091A88C /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				3EAEC989147271060091A88C /* libqrencoder.a */,
-			);
-			name = Products;
 			sourceTree = "<group>";
 		};
 		3EAEC98B1472710E0091A88C /* Products */ = {
@@ -2950,7 +2952,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				3EAEC9AC1472743B0091A88C /* PBXTargetDependency */,
 				3EAEC9AE1472743B0091A88C /* PBXTargetDependency */,
 			);
 			name = FengZi;
@@ -2980,10 +2981,6 @@
 			projectDirPath = "";
 			projectReferences = (
 				{
-					ProductGroup = 3EAEC982147271050091A88C /* Products */;
-					ProjectRef = 3EAEC981147271050091A88C /* QRCodeEncoder.xcodeproj */;
-				},
-				{
 					ProductGroup = 3EAEC98B1472710E0091A88C /* Products */;
 					ProjectRef = 3EAEC98A1472710E0091A88C /* ZXingWidget.xcodeproj */;
 				},
@@ -2996,13 +2993,6 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		3EAEC989147271060091A88C /* libqrencoder.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libqrencoder.a;
-			remoteRef = 3EAEC988147271060091A88C /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
 		3EAEC9931472710E0091A88C /* libZXingWidget.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
@@ -3417,6 +3407,9 @@
 				0ABD851815100100005BD93B /* ebuy_sun_main_storebtn_h.png in Resources */,
 				0ABD851915100100005BD93B /* ebuy_sun_main_storebtn.png in Resources */,
 				0AAECA6F1517EAD000D5DDBE /* EBExpressDetail.xib in Resources */,
+				0ABBBF2D151B7CAE00C4A6F2 /* EBProductDetail.xib in Resources */,
+				0ABBBF37151B992000C4A6F2 /* EBAdBar.xib in Resources */,
+				0ABBBF3C151B9C3800C4A6F2 /* EBShopList.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3621,17 +3614,15 @@
 				0A71F1EF15044A41007714BB /* EBuyPortal.m in Sources */,
 				0ABA1C5015084B6D00B503D0 /* EBuyRecommend.m in Sources */,
 				0AAECA6E1517EAD000D5DDBE /* EBExpressDetail.m in Sources */,
+				0ABBBF2C151B7CAE00C4A6F2 /* EBProductDetail.m in Sources */,
+				0ABBBF35151B990400C4A6F2 /* EBAdBar.m in Sources */,
+				0ABBBF3B151B9C3800C4A6F2 /* EBShopList.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		3EAEC9AC1472743B0091A88C /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = qrencoder;
-			targetProxy = 3EAEC9AB1472743B0091A88C /* PBXContainerItemProxy */;
-		};
 		3EAEC9AE1472743B0091A88C /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = ZXingWidget;
