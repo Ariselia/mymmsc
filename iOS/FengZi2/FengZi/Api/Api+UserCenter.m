@@ -239,11 +239,11 @@
         NSArray *codeList = [data objectForKey:@"codeList"];
         // 找到我的码数据区
         for (NSDictionary *dict in codeList) {
-            //CodeInfo *obj = [[[CodeInfo alloc] init] autorelease];
             CodeInfo *obj = [dict toObject:CodeInfo.class];
             [aRet addObject:obj];
         }
     }
+    [iRet release];
     return aRet;
 }
 
