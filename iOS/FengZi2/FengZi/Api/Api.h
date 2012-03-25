@@ -64,11 +64,11 @@
 }
 
 @property (nonatomic, assign) int userId;
-@property (nonatomic, retain) NSString *userName;
-@property (nonatomic, retain) NSString *phoneNumber;
-@property (nonatomic, retain) NSString *nikeName;
-@property (nonatomic, retain) NSString *password;
-@property (nonatomic, retain) NSString *sessionPassword;
+@property (nonatomic, copy) NSString *userName;
+@property (nonatomic, copy) NSString *phoneNumber;
+@property (nonatomic, copy) NSString *nikeName;
+@property (nonatomic, copy) NSString *password;
+@property (nonatomic, copy) NSString *sessionPassword;
 
 @end
 

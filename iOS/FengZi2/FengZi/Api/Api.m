@@ -130,7 +130,7 @@ static UserInfo *cache_info = nil;
 // 设定用户手机号码
 + (void)setUserPhone:(NSString *)userPhone{
     [self initInfo];
-    cache_info.phoneNumber = [userPhone copy];
+    cache_info.phoneNumber = userPhone;
     [[iOSApi cache] setObject:cache_info.phoneNumber forKey:API_CACHE_USERID];
 }
 
