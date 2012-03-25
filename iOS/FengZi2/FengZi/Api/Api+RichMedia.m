@@ -247,8 +247,8 @@
         }
         NSArray *pageList = [data objectForKey:@"pageList"];
         if (pageList.count > 0) {
-            NSMutableArray *list = [[NSMutableArray alloc] initWithCapacity:0];
-            iRet.pageList = [[NSMutableArray alloc] initWithCapacity:0];
+            NSMutableArray *list = [[[NSMutableArray alloc] initWithCapacity:0] autorelease];
+            iRet.pageList = [[[NSMutableArray alloc] initWithCapacity:0] autorelease];
             for (NSDictionary *dict in pageList) {
                 MediaObject *obj = [MediaObject new];
                 for (NSString *key in [dict allKeys]) {
@@ -262,7 +262,7 @@
         }
     }
     
-    return iRet;
+    return [iRet autorelease];
 }
 
 //--------------------< 空码赋值 - 对象 - 接口 >--------------------
