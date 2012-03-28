@@ -1,0 +1,10 @@
+1.修改数据库连接
+webapps\fengmobile\WEB-INF\resin-web.xml
+
+2.修改文件存储路径
+webapps\fengmobile\WEB-INF\resource_config.xml
+<image><path>D:/work/tmp/</path></image>
+
+3.空码赋值资源访问地址
+webapps\fengmobile\WEB-INF\resource_config.xml
+<resource><path>D:/work/tmp/</path></resource>

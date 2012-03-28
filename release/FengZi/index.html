@@ -1,0 +1,29 @@
+<html>
+<head>
+<title>日昌易通</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<script type="text/javascript">
+//<![CDATA[
+  var $ua = navigator.userAgent;
+  //var $exp = /iPhone OS [0-9_]+/ig;
+  var $exp_iOS = /(iPhone OS [0-9_]+)/ig;
+  var $exp = /(iPhone OS [0-9_]+)|(Android [0-9.]+)/ig;
+  function kao() {
+    $b = $exp.exec($ua);
+    $m_type = $b[0].replace(/_/g, ".");
+    
+    alert($m_type);
+    alert($b[1]);
+    while(($a=$exp.exec($ua))!=null) {
+      alert($[1]);
+    }
+  }
+//]]>
+</script>
+</head>
+<body onload="kao();">
+<H1>
+<a href="itms-services://?action=download-manifest&url=http://labs.ifengzi.cn:11080/apps/FengZi.plist">一键安装蜂子客户端(V2.0.18)</a>
+</H1>
+</body>
+</html>
