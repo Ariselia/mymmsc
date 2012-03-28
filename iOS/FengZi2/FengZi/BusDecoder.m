@@ -397,10 +397,11 @@ static NSString *URL_FLAG = @"://";
             return category;
         } else {
             // 视为传统业务
+            category.type=CATEGORY_URL;
+            category.channel=URL_CHANNEL_HTTP;
         }
-    }
-    // 默认为文本业务
-    {
+    } else {
+        // 默认为文本业务
         category.type=CATEGORY_TEXT;
         category.channel=DTXT_CHANNEL_DEDAULT;
     }

@@ -7,8 +7,8 @@
 //
 
 #import "EncodeEditViewController.h"
-#import "QREncoder.h"
-#import "DataMatrix.h"
+#import <QRCode/QREncoder.h>
+#import <QRCode/DataMatrix.h>
 #import "UIUtil.h"
 #import "NotePLogService.h"
 #import "BusEncoder.h"

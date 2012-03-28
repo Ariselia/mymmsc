@@ -27,7 +27,7 @@
 
 #import <Foundation/Foundation.h>
 
-typedef enum 
+typedef enum SHKFormFieldType
 {
 	SHKFormFieldTypeText,
 	SHKFormFieldTypePassword,
@@ -47,7 +47,7 @@ typedef enum
 
 @property (nonatomic, retain) NSString *label;
 @property (nonatomic, retain) NSString *key;
-@property SHKFormFieldType type;
+@property (nonatomic, assign) SHKFormFieldType type;
 @property (nonatomic, retain) NSString *start;
 
 + (id)label:(NSString *)l key:(NSString *)k type:(SHKFormFieldType)t start:(NSString *)s;

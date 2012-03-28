@@ -76,6 +76,18 @@
         NSMutableArray *data = [map objectForKey:@"push"];
         if (data.count > 0) {
             list = [data toList:EBProductInfo.class];
+            /*
+            list = [[NSMutableArray alloc] initWithCapacity:0];
+            for (NSDictionary *dict in data) {
+                EBProductInfo *obj = [EBProductInfo new];
+                for (NSString *key in [dict allKeys]) {
+                    id value = [dict objectForKey:key];
+                    [obj setValue:value forSameKey:key];
+                }
+                [list addObject:obj];
+                [obj release];
+            }
+             */
         }
     }
     

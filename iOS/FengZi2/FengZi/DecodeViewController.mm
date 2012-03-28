@@ -18,8 +18,8 @@
 #import "HelpView.h"
 #import "ScanAboutViewController.h"
 #import "ImageDecodeViewController.h"
-#import "QREncoder.h"
-#import "DataMatrix.h"
+#import <QRCode/QREncoder.h>
+#import <QRCode/DataMatrix.h>
 
 // 二期加入
 #import "UCLogin.h"

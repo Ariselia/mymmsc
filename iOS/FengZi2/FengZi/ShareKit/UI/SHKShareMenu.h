@@ -35,9 +35,9 @@
 	NSMutableDictionary *exclusions;
 }
 
-@property (retain) SHKItem *item;
-@property (retain) NSMutableArray *tableData;
-@property (retain) NSMutableDictionary *exclusions;
+@property (nonatomic,retain) SHKItem *item;
+@property (nonatomic,retain) NSMutableArray *tableData;
+@property (nonatomic,retain) NSMutableDictionary *exclusions;
 
 
 - (void)rebuildTableDataAnimated:(BOOL)animated;

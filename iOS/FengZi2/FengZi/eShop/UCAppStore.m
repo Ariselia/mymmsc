@@ -49,6 +49,7 @@
     EBuyPortal *theView = [[[EBuyPortal alloc] init] autorelease];
     UINavigationController *nextView = [[UINavigationController alloc] initWithRootViewController:theView];
     [self presentModalViewController:nextView animated:YES];
+    [nextView release];
 }
 
 #pragma mark - View lifecycle

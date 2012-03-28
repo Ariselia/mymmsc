@@ -10,6 +10,8 @@
 		0A00FF0D151D53DB00BEA5E9 /* QRCode.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A00FF0C151D53DA00BEA5E9 /* QRCode.framework */; };
 		0A71F1EF15044A41007714BB /* EBuyPortal.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A71F1ED15044A41007714BB /* EBuyPortal.m */; };
 		0A71F1F015044A41007714BB /* EBuyPortal.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A71F1EE15044A41007714BB /* EBuyPortal.xib */; };
+		0AADFE5115223C84004B4D4D /* EBShopInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AADFE5015223C84004B4D4D /* EBShopInfo.m */; };
+		0AADFE5315223CA3004B4D4D /* EBShopInfo.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0AADFE5215223CA3004B4D4D /* EBShopInfo.xib */; };
 		0AAECA6E1517EAD000D5DDBE /* EBExpressDetail.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AAECA6C1517EAD000D5DDBE /* EBExpressDetail.m */; };
 		0AAECA6F1517EAD000D5DDBE /* EBExpressDetail.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0AAECA6D1517EAD000D5DDBE /* EBExpressDetail.xib */; };
 		0AB8584514FBCF050062C1C5 /* unknown.png in Resources */ = {isa = PBXBuildFile; fileRef = 0AB8584414FBCF050062C1C5 /* unknown.png */; };
@@ -649,6 +651,9 @@
 		0A71F1EC15044A41007714BB /* EBuyPortal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EBuyPortal.h; sourceTree = "<group>"; };
 		0A71F1ED15044A41007714BB /* EBuyPortal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EBuyPortal.m; sourceTree = "<group>"; };
 		0A71F1EE15044A41007714BB /* EBuyPortal.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EBuyPortal.xib; sourceTree = "<group>"; };
+		0AADFE4F15223C84004B4D4D /* EBShopInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EBShopInfo.h; sourceTree = "<group>"; };
+		0AADFE5015223C84004B4D4D /* EBShopInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EBShopInfo.m; sourceTree = "<group>"; };
+		0AADFE5215223CA3004B4D4D /* EBShopInfo.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EBShopInfo.xib; sourceTree = "<group>"; };
 		0AAECA6B1517EAD000D5DDBE /* EBExpressDetail.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EBExpressDetail.h; sourceTree = "<group>"; };
 		0AAECA6C1517EAD000D5DDBE /* EBExpressDetail.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EBExpressDetail.m; sourceTree = "<group>"; };
 		0AAECA6D1517EAD000D5DDBE /* EBExpressDetail.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EBExpressDetail.xib; sourceTree = "<group>"; };
@@ -1591,6 +1596,9 @@
 				0ABBBF38151B9C3600C4A6F2 /* EBShopList.h */,
 				0ABBBF39151B9C3700C4A6F2 /* EBShopList.m */,
 				0ABBBF3A151B9C3700C4A6F2 /* EBShopList.xib */,
+				0AADFE4F15223C84004B4D4D /* EBShopInfo.h */,
+				0AADFE5015223C84004B4D4D /* EBShopInfo.m */,
+				0AADFE5215223CA3004B4D4D /* EBShopInfo.xib */,
 			);
 			path = eBuy;
 			sourceTree = "<group>";
@@ -3402,6 +3410,7 @@
 				0ABBBF2D151B7CAE00C4A6F2 /* EBProductDetail.xib in Resources */,
 				0ABBBF37151B992000C4A6F2 /* EBAdBar.xib in Resources */,
 				0ABBBF3C151B9C3800C4A6F2 /* EBShopList.xib in Resources */,
+				0AADFE5315223CA3004B4D4D /* EBShopInfo.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3609,6 +3618,7 @@
 				0ABBBF2C151B7CAE00C4A6F2 /* EBProductDetail.m in Sources */,
 				0ABBBF35151B990400C4A6F2 /* EBAdBar.m in Sources */,
 				0ABBBF3B151B9C3800C4A6F2 /* EBShopList.m in Sources */,
+				0AADFE5115223C84004B4D4D /* EBShopInfo.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

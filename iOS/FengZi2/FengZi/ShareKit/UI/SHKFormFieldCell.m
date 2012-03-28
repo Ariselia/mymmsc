@@ -132,7 +132,7 @@
 {
 	self.tmpValue = value; // used to hold onto the value in case the form field element is created after this is set
 	
-	switch (settings.type) 
+	switch(settings.type) 
 	{
 		case SHKFormFieldTypeSwitch:
 			[toggle setOn:[value isEqualToString:SHKFormFieldSwitchOn] animated:NO];
@@ -147,11 +147,13 @@
 
 - (NSString *)getValue
 {
-	switch (settings.type) 
+    switch (settings.type) 
 	{
 		case SHKFormFieldTypeSwitch:
 			return toggle.on ? SHKFormFieldSwitchOn : SHKFormFieldSwitchOff;
 			break;
+        default:
+            break;
 	}
 	
 	return textField.text;

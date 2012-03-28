@@ -28,8 +28,8 @@
 #import "BusDecoder.h"
 #import "BusCategory.h"
 #import "DecodeBusinessViewController.h"
-#import "QREncoder.h"
-#import "DataMatrix.h"
+#import <QRCode/QREncoder.h>
+#import <QRCode/DataMatrix.h>
 
 @implementation UCKmaViewController
 

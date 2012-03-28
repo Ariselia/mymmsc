@@ -50,8 +50,7 @@
 	
     NSString *filePath = [iOSFile path:[Api filePath:info.orderProductUrl]];
     iOSLog(@"1: %@", filePath);
-    NSURL *fileURL = [NSString stringWithFormat:@"file://%@", filePath];
-    fileURL = [NSURL fileURLWithPath:filePath];
+    NSURL *fileURL = [NSURL fileURLWithPath:filePath];
 	player = [[MPMoviePlayerController alloc]
 				   initWithContentURL:fileURL];
     //moviePlayer.movieSourceType = MPMovieControlStyleFullscreen;
@@ -79,7 +78,7 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self name:MPMoviePlayerPlaybackDidFinishNotification object:moviePlayerController];
 	
     [moviePlayerController.view removeFromSuperview];
-    [moviePlayerController release];
+    //[moviePlayerController release];
 }
 
 - (void)viewDidUnload

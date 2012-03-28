@@ -31,7 +31,8 @@
 #import "BusDecoder.h"
 #import "DecodeBusinessViewController.h"
 
-#import "QREncoder.h"
+#import <QRCode/QREncoder.h>
+#import <QRCode/DataMatrix.h>
 
 // WangFeng: 增加富媒体生码类
 #import "UCCreateCode.h"
@@ -456,7 +457,7 @@ static int xTimes = -1;
             // 可能是富媒体
             info.isKma = 0;
             info.type = 14;
-            isRichMedia = YES;
+            //isRichMedia = YES;
             [iOSApi Alert:@"提示" message:@"服务器忙，请稍候重试"];
             return;
         }

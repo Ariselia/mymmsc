@@ -44,9 +44,9 @@
 	SHKFormController *form;
 }
 
-@property (retain) SHKFormFieldSettings *settings;
+@property (nonatomic, retain) SHKFormFieldSettings *settings;
 
-@property (nonatomic) CGFloat labelWidth;
+@property (nonatomic, assign) CGFloat labelWidth;
 
 @property (nonatomic, retain, getter=getTextField) UITextField *textField;
 @property (nonatomic, retain) UISwitch *toggle;

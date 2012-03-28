@@ -14,8 +14,8 @@
 #import "BusCategory.h"
 #import "DecodeBusinessViewController.h"
 #import "TabBarController.h"
-#import "QREncoder.h"
-#import "DataMatrix.h"
+#import <QRCode/QREncoder.h>
+#import <QRCode/DataMatrix.h>
 
 // 二期加入
 #import "UCKmaViewController.h"

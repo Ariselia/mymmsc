@@ -51,8 +51,7 @@
         if (state == MS_READY) {
             NSString *tfilePath = [iOSFile path:filePath];
             iOSLog(@"1: %@", filePath);
-            NSURL *fileURL = [NSString stringWithFormat:@"file://%@", tfilePath];
-            fileURL = [NSURL fileURLWithPath:tfilePath];
+            NSURL *fileURL = [NSURL fileURLWithPath:tfilePath];
             moviePlayer = [[MPMoviePlayerController alloc] initWithContentURL:fileURL];
             
             [[NSNotificationCenter defaultCenter] addObserver:self
@@ -94,7 +93,7 @@
         CGFloat max_height = size.height;
         float sc = max_width / max_height;
         
-        max_height = 410 - xHeight;
+        //max_height = 410 - xHeight;
         int _width = sc * max_width;
         if (_width >= 300) {
             _width = 300;
@@ -129,8 +128,7 @@
         CGFloat h = imgSize.height * scale;
         
         CGFloat x = (size.width - w) / 2;
-        CGFloat y = (size.height - h) / 2;
-        y = xHeight;
+        CGFloat y = xHeight; //(size.height - h) / 2;
         CGRect frame = CGRectMake(x, y, w, h);
         [pic setImage:im];
         pic.frame = frame;
