@@ -1,0 +1,39 @@
+#!/usr/bin/perl -w
+use strict;
+use DBI;
+use POSIX;
+use JSON;
+use Data::Dumper;
+use LWP::UserAgent;
+use File::Path;
+
+#设定文件存储路径
+my $dstPath = "/home/runtime/data/mb";
+my $dataPath = $dstPath . '/file';
+#设定MySQL数据库参数
+my $db_name = 'feng';
+my $db_host = '192.168.0.15';
+my $db_user = 'devp';
+my $db_pass = 'fxf.devp';
+
+my $dsn = "DBI:mysql:database=$db_name;host=$db_host";
+my $conn = DBI->connect($dsn, $db_user, $db_pass) or die "don't connect MySQL.";
+$conn->do("SET NAMES 'utf8'");
+my $nStart = 11001001;
+my $count = 1;
+for(my $i = 0; $i < $count; $i++) {
+	my $mid = $nStart + $i;
+	my $no = $mid % 8;
+	my $query = "insert into kongma_${no} (id,status,addtime) values(?,?,now())";
+	my $sth = $conn->prepare($query);
+	my $result = $sth->execute(($mid, 0));
+	if (!$result) {
+		print "$no -> $mid: ERROR\n";
+        } else {
+        	print "$no -> $mid: OK\n";
+        }
+}
+
+print "\n";
+
+1;
