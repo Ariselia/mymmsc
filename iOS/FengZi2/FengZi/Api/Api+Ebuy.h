@@ -19,14 +19,14 @@
 
 //--------------------< 电子商城 - 对象 - 商品 >--------------------
 @interface EBProductInfo : NSObject {
-    int       id;          // 商品编号
+    NSString *id;          // 商品编号
     NSString *title;       // 商品名称
     NSString *content;     // 商品介绍
     NSString *picUrl;      // 商品图片
     float     price;       // 商品价格
     NSString *realizeTime; // 快报资讯发送的时间, 仅快讯详细信息有此字段
 }
-@property (nonatomic, assign) int id;
+@property (nonatomic, copy) NSString *id;
 @property (nonatomic, copy) NSString *title, *content, *picUrl;
 @property (nonatomic, assign) float price;
 @property (nonatomic, copy) NSString *realizeTime;
