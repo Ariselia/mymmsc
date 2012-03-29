@@ -39,13 +39,13 @@
 + (NSMutableArray *)ebuy_search:(NSString *)key {
     NSMutableArray *list = nil;
     // 方法
-    static NSString *method = @"search";
+    static NSString *method = @"seach";
     
     NSMutableDictionary *jsonDic = [NSMutableDictionary dictionary];
     NSMutableDictionary *search = [NSMutableDictionary dictionary];
     NSString *name = [iOSApi urlDecode:key];
     [search setObject:name forKey:@"name"];
-    [jsonDic setObject:search forKey:@"search"];
+    [jsonDic setObject:search forKey:method];
     
     NSString *params = [jsonDic JSONString];
     
@@ -76,18 +76,6 @@
         NSMutableArray *data = [map objectForKey:@"push"];
         if (data.count > 0) {
             list = [data toList:EBProductInfo.class];
-            /*
-            list = [[NSMutableArray alloc] initWithCapacity:0];
-            for (NSDictionary *dict in data) {
-                EBProductInfo *obj = [EBProductInfo new];
-                for (NSString *key in [dict allKeys]) {
-                    id value = [dict objectForKey:key];
-                    [obj setValue:value forSameKey:key];
-                }
-                [list addObject:obj];
-                [obj release];
-            }
-             */
         }
     }
     
