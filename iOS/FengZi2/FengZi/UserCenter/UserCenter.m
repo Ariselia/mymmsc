@@ -130,17 +130,13 @@
         items = [[NSMutableArray alloc] initWithCapacity:0];
         if ([Api isOnLine]) {
             message.text = [NSString stringWithFormat: @"Hi, %@", [Api nikeName]];
-            action = [iOSAction initWithName: @"修改昵称" class: @"UCUpdateNikename"];
+            action = [iOSAction initWithName: @"修改个人信息" class: @"UCUpdateNikename"];
             [action setIcon: @"uc-edit"];
-            //[action setNib: @"TableView"];
             [items addObject: action];
-            //[action release];
             
             action = [iOSAction initWithName: @"修改密码" class: @"UCUpdatePassword"];
             [action setIcon: @"uc-passwd"];
-            //[action setNib: @"MoneyTrans"];
             [items addObject: action];
-            //[action release];
         } else {
             // 没有登录
             message.text = @"您还未登录，请点击［此处登录］！";
@@ -170,12 +166,12 @@
 #pragma mark UITableViewDataSource
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 1;
+    //return 1;
+    return [items count];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    //return 2;
-    return [items count];
+    return 1;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -186,7 +182,6 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    
     static NSString *CellIdentifier = @"Cell";
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
