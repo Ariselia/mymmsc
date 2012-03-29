@@ -39,7 +39,7 @@
 + (NSMutableArray *)ebuy_search:(NSString *)key {
     NSMutableArray *list = nil;
     // 方法
-    static NSString *method = @"seach";
+    static NSString *method = @"search";
     
     NSMutableDictionary *jsonDic = [NSMutableDictionary dictionary];
     NSMutableDictionary *search = [NSMutableDictionary dictionary];
