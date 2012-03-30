@@ -20,6 +20,12 @@
 }
 @end
 
+//--------------------< 用户中心 - 对象 - 个人信息 >--------------------
+@implementation ucUserInfo
+@synthesize QQ,sex,email,likes,weibo,isopen,userid,address,modTime,regTime,birthday,postCode,realname,idNumber;
+
+@end
+
 //====================================< 用户中心 - 验证码 >====================================
 
 @implementation ucAuthCode
@@ -246,5 +252,6 @@
     [iRet release];
     return aRet;
 }
+
 
 @end
