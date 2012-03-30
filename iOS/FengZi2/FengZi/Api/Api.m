@@ -282,4 +282,31 @@ static UserInfo *cache_info = nil;
     return ret;
 }
 
++ (NSMutableDictionary *)post:(NSString *)action header:(NSDictionary *)heads body:(NSData *)params {
+    NSMutableDictionary *ret = nil;
+    
+    NSString *url = action;
+    if (![action hasPrefix:@"http://"]) {
+        url = [NSString stringWithFormat:@"%@/%@", API_SERVER, action];
+    }
+    
+    HttpClient *client = [[HttpClient alloc] initWithURL:url timeout:API_TIMEOUT];
+    
+    NSData *response = [client post:heads body:params];
+    if (response == nil) {
+        //[iOSApi Alert:@"提示" message:@"服务器正忙，请稍候。"];
+    } else {
+        iOSLog(@"Date=%@", [client header:@"Date"]);
+        
+        // 取得JSON数据的字符串
+        NSString *json_string = [[[NSString alloc] initWithData:response encoding:NSUTF8StringEncoding] autorelease];
+        iOSLog(@"json.string = %@", json_string);
+        //json_string = [json_string stringByReplacingOccurrencesOfString:@".00" withString:@".01"];
+        // 把JSON转为数组
+        ret = [json_string objectFromJSONString];
+    }
+    [client release];
+    return ret;
+}
+
 @end
