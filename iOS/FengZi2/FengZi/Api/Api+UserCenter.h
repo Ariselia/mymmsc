@@ -21,6 +21,26 @@
 
 @end
 
+//--------------------< 用户中心 - 对象 - 个人信息 >--------------------
+@interface ucUserInfo : ApiResult {
+}
+
+@property (nonatomic, copy) NSString *birthday;
+@property (nonatomic, copy) NSString *QQ;
+@property (nonatomic, copy) NSString *address;
+@property (nonatomic, copy) NSString *email;
+@property (nonatomic, copy) NSString *idNumber;
+@property (nonatomic, copy) NSString *isopen;
+@property (nonatomic, copy) NSString *likes;
+@property (nonatomic, copy) NSString *modTime;
+@property (nonatomic, copy) NSString *postCode;
+@property (nonatomic, copy) NSString *realname;
+@property (nonatomic, copy) NSString *regTime;
+@property (nonatomic, copy) NSString *sex;
+@property (nonatomic, copy) NSString *userid;
+@property (nonatomic, copy) NSString *weibo;
+@end
+
 //====================================< 用户中心 - 验证码 >====================================
 @interface ucAuthCode : ApiResult {
     NSString *code;
