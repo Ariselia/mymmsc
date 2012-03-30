@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
+// 修改个人信息
 @interface UCUpdateNikename : UIViewController{
     UIButton *_btnRight; // 导航条按钮
     UIImage *_curImage;

@@ -87,12 +87,12 @@
     } else {
         self.navigationController.navigationBar.layer.contents = (id)[UIImage imageNamed:@"navigation_bg.png"].CGImage;
     }
-    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(110, 0, 100,44)];
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(110, 0, 140, 44)];
     label.backgroundColor = [UIColor clearColor];
     label.textAlignment = UITextAlignmentCenter;
     label.font = [UIFont fontWithName:@"黑体" size:60];
     label.textColor = [UIColor blackColor];
-    label.text= @"修改昵称";
+    label.text= @"修改个人信息";
     self.navigationItem.titleView = label;
     [label release];
     
@@ -195,6 +195,24 @@
 		[nikename addTarget:self action:@selector(textUpdate:) forControlEvents:UIControlEventEditingChanged];
         [input setObject: nikename];
         [items addObject: input];
+        
+        // 姓名
+        input = [[iOSInput new] autorelease];
+        [input setName:@"姓名"];
+        [input setTag:TAG_FIELD_NKNAME];
+        nikename = [[UITextField alloc] initWithFrame:frame];
+        nikename.tag = input.tag;
+		nikename.returnKeyType = UIReturnKeyDone;
+		nikename.borderStyle = _borderStyle;
+        nikename.placeholder = @"输入昵称";
+        nikename.font = font;
+		// 绑定事件
+		[nikename addTarget:self action:@selector(textRestore:) forControlEvents:UIControlEventEditingDidEndOnExit];
+		[nikename addTarget:self action:@selector(textUpdate:) forControlEvents:UIControlEventEditingChanged];
+        [input setObject: nikename];
+        [items addObject: input];
+        
+        // 性别
     }
 }
 
@@ -234,9 +252,9 @@
     // 设定标题
     cell.textLabel.text = [NSString stringWithFormat:@"%-20@", [obj name]];
     cell.textLabel.font = font;
-    cell.selectionStyle = UITableViewCellSelectionStyleGray;
+    //cell.selectionStyle = UITableViewCellSelectionStyleGray;
     cell.accessoryType = UITableViewCellAccessoryNone;
-    [cell setBackgroundColor: [UIColor clearColor]];
+    //[cell setBackgroundColor: [UIColor clearColor]];
     /*
     // 设定右边按钮
     CGRect frame = CGRectMake(200.f, 5.0f, 90, 25);

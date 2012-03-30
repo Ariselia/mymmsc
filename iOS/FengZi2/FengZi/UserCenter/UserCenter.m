@@ -166,12 +166,13 @@
 #pragma mark UITableViewDataSource
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    //return 1;
-    return [items count];
+    return 1;
+    //return [items count];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 1;
+    //return 1;
+    return [items count];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -205,7 +206,11 @@
     cell.selectionStyle = UITableViewCellSelectionStyleGray;
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     // 设定右边按钮
-    [cell setBackgroundColor: [UIColor clearColor]];
+    //[cell setBackgroundColor: [UIColor clearColor]];
+    //cell.layer.cornerRadius = 20;
+    //cell.layer.masksToBounds = YES;
+    //cell.contentView.layer.cornerRadius = 0;
+    cell.backgroundColor = [UIColor whiteColor];
     return cell;
 }
 

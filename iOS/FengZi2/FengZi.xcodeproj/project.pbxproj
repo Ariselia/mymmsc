@@ -390,7 +390,6 @@
 		71AFBC471498675A00BABA85 /* GTMBase64.m in Sources */ = {isa = PBXBuildFile; fileRef = 71AFBC451498675A00BABA85 /* GTMBase64.m */; };
 		71B3EC48147F70E5003BD1F4 /* decode_button_tap.png in Resources */ = {isa = PBXBuildFile; fileRef = 71B3EC1D147F70E5003BD1F4 /* decode_button_tap.png */; };
 		71B3EC49147F70E5003BD1F4 /* decode_button.png in Resources */ = {isa = PBXBuildFile; fileRef = 71B3EC1E147F70E5003BD1F4 /* decode_button.png */; };
-		71B3EC4A147F70E5003BD1F4 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 71B3EC1F147F70E5003BD1F4 /* Default.png */; };
 		71B3EC4B147F70E5003BD1F4 /* address_rainbow.png in Resources */ = {isa = PBXBuildFile; fileRef = 71B3EC21147F70E5003BD1F4 /* address_rainbow.png */; };
 		71B3EC4C147F70E5003BD1F4 /* address_rainbow_tap.png in Resources */ = {isa = PBXBuildFile; fileRef = 71B3EC22147F70E5003BD1F4 /* address_rainbow_tap.png */; };
 		71B3EC4D147F70E5003BD1F4 /* card_rainbow.png in Resources */ = {isa = PBXBuildFile; fileRef = 71B3EC23147F70E5003BD1F4 /* card_rainbow.png */; };
@@ -1176,7 +1175,6 @@
 		71AFBC461498675A00BABA85 /* GTMDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMDefines.h; sourceTree = "<group>"; };
 		71B3EC1D147F70E5003BD1F4 /* decode_button_tap.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = decode_button_tap.png; path = Images/decode_button_tap.png; sourceTree = "<group>"; };
 		71B3EC1E147F70E5003BD1F4 /* decode_button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = decode_button.png; path = Images/decode_button.png; sourceTree = "<group>"; };
-		71B3EC1F147F70E5003BD1F4 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Default.png; path = Images/Default.png; sourceTree = "<group>"; };
 		71B3EC21147F70E5003BD1F4 /* address_rainbow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = address_rainbow.png; sourceTree = "<group>"; };
 		71B3EC22147F70E5003BD1F4 /* address_rainbow_tap.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = address_rainbow_tap.png; sourceTree = "<group>"; };
 		71B3EC23147F70E5003BD1F4 /* card_rainbow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = card_rainbow.png; sourceTree = "<group>"; };
@@ -2129,7 +2127,6 @@
 				71B3EC73147F7618003BD1F4 /* scan */,
 				71B3EC1E147F70E5003BD1F4 /* decode_button.png */,
 				71B3EC1D147F70E5003BD1F4 /* decode_button_tap.png */,
-				71B3EC1F147F70E5003BD1F4 /* Default.png */,
 				71B3EC20147F70E5003BD1F4 /* encode */,
 				71B3EC37147F70E5003BD1F4 /* encode_button.png */,
 				71B3EC36147F70E5003BD1F4 /* encode_button_tap.png */,
@@ -3025,7 +3022,6 @@
 				71D850A5147E371F002A7BAF /* EditImageView.xib in Resources */,
 				71B3EC48147F70E5003BD1F4 /* decode_button_tap.png in Resources */,
 				71B3EC49147F70E5003BD1F4 /* decode_button.png in Resources */,
-				71B3EC4A147F70E5003BD1F4 /* Default.png in Resources */,
 				71B3EC4B147F70E5003BD1F4 /* address_rainbow.png in Resources */,
 				71B3EC4C147F70E5003BD1F4 /* address_rainbow_tap.png in Resources */,
 				71B3EC4D147F70E5003BD1F4 /* card_rainbow.png in Resources */,
