@@ -40,7 +40,9 @@
     NSMutableArray *list = nil;
     // 方法
     static NSString *method = @"search";
-    
+    NSDictionary *heads = [NSDictionary dictionaryWithObjectsAndKeys:
+                            @"application/json", @"Content-Type",
+                            nil];
     NSMutableDictionary *jsonDic = [NSMutableDictionary dictionary];
     NSMutableDictionary *search = [NSMutableDictionary dictionary];
     NSString *name = [iOSApi urlDecode:key];
@@ -49,8 +51,8 @@
     
     NSString *params = [jsonDic JSONString];
     
-    NSString *action = [NSString stringWithFormat:@"%@/%@?name=%@", API_URL_EBUY, method, params];
-    NSDictionary *map = [Api post:action params:nil];
+    NSString *action = [NSString stringWithFormat:@"%@/%@", API_URL_EBUY, method];
+    NSDictionary *map = [Api post:action header:heads body:[params dataUsingEncoding:NSUTF8StringEncoding]];
     if (map) {
         NSMutableArray *data = [map objectForKey:@"search"];
         if (data.count > 0) {
