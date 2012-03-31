@@ -263,8 +263,8 @@
 - (void)viewWillAppear:(BOOL)animated {
     if ([items count] == 0) {
         toSave = NO;
-        NSString *sUserId = [iOSApi objectForCache: API_CACHE_USERID];
-        NSString *sPasswd = [iOSApi objectForCache: API_CACHE_PASSWD];
+        NSString *sUserId = [Api userPhone];//[iOSApi objectForCache: API_CACHE_USERID];
+        NSString *sPasswd = [Api passwd];//[iOSApi objectForCache: API_CACHE_PASSWD];
         NSString *flag = [iOSApi objectForCache: API_CACHE_ISSAVE];
         if ([flag isEqualToString: @"1"]) {
             toSave = YES;
@@ -338,14 +338,7 @@
         CGRect swFrame = frame;
         swFrame.origin.y = 3;
         isSavePasswd = [[UISwitch alloc] initWithFrame:swFrame];
-        //[vailed setSecureTextEntry:YES];
         isSavePasswd.tag = input.tag;
-		//isSavePasswd.returnKeyType = UIReturnKeyDone;
-		//userId.delegate = self;
-		//isSavePasswd.borderStyle = UITextBorderStyleBezel;
-        // 绑定事件
-		//[isSavePasswd addTarget:self action:@selector(textRestore:) forControlEvents:UIControlEventEditingDidEndOnExit];
-		//[isSavePasswd addTarget:self action:@selector(textUpdate:) forControlEvents:UIControlEventEditingChanged];
         [isSavePasswd setOn:toSave];
         [input setObject: isSavePasswd];
         [items addObject: input];
