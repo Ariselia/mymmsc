@@ -103,4 +103,7 @@
 + (NSMutableArray *) codeMyList:(int)number
                            size:(int)size;
 
+// 获取用户个人信息
++ (ucUserInfo *)uc_userinfo_get;
+
 @end

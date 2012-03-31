@@ -253,5 +253,28 @@
     return aRet;
 }
 
+// 获取用户个人信息
++ (ucUserInfo *)uc_userinfo_get{
+    //static NSString *action = API_URL_USERCENTER "/uc/m_getUserDetailInfo.action";
+    static NSString *action = @"http://devp.ifengzi.cn" "/uc/m_getUserDetailInfo.action";
+    NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
+                            API_INTERFACE_TONKEN, @"token",
+                            [NSString valueOf:[Api userId]], @"userid",
+                            nil];
+    NSDictionary *map = [Api post:action params:params];
+    ucUserInfo *iRet = [[ucUserInfo alloc] init];
+    NSDictionary *data = [iRet parse:map];
+    if (data.count > 0) {
+        // 业务数据处理
+        NSDictionary *nn = [data objectForKey:@"nicname"];
+        if (nn.count > 0) {
+            NSDictionary *info = [nn objectForKey:@"userinfo"];
+            if (info.count > 0) {
+                [info fillObject:iRet];
+            }
+        }
+    }
+    return [iRet autorelease];
+}
 
 @end
