@@ -232,7 +232,19 @@
         CGRect frame = CGRectMake(90.f, 5.0f, 200, 25);
         iOSInput *input = nil;
         items = [[NSMutableArray alloc] initWithCapacity:0];
-        
+        /*
+        if (!bEdit) {
+            input = [[iOSInput new] autorelease];
+            [input setName:@"昵称"];
+            [input setTag:TAG_FIELD_NKNAME];
+            iOSImageView *imgView = [[iOSImageView alloc] initWithFrame:CGRectMake(90.f, 5.0f, 100, 100)];
+            imgView.image = [UIImage imageNamed:@"usercenter_userinfo_image_default.png"];
+            NSString *filename = [NSString stringWithFormat:@"%@?filename=%d.jpg", API_URL_USERCENTER, idDest];
+            [imgView imageWithURL:filename];
+            [input setObject: imgView];
+            [items addObject: input];
+        }
+         */
         // 昵称
         input = [[iOSInput new] autorelease];
         [input setName:@"昵称"];
