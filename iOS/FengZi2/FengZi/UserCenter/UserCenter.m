@@ -249,12 +249,12 @@ static int iTimes = -1;
             [items addObject: action];
             
             // 2. 修改密码
-            action = [iOSAction initWithName: @"蜂巢留言板" class: @"UCUpdatePassword"];
+            action = [iOSAction initWithName: @"蜂巢留言板" class: @"UCMyComments"];
             [action setIcon: @"usercenter_userinfo_mycoment"];
             [items addObject: action];
             
             // 3. 我的回复
-            action = [iOSAction initWithName: @"show出你的二维码" class: @"UCUpdatePassword"];
+            action = [iOSAction initWithName: @"show出你的二维码" class: @"UCMySpace"];
             [action setIcon: @"usercenter_userinfo_zoneqr"];
             [items addObject: action];
             // 4. 我的空间
