@@ -282,7 +282,7 @@
     return [iRet autorelease];
 }
 
-+ (ApiResult *)uc_userinfo_set:(NSString *)realname
++ (ApiResult *)uc_userinfo_set1:(NSString *)realname
                            sex:(NSString *)sex
                          email:(NSString *)email
                       birthday:(NSString *)birthday
@@ -333,8 +333,59 @@
     return [iRet autorelease];
 }
 
++ (ApiResult *)uc_userinfo_set:(NSString *)realname
+                           sex:(NSString *)sex
+                         email:(NSString *)email
+                      birthday:(NSString *)birthday
+                      idNumber:(NSString *)idNumber
+                       address:(NSString *)address
+                      postCode:(NSString *)postCode
+                         likes:(NSString *)likes
+                        isopen:(NSString *)isopen
+                         weibo:(NSString *)weibo
+                            QQ:(NSString *)QQ
+                       contact:(NSString *)contact {
+    static NSString *action = API_URL_USERCENTER "/uc/m_modDetailInfo.action";
+    if (realname == nil) realname = @"";
+    if (sex == nil) sex = @"";
+    if (email == nil) email = @"";
+    if (birthday == nil) birthday = @"";
+    if (idNumber == nil) idNumber = @"";
+    if (address == nil) address = @"";
+    if (postCode == nil) postCode = @"";
+    if (likes == nil) likes = @"";
+    if (QQ == nil) QQ = @"";
+    if (weibo == nil) weibo = @"";
+    if (contact == nil) contact = @"";
+    
+    NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
+                            API_INTERFACE_TONKEN, @"token",
+                            [NSString valueOf:[Api userId]], @"userid",
+                            realname, @"realname",
+                            sex, @"sex",
+                            email, @"email",
+                            birthday, @"birthday",
+                            idNumber, @"idNumber",
+                            address, @"address",
+                            postCode, @"postCode",
+                            likes, @"likes",
+                            isopen, @"isopen",
+                            weibo, @"weibo",
+                            QQ, @"QQ",
+                            contact, @"contact",
+                            [Api base64e:[Api passwd]], @"sessionPassword",
+                            nil];
+    NSDictionary *map = [Api post:action params:params];
+    ApiResult *iRet = [[ApiResult alloc] init];
+    NSDictionary *data = [iRet parse:map];
+    if (data.count > 0) {
+        //
+    }
+    return [iRet autorelease];
+}
+
 + (ApiResult *)uc_userinfo_set:(ucUserInfo *)info {
-    return [self uc_userinfo_set:info.realname sex:[NSString valueOf:info.sex] email:info.email birthday:info.birthday idNumber:info.idNumber address:info.address postCode:info.postCode likes:info.likes isopen:[NSString valueOf:info.isopen] weibo:info.weibo QQ:info.QQ contact:info.contact];
+    return [self uc_userinfo_set:info.realname sex:[NSString valueOf:info.sex] email:info.email birthday:info.birthday idNumber:info.idNumber address:info.address postCode:info.postCode likes:info.likes isopen:[NSString valueOf:info.isopen] weibo:info.weibo QQ:[NSString valueOf:info.QQ] contact:info.contact];
 }
 
 // 上传照片
@@ -378,7 +429,7 @@
     NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
                             API_INTERFACE_TONKEN, @"token",
                             [Api base64e:[Api passwd]], @"sessionPassword",
-                            [NSString valueOf:[Api userId]], @"userid",
+                            [NSString valueOf:[Api userId]], @"userId",
                             [Api passwd], @"password",
                             [NSString valueOf:number], @"curPage",
                             [NSString valueOf:size], @"pageSize",

@@ -7,8 +7,16 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <iOSApi/iOSImageView.h>
 
 // 我的空间
-@interface UCMySpace : UIViewController
+@interface UCMySpace : UIViewController{
+    //
+}
+
+@property (nonatomic, retain) IBOutlet UIImageView *imageView;
+
+- (IBAction)showSina:(id)sender;
+- (IBAction)showQQ:(id)sender;
 
 @end

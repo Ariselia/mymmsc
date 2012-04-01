@@ -586,7 +586,7 @@
 		B8D49E1614E4B0FD0057203A /* uc-right.png in Resources */ = {isa = PBXBuildFile; fileRef = B8D49E0614E4B0FD0057203A /* uc-right.png */; };
 		B8D49E1714E4B0FD0057203A /* uc-save.png in Resources */ = {isa = PBXBuildFile; fileRef = B8D49E0714E4B0FD0057203A /* uc-save.png */; };
 		B8D49E1814E4B0FD0057203A /* uc-star.png in Resources */ = {isa = PBXBuildFile; fileRef = B8D49E0814E4B0FD0057203A /* uc-star.png */; };
-		B8D49E3514E4B2400057203A /* Api.m in Sources */ = {isa = PBXBuildFile; fileRef = B8D49E2A14E4B2400057203A /* Api.m */; };
+		B8D49E3514E4B2400057203A /* Api.mm in Sources */ = {isa = PBXBuildFile; fileRef = B8D49E2A14E4B2400057203A /* Api.mm */; };
 		B8D49E3614E4B2400057203A /* Api+eShop.m in Sources */ = {isa = PBXBuildFile; fileRef = B8D49E2C14E4B2400057203A /* Api+eShop.m */; };
 		B8D49E3714E4B2400057203A /* Api+Database.m in Sources */ = {isa = PBXBuildFile; fileRef = B8D49E2E14E4B2400057203A /* Api+Database.m */; };
 		B8D49E3814E4B2400057203A /* Api+Ebuy.m in Sources */ = {isa = PBXBuildFile; fileRef = B8D49E3014E4B2400057203A /* Api+Ebuy.m */; };
@@ -1438,7 +1438,7 @@
 		B8D49E0714E4B0FD0057203A /* uc-save.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "uc-save.png"; sourceTree = "<group>"; };
 		B8D49E0814E4B0FD0057203A /* uc-star.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "uc-star.png"; sourceTree = "<group>"; };
 		B8D49E2914E4B2400057203A /* Api.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Api.h; sourceTree = "<group>"; };
-		B8D49E2A14E4B2400057203A /* Api.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Api.m; sourceTree = "<group>"; };
+		B8D49E2A14E4B2400057203A /* Api.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Api.mm; sourceTree = "<group>"; };
 		B8D49E2B14E4B2400057203A /* Api+eShop.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Api+eShop.h"; sourceTree = "<group>"; };
 		B8D49E2C14E4B2400057203A /* Api+eShop.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Api+eShop.m"; sourceTree = "<group>"; };
 		B8D49E2D14E4B2400057203A /* Api+Database.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Api+Database.h"; sourceTree = "<group>"; };
@@ -2909,7 +2909,7 @@
 			isa = PBXGroup;
 			children = (
 				B8D49E2914E4B2400057203A /* Api.h */,
-				B8D49E2A14E4B2400057203A /* Api.m */,
+				B8D49E2A14E4B2400057203A /* Api.mm */,
 				B8D49E2B14E4B2400057203A /* Api+eShop.h */,
 				B8D49E2C14E4B2400057203A /* Api+eShop.m */,
 				B8D49E2D14E4B2400057203A /* Api+Database.h */,
@@ -3638,7 +3638,7 @@
 				713A7E2F14A2FDDC001F897E /* ScanAboutViewController.m in Sources */,
 				7195461814ADC53900FE5A69 /* HelpViewController.m in Sources */,
 				71B5C39D14B57949001DE06D /* ImageDecodeViewController.mm in Sources */,
-				B8D49E3514E4B2400057203A /* Api.m in Sources */,
+				B8D49E3514E4B2400057203A /* Api.mm in Sources */,
 				B8D49E3614E4B2400057203A /* Api+eShop.m in Sources */,
 				B8D49E3714E4B2400057203A /* Api+Database.m in Sources */,
 				B8D49E3814E4B2400057203A /* Api+Ebuy.m in Sources */,

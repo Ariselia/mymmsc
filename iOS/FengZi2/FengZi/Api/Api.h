@@ -147,4 +147,7 @@
 
 + (NSMutableDictionary *)post:(NSString *)action params:(NSDictionary *)param;
 + (NSMutableDictionary *)post:(NSString *)action header:(NSDictionary *)heads body:(NSData *)params ;
+
++ (UIImage*)generateImageWithInput:(NSString*)s;
+
 @end

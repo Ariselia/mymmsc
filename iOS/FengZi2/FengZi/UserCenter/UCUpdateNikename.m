@@ -392,7 +392,7 @@
         [input setName:@"QQ号码"];
         [input setTag:TAG_FIELD_QQ];
         QQ = [[UITextField alloc] initWithFrame:frame];
-        QQ.text = ucInfo.QQ;
+        QQ.text = [NSString valueOf:ucInfo.QQ];
         QQ.tag = input.tag;
 		QQ.returnKeyType = UIReturnKeyDone;
 		QQ.borderStyle = _borderStyle;

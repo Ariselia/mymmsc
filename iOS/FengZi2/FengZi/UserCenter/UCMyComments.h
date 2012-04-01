@@ -6,13 +6,16 @@
 //  Copyright (c) 2012年 iTotemStudio. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "Api+UserCenter.h"
+#import <iOSApi/iOSTableViewController.h>
 
 // 我的评论
-@interface UCMyComments : UIViewController{
-    NSMutableArray    *items;
-    UIFont            *font;
+@interface UCMyComments : iOSTableViewController<iOSTableDataDelegate>{
+    NSMutableArray    *_items;
+    UIFont            *_font;
     UITextBorderStyle  _borderStyle;
+    int                _page;
+    int                _size;
 }
 
 @property (nonatomic, retain) IBOutlet UITableView *tableView;

@@ -16,6 +16,9 @@
 #define API_SERVER  @"http://220.231.48.34:7000"
 #define API_TIMEOUT (10)
 
+#import <QRCode/QREncoder.h>
+#import <QRCode/DataMatrix.h>
+
 //====================================< 用户信息 >====================================
 
 @implementation UserInfo
@@ -326,6 +329,18 @@ static UserInfo *cache_info = nil;
     }
     [client release];
     return ret;
+}
+
++ (UIImage*)generateImageWithInput:(NSString*)s{
+    int qrcodeImageDimension = 250;
+    //the string can be very long
+    NSString* aVeryLongURL = s;
+    //first encode the string into a matrix of bools, TRUE for black dot and FALSE for white. Let the encoder decide the error correction level and version
+    int qr_level = QR_ECLEVEL_L;
+    DataMatrix* qrMatrix = [QREncoder encodeWithECLevel:qr_level version:QR_VERSION_AUTO string:aVeryLongURL];
+    //then render the matrix
+    UIImage* qrcodeImage = [QREncoder renderDataMatrix:qrMatrix imageDimension:qrcodeImageDimension];
+    return qrcodeImage;
 }
 
 @end
