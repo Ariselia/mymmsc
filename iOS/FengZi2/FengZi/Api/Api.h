@@ -38,8 +38,9 @@
 #define API_URL_RICHMEDIA    @"http://m.fengxiafei.com/mb"
 // 空码接口地址
 #define API_URL_KMA          @"http://m.fengxiafei.com/mb"
-// 用户中心借口地质
-#define API_URL_USERCENTER   @"http://ifengzi.cn"
+// 用户中心接口地址
+#define API_URL_USERCENTER   @"http://m.ifengzi.cn"
+//#define API_URL_USERCENTER   @"http://devp.ifengzi.cn"
 // 数字商城
 #define API_URL_ESHOP        @"http://220.231.48.34:38090"
 
@@ -79,7 +80,7 @@
 
 @property (nonatomic, assign) int status;
 @property (nonatomic, copy) NSString *message;
-
+// 返回DATA区域 数据
 - (NSDictionary *)parse:(NSDictionary *)map;
 
 @end
@@ -126,6 +127,10 @@
 // 判断用户是否在线
 + (BOOL)isOnLine;
 
+//------------
+
++ (NSString *)filePath:(NSString *)url;
++ (BOOL) fileIsExists:(NSString *)url;
 //--------------------< 富媒体 - 对象 - 模板类 >--------------------
 
 // 是否空码, 默认为空码

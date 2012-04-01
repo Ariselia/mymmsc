@@ -7,25 +7,41 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <iOSApi/iOSImageView.h>
+//#import "UIViewController+Utils.h"
+//#import <iOSApi/UIViewController+KeyBoard.h>
 
 // 修改个人信息
-@interface UCUpdateNikename : UIViewController{
-    UIButton *_btnRight; // 导航条按钮
+@interface UCUpdateNikename : UIViewController<UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate>{
     UIImage *_curImage;
     
-    NSMutableArray *items;
-    UIFont         *font;
-    UITextBorderStyle _borderStyle;
-    //UITextField *userId;
+    NSMutableArray    *items;
+    UIFont            *font;
+    UITextBorderStyle  _borderStyle;
+    
     UITextField *passwd;
+    
     UITextField *nikename;
-    //UITextField *authcode;
+    UITextField *contact;
+    UITextField *realname;
+    UITextField *birthday;
+    UITextField *QQ;
+    UITextField *address;
+    UITextField *email;
+    UITextField *idNumber;
+    UISwitch    *isopen;
+    UITextField *likes;
+    UITextField *modTime;
+    UITextField *postCode;
+    UITextField *regTime;
+    UISwitch    *sex;
+    UITextField *userid;
+    UITextField *weibo;
     
     NSString *srvAuthcode; // 服务器返回的验证码
 }
 
+@property (nonatomic, assign) int idDest;
 @property (nonatomic, retain) IBOutlet UITableView *tableView;
-
-- (IBAction)doAction:(id)sender;
 
 @end

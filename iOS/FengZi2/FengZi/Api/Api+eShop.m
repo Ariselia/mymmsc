@@ -64,22 +64,6 @@
 //====================================< 数字商城 - 接口 >====================================
 @implementation Api (AppStore)
 
-+ (NSString *)filePath:(NSString *)url {
-    NSString *tmpUrl = [iOSApi urlDecode:url];
-    // 获得文件名
-    NSString *filename = [NSString stringWithFormat:@"%@/%@", API_CACHE_FILEPATH, [tmpUrl lastPathComponent]];
-    NSLog(@"1: %@", filename);
-    //return [iOSFile path:filename];
-    return filename;
-}
-
-+ (BOOL) fileIsExists:(NSString *)url {
-    NSString *filepath = [iOSFile path:[self filePath:url]];
-    BOOL bExists = NO;
-    bExists = [[iOSFile manager] fileExistsAtPath:filepath];
-    return bExists;
-}
-
 + (NSString *)typeIcon:(int)index {
     return [NSString stringWithFormat:@"as_app_%d.png", index];
     

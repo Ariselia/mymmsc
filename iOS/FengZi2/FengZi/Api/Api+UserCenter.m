@@ -22,7 +22,7 @@
 
 //--------------------< 用户中心 - 对象 - 个人信息 >--------------------
 @implementation ucUserInfo
-@synthesize QQ,sex,email,likes,weibo,isopen,userid,address,modTime,regTime,birthday,postCode,realname,idNumber;
+@synthesize contact,QQ,sex,email,likes,weibo,isopen,userid,address,modTime,regTime,birthday,postCode,realname,idNumber;
 
 @end
 
@@ -54,6 +54,13 @@
     
     [super dealloc];
 }
+
+@end
+
+//--------------------< 用户中心 - 对象 - 留言板 >--------------------
+@implementation ucComment
+
+@synthesize content;
 
 @end
 
@@ -254,27 +261,143 @@
 }
 
 // 获取用户个人信息
-+ (ucUserInfo *)uc_userinfo_get{
-    //static NSString *action = API_URL_USERCENTER "/uc/m_getUserDetailInfo.action";
-    static NSString *action = @"http://devp.ifengzi.cn" "/uc/m_getUserDetailInfo.action";
++ (ucUserInfo *)uc_userinfo_get:(int)userId{
+    static NSString *action = API_URL_USERCENTER "/uc/m_getUserDetailInfo.action";
+    //static NSString *action = @"http://devp.ifengzi.cn" "/uc/m_getUserDetailInfo.action";
     NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
                             API_INTERFACE_TONKEN, @"token",
-                            [NSString valueOf:[Api userId]], @"userid",
+                            [NSString valueOf:userId], @"userid",
                             nil];
     NSDictionary *map = [Api post:action params:params];
     ucUserInfo *iRet = [[ucUserInfo alloc] init];
     NSDictionary *data = [iRet parse:map];
     if (data.count > 0) {
         // 业务数据处理
-        NSDictionary *nn = [data objectForKey:@"nicname"];
-        if (nn.count > 0) {
-            NSDictionary *info = [nn objectForKey:@"userinfo"];
-            if (info.count > 0) {
-                [info fillObject:iRet];
-            }
+        //NSString *nn = [data objectForKey:@"nicname"];
+        NSDictionary *info = [data objectForKey:@"userInfo"];
+        if (info.count > 0) {
+            [info fillObject:iRet];
         }
     }
     return [iRet autorelease];
+}
+
++ (ApiResult *)uc_userinfo_set:(NSString *)realname
+                           sex:(NSString *)sex
+                         email:(NSString *)email
+                      birthday:(NSString *)birthday
+                      idNumber:(NSString *)idNumber
+                       address:(NSString *)address
+                      postCode:(NSString *)postCode
+                         likes:(NSString *)likes
+                        isopen:(NSString *)isopen
+                         weibo:(NSString *)weibo
+                            QQ:(NSString *)QQ
+                       contact:(NSString *)contact {
+    static NSString *action = API_URL_USERCENTER "/uc/m_modDetailInfo.action";
+    if (realname == nil) realname = @"";
+    if (sex == nil) sex = @"";
+    if (email == nil) email = @"";
+    if (birthday == nil) birthday = @"";
+    if (idNumber == nil) idNumber = @"";
+    if (address == nil) address = @"";
+    if (postCode == nil) postCode = @"";
+    if (likes == nil) likes = @"";
+    if (QQ == nil) QQ = @"";
+    if (weibo == nil) weibo = @"";
+    if (contact == nil) contact = @"";
+    
+    NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
+                            API_INTERFACE_TONKEN, @"token",
+                            [NSString valueOf:[Api userId]], @"userid",
+                            realname, @"userInfo.realname",
+                            sex, @"userInfo.sex",
+                            email, @"userInfo.email",
+                            birthday, @"userInfo.birthday",
+                            idNumber, @"userInfo.idNumber",
+                            address, @"userInfo.address",
+                            postCode, @"userInfo.postCode",
+                            likes, @"userInfo.likes",
+                            isopen, @"userInfo.isopen",
+                            weibo, @"userInfo.weibo",
+                            QQ, @"userInfo.QQ",
+                            contact, @"userInfo.contact",
+                            [Api base64e:[Api passwd]], @"sessionPassword",
+                            nil];
+    NSDictionary *map = [Api post:action params:params];
+    ApiResult *iRet = [[ApiResult alloc] init];
+    NSDictionary *data = [iRet parse:map];
+    if (data.count > 0) {
+        //
+    }
+    return [iRet autorelease];
+}
+
++ (ApiResult *)uc_userinfo_set:(ucUserInfo *)info {
+    return [self uc_userinfo_set:info.realname sex:[NSString valueOf:info.sex] email:info.email birthday:info.birthday idNumber:info.idNumber address:info.address postCode:info.postCode likes:info.likes isopen:[NSString valueOf:info.isopen] weibo:info.weibo QQ:info.QQ contact:info.contact];
+}
+
+// 上传照片
++ (ApiResult *)uc_photo_post:(NSData *)buffer{
+    ApiResult *iRet = [ApiResult new];
+    static NSString *action = API_URL_USERCENTER "/uc/m_uploadImg.action";
+    [iOSApi showAlert:@"正在上传图片"];
+    HttpClient *hc = [[HttpClient alloc] initWithURL:action timeout:10];
+    NSString *filename = [NSString stringWithFormat:@"%d.jpg", [Api userId]];
+    [hc formAddImage:@"image" filename:filename data:buffer];
+    [hc formAddField:@"token" value:API_INTERFACE_TONKEN];
+    [hc formAddField:@"filename" value:filename];
+    NSData *response = [hc post];
+    [iOSApi closeAlert];
+    if (response == nil) {
+        [iOSApi showCompleted:@"服务器正忙，请稍候重新登录。"];
+    } else {
+        // 取得JSON数据的字符串
+        NSString *json_string = [[[NSString alloc] initWithData:response encoding:NSUTF8StringEncoding] autorelease];
+        iOSLog(@"json.string = %@", json_string);
+        // 把JSON转为数组
+        NSDictionary *ret = [json_string objectFromJSONString];
+        // 把JSON转为数组
+        [iRet parse:ret];
+        if (iRet.status == 0) {
+            [iOSApi showCompleted:@"上传成功!"];
+        } else {
+            [iOSApi showCompleted:iRet.message];
+        }
+    }
+    [hc release];
+    [iOSApi closeAlert];
+    
+    return [iRet autorelease];
+}
+
+// 蜂巢留言板
++ (NSMutableArray *)uc_comments_get:(int)number
+                               size:(int)size {
+    static NSString *action = API_URL_USERCENTER "/uc/m_findZoneComment.action";
+    NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
+                            API_INTERFACE_TONKEN, @"token",
+                            [Api base64e:[Api passwd]], @"sessionPassword",
+                            [NSString valueOf:[Api userId]], @"userid",
+                            [Api passwd], @"password",
+                            [NSString valueOf:number], @"curPage",
+                            [NSString valueOf:size], @"pageSize",
+                            nil];
+    NSDictionary *map = [Api post:action params:params];
+    ApiResult *iRet = [[ApiResult alloc] init];
+    NSDictionary *data = [iRet parse:map];
+    NSMutableArray *aRet = [[[NSMutableArray alloc] initWithCapacity:0] autorelease];
+    if (iRet.status == API_USERCENTET_SUCCESS && data.count > 0) {
+        // 业务数据处理
+        NSArray *codeList = [data objectForKey:@"commentList"];
+        // 找到我的码数据区
+        for (NSDictionary *dict in codeList) {
+            CodeInfo *obj = [dict toObject:ucComment.class];
+            [aRet addObject:obj];
+        }
+    }
+    [iRet release];
+    return aRet;
 }
 
 @end

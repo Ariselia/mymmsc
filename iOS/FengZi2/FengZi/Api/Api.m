@@ -57,6 +57,7 @@
     [super dealloc];
 }
 
+// 返回DATA区域 数据
 - (NSDictionary *)parse:(NSDictionary *)map{
     NSDictionary *data = nil;
     if (map.count > 0) {
@@ -212,6 +213,24 @@ static UserInfo *cache_info = nil;
 + (void)setUser:(UserInfo *)info {
     cache_info = info;
 }
+
+//--------------
++ (NSString *)filePath:(NSString *)url {
+    NSString *tmpUrl = [iOSApi urlDecode:url];
+    // 获得文件名
+    NSString *filename = [NSString stringWithFormat:@"%@/%@", API_CACHE_FILEPATH, [tmpUrl lastPathComponent]];
+    NSLog(@"1: %@", filename);
+    //return [iOSFile path:filename];
+    return filename;
+}
+
++ (BOOL) fileIsExists:(NSString *)url {
+    NSString *filepath = [iOSFile path:[self filePath:url]];
+    BOOL bExists = NO;
+    bExists = [[iOSFile manager] fileExistsAtPath:filepath];
+    return bExists;
+}
+
 //--------------------< 业务处理 - 接口 >--------------------
 
 + (NSDictionary *)parseUrl:(NSString *)url {

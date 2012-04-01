@@ -13,6 +13,7 @@
 // 页面验证码需要用户手机号码开关
 #define UC_AUTHCODE_FROM_USERNAME (1)
 
+#define UC_FILENAME_PHOTO @"my_photo.jpg"
 //====================================< 用户中心 - 登录信息 >====================================
 
 @interface ucLoginResult : ApiResult {
@@ -25,23 +26,24 @@
 @interface ucUserInfo : ApiResult {
 }
 
+@property (nonatomic, copy) NSString *contact;
 @property (nonatomic, copy) NSString *birthday;
 @property (nonatomic, copy) NSString *QQ;
 @property (nonatomic, copy) NSString *address;
 @property (nonatomic, copy) NSString *email;
 @property (nonatomic, copy) NSString *idNumber;
-@property (nonatomic, copy) NSString *isopen;
+@property (nonatomic, assign) int isopen;
 @property (nonatomic, copy) NSString *likes;
 @property (nonatomic, copy) NSString *modTime;
 @property (nonatomic, copy) NSString *postCode;
 @property (nonatomic, copy) NSString *realname;
 @property (nonatomic, copy) NSString *regTime;
-@property (nonatomic, copy) NSString *sex;
+@property (nonatomic, assign) int sex;
 @property (nonatomic, copy) NSString *userid;
 @property (nonatomic, copy) NSString *weibo;
 @end
 
-//====================================< 用户中心 - 验证码 >====================================
+//--------------------< 用户中心 - 对象 - 验证码 >--------------------
 @interface ucAuthCode : ApiResult {
     NSString *code;
 }
@@ -50,7 +52,7 @@
 
 @end
 
-//====================================< 用户中心 - 我的码 >====================================
+//--------------------< 用户中心 - 对象 - 我的码 >--------------------
 
 @interface CodeInfo : NSObject {
     NSString *createTime; //2011-12-13T09:51:25
@@ -65,6 +67,16 @@
 @property (nonatomic, retain) NSString *title;
 @property (nonatomic, retain) NSString *url;
 @property (nonatomic, assign) int type;
+
+@end
+
+//--------------------< 用户中心 - 对象 - 留言板 >--------------------
+
+@interface ucComment : NSObject {
+    //
+}
+
+@property (nonatomic, copy) NSString *content;
 
 @end
 
@@ -104,6 +116,24 @@
                            size:(int)size;
 
 // 获取用户个人信息
-+ (ucUserInfo *)uc_userinfo_get;
++ (ucUserInfo *)uc_userinfo_get:(int)userId;
 
++ (ApiResult *)uc_userinfo_set:(NSString *)realname
+                           sex:(NSString *)sex
+                         email:(NSString *)email
+                      birthday:(NSString *)birthday
+                      idNumber:(NSString *)idNumber
+                       address:(NSString *)address
+                      postCode:(NSString *)postCode
+                         likes:(NSString *)likes
+                        isopen:(NSString *)isopen
+                         weibo:(NSString *)weibo
+                            QQ:(NSString *)QQ
+                       contact:(NSString *)contact;
++ (ApiResult *)uc_userinfo_set:(ucUserInfo *)info;
++ (ApiResult *)uc_photo_post:(NSData *)buffer;
+
+// 蜂巢留言板
++ (NSMutableArray *)uc_comments_get:(int)number
+                               size:(int)size;
 @end

@@ -7,15 +7,17 @@
 //
 
 #import "UserCenter.h"
-#import "Api.h"
+#import "Api+UserCenter.h"
 
 #import "UCLogin.h"
 #import "UCRegister.h"
+#import "UCUpdateNikename.h"
 
 #define ALERT_TITLE @"个人中心 提示"
 
 @implementation UserCenter
 @synthesize tableView=_tableView, message;
+@synthesize photo,numScan,numAccess;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -40,6 +42,101 @@
     UCRegister *nextView = [[UCRegister alloc] init];
     [self.navigationController pushViewController:nextView animated:YES];
     [nextView release];
+}
+
+// 转向编辑个人信息
+- (IBAction)doEditor:(id)sender{
+    if (![Api isOnLine]) {
+        [iOSApi Alert:ALERT_TITLE message:@"请登录后，再进行编辑。"];
+        return;
+    }
+    UCUpdateNikename *nextView = [[UCUpdateNikename alloc] init];
+    [self.navigationController pushViewController:nextView animated:YES];
+    [nextView release];
+}
+
+static int iTimes = -1;
+
+// 选择 拍照还是相册
+- (void)doPhotoSelect {
+    iTimes = 0;
+    UIAlertView *alert = [[UIAlertView alloc]
+                          initWithTitle: @"选择头像获取方式"
+                          message:nil
+                          delegate:self
+                          cancelButtonTitle:@"取消"
+                          otherButtonTitles:@"拍照", @"相册", nil];
+    [alert show];
+    [alert release];
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger) buttonIndex {
+	if (iTimes == 0) {
+		UIImagePickerController *mPicker = [[UIImagePickerController alloc] init];
+		mPicker.delegate = self;
+		switch (buttonIndex) {
+			case 1:
+				mPicker.sourceType = UIImagePickerControllerSourceTypeCamera;
+				break;
+            case 2:
+				mPicker.sourceType = UIImagePickerControllerSourceTypeSavedPhotosAlbum;
+				break;
+			default:
+                return;
+                break;
+		}
+		[self presentModalViewController:mPicker animated:YES];
+		iTimes = 1;
+	} else if (iTimes == 1) {
+		//
+	} else if (iTimes == 2) {
+        //
+	}
+}
+
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)xInfo {
+    iTimes = 0;
+    UIImage *img = nil;
+    
+    NSString *mediaType = [xInfo objectForKey:UIImagePickerControllerMediaType];
+    if ([mediaType isEqualToString:@"public.image"]){
+        NSLog(@"found a image");
+        UIImage *origImage = (UIImage *)[xInfo objectForKey:UIImagePickerControllerOriginalImage];
+        CGFloat origScale = origImage.size.width / origImage.size.height;
+        CGSize dstSize = CGSizeMake(0, 0);
+        dstSize.height = 480;
+        dstSize.width = dstSize.height * origScale;
+        UIGraphicsBeginImageContext(dstSize);
+        // This is where we resize captured image
+        [origImage drawInRect:CGRectMake(0, 0, dstSize.width, dstSize.height)];
+        // And add the watermark on top of it
+        //[[UIImage imageNamed:@"logo.png"] drawAtPoint:CGPointMake(0, 0) blendMode:kCGBlendModeNormal alpha: 1];
+        // Save the results directly to the image view property
+        img = UIGraphicsGetImageFromCurrentImageContext();
+        UIGraphicsEndImageContext();
+    } else if ([mediaType isEqualToString:@"public.movie"]){
+        //
+    }
+    
+	// Dismiss the image picker controller and look at the results
+	[picker dismissModalViewControllerAnimated:YES];
+	
+	CGSize size;
+	size.width = 300;
+	size.height = 300;
+    UIImage *scaledImage = [img thumb:&size];
+    photo.image = scaledImage;
+    NSData *buffer = [UIImagePNGRepresentation(scaledImage) retain];
+    //iOSImageView2 *iv = [[iOSImageView2 alloc] initWithImage:scaledImage superView:self.view];
+    //iv.delegate = self;
+    //[iv release];
+    NSString *filePath = [Api filePath:UC_FILENAME_PHOTO];
+    NSLog(@"1: %@", filePath);
+    NSFileHandle *fileHandle = [iOSFile create:filePath];
+    [fileHandle writeData:buffer];
+    [fileHandle closeFile];
+    ApiResult *iRet = [[Api uc_photo_post:buffer] retain];
+    [iRet release];
 }
 
 - (void)viewDidLoad
@@ -72,8 +169,12 @@
         UIBarButtonItem *rightItem = [[UIBarButtonItem alloc] initWithCustomView:_btnRight];
         self.navigationItem.rightBarButtonItem = rightItem;
         [rightItem release];
+    } else {
+        //
     }
+    
 }
+
 
 - (void)viewDidUnload
 {
@@ -123,6 +224,18 @@
         UIBarButtonItem *rightItem = [[UIBarButtonItem alloc] initWithCustomView:_btnRight];
         self.navigationItem.rightBarButtonItem = rightItem;
         [rightItem release];
+        
+        // 加载照片
+        if ([Api fileIsExists:UC_FILENAME_PHOTO]) {
+            NSString *filePath = [iOSFile path:[Api filePath:UC_FILENAME_PHOTO]];
+            UIImage *im = [UIImage imageWithData:[NSData dataWithContentsOfFile:filePath]];
+            photo.image = im;
+        }
+        CGRect btnframe = photo.frame;
+        UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+        btn.frame = btnframe;
+        [btn addTarget:self action:@selector(doPhotoSelect) forControlEvents:UIControlEventTouchUpInside];
+        [self.view addSubview:btn];
     }
     if ([items count] == 0) {
         // 预加载项
@@ -130,16 +243,25 @@
         items = [[NSMutableArray alloc] initWithCapacity:0];
         if ([Api isOnLine]) {
             message.text = [NSString stringWithFormat: @"Hi, %@", [Api nikeName]];
-            action = [iOSAction initWithName: @"修改个人信息" class: @"UCUpdateNikename"];
-            [action setIcon: @"uc-edit"];
+            // 1. 修改密码
+            action = [iOSAction initWithName: @"修改密码" class: @"UCUpdatePassword"];
+            [action setIcon: @"bb"];
             [items addObject: action];
             
-            action = [iOSAction initWithName: @"修改密码" class: @"UCUpdatePassword"];
-            [action setIcon: @"uc-passwd"];
+            // 2. 修改密码
+            action = [iOSAction initWithName: @"蜂巢留言板" class: @"UCUpdatePassword"];
+            [action setIcon: @"usercenter_userinfo_mycoment"];
             [items addObject: action];
+            
+            // 3. 我的回复
+            action = [iOSAction initWithName: @"show出你的二维码" class: @"UCUpdatePassword"];
+            [action setIcon: @"usercenter_userinfo_zoneqr"];
+            [items addObject: action];
+            // 4. 我的空间
+            
         } else {
             // 没有登录
-            message.text = @"您还未登录，请点击［此处登录］！";
+            message.text = @"请点击［此处登录］！";
             UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
             btn.frame = message.frame;
             btn.backgroundColor = [UIColor clearColor];
@@ -148,14 +270,13 @@
         }
         
         action = [iOSAction initWithName: @"我的码" class: @"UCMyCode"];
-        [action setIcon: @"uc-coder"];
+        [action setIcon: @"cc"];
         //[action setNib: @"MoneyTrans"];
         [items addObject: action];
         //[action release];
         
-        action = [iOSAction initWithName: @"收藏" class: @"FaviroteViewController"];
-        [action setIcon: @"uc-star"];
-        //[action setNib: @"MoneyTrans"];
+        action = [iOSAction initWithName: @"我的收藏" class: @"FaviroteViewController"];
+        [action setIcon: @"dd"];
         [items addObject: action];
         //[action release];
         [self.tableView reloadData];

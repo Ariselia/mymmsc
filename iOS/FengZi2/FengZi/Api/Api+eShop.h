@@ -79,9 +79,6 @@
 //====================================< 数字商城 - 接口 >====================================
 @interface Api (AppStore)
 
-+ (NSString *)filePath:(NSString *)url;
-+ (BOOL) fileIsExists:(NSString *)url;
-
 + (NSString *)typeIcon:(int)index;
 + (NSString *)typeName:(int)index;
 + (NSString *)sortName:(int)index;

@@ -59,11 +59,11 @@ memcpy(k_opad, inKey, inKeyLength);
 
 /* XOR key with ipad and opad values */
 int i;
-for (i = 0; i < B; i++)
-	{
+for (i = 0; i < (int)B; i++)
+{
 	k_ipad[i] ^= 0x36;
 	k_opad[i] ^= 0x5c;
-	}
+}
 	
 /*
 * perform inner SHA1
