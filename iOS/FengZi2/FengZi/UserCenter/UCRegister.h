@@ -9,18 +9,18 @@
 #import <UIKit/UIKit.h>
 
 @interface UCRegister : UIViewController {
-    UIButton *_btnRight; // 导航条按钮
-    UIImage *_curImage;
+    UIButton         *_btnRight; // 导航条按钮
+    UIImage          *_curImage;
     
-    NSMutableArray *items;
-    UIFont         *font;
+    NSMutableArray   *items;
+    UIFont            *font;
     UITextBorderStyle _borderStyle;
-    UITextField *userId;
-    UITextField *passwd;
-    UITextField *passwd2;
-    UITextField *authcode;
-    UITextField *nikename;
-    UISwitch    *confirmProto;
+    UITextField       *userId;
+    UITextField       *passwd;
+    UITextField       *passwd2;
+    UITextField       *authcode;
+    UITextField       *nikename;
+    UISwitch          *confirmProto;
     
     NSString *srvAuthcode; // 服务器返回的验证码
 }
