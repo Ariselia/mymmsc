@@ -27,6 +27,8 @@
 #import "UCRichMedia.h"
 #import "UCCreateCode.h"
 
+#import "UCUpdateNikename.h"
+
 #define AniInterval 0.3f
 
 static int iTimes = -1;
@@ -140,6 +142,15 @@ static int iTimes = -1;
 
 -(void) chooseShowController:(NSString*)input{
     iOSLog(@"decode input = %@", input);
+    if (input != nil && [input hasPrefix:API_URL_SHOW]) {
+        NSDictionary *dict = [Api parseUrl:input];
+        NSString *userId = [dict objectForKey:@"id"];
+        UCUpdateNikename *nextView = [[UCUpdateNikename alloc] init];
+        nextView.idDest = [userId intValue];
+        [self.navigationController pushViewController:nextView animated:YES];
+        [nextView release];
+        return;
+    }
     BusCategory *category = [BusDecoder classify:input];
     UIImage *saveImage = [self generateImageWithInput:input];
     UIImage *inputImage = saveImage;

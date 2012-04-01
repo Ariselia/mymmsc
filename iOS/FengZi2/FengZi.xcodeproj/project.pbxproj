@@ -135,8 +135,6 @@
 		0AF64ED1152671C00017E298 /* UCMyComments.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0AF64ECF152671C00017E298 /* UCMyComments.xib */; };
 		0AF64ED5152673C10017E298 /* UCMySpace.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AF64ED3152673C10017E298 /* UCMySpace.m */; };
 		0AF64ED6152673C10017E298 /* UCMySpace.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0AF64ED4152673C10017E298 /* UCMySpace.xib */; };
-		0AF64EDA152674420017E298 /* UCMyShow.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AF64ED8152674420017E298 /* UCMyShow.m */; };
-		0AF64EDB152674420017E298 /* UCMyShow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0AF64ED9152674420017E298 /* UCMyShow.xib */; };
 		3E11F12C1472686800ACC436 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E11F12B1472686800ACC436 /* UIKit.framework */; };
 		3E11F12E1472686800ACC436 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E11F12D1472686800ACC436 /* Foundation.framework */; };
 		3E11F1301472686800ACC436 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E11F12F1472686800ACC436 /* CoreGraphics.framework */; };
@@ -807,9 +805,6 @@
 		0AF64ED2152673C10017E298 /* UCMySpace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UCMySpace.h; sourceTree = "<group>"; };
 		0AF64ED3152673C10017E298 /* UCMySpace.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UCMySpace.m; sourceTree = "<group>"; };
 		0AF64ED4152673C10017E298 /* UCMySpace.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UCMySpace.xib; sourceTree = "<group>"; };
-		0AF64ED7152674420017E298 /* UCMyShow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UCMyShow.h; sourceTree = "<group>"; };
-		0AF64ED8152674420017E298 /* UCMyShow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UCMyShow.m; sourceTree = "<group>"; };
-		0AF64ED9152674420017E298 /* UCMyShow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UCMyShow.xib; sourceTree = "<group>"; };
 		3E11F1271472686800ACC436 /* FengZi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FengZi.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3E11F12B1472686800ACC436 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		3E11F12D1472686800ACC436 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -2956,9 +2951,6 @@
 				0AF64ED2152673C10017E298 /* UCMySpace.h */,
 				0AF64ED3152673C10017E298 /* UCMySpace.m */,
 				0AF64ED4152673C10017E298 /* UCMySpace.xib */,
-				0AF64ED7152674420017E298 /* UCMyShow.h */,
-				0AF64ED8152674420017E298 /* UCMyShow.m */,
-				0AF64ED9152674420017E298 /* UCMyShow.xib */,
 			);
 			path = UserCenter;
 			sourceTree = "<group>";
@@ -3457,7 +3449,6 @@
 				0AADFE5315223CA3004B4D4D /* EBShopInfo.xib in Resources */,
 				0AF64ED1152671C00017E298 /* UCMyComments.xib in Resources */,
 				0AF64ED6152673C10017E298 /* UCMySpace.xib in Resources */,
-				0AF64EDB152674420017E298 /* UCMyShow.xib in Resources */,
 				0ABB0F1E1527FF1600A72678 /* bb.png in Resources */,
 				0ABB0F1F1527FF1600A72678 /* cc.png in Resources */,
 				0ABB0F201527FF1600A72678 /* usercenter_userinfo_detail.png in Resources */,
@@ -3676,7 +3667,6 @@
 				0AADFE5115223C84004B4D4D /* EBShopInfo.m in Sources */,
 				0AF64ED0152671C00017E298 /* UCMyComments.m in Sources */,
 				0AF64ED5152673C10017E298 /* UCMySpace.m in Sources */,
-				0AF64EDA152674420017E298 /* UCMyShow.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

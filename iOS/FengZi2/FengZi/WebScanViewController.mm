@@ -22,6 +22,8 @@
 #import "UCRichMedia.h"
 #import "UCCreateCode.h"
 
+#import "UCUpdateNikename.h"
+
 @implementation WebScanViewController
 @synthesize scanWebView = _scanWebView;
 
@@ -55,6 +57,15 @@
 }
 
 -(void) chooseShowController:(NSString*)input{
+    if (input != nil && [input hasPrefix:API_URL_SHOW]) {
+        NSDictionary *dict = [Api parseUrl:input];
+        NSString *userId = [dict objectForKey:@"id"];
+        UCUpdateNikename *nextView = [[UCUpdateNikename alloc] init];
+        nextView.idDest = [userId intValue];
+        [self.navigationController pushViewController:nextView animated:YES];
+        [nextView release];
+        return;
+    }
     BusCategory *category = [BusDecoder classify:input];
     [TabBarController hide:NO animated:NO];
     if ([category.type isEqualToString:CATEGORY_CARD]) {

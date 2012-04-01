@@ -70,7 +70,7 @@
         HistoryObject *historyobject = [[HistoryObject alloc] init];
         historyobject.type = DATA_ENV.curBusinessType;
         historyobject.content = _showInfo;
-        historyobject.isEncode=YES;
+        historyobject.isEncode = YES;
         historyobject.image= [NSString stringWithFormat:@"%@.png",[CommonUtils createUUID]];
         [FileUtil writeImage:_encodeImageView.image toFileAtPath:[FileUtil filePathInEncode:historyobject.image]];
         [[DataBaseOperate shareData] insertHistory:historyobject];

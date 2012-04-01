@@ -41,6 +41,8 @@
 // 用户中心接口地址
 #define API_URL_USERCENTER   @"http://m.ifengzi.cn"
 //#define API_URL_USERCENTER   @"http://devp.ifengzi.cn"
+#define API_URL_SHOW         @"http://m.ifengzi.cn/uc/m_zoneComment.action"
+
 // 数字商城
 #define API_URL_ESHOP        @"http://220.231.48.34:38090"
 
