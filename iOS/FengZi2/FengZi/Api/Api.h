@@ -15,7 +15,7 @@
 #import <iOSApi/iOSImageView.h>
 #import <iOSApi/JSONKit.h>
 #import <iOSApi/HttpClient.h>
-#import <iOSApi/UIImage+Scale.h>
+#import <iOSApi/UIImage+Utils.h>
 #import <iOSApi/NSArray+Utils.h>
 #import <iOSApi/NSObject+Utils.h>
 #import <iOSApi/NSString+Utils.h>
@@ -94,7 +94,7 @@
 
 //--------------------< 接口 - 对象 - BASE64 >--------------------
 + (NSString *)base64e:(NSString *)s;
-
++ (NSData *)base64d_data:(NSString *)s;
 //--------------------< 接口 - 对象 - 用户信息 >--------------------
 + (UserInfo *)user;
 
