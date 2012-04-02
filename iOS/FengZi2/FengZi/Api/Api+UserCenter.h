@@ -25,7 +25,7 @@
 //--------------------< 用户中心 - 对象 - 个人信息 >--------------------
 @interface ucUserInfo : ApiResult {
 }
-
+@property (nonatomic, copy) NSString *nicname;
 @property (nonatomic, copy) NSString *contact;
 @property (nonatomic, copy) NSString *birthday;
 //@property (nonatomic, copy) NSString *QQ;
@@ -77,7 +77,11 @@
     //
 }
 
-@property (nonatomic, copy) NSString *content;
+@property (nonatomic, copy) NSString *commentContent;
+@property (nonatomic, copy) NSString *commentDate;
+@property (nonatomic, copy) NSString *commentName;
+@property (nonatomic, assign) int commentUserId;
+@property (nonatomic, assign) int delFlag, id, userId;
 
 @end
 
@@ -132,9 +136,20 @@
                             QQ:(NSString *)QQ
                        contact:(NSString *)contact;
 + (ApiResult *)uc_userinfo_set:(ucUserInfo *)info;
+
+// 照片
++ (NSString *)uc_photo_name:(int)userId;
+
 + (ApiResult *)uc_photo_post:(NSData *)buffer;
+
+// 下载照片
++ (void)uc_photo_down:(int)userId;
 
 // 蜂巢留言板
 + (NSMutableArray *)uc_comments_get:(int)number
                                size:(int)size;
+
++ (ApiResult *)uc_comment_add:(int)userId
+                      content:(NSString *)content;
+
 @end
