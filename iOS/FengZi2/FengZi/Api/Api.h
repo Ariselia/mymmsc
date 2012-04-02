@@ -17,6 +17,7 @@
 #import <iOSApi/HttpClient.h>
 #import <iOSApi/UIImage+Utils.h>
 #import <iOSApi/NSArray+Utils.h>
+#import <iOSApi/NSDate+Utils.h>
 #import <iOSApi/NSObject+Utils.h>
 #import <iOSApi/NSString+Utils.h>
 #import <iOSApi/NSDictionary+Utils.h>
@@ -142,6 +143,7 @@
 + (void)setKma:(BOOL)isKma;
 
 //--------------------< 业务处理 - 接口 >--------------------
++ (NSString *)fixUrl:(NSString *)url;
 + (NSDictionary *)parseUrl:(NSString *)url;
 + (int)getInt:(id)value;
 + (float)getFloat:(id)value;
