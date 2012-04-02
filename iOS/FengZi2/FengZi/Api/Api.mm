@@ -25,6 +25,15 @@
 
 @synthesize userId, userName, phoneNumber, nikeName, password, sessionPassword;
 
+- (id)init{
+	if(!(self = [super init])) {
+		return self;
+	}
+    userId = -1;
+	
+	return self;
+}
+
 - (void)dealloc {
     [userName release];
     [phoneNumber release];
@@ -198,7 +207,7 @@ static UserInfo *cache_info = nil;
         sRet = [[iOSApi cache] objectForKey:API_CACHE_NKNAME];
     }
     if (sRet == nil) {
-        sRet = @"蜂子"; // 默认一个昵称
+        sRet = @"匿名"; // 默认一个昵称
     }
     return sRet;
 }
@@ -247,9 +256,7 @@ static UserInfo *cache_info = nil;
 }
 
 //--------------------< 业务处理 - 接口 >--------------------
-
-+ (NSDictionary *)parseUrl:(NSString *)url {
-    NSMutableDictionary *dict = [NSMutableDictionary dictionary];
++ (NSString *)fixUrl:(NSString *)url{
     url = [iOSApi urlDecode:url];
     url = [url stringByReplacingOccurrencesOfString:@"\\:" withString:@":"];
     NSRange range = [url rangeOfString: @"http://"];
@@ -260,7 +267,12 @@ static UserInfo *cache_info = nil;
     } else {
         url = _url;
     }
-	    
+    return url;
+}
+
++ (NSDictionary *)parseUrl:(NSString *)url {
+    NSMutableDictionary *dict = [NSMutableDictionary dictionary];
+    url = [self fixUrl:url];	    
     NSArray *tmpUrl = [url componentsSeparatedByString:@"?"];
     if (tmpUrl.count >= 2) {
         NSArray *attrs = [[tmpUrl objectAtIndex:1] componentsSeparatedByString:@"&"];
