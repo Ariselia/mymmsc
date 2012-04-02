@@ -99,6 +99,18 @@
     return [[[NSString alloc] initWithData:dst encoding:NSUTF8StringEncoding] autorelease];
 }
 
++ (NSString *)base64d:(NSString *)s {
+    NSData *data = [s dataUsingEncoding:NSUTF8StringEncoding];
+    NSData *dst = [GTMBase64 decodeData:data];
+    return [[[NSString alloc] initWithData:dst encoding:NSUTF8StringEncoding] autorelease];
+}
+
++ (NSData *)base64d_data:(NSString *)s {
+    s = [iOSApi urlDecode:s];
+    NSData *data = [s dataUsingEncoding:NSUTF8StringEncoding];
+    return [GTMBase64 decodeData:data];
+}
+
 static BOOL cache_kma = NO;
 
 // 是否空码, 默认为空码
@@ -239,6 +251,16 @@ static UserInfo *cache_info = nil;
 + (NSDictionary *)parseUrl:(NSString *)url {
     NSMutableDictionary *dict = [NSMutableDictionary dictionary];
     url = [iOSApi urlDecode:url];
+    url = [url stringByReplacingOccurrencesOfString:@"\\:" withString:@":"];
+    NSRange range = [url rangeOfString: @"http://"];
+    NSString *_url = [url substringFromIndex:range.location];
+    range = [_url rangeOfString:@";"];
+    if (range.length > 0) {
+        url = [_url substringToIndex:range.location - 1];
+    } else {
+        url = _url;
+    }
+	    
     NSArray *tmpUrl = [url componentsSeparatedByString:@"?"];
     if (tmpUrl.count >= 2) {
         NSArray *attrs = [[tmpUrl objectAtIndex:1] componentsSeparatedByString:@"&"];
