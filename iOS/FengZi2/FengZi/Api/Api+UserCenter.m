@@ -22,7 +22,7 @@
 
 //--------------------< 用户中心 - 对象 - 个人信息 >--------------------
 @implementation ucUserInfo
-@synthesize contact,QQ,sex,email,likes,weibo,isopen,userid,address,modTime,regTime,birthday,postCode,realname,idNumber;
+@synthesize nicname,contact,QQ,sex,email,likes,weibo,isopen,userid,address,modTime,regTime,birthday,postCode,realname,idNumber;
 
 @end
 
@@ -60,8 +60,11 @@
 //--------------------< 用户中心 - 对象 - 留言板 >--------------------
 @implementation ucComment
 
-@synthesize content;
+@synthesize commentDate, commentName, commentUserId, commentContent, id, userId, delFlag;
 
+- (void)dealloc{
+    [super dealloc];
+}
 @end
 
 //====================================< 用户中心 >====================================
@@ -271,8 +274,9 @@
     NSDictionary *map = [Api post:action params:params];
     ucUserInfo *iRet = [[ucUserInfo alloc] init];
     NSDictionary *data = [iRet parse:map];
-    if (data.count > 0) {
+    if (iRet.status == API_USERCENTET_SUCCESS && data.count > 0) {
         // 业务数据处理
+        [data fillObject:iRet];
         //NSString *nn = [data objectForKey:@"nicname"];
         NSDictionary *info = [data objectForKey:@"userInfo"];
         if (info.count > 0) {
@@ -422,6 +426,49 @@
     return [iRet autorelease];
 }
 
++ (NSString *)uc_photo_name:(int)userId{
+    return [NSString stringWithFormat:@"%d.jpg", userId];
+}
+
+// 下载照片
++ (void)uc_photo_down:(int)userId{
+    ApiResult *iRet = [ApiResult new];
+    static NSString *action = API_URL_USERCENTER "/uc/m_downImg.action";
+    [iOSApi showAlert:@"正在下载照片"];
+    HttpClient *hc = [[HttpClient alloc] initWithURL:action timeout:10];
+    NSString *filename = [NSString stringWithFormat:@"%d.jpg", userId];
+    [hc formAddField:@"token" value:API_INTERFACE_TONKEN];
+    [hc formAddField:@"filename" value:filename];
+    NSData *response = [hc post];
+    [iOSApi closeAlert];
+    if (response == nil) {
+        [iOSApi showCompleted:@"服务器正忙，请稍候重新下载。"];
+    } else {
+        // 取得JSON数据的字符串
+        NSString *json_string = [[[NSString alloc] initWithData:response encoding:NSUTF8StringEncoding] autorelease];
+        iOSLog(@"json.string = %@", json_string);
+        // 把JSON转为数组
+        NSDictionary *ret = [json_string objectFromJSONString];
+        // 把JSON转为数组
+        [iRet parse:ret];
+        if (iRet.status == 0) {
+            //[iOSApi showCompleted:@"上传成功!"];
+            NSDictionary *data = [ret objectForKey:@"data"];
+            NSString *sBuf = [data objectForKey:@"imagFile"];
+            NSData *buffer = [Api base64d_data:sBuf];
+            NSString *filePath = [Api filePath:filename];
+            NSFileHandle *fileHandle = [iOSFile create:filePath];
+            [fileHandle writeData:buffer];
+            [fileHandle closeFile];            
+        } else {
+            [iOSApi showCompleted:iRet.message];
+        }
+    }
+    [hc release];
+    [iRet release];
+    [iOSApi closeAlert];
+}
+
 // 蜂巢留言板
 + (NSMutableArray *)uc_comments_get:(int)number
                                size:(int)size {
@@ -430,7 +477,6 @@
                             API_INTERFACE_TONKEN, @"token",
                             [Api base64e:[Api passwd]], @"sessionPassword",
                             [NSString valueOf:[Api userId]], @"userId",
-                            [Api passwd], @"password",
                             [NSString valueOf:number], @"curPage",
                             [NSString valueOf:size], @"pageSize",
                             nil];
@@ -449,6 +495,27 @@
     }
     [iRet release];
     return aRet;
+}
+
++ (ApiResult *)uc_comment_add:(int)userId
+                      content:(NSString *)content{
+    static NSString *action = API_URL_USERCENTER "/uc/m_addNewZoneComment.action";
+    NSString *date = [NSDate now];
+    NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
+                            API_INTERFACE_TONKEN, @"token",
+                            [NSString valueOf:userId], @"userid",
+                            [NSString valueOf:[Api userId]], @"commentUserId",
+                            [Api nikeName], @"commentName",
+                            content, @"commentContent",
+                            date, @"commentDate",
+                            nil];
+    NSDictionary *map = [Api post:action params:params];
+    ApiResult *iRet = [[ApiResult alloc] init];
+    NSDictionary *data = [iRet parse:map];
+    if (data.count > 0) {
+        // 业务数据处理
+    }
+    return [iRet autorelease];
 }
 
 @end
