@@ -97,9 +97,13 @@
     [backitem release];
     
     UIButton *_btnRight = [UIButton buttonWithType:UIButtonTypeCustom];
-    _btnRight.frame = CGRectMake(0, 0, 60, 32);
-    [_btnRight setImage:[UIImage imageNamed:@"btn-edit.png"] forState:UIControlStateNormal];
-    [_btnRight setImage:[UIImage imageNamed:@"btn-edit.png"] forState:UIControlStateHighlighted];
+    _btnRight.frame = CGRectMake(0, 0, 32, 32);
+    [_btnRight setImage:[UIImage imageNamed:@"nav-at.png"] forState:UIControlStateNormal];
+    [_btnRight setImage:[UIImage imageNamed:@"nav-at.png"] forState:UIControlStateHighlighted];
+    // 突出效果
+    //UIView *effectView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];
+    //_btnRight.backgroundColor = [UIColor whiteColor]; // 把背景設成白色
+    _btnRight.backgroundColor = [UIColor clearColor]; // 透明背景
     [_btnRight addTarget:self action:@selector(doSay) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *rightItem = [[UIBarButtonItem alloc] initWithCustomView:_btnRight];
     self.navigationItem.rightBarButtonItem = rightItem;
