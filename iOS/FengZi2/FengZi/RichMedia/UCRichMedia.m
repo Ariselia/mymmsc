@@ -205,6 +205,7 @@
         page.subject.text = mc.title;
         page.content.text = info.textContent;
         page.info = info;
+        page.idMedia = self;
         [page loadData];
         [self.scrollViewX addSubview:page.view];
     }

@@ -124,13 +124,14 @@ static int iTimes = -1;
 	CGSize size;
 	size.width = 300;
 	size.height = 300;
-    UIImage *scaledImage = [img thumb:&size];
+    size = [img fixSize:size];
+    UIImage *scaledImage = [img toSize:size];
     photo.image = scaledImage;
     NSData *buffer = [UIImagePNGRepresentation(scaledImage) retain];
     //iOSImageView2 *iv = [[iOSImageView2 alloc] initWithImage:scaledImage superView:self.view];
     //iv.delegate = self;
     //[iv release];
-    NSString *filePath = [Api filePath:UC_FILENAME_PHOTO];
+    NSString *filePath = [Api filePath:[Api uc_photo_name:[Api userId]]];
     NSLog(@"1: %@", filePath);
     NSFileHandle *fileHandle = [iOSFile create:filePath];
     [fileHandle writeData:buffer];
@@ -159,6 +160,18 @@ static int iTimes = -1;
     label.text= @"个人中心";
     self.navigationItem.titleView = label;
     [label release];
+    
+    _tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
+    _tableView.backgroundColor = [UIColor clearColor];
+    _tableView.separatorColor = [UIColor grayColor];
+    _tableView.scrollEnabled = YES;
+    //_tableView.tag = KSetting;
+    //_tableView.dataSource = self;
+    //_tableView.delegate = self;
+    _tableView.layer.cornerRadius = 0;
+    _tableView.sectionHeaderHeight = 5;
+    _tableView.sectionFooterHeight = 0;
+    _tableView.rowHeight = 2;
     
     if (![Api isOnLine]) {
         _btnRight = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -225,16 +238,29 @@ static int iTimes = -1;
         [rightItem release];
         
         // 加载照片
-        if ([Api fileIsExists:UC_FILENAME_PHOTO]) {
-            NSString *filePath = [iOSFile path:[Api filePath:UC_FILENAME_PHOTO]];
-            UIImage *im = [UIImage imageWithData:[NSData dataWithContentsOfFile:filePath]];
-            photo.image = im;
+        NSString *photoName = [Api uc_photo_name:[Api userId]];
+        if (![Api fileIsExists:photoName]) {
+            // 如果照片不存在, 进行下载
+            [Api uc_photo_down:[Api userId]];
         }
+        UIImage *im = nil;
+        if ([Api fileIsExists:photoName]) {
+            NSString *filePath = [iOSFile path:[Api filePath:photoName]];
+            im = [UIImage imageWithData:[NSData dataWithContentsOfFile:filePath]];
+        }
+        [photo loadImage:im];
         CGRect btnframe = photo.frame;
         UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
         btn.frame = btnframe;
         [btn addTarget:self action:@selector(doPhotoSelect) forControlEvents:UIControlEventTouchUpInside];
         [self.view addSubview:btn];
+        // 增加统计信息
+        ucToal *total = [[Api uc_total_get:[Api userId]] retain];
+        if (total.status == API_SUCCESS) {
+            numScan.text = [NSString valueOf:total.codeCount];
+            numAccess.text = [NSString valueOf:total.totalCount];
+        }
+        [total release];
     }
     if ([items count] == 0) {
         // 预加载项
@@ -257,10 +283,9 @@ static int iTimes = -1;
             [action setIcon: @"usercenter_userinfo_zoneqr"];
             [items addObject: action];
             // 4. 我的空间
-            
         } else {
             // 没有登录
-            message.text = @"请点击［此处登录］！";
+            message.text = @"请点击［此处登录］";
             UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
             btn.frame = message.frame;
             btn.backgroundColor = [UIColor clearColor];
@@ -286,20 +311,20 @@ static int iTimes = -1;
 #pragma mark UITableViewDataSource
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 1;
-    //return [items count];
+    //return 1;
+    return [items count];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    //return 1;
-    return [items count];
+    return 1;
+    //return [items count];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
 	//CGSize size = [@"123" sizeWithFont:fontInfo constrainedToSize:CGSizeMake(labelWidth, 20000) lineBreakMode:UILineBreakModeWordWrap];
 	//return size.height + 10; // 10即消息上下的空间，可自由调整 
-	return 36;
+	return 40;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -310,34 +335,52 @@ static int iTimes = -1;
         cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier] autorelease];
     }
     // Configure the cell.
-    int pos = [indexPath row];
+    int pos = [indexPath section];
     if (pos >= [items count]) {
         //[cell release];
         return nil;
     }
     iOSAction *info = [items objectAtIndex: pos];
     // 设定左边图标
-    cell.imageView.image = [[UIImage imageNamed:@"unknown3.png"] scaleToSize:CGSizeMake(kCellIconHeight, kCellIconHeight)];
+    cell.imageView.image = [[UIImage imageNamed:@"unknown3.png"] toSize:CGSizeMake(36, 36)];
     if ([info icon] != nil) {
-        cell.imageView.image = [[UIImage imageNamed:[info icon]] scaleToSize:CGSizeMake(kCellIconHeight, kCellIconHeight)];
+        cell.imageView.image = [[UIImage imageNamed:[info icon]] toSize:CGSizeMake(36, 36)];
     }
     // 设定标题
     cell.textLabel.text = [info title];
-    cell.selectionStyle = UITableViewCellSelectionStyleGray;
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-    // 设定右边按钮
-    //[cell setBackgroundColor: [UIColor clearColor]];
-    //cell.layer.cornerRadius = 20;
-    //cell.layer.masksToBounds = YES;
-    //cell.contentView.layer.cornerRadius = 0;
-    cell.backgroundColor = [UIColor whiteColor];
+    
+    // 突出效果
+    UIView *effectView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];
+    effectView.backgroundColor = [UIColor whiteColor]; // 把背景設成白色
+    //effectView.backgroundColor = [UIColor clearColor]; // 透明背景
+    
+    effectView.layer.cornerRadius = 4.0f; // 圓角的弧度
+    effectView.layer.masksToBounds = NO;
+    
+    effectView.layer.shadowColor = [[UIColor blackColor] CGColor];
+    effectView.layer.shadowOffset = CGSizeMake(1.0f, 1.0f); // [水平偏移, 垂直偏移]
+    effectView.layer.shadowOpacity = 0.5f; // 0.0 ~ 1.0 的值
+    effectView.layer.shadowRadius = 1.0f; // 陰影發散的程度
+    
+    effectView.layer.borderWidth = 2.0;
+    effectView.layer.borderColor = [[UIColor lightTextColor] CGColor];
+    
+    /*CAGradientLayer *gradient = [CAGradientLayer layer];
+    gradient.frame = sampleView.bounds;
+    gradient.colors = [NSArray arrayWithObjects:(id)[[UIColor whiteColor] CGColor], (id)[[UIColor grayColor] CGColor], nil]; // 由上到下的漸層顏色
+    [effectView.layer insertSublayer:gradient atIndex:0];
+    */
+    [cell setBackgroundView:effectView];
+    
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     // Navigation logic may go here. Create and push another view controller.
     NSLog(@"module goto...");
-    iOSAction *action = [items objectAtIndex:indexPath.row];
+    iOSAction *action = [items objectAtIndex:indexPath.section];
     if ([action.action isSame:@"UCMyCode"]) {
         if (![Api isOnLine]) {
             [self gotoLogin];

@@ -21,8 +21,10 @@
 #import <iOSApi/NSObject+Utils.h>
 #import <iOSApi/NSString+Utils.h>
 #import <iOSApi/NSDictionary+Utils.h>
+#import <iOSApi/UIImageView+Utils.h>
 #import <iOSApi/iOSToast.h>
 
+#define API_SUCCESS (0)
 #define kCellIconHeight 24.0f
 
 #define API_INTERFACE_TEST (1)

@@ -6,13 +6,14 @@
 //  Copyright (c) 2011年 iTotemStudio. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "Api+UserCenter.h"
 #import <iOSApi/iOSImageView.h>
 //#import "UIViewController+Utils.h"
 //#import <iOSApi/UIViewController+KeyBoard.h>
 
 // 修改个人信息
 @interface UCUpdateNikename : UIViewController<UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate>{
+    ucUserInfo        *ucInfo;
     UIImage *_curImage;
     
     NSMutableArray    *items;
@@ -39,6 +40,8 @@
     UITextField *weibo;
     
     NSString *srvAuthcode; // 服务器返回的验证码
+    
+    UITextField *content;
 }
 
 @property (nonatomic, assign) int idDest;

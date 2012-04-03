@@ -8,7 +8,7 @@
 
 #import "UCStorePerson.h"
 #import "Api+eShop.h"
-#import <iOSApi/UIImage+Scale.h>
+#import <iOSApi/UIImage+Utils.h>
 #import "UCStoreTable.h"
 
 @implementation UCStorePerson
@@ -143,7 +143,8 @@
             NSString *tmpUrl = [iOSApi urlDecode:obj.picUrl];
             //[iOSApi showImage:tmpUrl];
             UIImage *im = [[[UIImage alloc] initWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:tmpUrl]]] autorelease];
-            [view setImage: [im scaleToSize:view.frame.size]];
+            [view setAutoresizesSubviews:YES];
+            [view setImage: [im toSize:view.frame.size]];
         }
     }
 }

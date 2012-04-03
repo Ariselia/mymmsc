@@ -7,13 +7,17 @@
 //
 
 #import "UCMediaPage.h"
-#import <iOSApi/UIImage+Scale.h>
+#import <iOSApi/UIImage+Utils.h>
 #import <iOSApi/iOSImageView2.h>
 #import "Api+RichMedia.h"
 #import "Api+eShop.h"
 
+#import "UCRichMedia.h"
+#import "RMComments.h"
+
 @implementation UCMediaPage
 
+@synthesize idMedia;
 @synthesize filePath;
 @synthesize subject, content, pic, bgAudio, btnAudio;
 @synthesize info;
@@ -33,6 +37,7 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
+        self.idMedia = nil;
     }
     return self;
 }
@@ -402,6 +407,17 @@ static int sButton = 0;
     btnDown.hidden = NO;
     // 播放状态, 显示停止
     state = MS_STOPPED;
+}
+
+- (IBAction)doDiscuss:(id)sender {
+    UCRichMedia *xSelf = (UCRichMedia *)idMedia;
+    if (xSelf == nil) {
+        return;
+    }
+    RMComments *nextView = [RMComments new];
+    nextView.param = [Api kmaId];
+    [xSelf.navigationController pushViewController:nextView animated:YES];
+    [nextView release];
 }
 
 @end

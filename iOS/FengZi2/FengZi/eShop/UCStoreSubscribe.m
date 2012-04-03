@@ -8,7 +8,6 @@
 
 #import "UCStoreSubscribe.h"
 #import "Api+eShop.h"
-#import <iOSApi/UIImage+Scale.h>
 #import <iOSApi/iOSImageView2.h>
 #import "UCStoreInfo.h"
 #import "UCLogin.h"
@@ -111,7 +110,7 @@ static ProductInfo *theObj = nil;
     // 设置字体
     UIFont *textFont = [UIFont systemFontOfSize:15.0];
     UIFont *detailFont = [UIFont systemFontOfSize:10.0];
-    cell.imageView.image = [[iOSApi imageNamed:[Api typeIcon:obj.type]] scaleToSize:CGSizeMake(36, 36)];
+    cell.imageView.image = [[iOSApi imageNamed:[Api typeIcon:obj.type]] toSize:CGSizeMake(36, 36)];
     cell.textLabel.text = [Api typeName:obj.type];
     cell.textLabel.font = textFont;
     cell.detailTextLabel.text = [NSString stringWithFormat:@"%@  %@  %.02f", obj.name, obj.writer, obj.price];

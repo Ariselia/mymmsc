@@ -7,7 +7,6 @@
 //
 
 #import "UCUpdateNikename.h"
-#import "Api+UserCenter.h"
 #import "Api+eShop.h"
 
 #define TAG_FIELD_BASE     (200300)
@@ -25,7 +24,7 @@
 #define TAG_FIELD_QQ       (TAG_FIELD_BASE + 12) // QQ号码
 #define TAG_FIELD_CONTACT  (TAG_FIELD_BASE + 13) // 联系方式
 
-#define ALERT_TITLE @"修改个人信息 提示"
+#define ALERT_TITLE @"个人空间 提示"
 
 @implementation UCUpdateNikename
 
@@ -38,6 +37,7 @@
     if (self) {
         // Custom initialization
         self.idDest = -1;
+        ucInfo = nil;
     }
     return self;
 }
@@ -118,7 +118,7 @@
     label.textAlignment = UITextAlignmentCenter;
     label.font = [UIFont fontWithName:@"黑体" size:60];
     label.textColor = [UIColor blackColor];
-    label.text= @"修改个人信息";
+    label.text= @"个人信息";
     self.navigationItem.titleView = label;
     [label release];
     
@@ -223,219 +223,277 @@
     BOOL bEdit = YES;
     if (idDest >= 0) {
         bEdit = NO;
+        //[self.navigationItem.rightBarButtonItem setEnabled:NO];
+        self.navigationItem.rightBarButtonItem = nil;
         userId = idDest;
     }
-    ucUserInfo *ucInfo = [[Api uc_userinfo_get:userId] retain];
+    //IOSAPI_RELEASE(ucInfo);
+    ucInfo = [[Api uc_userinfo_get:userId] retain];
     [iOSApi closeAlert];
+    if (ucInfo.status != API_USERCENTET_SUCCESS) {
+        [iOSApi Alert:ALERT_TITLE message:ucInfo.message];
+        [ucInfo release];
+        idDest = -1;
+        return;
+    }
     if ([items count] == 0) {
         // 预加载项
         CGRect frame = CGRectMake(90.f, 5.0f, 200, 25);
         iOSInput *input = nil;
         items = [[NSMutableArray alloc] initWithCapacity:0];
-        /*
-        if (!bEdit) {
+        
+        if (bEdit) {
+            // 昵称
             input = [[iOSInput new] autorelease];
             [input setName:@"昵称"];
             [input setTag:TAG_FIELD_NKNAME];
-            iOSImageView *imgView = [[iOSImageView alloc] initWithFrame:CGRectMake(90.f, 5.0f, 100, 100)];
-            imgView.image = [UIImage imageNamed:@"usercenter_userinfo_image_default.png"];
-            NSString *filename = [NSString stringWithFormat:@"%@?filename=%d.jpg", API_URL_USERCENTER, idDest];
-            [imgView imageWithURL:filename];
-            [input setObject: imgView];
+            nikename = [[UITextField alloc] initWithFrame:frame];
+            nikename.text = ucInfo.nicname;
+            nikename.tag = input.tag;
+            nikename.returnKeyType = UIReturnKeyDone;
+            if(bEdit) nikename.borderStyle = _borderStyle;
+            nikename.placeholder = @"输入昵称";
+            nikename.font = font;
+            [nikename setEnabled:bEdit];
+            // 绑定事件
+            [nikename addTarget:self action:@selector(textRestore:) forControlEvents:UIControlEventEditingDidEndOnExit];
+            [nikename addTarget:self action:@selector(textUpdate:) forControlEvents:UIControlEventEditingChanged];
+            [input setObject: nikename];
             [items addObject: input];
         }
-         */
-        // 昵称
-        input = [[iOSInput new] autorelease];
-        [input setName:@"昵称"];
-        [input setTag:TAG_FIELD_NKNAME];
-        nikename = [[UITextField alloc] initWithFrame:frame];
-        nikename.text = [Api nikeName];
-        nikename.tag = input.tag;
-		nikename.returnKeyType = UIReturnKeyDone;
-		nikename.borderStyle = _borderStyle;
-        nikename.placeholder = @"输入昵称";
-        nikename.font = font;
-        [nikename setEnabled:bEdit];
-		// 绑定事件
-		[nikename addTarget:self action:@selector(textRestore:) forControlEvents:UIControlEventEditingDidEndOnExit];
-		[nikename addTarget:self action:@selector(textUpdate:) forControlEvents:UIControlEventEditingChanged];
-        [input setObject: nikename];
-        [items addObject: input];
-        
         // 帐户名
         input = [[iOSInput new] autorelease];
         [input setName:@"账号名"];
         [input setTag:TAG_FIELD_CONTACT];
         UILabel *ac = [[UILabel alloc] initWithFrame:frame];
-        ac.text = ucInfo.contact;
+        if(bEdit) {
+            ac.text = [Api userPhone];
+        } else {
+            ac.text = ucInfo.contact;
+        }
         ac.tag = input.tag;
 		ac.font = font;
         [ac setEnabled:bEdit];
 		[input setObject: ac];
         [items addObject: input];
         
-        input = [[iOSInput new] autorelease];
-        [input setName:@"是否公开"];
-        [input setTag:TAG_FIELD_ISOPEN];
         CGRect swFrame = frame;
         swFrame.origin.y = 3;
-        isopen = [[UISwitch alloc] initWithFrame:swFrame];
-        isopen.tag = input.tag;
-        [isopen setOn:ucInfo.isopen];
-        [isopen setEnabled:bEdit];
-        [input setObject: isopen];
-        [items addObject: input];
         
-        // 姓名
-        input = [[iOSInput new] autorelease];
-        [input setName:@"姓名"];
-        [input setTag:TAG_FIELD_REALNAME];
-        realname = [[UITextField alloc] initWithFrame:frame];
-        realname.text = ucInfo.realname;
-        realname.tag = input.tag;
-		realname.returnKeyType = UIReturnKeyDone;
-		realname.borderStyle = _borderStyle;
-        realname.placeholder = @"输入姓名";
-        realname.font = font;
-        [realname setEnabled:bEdit];
-		// 绑定事件
-		[realname addTarget:self action:@selector(editBegin:event:) forControlEvents:UIControlEventEditingDidBegin];
-		
-        [realname addTarget:self action:@selector(textRestore:) forControlEvents:UIControlEventEditingDidEndOnExit];
-		[realname addTarget:self action:@selector(textUpdate:) forControlEvents:UIControlEventEditingChanged];
-        [input setObject: realname];
-        [items addObject: input];
-        
-        // 性别
-        input = [[iOSInput new] autorelease];
-        [input setName:@"性别(男)"];
-        [input setTag:TAG_FIELD_SEX];
-        swFrame = frame;
-        swFrame.origin.y = 3;
-        sex = [[UISwitch alloc] initWithFrame:swFrame];
-        sex.tag = input.tag;
-        [sex setOn:ucInfo.sex];
-        [sex setEnabled:bEdit];
-        [input setObject: sex];
-        [items addObject: input];
-        
-        // 出生日期
-        input = [[iOSInput new] autorelease];
-        [input setName:@"出生日期"];
-        [input setTag:TAG_FIELD_BIRTHDAY];
-        birthday = [[UITextField alloc] initWithFrame:frame];
-        birthday.text = ucInfo.realname;
-        birthday.tag = input.tag;
-		birthday.returnKeyType = UIReturnKeyDone;
-		birthday.borderStyle = _borderStyle;
-        birthday.placeholder = @"输入年月日";
-        birthday.font = font;
-        [birthday setEnabled:bEdit];
-		// 绑定事件
-        [birthday addTarget:self action:@selector(editBegin:event:) forControlEvents:UIControlEventEditingDidBegin];
-		
-		[birthday addTarget:self action:@selector(textRestore:) forControlEvents:UIControlEventEditingDidEndOnExit];
-		[birthday addTarget:self action:@selector(textUpdate:) forControlEvents:UIControlEventEditingChanged];
-        [input setObject: birthday];
-        [items addObject: input];
-        
-        // 联系方式
-        input = [[iOSInput new] autorelease];
-        [input setName:@"联系方式"];
-        [input setTag:TAG_FIELD_CONTACT];
-        contact = [[UITextField alloc] initWithFrame:frame];
-        contact.text = ucInfo.contact;
-        contact.tag = input.tag;
-		contact.returnKeyType = UIReturnKeyDone;
-		contact.borderStyle = _borderStyle;
-        contact.placeholder = @"输入联系方式";
-        contact.font = font;
-        [contact setEnabled:bEdit];
-		// 绑定事件
-        [contact addTarget:self action:@selector(editBegin:event:) forControlEvents:UIControlEventEditingDidBegin];
-		
-		[contact addTarget:self action:@selector(textRestore:) forControlEvents:UIControlEventEditingDidEndOnExit];
-		[contact addTarget:self action:@selector(textUpdate:) forControlEvents:UIControlEventEditingChanged];
-        [input setObject: contact];
-        [items addObject: input];
-        
-        // 联系地址
-        input = [[iOSInput new] autorelease];
-        [input setName:@"联系地址"];
-        [input setTag:TAG_FIELD_ADDRESS];
-        address = [[UITextField alloc] initWithFrame:frame];
-        address.text = ucInfo.address;
-        address.tag = input.tag;
-		address.returnKeyType = UIReturnKeyDone;
-		address.borderStyle = _borderStyle;
-        address.placeholder = @"输入联系地址";
-        address.font = font;
-        [address setEnabled:bEdit];
-		// 绑定事件
-        [address addTarget:self action:@selector(editBegin:event:) forControlEvents:UIControlEventEditingDidBegin];
-		
-		[address addTarget:self action:@selector(textRestore:) forControlEvents:UIControlEventEditingDidEndOnExit];
-		[address addTarget:self action:@selector(textUpdate:) forControlEvents:UIControlEventEditingChanged];
-        [input setObject: address];
-        [items addObject: input];
-        
-        // 身份证号码
-        input = [[iOSInput new] autorelease];
-        [input setName:@"身份证号码"];
-        [input setTag:TAG_FIELD_IDNUMBER];
-        idNumber = [[UITextField alloc] initWithFrame:frame];
-        idNumber.text = ucInfo.idNumber;
-        idNumber.tag = input.tag;
-		idNumber.returnKeyType = UIReturnKeyDone;
-		idNumber.borderStyle = _borderStyle;
-        idNumber.placeholder = @"输入身份证号码";
-        idNumber.font = font;
-        [idNumber setEnabled:bEdit];
-		// 绑定事件
-		[idNumber addTarget:self action:@selector(editBegin:event:) forControlEvents:UIControlEventEditingDidBegin];
-		[idNumber addTarget:self action:@selector(textRestore:) forControlEvents:UIControlEventEditingDidEndOnExit];
-		[idNumber addTarget:self action:@selector(textUpdate:) forControlEvents:UIControlEventEditingChanged];
-        [input setObject: idNumber];
-        [items addObject: input];
-        
-        // QQ
-        input = [[iOSInput new] autorelease];
-        [input setName:@"QQ号码"];
-        [input setTag:TAG_FIELD_QQ];
-        QQ = [[UITextField alloc] initWithFrame:frame];
-        QQ.text = [NSString valueOf:ucInfo.QQ];
-        QQ.tag = input.tag;
-		QQ.returnKeyType = UIReturnKeyDone;
-		QQ.borderStyle = _borderStyle;
-        QQ.placeholder = @"输入身份证号码";
-        QQ.font = font;
-        [QQ setEnabled:bEdit];
-        [QQ addTarget:self action:@selector(editBegin:event:) forControlEvents:UIControlEventEditingDidBegin];
-		// 绑定事件
-		[QQ addTarget:self action:@selector(textRestore:) forControlEvents:UIControlEventEditingDidEndOnExit];
-		[QQ addTarget:self action:@selector(textUpdate:) forControlEvents:UIControlEventEditingChanged];
-        /*
-        QQ.keyboardType = UIKeyboardTypeDefault;
-		QQ.returnKeyType = UIReturnKeyDone;	
-		
-		QQ.clearButtonMode = UITextFieldViewModeWhileEditing;	// has a clear 'x' button to the right
-		
-		// Add an accessibility label that describes the text field.
-		[QQ setAccessibilityLabel:NSLocalizedString(@"CheckMarkIcon", @"")];
-		
-		//QQ.leftView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"segment_check.png"]];
-		QQ.leftViewMode = UITextFieldViewModeAlways;
-		
-		QQ.delegate = self;	// let us be the delegate so we know when the keyboard's "Done" button is pressed
-         */
-        [input setObject: QQ];
-        [items addObject: input];
-        
+        if (bEdit) {
+            input = [[iOSInput new] autorelease];
+            [input setName:@"是否公开"];
+            [input setTag:TAG_FIELD_ISOPEN];
+            
+            isopen = [[UISwitch alloc] initWithFrame:swFrame];
+            isopen.tag = input.tag;
+            [isopen setOn:ucInfo.isopen];
+            [isopen setEnabled:bEdit];
+            [input setObject: isopen];
+            [items addObject: input];
+        }
+        if (bEdit || ucInfo.isopen) {
+            // 姓名
+            input = [[iOSInput new] autorelease];
+            [input setName:@"姓名"];
+            [input setTag:TAG_FIELD_REALNAME];
+            realname = [[UITextField alloc] initWithFrame:frame];
+            realname.text = ucInfo.realname;
+            realname.tag = input.tag;
+            realname.returnKeyType = UIReturnKeyDone;
+            realname.borderStyle = _borderStyle;
+            if(bEdit) realname.placeholder = @"输入姓名";
+            realname.font = font;
+            [realname setEnabled:bEdit];
+            // 绑定事件
+            [realname addTarget:self action:@selector(editBegin:event:) forControlEvents:UIControlEventEditingDidBegin];
+            
+            [realname addTarget:self action:@selector(textRestore:) forControlEvents:UIControlEventEditingDidEndOnExit];
+            [realname addTarget:self action:@selector(textUpdate:) forControlEvents:UIControlEventEditingChanged];
+            [input setObject: realname];
+            [items addObject: input];
+            
+            // 性别
+            input = [[iOSInput new] autorelease];
+            [input setName:@"性别(男)"];
+            [input setTag:TAG_FIELD_SEX];
+            swFrame = frame;
+            swFrame.origin.y = 3;
+            sex = [[UISwitch alloc] initWithFrame:swFrame];
+            sex.tag = input.tag;
+            [sex setOn:ucInfo.sex];
+            [sex setEnabled:bEdit];
+            [input setObject: sex];
+            [items addObject: input];
+            
+            // 出生日期
+            input = [[iOSInput new] autorelease];
+            [input setName:@"出生日期"];
+            [input setTag:TAG_FIELD_BIRTHDAY];
+            birthday = [[UITextField alloc] initWithFrame:frame];
+            birthday.text = ucInfo.realname;
+            birthday.tag = input.tag;
+            birthday.keyboardType = UIKeyboardTypeDefault;
+            birthday.returnKeyType = UIReturnKeyDone;
+            birthday.borderStyle = _borderStyle;
+            if(bEdit) birthday.placeholder = @"输入年月日";
+            birthday.font = font;
+            [birthday setEnabled:bEdit];
+            // 绑定事件
+            [birthday addTarget:self action:@selector(editBegin:event:) forControlEvents:UIControlEventEditingDidBegin];
+            
+            [birthday addTarget:self action:@selector(textRestore:) forControlEvents:UIControlEventEditingDidEndOnExit];
+            [birthday addTarget:self action:@selector(textUpdate:) forControlEvents:UIControlEventEditingChanged];
+            [input setObject: birthday];
+            [items addObject: input];
+            
+            // 联系方式
+            input = [[iOSInput new] autorelease];
+            [input setName:@"联系方式"];
+            [input setTag:TAG_FIELD_CONTACT];
+            contact = [[UITextField alloc] initWithFrame:frame];
+            contact.text = ucInfo.contact;
+            contact.tag = input.tag;
+            contact.returnKeyType = UIReturnKeyDone;
+            contact.borderStyle = _borderStyle;
+            if(bEdit) contact.placeholder = @"输入联系方式";
+            contact.font = font;
+            [contact setEnabled:bEdit];
+            // 绑定事件
+            [contact addTarget:self action:@selector(editBegin:event:) forControlEvents:UIControlEventEditingDidBegin];
+            
+            [contact addTarget:self action:@selector(textRestore:) forControlEvents:UIControlEventEditingDidEndOnExit];
+            [contact addTarget:self action:@selector(textUpdate:) forControlEvents:UIControlEventEditingChanged];
+            [input setObject: contact];
+            [items addObject: input];
+            
+            // 联系地址
+            input = [[iOSInput new] autorelease];
+            [input setName:@"联系地址"];
+            [input setTag:TAG_FIELD_ADDRESS];
+            address = [[UITextField alloc] initWithFrame:frame];
+            address.text = ucInfo.address;
+            address.tag = input.tag;
+            address.returnKeyType = UIReturnKeyDone;
+            address.borderStyle = _borderStyle;
+            if(bEdit) address.placeholder = @"输入联系地址";
+            address.font = font;
+            [address setEnabled:bEdit];
+            // 绑定事件
+            [address addTarget:self action:@selector(editBegin:event:) forControlEvents:UIControlEventEditingDidBegin];
+            
+            [address addTarget:self action:@selector(textRestore:) forControlEvents:UIControlEventEditingDidEndOnExit];
+            [address addTarget:self action:@selector(textUpdate:) forControlEvents:UIControlEventEditingChanged];
+            [input setObject: address];
+            [items addObject: input];
+            
+            // 邮政编码
+            input = [[iOSInput new] autorelease];
+            [input setName:@"邮政编码"];
+            [input setTag:TAG_FIELD_POSTCODE];
+            postCode = [[UITextField alloc] initWithFrame:frame];
+            postCode.text = ucInfo.postCode;
+            postCode.tag = input.tag;
+            postCode.keyboardType = UIKeyboardTypeNumberPad;
+            postCode.returnKeyType = UIReturnKeyDone;
+            postCode.borderStyle = _borderStyle;
+            if(bEdit) postCode.placeholder = @"输入邮政编码";
+            postCode.font = font;
+            [postCode setEnabled:bEdit];
+            // 绑定事件
+            [postCode addTarget:self action:@selector(editBegin:event:) forControlEvents:UIControlEventEditingDidBegin];
+            
+            [postCode addTarget:self action:@selector(textRestore:) forControlEvents:UIControlEventEditingDidEndOnExit];
+            [postCode addTarget:self action:@selector(textUpdate:) forControlEvents:UIControlEventEditingChanged];
+            [input setObject: postCode];
+            [items addObject: input];
+            
+            // 电子邮箱
+            input = [[iOSInput new] autorelease];
+            [input setName:@"电子邮箱"];
+            [input setTag:TAG_FIELD_EMAIL];
+            email = [[UITextField alloc] initWithFrame:frame];
+            email.text = ucInfo.email;
+            email.tag = input.tag;
+            email.returnKeyType = UIReturnKeyDone;
+            email.keyboardType = UIKeyboardTypeEmailAddress;
+            email.borderStyle = _borderStyle;
+            if(bEdit) email.placeholder = @"输入邮箱地址";
+            email.font = font;
+            [email setEnabled:bEdit];
+            // 绑定事件
+            [email addTarget:self action:@selector(editBegin:event:) forControlEvents:UIControlEventEditingDidBegin];
+            
+            [email addTarget:self action:@selector(textRestore:) forControlEvents:UIControlEventEditingDidEndOnExit];
+            [email addTarget:self action:@selector(textUpdate:) forControlEvents:UIControlEventEditingChanged];
+            [input setObject: email];
+            [items addObject: input];
+            
+            // 微博
+            input = [[iOSInput new] autorelease];
+            [input setName:@"微博"];
+            [input setTag:TAG_FIELD_WEIBO];
+            weibo = [[UITextField alloc] initWithFrame:frame];
+            weibo.text = ucInfo.weibo;
+            weibo.tag = input.tag;
+            weibo.keyboardType = UIKeyboardTypeURL;
+            weibo.returnKeyType = UIReturnKeyDone;
+            weibo.borderStyle = _borderStyle;
+            if(bEdit) weibo.placeholder = @"输入微博地址";
+            weibo.font = font;
+            [weibo setEnabled:bEdit];
+            // 绑定事件
+            [weibo addTarget:self action:@selector(editBegin:event:) forControlEvents:UIControlEventEditingDidBegin];
+            
+            [weibo addTarget:self action:@selector(textRestore:) forControlEvents:UIControlEventEditingDidEndOnExit];
+            [weibo addTarget:self action:@selector(textUpdate:) forControlEvents:UIControlEventEditingChanged];
+            [input setObject: weibo];
+            [items addObject: input];
+            
+            // 身份证号码
+            input = [[iOSInput new] autorelease];
+            [input setName:@"身份证号码"];
+            [input setTag:TAG_FIELD_IDNUMBER];
+            idNumber = [[UITextField alloc] initWithFrame:frame];
+            idNumber.text = ucInfo.idNumber;
+            idNumber.tag = input.tag;
+            idNumber.keyboardType = UIKeyboardTypeNumberPad;
+            idNumber.returnKeyType = UIReturnKeyDone;
+            idNumber.borderStyle = _borderStyle;
+            if(bEdit) idNumber.placeholder = @"输入身份证号码";
+            idNumber.font = font;
+            [idNumber setEnabled:bEdit];
+            // 绑定事件
+            [idNumber addTarget:self action:@selector(editBegin:event:) forControlEvents:UIControlEventEditingDidBegin];
+            [idNumber addTarget:self action:@selector(textRestore:) forControlEvents:UIControlEventEditingDidEndOnExit];
+            [idNumber addTarget:self action:@selector(textUpdate:) forControlEvents:UIControlEventEditingChanged];
+            [input setObject: idNumber];
+            [items addObject: input];
+            
+            // QQ
+            input = [[iOSInput new] autorelease];
+            [input setName:@"QQ号码"];
+            [input setTag:TAG_FIELD_QQ];
+            QQ = [[UITextField alloc] initWithFrame:frame];
+            QQ.text = [NSString valueOf:ucInfo.QQ];
+            QQ.tag = input.tag;
+            QQ.keyboardType = UIKeyboardTypeNumberPad;
+            QQ.returnKeyType = UIReturnKeyDone;
+            QQ.borderStyle = _borderStyle;
+            if(bEdit) QQ.placeholder = @"输入QQ号码";
+            QQ.font = font;
+            [QQ setEnabled:bEdit];
+            [QQ addTarget:self action:@selector(editBegin:event:) forControlEvents:UIControlEventEditingDidBegin];
+            // 绑定事件
+            [QQ addTarget:self action:@selector(textRestore:) forControlEvents:UIControlEventEditingDidEndOnExit];
+            [QQ addTarget:self action:@selector(textUpdate:) forControlEvents:UIControlEventEditingChanged];
+            [input setObject: QQ];
+            [items addObject: input];
+        }
+               
         // 处理所有文本输入框的被键盘挡住问题
         //[super unregisterForKeyboardNotifications];
     }
-    [ucInfo release];
 }
 
 #pragma mark -
@@ -447,12 +505,20 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     //return 2;
-    return [items count];
+    int count = [items count];
+    if (idDest > 0) {
+        count += 1;
+    }
+    return count;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-	return 36;
+    int xHeight = 36;
+    if (idDest > 0 && indexPath.row == 0) {
+        xHeight = 90;
+    }
+	return xHeight;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -469,60 +535,94 @@
     
     // Configure the cell.
     int pos = [indexPath row];
-    if (pos >= [items count]) {
+    //if (pos >= [items count]) {
+    if (pos >= [tableView numberOfRowsInSection:0]) {
         //[cell release];
         return nil;
     }
     [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
+    
+    if (idDest > 0 && pos == 0) {
+        // 加载照片
+        NSString *photoName = [Api uc_photo_name:idDest];
+        if (![Api fileIsExists:photoName]) {
+            // 如果照片不存在, 进行下载
+            [Api uc_photo_down:idDest];
+        }
+        UIImage *im = nil;
+        CGRect frame = CGRectMake(0.00f, 5.00f, 80, 80);
+        cell.imageView.frame = frame;
+        if ([Api fileIsExists:photoName]) {
+            
+            NSString *filePath = [iOSFile path:[Api filePath:photoName]];
+            NSData *data = [NSData dataWithContentsOfFile:filePath];
+            if (data.length > 0) {
+                 im = [UIImage imageWithData:data];
+            } else {
+                im = [UIImage imageNamed:@"usercenter_userinfo_image_default.png"];
+            }
+        } else {
+            im = [UIImage imageNamed:@"usercenter_userinfo_image_default.png"];
+        }
+        [cell.imageView loadImage:im];
+        
+        
+        // 增加统计信息
+        ucToal *total = [[Api uc_total_get:idDest] retain];
+        cell.textLabel.text = ucInfo.nicname;
+        cell.detailTextLabel.text = [NSString stringWithFormat:@"个人码：%d\r\n访问数：%d", total.codeCount, total.totalCount];
+        [total release];
+        UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+        btn.frame = CGRectMake(250.00f, 5.00f, 40, 40);
+        [btn setImage:[UIImage imageNamed:@"nav-edit@2x.png"] forState:UIControlStateNormal];
+        [btn setImage:[UIImage imageNamed:@"nav-edit@2x.png"] forState:UIControlStateHighlighted];
+        btn.backgroundColor = [UIColor purpleColor];
+        [btn addTarget:self action:@selector(doSay:event:) forControlEvents:UIControlEventTouchUpInside];
+        [cell.contentView addSubview:btn];
+        return cell;
+    }
+    if (idDest > 0) {
+        pos = pos - 1;
+    }
     iOSInput *obj = [items objectAtIndex: pos];
     // 设定标题
     cell.textLabel.text = [NSString stringWithFormat:@"%-20@", [obj name]];
     cell.textLabel.font = font;
-    //cell.textLabel.backgroundColor = [UIColor blueColor];
-    //cell.selectionStyle = UITableViewCellSelectionStyleGray;
     cell.accessoryType = UITableViewCellAccessoryNone;
-    //[cell setBackgroundColor: [UIColor clearColor]];
-    /*
-    // 设定右边按钮
-    CGRect frame = CGRectMake(200.f, 5.0f, 90, 25);
-    if (obj.tag == TAG_FIELD_AUTHCODE) {
-        // 密码区域, 点击忘记密码
-        UIButton *btn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-        btn.frame = frame;
-        NSString *btnText = @"获取验证码";
-        [btn setTitle:btnText forState:UIControlStateNormal];
-        [btn setTitle:btnText forState:UIControlStateSelected];
-        [btn addTarget:self action:@selector(getCheckCode:event:) forControlEvents:UIControlEventTouchUpInside];
-        [cell.contentView addSubview:btn];
-    }
-     */
-    [obj.object setTag:pos];
+    [obj.object setTag:indexPath.row];
     [cell.contentView addSubview:[obj object]];
     return cell;
 }
-/*
-- (void)getCheckCode:(id)sender event:(id)event {
-    //NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-    NSString *msg = [userId.text trim];
-    BOOL bRet = [iOSApi regexpMatch:msg withPattern:@"[0-9]{11}"];
-    if (!bRet) {
-        [iOSApi Alert:ALERT_TITLE message:@"手机号码格式有误，请重新输入。"];
-        [userId becomeFirstResponder];
-        return;
-    }
-    [iOSApi showAlert:@"正在发送验证码..."];
-    //ucAuthCode *ac = [Api authcodeWithName:msg];
-    ucAuthCode *ac = [Api authcode];
-    [iOSApi closeAlert];
-    if (ac.status == API_USERCENTET_SUCCESS) {
-        srvAuthcode = ac.code;
-    } else {
-        [iOSApi Alert:ALERT_TITLE message:ac.message];
-#if API_INTERFACE_TEST
-        srvAuthcode = API_TEST_AUTHCODE;
-#endif
-    }
-    //[pool release];
+
+- (void)doSay:(id)sender event:(id)event {
+    UIAlertView *alert = [[UIAlertView alloc]
+						  initWithTitle: @"说点什么吧"
+						  message:[NSString stringWithFormat:@"\n\n"]
+						  delegate:self
+						  cancelButtonTitle:@"取消"
+						  otherButtonTitles:@"发表", nil];
+    content = [[UITextField alloc] initWithFrame:CGRectMake(12, 60, 260, 25)];
+	[content setTag:1001];
+	CGAffineTransform mytrans = CGAffineTransformMakeTranslation(-0, -150);
+	[alert setTransform:mytrans];
+	[content setBackgroundColor:[UIColor whiteColor]];
+	[alert addSubview:content];
+	[alert show];
+	[alert release];
 }
-*/
+
+-(void) alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger) buttonIndex{
+    if (buttonIndex == 1) {
+        NSString *msg = [content.text trim];
+        if (msg.length < 1) {
+            [iOSApi Alert:ALERT_TITLE message:@"内容不能为空"];
+            return;
+        } else {
+            ApiResult *iRet = [[Api uc_comment_add:idDest content:msg] retain];
+            [iOSApi Alert:ALERT_TITLE message:iRet.message];
+            [iRet release];
+        }
+    }
+}
+
 @end

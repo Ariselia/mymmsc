@@ -5,8 +5,8 @@
 //  Created by WangFeng on 11-12-27.
 //  Copyright (c) 2011年 iTotemStudio. All rights reserved.
 //
-
-#import <UIKit/UIKit.h>
+// 記得在 header 檔裡引入 QuartzCore
+#import <QuartzCore/QuartzCore.h>
 #import <iOSApi/iOSImageView.h>
 
 // 个人中心

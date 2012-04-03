@@ -67,6 +67,13 @@
 }
 @end
 
+//--------------------< 用户中心 - 对象 - 数据统计 >--------------------
+@implementation ucToal
+
+@synthesize totalCount, codeCount;
+
+@end
+
 //====================================< 用户中心 >====================================
 
 @implementation Api (UserCenter)
@@ -503,7 +510,75 @@
     NSString *date = [NSDate now];
     NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
                             API_INTERFACE_TONKEN, @"token",
-                            [NSString valueOf:userId], @"userid",
+                            [NSString valueOf:userId], @"userId",
+                            [NSString valueOf:[Api userId]], @"commentUserId",
+                            [Api nikeName], @"commentName",
+                            content, @"commentContent",
+                            date, @"commentDate",
+                            nil];
+    NSDictionary *map = [Api post:action params:params];
+    ApiResult *iRet = [[ApiResult alloc] init];
+    NSDictionary *data = [iRet parse:map];
+    if (data.count > 0) {
+        // 业务数据处理
+    }
+    return [iRet autorelease];
+}
+
++ (ucToal *)uc_total_get:(int)userId{
+    static NSString *action = API_URL_USERCENTER "/uc/m_findMaComment.action";
+    NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
+                            API_INTERFACE_TONKEN, @"token",
+                            [NSString valueOf:userId], @"maId",
+                            [NSString valueOf:0], @"curPage",
+                            [NSString valueOf:8], @"pageSize",
+                            nil];
+    NSDictionary *map = [Api post:action params:params];
+    ucToal *iRet = [[ucToal alloc] init];
+    NSDictionary *data = [iRet parse:map];
+    if (data.count > 0) {
+        // 业务数据处理
+    }
+    return [iRet autorelease];
+}
+
+// 富媒体 评论列表
++ (NSMutableArray *)mb_comments_get:(NSString *)userId
+                               page:(int)number
+                               size:(int)size {
+    static NSString *action = API_URL_USERCENTER "/mb/dataStatis/getCodeCount.action";
+    NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
+                            API_INTERFACE_TONKEN, @"token",
+                            [Api base64e:[Api passwd]], @"sessionPassword",
+                            userId, @"userId",
+                            [NSString valueOf:number], @"curPage",
+                            [NSString valueOf:size], @"pageSize",
+                            nil];
+    NSDictionary *map = [Api post:action params:params];
+    ApiResult *iRet = [[ApiResult alloc] init];
+    NSDictionary *data = [iRet parse:map];
+    NSMutableArray *aRet = [[[NSMutableArray alloc] initWithCapacity:0] autorelease];
+    if (iRet.status == API_USERCENTET_SUCCESS && data.count > 0) {
+        // 业务数据处理
+        NSArray *codeList = [data objectForKey:@"commentList"];
+        // 找到我的码数据区
+        for (NSDictionary *dict in codeList) {
+            CodeInfo *obj = [dict toObject:ucComment.class];
+            [aRet addObject:obj];
+        }
+    }
+    [iRet release];
+    return aRet;
+}
+
+// 富媒体 增加评论
++ (ApiResult *)mb_comment_add:(NSString *)maId
+                      content:(NSString *)content{
+    static NSString *action = API_URL_USERCENTER "/uc/m_addNewMaComment.action";
+    NSString *date = [NSDate now];
+    NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
+                            API_INTERFACE_TONKEN, @"token",
+                            maId, @"maId",
                             [NSString valueOf:[Api userId]], @"commentUserId",
                             [Api nikeName], @"commentName",
                             content, @"commentContent",

@@ -8,7 +8,6 @@
 
 #import "UCStoreTable.h"
 #import "Api+eShop.h"
-#import <iOSApi/UIImage+Scale.h>
 #import "UCStoreInfo.h"
 #import "UCStoreSubscribe.h"
 #import "UCStorePerson.h"
@@ -223,7 +222,7 @@ static int nClickTimes = 0;
     
     //cell.imageView.image = [[iOSApi imageNamed:[Api typeIcon:obj.type]] scaleToSize:CGSizeMake(36, 36)];
     // 占位
-    cell.imageView.image = [[UIImage imageNamed:@"unknown.png"] scaleToSize:CGSizeMake(imageHeight, imageHeight)];
+    cell.imageView.image = [[UIImage imageNamed:@"unknown.png"] toSize:CGSizeMake(imageHeight, imageHeight)];
     NSString *tmpUrl = [iOSApi urlDecode:obj.productLogo];
     //UIImage *im = [[[UIImage alloc] initWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:tmpUrl]]] autorelease];
     //cell.imageView.image = im;
@@ -236,7 +235,7 @@ static int nClickTimes = 0;
     if (ai == nil)
     {
         // 默认图片
-        cell.imageView.image = [[UIImage imageNamed:@"unknown.png"] scaleToSize:CGSizeMake(imageHeight, imageHeight)];
+        cell.imageView.image = [[UIImage imageNamed:@"unknown.png"] toSize:CGSizeMake(imageHeight, imageHeight)];
         ai = [[[iOSAsyncImageView alloc] initWithFrame:frame] autorelease];
         //ai.tag = tagImage;
         //NSString *tmpUrl;

@@ -142,9 +142,10 @@ static int iTimes = -1;
 
 -(void) chooseShowController:(NSString*)input{
     iOSLog(@"decode input = %@", input);
-    if (input != nil && [input hasPrefix:API_URL_SHOW]) {
-        NSDictionary *dict = [Api parseUrl:input];
-        NSString *userId = [dict objectForKey:@"id"];
+    NSString *url = [Api fixUrl:input];
+    if (input != nil && [url hasPrefix:API_URL_SHOW]) {
+        NSDictionary *dict = [Api parseUrl:url];
+        NSString *userId = [dict objectForKey:@"userId"];
         UCUpdateNikename *nextView = [[UCUpdateNikename alloc] init];
         nextView.idDest = [userId intValue];
         [self.navigationController pushViewController:nextView animated:YES];

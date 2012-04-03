@@ -1,21 +1,24 @@
 //
-//  UCMyComments.m
+//  RMComments.m
 //  FengZi
 //
-//  Created by wangfeng on 12-3-31.
+//  Created by wangfeng on 12-4-3.
 //  Copyright (c) 2012年 iTotemStudio. All rights reserved.
 //
 
-#import "UCMyComments.h"
+#import "RMComments.h"
 #import "Api+UserCenter.h"
-#import "UCUpdateNikename.h"
 
-@interface UCMyComments ()
+@interface RMComments ()
 
 @end
 
-@implementation UCMyComments
+@implementation RMComments
+
 @synthesize tableView = _tableView;
+@synthesize param;
+
+#define ALERT_TITLE @"富媒体留言板 提示"
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -33,10 +36,40 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
+- (void)doSay {
+    UIAlertView *alert = [[UIAlertView alloc]
+						  initWithTitle: @"说点什么吧"
+						  message:[NSString stringWithFormat:@"\n\n"]
+						  delegate:self
+						  cancelButtonTitle:@"取消"
+						  otherButtonTitles:@"发表", nil];
+    content = [[UITextField alloc] initWithFrame:CGRectMake(12, 60, 260, 25)];
+	[content setTag:1001];
+	CGAffineTransform mytrans = CGAffineTransformMakeTranslation(-0, -150);
+	[alert setTransform:mytrans];
+	[content setBackgroundColor:[UIColor whiteColor]];
+	[alert addSubview:content];
+	[alert show];
+	[alert release];
+}
+
+-(void) alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger) buttonIndex{
+    if (buttonIndex == 1) {
+        NSString *msg = [content.text trim];
+        if (msg.length < 1) {
+            [iOSApi Alert:ALERT_TITLE message:@"内容不能为空"];
+            return;
+        } else {
+            ApiResult *iRet = [[Api mb_comment_add:param content:msg] retain];
+            [iOSApi Alert:ALERT_TITLE message:iRet.message];
+            [iRet release];
+        }
+    }
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
     // Do any additional setup after loading the view from its nib.
     UIImage *image = [UIImage imageNamed:@"navigation_bg.png"];
     Class ios5Class = (NSClassFromString(@"CIImage"));
@@ -50,7 +83,7 @@
     label.textAlignment = UITextAlignmentCenter;
     label.font = [UIFont fontWithName:@"黑体" size:60];
     label.textColor = [UIColor blackColor];
-    label.text= @"蜂巢留言板";
+    label.text= @"富媒体－留言板";
     self.navigationItem.titleView = label;
     [label release];
     
@@ -63,16 +96,14 @@
     self.navigationItem.leftBarButtonItem = backitem;
     [backitem release];
     
-    /*
     UIButton *_btnRight = [UIButton buttonWithType:UIButtonTypeCustom];
     _btnRight.frame = CGRectMake(0, 0, 60, 32);
-    [_btnRight setImage:[UIImage imageNamed:@"uc-save.png"] forState:UIControlStateNormal];
-    [_btnRight setImage:[UIImage imageNamed:@"uc-save.png"] forState:UIControlStateHighlighted];
-    [_btnRight addTarget:self action:@selector(doSave) forControlEvents:UIControlEventTouchUpInside];
+    [_btnRight setImage:[UIImage imageNamed:@"btn-edit.png"] forState:UIControlStateNormal];
+    [_btnRight setImage:[UIImage imageNamed:@"btn-edit.png"] forState:UIControlStateHighlighted];
+    [_btnRight addTarget:self action:@selector(doSay) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *rightItem = [[UIBarButtonItem alloc] initWithCustomView:_btnRight];
     self.navigationItem.rightBarButtonItem = rightItem;
     [rightItem release];
-     */
 }
 
 - (void)viewDidUnload
@@ -142,7 +173,7 @@
 }
 
 - (NSArray *)reloadData:(iOSTableViewController *)tableView {
-    NSArray *list = [Api uc_comments_get:_page size:_size];
+    NSArray *list = [Api mb_comments_get:param page:_page size:_size];
     return list;
 }
 
@@ -151,7 +182,7 @@
 }
 
 - (NSArray *)arrayOfFooter:(iOSTableViewController *)tableView {
-    NSArray *list = [Api uc_comments_get:_page + 1 size:_size];
+    NSArray *list = [Api mb_comments_get:param page:_page + 1 size:_size];
     if (list.count > 0) {
         _page += 1;
     }
@@ -160,11 +191,11 @@
 
 
 - (void)tableView:(UITableViewCell *)cell onCustomAccessoryTapped:(id)object {
-    ucComment *obj = object;
-    UCUpdateNikename *nextView = [[UCUpdateNikename alloc] init];
-    nextView.idDest = obj.commentUserId;
-    [self.navigationController pushViewController:nextView animated:YES];
-    [nextView release];
+    //ucComment *obj = object;
+    //UCUpdateNikename *nextView = [[UCUpdateNikename alloc] init];
+    //nextView.idDest = obj.commentUserId;
+    //[self.navigationController pushViewController:nextView animated:YES];
+    //[nextView release];
 }
 
 @end

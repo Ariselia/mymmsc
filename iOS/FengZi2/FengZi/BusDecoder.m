@@ -174,9 +174,7 @@ static NSString *URL_FLAG = @"://";
     
     //名片业务
     if([BusDecoder isThisBus:flage bugTag:CATEGORY_CARD]){
-        
         category.type = CATEGORY_CARD;
-        
         if(logIDPos != NSNotFound){				
             category.channel=CARD_CHANNEL_FXF;
         }else{

@@ -93,6 +93,9 @@
         status = 1;
         message = @"服务器正忙，请稍候...";
     }
+    if (status == API_SUCCESS && message.length < 1) {
+        message = @"提交成功";
+    }
     return data;
 }
 
@@ -248,7 +251,7 @@ static UserInfo *cache_info = nil;
     return filename;
 }
 
-+ (BOOL) fileIsExists:(NSString *)url {
++ (BOOL)fileIsExists:(NSString *)url {
     NSString *filepath = [iOSFile path:[self filePath:url]];
     BOOL bExists = NO;
     bExists = [[iOSFile manager] fileExistsAtPath:filepath];

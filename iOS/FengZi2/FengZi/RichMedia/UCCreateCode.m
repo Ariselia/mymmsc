@@ -129,7 +129,7 @@ static int iTimes = -1;
     //[img drawInRect:CGRectMake(0, 0, size.width, size.height)];
     //UIImage *scaledImage = UIGraphicsGetImageFromCurrentImageContext();
     //UIGraphicsEndImageContext();
-    UIImage *scaledImage = [img thumb:&size];
+    UIImage *scaledImage = [img toSize:size];
     fmtBuffer = [UIImagePNGRepresentation(scaledImage) retain];
     iOSImageView2 *iv = [[iOSImageView2 alloc] initWithImage:scaledImage superView:self.view];
     iv.delegate = self;

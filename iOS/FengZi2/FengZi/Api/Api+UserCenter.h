@@ -85,6 +85,14 @@
 
 @end
 
+//--------------------< 用户中心 - 对象 - 数据统计 >--------------------
+@interface ucToal : ApiResult{
+    //
+}
+@property (nonatomic, assign) int totalCount, codeCount;
+
+@end
+
 //====================================< 用户中心 >====================================
 @interface Api (UserCenter)
 
@@ -150,6 +158,17 @@
                                size:(int)size;
 
 + (ApiResult *)uc_comment_add:(int)userId
+                      content:(NSString *)content;
+// 查看统计数据
++ (ucToal *)uc_total_get:(int)userId;
+
+// 富媒体 评论列表
++ (NSMutableArray *)mb_comments_get:(NSString *)userId
+                               page:(int)number
+                               size:(int)size;
+
+// 富媒体 增加评论
++ (ApiResult *)mb_comment_add:(NSString *)maId
                       content:(NSString *)content;
 
 @end

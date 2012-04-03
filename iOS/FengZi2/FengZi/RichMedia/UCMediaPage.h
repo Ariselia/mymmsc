@@ -18,6 +18,7 @@
     UIButton *btnDown;
     AVAudioPlayer *audioPlayer;;
 }
+@property (nonatomic, assign) id idMedia;
 @property (nonatomic, copy) NSString *filePath;
 @property (nonatomic, retain) MediaObject *info;
 @property (nonatomic, retain) IBOutlet UILabel *subject, *bgAudio;
@@ -28,8 +29,11 @@
 @property (nonatomic, assign) int state, stText;
 @property (nonatomic, retain) IBOutlet UIButton *button, *btnAudio;
 
--(IBAction)playAudio:(id)sender;
--(IBAction)playMovie:(id)sender;
+- (IBAction)playAudio:(id)sender;
+- (IBAction)playMovie:(id)sender;
 - (void)loadData;
+
+// 富媒体 评论
+- (IBAction)doDiscuss:(id)sender;
 
 @end

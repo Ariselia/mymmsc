@@ -16,7 +16,6 @@
 #import "UCStoreBBS.h"
 #import <iOSApi/iOSAsyncImageView.h>
 
-#import <iOSApi/UIImage+Scale.h>
 #import <iOSApi/iOSImageView2.h>
 #import "UCBookReader.h"
 #import "UCMoviePlayer.h"
@@ -179,7 +178,7 @@ static BOOL dLoaded = NO;
         int imageHeight = 36;
         
         // 占位
-        cell.imageView.image = [[UIImage imageNamed:@"unknown.png"] scaleToSize:CGSizeMake(imageHeight, imageHeight)];
+        cell.imageView.image = [[UIImage imageNamed:@"unknown.png"] toSize:CGSizeMake(imageHeight, imageHeight)];
         NSString *tmpUrl = [iOSApi urlDecode:obj.productLogo];
         //UIImage *im = [[[UIImage alloc] initWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:tmpUrl]]] autorelease];
         //cell.imageView.image = im;
@@ -192,7 +191,7 @@ static BOOL dLoaded = NO;
         if (ai == nil)
         {
             // 默认图片
-            cell.imageView.image = [[UIImage imageNamed:@"unknown.png"] scaleToSize:CGSizeMake(imageHeight, imageHeight)];
+            cell.imageView.image = [[UIImage imageNamed:@"unknown.png"] toSize:CGSizeMake(imageHeight, imageHeight)];
             ai = [[[iOSAsyncImageView alloc] initWithFrame:frame] autorelease];
             //ai.tag = tagImage;
             //NSString *tmpUrl;
