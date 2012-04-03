@@ -8,6 +8,7 @@
 
 #import "RMComments.h"
 #import "Api+UserCenter.h"
+#import "UCUpdateNikename.h"
 
 @interface RMComments ()
 
@@ -138,7 +139,7 @@
     UIFont *detailFont = [UIFont systemFontOfSize:10.0];
     //cell.imageView.image = [[iOSApi imageNamed:[Api typeIcon:obj.type]] scaleToSize:CGSizeMake(36, 36)];
     //cell.textLabel.text = [NSString stringWithFormat:@"%@ 的评论", obj.username];
-    cell.textLabel.text = obj.commentName;
+    cell.textLabel.text = obj.commentUserName;
     cell.textLabel.font = textFont;
     
     UILabel *dt = [[UILabel alloc] initWithFrame:CGRectMake(170, 0, 105, 20)];
@@ -149,7 +150,7 @@
     [dt release];
     cell.detailTextLabel.text = obj.commentContent;
     cell.detailTextLabel.font = detailFont;
-    
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     // 突出效果
     UIView *effectView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];
@@ -195,11 +196,11 @@
 
 
 - (void)tableView:(UITableViewCell *)cell onCustomAccessoryTapped:(id)object {
-    //ucComment *obj = object;
-    //UCUpdateNikename *nextView = [[UCUpdateNikename alloc] init];
-    //nextView.idDest = obj.commentUserId;
-    //[self.navigationController pushViewController:nextView animated:YES];
-    //[nextView release];
+    ucComment *obj = object;
+    UCUpdateNikename *nextView = [[UCUpdateNikename alloc] init];
+    nextView.idDest = obj.commentUserId;
+    [self.navigationController pushViewController:nextView animated:YES];
+    [nextView release];
 }
 
 @end

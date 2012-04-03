@@ -114,7 +114,7 @@
     [dt release];
     cell.detailTextLabel.text = obj.commentContent;
     cell.detailTextLabel.font = detailFont;
-    
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     // 突出效果
     UIView *effectView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];

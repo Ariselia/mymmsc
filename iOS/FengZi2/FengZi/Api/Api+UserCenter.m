@@ -15,7 +15,7 @@
 @implementation ucLoginResult
 
 - (void) dealloc{
-   
+    
     [super dealloc];
 }
 @end
@@ -60,7 +60,7 @@
 //--------------------< 用户中心 - 对象 - 留言板 >--------------------
 @implementation ucComment
 
-@synthesize commentDate, commentName, commentUserId, commentContent, id, userId, delFlag;
+@synthesize commentDate, commentName, commentUserName, commentUserId, commentContent, id, userId, delFlag;
 
 - (void)dealloc{
     [super dealloc];
@@ -155,9 +155,9 @@
 
 // 注册账号
 + (ApiResult *)createId:(NSString *)username
-                passwd:(NSString *)passwd
-              authcode:(NSString *)authcode
-              nikename:(NSString *)nikename {
+                 passwd:(NSString *)passwd
+               authcode:(NSString *)authcode
+               nikename:(NSString *)nikename {
     static NSString *action = API_URL_USERCENTER "/uc/m_register.action";
     NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
                             API_INTERFACE_TONKEN, @"token",
@@ -179,9 +179,9 @@
 
 // 忘记密码, 密码重置
 + (ApiResult *)forget:(NSString *)username
-              passwd:(NSString *)passwd
-           newpasswd:(NSString *)newpasswd
-            authcode:(NSString *)authcode {
+               passwd:(NSString *)passwd
+            newpasswd:(NSString *)newpasswd
+             authcode:(NSString *)authcode {
     static NSString *action = API_URL_USERCENTER "/uc/m_resetpass.action";
     NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
                             API_INTERFACE_TONKEN, @"token",
@@ -201,7 +201,7 @@
 
 // 修改昵称
 + (ApiResult *)updateNikename:(NSString *)passwd
-                    nikename:(NSString *)nikename{
+                     nikename:(NSString *)nikename{
     static NSString *action = API_URL_USERCENTER "/uc/m_modnicname.action";
     NSString *userId = [NSString valueOf:[Api userId]];
     NSString *pwd = [Api base64e:passwd];
@@ -223,7 +223,7 @@
 
 // 修改密码
 + (ApiResult *)updatePassword:(NSString *)passwd
-                   newpasswd:(NSString *)newpasswd {
+                    newpasswd:(NSString *)newpasswd {
     static NSString *action = API_URL_USERCENTER "/uc/m_modpass.action";
     NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
                             API_INTERFACE_TONKEN, @"token",
@@ -243,7 +243,7 @@
 
 // 我的码
 + (NSMutableArray *)codeMyList:(int)number
-                           size:(int)size {
+                          size:(int)size {
     static NSString *action = @"http://m.ifengzi.cn/mb" "/kma/m_getCodeList.action";
     NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
                             API_INTERFACE_TONKEN, @"token",
@@ -294,17 +294,17 @@
 }
 
 + (ApiResult *)uc_userinfo_set1:(NSString *)realname
-                           sex:(NSString *)sex
-                         email:(NSString *)email
-                      birthday:(NSString *)birthday
-                      idNumber:(NSString *)idNumber
-                       address:(NSString *)address
-                      postCode:(NSString *)postCode
-                         likes:(NSString *)likes
-                        isopen:(NSString *)isopen
-                         weibo:(NSString *)weibo
-                            QQ:(NSString *)QQ
-                       contact:(NSString *)contact {
+                            sex:(NSString *)sex
+                          email:(NSString *)email
+                       birthday:(NSString *)birthday
+                       idNumber:(NSString *)idNumber
+                        address:(NSString *)address
+                       postCode:(NSString *)postCode
+                          likes:(NSString *)likes
+                         isopen:(NSString *)isopen
+                          weibo:(NSString *)weibo
+                             QQ:(NSString *)QQ
+                        contact:(NSString *)contact {
     static NSString *action = API_URL_USERCENTER "/uc/m_modDetailInfo.action";
     if (realname == nil) realname = @"";
     if (sex == nil) sex = @"";
@@ -546,7 +546,7 @@
 + (NSMutableArray *)mb_comments_get:(NSString *)userId
                                page:(int)number
                                size:(int)size {
-    static NSString *action = API_URL_USERCENTER "/mb/dataStatis/getCodeCount.action";
+    static NSString *action = API_URL_USERCENTER "/uc/m_findMaComment.action";
     NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
                             API_INTERFACE_TONKEN, @"token",
                             [Api base64e:[Api passwd]], @"sessionPassword",
@@ -580,7 +580,7 @@
                             API_INTERFACE_TONKEN, @"token",
                             maId, @"maId",
                             [NSString valueOf:[Api userId]], @"commentUserId",
-                            [Api nikeName], @"commentName",
+                            [Api nikeName], @"commentUserName",
                             content, @"commentContent",
                             date, @"commentDate",
                             nil];

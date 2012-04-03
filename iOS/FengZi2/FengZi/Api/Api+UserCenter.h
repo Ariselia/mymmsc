@@ -80,6 +80,7 @@
 @property (nonatomic, copy) NSString *commentContent;
 @property (nonatomic, copy) NSString *commentDate;
 @property (nonatomic, copy) NSString *commentName;
+@property (nonatomic, copy) NSString *commentUserName;
 @property (nonatomic, assign) int commentUserId;
 @property (nonatomic, assign) int delFlag, id, userId;
 
@@ -106,23 +107,23 @@
 
 // 注册账号
 + (ApiResult *)createId:(NSString *)username
-                passwd:(NSString *)passwd
-              authcode:(NSString *)authcode
-              nikename:(NSString *)nikename;
+                 passwd:(NSString *)passwd
+               authcode:(NSString *)authcode
+               nikename:(NSString *)nikename;
 
 // 忘记密码, 密码重置
 + (ApiResult *)forget:(NSString *)username
-              passwd:(NSString *)passwd
-           newpasswd:(NSString *)newpasswd
-            authcode:(NSString *)authcode;
+               passwd:(NSString *)passwd
+            newpasswd:(NSString *)newpasswd
+             authcode:(NSString *)authcode;
 
 // 修改昵称
 + (ApiResult *)updateNikename:(NSString *)passwd
-                    nikename:(NSString *)nikename;
+                     nikename:(NSString *)nikename;
 
 // 修改密码
 + (ApiResult *)updatePassword:(NSString *)passwd
-                   newpasswd:(NSString *)newpasswd;
+                    newpasswd:(NSString *)newpasswd;
 
 // 我的码
 + (NSMutableArray *) codeMyList:(int)number
