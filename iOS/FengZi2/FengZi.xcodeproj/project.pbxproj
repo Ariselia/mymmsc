@@ -18,6 +18,7 @@
 		0AB8584814FC34E50062C1C5 /* send_btn_nor.png in Resources */ = {isa = PBXBuildFile; fileRef = 0AB8584614FC34E50062C1C5 /* send_btn_nor.png */; };
 		0AB8584914FC34E50062C1C5 /* send_btn_sel.png in Resources */ = {isa = PBXBuildFile; fileRef = 0AB8584714FC34E50062C1C5 /* send_btn_sel.png */; };
 		0AB8584B14FC370F0062C1C5 /* eshop_info_popup.png in Resources */ = {isa = PBXBuildFile; fileRef = 0AB8584A14FC370F0062C1C5 /* eshop_info_popup.png */; };
+		0AB89736152D3D52007D82EE /* ZXing.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0AB89735152D3D52007D82EE /* ZXing.framework */; };
 		0ABA0093152A825100F5BCD3 /* btn-msg.png in Resources */ = {isa = PBXBuildFile; fileRef = 0ABA008F152A824D00F5BCD3 /* btn-msg.png */; };
 		0ABA0094152A825100F5BCD3 /* btn-msg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0ABA0090152A824E00F5BCD3 /* btn-msg@2x.png */; };
 		0ABA0095152A825100F5BCD3 /* nav-edit.png in Resources */ = {isa = PBXBuildFile; fileRef = 0ABA0091152A824F00F5BCD3 /* nav-edit.png */; };
@@ -90,7 +91,6 @@
 		0ABD851715100100005BD93B /* ebuy_sun_main_store.png in Resources */ = {isa = PBXBuildFile; fileRef = 0ABD84E815100100005BD93B /* ebuy_sun_main_store.png */; };
 		0ABD851815100100005BD93B /* ebuy_sun_main_storebtn_h.png in Resources */ = {isa = PBXBuildFile; fileRef = 0ABD84E915100100005BD93B /* ebuy_sun_main_storebtn_h.png */; };
 		0ABD851915100100005BD93B /* ebuy_sun_main_storebtn.png in Resources */ = {isa = PBXBuildFile; fileRef = 0ABD84EA15100100005BD93B /* ebuy_sun_main_storebtn.png */; };
-		0AE29BE3151D6A220044EAB7 /* libZXingWidget.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0AE29BE0151D69F60044EAB7 /* libZXingWidget.a */; };
 		0AE7932D14FAB2330018367B /* UCAppStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AE7931314FAB2330018367B /* UCAppStore.m */; };
 		0AE7932E14FAB2330018367B /* UCAppStore.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0AE7931414FAB2330018367B /* UCAppStore.xib */; };
 		0AE7932F14FAB2330018367B /* UCBookReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AE7931614FAB2330018367B /* UCBookReader.m */; };
@@ -647,23 +647,6 @@
 		B8F123E414E9B76C0042EAA9 /* bg33.png in Resources */ = {isa = PBXBuildFile; fileRef = B8F123E314E9B76C0042EAA9 /* bg33.png */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXContainerItemProxy section */
-		0AE29BDF151D69F60044EAB7 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 0AE29BCC151D69EF0044EAB7 /* ZXingWidget.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = D2AAC07E0554694100DB518D;
-			remoteInfo = ZXingWidget;
-		};
-		0AE29BE1151D69F60044EAB7 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 0AE29BCC151D69EF0044EAB7 /* ZXingWidget.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 1D60398D13DF7CAD006F4B51;
-			remoteInfo = ZXingTests;
-		};
-/* End PBXContainerItemProxy section */
-
 /* Begin PBXFileReference section */
 		0A00FF0C151D53DA00BEA5E9 /* QRCode.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QRCode.framework; path = ../../../../runtime/SDK/QRCode.framework; sourceTree = "<group>"; };
 		0A71F1EC15044A41007714BB /* EBuyPortal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EBuyPortal.h; sourceTree = "<group>"; };
@@ -679,6 +662,7 @@
 		0AB8584614FC34E50062C1C5 /* send_btn_nor.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = send_btn_nor.png; sourceTree = "<group>"; };
 		0AB8584714FC34E50062C1C5 /* send_btn_sel.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = send_btn_sel.png; sourceTree = "<group>"; };
 		0AB8584A14FC370F0062C1C5 /* eshop_info_popup.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = eshop_info_popup.png; sourceTree = "<group>"; };
+		0AB89735152D3D52007D82EE /* ZXing.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ZXing.framework; path = ../../../../runtime/SDK/ZXing.framework; sourceTree = "<group>"; };
 		0ABA008F152A824D00F5BCD3 /* btn-msg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn-msg.png"; sourceTree = "<group>"; };
 		0ABA0090152A824E00F5BCD3 /* btn-msg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn-msg@2x.png"; sourceTree = "<group>"; };
 		0ABA0091152A824F00F5BCD3 /* nav-edit.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "nav-edit.png"; sourceTree = "<group>"; };
@@ -757,7 +741,6 @@
 		0ABD84E815100100005BD93B /* ebuy_sun_main_store.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ebuy_sun_main_store.png; sourceTree = "<group>"; };
 		0ABD84E915100100005BD93B /* ebuy_sun_main_storebtn_h.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ebuy_sun_main_storebtn_h.png; sourceTree = "<group>"; };
 		0ABD84EA15100100005BD93B /* ebuy_sun_main_storebtn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ebuy_sun_main_storebtn.png; sourceTree = "<group>"; };
-		0AE29BCC151D69EF0044EAB7 /* ZXingWidget.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ZXingWidget.xcodeproj; path = QRReferences/ZXingWidget/ZXingWidget.xcodeproj; sourceTree = "<group>"; };
 		0AE7931214FAB2330018367B /* UCAppStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UCAppStore.h; sourceTree = "<group>"; };
 		0AE7931314FAB2330018367B /* UCAppStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UCAppStore.m; sourceTree = "<group>"; };
 		0AE7931414FAB2330018367B /* UCAppStore.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UCAppStore.xib; sourceTree = "<group>"; };
@@ -1528,7 +1511,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0AE29BE3151D6A220044EAB7 /* libZXingWidget.a in Frameworks */,
+				0AB89736152D3D52007D82EE /* ZXing.framework in Frameworks */,
 				0A00FF0D151D53DB00BEA5E9 /* QRCode.framework in Frameworks */,
 				B8D4A72D14E5206E0057203A /* AssetsLibrary.framework in Frameworks */,
 				B8D4A72B14E51FF80057203A /* MediaPlayer.framework in Frameworks */,
@@ -1642,15 +1625,6 @@
 			path = eBuy;
 			sourceTree = "<group>";
 		};
-		0AE29BDB151D69F60044EAB7 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				0AE29BE0151D69F60044EAB7 /* libZXingWidget.a */,
-				0AE29BE2151D69F60044EAB7 /* ZXingTests.octest */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 		0AE7931114FAB1550018367B /* eShop */ = {
 			isa = PBXGroup;
 			children = (
@@ -1752,6 +1726,7 @@
 		3E11F12A1472686800ACC436 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				0AB89735152D3D52007D82EE /* ZXing.framework */,
 				B8D4A70914E4B3000057203A /* iOSApi.framework */,
 				716ADCC914974385005E82B1 /* libsqlite3.0.dylib */,
 				0A00FF0C151D53DA00BEA5E9 /* QRCode.framework */,
@@ -1953,7 +1928,6 @@
 		3E11F1AE14726BD900ACC436 /* References */ = {
 			isa = PBXGroup;
 			children = (
-				0AE29BCC151D69EF0044EAB7 /* ZXingWidget.xcodeproj */,
 				3E11F1ED14726C4900ACC436 /* JSON */,
 				3E11F1CD14726C3700ACC436 /* ASIHttpRequest */,
 			);
@@ -3039,35 +3013,12 @@
 			mainGroup = 3E11F11C1472686800ACC436;
 			productRefGroup = 3E11F1281472686800ACC436 /* Products */;
 			projectDirPath = "";
-			projectReferences = (
-				{
-					ProductGroup = 0AE29BDB151D69F60044EAB7 /* Products */;
-					ProjectRef = 0AE29BCC151D69EF0044EAB7 /* ZXingWidget.xcodeproj */;
-				},
-			);
 			projectRoot = "";
 			targets = (
 				3E11F1261472686800ACC436 /* FengZi */,
 			);
 		};
 /* End PBXProject section */
-
-/* Begin PBXReferenceProxy section */
-		0AE29BE0151D69F60044EAB7 /* libZXingWidget.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libZXingWidget.a;
-			remoteRef = 0AE29BDF151D69F60044EAB7 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		0AE29BE2151D69F60044EAB7 /* ZXingTests.octest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = ZXingTests.octest;
-			remoteRef = 0AE29BE1151D69F60044EAB7 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		3E11F1251472686800ACC436 /* Resources */ = {
@@ -3720,7 +3671,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: lutao Ji (5GM5VPDYFL)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: WANG FENG (5B26BP896X)";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -3735,6 +3686,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "4CF740FC-940D-4D2E-9365-15576647B782";
 				SDKROOT = iphoneos;
 				WARNING_CFLAGS = (
 					"-Wall",
@@ -3750,7 +3702,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: lutao Ji (5GM5VPDYFL)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: WANG FENG (5B26BP896X)";
 				COPY_PHASE_STRIP = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
@@ -3759,6 +3711,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "4CF740FC-940D-4D2E-9365-15576647B782";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 				WARNING_CFLAGS = (
@@ -3783,11 +3736,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "FengZi/FengZi-Prefix.pch";
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = NO;
-				HEADER_SEARCH_PATHS = (
-					"$(SRCROOT)/Fengzi/QRReferences/ZXingWidget/Classes",
-					"$(SRCROOT)/Fengzi/QRReferences/QREncode/QRCodeEncoder/**",
-					"$(SRCROOT)/Fengzi/QRReferences/ZXingWidget/cpp/core/src/",
-				);
+				HEADER_SEARCH_PATHS = "~/runtime/SDK";
 				INFOPLIST_FILE = "FengZi/FengZi-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
 				OTHER_LDFLAGS = "-ObjC";
@@ -3811,11 +3760,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "FengZi/FengZi-Prefix.pch";
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = NO;
-				HEADER_SEARCH_PATHS = (
-					"$(SRCROOT)/Fengzi/QRReferences/ZXingWidget/Classes",
-					"$(SRCROOT)/Fengzi/QRReferences/QREncode/QRCodeEncoder/**",
-					"$(SRCROOT)/Fengzi/QRReferences/ZXingWidget/cpp/core/src/",
-				);
+				HEADER_SEARCH_PATHS = "~/runtime/SDK";
 				INFOPLIST_FILE = "FengZi/FengZi-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
 				OTHER_LDFLAGS = "-ObjC";
