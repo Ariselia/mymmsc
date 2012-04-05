@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app xmlns="http://caucho.com/ns/resin" xmlns:resin="urn:java:com.caucho.resin">
+<resin xmlns="http://caucho.com/ns/resin"
+       xmlns:resin="urn:java:com.caucho.resin">
 	<database>
 		<jndi-name>jdbc/eshop</jndi-name>
 		<driver type="com.mysql.jdbc.Driver">
-			<url>jdbc:mysql://localhost:3306/eshop?useUnicode=true&amp;characterEncoding=utf8&amp;zeroDateTimeBehavior=round</url>
-			<user>root</user>
-			<password></password>
+			<url>jdbc:mysql://127.0.0.1:18036/eshop?useUnicode=true&amp;characterEncoding=utf8&amp;zeroDateTimeBehavior=round</url>
+			<user>devp</user>
+			<password>200.devp</password>
 		</driver>
 		<prepared-statement-cache-size>8</prepared-statement-cache-size>
 		<max-connections>5</max-connections>
 		<max-idle-time>30s</max-idle-time>
 	</database> 
-</web-app>
+</resin>
