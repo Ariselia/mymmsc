@@ -331,7 +331,7 @@
             [input setName:@"出生日期"];
             [input setTag:TAG_FIELD_BIRTHDAY];
             birthday = [[UITextField alloc] initWithFrame:frame];
-            birthday.text = ucInfo.realname;
+            birthday.text = ucInfo.birthday;
             birthday.tag = input.tag;
             birthday.keyboardType = UIKeyboardTypeDefault;
             birthday.returnKeyType = UIReturnKeyDone;
