@@ -10,7 +10,7 @@
 #import "EBShopInfo.h"
 #import "EBProductDetail.h"
 #import <iOSApi/iOSStar.h>
-
+#import <iOSApi/UIImageView+Utils.h>
 @interface EBShopList ()
 
 @end

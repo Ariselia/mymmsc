@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "Decoder.h"
+#import <ZXing/Decoder.h>
 @interface WebScanViewController : UIViewController<UIWebViewDelegate,DecoderDelegate>{
     UISearchBar *_webSeachBar;
     UIWebView *_scanWebView;

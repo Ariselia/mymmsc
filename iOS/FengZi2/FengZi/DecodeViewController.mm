@@ -7,9 +7,9 @@
 
 #import "DecodeViewController.h"
 #import "TabBarController.h"
-#import "QRCodeReader.h"
-#import "TwoDDecoderResult.h"
-#import "MultiFormatOneDReader.h"
+#import <ZXing/QRCodeReader.h>
+#import <ZXing/TwoDDecoderResult.h>
+#import <ZXing/MultiFormatOneDReader.h>
 #import "WebScanViewController.h"
 #import "DecodeCardViewControlle.h"
 #import "BusDecoder.h"

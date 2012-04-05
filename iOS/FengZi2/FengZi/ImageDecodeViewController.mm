@@ -7,8 +7,8 @@
 //
 
 #import "ImageDecodeViewController.h"
-#import "QRCodeReader.h"
-#import "TwoDDecoderResult.h"
+#import <ZXing/QRCodeReader.h>
+#import <ZXing/TwoDDecoderResult.h>
 #import "DecodeCardViewControlle.h"
 #import "BusDecoder.h"
 #import "BusCategory.h"

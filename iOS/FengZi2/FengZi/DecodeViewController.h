@@ -6,8 +6,8 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "ZXingWidgetController.h"
-#import "Decoder.h"
+#import <ZXing/ZXingWidgetController.h>
+#import <ZXing/Decoder.h>
 #import "UCAppStore.h"
 
 @interface DecodeViewController : UIViewController<UIImagePickerControllerDelegate,UINavigationControllerDelegate,ZXingDelegate,DecoderDelegate,UIAlertViewDelegate,UCAppStoreDelegate>{

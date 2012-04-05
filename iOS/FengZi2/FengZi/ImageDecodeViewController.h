@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "Decoder.h"
+#import <ZXing/Decoder.h>
 @interface ImageDecodeViewController : UIViewController<DecoderDelegate,UIGestureRecognizerDelegate>{
     UIImage *_curImage;
     IBOutlet UIImageView *_editImageView;

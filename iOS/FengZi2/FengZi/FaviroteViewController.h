@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "Decoder.h"
+#import <ZXing/Decoder.h>
 #import "RefreshTableFooterView.h"
 @interface FaviroteViewController : UIViewController<DecoderDelegate,RefreshTableFooterDelegate>{
     RefreshTableFooterView *_refreshFooterView;
