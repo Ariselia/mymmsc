@@ -9,7 +9,7 @@
 }
 
 - (NSString *)iconImageName {
-	return @"encode_button.png";
+	return @"encode.png";
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation {
