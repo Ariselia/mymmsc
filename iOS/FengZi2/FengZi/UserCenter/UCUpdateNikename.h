@@ -7,9 +7,6 @@
 //
 
 #import "Api+UserCenter.h"
-#import <iOSApi/iOSImageView.h>
-//#import "UIViewController+Utils.h"
-//#import <iOSApi/UIViewController+KeyBoard.h>
 
 // 修改个人信息
 @interface UCUpdateNikename : UIViewController<UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate>{
