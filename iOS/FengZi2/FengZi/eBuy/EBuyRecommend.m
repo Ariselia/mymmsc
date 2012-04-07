@@ -8,7 +8,6 @@
 
 #import "EBuyRecommend.h"
 #import "Api+Ebuy.h"
-#import <iOSApi/iOSImageView.h>
 #import "EBuyPortal.h"
 #import "EBExpressDetail.h"
 #import "EBProductDetail.h"
