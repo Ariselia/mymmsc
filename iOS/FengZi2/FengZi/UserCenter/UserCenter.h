@@ -7,7 +7,6 @@
 //
 // 記得在 header 檔裡引入 QuartzCore
 #import <QuartzCore/QuartzCore.h>
-#import <iOSApi/iOSImageView.h>
 
 // 个人中心
 @interface UserCenter : UIViewController<UIImagePickerControllerDelegate, UINavigationControllerDelegate> {
@@ -23,7 +22,7 @@
 //@property (nonatomic, retain) IBOutlet UILabel *nkName;
 @property (nonatomic, retain) IBOutlet UILabel *numAccess;
 @property (nonatomic, retain) IBOutlet UILabel *numScan;
-@property (nonatomic, retain) IBOutlet iOSImageView *photo;
+@property (nonatomic, retain) IBOutlet UIImageView *photo;
 
 - (IBAction)doEditor:(id)sender;
 
