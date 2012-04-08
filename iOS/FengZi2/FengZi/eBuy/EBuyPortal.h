@@ -12,8 +12,8 @@
     UIButton           *_btnRight; // 导航条按钮
     UIImage            *_curImage;
     UITextBorderStyle   _borderStyle;
-    NSMutableArray     *items;
-    UIFont             *font;
+    NSMutableArray     *_items;
+    UIFont             *_font;
     int                 _page;
 }
 @property (nonatomic, retain) IBOutlet UITableView *tableView;

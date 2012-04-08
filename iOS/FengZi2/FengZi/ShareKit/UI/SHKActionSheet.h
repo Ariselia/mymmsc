@@ -31,9 +31,7 @@
 @interface SHKActionSheet : UIActionSheet <UIActionSheetDelegate>
 {		
 	NSArray *sharers;
-	
 	SHKItem *item;
-	
 	NSDictionary *items;
 }
 

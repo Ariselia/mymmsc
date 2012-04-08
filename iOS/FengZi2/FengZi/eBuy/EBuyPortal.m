@@ -88,7 +88,7 @@
     
     
     UIButton *backbtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    backbtn.frame =CGRectMake(0, 0, 60, 32);
+    backbtn.frame = CGRectMake(0, 0, 60, 32);
     
     [backbtn setImage:[UIImage imageNamed:@"as_nav_home.png"] forState:UIControlStateNormal];
     [backbtn setImage:[UIImage imageNamed:@"as_nav_home.png"] forState:UIControlStateHighlighted];
@@ -98,15 +98,32 @@
     [backitem release];
         
     _borderStyle = UITextBorderStyleNone;
-    font = [UIFont systemFontOfSize:13.0];
-    if ([items count] == 0) {
+    _font = [UIFont systemFontOfSize:13.0];
+    if ([_items count] == 0) {
         // 预加载项
-        items = [[NSMutableArray alloc] initWithCapacity:0];
+        _items = [[NSMutableArray alloc] initWithCapacity:0];
         _page = 1;
     }
-    if (items != nil) {
+    if (_items != nil) {
         NSArray *list = [[Api ebuy_new:_page++] retain];
-        [items addObjectsFromArray:list];
+        [_items addObjectsFromArray:list];
+        [list release];
+    }
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    
+    _borderStyle = UITextBorderStyleNone;
+    _font = [UIFont systemFontOfSize:13.0];
+    if ([_items count] == 0) {
+        // 预加载项
+        _items = [[NSMutableArray alloc] initWithCapacity:0];
+        _page = 1;
+    }
+    if (_items != nil) {
+        NSArray *list = [[Api ebuy_new:_page++] retain];
+        [_items addObjectsFromArray:list];
         [list release];
     }
 }
@@ -120,7 +137,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     //return 0;
-    return 1+[items count];
+    return 1+[_items count];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -141,7 +158,7 @@
         cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier] autorelease];
     }
     int pos = [indexPath row];
-    if (pos >= [items count] + 1) {
+    if (pos >= [_items count] + 1) {
         return nil;
     }
     if (pos == 0) {
@@ -150,7 +167,7 @@
         //topView.scrollView.delegate = self;
         cell = topView;
     } else {
-        EBExpressType *obj = [items objectAtIndex:(pos - 1)];
+        EBExpressType *obj = [_items objectAtIndex:(pos - 1)];
         cell.textLabel.text = [iOSApi urlDecode:[obj title]];
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }
@@ -159,7 +176,6 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Navigation logic may go here. Create and push another view controller.
     //NSLog(@"module goto...");
     int pos = indexPath.row;
     if (pos == 0) {
@@ -167,7 +183,7 @@
     }
     // 跳转 快讯详情页面
     pos -= 1;
-    EBExpressType *obj = [items objectAtIndex:pos];
+    EBExpressType *obj = [_items objectAtIndex:pos];
     EBExpressDetail *nextView = [[EBExpressDetail alloc] init];
     nextView.param = obj;
     [self.navigationController pushViewController:nextView animated:YES];
