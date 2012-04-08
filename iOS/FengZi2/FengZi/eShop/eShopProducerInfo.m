@@ -16,7 +16,6 @@
 #import "UCStoreBBS.h"
 #import <iOSApi/iOSAsyncImageView.h>
 #import <iOSApi/iOSImageView2.h>
-#import <iOSApi/iOSImageView.h>
 #import "UCBookReader.h"
 #import "UCMoviePlayer.h"
 #import "UCMusicPlayer.h"
