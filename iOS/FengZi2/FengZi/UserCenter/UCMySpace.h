@@ -6,8 +6,7 @@
 //  Copyright (c) 2012年 iTotemStudio. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
-#import <iOSApi/iOSImageView.h>
+#import "Api+UserCenter.h"
 
 // 我的空间
 @interface UCMySpace : UIViewController{
