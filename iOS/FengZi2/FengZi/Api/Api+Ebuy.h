@@ -80,6 +80,7 @@
 @property (nonatomic, copy) NSString *content; // 评论的内容 (encode)
 @property (nonatomic, copy) NSString *picUrl; // 图片url (encode)
 @property (nonatomic, copy) NSString *commentTime;// 评论的时间
+
 @end
 
 //--------------------< 电子商城 - 对象 - 站内消息 >--------------------
@@ -95,6 +96,21 @@
 @property (nonatomic, copy) NSString *recevtTme; // 收信时间
 
 @end
+
+//--------------------< 电子商城 - 对象 - 订单 >--------------------
+@interface EBOrder : NSObject{
+    //
+}
+@property (nonatomic, copy) NSString *id; // 本条消息ID
+@property (nonatomic, copy) NSString *orderId; // 订单编号
+@property (nonatomic, assign) float price; // 价格
+@property (nonatomic, copy) NSString *orderTime; // 订单时间
+@property (nonatomic, assign) int state; // 订单状态
+
+@end
+
+//--------------------< 电子商城 - 对象 - 订单 >--------------------
+
 
 //====================================< 电子商城 - 接口 >====================================
 
@@ -128,5 +144,17 @@
 + (NSMutableArray *)ebuy_message_recv:(NSString *)id page:(int)page;
 // 发件箱
 + (NSMutableArray *)ebuy_message_send:(NSString *)id page:(int)page;
+
+// 站内消息回复
++ (ApiResult *)ebuy_message_reply:(NSString *)cid content:(NSString *)content;
+
+// 订单获取接口
++ (NSMutableArray *)ebuy_order_list:(int)userId
+                               type:(int)type
+                               page:(int)page;
+
+// 我的收藏
++ (NSMutableArray *)ebuy_collect:(int)userId
+                            page:(int)page;
 
 @end

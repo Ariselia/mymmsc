@@ -50,6 +50,13 @@
 
 @end
 
+//--------------------< 电子商城 - 对象 - 订单 >--------------------
+@implementation EBOrder
+
+@synthesize id,orderId,orderTime,price,state;
+
+@end
+
 //====================================< 电子商城 - 接口 >====================================
 @implementation Api (Ebuy)
 
@@ -59,11 +66,11 @@
     // 方法
     static NSString *method = @"search";
     NSDictionary *heads = [NSDictionary dictionaryWithObjectsAndKeys:
-                            @"application/json", @"Content-Type",
-                            nil];
+                           @"application/json", @"Content-Type",
+                           nil];
     NSMutableDictionary *jsonDic = [NSMutableDictionary dictionary];
     NSMutableDictionary *search = [NSMutableDictionary dictionary];
-    NSString *name = [iOSApi urlDecode:key];
+    NSString *name = [iOSApi urlEncode:key];
     [search setObject:name forKey:@"name"];
     [jsonDic setObject:search forKey:method];
     
@@ -89,8 +96,8 @@
     if (page < 1) {
         page = 1;
     }
-    NSString *params = [NSString stringWithFormat:@"page=%d", page];
-    NSString *action = [NSString stringWithFormat:@"%@/%@?%@", API_URL_EBUY, method, params];
+    NSString *query = [NSString stringWithFormat:@"page=%d", page];
+    NSString *action = [NSString stringWithFormat:@"%@/%@?%@", API_URL_EBUY, method, query];
     NSDictionary *map = [Api post:action params:nil];
     if (map) {
         NSMutableArray *data = [map objectForKey:@"push"];
@@ -110,8 +117,8 @@
     if (page < 1) {
         page = 1;
     }
-    NSString *params = [NSString stringWithFormat:@"page=%d&typeid=%d", page, typeId];
-    NSString *action = [NSString stringWithFormat:@"%@/%@?%@", API_URL_EBUY, method, params];
+    NSString *query = [NSString stringWithFormat:@"page=%d&typeid=%d", page, typeId];
+    NSString *action = [NSString stringWithFormat:@"%@/%@?%@", API_URL_EBUY, method, query];
     NSDictionary *map = [Api post:action params:nil];
     if (map) {
         NSMutableArray *data = [map objectForKey:@"type"];
@@ -131,8 +138,8 @@
     if (page < 1) {
         page = 1;
     }
-    NSString *params = [NSString stringWithFormat:@"page=%d&typeid=%d", page, typeId];
-    NSString *action = [NSString stringWithFormat:@"%@/%@?%@", API_URL_EBUY, method, params];
+    NSString *query = [NSString stringWithFormat:@"page=%d&typeid=%d", page, typeId];
+    NSString *action = [NSString stringWithFormat:@"%@/%@?%@", API_URL_EBUY, method, query];
     NSDictionary *map = [Api post:action params:nil];
     if (map) {
         NSMutableArray *data = [map objectForKey:@"goodslist"];
@@ -152,8 +159,8 @@
     if (page < 0) {
         page = 0;
     }
-    NSString *params = [NSString stringWithFormat:@"page=%d", page];
-    NSString *action = [NSString stringWithFormat:@"%@/%@?%@", API_URL_EBUY, method, params];
+    NSString *query = [NSString stringWithFormat:@"page=%d", page];
+    NSString *action = [NSString stringWithFormat:@"%@/%@?%@", API_URL_EBUY, method, query];
     NSDictionary *map = [Api post:action params:nil];
     if (map) {
         NSMutableArray *data = [map objectForKey:@"new"];
@@ -170,8 +177,8 @@
     EBProductInfo *oRet = nil;
     // 方法
     static NSString *method = @"messagenewinfo";
-    NSString *params = [NSString stringWithFormat:@"id=%@", id];
-    NSString *action = [NSString stringWithFormat:@"%@/%@?%@", API_URL_EBUY, method, params];
+    NSString *query = [NSString stringWithFormat:@"id=%@", id];
+    NSString *action = [NSString stringWithFormat:@"%@/%@?%@", API_URL_EBUY, method, query];
     NSDictionary *map = [Api post:action params:nil];
     if (map) {
         NSDictionary *data = [map objectForKey:@"messagenewinfo"];
@@ -189,11 +196,11 @@
     // 方法
     static NSString *method = @"goodsinfo";
     /*NSDictionary *heads = [NSDictionary dictionaryWithObjectsAndKeys:
-                           @"application/json", @"Content-Type",
-                           nil];
-    */
-    NSString *params = [NSString stringWithFormat:@"id=%@", id];
-    NSString *action = [NSString stringWithFormat:@"%@/%@?%@", API_URL_EBUY, method, params];
+     @"application/json", @"Content-Type",
+     nil];
+     */
+    NSString *query = [NSString stringWithFormat:@"id=%@", id];
+    NSString *action = [NSString stringWithFormat:@"%@/%@?%@", API_URL_EBUY, method, query];
     NSDictionary *map = [Api post:action params:nil];
     if (map) {
         NSDictionary *data = [map objectForKey:method];
@@ -206,15 +213,16 @@
 }
 
 // 商品评论
-+ (NSMutableArray *)ebuy_goodscomment:(NSString *)id page:(int)page{
++ (NSMutableArray *)ebuy_goodscomment:(NSString *)id
+                                 page:(int)page {
     NSMutableArray *list = nil;
     // 方法
     static NSString *method = @"goodscomment";
     if (page < 0) {
         page = 0;
     }
-    NSString *params = [NSString stringWithFormat:@"page=%d", page];
-    NSString *action = [NSString stringWithFormat:@"%@/%@?%@", API_URL_EBUY, method, params];
+    NSString *query = [NSString stringWithFormat:@"page=%d", page];
+    NSString *action = [NSString stringWithFormat:@"%@/%@?%@", API_URL_EBUY, method, query];
     NSDictionary *map = [Api post:action params:nil];
     if (map) {
         NSMutableArray *data = [map objectForKey:method];
@@ -234,16 +242,20 @@
     if (page < 0) {
         page = 0;
     }
-    NSString *params = [NSString stringWithFormat:@"page=%d", page];
-    NSString *action = [NSString stringWithFormat:@"%@/%@?%@", API_URL_EBUY, method, params];
-    NSDictionary *map = [Api post:action params:nil];
+    NSString *query = [NSString stringWithFormat:@"page=%d", page];
+    NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
+                        API_INTERFACE_TONKEN, @"token",
+                        [NSString valueOf:[Api userId]], @"userId",
+                        [NSString valueOf:page], @"page",
+                        nil];
+    NSString *action = [NSString stringWithFormat:@"%@/%@?%@", API_URL_EBUY, method, query];
+    NSDictionary *map = [Api post:action params:params];
     if (map) {
         NSMutableArray *data = [map objectForKey:method];
         if (data.count > 0) {
             list = [data toList:EBSiteMessage.class];
         }
     }
-
     return list;
 }
 
@@ -255,22 +267,95 @@
     if (page < 0) {
         page = 0;
     }
-    NSString *params = [NSString stringWithFormat:@"page=%d", page];
-    NSString *action = [NSString stringWithFormat:@"%@/%@?%@", API_URL_EBUY, method, params];
-    NSDictionary *map = [Api post:action params:nil];
+    NSString *query = [NSString stringWithFormat:@"page=%d", page];
+    NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
+                            API_INTERFACE_TONKEN, @"token",
+                            [NSString valueOf:[Api userId]], @"userId",
+                            [NSString valueOf:page], @"page",
+                            nil];
+    NSString *action = [NSString stringWithFormat:@"%@/%@?%@", API_URL_EBUY, method, query];
+    NSDictionary *map = [Api post:action params:params];
     if (map) {
         NSMutableArray *data = [map objectForKey:method];
         if (data.count > 0) {
             list = [data toList:EBSiteMessage.class];
         }
     }
-
     return list;
 }
 
-+ (ApiResult *)ebuy_message_reply:(int)id
-                        content:(NSString *)content{
+// 站内消息回复
++ (ApiResult *)ebuy_message_reply:(NSString *)cid content:(NSString *)content{
+    ApiResult *iRet = [ApiResult new];
+    // 方法
+    static NSString *method = @"addmessage";
+    NSString *query = @"";
+    NSDictionary *heads = [NSDictionary dictionaryWithObjectsAndKeys:
+                           @"application/json", @"Content-Type",
+                           nil];
+    NSMutableDictionary *jsonDic = [NSMutableDictionary dictionary];
+    NSMutableDictionary *request = [NSMutableDictionary dictionary];
+    [request setObject:cid forKey:@"id"];
+    [request setObject:[iOSApi urlEncode:content] forKey:@"content"];
+    [jsonDic setObject:request forKey:method];
+    
+    NSString *params = [jsonDic JSONString];
+    
+    NSString *action = [NSString stringWithFormat:@"%@/%@?%@", API_URL_EBUY, method, query];
+    NSDictionary *response = [Api post:action header:heads body:[params dataUsingEncoding:NSUTF8StringEncoding]];
+    NSDictionary *data = [iRet parse:response];
+    if (data) {
+        //
+    }
+    return [iRet autorelease];
+}
 
+// 订单获取接口
++ (NSMutableArray *)ebuy_order_list:(int)userId
+                               type:(int)type
+                               page:(int)page{
+    NSMutableArray *list = nil;
+    static NSString *method = @"orderlist";
+    NSString *query = [NSString stringWithFormat:@"id=%d", [Api userId]];
+    NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
+                            API_INTERFACE_TONKEN, @"token",
+                            [NSString valueOf:[Api userId]], @"userId",
+                            [NSString valueOf:type], @"type",
+                            [NSString valueOf:page], @"page",
+                            nil];
+    NSString *action = [NSString stringWithFormat:@"%@/%@?%@", API_URL_EBUY, method, query];
+    NSDictionary *map = [Api post:action params:params];
+    if (map) {
+        NSMutableArray *data = [map objectForKey:method];
+        if (data.count > 0) {
+            list = [data toList:EBOrder.class];
+        }
+    }
+    
+    return list;
+}
+
+// 我的收藏
++ (NSMutableArray *)ebuy_collect:(int)userId
+                            page:(int)page{
+    NSMutableArray *list = nil;
+    static NSString *method = @"collect";
+    NSString *query = [NSString stringWithFormat:@"id=%d", [Api userId]];
+    NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
+                            API_INTERFACE_TONKEN, @"token",
+                            [NSString valueOf:[Api userId]], @"userId",
+                            [NSString valueOf:page], @"page",
+                            nil];
+    NSString *action = [NSString stringWithFormat:@"%@/%@?%@", API_URL_EBUY, method, query];
+    NSDictionary *map = [Api post:action params:params];
+    if (map) {
+        NSMutableArray *data = [map objectForKey:method];
+        if (data.count > 0) {
+            list = [data toList:EBProductInfo.class];
+        }
+    }
+    
+    return list;
 }
 
 @end
