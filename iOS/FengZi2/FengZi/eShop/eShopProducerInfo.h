@@ -6,15 +6,13 @@
 //  Copyright (c) 2012年 iTotemStudio. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
 #import "Api+eShop.h"
-#import <iOSApi/iOSImageView.h>
 #import <iOSApi/iOSTableViewController.h>
 #import <iOSApi/HttpDownload.h>
 
 @interface eShopProducerInfo : UITableViewCell<HttpDownloadDelegate>{
     ProductInfo *info;
-    iOSImageView *infoImage;
+    UIImageView *infoImage;
     UILabel    *infoType;
     UILabel    *infoName;
     UILabel    *infoWriter;
@@ -26,7 +24,7 @@
 }
 
 @property (nonatomic, retain) ProductInfo *info;
-@property (nonatomic, retain) IBOutlet iOSImageView *infoImage;
+@property (nonatomic, retain) IBOutlet UIImageView *infoImage;
 @property (nonatomic, retain) IBOutlet UILabel *infoType;
 @property (nonatomic, retain) IBOutlet UILabel *infoName;
 @property (nonatomic, retain) IBOutlet UILabel *infoWriter;
