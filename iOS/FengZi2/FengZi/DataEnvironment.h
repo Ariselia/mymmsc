@@ -6,6 +6,7 @@
 
 #import <Foundation/Foundation.h>
 #import "CONSTS.h"
+
 @interface DataEnvironment : NSObject {
     NSString *_urlRequestHost;
     EncodeImageType _encodeImageType;
