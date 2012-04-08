@@ -10,14 +10,13 @@
 // 广告条
 //
 
-#import <UIKit/UIKit.h>
-#import <iOSApi/iOSImageView.h>
+#import <iOSApi/UIImageView+Utils.h>
 
 @interface EBAdBar : UIView{
     
 }
 
 @property (nonatomic, assign) id ownerId;
-@property (nonatomic, retain) IBOutlet iOSImageView *pic;
+@property (nonatomic, retain) IBOutlet UIImageView *pic;
 
 @end
