@@ -10,12 +10,15 @@
 #import "DataCacheManager.h"
 //#import "ITTNetworkTrafficManager.h"
 #import "BusDescKey.h"
+
 @interface DataEnvironment()
 - (void)restore;
 @end
+
 @implementation DataEnvironment
 
 static DataEnvironment *sharedInst = nil;
+
 @synthesize urlRequestHost = _urlRequestHost;
 @synthesize encodeImageType=_encodeImageType;
 @synthesize curScanType=_curScanType;
@@ -24,6 +27,7 @@ static DataEnvironment *sharedInst = nil;
 @synthesize hasNetWork = _hasNetWork;
 
 #pragma mark - singleton lifecycle
+
 + (id)sharedDataEnvironment{
 	@synchronized( self ) {
 		if ( sharedInst == nil ) {
