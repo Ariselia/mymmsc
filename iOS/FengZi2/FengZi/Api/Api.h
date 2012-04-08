@@ -12,7 +12,6 @@
 #import <iOSApi/iOSAction.h>
 #import <iOSApi/iOSFile.h>
 #import <iOSApi/iOSInput.h>
-#import <iOSApi/iOSImageView.h>
 #import <iOSApi/JSONKit.h>
 #import <iOSApi/HttpClient.h>
 #import <iOSApi/UIImage+Utils.h>
@@ -23,6 +22,8 @@
 #import <iOSApi/NSDictionary+Utils.h>
 #import <iOSApi/UIImageView+Utils.h>
 #import <iOSApi/iOSToast.h>
+#import <iOSApi/iOSImageView.h>
+#import <QuartzCore/QuartzCore.h>
 
 #define API_SUCCESS (0)
 #define kCellIconHeight 24.0f

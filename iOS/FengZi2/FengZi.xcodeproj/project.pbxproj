@@ -91,6 +91,9 @@
 		0ABD851715100100005BD93B /* ebuy_sun_main_store.png in Resources */ = {isa = PBXBuildFile; fileRef = 0ABD84E815100100005BD93B /* ebuy_sun_main_store.png */; };
 		0ABD851815100100005BD93B /* ebuy_sun_main_storebtn_h.png in Resources */ = {isa = PBXBuildFile; fileRef = 0ABD84E915100100005BD93B /* ebuy_sun_main_storebtn_h.png */; };
 		0ABD851915100100005BD93B /* ebuy_sun_main_storebtn.png in Resources */ = {isa = PBXBuildFile; fileRef = 0ABD84EA15100100005BD93B /* ebuy_sun_main_storebtn.png */; };
+		0AC0D14F153119C9001F1930 /* EBProductIntro.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AC0D14D153119C8001F1930 /* EBProductIntro.m */; };
+		0AC0D150153119C9001F1930 /* EBProductIntro.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0AC0D14E153119C8001F1930 /* EBProductIntro.xib */; };
+		0AC0D15415322551001F1930 /* UIView+Effect.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AC0D15315322551001F1930 /* UIView+Effect.m */; };
 		0AE7932D14FAB2330018367B /* UCAppStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AE7931314FAB2330018367B /* UCAppStore.m */; };
 		0AE7932E14FAB2330018367B /* UCAppStore.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0AE7931414FAB2330018367B /* UCAppStore.xib */; };
 		0AE7932F14FAB2330018367B /* UCBookReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AE7931614FAB2330018367B /* UCBookReader.m */; };
@@ -741,6 +744,11 @@
 		0ABD84E815100100005BD93B /* ebuy_sun_main_store.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ebuy_sun_main_store.png; sourceTree = "<group>"; };
 		0ABD84E915100100005BD93B /* ebuy_sun_main_storebtn_h.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ebuy_sun_main_storebtn_h.png; sourceTree = "<group>"; };
 		0ABD84EA15100100005BD93B /* ebuy_sun_main_storebtn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ebuy_sun_main_storebtn.png; sourceTree = "<group>"; };
+		0AC0D14C153119C7001F1930 /* EBProductIntro.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EBProductIntro.h; sourceTree = "<group>"; };
+		0AC0D14D153119C8001F1930 /* EBProductIntro.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EBProductIntro.m; sourceTree = "<group>"; };
+		0AC0D14E153119C8001F1930 /* EBProductIntro.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EBProductIntro.xib; sourceTree = "<group>"; };
+		0AC0D15215322551001F1930 /* UIView+Effect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Effect.h"; sourceTree = "<group>"; };
+		0AC0D15315322551001F1930 /* UIView+Effect.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Effect.m"; sourceTree = "<group>"; };
 		0AE7931214FAB2330018367B /* UCAppStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UCAppStore.h; sourceTree = "<group>"; };
 		0AE7931314FAB2330018367B /* UCAppStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UCAppStore.m; sourceTree = "<group>"; };
 		0AE7931414FAB2330018367B /* UCAppStore.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UCAppStore.xib; sourceTree = "<group>"; };
@@ -1621,6 +1629,9 @@
 				0AADFE4F15223C84004B4D4D /* EBShopInfo.h */,
 				0AADFE5015223C84004B4D4D /* EBShopInfo.m */,
 				0AADFE5215223CA3004B4D4D /* EBShopInfo.xib */,
+				0AC0D14C153119C7001F1930 /* EBProductIntro.h */,
+				0AC0D14D153119C8001F1930 /* EBProductIntro.m */,
+				0AC0D14E153119C8001F1930 /* EBProductIntro.xib */,
 			);
 			path = eBuy;
 			sourceTree = "<group>";
@@ -2911,6 +2922,8 @@
 				B8D49E3414E4B2400057203A /* Api+UserCenter.m */,
 				B8ECE09014E70E58005DF9AF /* UIViewController+Utils.h */,
 				B8ECE09114E70E58005DF9AF /* UIViewController+Utils.m */,
+				0AC0D15215322551001F1930 /* UIView+Effect.h */,
+				0AC0D15315322551001F1930 /* UIView+Effect.m */,
 			);
 			path = Api;
 			sourceTree = "<group>";
@@ -3000,7 +3013,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 0430;
-				ORGANIZATIONNAME = iTotemStudio;
+				ORGANIZATIONNAME = ifengzi.cn;
 			};
 			buildConfigurationList = 3E11F1211472686800ACC436 /* Build configuration list for PBXProject "FengZi" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -3437,6 +3450,7 @@
 				0ABA0096152A825100F5BCD3 /* nav-edit@2x.png in Resources */,
 				0ABA009B152A8CF800F5BCD3 /* RMComments.xib in Resources */,
 				0ABA009D152A9DD800F5BCD3 /* nav-at.png in Resources */,
+				0AC0D150153119C9001F1930 /* EBProductIntro.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3648,6 +3662,8 @@
 				0AF64ED0152671C00017E298 /* UCMyComments.m in Sources */,
 				0AF64ED5152673C10017E298 /* UCMySpace.m in Sources */,
 				0ABA009A152A8CF800F5BCD3 /* RMComments.m in Sources */,
+				0AC0D14F153119C9001F1930 /* EBProductIntro.m in Sources */,
+				0AC0D15415322551001F1930 /* UIView+Effect.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -260,17 +260,21 @@ static UserInfo *cache_info = nil;
 
 //--------------------< 业务处理 - 接口 >--------------------
 + (NSString *)fixUrl:(NSString *)url{
+    NSString *sRet = nil;
     url = [iOSApi urlDecode:url];
     url = [url stringByReplacingOccurrencesOfString:@"\\:" withString:@":"];
     NSRange range = [url rangeOfString: @"http://"];
-    NSString *_url = [url substringFromIndex:range.location];
-    range = [_url rangeOfString:@";"];
     if (range.length > 0) {
-        url = [_url substringToIndex:range.location - 1];
-    } else {
-        url = _url;
+        NSString *_url = [url substringFromIndex:range.location];
+        range = [_url rangeOfString:@";"];
+        if (range.length > 0) {
+            sRet = [_url substringToIndex:range.location - 1];
+        } else {
+            sRet = _url;
+        }
     }
-    return url;
+    
+    return sRet;
 }
 
 + (NSDictionary *)parseUrl:(NSString *)url {

@@ -208,6 +208,8 @@
         //如果无文字输入
         [self.searchBar resignFirstResponder];
         return; 
+    } else {
+        //
     }
 }
 - (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar

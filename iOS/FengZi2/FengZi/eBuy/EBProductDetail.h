@@ -15,8 +15,8 @@
 
 @interface EBProductDetail : UIViewController{
     UITextBorderStyle   _borderStyle;
-    NSMutableArray     *items;
-    UIFont             *font;
+    NSMutableArray     *_items;
+    UIFont             *_font;
     int                 _page;
 }
 @property (nonatomic, retain) EBProductInfo *param;
