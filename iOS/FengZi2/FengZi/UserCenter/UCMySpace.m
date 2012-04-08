@@ -96,12 +96,4 @@
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
-- (IBAction)showSina:(id)sender{
-    //
-}
-
-- (IBAction)showQQ:(id)sender{
-    //
-}
-
 @end

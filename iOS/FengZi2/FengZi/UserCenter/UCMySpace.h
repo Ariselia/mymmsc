@@ -15,7 +15,4 @@
 
 @property (nonatomic, retain) IBOutlet UIImageView *imageView;
 
-- (IBAction)showSina:(id)sender;
-- (IBAction)showQQ:(id)sender;
-
 @end
