@@ -12,7 +12,7 @@
 
 #import <iOSApi/UIImageView+Utils.h>
 
-@interface EBAdBar : UIView{
+@interface EBAdBar : UITableViewCell{
     
 }
 
