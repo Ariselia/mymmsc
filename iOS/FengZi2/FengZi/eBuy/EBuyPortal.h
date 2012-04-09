@@ -9,8 +9,8 @@
 #import <UIKit/UIKit.h>
 
 @interface EBuyPortal : UIViewController{
-    UIButton           *_btnRight; // 导航条按钮
-    UIImage            *_curImage;
+    //UIButton           *_btnRight; // 导航条按钮
+    //UIImage            *_curImage;
     UITextBorderStyle   _borderStyle;
     NSMutableArray     *_items;
     UIFont             *_font;
