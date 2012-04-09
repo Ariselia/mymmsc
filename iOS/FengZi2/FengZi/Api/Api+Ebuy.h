@@ -97,20 +97,62 @@
 
 @end
 
-//--------------------< 电子商城 - 对象 - 订单 >--------------------
-@interface EBOrder : NSObject{
+//--------------------< 电子商城 - 对象 - 订单 - 基本信息 >--------------------
+@interface EBOrder : ApiResult{
     //
 }
-@property (nonatomic, copy) NSString *id; // 本条消息ID
+@property (nonatomic, copy) NSString *id;
+@property (nonatomic, copy) NSString *ordered;
+@property (nonatomic, assign) float price;
+@property (nonatomic, copy) NSString *orderTime;
+@property (nonatomic, assign) int state;
+@end
+
+//--------------------< 电子商城 - 对象 - 订单 - 用户信息 >--------------------
+@interface EBOrderUser : NSObject{
+    //
+}
+@property (nonatomic, assign) int userId; // 用户ID
 @property (nonatomic, copy) NSString *orderId; // 订单编号
-@property (nonatomic, assign) float price; // 价格
-@property (nonatomic, copy) NSString *orderTime; // 订单时间
+@property (nonatomic, assign) int goodsCount; // 订单商品总数
 @property (nonatomic, assign) int state; // 订单状态
+@property (nonatomic, copy) NSString *payment;
+@property (nonatomic, copy) NSString *type; // 01-货到付款
+@property (nonatomic, copy) NSString *receiver; // 收件人
+@property (nonatomic, copy) NSString *address; // 地址
+@property (nonatomic, copy) NSString *areaCode; // 邮编
+@property (nonatomic, copy) NSString *mobile; // 电话
+@property (nonatomic, copy) NSString *shopId;
+@property (nonatomic, copy) NSString *shopName;
+@end
+
+//--------------------< 电子商城 - 对象 - 订单 - 商品信息 >--------------------
+
+#define EBUY_ORDER_FINISHED (0) // 完成
+#define EBUY_ORDER_PROCESS  (1) // 处理中
+#define EBUY_ORDER_DISPATCH (2) // 派发途中
+#define EBUY_ORDER_CONFIRM  (3) // 等待用户确认
+
+@interface EBOrderProduct : NSObject{
+    //
+}
+@property (nonatomic, copy) NSString *name; // 商品名称
+@property (nonatomic, copy) NSString *id; // 商品ID
+@property (nonatomic, copy) NSString *picUrl;
+@property (nonatomic, assign) float price; // 价格
+//@property (nonatomic, copy) NSString *orderTime; // 订单时间
+//@property (nonatomic, assign) int state; // 订单状态
+@property (nonatomic, assign) int totalCount; // 商品数量单位
 
 @end
 
-//--------------------< 电子商城 - 对象 - 订单 >--------------------
-
+//--------------------< 电子商城 - 对象 - 订单详情 >--------------------
+@interface EBOrderInfo : NSObject{
+    //
+}
+@property (nonatomic, retain) EBOrderUser *userInfo;
+@property (nonatomic, retain) NSMutableArray *products;
+@end
 
 //====================================< 电子商城 - 接口 >====================================
 
@@ -165,13 +207,6 @@
 // 站内消息回复
 + (ApiResult *)ebuy_message_reply:(NSString *)cid content:(NSString *)content;
 
-//--------------------< 电子商城 - 接口 - 订单 >--------------------
-
-// 订单获取接口
-+ (NSMutableArray *)ebuy_order_list:(int)userId
-                               type:(int)type
-                               page:(int)page;
-
 //--------------------< 电子商城 - 接口 - 收藏 >--------------------
 
 // 我的收藏
@@ -181,5 +216,15 @@
 + (ApiResult *)ebuy_collect_add:(NSString *)cid;
 // 删除收藏
 + (ApiResult *)ebuy_collect_delete:(NSString *)cid;
+
+//--------------------< 电子商城 - 接口 - 订单 >--------------------
+
+// 订单获取接口
++ (NSMutableArray *)ebuy_order_list:(int)userId
+                               type:(int)type
+                               page:(int)page;
+
+// 订单详情
++ (EBOrderInfo *)ebuy_order_get:(NSString *)orderId;
 
 @end

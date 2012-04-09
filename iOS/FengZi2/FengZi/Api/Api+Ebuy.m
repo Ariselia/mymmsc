@@ -52,11 +52,26 @@
 
 //--------------------< 电子商城 - 对象 - 订单 >--------------------
 @implementation EBOrder
+@synthesize id,ordered,orderTime,price,state;
+@end
 
-@synthesize id,orderId,orderTime,price,state;
+@implementation EBOrderUser
+
+@synthesize type,state,mobile,shopId,userId,address,orderId,payment,areaCode,receiver,shopName,goodsCount;
 
 @end
 
+@implementation EBOrderProduct
+
+@synthesize id,name,price,picUrl,totalCount;
+
+@end
+
+@implementation EBOrderInfo
+
+@synthesize products,userInfo;
+
+@end
 //====================================< 电子商城 - 接口 >====================================
 @implementation Api (Ebuy)
 
@@ -307,7 +322,7 @@
     NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
                             API_INTERFACE_TONKEN, @"token",
                             [NSString valueOf:[Api userId]], @"userid",
-                            [NSString valueOf:orderId], @"orderid",
+                            orderId, @"orderid",
                             nil];
     NSString *action = [NSString stringWithFormat:@"%@/%@?%@", API_URL_EBUY, method, query];
     NSDictionary *response = [Api post:action params:params];
@@ -400,31 +415,6 @@
     return [iRet autorelease];
 }
 
-// 订单获取接口
-+ (NSMutableArray *)ebuy_order_list:(int)userId
-                               type:(int)type
-                               page:(int)page{
-    NSMutableArray *list = nil;
-    static NSString *method = @"orderlist";
-    NSString *query = [NSString stringWithFormat:@"id=%d", [Api userId]];
-    NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
-                            API_INTERFACE_TONKEN, @"token",
-                            [NSString valueOf:[Api userId]], @"userId",
-                            [NSString valueOf:type], @"type",
-                            [NSString valueOf:page], @"page",
-                            nil];
-    NSString *action = [NSString stringWithFormat:@"%@/%@?%@", API_URL_EBUY, method, query];
-    NSDictionary *response = [Api post:action params:params];
-    if (response) {
-        NSMutableArray *data = [response objectForKey:method];
-        if (data.count > 0) {
-            list = [data toList:EBOrder.class];
-        }
-    }
-    
-    return list;
-}
-
 //--------------------< 电子商城 - 接口 - 收藏 >--------------------
 
 // 我的收藏
@@ -488,4 +478,71 @@
     return [iRet autorelease];
 }
 
+//--------------------< 电子商城 - 接口 - 订单 >--------------------
+// 订单获取接口
++ (NSMutableArray *)ebuy_order_list:(int)userId
+                               type:(int)type
+                               page:(int)page{
+    NSMutableArray *list = nil;
+    static NSString *method = @"orderlist";
+    NSString *query = [NSString stringWithFormat:@"id=%d", [Api userId]];
+    NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
+                            API_INTERFACE_TONKEN, @"token",
+                            [NSString valueOf:[Api userId]], @"userId",
+                            [NSString valueOf:type], @"type",
+                            [NSString valueOf:page], @"page",
+                            nil];
+    NSString *action = [NSString stringWithFormat:@"%@/%@?%@", API_URL_EBUY, method, query];
+    NSDictionary *response = [Api post:action params:params];
+    if (response) {
+        NSMutableArray *data = [response objectForKey:method];
+        if (data.count > 0) {
+            list = [data toList:EBOrder.class];
+        }
+    }
+    
+    return list;
+}
+
+// 订单详情
++ (EBOrderInfo *)ebuy_order_get:(NSString *)orderId{
+    EBOrderInfo *iRet = nil;
+    static NSString *method = @"orderinfo";
+    NSString *query = [NSString stringWithFormat:@"id=%d", [Api userId]];
+    NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
+                            API_INTERFACE_TONKEN, @"token",
+                            [NSString valueOf:[Api userId]], @"userId",
+                            orderId, @"orderid",
+                            nil];
+    NSString *action = [NSString stringWithFormat:@"%@/%@?%@", API_URL_EBUY, method, query];
+    NSDictionary *response = [Api post:action params:params];
+    if (response) {
+        NSDictionary *data = [response objectForKey:method];
+        if (data.count > 0) {
+            iRet = [data toObject:EBOrderInfo.class];
+        }
+    }
+    
+    return iRet;
+}
+/*
+// 订购
++ (ApiResult *)ebuy_order:(EBOrderInfo *)info{
+    ApiResult *iRet = [ApiResult new];
+    // 方法
+    static NSString *method = @"order";
+    NSString *query = [NSString stringWithFormat:@"id=%@", cid];
+    NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
+                            API_INTERFACE_TONKEN, @"token",
+                            [NSString valueOf:[Api userId]], @"userId",
+                            nil];
+    NSString *action = [NSString stringWithFormat:@"%@/%@?%@", API_URL_EBUY, method, query];
+    NSDictionary *response = [Api post:action params:params];
+    NSDictionary *data = [iRet parse:response];
+    if (data) {
+        //
+    }
+    return [iRet autorelease];
+}
+*/
 @end
