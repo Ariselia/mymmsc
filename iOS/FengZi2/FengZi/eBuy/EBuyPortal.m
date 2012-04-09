@@ -11,6 +11,7 @@
 #import "EBuyRecommend.h"
 #import "EBExpressDetail.h"
 #import "EBShopList.h"
+#import "EBAdBar.h"
 
 @implementation EBuyPortal
 
@@ -22,6 +23,7 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
+        isOnline = NO;
     }
     return self;
 }
@@ -99,33 +101,44 @@
         
     _borderStyle = UITextBorderStyleNone;
     _font = [UIFont systemFontOfSize:13.0];
+    
+    _borderStyle = UITextBorderStyleNone;
+    _font = [UIFont systemFontOfSize:13.0];
+    [iOSApi showAlert:@"正在加载信息..."];
+    // 列表头部
+    if (_headers.count == 0) {
+        _headers = [[NSMutableArray alloc] initWithCapacity:0];
+    } else {
+        [_headers removeAllObjects];
+    }
+    isOnline = [Api isOnLine];
+    // 广告视图
+    EBAdBar *view = [(EBAdBar*)[[[NSBundle mainBundle] loadNibNamed:@"EBAdBar" owner:self options:nil] objectAtIndex:0] retain];
+    [_headers addObject:view];
+    EBuyRecommend *topView = [(EBuyRecommend*)[[[NSBundle mainBundle] loadNibNamed:@"EBuyRecommend" owner:self options:nil] objectAtIndex:0] retain];
+    topView.ownerId = self;
+    [_headers addObject:topView];
+    // 判断是否登录
+    if (isOnline) {
+        // 登录
+    } else {
+        // 未登录
+    }
     if ([_items count] == 0) {
         // 预加载项
         _items = [[NSMutableArray alloc] initWithCapacity:0];
         _page = 1;
-    }
-    if (_items != nil) {
         NSArray *list = [[Api ebuy_new:_page++] retain];
         [_items addObjectsFromArray:list];
         [list release];
     }
+    //[iOSApi showCompleted:@"加载完毕"];
+    [iOSApi closeAlert];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    
-    _borderStyle = UITextBorderStyleNone;
-    _font = [UIFont systemFontOfSize:13.0];
-    if ([_items count] == 0) {
-        // 预加载项
-        _items = [[NSMutableArray alloc] initWithCapacity:0];
-        _page = 1;
-    }
-    if (_items != nil) {
-        NSArray *list = [[Api ebuy_new:_page++] retain];
-        [_items addObjectsFromArray:list];
-        [list release];
-    }
+    //
 }
 
 #pragma mark -
@@ -137,16 +150,16 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     //return 0;
-    return 1+[_items count];
+    return [_headers count]+[_items count];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     CGFloat height = 36;
-	//CGSize size = [@"123" sizeWithFont:fontInfo constrainedToSize:CGSizeMake(labelWidth, 20000) lineBreakMode:UILineBreakModeWordWrap];
-	//return size.height + 10; // 10即消息上下的空间，可自由调整 
-    if (indexPath.row == 0) {
-        height = 211.0f;
+	
+    if (indexPath.row < _headers.count) {
+        UITableViewCell *cell = [_headers objectAtIndex:indexPath.row];
+        height = cell.frame.size.height;
     }
 	return height;
 }
@@ -158,16 +171,13 @@
         cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier] autorelease];
     }
     int pos = [indexPath row];
-    if (pos >= [_items count] + 1) {
+    if (pos >= _headers.count + _items.count) {
         return nil;
     }
-    if (pos == 0) {
-        EBuyRecommend *topView = [(EBuyRecommend*)[[[NSBundle mainBundle] loadNibNamed:@"EBuyRecommend" owner:self options:nil] objectAtIndex:0] retain];
-        topView.idInfo = self;
-        //topView.scrollView.delegate = self;
-        cell = topView;
+    if (pos < _headers.count) {
+        cell = [_headers objectAtIndex:pos];
     } else {
-        EBExpressType *obj = [_items objectAtIndex:(pos - 1)];
+        EBExpressType *obj = [_items objectAtIndex:(pos - _headers.count)];
         cell.textLabel.text = [iOSApi urlDecode:[obj title]];
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }
@@ -201,8 +211,7 @@
     [self.navigationController pushViewController:nextView animated:YES];
     [nextView release];
     //[_tableView reloadData];
-    //重载数据
-    
+    //重载数据    
 }
 
 -(void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
@@ -225,9 +234,10 @@
         [self.searchBar resignFirstResponder];
         return; 
     } else {
-        //
+        self.searchBar.showsCancelButton = YES;
     }
 }
+
 - (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar
 {
     //取消按钮被按下时触发
