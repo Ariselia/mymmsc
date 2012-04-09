@@ -11,13 +11,14 @@
 #import "EBuyPortal.h"
 #import "EBExpressDetail.h"
 #import "EBProductDetail.h"
+#import "EBShopList.h"
 
 @implementation EBuyRecommend
 
-@synthesize idInfo;
+@synthesize ownerId;
 @synthesize scrollView=_scrollView;
 @synthesize desc;
-@synthesize pic;
+//@synthesize pic;
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
@@ -36,10 +37,18 @@
     // Configure the view for the selected state
 }
 
+- (IBAction)doShopList:(id)sender {
+    EBuyPortal *portal = ownerId;
+    EBShopList *nextView = [[EBShopList alloc] init];
+    //nextView.param = dst;
+    [portal.navigationController pushViewController:nextView animated:YES];
+    [nextView release];
+}
+
 static EBProductInfo *dst = nil;
 
 - (void)gotoInfo{
-    EBuyPortal *portal = idInfo;
+    EBuyPortal *portal = ownerId;
     EBProductDetail *nextView = [[EBProductDetail alloc] init];
     nextView.param = dst;
     [portal.navigationController pushViewController:nextView animated:YES];
@@ -52,12 +61,14 @@ static EBProductInfo *dst = nil;
     }
     dst = [items objectAtIndex: pos];
     desc.text = [iOSApi urlDecode:dst.title];
+    /*
     CGRect frame = desc.frame;
     frame.origin.y += 5;
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
     btn.frame = frame;
     [btn addTarget:self action:@selector(gotoInfo) forControlEvents:UIControlEventTouchUpInside];
     [self addSubview:btn];
+    */
 }
 
 - (void)awakeFromNib{
@@ -97,6 +108,11 @@ static EBProductInfo *dst = nil;
         if (items.count >= 2) {
             [self setAction:1];
         }
+        CGRect frame = CGRectMake(115, 30, 90, 90);
+        UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+        btn.frame = frame;
+        [btn addTarget:self action:@selector(gotoInfo) forControlEvents:UIControlEventTouchUpInside];
+        [self addSubview:btn];
     }
 }
 
