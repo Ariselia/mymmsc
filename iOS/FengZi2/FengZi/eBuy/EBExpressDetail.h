@@ -16,7 +16,7 @@
 
 @property (nonatomic, retain) IBOutlet UILabel *subject;
 @property (nonatomic, retain) IBOutlet UILabel *time;
-@property (nonatomic, retain) IBOutlet UIImageView *pic;
+@property (nonatomic, retain) IBOutlet iOSImageView *pic;
 @property (nonatomic, retain) IBOutlet UITextView *desc;
 
 @end
