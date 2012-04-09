@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0AD76699152E5CC800801DD4 /* RefreshTable.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 0AD76697152E5CC700801DD4 /* RefreshTable.bundle */; };
+		0AD7669A152E5CC800801DD4 /* TabBarController.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 0AD76698152E5CC800801DD4 /* TabBarController.bundle */; };
 		B8A2B0C814A6D24C00738A23 /* UserCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = B8A2B0C614A6D24800738A23 /* UserCenter.m */; };
 		B8A2B0C914A6D24C00738A23 /* UserCenter.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8A2B0C714A6D24900738A23 /* UserCenter.xib */; };
 		B8A2B0E114A6E29600738A23 /* EXViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8A2B0E014A6E29500738A23 /* EXViewController.m */; };
@@ -49,6 +51,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0AD76697152E5CC700801DD4 /* RefreshTable.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = RefreshTable.bundle; sourceTree = "<group>"; };
+		0AD76698152E5CC800801DD4 /* TabBarController.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = TabBarController.bundle; sourceTree = "<group>"; };
 		B8A2B0C514A6D24800738A23 /* UserCenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserCenter.h; sourceTree = "<group>"; };
 		B8A2B0C614A6D24800738A23 /* UserCenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserCenter.m; sourceTree = "<group>"; };
 		B8A2B0C714A6D24900738A23 /* UserCenter.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UserCenter.xib; sourceTree = "<group>"; };
@@ -130,6 +134,8 @@
 		B8A2B0CC14A6D74E00738A23 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				0AD76697152E5CC700801DD4 /* RefreshTable.bundle */,
+				0AD76698152E5CC800801DD4 /* TabBarController.bundle */,
 				B8A2B0CD14A6D75F00738A23 /* images */,
 			);
 			path = Resources;
@@ -260,7 +266,7 @@
 		B8A4FC0B14A6B55E003FE4A7 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0420;
+				LastUpgradeCheck = 0430;
 				ORGANIZATIONNAME = fengxiafei.com;
 			};
 			buildConfigurationList = B8A4FC0E14A6B55E003FE4A7 /* Build configuration list for PBXProject "FengZi" */;
@@ -299,6 +305,8 @@
 				B8F69A1914A7817E004C1671 /* encode.png in Resources */,
 				B8F69A1C14A781CB004C1671 /* ucenter-selected.png in Resources */,
 				B8F69A1D14A781CB004C1671 /* ucenter.png in Resources */,
+				0AD76699152E5CC800801DD4 /* RefreshTable.bundle in Resources */,
+				0AD7669A152E5CC800801DD4 /* TabBarController.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -350,6 +358,7 @@
 					"$(inherited)",
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_THUMB_SUPPORT = NO;
 				GCC_VERSION = com.apple.compilers.llvmgcc42;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
@@ -372,6 +381,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
 				GCC_C_LANGUAGE_STANDARD = c99;
+				GCC_THUMB_SUPPORT = NO;
 				GCC_VERSION = com.apple.compilers.llvmgcc42;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
@@ -387,10 +397,7 @@
 		B8A4FC3214A6B55F003FE4A7 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = (
-					armv6,
-					armv7,
-				);
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/../../../../runtime/SDK\"",
@@ -398,7 +405,8 @@
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "FengZi/FengZi-Prefix.pch";
-				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				GCC_THUMB_SUPPORT = NO;
+				GCC_VERSION = "";
 				INFOPLIST_FILE = "FengZi/FengZi-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
 				OTHER_LDFLAGS = "-ObjC";
@@ -410,10 +418,7 @@
 		B8A4FC3314A6B55F003FE4A7 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = (
-					armv6,
-					armv7,
-				);
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/../../../../runtime/SDK\"",
@@ -421,7 +426,8 @@
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "FengZi/FengZi-Prefix.pch";
-				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				GCC_THUMB_SUPPORT = NO;
+				GCC_VERSION = "";
 				INFOPLIST_FILE = "FengZi/FengZi-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
 				OTHER_LDFLAGS = "-ObjC";

@@ -51,7 +51,7 @@
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
-- (NSString *)iconImageName {
+- (NSString *)iconName {
 	return @"magnifying-glass.png";
 }
 

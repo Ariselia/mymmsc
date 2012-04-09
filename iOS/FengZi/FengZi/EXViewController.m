@@ -1,6 +1,6 @@
 #import "EXViewController.h"
-#import <iOSUtil/iOSTabBarController.h>
-#import <iOSUtil/iOSTab.h>
+#import <iOSApi/iOSTabBarController.h>
+#import <iOSApi/iOSTab.h>
 @implementation EXViewController
 
 - (void)viewDidLoad {
@@ -8,7 +8,7 @@
 	self.view.backgroundColor = RGBCOLOR(rand() % 255, rand() % 255, rand() % 255);
 }
 
-- (NSString *)iconImageName {
+- (NSString *)iconName {
 	return @"encode.png";
 }
 

@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <iOSUtil/iOSAppDelegate.h>
+#import <iOSApi/iOSAppDelegate.h>
+
 @class iOSTabBarController;
 
 @interface FZAppDelegate : iOSAppDelegate<iOSApplicationDelegate> {

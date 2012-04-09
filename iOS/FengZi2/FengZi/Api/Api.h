@@ -35,7 +35,7 @@
 // 文件缓冲路径
 #define API_CACHE_FILEPATH   @"cache/files"
 
-#define API_TEST_AUTHCODE    @"1234"
+//#define API_TEST_AUTHCODE    @"1234"
 #define API_INTERFACE_TONKEN @"uLN9UhI9Uhd-UhGGuh78uQ"
 
 // 富媒体接口地址

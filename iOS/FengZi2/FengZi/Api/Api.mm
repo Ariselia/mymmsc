@@ -93,8 +93,12 @@
         status = 1;
         message = @"服务器正忙，请稍候...";
     }
-    if (status == API_SUCCESS && message.length < 1) {
-        message = @"提交成功";
+    if (message.length < 1) {
+        if (status == API_SUCCESS) {
+            message = @"提交成功";
+        } else {
+            message = @"提交失败";
+        }
     }
     return data;
 }

@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <iOSUtil/UIViewController+iconImage.h>
+#import <iOSApi/UIViewController_TabBar.h>
 @interface UserCenter : UIViewController {
     
 }
