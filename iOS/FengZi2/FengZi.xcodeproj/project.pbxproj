@@ -651,7 +651,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		0A00FF0C151D53DA00BEA5E9 /* QRCode.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QRCode.framework; path = ../../../../runtime/SDK/QRCode.framework; sourceTree = "<group>"; };
+		0A00FF0C151D53DA00BEA5E9 /* QRCode.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QRCode.framework; path = ../../../runtime/SDK/QRCode.framework; sourceTree = "<group>"; };
 		0A71F1EC15044A41007714BB /* EBuyPortal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EBuyPortal.h; sourceTree = "<group>"; };
 		0A71F1ED15044A41007714BB /* EBuyPortal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EBuyPortal.m; sourceTree = "<group>"; };
 		0A71F1EE15044A41007714BB /* EBuyPortal.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EBuyPortal.xib; sourceTree = "<group>"; };
@@ -1468,7 +1468,7 @@
 		B8D4A3A314E4B2A00057203A /* UserCenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserCenter.h; sourceTree = "<group>"; };
 		B8D4A3A414E4B2A00057203A /* UserCenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserCenter.m; sourceTree = "<group>"; };
 		B8D4A3A514E4B2A00057203A /* UserCenter.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UserCenter.xib; sourceTree = "<group>"; };
-		B8D4A70914E4B3000057203A /* iOSApi.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iOSApi.framework; path = ../../../../runtime/SDK/iOSApi.framework; sourceTree = "<group>"; };
+		B8D4A70914E4B3000057203A /* iOSApi.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iOSApi.framework; path = ../../../runtime/SDK/iOSApi.framework; sourceTree = "<group>"; };
 		B8D4A70B14E4FB8B0057203A /* main_login_btn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = main_login_btn.png; sourceTree = "<group>"; };
 		B8D4A70D14E51D690057203A /* UCMyCode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UCMyCode.h; sourceTree = "<group>"; };
 		B8D4A70E14E51D690057203A /* UCMyCode.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = UCMyCode.mm; sourceTree = "<group>"; };
@@ -3743,10 +3743,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Jianguo Zhu (JDN4353QDY)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/../../../../runtime/SDK\"",
+					"~/runtime/SDK\"",
 				);
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -3757,7 +3757,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "132A5C03-6E74-4F15-9EE6-54B98E9879A5";
 				WARNING_CFLAGS = "";
 				WRAPPER_EXTENSION = app;
 			};
@@ -3767,10 +3767,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Jianguo Zhu (JDN4353QDY)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/../../../../runtime/SDK\"",
+					"~/runtime/SDK\"",
 				);
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -3781,7 +3781,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "132A5C03-6E74-4F15-9EE6-54B98E9879A5";
 				WARNING_CFLAGS = "";
 				WRAPPER_EXTENSION = app;
 			};
