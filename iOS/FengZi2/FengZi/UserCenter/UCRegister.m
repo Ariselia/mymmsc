@@ -172,9 +172,6 @@
         srvAuthcode = [ac.code retain];
     } else {
         [iOSApi Alert:ALERT_TITLE message:ac.message];
-#if API_INTERFACE_TEST
-        srvAuthcode = API_TEST_AUTHCODE;
-#endif
     }
     [iOSApi closeAlert];
     //[pool release];
@@ -441,9 +438,6 @@ static int iTimes = -1;
         srvAuthcode = ac.code;
     } else {
         [iOSApi Alert:ALERT_TITLE message:ac.message];
-#if API_INTERFACE_TEST
-        srvAuthcode = API_TEST_AUTHCODE;
-#endif
     }
     //[pool release];
 }

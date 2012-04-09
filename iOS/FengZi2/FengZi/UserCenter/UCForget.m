@@ -361,9 +361,6 @@
         srvAuthcode = ac.code;
     } else {
         [iOSApi Alert:@"提示" message:ac.message];
-#if API_INTERFACE_TEST
-        srvAuthcode = API_TEST_AUTHCODE;
-#endif
     }
     //[pool release];
 }
