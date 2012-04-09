@@ -151,6 +151,10 @@
                            love:(int)love // 1喜欢, 2一般, 3不喜欢, 4其他
                         orderId:(NSString *)orderId; // 订单号
 
+// 查询单个评论, 用户自己查询自己对某个商品的评论
++ (EBProductComment *)ebuy_comment_get:(NSString *)pid
+                               orderId:(NSString *)orderId;
+
 //--------------------< 电子商城 - 接口 - 站内消息 >--------------------
 
 // 收件箱
