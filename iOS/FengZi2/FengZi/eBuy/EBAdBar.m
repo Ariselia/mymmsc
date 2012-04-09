@@ -12,22 +12,21 @@
 @synthesize ownerId;
 @synthesize pic;
 
-- (id)initWithFrame:(CGRect)frame
+- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
-    self = [super initWithFrame:frame];
+    self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         // Initialization code
+        //_scrollView.delegate = self;
     }
     return self;
 }
 
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect
+- (void)setSelected:(BOOL)selected animated:(BOOL)animated
 {
-    // Drawing code
+    [super setSelected:selected animated:animated];
+    
+    // Configure the view for the selected state
 }
-*/
 
 @end
