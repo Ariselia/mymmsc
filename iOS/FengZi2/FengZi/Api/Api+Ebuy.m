@@ -211,6 +211,7 @@
     
     return oRet;
 }
+
 //--------------------< 电子商城 - 接口 - 评论 >--------------------
 
 // 商品评论
@@ -297,7 +298,32 @@
     return [iRet autorelease];
 }
 
+// 查询单个评论, 用户自己查询自己对某个商品的评论
++ (EBProductComment *)ebuy_comment_get:(NSString *)pid
+                               orderId:(NSString *)orderId{
+    // 方法
+    static NSString *method = @"realize";
+    NSString *query = [NSString stringWithFormat:@"id=%@", pid];
+    NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
+                            API_INTERFACE_TONKEN, @"token",
+                            [NSString valueOf:[Api userId]], @"userid",
+                            [NSString valueOf:orderId], @"orderid",
+                            nil];
+    NSString *action = [NSString stringWithFormat:@"%@/%@?%@", API_URL_EBUY, method, query];
+    NSDictionary *response = [Api post:action params:params];
+    EBProductComment *cRet = nil;
+    if (response) {
+        NSDictionary *data = [response objectForKey:method];
+        if (data.count > 0) {
+            cRet = [data toObject:EBProductComment.class];
+        }
+    }
+    
+    return cRet;
+}
+
 //--------------------< 电子商城 - 接口 - 收件箱 >--------------------
+
 // 收件箱
 + (NSMutableArray *)ebuy_message_recv:(NSString *)id page:(int)page{
     NSMutableArray *list = nil;
