@@ -137,8 +137,21 @@
 // 商品详情
 + (EBProductInfo *)ebuy_goodsinfo:(NSString *)id;
 
+//--------------------< 电子商城 - 接口 - 评论 >--------------------
 // 商品评论
 + (NSMutableArray *)ebuy_goodscomment:(NSString *)id page:(int)page;
+
+// 我的评论列表
++ (NSMutableArray *)ebuy_sdandcomentlist:(int)page;
+// 添加评论
++ (ApiResult *)ebuy_comment_add:(NSString *)pid // 商品ID
+                        content:(NSString *)content // 评论内容
+                          grade:(int)grade // 评论等级1、2、3、4、5
+                         picUrl:(NSString *)picUrl
+                           love:(int)love // 1喜欢, 2一般, 3不喜欢, 4其他
+                        orderId:(NSString *)orderId; // 订单号
+
+//--------------------< 电子商城 - 接口 - 站内消息 >--------------------
 
 // 收件箱
 + (NSMutableArray *)ebuy_message_recv:(NSString *)id page:(int)page;
@@ -148,13 +161,21 @@
 // 站内消息回复
 + (ApiResult *)ebuy_message_reply:(NSString *)cid content:(NSString *)content;
 
+//--------------------< 电子商城 - 接口 - 订单 >--------------------
+
 // 订单获取接口
 + (NSMutableArray *)ebuy_order_list:(int)userId
                                type:(int)type
                                page:(int)page;
 
+//--------------------< 电子商城 - 接口 - 收藏 >--------------------
+
 // 我的收藏
 + (NSMutableArray *)ebuy_collect:(int)userId
                             page:(int)page;
+// 添加收藏
++ (ApiResult *)ebuy_collect_add:(NSString *)cid;
+// 删除收藏
++ (ApiResult *)ebuy_collect_delete:(NSString *)cid;
 
 @end

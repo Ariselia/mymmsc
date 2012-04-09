@@ -211,6 +211,7 @@
     
     return oRet;
 }
+//--------------------< 电子商城 - 接口 - 评论 >--------------------
 
 // 商品评论
 + (NSMutableArray *)ebuy_goodscomment:(NSString *)id
@@ -223,9 +224,9 @@
     }
     NSString *query = [NSString stringWithFormat:@"page=%d", page];
     NSString *action = [NSString stringWithFormat:@"%@/%@?%@", API_URL_EBUY, method, query];
-    NSDictionary *map = [Api post:action params:nil];
-    if (map) {
-        NSMutableArray *data = [map objectForKey:method];
+    NSDictionary *response = [Api post:action params:nil];
+    if (response) {
+        NSMutableArray *data = [response objectForKey:method];
         if (data.count > 0) {
             list = [data toList:EBProductComment.class];
         }
@@ -234,6 +235,69 @@
     return list;
 }
 
+// 我的评论列表
++ (NSMutableArray *)ebuy_sdandcomentlist:(int)page {
+    NSMutableArray *list = nil;
+    // 方法
+    static NSString *method = @"sdandcomentlist";
+    if (page < 0) {
+        page = 0;
+    }
+    NSString *query = [NSString stringWithFormat:@"page=%d", page];
+    NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
+                            API_INTERFACE_TONKEN, @"token",
+                            [NSString valueOf:[Api userId]], @"userid",
+                            [NSString valueOf:page], @"page",
+                            nil];
+    NSString *action = [NSString stringWithFormat:@"%@/%@?%@", API_URL_EBUY, method, query];
+    NSDictionary *response = [Api post:action params:params];
+    if (response) {
+        NSMutableArray *data = [response objectForKey:method];
+        if (data.count > 0) {
+            list = [data toList:EBProductComment.class];
+        }
+    }
+    
+    return list;
+}
+
+// 添加评论
++ (ApiResult *)ebuy_comment_add:(NSString *)pid // 商品ID
+                        content:(NSString *)content // 评论内容
+                          grade:(int)grade // 评论等级1、2、3、4、5
+                         picUrl:(NSString *)picUrl
+                           love:(int)love // 1喜欢, 2一般, 3不喜欢, 4其他
+                        orderId:(NSString *)orderId // 订单号
+{
+    ApiResult *iRet = [ApiResult new];
+    // 方法
+    static NSString *method = @"addcomment";
+    NSString *query = @"";
+    NSDictionary *heads = [NSDictionary dictionaryWithObjectsAndKeys:
+                           @"application/json", @"Content-Type",
+                           nil];
+    NSMutableDictionary *jsonDic = [NSMutableDictionary dictionary];
+    NSMutableDictionary *request = [NSMutableDictionary dictionary];
+    [request setObject:pid forKey:@"id"];
+    [request setObject:[iOSApi urlEncode:content] forKey:@"content"];
+    [request setObject:[NSString valueOf:grade] forKey:@"grade"];
+    [request setObject:[iOSApi urlEncode:picUrl] forKey:@"picurl"];
+    [request setObject:[NSString valueOf:love] forKey:@"love"];
+    [request setObject:orderId forKey:@"orderid"];
+    [jsonDic setObject:request forKey:method];
+    
+    NSString *params = [jsonDic JSONString];
+    
+    NSString *action = [NSString stringWithFormat:@"%@/%@?%@", API_URL_EBUY, method, query];
+    NSDictionary *response = [Api post:action header:heads body:[params dataUsingEncoding:NSUTF8StringEncoding]];
+    NSDictionary *data = [iRet parse:response];
+    if (data) {
+        //
+    }
+    return [iRet autorelease];
+}
+
+//--------------------< 电子商城 - 接口 - 收件箱 >--------------------
 // 收件箱
 + (NSMutableArray *)ebuy_message_recv:(NSString *)id page:(int)page{
     NSMutableArray *list = nil;
@@ -249,9 +313,9 @@
                         [NSString valueOf:page], @"page",
                         nil];
     NSString *action = [NSString stringWithFormat:@"%@/%@?%@", API_URL_EBUY, method, query];
-    NSDictionary *map = [Api post:action params:params];
-    if (map) {
-        NSMutableArray *data = [map objectForKey:method];
+    NSDictionary *response = [Api post:action params:params];
+    if (response) {
+        NSMutableArray *data = [response objectForKey:method];
         if (data.count > 0) {
             list = [data toList:EBSiteMessage.class];
         }
@@ -274,9 +338,9 @@
                             [NSString valueOf:page], @"page",
                             nil];
     NSString *action = [NSString stringWithFormat:@"%@/%@?%@", API_URL_EBUY, method, query];
-    NSDictionary *map = [Api post:action params:params];
-    if (map) {
-        NSMutableArray *data = [map objectForKey:method];
+    NSDictionary *response = [Api post:action params:params];
+    if (response) {
+        NSMutableArray *data = [response objectForKey:method];
         if (data.count > 0) {
             list = [data toList:EBSiteMessage.class];
         }
@@ -324,9 +388,9 @@
                             [NSString valueOf:page], @"page",
                             nil];
     NSString *action = [NSString stringWithFormat:@"%@/%@?%@", API_URL_EBUY, method, query];
-    NSDictionary *map = [Api post:action params:params];
-    if (map) {
-        NSMutableArray *data = [map objectForKey:method];
+    NSDictionary *response = [Api post:action params:params];
+    if (response) {
+        NSMutableArray *data = [response objectForKey:method];
         if (data.count > 0) {
             list = [data toList:EBOrder.class];
         }
@@ -334,6 +398,8 @@
     
     return list;
 }
+
+//--------------------< 电子商城 - 接口 - 收藏 >--------------------
 
 // 我的收藏
 + (NSMutableArray *)ebuy_collect:(int)userId
@@ -347,15 +413,53 @@
                             [NSString valueOf:page], @"page",
                             nil];
     NSString *action = [NSString stringWithFormat:@"%@/%@?%@", API_URL_EBUY, method, query];
-    NSDictionary *map = [Api post:action params:params];
-    if (map) {
-        NSMutableArray *data = [map objectForKey:method];
+    NSDictionary *response = [Api post:action params:params];
+    if (response) {
+        NSMutableArray *data = [response objectForKey:method];
         if (data.count > 0) {
             list = [data toList:EBProductInfo.class];
         }
     }
     
     return list;
+}
+
+// 添加收藏
++ (ApiResult *)ebuy_collect_add:(NSString *)cid{
+    ApiResult *iRet = [ApiResult new];
+    // 方法
+    static NSString *method = @"addcollect";
+    NSString *query = [NSString stringWithFormat:@"id=%@", cid];
+    NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
+                            API_INTERFACE_TONKEN, @"token",
+                            [NSString valueOf:[Api userId]], @"userId",
+                            nil];
+    NSString *action = [NSString stringWithFormat:@"%@/%@?%@", API_URL_EBUY, method, query];
+    NSDictionary *response = [Api post:action params:params];
+    NSDictionary *data = [iRet parse:response];
+    if (data) {
+        //
+    }
+    return [iRet autorelease];
+}
+
+// 删除收藏
++ (ApiResult *)ebuy_collect_delete:(NSString *)cid{
+    ApiResult *iRet = [ApiResult new];
+    // 方法
+    static NSString *method = @"delcollect";
+    NSString *query = [NSString stringWithFormat:@"id=%@", cid];
+    NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
+                            API_INTERFACE_TONKEN, @"token",
+                            [NSString valueOf:[Api userId]], @"userId",
+                            nil];
+    NSString *action = [NSString stringWithFormat:@"%@/%@?%@", API_URL_EBUY, method, query];
+    NSDictionary *response = [Api post:action params:params];
+    NSDictionary *data = [iRet parse:response];
+    if (data) {
+        //
+    }
+    return [iRet autorelease];
 }
 
 @end
