@@ -17,9 +17,11 @@
     
     NSMutableArray *items;
 }
-@property(nonatomic, assign) id idInfo;
+@property(nonatomic, assign) id ownerId;
 @property(nonatomic, retain) IBOutlet UIScrollView *scrollView; // 滚动视图
-@property(nonatomic, retain) IBOutlet UIImageView *pic;
+//@property(nonatomic, retain) IBOutlet UIImageView *pic;
 @property(nonatomic, retain) IBOutlet UILabel *desc; // 推荐图片显示文本
+
+- (IBAction)doShopList:(id)sender;
 
 @end
