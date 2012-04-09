@@ -29,6 +29,7 @@
     if (self) {
         // Custom initialization
         //self.proxy = self;
+        param = nil;
     }
     return self;
 }
@@ -108,6 +109,9 @@
     }
     if (items != nil) {
         //NSArray *list = [[Api ebuy_push:_page++] retain];
+        if (param == nil) {
+            param = @"";
+        }
         NSArray *list = [[Api ebuy_search:param] retain];
         [items addObjectsFromArray:list];
         [list release];
@@ -133,7 +137,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    CGFloat height = 100.f;
+    CGFloat height = 96.f;
 	return height;
 }
 
@@ -147,7 +151,7 @@
     EBProductInfo *obj = [items objectAtIndex:pos];
     CGRect frame = cell.frame;
     frame.size.width = 290;
-    frame.size.height = 100;
+    frame.size.height = 96;
     EBShopInfo *cellView = [(EBShopInfo *)[[[NSBundle mainBundle] loadNibNamed:@"EBShopInfo" owner:self options:nil] objectAtIndex:0] retain];
     //cell.frame = frame;
     [cellView.pic imageWithURL:[iOSApi urlDecode:obj.picUrl]];
