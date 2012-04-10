@@ -188,11 +188,11 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     //NSLog(@"module goto...");
     int pos = indexPath.row;
-    if (pos == 0) {
+    if (pos < _headers.count) {
         return;
     }
     // 跳转 快讯详情页面
-    pos -= 1;
+    pos -= _headers.count;
     EBExpressType *obj = [_items objectAtIndex:pos];
     EBExpressDetail *nextView = [[EBExpressDetail alloc] init];
     nextView.param = obj;
@@ -228,8 +228,7 @@
 // 搜索条输入文字修改时触发
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText
 {
-    if([searchText length]==0)
-    {
+    if([searchText length] == 0) {
         //如果无文字输入
         [self.searchBar resignFirstResponder];
         self.searchBar.showsCancelButton = NO;

@@ -24,7 +24,7 @@
 //  THE SOFTWARE.
 //
 //
-
+#import <UIKit/UIKit.h>
 #import "SHKActionSheet.h"
 #import "SHK.h"
 #import "SHKSharer.h"

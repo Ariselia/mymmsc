@@ -27,7 +27,6 @@
 
 #define SHK_VERSION @"0.2.0"
 
-#import <Foundation/Foundation.h>
 #import "SHKConfig.h"
 #import "SHKItem.h"
 #import "SHKActionSheet.h"

@@ -46,7 +46,7 @@
 //--------------------< 电子商城 - 对象 - 站内消息 >--------------------
 @implementation EBSiteMessage
 
-@synthesize id,senderId,sendName,title,content,recevtTme;
+@synthesize id,senderId,sendName,title,content,recevTime;
 
 @end
 
@@ -340,7 +340,7 @@
 //--------------------< 电子商城 - 接口 - 收件箱 >--------------------
 
 // 收件箱
-+ (NSMutableArray *)ebuy_message_recv:(NSString *)id page:(int)page{
++ (NSMutableArray *)ebuy_message_recv:(int)page{
     NSMutableArray *list = nil;
     // 方法
     static NSString *method = @"messagerecv";
@@ -350,8 +350,7 @@
     NSString *query = [NSString stringWithFormat:@"page=%d", page];
     NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
                         API_INTERFACE_TONKEN, @"token",
-                        [NSString valueOf:[Api userId]], @"userId",
-                        [NSString valueOf:page], @"page",
+                        [NSString valueOf:[Api userId]], @"id",
                         nil];
     NSString *action = [NSString stringWithFormat:@"%@/%@?%@", API_URL_EBUY, method, query];
     NSDictionary *response = [Api post:action params:params];
@@ -365,7 +364,7 @@
 }
 
 // 发件箱
-+ (NSMutableArray *)ebuy_message_send:(NSString *)id page:(int)page{
++ (NSMutableArray *)ebuy_message_send:(int)page{
     NSMutableArray *list = nil;
     // 方法
     static NSString *method = @"messagesend";
@@ -375,8 +374,7 @@
     NSString *query = [NSString stringWithFormat:@"page=%d", page];
     NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
                             API_INTERFACE_TONKEN, @"token",
-                            [NSString valueOf:[Api userId]], @"userId",
-                            [NSString valueOf:page], @"page",
+                            [NSString valueOf:[Api userId]], @"id",
                             nil];
     NSString *action = [NSString stringWithFormat:@"%@/%@?%@", API_URL_EBUY, method, query];
     NSDictionary *response = [Api post:action params:params];

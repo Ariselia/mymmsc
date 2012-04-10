@@ -81,7 +81,7 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated {
-    //[super viewWillAppear:animated];
+    [super viewWillAppear:animated];
     [iOSApi showAlert:@"正在读取信息..."];
     EBProductInfo *info = [[Api ebuy_messagenewinfo:param.id] retain];
     if (info != nil) {

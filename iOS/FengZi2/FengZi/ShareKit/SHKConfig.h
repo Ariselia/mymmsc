@@ -1,7 +1,3 @@
-
-
-
-
 // App Description
 // These values are used by any service that shows 'shared from XYZ'
 

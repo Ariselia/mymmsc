@@ -10,6 +10,7 @@
 
 @implementation EBuyPanel
 @synthesize ownerId;
+@synthesize group;
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
@@ -56,6 +57,12 @@
 // 分类
 - (IBAction)doGroup:(id)sender{
     //
+}
+
+// 选择
+- (IBAction)segmentAction:(UISegmentedControl *)segment{
+    NSInteger Index = segment.selectedSegmentIndex;
+    NSLog(@"Seg.selectedSegmentIndex:%d", Index);
 }
 
 @end

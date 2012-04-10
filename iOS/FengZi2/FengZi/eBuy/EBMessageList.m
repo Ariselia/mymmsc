@@ -58,7 +58,7 @@
     label.textAlignment = UITextAlignmentCenter;
     label.font = [UIFont fontWithName:@"黑体" size:60];
     label.textColor = [UIColor blackColor];
-    label.text= @"商铺查询结果";
+    label.text= @"站内消息";
     self.navigationItem.titleView = label;
     [label release];
     
@@ -81,14 +81,9 @@
     }
     if (_items != nil) {
         //NSArray *list = [[Api ebuy_push:_page++] retain];
-        NSArray *list = [[Api ebuy_search:param] retain];
+        NSArray *list = [[Api ebuy_message_recv:_page] retain];
         [_items addObjectsFromArray:list];
         [list release];
-        if (_items.count > 0) {
-            EBProductInfo *obj = [_items objectAtIndex:0];
-            subject.text = [iOSApi urlDecode:obj.title];
-            [self setStarClass:3];
-        }
     }
 }
 
@@ -118,29 +113,20 @@
     }
     int pos = [indexPath row];
     EBSiteMessage *obj = [_items objectAtIndex:pos];
-    
-    cell.textLabel.text = [iOSApi urlDecode:obj.title];
-    NSString *tmpPrice = [NSString stringWithFormat:@"¥ %.02f", obj.price];
-    if (obj.price < 0.01) {
-        tmpPrice = @"免费";
-    }
-    cellView.price.text = tmpPrice;
-    cellView.desc.text = [NSString stringWithFormat:@"商品简介: %@", [iOSApi urlDecode:obj.content]];
-    cell = cellView;
+    NSString *tmpTitle = [NSString stringWithFormat:@"%@:%@", obj.sendName, obj.recevTime];
+    cell.textLabel.text = [iOSApi urlDecode:tmpTitle];
+    cell.detailTextLabel.text = [iOSApi urlDecode:obj.content];
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     return cell;
 }
+
 - (UITableViewCellAccessoryType)tableView:(UITableView *)tableView accessoryTypeForRowWithIndexPath:(NSIndexPath *)indexPath {
     return UITableViewCellAccessoryDetailDisclosureButton;
     //return UITableViewCellAccessoryDisclosureIndicator;
 }
 
 - (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath{
-    EBProductInfo *obj = [items objectAtIndex:indexPath.row];
-    EBProductDetail *nextView = [[EBProductDetail alloc] init];
-    nextView.param = obj;
-    [self.navigationController pushViewController:nextView animated:YES];
-    [nextView release];
+    //
 }
 
 @end

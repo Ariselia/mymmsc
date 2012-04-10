@@ -13,6 +13,7 @@
 }
 
 @property (nonatomic, assign) id ownerId;
+@property (nonatomic, retain) IBOutlet UISegmentedControl *group;
 
 // 站内消息
 - (IBAction)doSiteMsg:(id)sender;
@@ -28,7 +29,11 @@
 
 // 评价
 - (IBAction)doComment:(id)sender;
+
 // 分类
 - (IBAction)doGroup:(id)sender;
+
+// 选择
+- (IBAction)segmentAction:(UISegmentedControl *)segment;
 
 @end

@@ -12,7 +12,6 @@
 #import "GTMBase64.h"
 #import "CommonUtils.h"
 
-//#define API_SERVER  @"http://220.231.48.34:8080"
 #define API_SERVER  @"http://220.231.48.34:7000"
 #define API_TIMEOUT (10)
 

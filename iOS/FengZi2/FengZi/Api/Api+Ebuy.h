@@ -93,7 +93,7 @@
 @property (nonatomic, copy) NSString *sendName; // 发件人 (Encode)
 @property (nonatomic, copy) NSString *title; // 站内信的信息标题 (Encode)
 @property (nonatomic, copy) NSString *content; // 站内信信息内容 (Encode)
-@property (nonatomic, copy) NSString *recevtTme; // 收信时间
+@property (nonatomic, copy) NSString *recevTime; // 收信时间
 
 @end
 
@@ -200,9 +200,9 @@
 //--------------------< 电子商城 - 接口 - 站内消息 >--------------------
 
 // 收件箱
-+ (NSMutableArray *)ebuy_message_recv:(NSString *)id page:(int)page;
++ (NSMutableArray *)ebuy_message_recv:(int)page;
 // 发件箱
-+ (NSMutableArray *)ebuy_message_send:(NSString *)id page:(int)page;
++ (NSMutableArray *)ebuy_message_send:(int)page;
 
 // 站内消息回复
 + (ApiResult *)ebuy_message_reply:(NSString *)cid content:(NSString *)content;

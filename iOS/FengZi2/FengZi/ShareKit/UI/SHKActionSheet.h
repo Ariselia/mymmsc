@@ -25,11 +25,9 @@
 //
 //
 
-#import <Foundation/Foundation.h>
 #import "SHK.h"
 
-@interface SHKActionSheet : UIActionSheet <UIActionSheetDelegate>
-{		
+@interface SHKActionSheet : UIActionSheet <UIActionSheetDelegate>{
 	NSArray *sharers;
 	SHKItem *item;
 	NSDictionary *items;
