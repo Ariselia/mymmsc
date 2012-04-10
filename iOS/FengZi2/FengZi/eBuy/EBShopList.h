@@ -10,10 +10,11 @@
 #import <iOSApi/iOSTableViewController.h>
 #import "Api+Ebuy.h"
 
+// 商铺列表
 @interface EBShopList : UIViewController{
-    int _page;
+    int                 _page;
     UITextBorderStyle   _borderStyle;
-    NSMutableArray     *items;
+    NSMutableArray     *_items;
 }
 @property (nonatomic, copy) NSString *param;
 @property (nonatomic, retain) IBOutlet UITableView *tableView;

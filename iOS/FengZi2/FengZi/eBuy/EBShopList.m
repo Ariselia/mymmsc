@@ -7,10 +7,12 @@
 //
 
 #import "EBShopList.h"
+#import "EBProductList.h"
 #import "EBShopInfo.h"
 #import "EBProductDetail.h"
 #import <iOSApi/iOSStar.h>
 #import <iOSApi/UIImageView+Utils.h>
+
 @interface EBShopList ()
 
 @end
@@ -102,21 +104,21 @@
         
     _borderStyle = UITextBorderStyleNone;
     //font = [UIFont systemFontOfSize:13.0];
-    if ([items count] == 0) {
+    if ([_items count] == 0) {
         // 预加载项
-        items = [[NSMutableArray alloc] initWithCapacity:0];
+        _items = [[NSMutableArray alloc] initWithCapacity:0];
         _page = 1;
     }
-    if (items != nil) {
+    if (_items != nil) {
         //NSArray *list = [[Api ebuy_push:_page++] retain];
         if (param == nil) {
             param = @"";
         }
         NSArray *list = [[Api ebuy_search:param] retain];
-        [items addObjectsFromArray:list];
+        [_items addObjectsFromArray:list];
         [list release];
-        if (items.count > 0) {
-            EBProductInfo *obj = [items objectAtIndex:0];
+        if (_items.count > 0) {
+            EBProductInfo *obj = [_items objectAtIndex:0];
             subject.text = [iOSApi urlDecode:obj.title];
             [self setStarClass:3];
         }
@@ -132,7 +134,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     //return 0;
-    return [items count];
+    return [_items count];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -148,7 +150,7 @@
         cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier] autorelease];
     }
     int pos = [indexPath row];
-    EBProductInfo *obj = [items objectAtIndex:pos];
+    EBProductInfo *obj = [_items objectAtIndex:pos];
     CGRect frame = cell.frame;
     frame.size.width = 290;
     frame.size.height = 96;
@@ -172,7 +174,7 @@
 }
 
 - (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath{
-    EBProductInfo *obj = [items objectAtIndex:indexPath.row];
+    EBProductInfo *obj = [_items objectAtIndex:indexPath.row];
     EBProductDetail *nextView = [[EBProductDetail alloc] init];
     nextView.param = obj;
     [self.navigationController pushViewController:nextView animated:YES];
