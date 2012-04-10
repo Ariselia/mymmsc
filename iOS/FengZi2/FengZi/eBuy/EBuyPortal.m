@@ -12,6 +12,7 @@
 #import "EBExpressDetail.h"
 #import "EBShopList.h"
 #import "EBAdBar.h"
+#import "EBuyPanel.h"
 
 @implementation EBuyPortal
 
