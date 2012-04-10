@@ -72,6 +72,12 @@
 @synthesize products,userInfo;
 
 @end
+//--------------------< 电子商城 - 对象 - 商铺详情 >--------------------
+@implementation EBShop
+
+@synthesize id,des,picUrl,shopId,shopName,itemGroupType;
+
+@end
 //====================================< 电子商城 - 接口 >====================================
 @implementation Api (Ebuy)
 
@@ -543,4 +549,26 @@
     return [iRet autorelease];
 }
 */
+
+//--------------------< 电子商城 - 接口 - 订单 >--------------------
++ (NSMutableArray *)ebuy_shoplist:(int)page{
+    NSMutableArray *list = nil;
+    static NSString *method = @"shoplist";
+    NSString *query = [NSString stringWithFormat:@"id=%d", [Api userId]];
+    NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
+                            API_INTERFACE_TONKEN, @"token",
+                            [NSString valueOf:[Api userId]], @"userId",
+                            [NSString valueOf:page], @"page",
+                            nil];
+    NSString *action = [NSString stringWithFormat:@"%@/%@?%@", API_URL_EBUY, method, query];
+    NSDictionary *response = [Api post:action params:params];
+    if (response) {
+        NSMutableArray *data = [response objectForKey:method];
+        if (data.count > 0) {
+            list = [data toList:EBShop.class];
+        }
+    }
+    
+    return list;
+}
 @end

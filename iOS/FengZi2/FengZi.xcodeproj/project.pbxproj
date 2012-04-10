@@ -99,6 +99,8 @@
 		0AC0D14F153119C9001F1930 /* EBProductIntro.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AC0D14D153119C8001F1930 /* EBProductIntro.m */; };
 		0AC0D150153119C9001F1930 /* EBProductIntro.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0AC0D14E153119C8001F1930 /* EBProductIntro.xib */; };
 		0AC0D15415322551001F1930 /* UIView+Effect.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AC0D15315322551001F1930 /* UIView+Effect.m */; };
+		0ACCDD111534D7A900753ECA /* EBProductList.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ACCDD0F1534D7A900753ECA /* EBProductList.m */; };
+		0ACCDD121534D7A900753ECA /* EBProductList.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0ACCDD101534D7A900753ECA /* EBProductList.xib */; };
 		0AE7932D14FAB2330018367B /* UCAppStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AE7931314FAB2330018367B /* UCAppStore.m */; };
 		0AE7932E14FAB2330018367B /* UCAppStore.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0AE7931414FAB2330018367B /* UCAppStore.xib */; };
 		0AE7932F14FAB2330018367B /* UCBookReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AE7931614FAB2330018367B /* UCBookReader.m */; };
@@ -762,6 +764,9 @@
 		0AC0D14E153119C8001F1930 /* EBProductIntro.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EBProductIntro.xib; sourceTree = "<group>"; };
 		0AC0D15215322551001F1930 /* UIView+Effect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Effect.h"; sourceTree = "<group>"; };
 		0AC0D15315322551001F1930 /* UIView+Effect.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Effect.m"; sourceTree = "<group>"; };
+		0ACCDD0E1534D7A900753ECA /* EBProductList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EBProductList.h; sourceTree = "<group>"; };
+		0ACCDD0F1534D7A900753ECA /* EBProductList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EBProductList.m; sourceTree = "<group>"; };
+		0ACCDD101534D7A900753ECA /* EBProductList.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EBProductList.xib; sourceTree = "<group>"; };
 		0AE7931214FAB2330018367B /* UCAppStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UCAppStore.h; sourceTree = "<group>"; };
 		0AE7931314FAB2330018367B /* UCAppStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UCAppStore.m; sourceTree = "<group>"; };
 		0AE7931414FAB2330018367B /* UCAppStore.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UCAppStore.xib; sourceTree = "<group>"; };
@@ -1651,6 +1656,9 @@
 				0ABEA0781533A669009A9642 /* EBMessageList.h */,
 				0ABEA0791533A66A009A9642 /* EBMessageList.m */,
 				0ABEA07A1533A66C009A9642 /* EBMessageList.xib */,
+				0ACCDD0E1534D7A900753ECA /* EBProductList.h */,
+				0ACCDD0F1534D7A900753ECA /* EBProductList.m */,
+				0ACCDD101534D7A900753ECA /* EBProductList.xib */,
 			);
 			path = eBuy;
 			sourceTree = "<group>";
@@ -3475,6 +3483,7 @@
 				0AC0D150153119C9001F1930 /* EBProductIntro.xib in Resources */,
 				0ABEA07715339E57009A9642 /* EBuyPanel.xib in Resources */,
 				0ABEA07C1533A66E009A9642 /* EBMessageList.xib in Resources */,
+				0ACCDD121534D7A900753ECA /* EBProductList.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3707,6 +3716,7 @@
 				0ABEA07115332103009A9642 /* Api+Style.m in Sources */,
 				0ABEA07515339E2E009A9642 /* EBuyPanel.m in Sources */,
 				0ABEA07B1533A66E009A9642 /* EBMessageList.m in Sources */,
+				0ACCDD111534D7A900753ECA /* EBProductList.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

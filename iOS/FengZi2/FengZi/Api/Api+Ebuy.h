@@ -154,6 +154,20 @@
 @property (nonatomic, retain) NSMutableArray *products;
 @end
 
+//--------------------< 电子商城 - 对象 - 商铺详情 >--------------------
+@interface EBShop : NSObject{
+    //
+}
+@property (nonatomic, assign) int id;
+@property (nonatomic, copy) NSString *picUrl;
+@property (nonatomic, copy) NSString *des;
+@property (nonatomic, assign) int shopId;
+@property (nonatomic, copy) NSString *shopName;
+@property (nonatomic, assign) int itemGroupType;
+
+@end
+
+
 //====================================< 电子商城 - 接口 >====================================
 
 @interface Api (Ebuy)
