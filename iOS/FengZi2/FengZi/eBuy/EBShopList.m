@@ -138,7 +138,7 @@
 
 - (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath{
     EBProductInfo *obj = [_items objectAtIndex:indexPath.row];
-    EBProductDetail *nextView = [[EBProductDetail alloc] init];
+    EBProductList *nextView = [[EBProductList alloc] init];
     nextView.param = obj;
     [self.navigationController pushViewController:nextView animated:YES];
     [nextView release];
