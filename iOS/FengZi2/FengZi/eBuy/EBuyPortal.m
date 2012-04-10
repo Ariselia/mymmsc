@@ -10,7 +10,7 @@
 #import "Api+Ebuy.h"
 #import "EBuyRecommend.h"
 #import "EBExpressDetail.h"
-#import "EBShopList.h"
+#import "EBProductList.h"
 #import "EBAdBar.h"
 #import "EBuyPanel.h"
 
@@ -207,7 +207,7 @@
 -(void)handleSearchForTerm:(NSString *)searchTerm
 {
     //能过待删除的key数组删除数组
-    EBShopList *nextView = [EBShopList new];
+    EBProductList *nextView = [EBProductList new];
     nextView.param = searchTerm;
     [self.navigationController pushViewController:nextView animated:YES];
     [nextView release];

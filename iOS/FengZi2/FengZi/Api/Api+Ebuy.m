@@ -550,7 +550,7 @@
 }
 */
 
-//--------------------< 电子商城 - 接口 - 订单 >--------------------
+//--------------------< 电子商城 - 接口 - 商铺 >--------------------
 + (NSMutableArray *)ebuy_shoplist:(int)page{
     NSMutableArray *list = nil;
     static NSString *method = @"shoplist";

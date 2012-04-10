@@ -19,8 +19,6 @@
 
 @implementation EBShopList
 @synthesize tableView=_tableView;
-@synthesize param;
-@synthesize pClass, subject;
 
 #define kTAG_BASE (10000)
 #define kTAG_STAR (kTAG_BASE + 1)
@@ -31,7 +29,7 @@
     if (self) {
         // Custom initialization
         //self.proxy = self;
-        param = nil;
+        _page = 0;
     }
     return self;
 }
@@ -54,21 +52,6 @@
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
-- (void)setStarClass:(int)n {
-    UIView *view = [self.view viewWithTag:kTAG_STAR];
-    if (view != nil) {
-        [view removeFromSuperview];
-    }
-    iOSStar *star2 = [[iOSStar alloc] initWithFrame:CGRectMake(60.0f, 23.0f, 150.0f, 21.0f)];
-    star2.show_star = 20 * n;
-    star2.font_size = 17;
-    star2.empty_color = [UIColor whiteColor];
-    star2.full_color = [UIColor orangeColor];
-    star2.tag = kTAG_STAR;
-    [self.view addSubview:star2];
-    [star2 release];
-}
-
 - (void)goBack{
     [self.navigationController popViewControllerAnimated:YES];
 }
@@ -88,7 +71,7 @@
     label.textAlignment = UITextAlignmentCenter;
     label.font = [UIFont fontWithName:@"黑体" size:60];
     label.textColor = [UIColor blackColor];
-    label.text= @"商铺查询结果";
+    label.text= @"商铺";
     self.navigationItem.titleView = label;
     [label release];
     
@@ -110,18 +93,9 @@
         _page = 1;
     }
     if (_items != nil) {
-        //NSArray *list = [[Api ebuy_push:_page++] retain];
-        if (param == nil) {
-            param = @"";
-        }
-        NSArray *list = [[Api ebuy_search:param] retain];
+        NSArray *list = [[Api ebuy_shoplist:_page] retain];
         [_items addObjectsFromArray:list];
         [list release];
-        if (_items.count > 0) {
-            EBProductInfo *obj = [_items objectAtIndex:0];
-            subject.text = [iOSApi urlDecode:obj.title];
-            [self setStarClass:3];
-        }
     }
 }
 

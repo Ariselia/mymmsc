@@ -241,4 +241,7 @@
 // 订单详情
 + (EBOrderInfo *)ebuy_order_get:(NSString *)orderId;
 
+//--------------------< 电子商城 - 接口 - 商铺列表 >--------------------
++ (NSMutableArray *)ebuy_shoplist:(int)page;
+
 @end
