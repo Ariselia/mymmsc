@@ -232,6 +232,7 @@
     {
         //如果无文字输入
         [self.searchBar resignFirstResponder];
+        self.searchBar.showsCancelButton = NO;
         return; 
     } else {
         self.searchBar.showsCancelButton = YES;
@@ -248,6 +249,11 @@
     [_tableView reloadData];
     [searchBar resignFirstResponder];
     //重新载入数据，隐藏软键盘
+}
+
+// 界面下方列表切换
+- (void)doSwitch:(int)index{
+    //
 }
 
 @end

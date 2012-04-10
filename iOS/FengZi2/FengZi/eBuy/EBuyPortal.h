@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
+// 电子商城 入口
 @interface EBuyPortal : UIViewController{
     //UIButton           *_btnRight; // 导航条按钮
     //UIImage            *_curImage;
@@ -20,5 +21,7 @@
 }
 @property (nonatomic, retain) IBOutlet UITableView *tableView;
 @property (nonatomic, retain) IBOutlet UISearchBar *searchBar;
+
+- (void)doSwitch:(int)index;
 
 @end
