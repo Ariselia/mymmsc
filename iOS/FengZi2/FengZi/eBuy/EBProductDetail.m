@@ -76,6 +76,11 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [iOSApi showAlert:@"正在读取信息..."];
+    EBProductInfo *tmp = [[Api ebuy_goodsinfo:param.id] retain];
+    if (tmp != nil) {
+        param = tmp;
+        [tmp release];
+    }
     iOSLog(@"正在载入商品信息...");
     [iOSApi closeAlert];
 }
