@@ -81,6 +81,9 @@
         param = tmp;
         [tmp release];
     }
+    if (param != nil) {
+        _items = [[NSMutableArray alloc] initWithCapacity:0];
+    }
     iOSLog(@"正在载入商品信息...");
     [iOSApi closeAlert];
 }
