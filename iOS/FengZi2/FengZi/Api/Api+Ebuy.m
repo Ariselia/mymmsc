@@ -554,14 +554,14 @@
 + (NSMutableArray *)ebuy_shoplist:(int)page{
     NSMutableArray *list = nil;
     static NSString *method = @"shoplist";
-    NSString *query = [NSString stringWithFormat:@"id=%d", [Api userId]];
+    NSString *query = [NSString stringWithFormat:@"page=%d", page];
     NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
                             API_INTERFACE_TONKEN, @"token",
                             [NSString valueOf:[Api userId]], @"userId",
                             [NSString valueOf:page], @"page",
                             nil];
     NSString *action = [NSString stringWithFormat:@"%@/%@?%@", API_URL_EBUY, method, query];
-    NSDictionary *response = [Api post:action params:params];
+    NSDictionary *response = [Api post:action params:nil];
     if (response) {
         NSMutableArray *data = [response objectForKey:method];
         if (data.count > 0) {

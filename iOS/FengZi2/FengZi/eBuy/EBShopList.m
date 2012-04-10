@@ -113,7 +113,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    CGFloat height = 96.f;
+    CGFloat height = 50.f;
 	return height;
 }
 
@@ -124,21 +124,10 @@
         cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier] autorelease];
     }
     int pos = [indexPath row];
-    EBProductInfo *obj = [_items objectAtIndex:pos];
-    CGRect frame = cell.frame;
-    frame.size.width = 290;
-    frame.size.height = 96;
-    EBShopInfo *cellView = [(EBShopInfo *)[[[NSBundle mainBundle] loadNibNamed:@"EBShopInfo" owner:self options:nil] objectAtIndex:0] retain];
-    //cell.frame = frame;
-    [cellView.pic imageWithURL:[iOSApi urlDecode:obj.picUrl]];
-    cellView.subject.text = [iOSApi urlDecode:obj.title];
-    NSString *tmpPrice = [NSString stringWithFormat:@"¥ %.02f", obj.price];
-    if (obj.price < 0.01) {
-        tmpPrice = @"免费";
-    }
-    cellView.price.text = tmpPrice;
-    cellView.desc.text = [NSString stringWithFormat:@"商品简介: %@", [iOSApi urlDecode:obj.content]];
-    cell = cellView;
+    EBShop *obj = [_items objectAtIndex:pos];
+    cell.imageView.image = [UIImage imageNamed:@"unknown.png"];
+    [cell.imageView imageWithURL:[iOSApi urlDecode:obj.picUrl]];
+    
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     return cell;
 }
