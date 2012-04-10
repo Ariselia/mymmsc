@@ -348,7 +348,7 @@ static NSString *kma_id = nil;
                             [Api base64e:[Api passwd]], @"password",
                             pid, @"id",
                             [NSString valueOf:type+1], @"type",
-                            [content copy], @"tranditionContent",
+                            content, @"tranditionContent",
                             nil];
     
     NSDictionary *map = [Api post:action params:params];
