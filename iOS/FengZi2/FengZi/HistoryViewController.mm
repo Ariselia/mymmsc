@@ -120,11 +120,12 @@
     if (_tableView.editing) {
         [_editbtn setImage:[UIImage imageNamed:@"done_over_btn.png"] forState:UIControlStateNormal];
         [_editbtn setImage:[UIImage imageNamed:@"done_over_btn_tap.png"] forState:UIControlStateHighlighted];
-        _tableView.frame = CGRectMake(0, 44, 320, 415);
+        _tableView.frame = CGRectMake(0, 0, 320, 459);
+        _scrollvier.contentOffset = CGPointMake(0, 0);
     }else {
         [_editbtn setImage:[UIImage imageNamed:@"edit_btn.png"] forState:UIControlStateNormal];
         [_editbtn setImage:[UIImage imageNamed:@"edit_btn_tap.png"] forState:UIControlStateHighlighted];
-        _tableView.frame = CGRectMake(0, 128, 320, 339);
+        _tableView.frame = CGRectMake(0, 84, 320, 339);
     }
     [UIView commitAnimations];
 }
@@ -373,6 +374,8 @@
     _noResultView = nil;
     [_scrollvier release];
     _scrollvier = nil;
+    [_toolBar release];
+    _toolBar = nil;
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -394,6 +397,7 @@
     [_tableView release];
     [_noResultView release];
     [_scrollvier release];
+    [_toolBar release];
     [super dealloc];
 }
 @end

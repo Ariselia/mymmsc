@@ -27,6 +27,7 @@
     NSString *_key;
     IBOutlet UIView *_noResultView;
     IBOutlet UIScrollView *_scrollvier;
+    IBOutlet UIToolbar *_toolBar;
 }
 - (void)doneLoadingTableViewData;
 @end
