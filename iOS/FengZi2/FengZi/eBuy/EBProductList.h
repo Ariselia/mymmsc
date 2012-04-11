@@ -13,7 +13,9 @@
     UITextBorderStyle   _borderStyle;
     NSMutableArray     *_items;
 }
-@property (nonatomic, copy) NSString *param;
+@property (nonatomic, assign) int way;
+@property (nonatomic, assign) int typeId;
+
 @property (nonatomic, retain) IBOutlet UITableView *tableView;
 @property (nonatomic, retain) IBOutlet UILabel *subject;
 @property (nonatomic, retain) IBOutlet UILabel *pClass;

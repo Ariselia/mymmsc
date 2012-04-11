@@ -23,6 +23,7 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
+        _product = nil;
     }
     return self;
 }
@@ -78,13 +79,12 @@
     [iOSApi showAlert:@"正在读取信息..."];
     EBProductInfo *tmp = [[Api ebuy_goodsinfo:param.id] retain];
     if (tmp != nil) {
-        param = tmp;
+        _product = tmp;
         [tmp release];
     }
-    if (param != nil) {
+    if (_product != nil) {
         _items = [[NSMutableArray alloc] initWithCapacity:0];
     }
-    iOSLog(@"正在载入商品信息...");
     [iOSApi closeAlert];
 }
 
@@ -96,17 +96,17 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    //return 2;
-    return [_items count];
+    return 4;
+    //return [_items count];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    CGFloat height = 36;
+    CGFloat height = 50;
 	//CGSize size = [@"123" sizeWithFont:fontInfo constrainedToSize:CGSizeMake(labelWidth, 20000) lineBreakMode:UILineBreakModeWordWrap];
 	//return size.height + 10; // 10即消息上下的空间，可自由调整 
     if (indexPath.row == 0) {
-        height = 180.0f;
+        //height = 180.0f;
     }
 	return height;
 }
@@ -118,8 +118,26 @@
         cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier] autorelease];
     }
     int pos = [indexPath row];
+    /*
     if (pos >= [_items count] + 1) {
         return nil;
+    }*/
+    if (pos == 0) {
+        cell.textLabel.text = [NSString stringWithFormat:@"商品名称：%@",  _product.title];
+        cell.detailTextLabel.text = [NSString stringWithFormat:@"价格：%.2f", _product.price];
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+        UIImage *image = [UIImage imageNamed:@"ebug_commodity_info.png"];
+        [btn setImage:image forState:UIControlStateNormal];
+        [btn setImage:image forState:UIControlStateSelected];
+        [btn addTarget:self action:@selector(gotoProduct) forControlEvents:UIControlEventTouchUpInside];
+    } else if (pos == 1) {
+        cell.textLabel.text = [NSString stringWithFormat:@"库存：%d 现货", _product.storeInfo];
+    } else if (pos == 2) {
+        cell.textLabel.text = [NSString stringWithFormat:@"很喜欢(%d) 喜欢(%d) 不喜欢(%d)", _product.Goodcommentcount, _product.Middlecommentcount, _product.Poorcommentcount];
+    } else if (pos == 3) {
+        cell.textLabel.text = [NSString stringWithFormat:@"评论(%d)", _product.Experiencecount];
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }
     
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -135,6 +153,10 @@
     }
     // 跳转 快讯详情页面
     pos -= 1;
+    
+}
+
+- (void)gotoProduct{
     
 }
 

@@ -29,6 +29,9 @@
 @property (nonatomic, copy) NSString *id;
 @property (nonatomic, copy) NSString *title, *content, *picUrl;
 @property (nonatomic, assign) float price;
+@property (nonatomic, assign) int shopId;
+@property (nonatomic, copy) NSString *shopName;
+
 @property (nonatomic, copy) NSString *realizeTime;
 
 @property (nonatomic, assign) int storeInfo; //库存信息，如 10、100，表示目前库存10件商品
@@ -158,12 +161,11 @@
 @interface EBShop : NSObject{
     //
 }
-@property (nonatomic, assign) int id;
+@property (nonatomic, assign) int itemGroupType;
 @property (nonatomic, copy) NSString *picUrl;
 @property (nonatomic, copy) NSString *des;
-@property (nonatomic, assign) int shopId;
-@property (nonatomic, copy) NSString *shopName;
-@property (nonatomic, assign) int itemGroupType;
+@property (nonatomic, assign) int id;
+@property (nonatomic, copy) NSString *name;
 
 @end
 
@@ -182,7 +184,7 @@
 + (NSMutableArray *)ebuy_type:(int)page typeId:(int)typeId;
 
 // 获取商品列表
-+ (NSMutableArray *)ebuy_goodslist:(int)page typeId:(int)typeId;
++ (NSMutableArray *)ebuy_goodslist:(int)page way:(int)way typeId:(int)typeId;
 
 // 快报资讯推荐接口
 + (NSMutableArray *)ebuy_new:(int)page;

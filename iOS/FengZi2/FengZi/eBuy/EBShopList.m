@@ -126,20 +126,24 @@
     int pos = [indexPath row];
     EBShop *obj = [_items objectAtIndex:pos];
     cell.imageView.image = [UIImage imageNamed:@"unknown.png"];
+    cell.imageView.frame = CGRectMake(0, 0, 50, 50);
     [cell.imageView imageWithURL:[iOSApi urlDecode:obj.picUrl]];
+    cell.textLabel.text = [iOSApi urlDecode:obj.name];
     
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     return cell;
 }
+
 - (UITableViewCellAccessoryType)tableView:(UITableView *)tableView accessoryTypeForRowWithIndexPath:(NSIndexPath *)indexPath {
     return UITableViewCellAccessoryDetailDisclosureButton;
     //return UITableViewCellAccessoryDisclosureIndicator;
 }
 
 - (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath{
-    EBProductInfo *obj = [_items objectAtIndex:indexPath.row];
+    EBShop *obj = [_items objectAtIndex:indexPath.row];
     EBProductList *nextView = [[EBProductList alloc] init];
-    nextView.param = obj;
+    nextView.way = 0;
+    nextView.typeId = obj.id;
     [self.navigationController pushViewController:nextView animated:YES];
     [nextView release];
 }

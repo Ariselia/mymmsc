@@ -19,7 +19,7 @@
 @implementation EBProductList
 
 @synthesize tableView=_tableView;
-@synthesize param;
+@synthesize way, typeId;
 @synthesize pClass, subject;
 
 #define kTAG_BASE (10000)
@@ -31,7 +31,8 @@
     if (self) {
         // Custom initialization
         //self.proxy = self;
-        param = nil;
+        _page = 0;
+        way = 0;
     }
     return self;
 }
@@ -88,7 +89,7 @@
     label.textAlignment = UITextAlignmentCenter;
     label.font = [UIFont fontWithName:@"黑体" size:60];
     label.textColor = [UIColor blackColor];
-    label.text= @"商铺查询结果";
+    label.text= @"商品列表";
     self.navigationItem.titleView = label;
     [label release];
     
@@ -110,11 +111,8 @@
         _page = 1;
     }
     if (_items != nil) {
-        //NSArray *list = [[Api ebuy_push:_page++] retain];
-        if (param == nil) {
-            param = @"";
-        }
-        NSArray *list = [[Api ebuy_search:param] retain];
+        
+        NSArray *list = [[Api ebuy_goodslist:_page way:way typeId:typeId] retain];
         [_items addObjectsFromArray:list];
         [list release];
         if (_items.count > 0) {
@@ -155,7 +153,7 @@
     frame.size.width = 290;
     frame.size.height = 96;
     EBShopInfo *cellView = [(EBShopInfo *)[[[NSBundle mainBundle] loadNibNamed:@"EBShopInfo" owner:self options:nil] objectAtIndex:0] retain];
-    //cell.frame = frame;
+    cell.frame = frame;
     [cellView.pic imageWithURL:[iOSApi urlDecode:obj.picUrl]];
     cellView.subject.text = [iOSApi urlDecode:obj.title];
     NSString *tmpPrice = [NSString stringWithFormat:@"¥ %.02f", obj.price];

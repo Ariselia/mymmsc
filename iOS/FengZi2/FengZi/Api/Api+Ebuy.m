@@ -13,7 +13,7 @@
 //--------------------< 电子商城 - 对象 - 商品 >--------------------
 @implementation EBProductInfo
 
-@synthesize id, title, content, picUrl, price;
+@synthesize id, title, content, picUrl, price, shopId, shopName;
 @synthesize realizeTime;
 // 商品详情字段
 @synthesize Goodcommentcount,Experiencecount,Middlecommentcount,Poorcommentcount;
@@ -75,7 +75,7 @@
 //--------------------< 电子商城 - 对象 - 商铺详情 >--------------------
 @implementation EBShop
 
-@synthesize id,des,picUrl,shopId,shopName,itemGroupType;
+@synthesize id,des,picUrl,name,itemGroupType;
 
 @end
 //====================================< 电子商城 - 接口 >====================================
@@ -152,14 +152,14 @@
 }
 
 // 获取商品列表
-+ (NSMutableArray *)ebuy_goodslist:(int)page typeId:(int)typeId{
++ (NSMutableArray *)ebuy_goodslist:(int)page way:(int)way typeId:(int)typeId{
     NSMutableArray *list = nil;
     // 方法
     static NSString *method = @"goodslist";
     if (page < 1) {
         page = 1;
     }
-    NSString *query = [NSString stringWithFormat:@"page=%d&typeid=%d", page, typeId];
+    NSString *query = [NSString stringWithFormat:@"page=%d&typeid=%d&way=%d", page, typeId, way];
     NSString *action = [NSString stringWithFormat:@"%@/%@?%@", API_URL_EBUY, method, query];
     NSDictionary *map = [Api post:action params:nil];
     if (map) {
@@ -555,11 +555,13 @@
     NSMutableArray *list = nil;
     static NSString *method = @"shoplist";
     NSString *query = [NSString stringWithFormat:@"page=%d", page];
+    /*
     NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
                             API_INTERFACE_TONKEN, @"token",
                             [NSString valueOf:[Api userId]], @"userId",
                             [NSString valueOf:page], @"page",
                             nil];
+    */
     NSString *action = [NSString stringWithFormat:@"%@/%@?%@", API_URL_EBUY, method, query];
     NSDictionary *response = [Api post:action params:nil];
     if (response) {
