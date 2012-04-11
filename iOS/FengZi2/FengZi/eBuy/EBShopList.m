@@ -125,11 +125,11 @@
     }
     int pos = [indexPath row];
     EBShop *obj = [_items objectAtIndex:pos];
-    cell.imageView.image = [UIImage imageNamed:@"unknown.png"];
+    cell.imageView.image = [[UIImage imageNamed:@"unknown.png"] toSize:CGSizeMake(50, 50)];
     cell.imageView.frame = CGRectMake(0, 0, 50, 50);
     [cell.imageView imageWithURL:[iOSApi urlDecode:obj.picUrl]];
     cell.textLabel.text = [iOSApi urlDecode:obj.name];
-    
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     return cell;
 }
