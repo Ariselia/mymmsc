@@ -11,6 +11,8 @@
 #import "FontLabelStringDrawing.h"
 #import "FontManager.h"
 #import "ZFont.h"
+#import <iOSApi/iOSApi.h>
+
 @implementation AboutViewController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -77,7 +79,7 @@
         case 0:{
             switch (indexPath.row) {
                 case 0:{
-                    cell.textLabel.text = @"软件版本      V1.0";
+                    cell.textLabel.text = [NSString stringWithFormat:@"软件版本      V%@",[iOSApi version]];
                     break;
                 }
                 case 1:{
