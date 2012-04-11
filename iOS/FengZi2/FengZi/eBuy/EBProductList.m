@@ -163,6 +163,7 @@
     cellView.price.text = tmpPrice;
     cellView.desc.text = [NSString stringWithFormat:@"商品简介: %@", [iOSApi urlDecode:obj.content]];
     cell = cellView;
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     return cell;
 }

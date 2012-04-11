@@ -88,6 +88,11 @@
     [iOSApi closeAlert];
 }
 
+- (void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:animated];
+    
+}
+
 #pragma mark -
 #pragma mark UITableViewDataSource
 
@@ -96,7 +101,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 4;
+    return 5;
     //return [_items count];
 }
 
@@ -106,7 +111,7 @@
 	//CGSize size = [@"123" sizeWithFont:fontInfo constrainedToSize:CGSizeMake(labelWidth, 20000) lineBreakMode:UILineBreakModeWordWrap];
 	//return size.height + 10; // 10即消息上下的空间，可自由调整 
     if (indexPath.row == 0) {
-        //height = 180.0f;
+        height = 90.0f;
     }
 	return height;
 }
@@ -123,19 +128,52 @@
         return nil;
     }*/
     if (pos == 0) {
-        cell.textLabel.text = [NSString stringWithFormat:@"商品名称：%@",  _product.title];
+        NSArray *tmpList = [_product.picUrl componentsSeparatedByString:@"*"];
+        UIScrollView *scroll = [[UIScrollView alloc] initWithFrame:CGRectMake(12, 0, 295, 90)];
+        //scroll.backgroundColor = [UIColor grayColor];
+        [cell.contentView addSubview:scroll];
+        int xWidth = 95;
+        int xHeight = 90;
+        int num = tmpList.count;
+        scroll.contentSize = CGSizeMake(xWidth * (num + 0) , xHeight);
+        CGRect bounds = scroll.bounds;
+        bounds.size.width = 95;
+        //scroll.bounds = bounds;
+        
+        UIImage *undef = [UIImage imageNamed:@"unknown.png"];
+        int i = 0;
+        for (NSString *tmpUrl in tmpList) {
+            iOSImageView *iv = [[[iOSImageView alloc] initWithImage:undef] autorelease];
+            [iv imageWithURL:[iOSApi urlDecode:tmpUrl]];
+            CGRect frame = iv.frame;
+            frame.origin.x = xWidth * i;
+            frame.origin.y = 0;
+            frame.size.height = 90;
+            frame.size.width = 90;
+            iv.frame = frame;
+            [scroll addSubview:iv];
+            i ++;
+        }
+        
+        //scroll.contentOffset = CGPointMake(0, xWidth);
+        //[scroll setContentOffset:CGPointMake(0, xWidth) animated:YES];
+        [scroll release];
+    } else if (pos == 1) {
+        cell.textLabel.text = [NSString stringWithFormat:@"商品名称：%@", _product.title];
         cell.detailTextLabel.text = [NSString stringWithFormat:@"价格：%.2f", _product.price];
-        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        //cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
         UIImage *image = [UIImage imageNamed:@"ebug_commodity_info.png"];
         [btn setImage:image forState:UIControlStateNormal];
         [btn setImage:image forState:UIControlStateSelected];
         [btn addTarget:self action:@selector(gotoProduct) forControlEvents:UIControlEventTouchUpInside];
-    } else if (pos == 1) {
-        cell.textLabel.text = [NSString stringWithFormat:@"库存：%d 现货", _product.storeInfo];
+        btn.frame = CGRectMake(250, 5, 44, 29);
+        [cell.contentView addSubview:btn];
     } else if (pos == 2) {
-        cell.textLabel.text = [NSString stringWithFormat:@"很喜欢(%d) 喜欢(%d) 不喜欢(%d)", _product.Goodcommentcount, _product.Middlecommentcount, _product.Poorcommentcount];
+        cell.textLabel.text = [NSString stringWithFormat:@"库存：%d 现货", _product.storeInfo];
     } else if (pos == 3) {
+        cell.textLabel.text = [NSString stringWithFormat:@"很喜欢(%d) 喜欢(%d) 不喜欢(%d)", _product.Goodcommentcount, _product.Middlecommentcount, _product.Poorcommentcount];
+    } else if (pos == 4) {
         cell.textLabel.text = [NSString stringWithFormat:@"评论(%d)", _product.Experiencecount];
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }
