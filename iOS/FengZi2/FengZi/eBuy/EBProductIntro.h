@@ -15,9 +15,12 @@
     NSMutableArray     *_items;
     UIFont             *_font;
     int                 _page;
+    EBProductInfo      *_product;
 }
-@property (nonatomic, retain) EBProductInfo *param;
+@property (nonatomic, copy) NSString *param;
 @property (nonatomic, retain) IBOutlet UILabel *proId, *proPrice; // 商品编号, 商品价格
 @property (nonatomic, retain) IBOutlet UITableView *tableView;
+
+- (IBAction)optionAction:(UISegmentedControl *)segment;
 
 @end

@@ -76,7 +76,14 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [iOSApi showAlert:@"正在读取信息..."];
-    iOSLog(@"正在载入商品信息...");
+    _product = nil;
+    _product = [[Api ebuy_goodsinfo:param] retain];
+    if (_product != nil) {
+        _items = [[NSMutableArray alloc] initWithCapacity:0];
+        [_items addObject:_product.info];
+        proId.text = [NSString stringWithFormat:@"编号: %@", _product.orderId];
+        proPrice.text = [NSString stringWithFormat:@"%.2f 元", _product.price];
+    }
     [iOSApi closeAlert];
 }
 
@@ -98,7 +105,7 @@
 	//CGSize size = [@"123" sizeWithFont:fontInfo constrainedToSize:CGSizeMake(labelWidth, 20000) lineBreakMode:UILineBreakModeWordWrap];
 	//return size.height + 10; // 10即消息上下的空间，可自由调整 
     if (indexPath.row == 0) {
-        height = 180.0f;
+        //height = 180.0f;
     }
 	return height;
 }
@@ -110,10 +117,10 @@
         cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier] autorelease];
     }
     int pos = [indexPath row];
-    if (pos >= [_items count] + 1) {
+    if (pos >= [_items count]) {
         return nil;
     }
-    
+    cell.textLabel.text = [_items objectAtIndex:pos];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;
 }
@@ -128,6 +135,33 @@
     // 跳转 快讯详情页面
     pos -= 1;
     
+}
+
+- (IBAction)optionAction:(UISegmentedControl *)segment{
+    if (_items != nil) {
+        [_items removeAllObjects];
+        NSInteger Index = segment.selectedSegmentIndex;
+        NSString *content = @"";
+        switch (Index) {
+            case 0: // 商品介绍
+                content = [NSString stringWithString:[iOSApi urlDecode:_product.info]];
+                break;
+            case 1: // 价格参数
+                content = [NSString stringWithFormat:@"%.2f 元", _product.price];
+                break;
+            case 2: // 包装清单
+                content = [NSString stringWithString:[iOSApi urlDecode:_product.listInfo]];
+                break;
+            default: // 售后服务
+            {
+                NSString *s = [iOSApi urlDecode:_product.service];
+                content = [NSString stringWithString:s];
+            }
+                break;
+        }
+        [_items addObject:content];
+        [_tableView reloadData];
+    }
 }
 
 @end
