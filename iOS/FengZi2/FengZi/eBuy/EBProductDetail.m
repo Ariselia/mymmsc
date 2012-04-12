@@ -7,6 +7,7 @@
 //
 
 #import "EBProductDetail.h"
+#import "EBProductIntro.h"
 
 @interface EBProductDetail ()
 
@@ -77,7 +78,8 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [iOSApi showAlert:@"正在读取信息..."];
-    EBProductInfo *tmp = [[Api ebuy_goodsinfo:param.id] retain];
+    _product = nil;
+    EBProductInfo *tmp = [[Api ebuy_goodsinfo:param] retain];
     if (tmp != nil) {
         _product = tmp;
         [tmp release];
@@ -101,8 +103,12 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 5;
-    //return [_items count];
+    int count = 0;
+    if (_product != nil) {
+        count = 5;
+        //return [_items count];
+    }
+    return count;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -195,7 +201,10 @@
 }
 
 - (void)gotoProduct{
-    
+    EBProductIntro *nextView = [[EBProductIntro alloc] init];
+    nextView.param = param;
+    [self.navigationController pushViewController:nextView animated:YES];
+    [nextView release];
 }
 
 @end
