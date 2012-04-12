@@ -215,6 +215,10 @@
 
 //--------------------< 电子商城 - 接口 - 站内消息 >--------------------
 
+// 发送站内消息
++ (ApiResult *)ebuy_message_new:(NSString *)recvId
+                         baseId:(NSString *)baseId
+                        content:(NSString *)content;
 // 收件箱
 + (NSMutableArray *)ebuy_message_recv:(int)page;
 // 发件箱
