@@ -39,7 +39,7 @@
 //--------------------< 电子商城 - 对象 - 商品评论 >--------------------
 @implementation EBProductComment
 
-@synthesize id,userName,content,picUrl,commentTime;
+@synthesize id,userName,content,picUrl,commentTime,love,grade;
 
 @end
 
@@ -244,7 +244,7 @@
     if (page < 0) {
         page = 0;
     }
-    NSString *query = [NSString stringWithFormat:@"page=%d", page];
+    NSString *query = [NSString stringWithFormat:@"page=%d&id=%@", page, id];
     NSString *action = [NSString stringWithFormat:@"%@/%@?%@", API_URL_EBUY, method, query];
     NSDictionary *response = [Api post:action params:nil];
     if (response) {

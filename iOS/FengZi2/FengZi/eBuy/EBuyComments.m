@@ -1,19 +1,20 @@
 //
-//  EBMessageList.m
+//  EBuyComments.m
 //  FengZi
 //
-//  Created by wangfeng on 12-4-10.
+//  Created by wangfeng on 12-4-12.
 //  Copyright (c) 2012年 ifengzi.cn. All rights reserved.
 //
 
-#import "EBMessageList.h"
+#import "EBuyComments.h"
 #import "Api+Ebuy.h"
 
-@interface EBMessageList ()
+@interface EBuyComments ()
 
 @end
 
-@implementation EBMessageList
+@implementation EBuyComments
+@synthesize param;
 @synthesize tableView = _tableView;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -84,8 +85,7 @@
         _page = 1;
     }
     if (_items != nil) {
-        //NSArray *list = [[Api ebuy_push:_page++] retain];
-        NSArray *list = [[Api ebuy_message_recv:_page] retain];
+        NSArray *list = [[Api ebuy_goodscomment:param page:_page] retain];
         [_items addObjectsFromArray:list];
         [list release];
     }
@@ -105,7 +105,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    CGFloat height = 60.f;
+    CGFloat height = 70.f;
 	return height;
 }
 
@@ -116,16 +116,20 @@
         cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier] autorelease];
     }
     int pos = [indexPath row];
-    EBSiteMessage *obj = [_items objectAtIndex:pos];
-    NSString *tmpTitle = [NSString stringWithFormat:@"%@:%@", obj.sendName, obj.recevTime];
+    EBProductComment *obj = [_items objectAtIndex:pos];
+    cell.imageView.image = [[UIImage imageNamed:@"unknown.png"] toSize:CGSizeMake(50, 50)];
+    [cell.imageView imageWithURL:[iOSApi urlDecode:obj.picUrl]];
+    cell.imageView.frame = CGRectMake(0, 0, 50, 50);
+    NSString *tmpTitle = [NSString stringWithFormat:@"%@:%@", obj.userName, obj.commentTime];
     cell.textLabel.text = [iOSApi urlDecode:tmpTitle];
     cell.detailTextLabel.text = [iOSApi urlDecode:obj.content];
-    
-    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    cell.detailTextLabel.lineBreakMode = 0;
+    //cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    _tableView.separatorStyle=UITableViewCellSeparatorStyleSingleLine;
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;
 }
-
+/*
 - (UITableViewCellAccessoryType)tableView:(UITableView *)tableView accessoryTypeForRowWithIndexPath:(NSIndexPath *)indexPath {
     return UITableViewCellAccessoryDetailDisclosureButton;
     //return UITableViewCellAccessoryDisclosureIndicator;
@@ -134,5 +138,5 @@
 - (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath{
     //
 }
-
+*/
 @end

@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		0A00FF0D151D53DB00BEA5E9 /* QRCode.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A00FF0C151D53DA00BEA5E9 /* QRCode.framework */; };
+		0A4A3AFF15366E9B00FAAE4C /* site_sms.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A4A3AFE15366E9B00FAAE4C /* site_sms.png */; };
+		0A4A3B04153681CC00FAAE4C /* EBuyComments.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A4A3B02153681CC00FAAE4C /* EBuyComments.m */; };
+		0A4A3B05153681CC00FAAE4C /* EBuyComments.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A4A3B03153681CC00FAAE4C /* EBuyComments.xib */; };
 		0A71F1EF15044A41007714BB /* EBuyPortal.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A71F1ED15044A41007714BB /* EBuyPortal.m */; };
 		0A71F1F015044A41007714BB /* EBuyPortal.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A71F1EE15044A41007714BB /* EBuyPortal.xib */; };
 		0AADFE5115223C84004B4D4D /* EBShopInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AADFE5015223C84004B4D4D /* EBShopInfo.m */; };
@@ -660,6 +663,10 @@
 
 /* Begin PBXFileReference section */
 		0A00FF0C151D53DA00BEA5E9 /* QRCode.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QRCode.framework; path = ../../../../runtime/SDK/QRCode.framework; sourceTree = "<group>"; };
+		0A4A3AFE15366E9B00FAAE4C /* site_sms.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = site_sms.png; sourceTree = "<group>"; };
+		0A4A3B01153681CC00FAAE4C /* EBuyComments.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EBuyComments.h; sourceTree = "<group>"; };
+		0A4A3B02153681CC00FAAE4C /* EBuyComments.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EBuyComments.m; sourceTree = "<group>"; };
+		0A4A3B03153681CC00FAAE4C /* EBuyComments.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EBuyComments.xib; sourceTree = "<group>"; };
 		0A71F1EC15044A41007714BB /* EBuyPortal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EBuyPortal.h; sourceTree = "<group>"; };
 		0A71F1ED15044A41007714BB /* EBuyPortal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EBuyPortal.m; sourceTree = "<group>"; };
 		0A71F1EE15044A41007714BB /* EBuyPortal.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EBuyPortal.xib; sourceTree = "<group>"; };
@@ -1573,6 +1580,7 @@
 		0A71F1E31504453D007714BB /* eBuy */ = {
 			isa = PBXGroup;
 			children = (
+				0A4A3AFE15366E9B00FAAE4C /* site_sms.png */,
 				0AC284B3153535D2003D17C4 /* ebug_commodity_info.png */,
 				0ABD84BC15100100005BD93B /* ebuy_comment_dfimg.png */,
 				0ABD84BD15100100005BD93B /* ebuy_comment_photo.png */,
@@ -1641,9 +1649,6 @@
 				0AAECA6B1517EAD000D5DDBE /* EBExpressDetail.h */,
 				0AAECA6C1517EAD000D5DDBE /* EBExpressDetail.m */,
 				0AAECA6D1517EAD000D5DDBE /* EBExpressDetail.xib */,
-				0ABBBF29151B7CAE00C4A6F2 /* EBProductDetail.h */,
-				0ABBBF2A151B7CAE00C4A6F2 /* EBProductDetail.m */,
-				0ABBBF2B151B7CAE00C4A6F2 /* EBProductDetail.xib */,
 				0ABBBF33151B990400C4A6F2 /* EBAdBar.h */,
 				0ABBBF34151B990400C4A6F2 /* EBAdBar.m */,
 				0ABBBF36151B992000C4A6F2 /* EBAdBar.xib */,
@@ -1656,12 +1661,18 @@
 				0AADFE4F15223C84004B4D4D /* EBShopInfo.h */,
 				0AADFE5015223C84004B4D4D /* EBShopInfo.m */,
 				0AADFE5215223CA3004B4D4D /* EBShopInfo.xib */,
+				0ABBBF29151B7CAE00C4A6F2 /* EBProductDetail.h */,
+				0ABBBF2A151B7CAE00C4A6F2 /* EBProductDetail.m */,
+				0ABBBF2B151B7CAE00C4A6F2 /* EBProductDetail.xib */,
 				0AC0D14C153119C7001F1930 /* EBProductIntro.h */,
 				0AC0D14D153119C8001F1930 /* EBProductIntro.m */,
 				0AC0D14E153119C8001F1930 /* EBProductIntro.xib */,
 				0ABEA0781533A669009A9642 /* EBMessageList.h */,
 				0ABEA0791533A66A009A9642 /* EBMessageList.m */,
 				0ABEA07A1533A66C009A9642 /* EBMessageList.xib */,
+				0A4A3B01153681CC00FAAE4C /* EBuyComments.h */,
+				0A4A3B02153681CC00FAAE4C /* EBuyComments.m */,
+				0A4A3B03153681CC00FAAE4C /* EBuyComments.xib */,
 			);
 			path = eBuy;
 			sourceTree = "<group>";
@@ -3488,6 +3499,8 @@
 				0ABEA07C1533A66E009A9642 /* EBMessageList.xib in Resources */,
 				0ACCDD121534D7A900753ECA /* EBProductList.xib in Resources */,
 				0AC284B4153535D2003D17C4 /* ebug_commodity_info.png in Resources */,
+				0A4A3AFF15366E9B00FAAE4C /* site_sms.png in Resources */,
+				0A4A3B05153681CC00FAAE4C /* EBuyComments.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3721,6 +3734,7 @@
 				0ABEA07515339E2E009A9642 /* EBuyPanel.m in Sources */,
 				0ABEA07B1533A66E009A9642 /* EBMessageList.m in Sources */,
 				0ACCDD111534D7A900753ECA /* EBProductList.m in Sources */,
+				0A4A3B04153681CC00FAAE4C /* EBuyComments.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

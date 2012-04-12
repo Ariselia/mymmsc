@@ -8,6 +8,7 @@
 
 #import "EBProductDetail.h"
 #import "EBProductIntro.h"
+#import "EBuyComments.h"
 
 @interface EBProductDetail ()
 
@@ -192,11 +193,14 @@
     // Navigation logic may go here. Create and push another view controller.
     //NSLog(@"module goto...");
     int pos = indexPath.row;
-    if (pos == 0) {
+    if (pos < 4) {
         return;
     }
-    // 跳转 快讯详情页面
-    pos -= 1;
+    // 跳转 评论页面
+    EBuyComments *nextView = [[EBuyComments alloc] init];
+    nextView.param = param;
+    [self.navigationController pushViewController:nextView animated:YES];
+    [nextView release];
     
 }
 

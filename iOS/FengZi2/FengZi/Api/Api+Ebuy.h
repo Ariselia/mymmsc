@@ -81,6 +81,8 @@
 @property (nonatomic, copy) NSString *id; // 该评论的id
 @property (nonatomic, copy) NSString *userName; //用户昵称 (encode)
 @property (nonatomic, copy) NSString *content; // 评论的内容 (encode)
+@property (nonatomic, assign) int grade;
+@property (nonatomic, assign) int love;
 @property (nonatomic, copy) NSString *picUrl; // 图片url (encode)
 @property (nonatomic, copy) NSString *commentTime;// 评论的时间
 
