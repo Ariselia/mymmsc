@@ -344,7 +344,37 @@
 }
 
 //--------------------< 电子商城 - 接口 - 收件箱 >--------------------
-
+// 发送站内消息
++ (ApiResult *)ebuy_message_new:(NSString *)recvId
+                         baseId:(NSString *)baseId
+                        content:(NSString *)content{
+    ApiResult *iRet = [ApiResult new];
+    // 方法
+    static NSString *method = @"newmessage";
+    NSString *query = @"";
+    NSDictionary *heads = [NSDictionary dictionaryWithObjectsAndKeys:
+                           @"application/json", @"Content-Type",
+                           nil];
+    NSMutableDictionary *jsonDic = [NSMutableDictionary dictionary];
+    NSMutableDictionary *request = [NSMutableDictionary dictionary];
+    [request setObject:recvId forKey:@"recvid"];
+    [request setObject:baseId forKey:@"basemessageid"];
+    [request setObject:[NSString valueOf:[Api userId]] forKey:@"sendid"];
+    [request setObject:[iOSApi urlEncode:content] forKey:@"content"];
+    [jsonDic setObject:request forKey:method];
+    
+    NSString *params = [jsonDic JSONString];
+    
+    NSString *action = [NSString stringWithFormat:@"%@/%@?%@", API_URL_EBUY, method, query];
+    NSDictionary *response = [Api post:action header:heads body:[params dataUsingEncoding:NSUTF8StringEncoding]];
+    response = [response objectForKey:@"newmessage"];
+    NSDictionary *data = [iRet parse:response];
+    if (data) {
+        //
+    }
+    return [iRet autorelease];
+}
+                                 
 // 收件箱
 + (NSMutableArray *)ebuy_message_recv:(int)page{
     NSMutableArray *list = nil;
