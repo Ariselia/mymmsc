@@ -24,6 +24,7 @@
 
 #define kTAG_BASE (10000)
 #define kTAG_STAR (kTAG_BASE + 1)
+#define ALERT_TITLE @"系统 提示"
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -119,6 +120,7 @@
             EBProductInfo *obj = [_items objectAtIndex:0];
             subject.text = [iOSApi urlDecode:obj.title];
             [self setStarClass:3];
+            shopName = [NSString stringWithString:obj.shopName];
         }
     }
 }
@@ -175,9 +177,42 @@
 - (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath{
     EBProductInfo *obj = [_items objectAtIndex:indexPath.row];
     EBProductDetail *nextView = [[EBProductDetail alloc] init];
-    nextView.param = obj;
+    nextView.param = obj.id;
     [self.navigationController pushViewController:nextView animated:YES];
     [nextView release];
+}
+
+- (IBAction)doWriteMsg:(id)sender{
+    UIAlertView *alert = [[UIAlertView alloc]
+						  initWithTitle: [NSString stringWithFormat:@"对\"%@\"说点什么吧", shopName]
+						  message:[NSString stringWithFormat:@"\n\n"]
+						  delegate:self
+						  cancelButtonTitle:@"取消"
+						  otherButtonTitles:@"发表", nil];
+    content = [[UITextField alloc] initWithFrame:CGRectMake(12, 60, 260, 25)];
+	[content setTag:1001];
+	CGAffineTransform mytrans = CGAffineTransformMakeTranslation(-0, -150);
+	[alert setTransform:mytrans];
+	[content setBackgroundColor:[UIColor whiteColor]];
+	[alert addSubview:content];
+	[alert show];
+	[alert release];
+}
+
+-(void) alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger) buttonIndex{
+    if (buttonIndex == 1) {
+        NSString *msg = [content.text trim];
+        if (msg.length < 1) {
+            [iOSApi Alert:ALERT_TITLE message:@"内容不能为空"];
+            return;
+        } else {
+            EBProductInfo *obj = [_items objectAtIndex:0];
+            NSString *recvId = [NSString valueOf:obj.shopId];
+            ApiResult *iRet = [[Api ebuy_message_new:recvId baseId:recvId content:msg ] retain];
+            [iOSApi Alert:ALERT_TITLE message:iRet.message];
+            [iRet release];
+        }
+    }
 }
 
 @end
