@@ -50,7 +50,7 @@ static EBProductInfo *dst = nil;
 - (void)gotoInfo{
     EBuyPortal *portal = ownerId;
     EBProductDetail *nextView = [[EBProductDetail alloc] init];
-    nextView.param = dst;
+    nextView.param = dst.id;
     [portal.navigationController pushViewController:nextView animated:YES];
     [nextView release];
 }
