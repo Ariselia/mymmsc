@@ -86,6 +86,8 @@
             } else {
                 message = [value retain];
             }
+        } else {
+            message = @"";
         }
         data = [map objectForKey:@"data"];
     } else {
