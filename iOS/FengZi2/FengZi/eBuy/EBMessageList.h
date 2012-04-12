@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
+// 站内消息
 @interface EBMessageList : UIViewController{
     UITextBorderStyle   _borderStyle;
     NSMutableArray     *_items;
