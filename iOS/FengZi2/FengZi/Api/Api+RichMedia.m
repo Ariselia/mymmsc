@@ -265,6 +265,48 @@
     return [iRet autorelease];
 }
 
+// 获取媒体内容
++ (MediaContent *)getContent_new:(NSString *)uuid{
+    static NSString *path = @"dynamic/getContent.action";
+    NSString *action = [NSString stringWithFormat:@"%@/%@?id=%@", API_URL_RICHMEDIA, path, uuid];
+    NSString *app = [Api base64e:[Api appAttribute:DATA_ENV.curBusinessType]];
+    NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
+                            API_RICHMEDIA_TOKEN, @"token",
+                            [NSString valueOf:[Api userId]], @"userid",
+                            app, @"a",
+                            nil];
+    
+    NSDictionary *map = [Api post:action params:params];
+    MediaContent *iRet = [[MediaContent alloc] init];
+    NSDictionary *data = [iRet parse:map];
+    if (data.count > 0) {
+        NSString *value = [data objectForKey:@"title"];
+        
+        if (value != nil) {
+            iRet.title = value;
+        } else {
+            iRet.title = @"富媒体 内容";
+        }
+        NSArray *pageList = [data objectForKey:@"pageList"];
+        if (pageList.count > 0) {
+            NSMutableArray *list = [[[NSMutableArray alloc] initWithCapacity:0] autorelease];
+            iRet.pageList = [[[NSMutableArray alloc] initWithCapacity:0] autorelease];
+            for (NSDictionary *dict in pageList) {
+                MediaObject *obj = [MediaObject new];
+                for (NSString *key in [dict allKeys]) {
+                    id value = [dict objectForKey:key];
+                    [obj setValue:value forSameKey:key];
+                }
+                [list addObject:obj];
+                [obj release];
+            }
+            iRet.pageList = list;
+        }
+    }
+    
+    return [iRet autorelease];
+}
+
 //--------------------< 空码赋值 - 对象 - 接口 >--------------------
 static NSString *kma_id = nil;
 

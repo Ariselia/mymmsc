@@ -40,8 +40,10 @@
 
 // 富媒体接口地址
 #define API_URL_RICHMEDIA    @"http://m.fengxiafei.com/mb"
+//#define API_URL_RICHMEDIA    @"http://labs.ifengzi.cn/mb"
 // 空码接口地址
 #define API_URL_KMA          @"http://m.fengxiafei.com/mb"
+//#define API_URL_KMA          @"http://labs.ifengzi.cn/mb"
 // 用户中心接口地址
 #define API_URL_USERCENTER   @"http://m.ifengzi.cn"
 //#define API_URL_USERCENTER   @"http://devp.ifengzi.cn"

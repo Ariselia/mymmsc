@@ -79,12 +79,7 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [iOSApi showAlert:@"正在读取信息..."];
-    _product = nil;
-    EBProductInfo *tmp = [[Api ebuy_goodsinfo:param] retain];
-    if (tmp != nil) {
-        _product = tmp;
-        [tmp release];
-    }
+    _product = [[Api ebuy_goodsinfo:param] retain];
     if (_product != nil) {
         _items = [[NSMutableArray alloc] initWithCapacity:0];
     }
