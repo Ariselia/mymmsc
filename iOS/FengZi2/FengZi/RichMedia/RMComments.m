@@ -137,6 +137,7 @@
     // 设置字体
     UIFont *textFont = [UIFont systemFontOfSize:15.0];
     UIFont *detailFont = [UIFont systemFontOfSize:10.0];
+    [cell.contentView removeAllSubviews];
     //cell.imageView.image = [[iOSApi imageNamed:[Api typeIcon:obj.type]] scaleToSize:CGSizeMake(36, 36)];
     //cell.textLabel.text = [NSString stringWithFormat:@"%@ 的评论", obj.username];
     cell.textLabel.text = obj.commentUserName;
