@@ -1,0 +1,300 @@
+body {
+    margin: 0px;
+}
+
+div {
+    background-repeat: no-repeat;
+}
+
+.raw_image {
+    width: 100%;
+    height: 100%;
+}
+
+.preload {
+    display: none;
+}
+div.main_container {
+}
+
+.form_sketch {
+    border-color: transparent;
+    background-color: transparent;
+}
+
+.u0_original {
+    background-image: url('../人找车信息_files/u0_original.png');
+}
+
+.u0_container {
+    position:absolute;
+    left:10px;
+    top:9px;
+    width:793px;
+    height:481px;
+}
+
+#u0_img {
+    position:absolute;
+    left:0px;
+    top:0px;
+    width:793px;
+    height:481px;
+}
+
+.u1 {
+    position:absolute;
+    left:2px;
+    top:232px;
+    width:789px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u0 {
+    position:absolute;
+    left:10px;
+    top:9px;
+    width:793px;
+    height:481px
+}
+
+.u2 {
+    position:absolute;
+    left:690px;
+    top:20px;
+    width:90px;
+    height:20px
+}
+
+.u3 {
+    position:absolute;
+    left:550px;
+    top:20px;
+    width:60px;
+    height:30px
+}
+
+.u4 {
+    position:absolute;
+    left:610px;
+    top:20px;
+    width:70px;
+    height:20px
+}
+
+.u5_original {
+    background-image: url('../人找车信息_files/u5_original.png');
+}
+
+.u5_container {
+    position:absolute;
+    left:80px;
+    top:120px;
+    width:380px;
+    height:220px;
+}
+
+#u5_img {
+    position:absolute;
+    left:0px;
+    top:0px;
+    width:380px;
+    height:220px;
+}
+
+.u6 {
+    position:absolute;
+    left:2px;
+    top:102px;
+    width:376px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u5 {
+    position:absolute;
+    left:80px;
+    top:120px;
+    width:380px;
+    height:220px
+}
+
+.u7_original {
+    background-image: url('../人找车信息_files/u7_original.png');
+}
+
+.u7_container {
+    position:absolute;
+    left:380px;
+    top:582px;
+    width:117px;
+    height:38px;
+}
+
+#u7_img {
+    position:absolute;
+    left:0px;
+    top:0px;
+    width:117px;
+    height:38px;
+}
+
+.u8 {
+    position:absolute;
+    left:2px;
+    top:11px;
+    width:113px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u7 {
+    position:absolute;
+    left:380px;
+    top:582px;
+    width:117px;
+    height:38px
+}
+
+.u9_original {
+    background-image: url('../人找车信息_files/u9_original.png');
+}
+
+.u9_container {
+    position:absolute;
+    left:277px;
+    top:127px;
+    width:63px;
+    height:18px;
+}
+
+#u9_img {
+    position:absolute;
+    left:0px;
+    top:0px;
+    width:63px;
+    height:18px;
+}
+
+.u10 {
+    position:absolute;
+    left:2px;
+    top:1px;
+    width:59px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u9 {
+    position:absolute;
+    left:277px;
+    top:127px;
+    width:63px;
+    height:18px
+}
+
+.u11_original {
+    background-image: url('../人找车信息_files/u11_original.png');
+}
+
+.u11_container {
+    position:absolute;
+    left:150px;
+    top:337px;
+    width:328px;
+    height:133px;
+}
+
+#u11_img {
+    position:absolute;
+    left:0px;
+    top:0px;
+    width:328px;
+    height:133px;
+}
+
+.u12 {
+    position:absolute;
+    left:2px;
+    top:58px;
+    width:324px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u11 {
+    position:absolute;
+    left:150px;
+    top:337px;
+    width:328px;
+    height:133px
+}
+
+.u13_original {
+    background-image: url('../人找车信息_files/u7_original.png');
+}
+
+.u13_container {
+    position:absolute;
+    left:373px;
+    top:480px;
+    width:117px;
+    height:38px;
+}
+
+#u13_img {
+    position:absolute;
+    left:0px;
+    top:0px;
+    width:117px;
+    height:38px;
+}
+
+.u14 {
+    position:absolute;
+    left:2px;
+    top:11px;
+    width:113px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u13 {
+    position:absolute;
+    left:373px;
+    top:480px;
+    width:117px;
+    height:38px
+}
+
