@@ -61,6 +61,25 @@
 
 @end
 
+//--------------------< 空码 - 对象 - 顺风车 >--------------------
+@implementation RidePath
+
+@synthesize shour,sminut,drvpath,destaddr,startaddr;
+
+@end
+
+@implementation RideReal
+
+@synthesize his,decl,carimg,drvage,gender,cartype,headimg,carcolor,carplate,realname,carseries;
+
+@end
+
+@implementation RideInfo
+
+@synthesize status, info, drvList, psgList, real;
+
+@end
+
 //--------------------< 富媒体 - 接口 - 应用程序相关 >--------------------
 @implementation Api (RichMedia)
 
@@ -415,4 +434,10 @@ static NSString *kma_id = nil;
     }
     [iOSApi closeAlert];
 }
+
+//--------------------< 空码 - 接口 - 顺风车 >--------------------
++ (void)sfc_info:(NSString *)id{
+    //
+}
+
 @end

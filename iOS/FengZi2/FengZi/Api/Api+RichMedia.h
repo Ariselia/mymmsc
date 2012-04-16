@@ -80,6 +80,46 @@
 
 @end
 
+//--------------------< 空码 - 对象 - 顺风车 >--------------------
+@interface RidePath : NSObject{
+    //
+}
+@property (nonatomic, copy) NSString *destaddr;//目的地(encode)
+@property (nonatomic, copy) NSString *drvpath;//驾驶路线(encode)
+@property (nonatomic, copy) NSString *startaddr;//起始地址(encode)
+@property (nonatomic, assign) int shour;//出发开始小时
+@property (nonatomic, assign) int sminut;//出发开始分钟
+
+@end
+
+// real
+@interface RideReal : NSObject
+
+@property (nonatomic, copy) NSString *carcolor;//车颜色(encode)
+@property (nonatomic, copy) NSString *carimg;//车图片地址(encode)
+@property (nonatomic, copy) NSString *carplate;//车牌(encode)
+@property (nonatomic, copy) NSString *carseries;//车类型(encode)
+@property (nonatomic, copy) NSString *cartype;//车款式(encode)
+@property (nonatomic, copy) NSString *decl;//宣言(encode)
+@property (nonatomic, assign) int drvage;//车龄
+@property (nonatomic, assign) int gender;//性别：0：其他；1：男；2：女
+@property (nonatomic, copy) NSString *headimg;//头像地址(encode)
+@property (nonatomic, copy) NSString *his;//顺风车历史(encode)
+@property (nonatomic, copy) NSString *realname;//真实姓名(encode)
+
+@end
+
+@interface RideInfo : NSObject{
+    
+}
+@property (nonatomic, assign) int status; // 调用接口状态: 0(成功)
+@property (nonatomic, copy) NSString *info; // 调用接口信息
+@property (nonatomic, retain) NSMutableArray *drvList; // 车找人 RidePath数组
+@property (nonatomic, retain) NSMutableArray *psgList;// 人找车 RidePath数组
+@property (nonatomic, retain) RideReal *real; // 车况
+@end
+
+
 //--------------------< 富媒体 - 接口 - 应用程序相关 >--------------------
 @interface Api (RichMedia)
 

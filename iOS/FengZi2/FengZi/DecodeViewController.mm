@@ -179,7 +179,7 @@ static int iTimes = -1;
         KmaObject *info = [Api kmaContent:xcode];
         if (info.isKma == 0) {
             // 不是空码, 展示
-            if (info.type >= 14) {
+            if (info.type == 14) {
                 // 富媒体业务
                 UCRichMedia *nextView = [[UCRichMedia alloc] init];
                 nextView.urlMedia = nil;
@@ -187,6 +187,8 @@ static int iTimes = -1;
                 [self.navigationController pushViewController:nextView animated:YES];
                 [nextView release];
                 return;
+            } else if (info.type == 15) {
+                // 顺风车
             } else {
                 iTimes = kCODE_KMA;
                 [self chooseShowController:info.tranditionContent];
