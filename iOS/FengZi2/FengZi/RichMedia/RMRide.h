@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-@interface RMRide : UIViewController
+@interface RMRide : UIViewController{
+    //
+}
 
 @end
