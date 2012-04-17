@@ -43,7 +43,7 @@
     
     // Release any cached data, images, etc that aren't in use.
 }
-
+/*
 -(UIImage*)generateImageWithInput:(NSString*)input{
     int qrcodeImageDimension = 250;
     //the string can be very long
@@ -91,7 +91,7 @@
         [businessView release];
     }
 }
-
+*/
 - (void)decoder:(Decoder *)decoder didDecodeImage:(UIImage *)image usingSubset:(UIImage *)subset withResult:(TwoDDecoderResult *)twoDResult {
     [self chooseShowController:twoDResult.text];
     decoder.delegate = nil;

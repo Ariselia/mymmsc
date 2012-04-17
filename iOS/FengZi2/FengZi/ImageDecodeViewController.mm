@@ -40,7 +40,7 @@
     
     // Release any cached data, images, etc that aren't in use.
 }
-
+/*
 -(void) chooseShowController:(NSString*)input{
     if (input != nil && [input hasPrefix:API_URL_SHOW]) {
         NSDictionary *dict = [Api parseUrl:input];
@@ -76,6 +76,7 @@
         [businessView release];
     }
 }
+*/
 
 - (void)decoder:(Decoder *)decoder didDecodeImage:(UIImage *)image usingSubset:(UIImage *)subset withResult:(TwoDDecoderResult *)twoDResult {
     _curImage = image;

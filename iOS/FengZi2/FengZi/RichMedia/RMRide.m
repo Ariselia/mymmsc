@@ -13,6 +13,8 @@
 @end
 
 @implementation RMRide
+@synthesize maId;
+@synthesize tableView = _tableView;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -64,6 +66,97 @@
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
+}
+
+#pragma mark -
+#pragma mark UITableViewDataSource
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return 1;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    int count = 0;
+    if (maId != nil) {
+        count = 5;
+        //return [_items count];
+    }
+    return count;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    CGFloat height = 50;
+	//CGSize size = [@"123" sizeWithFont:fontInfo constrainedToSize:CGSizeMake(labelWidth, 20000) lineBreakMode:UILineBreakModeWordWrap];
+	//return size.height + 10; // 10即消息上下的空间，可自由调整 
+    if (indexPath.row == 0) {
+        height = 90.0f;
+    }
+	return height;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    static NSString *CellIdentifier = @"Cell";
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    if (cell == nil) {
+        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier] autorelease];
+    }
+    int pos = [indexPath row];
+    /*
+     if (pos >= [_items count] + 1) {
+     return nil;
+     }*/
+    if (pos == 0) {
+        RidePath *path = [ride.drvList objectAtIndex:0];
+        cell.textLabel.text = path.drvpath;
+        NSString *drvpath = [NSString stringWithFormat:@"%8@: %@", @"类型", @"车找人"];
+        cell.detailTextLabel.text = drvpath;
+        cell.detailTextLabel.lineBreakMode = 0;
+    } else if (pos == 1) {
+        RidePath *path = [ride.drvList objectAtIndex:0];
+        cell.textLabel.text = path.drvpath;
+        NSString *drvpath = [NSString stringWithFormat:@"%8@: %@\n%8@: %@\n%8@: %@\n",
+                             @"类型", @"车找人",
+                             @"发车时间", @"早07：30",
+                             @"", @""];
+        cell.detailTextLabel.text = drvpath;
+        cell.detailTextLabel.lineBreakMode = 0;
+    } else if (pos == 2) {
+        RidePath *path = [ride.drvList objectAtIndex:0];
+        cell.textLabel.text = path.drvpath;
+        NSString *drvpath = [NSString stringWithFormat:@"%8@: %@\n", @"类型", @"车找人"];
+        cell.detailTextLabel.text = drvpath;
+        cell.detailTextLabel.lineBreakMode = 0;
+    } else if (pos == 3) {
+        RidePath *path = [ride.drvList objectAtIndex:0];
+        cell.textLabel.text = path.drvpath;
+        NSString *drvpath = [NSString stringWithFormat:@"%8@: %@", @"类型", @"车找人"];
+        cell.detailTextLabel.text = drvpath;
+        cell.detailTextLabel.lineBreakMode = 0;
+    } else if (pos == 4) {
+        RidePath *path = [ride.drvList objectAtIndex:0];
+        cell.textLabel.text = path.drvpath;
+        NSString *drvpath = [NSString stringWithFormat:@"%8@: %@", @"类型", @"车找人"];
+        cell.detailTextLabel.text = drvpath;
+        cell.detailTextLabel.lineBreakMode = 0;
+    }
+    
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    // Navigation logic may go here. Create and push another view controller.
+    //NSLog(@"module goto...");
+    int pos = indexPath.row;
+    if (pos < 4) {
+        return;
+    }
+    // 跳转 评论页面
+    //EBuyComments *nextView = [[EBuyComments alloc] init];
+    //nextView.param = param;
+    //[self.navigationController pushViewController:nextView animated:YES];
+    //[nextView release];
 }
 
 @end

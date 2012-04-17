@@ -39,6 +39,7 @@
     // Release any cached data, images, etc that aren't in use.
 }
 
+/*
 -(void) chooseShowController:(NSString*)input{
     BusCategory *category = [BusDecoder classify:input];
     if ([category.type isEqualToString:CATEGORY_CARD]) {
@@ -59,6 +60,7 @@
         [businessView release];
     }
 }
+*/
 
 -(void)decoderWithImage:(UIImage*)image{
     Decoder *decoder = [[Decoder alloc] init];

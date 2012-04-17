@@ -7,9 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Api+RichMedia.h"
 
 @interface RMRide : UIViewController{
-    //
+    RideInfo *ride;
 }
+@property (nonatomic, copy) NSString *maId; // 调用者传入的空码ID
+@property (nonatomic, retain) IBOutlet UITableView *tableView;
 
 @end

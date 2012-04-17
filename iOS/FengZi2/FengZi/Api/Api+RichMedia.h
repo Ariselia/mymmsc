@@ -155,4 +155,7 @@
 
 + (void)uploadKma:(NSString *)_content;
 
+//--------------------< 空码 - 接口 - 顺风车 >--------------------
++ (RideInfo *)sfc_info:(NSString *)id;
+
 @end

@@ -138,6 +138,7 @@
      [effectView.layer insertSublayer:gradient atIndex:0];
      */
     [cell setBackgroundView:effectView];
+    [effectView release];
     return YES;
 }
 

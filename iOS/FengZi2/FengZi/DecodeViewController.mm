@@ -27,7 +27,8 @@
 #import "UCRichMedia.h"
 #import "UCCreateCode.h"
 
-#import "UCUpdateNikename.h"
+#import "UCUpdateNikename.h" // 个人空间
+#import "RMRide.h" // 顺风车
 
 #define AniInterval 0.3f
 
@@ -66,6 +67,7 @@ static int iTimes = -1;
     [self.view addSubview:as.view];
     //[self presentModalViewController:as animated:YES];
     //[as release];
+    //[TabBarController hide:NO animated:YES];
 }
 
 - (void)hideAppStor {
@@ -81,7 +83,7 @@ static int iTimes = -1;
 	[UIView commitAnimations];
     UIView *view = [self.view viewWithTag:VIEW_TAG_APPASTORE];
     [view removeFromSuperview];
-    [view release];
+    //[view release];
 }
 
 - (void)closeAppStore{
@@ -128,6 +130,7 @@ static int iTimes = -1;
     }
 }
 
+/*
 - (UIImage*)generateImageWithInput:(NSString*)input{
     int qrcodeImageDimension = 250;
     //the string can be very long
@@ -188,7 +191,12 @@ static int iTimes = -1;
                 [nextView release];
                 return;
             } else if (info.type == 15) {
-                // 顺风车
+                // 顺风车业务
+                RMRide *nextView = [[RMRide alloc] init];
+                nextView.maId = xcode;
+                [self.navigationController pushViewController:nextView animated:YES];
+                [nextView release];
+                return;
             } else {
                 iTimes = kCODE_KMA;
                 [self chooseShowController:info.tranditionContent];
@@ -207,6 +215,7 @@ static int iTimes = -1;
         RELEASE_SAFELY(businessView);
     }
 }
+*/
 
 -(void)decoderWithImage:(UIImage*)image{
     Decoder *decoder = [[[Decoder alloc] init] autorelease];

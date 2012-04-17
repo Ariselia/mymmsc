@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		0A00FF0D151D53DB00BEA5E9 /* QRCode.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A00FF0C151D53DA00BEA5E9 /* QRCode.framework */; };
-		0A03999E153CD5AA0078C039 /* Api+Decode.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0A03999D153CD5AA0078C039 /* Api+Decode.mm */; };
 		0A4A3AFF15366E9B00FAAE4C /* site_sms.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A4A3AFE15366E9B00FAAE4C /* site_sms.png */; };
 		0A4A3B04153681CC00FAAE4C /* EBuyComments.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A4A3B02153681CC00FAAE4C /* EBuyComments.m */; };
 		0A4A3B05153681CC00FAAE4C /* EBuyComments.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A4A3B03153681CC00FAAE4C /* EBuyComments.xib */; };
@@ -670,8 +669,6 @@
 
 /* Begin PBXFileReference section */
 		0A00FF0C151D53DA00BEA5E9 /* QRCode.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QRCode.framework; path = ../../../../runtime/SDK/QRCode.framework; sourceTree = "<group>"; };
-		0A03999C153CD5AA0078C039 /* Api+Decode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Api+Decode.h"; sourceTree = "<group>"; };
-		0A03999D153CD5AA0078C039 /* Api+Decode.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "Api+Decode.mm"; sourceTree = "<group>"; };
 		0A4A3AFE15366E9B00FAAE4C /* site_sms.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = site_sms.png; sourceTree = "<group>"; };
 		0A4A3B01153681CC00FAAE4C /* EBuyComments.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EBuyComments.h; sourceTree = "<group>"; };
 		0A4A3B02153681CC00FAAE4C /* EBuyComments.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EBuyComments.m; sourceTree = "<group>"; };
@@ -2996,8 +2993,6 @@
 				0AC0D15315322551001F1930 /* UIView+Effect.m */,
 				0ABEA06F15332103009A9642 /* Api+Style.h */,
 				0ABEA07015332103009A9642 /* Api+Style.m */,
-				0A03999C153CD5AA0078C039 /* Api+Decode.h */,
-				0A03999D153CD5AA0078C039 /* Api+Decode.mm */,
 			);
 			path = Api;
 			sourceTree = "<group>";
@@ -3775,7 +3770,6 @@
 				0ACCDD111534D7A900753ECA /* EBProductList.m in Sources */,
 				0A4A3B04153681CC00FAAE4C /* EBuyComments.m in Sources */,
 				0AC2E2B0153AF68200C731AC /* RMRide.m in Sources */,
-				0A03999E153CD5AA0078C039 /* Api+Decode.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
