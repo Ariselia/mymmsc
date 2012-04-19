@@ -131,17 +131,17 @@
     }
 }
 
--(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
     if (buttonIndex==0) {
         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:APPSTORE_URL]];
     }
 }
 
--(void)request:(ITTBaseDataRequest *)request didFailLoadWithError:(NSError *)error{
+- (void)request:(ITTBaseDataRequest *)request didFailLoadWithError:(NSError *)error{
     NSLog(@"%@",error);
 }
 
--(void)setLocationStatus{
+- (void)setLocationStatus{
     if ([DATA_ENV getLocationStatus]) {
         if (!_locationManager) {
             _locationManager = [[CLLocationManager alloc] init];//创建位置管理器
