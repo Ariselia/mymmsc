@@ -42,16 +42,16 @@
 #define API_URL_RICHMEDIA    @"http://m.fengxiafei.com/mb"
 //#define API_URL_RICHMEDIA    @"http://labs.ifengzi.cn/mb"
 // 空码接口地址
-#define API_URL_KMA          @"http://m.fengxiafei.com/mb"
+#define API_URL_KMA          @"http://devp.ifengzi.cn/mb"
 //#define API_URL_KMA          @"http://labs.ifengzi.cn/mb"
 // 用户中心接口地址
 #define API_URL_USERCENTER   @"http://m.ifengzi.cn"
 //#define API_URL_USERCENTER   @"http://devp.ifengzi.cn"
 #define API_URL_SHOW         @"http://m.ifengzi.cn/uc/m_zoneComment.action"
-
+// 顺风车 接口地址
+#define API_URL_RIDE         @"http://220.231.48.34:38090/sfc/fx/facade"
 // 数字商城
 #define API_URL_ESHOP        @"http://220.231.48.34:38090"
-
 // 电子商城
 #define API_URL_EBUY         @"http://220.231.48.34:38090/ebuy/fx"
 
