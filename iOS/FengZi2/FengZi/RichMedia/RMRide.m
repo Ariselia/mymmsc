@@ -7,6 +7,7 @@
 //
 
 #import "RMRide.h"
+#import "RMRideReal.h"
 
 @interface RMRide ()
 
@@ -23,6 +24,10 @@
         // Custom initialization
     }
     return self;
+}
+
+- (void)goBack{
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)viewDidLoad
@@ -60,12 +65,89 @@
 {
     [super viewDidUnload];
     // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
+    _items = nil;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
+}
+
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:YES];
+    [iOSApi showAlert:@"正在加载信息..."];
+    _ride = [Api sfc_info:maId];
+    if (_items == nil) {
+        _items = [[NSMutableArray alloc] initWithCapacity:0];
+    }
+    if (_ride != nil) {
+        BOOL bC2P = NO;
+        RideReal *real = _ride.real;
+        // 根据车龄字段大于0类判断页面类型
+        if (real.drvage > 0) {
+            bC2P = YES;
+        }
+        NSArray *drvList = _ride.drvList;
+        NSArray *psgList = _ride.psgList;
+        if (bC2P) {
+            CGRect frame =  CGRectMake(0, 0, 320, 120);
+            CGFloat lHeight = 50;
+            CGFloat lWidth = 100;
+            UILabel *label = nil;
+            // 车找人
+            UITableViewCell *cellView = [[UITableViewCell alloc] initWithFrame:frame];
+            
+            // 发车时间
+            frame.origin.x = 0;
+            frame.origin.y = 0;
+            frame.size.width = 100;
+            frame.size.height = 44;
+            label = [[[UILabel alloc] initWithFrame:frame] autorelease];
+            label.backgroundColor = [UIColor clearColor];
+            //label.textAlignment = UITextAlignmentCenter;
+            label.font = [UIFont fontWithName:@"黑体" size:44];
+            label.textColor = [UIColor blackColor];
+            label.text= @"发布时间：";
+            [cellView.contentView addSubview:label];
+            frame.origin.x += lWidth;
+            frame.origin.y = 0;
+            frame.size.width = 200;
+            frame.size.height = 44;
+            label = [[[UILabel alloc] initWithFrame:frame] autorelease];
+            label.backgroundColor = [UIColor clearColor];
+            //label.textAlignment = UITextAlignmentCenter;
+            label.font = [UIFont fontWithName:@"黑体" size:44];
+            label.textColor = [UIColor blackColor];
+            label.text= @"发布时间：";
+            [cellView.contentView addSubview:label];
+            //NSString *destaddr;//目的地(encode)
+            //NSString *drvpath;//驾驶路线(encode)
+            //NSString *startaddr;//起始地址(encode)
+            //int shour;//出发开始小时
+            //int sminut;//出发开始分钟
+            
+        } else if (psgList != nil && psgList.count > 0) {
+            // 人找车
+        }
+        if (real != nil) {
+            RMRideReal *cellView = [(RMRideReal *)[[[NSBundle mainBundle] loadNibNamed:@"RMRideReal" owner:self options:nil] objectAtIndex:0] retain];
+            cellView.photo.image = [UIImage imageNamed:@"unknown.png"];
+            [cellView.photo imageWithURL:[iOSApi urlDecode:real.headimg]];
+            cellView.carPhoto.image = [UIImage imageNamed:@"unknown.png"];
+            [cellView.carPhoto imageWithURL:[iOSApi urlDecode:real.carimg]];
+            cellView.name.text = [iOSApi urlDecode:real.realname];
+            cellView.sex.text = real.gender == 1 ? @"男" : @"女";
+            cellView.jiLing.text = [NSString valueOf:real.drvage];
+            cellView.carType.text = [iOSApi urlDecode:real.carseries];
+            cellView.carModel.text = [iOSApi urlDecode:real.cartype];
+            cellView.carColor.text = [iOSApi urlDecode:real.carcolor];
+            cellView.carNumber.text = [iOSApi urlDecode:real.carplate];
+            [_items addObject:cellView];
+        }
+    }
+    
+    [iOSApi closeAlert];
+    [_tableView reloadData];
 }
 
 #pragma mark -
@@ -78,8 +160,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     int count = 0;
     if (maId != nil) {
-        count = 5;
-        //return [_items count];
+        count = [_items count];
     }
     return count;
 }
@@ -89,8 +170,10 @@
     CGFloat height = 50;
 	//CGSize size = [@"123" sizeWithFont:fontInfo constrainedToSize:CGSizeMake(labelWidth, 20000) lineBreakMode:UILineBreakModeWordWrap];
 	//return size.height + 10; // 10即消息上下的空间，可自由调整 
-    if (indexPath.row == 0) {
-        height = 90.0f;
+    id obj = [_items objectAtIndex:indexPath.row];
+    if ([obj isKindOfClass:UITableViewCell.class]) {
+        UITableViewCell *cell =(UITableViewCell *)obj;
+        height = cell.frame.size.height;
     }
 	return height;
 }
@@ -102,45 +185,8 @@
         cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier] autorelease];
     }
     int pos = [indexPath row];
-    /*
-     if (pos >= [_items count] + 1) {
-     return nil;
-     }*/
-    if (pos == 0) {
-        RidePath *path = [ride.drvList objectAtIndex:0];
-        cell.textLabel.text = path.drvpath;
-        NSString *drvpath = [NSString stringWithFormat:@"%8@: %@", @"类型", @"车找人"];
-        cell.detailTextLabel.text = drvpath;
-        cell.detailTextLabel.lineBreakMode = 0;
-    } else if (pos == 1) {
-        RidePath *path = [ride.drvList objectAtIndex:0];
-        cell.textLabel.text = path.drvpath;
-        NSString *drvpath = [NSString stringWithFormat:@"%8@: %@\n%8@: %@\n%8@: %@\n",
-                             @"类型", @"车找人",
-                             @"发车时间", @"早07：30",
-                             @"", @""];
-        cell.detailTextLabel.text = drvpath;
-        cell.detailTextLabel.lineBreakMode = 0;
-    } else if (pos == 2) {
-        RidePath *path = [ride.drvList objectAtIndex:0];
-        cell.textLabel.text = path.drvpath;
-        NSString *drvpath = [NSString stringWithFormat:@"%8@: %@\n", @"类型", @"车找人"];
-        cell.detailTextLabel.text = drvpath;
-        cell.detailTextLabel.lineBreakMode = 0;
-    } else if (pos == 3) {
-        RidePath *path = [ride.drvList objectAtIndex:0];
-        cell.textLabel.text = path.drvpath;
-        NSString *drvpath = [NSString stringWithFormat:@"%8@: %@", @"类型", @"车找人"];
-        cell.detailTextLabel.text = drvpath;
-        cell.detailTextLabel.lineBreakMode = 0;
-    } else if (pos == 4) {
-        RidePath *path = [ride.drvList objectAtIndex:0];
-        cell.textLabel.text = path.drvpath;
-        NSString *drvpath = [NSString stringWithFormat:@"%8@: %@", @"类型", @"车找人"];
-        cell.detailTextLabel.text = drvpath;
-        cell.detailTextLabel.lineBreakMode = 0;
-    }
-    
+    UITableViewCell *obj = [_items objectAtIndex:pos];
+    cell = obj;
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;
 }
