@@ -13,6 +13,7 @@
     RideInfo       *_ride;
     NSMutableArray *_items;
 }
+@property (nonatomic, copy) NSString *maUrl;
 @property (nonatomic, copy) NSString *maId; // 调用者传入的空码ID
 @property (nonatomic, retain) IBOutlet UITableView *tableView;
 

@@ -8,6 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		0A00FF0D151D53DB00BEA5E9 /* QRCode.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A00FF0C151D53DA00BEA5E9 /* QRCode.framework */; };
+		0A0399A8153F79490078C039 /* RMRideReal.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A0399A7153F79480078C039 /* RMRideReal.m */; };
+		0A0399AA153F79700078C039 /* RMRideReal.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A0399A9153F79700078C039 /* RMRideReal.xib */; };
+		0A0399AD153F8D1F0078C039 /* RMRidePath.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A0399AC153F8D1E0078C039 /* RMRidePath.m */; };
+		0A0399B3154068DC0078C039 /* Ride.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 0A0399B2154068DB0078C039 /* Ride.bundle */; };
 		0A4A3AFF15366E9B00FAAE4C /* site_sms.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A4A3AFE15366E9B00FAAE4C /* site_sms.png */; };
 		0A4A3B04153681CC00FAAE4C /* EBuyComments.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A4A3B02153681CC00FAAE4C /* EBuyComments.m */; };
 		0A4A3B05153681CC00FAAE4C /* EBuyComments.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A4A3B03153681CC00FAAE4C /* EBuyComments.xib */; };
@@ -669,6 +673,12 @@
 
 /* Begin PBXFileReference section */
 		0A00FF0C151D53DA00BEA5E9 /* QRCode.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QRCode.framework; path = ../../../../runtime/SDK/QRCode.framework; sourceTree = "<group>"; };
+		0A0399A6153F79480078C039 /* RMRideReal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMRideReal.h; sourceTree = "<group>"; };
+		0A0399A7153F79480078C039 /* RMRideReal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RMRideReal.m; sourceTree = "<group>"; };
+		0A0399A9153F79700078C039 /* RMRideReal.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RMRideReal.xib; sourceTree = "<group>"; };
+		0A0399AB153F8D1E0078C039 /* RMRidePath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMRidePath.h; sourceTree = "<group>"; };
+		0A0399AC153F8D1E0078C039 /* RMRidePath.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RMRidePath.m; sourceTree = "<group>"; };
+		0A0399B2154068DB0078C039 /* Ride.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = Ride.bundle; path = Resources/Ride.bundle; sourceTree = "<group>"; };
 		0A4A3AFE15366E9B00FAAE4C /* site_sms.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = site_sms.png; sourceTree = "<group>"; };
 		0A4A3B01153681CC00FAAE4C /* EBuyComments.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EBuyComments.h; sourceTree = "<group>"; };
 		0A4A3B02153681CC00FAAE4C /* EBuyComments.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EBuyComments.m; sourceTree = "<group>"; };
@@ -2156,6 +2166,7 @@
 		3E11F21014726C8400ACC436 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				0A0399B2154068DB0078C039 /* Ride.bundle */,
 				B8ECE08E14E705FC005DF9AF /* protocol.txt */,
 				7135663F149F02A2006DC948 /* scan_tip.mp3 */,
 				3E11F21314726CA900ACC436 /* Xibs */,
@@ -3054,6 +3065,11 @@
 				0AC2E2AD153AF68200C731AC /* RMRide.h */,
 				0AC2E2AE153AF68200C731AC /* RMRide.m */,
 				0AC2E2AF153AF68200C731AC /* RMRide.xib */,
+				0A0399A6153F79480078C039 /* RMRideReal.h */,
+				0A0399A7153F79480078C039 /* RMRideReal.m */,
+				0A0399A9153F79700078C039 /* RMRideReal.xib */,
+				0A0399AB153F8D1E0078C039 /* RMRidePath.h */,
+				0A0399AC153F8D1E0078C039 /* RMRidePath.m */,
 			);
 			path = RichMedia;
 			sourceTree = "<group>";
@@ -3535,6 +3551,8 @@
 				0AC2E2F2153B867C00C731AC /* sfc-bg.png in Resources */,
 				0AC2E2F3153B867C00C731AC /* sfc-block.png in Resources */,
 				0AC2E2F4153B867C00C731AC /* sfc-logo.png in Resources */,
+				0A0399AA153F79700078C039 /* RMRideReal.xib in Resources */,
+				0A0399B3154068DC0078C039 /* Ride.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3770,6 +3788,8 @@
 				0ACCDD111534D7A900753ECA /* EBProductList.m in Sources */,
 				0A4A3B04153681CC00FAAE4C /* EBuyComments.m in Sources */,
 				0AC2E2B0153AF68200C731AC /* RMRide.m in Sources */,
+				0A0399A8153F79490078C039 /* RMRideReal.m in Sources */,
+				0A0399AD153F8D1F0078C039 /* RMRidePath.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

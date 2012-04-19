@@ -32,7 +32,7 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
--(void)shareCode{
+- (void)shareCode{
     [[SHK currentHelper] setRootViewController:self];
     SHKItem *item = [SHKItem text:@"我制做一个超炫的二维码，大家快来扫扫看！\n来自蜂子客户端"];
     item.image = imageView.image;

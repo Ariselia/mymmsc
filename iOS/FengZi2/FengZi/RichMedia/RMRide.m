@@ -8,13 +8,15 @@
 
 #import "RMRide.h"
 #import "RMRideReal.h"
-
+// 共享
+#import "SHK.h"
+#import "ShareView.h"
 @interface RMRide ()
 
 @end
 
 @implementation RMRide
-@synthesize maId;
+@synthesize maId, maUrl;
 @synthesize tableView = _tableView;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -28,6 +30,16 @@
 
 - (void)goBack{
     [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (void)shareCode{
+    [[SHK currentHelper] setRootViewController:self];
+    SHKItem *item = [SHKItem text:@"我制做一个超炫的二维码，大家快来扫扫看！\n来自蜂子客户端"];
+    item.image = [Api generateImageWithInput:maUrl];
+    item.shareType = SHKShareTypeImage;
+    item.title = @"我制做一个超炫的二维码，大家快来扫扫看！";
+    SHKActionSheet *actionSheet = [SHKActionSheet actionSheetForItem:item];
+    [actionSheet showInView:self.view];
 }
 
 - (void)viewDidLoad
@@ -59,6 +71,15 @@
     UIBarButtonItem *backitem = [[UIBarButtonItem alloc] initWithCustomView:backbtn];
     self.navigationItem.leftBarButtonItem = backitem;
     [backitem release];
+    
+    UIButton *_btnRight = [UIButton buttonWithType:UIButtonTypeCustom];
+    _btnRight.frame = CGRectMake(0, 0, 60, 32);
+    [_btnRight setImage:[UIImage imageNamed:@"share.png"] forState:UIControlStateNormal];
+    [_btnRight setImage:[UIImage imageNamed:@"share_tap.png"] forState:UIControlStateHighlighted];
+    [_btnRight addTarget:self action:@selector(shareCode) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *rightItem = [[UIBarButtonItem alloc] initWithCustomView:_btnRight];
+    self.navigationItem.rightBarButtonItem = rightItem;
+    [rightItem release];
 }
 
 - (void)viewDidUnload
@@ -81,8 +102,9 @@
         _items = [[NSMutableArray alloc] initWithCapacity:0];
     }
     if (_ride != nil) {
-        BOOL bC2P = NO;
         RideReal *real = _ride.real;
+#if 0
+        BOOL bC2P = NO;
         // 根据车龄字段大于0类判断页面类型
         if (real.drvage > 0) {
             bC2P = YES;
@@ -118,9 +140,32 @@
             //label.textAlignment = UITextAlignmentCenter;
             label.font = [UIFont fontWithName:@"黑体" size:44];
             label.textColor = [UIColor blackColor];
+            label.text= @"7:30";
+            [cellView.contentView addSubview:label];
+            
+            //NSString *destaddr;//目的地(encode)
+            frame.origin.x = 0;
+            frame.origin.y += lHeight;
+            frame.size.width = 100;
+            frame.size.height = 44;
+            label = [[[UILabel alloc] initWithFrame:frame] autorelease];
+            label.backgroundColor = [UIColor clearColor];
+            //label.textAlignment = UITextAlignmentCenter;
+            label.font = [UIFont fontWithName:@"黑体" size:44];
+            label.textColor = [UIColor blackColor];
             label.text= @"发布时间：";
             [cellView.contentView addSubview:label];
-            //NSString *destaddr;//目的地(encode)
+            frame.origin.x += lWidth;
+            frame.origin.y = 0;
+            frame.size.width = 200;
+            frame.size.height = 44;
+            label = [[[UILabel alloc] initWithFrame:frame] autorelease];
+            label.backgroundColor = [UIColor clearColor];
+            //label.textAlignment = UITextAlignmentCenter;
+            label.font = [UIFont fontWithName:@"黑体" size:44];
+            label.textColor = [UIColor blackColor];
+            label.text= @"7:30";
+            [cellView.contentView addSubview:label];
             //NSString *drvpath;//驾驶路线(encode)
             //NSString *startaddr;//起始地址(encode)
             //int shour;//出发开始小时
@@ -129,6 +174,7 @@
         } else if (psgList != nil && psgList.count > 0) {
             // 人找车
         }
+#endif
         if (real != nil) {
             RMRideReal *cellView = [(RMRideReal *)[[[NSBundle mainBundle] loadNibNamed:@"RMRideReal" owner:self options:nil] objectAtIndex:0] retain];
             cellView.photo.image = [UIImage imageNamed:@"unknown.png"];
@@ -143,6 +189,43 @@
             cellView.carColor.text = [iOSApi urlDecode:real.carcolor];
             cellView.carNumber.text = [iOSApi urlDecode:real.carplate];
             [_items addObject:cellView];
+            
+            // 顺风车历史
+            NSString *s = [iOSApi urlDecode:real.his];
+            CGFloat h = [iOSApi heightForString:s width:300 fontSize:12];
+            CGRect frame = CGRectMake(0, 0, 320, 50+h);
+            // 车找人
+            UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"cell"];
+            cell.frame = frame;
+            cell.contentMode = UITableViewCellStyleSubtitle;
+            cell.textLabel.text= @"顺风车经历：";
+            cell.detailTextLabel.text = [iOSApi urlDecode:real.his];
+            cell.detailTextLabel.lineBreakMode = 0;
+            cell.backgroundColor = [UIColor grayColor];
+            //UIImage *image = [UIImage imageWithNinePatch:@"sfc-block.png" size:frame.size];
+            //UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
+            //[cell.contentView addSubview:imageView];
+            //imageView.frame = frame;
+            //[imageView release];
+            [_items addObject:cell];
+            
+            // 顺风车 宣言
+            s = [iOSApi urlDecode:real.decl];
+            h = [iOSApi heightForString:s width:300 fontSize:12];
+            frame = CGRectMake(0, 0, 320, 50+h);
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"cell"];
+            cell.frame = frame;
+            cell.contentMode = UITableViewCellStyleSubtitle;
+            cell.textLabel.text= @"顺风车宣言：";
+            cell.detailTextLabel.text = s;
+            cell.detailTextLabel.lineBreakMode = 0;
+            cell.backgroundColor = [UIColor grayColor];
+            //UIImage *image = [UIImage imageWithNinePatch:@"sfc-block.png" size:frame.size];
+            //UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
+            //[cell.contentView addSubview:imageView];
+            //imageView.frame = frame;
+            //[imageView release];
+            [_items addObject:cell];
         }
     }
     

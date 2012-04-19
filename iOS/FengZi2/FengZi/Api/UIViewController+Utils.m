@@ -98,6 +98,7 @@ static int iTimes = -1;
                 // 顺风车业务
                 RMRide *nextView = [[RMRide alloc] init];
                 nextView.maId = xcode;
+                nextView.maUrl = url;
                 [self.navigationController pushViewController:nextView animated:YES];
                 [nextView release];
                 return;
