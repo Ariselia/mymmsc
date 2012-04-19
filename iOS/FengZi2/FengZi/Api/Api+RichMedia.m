@@ -344,7 +344,7 @@ static NSString *kma_id = nil;
 // 空码扫码, 确定业务及内容
 + (KmaObject *)kmaContent:(NSString *)pid {
     static NSString *path = @"kma/getContent.action";
-    NSString *action = [NSString stringWithFormat:@"%@/%@?userid=%d", API_URL_RICHMEDIA, path, [Api userId]];
+    NSString *action = [NSString stringWithFormat:@"%@/%@?userid=%d", API_URL_KMA, path, [Api userId]];
     
     NSString *app = [Api base64e:[Api appAttribute:DATA_ENV.curBusinessType]];
     
@@ -440,24 +440,29 @@ static NSString *kma_id = nil;
     RideInfo *oRet = [[RideInfo alloc] init];
     static NSString *method = @"info";
     NSString *query = [NSString stringWithFormat:@"id=%@", id];
-    NSString *action = [NSString stringWithFormat:@"%@/%@?%@", API_URL_EBUY, method, query];
+    NSString *action = [NSString stringWithFormat:@"%@/%@?%@", API_URL_RIDE, method, query];
     NSDictionary *response = [Api post:action params:nil];
+#if 0
     // 增加测试数据
     if(response == nil) {
         NSString *s = @"{\"info\":{\"data\":{\"drvlist\":[{\"destaddr\":\"%E8%A5%BF%E5%B1%B1\",\"drvpath\":\"%E6%98%86%E5%B1%B1-%E8%8B%8F%E5%B7%9E-%E8%A5%BF%E5%B1%B1\",\"startaddr\":\"%E6%98%86%E5%B1%B1\",\"shour\":7,\"sminut\":0},{\"destaddr\":\"%E6%BB%A8%E6%B5%B7\",\"drvpath\":\"%E4%B8%9C%E5%8F%B0-%E5%A4%A7%E4%B8%B0-%E6%BB%A8%E6%B5%B7\",\"startaddr\":\"%E4%B8%9C%E5%8F%B0\",\"shour\":7,\"sminut\":30},{\"destaddr\":\"%E9%A1%BA%E4%B9%89\",\"drvpath\":\"%E6%B7%80%E6%B5%B7-%E5%97%A8%E5%97%A8-%E9%A1%BA%E4%B9%89\",\"startaddr\":\"%E6%B7%80%E6%B5%B7\",\"shour\":8,\"sminut\":0},{\"destaddr\":\"%E4%BA%94%E6%A3%B5%E6%9D%BE\",\"drvpath\":\"%E4%BA%94%E9%81%93%E5%8F%A3-%E4%BA%94%E6%A3%B5%E6%9D%BE\",\"startaddr\":\"%E4%BA%94%E9%81%93%E5%8F%A3\",\"shour\":9,\"sminut\":20}],\"psglist\":[{\"destaddr\":\"%E8%8B%8F%E5%B7%9E\",\"startaddr\":\"%E6%98%86%E5%B1%B1\",\"shour\":7,\"sminut\":0},{\"destaddr\":\"%E4%BA%94%E9%81%93%E5%8F%A3\",\"startaddr\":\"%E4%BA%94%E6%A3%B5%E6%9D%BE\",\"shour\":9,\"sminut\":30},{\"destaddr\":\"%E5%BC%A0%E5%AE%B6%E6%B8%AF\",\"startaddr\":\"%E6%98%86%E5%B1%B1\",\"shour\":9,\"sminut\":0}],\"real\":{\"carcolor\":\"red\",\"carimg\":\"http%3A%2F%2Flocalhost%3A8080%2Fsfc%2FUploadImg%2F20120411%2Fdbdeca07-3bca-4c62-873b-4c02dcdb6c39.jpg\",\"carplate\":\"de12232\",\"carseries\":121212,\"cartype\":121212,\"decl\":\"%E4%BD%A0%E6%95%A2%E6%8B%BC%EF%BC%8C%E6%88%91%E6%95%A2%E6%8E%A5%EF%BC%81\",\"drvage\":12,\"gender\":2,\"headimg\":\"http%3A%2F%2Flocalhost%3A8080%2Fsfc%2FUploadImg%2F20120411%2Fe672204a-c90a-418d-b5d0-2fb646ab17c5.jpg\",\"his\":\"%E6%B1%82%E6%8B%BC%E8%BD%A6%EF%BC%8C%E6%B1%82%E6%8B%BC%E8%BD%A6\",\"realname\":\"%E8%AE%B8%E8%BF%9B\"}},\"info\":\"\",\"status\":0}}";
         response = [s objectFromJSONString];
     }
+#endif
     if (response) {
         [response fillObject:oRet];
-        NSDictionary *data = [response objectForKey:method];
-        if (data.count > 0) {
-            // 加载车找人
-            NSMutableArray *srvList = [data objectForKey:@"drvlist"];
-            oRet.drvList = [srvList toList:RidePath.class];
-            srvList = [data objectForKey:@"psglist"];
-            oRet.psgList = [srvList toList:RidePath.class];
-            NSDictionary *real = [data objectForKey:@"real"];
-            oRet.real = [real toObject:RideReal.class];
+        NSDictionary *data1 = [response objectForKey:method];
+        if (data1.count > 0) {
+            NSDictionary *data = [data1 objectForKey:@"data"];
+            if(data.count > 0) {
+                // 加载车找人
+                NSMutableArray *srvList = [data objectForKey:@"drvlist"];
+                oRet.drvList = [srvList toList:RidePath.class];
+                srvList = [data objectForKey:@"psglist"];
+                oRet.psgList = [srvList toList:RidePath.class];
+                NSDictionary *real = [data objectForKey:@"real"];
+                oRet.real = [real toObject:RideReal.class];
+            }
         }
     }
     
