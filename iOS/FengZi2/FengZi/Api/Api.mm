@@ -300,8 +300,19 @@ static UserInfo *cache_info = nil;
     if (tmpUrl.count >= 2) {
         NSArray *attrs = [[tmpUrl objectAtIndex:1] componentsSeparatedByString:@"&"];
         for (int i = 0; i < attrs.count; i++) {
-            NSArray *param = [[attrs objectAtIndex:i] componentsSeparatedByString:@"="];
-            [dict setObject:[param objectAtIndex:1] forKey:[param objectAtIndex:0]];
+            NSString *s = [attrs objectAtIndex:i];
+            s = [s stringByReplacingOccurrencesOfString:@"&" withString:@""];
+            NSArray *param = [s componentsSeparatedByString:@"="];
+            NSString *key = [param objectAtIndex:0];
+            NSString *value = [param objectAtIndex:1];
+            if (value.length > 0) {
+                value = [iOSApi urlDecode:value];
+            } else {
+                value = @"";
+            }
+            if (key.length > 0) {
+                [dict setObject: value forKey:key];
+            }            
         }
     }
     return dict;
