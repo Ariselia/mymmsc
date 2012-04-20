@@ -7,6 +7,8 @@
 //
 
 #import "EBuyPanel.h"
+#import "EBuyPortal.h"
+#import "EBMessageList.h"
 
 @implementation EBuyPanel
 @synthesize ownerId;
@@ -32,7 +34,10 @@
 
 // 站内消息
 - (IBAction)doSiteMsg:(id)sender{
-    //
+    EBuyPortal *potal = ownerId;
+    EBMessageList *nextView = [[EBMessageList alloc] init];
+    [potal.navigationController pushViewController:nextView animated:YES];
+    [nextView release];
 }
 
 // 我的订单
@@ -57,7 +62,10 @@
 
 // 分类
 - (IBAction)doGroup:(id)sender{
-    //
+    EBuyPortal *potal = ownerId;
+    EBMessageList *nextView = [[EBMessageList alloc] init];
+    [potal.navigationController pushViewController:nextView animated:YES];
+    [nextView release];
 }
 
 // 选择

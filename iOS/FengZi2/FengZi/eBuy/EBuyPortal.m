@@ -136,7 +136,18 @@
         // 预加载项
         _items = [[NSMutableArray alloc] initWithCapacity:0];
         _page = 1;
-        NSArray *list = [[Api ebuy_new:_page++] retain];
+        NSArray *list = nil;
+        if (!isOnline) {
+            // 未登录, 下放列表是推荐产品
+            list = [[Api ebuy_new:_page++] retain];
+        } else {
+            // 登录后
+            if (_segIndex == 0) {
+                // 疯狂抢购
+            } else {
+                // 金牌店铺
+            }
+        }
         [_items addObjectsFromArray:list];
         [list release];
     }
@@ -259,11 +270,6 @@
     [_tableView reloadData];
     [searchBar resignFirstResponder];
     //重新载入数据，隐藏软键盘
-}
-
-// 界面下方列表切换
-- (void)doSwitch:(int)index{
-    //
 }
 
 @end

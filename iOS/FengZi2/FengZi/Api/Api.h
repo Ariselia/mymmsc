@@ -99,6 +99,7 @@
 }
 
 //--------------------< 接口 - 视图 - 一个变态的用法 >--------------------
+
 //只为激活当前视图
 + (UIViewController *)tabView;
 + (void)seTabView:(UIViewController *)view;
@@ -106,6 +107,7 @@
 //--------------------< 接口 - 对象 - BASE64 >--------------------
 + (NSString *)base64e:(NSString *)s;
 + (NSData *)base64d_data:(NSString *)s;
+
 //--------------------< 接口 - 对象 - 用户信息 >--------------------
 + (UserInfo *)user;
 

@@ -17,6 +17,8 @@
 		0A4A3B05153681CC00FAAE4C /* EBuyComments.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A4A3B03153681CC00FAAE4C /* EBuyComments.xib */; };
 		0A71F1EF15044A41007714BB /* EBuyPortal.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A71F1ED15044A41007714BB /* EBuyPortal.m */; };
 		0A71F1F015044A41007714BB /* EBuyPortal.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A71F1EE15044A41007714BB /* EBuyPortal.xib */; };
+		0A8447E1154126D1000381E0 /* EBuyTypes.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A8447DF154126D1000381E0 /* EBuyTypes.m */; };
+		0A8447E2154126D1000381E0 /* EBuyTypes.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A8447E0154126D1000381E0 /* EBuyTypes.xib */; };
 		0AADFE5115223C84004B4D4D /* EBShopInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AADFE5015223C84004B4D4D /* EBShopInfo.m */; };
 		0AADFE5315223CA3004B4D4D /* EBShopInfo.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0AADFE5215223CA3004B4D4D /* EBShopInfo.xib */; };
 		0AAECA6E1517EAD000D5DDBE /* EBExpressDetail.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AAECA6C1517EAD000D5DDBE /* EBExpressDetail.m */; };
@@ -686,6 +688,9 @@
 		0A71F1EC15044A41007714BB /* EBuyPortal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EBuyPortal.h; sourceTree = "<group>"; };
 		0A71F1ED15044A41007714BB /* EBuyPortal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EBuyPortal.m; sourceTree = "<group>"; };
 		0A71F1EE15044A41007714BB /* EBuyPortal.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EBuyPortal.xib; sourceTree = "<group>"; };
+		0A8447DE154126D0000381E0 /* EBuyTypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EBuyTypes.h; sourceTree = "<group>"; };
+		0A8447DF154126D1000381E0 /* EBuyTypes.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EBuyTypes.m; sourceTree = "<group>"; };
+		0A8447E0154126D1000381E0 /* EBuyTypes.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EBuyTypes.xib; sourceTree = "<group>"; };
 		0AADFE4F15223C84004B4D4D /* EBShopInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EBShopInfo.h; sourceTree = "<group>"; };
 		0AADFE5015223C84004B4D4D /* EBShopInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EBShopInfo.m; sourceTree = "<group>"; };
 		0AADFE5215223CA3004B4D4D /* EBShopInfo.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EBShopInfo.xib; sourceTree = "<group>"; };
@@ -1696,6 +1701,9 @@
 				0A4A3B01153681CC00FAAE4C /* EBuyComments.h */,
 				0A4A3B02153681CC00FAAE4C /* EBuyComments.m */,
 				0A4A3B03153681CC00FAAE4C /* EBuyComments.xib */,
+				0A8447DE154126D0000381E0 /* EBuyTypes.h */,
+				0A8447DF154126D1000381E0 /* EBuyTypes.m */,
+				0A8447E0154126D1000381E0 /* EBuyTypes.xib */,
 			);
 			path = eBuy;
 			sourceTree = "<group>";
@@ -3553,6 +3561,7 @@
 				0AC2E2F4153B867C00C731AC /* sfc-logo.png in Resources */,
 				0A0399AA153F79700078C039 /* RMRideReal.xib in Resources */,
 				0A0399B3154068DC0078C039 /* Ride.bundle in Resources */,
+				0A8447E2154126D1000381E0 /* EBuyTypes.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3790,6 +3799,7 @@
 				0AC2E2B0153AF68200C731AC /* RMRide.m in Sources */,
 				0A0399A8153F79490078C039 /* RMRideReal.m in Sources */,
 				0A0399AD153F8D1F0078C039 /* RMRidePath.m in Sources */,
+				0A8447E1154126D1000381E0 /* EBuyTypes.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

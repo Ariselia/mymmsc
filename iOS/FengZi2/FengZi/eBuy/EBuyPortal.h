@@ -18,10 +18,9 @@
     UIFont             *_font;
     int                 _page;
     BOOL                isOnline;
+    int                 _segIndex;
 }
 @property (nonatomic, retain) IBOutlet UITableView *tableView;
 @property (nonatomic, retain) IBOutlet UISearchBar *searchBar;
-
-- (void)doSwitch:(int)index;
 
 @end

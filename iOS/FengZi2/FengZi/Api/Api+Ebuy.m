@@ -383,13 +383,19 @@
     if (page < 0) {
         page = 0;
     }
-    NSString *query = [NSString stringWithFormat:@"page=%d", page];
+    NSString *query = [NSString stringWithFormat:@"page=%d&id=%d", page, [Api userId]];
+#if 0
     NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
                         API_INTERFACE_TONKEN, @"token",
                         [NSString valueOf:[Api userId]], @"id",
                         nil];
+#endif
     NSString *action = [NSString stringWithFormat:@"%@/%@?%@", API_URL_EBUY, method, query];
-    NSDictionary *response = [Api post:action params:params];
+    NSDictionary *response = [Api post:action params:nil];
+    //if (response == nil) {
+        NSString *test = @"{\"messagerecv\":[{\"content\":\"robin%20robin\",\"title\":\"test2\",\"senderid\":1,\"sendname\":\"robin\",\"recevtime\":\"2012-01-11 10:01:15\",\"id\":\"9a6683dc-46ce-4cd0-a2fd-7e6ff1ab2c31\"},{\"content\":\"testtesttest%20test\",\"title\":\"test\",\"senderid\":1,\"sendname\":\"sunny\",\"recevtime\":\"2012-01-11 10:01:15\",\"id\":\"9a6683dc-46ce-4cd0-a2fd-7e6ff1ab2c32\"}]}";
+        response = [test objectFromJSONString];
+    //}
     if (response) {
         NSMutableArray *data = [response objectForKey:method];
         if (data.count > 0) {

@@ -1,26 +1,28 @@
 //
-//  EBMessageList.m
+//  EBuyTypes.m
 //  FengZi
 //
-//  Created by wangfeng on 12-4-10.
+//  Created by wangfeng on 12-4-20.
 //  Copyright (c) 2012年 ifengzi.cn. All rights reserved.
 //
 
-#import "EBMessageList.h"
+#import "EBuyTypes.h"
 #import "Api+Ebuy.h"
 
-@interface EBMessageList ()
+@interface EBuyTypes ()
 
 @end
 
-@implementation EBMessageList
+@implementation EBuyTypes
 @synthesize tableView = _tableView;
+@synthesize frontId, typeId;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
+        self.proxy = self;
     }
     return self;
 }
@@ -62,7 +64,7 @@
     label.textAlignment = UITextAlignmentCenter;
     label.font = [UIFont fontWithName:@"黑体" size:60];
     label.textColor = [UIColor blackColor];
-    label.text= @"站内消息";
+    label.text= @"全部分类";
     self.navigationItem.titleView = label;
     [label release];
     
@@ -83,79 +85,61 @@
         _items = [[NSMutableArray alloc] initWithCapacity:0];
         _page = 1;
     }
-    if (_items != nil) {
-        [iOSApi showAlert:@"读取收件箱..."];
-        //NSArray *list = [[Api ebuy_push:_page++] retain];
-        NSArray *list = [[Api ebuy_message_recv:_page] retain];
-        [_items addObjectsFromArray:list];
-        [list release];
-        [iOSApi closeAlert];
-    }
 }
 
 #pragma mark -
 #pragma mark UITableViewDataSource
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 1;
-}
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    //return 0;
-    return [_items count];
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    CGFloat height = 60.f;
-	return height;
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    static NSString *CellIdentifier = @"Cell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    if (cell == nil) {
-        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier] autorelease];
-    }
-    int pos = [indexPath row];
-    EBSiteMessage *obj = [_items objectAtIndex:pos];
-    NSString *tmpTitle = [NSString stringWithFormat:@"%@:%@", obj.sendName, obj.recevTime];
-    cell.textLabel.text = [iOSApi urlDecode:tmpTitle];
-    cell.detailTextLabel.text = [iOSApi urlDecode:obj.content];
-    cell.detailTextLabel.lineBreakMode = 0;
+- (BOOL)configure:(UITableViewCell *)cell withObject:(id)object {
+    EBProductType *obj = object;
+    // 设置字体
+    UIFont *textFont = [UIFont systemFontOfSize:17.0];
+    //UIFont *detailFont = [UIFont systemFontOfSize:12.0];
+    //int imageHeight = 36;
+    
+    //[cell.imageView setImage:ai.image];
+    
+    cell.textLabel.text = [iOSApi urlDecode:obj.typeName];
+    cell.textLabel.font = textFont;
     
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    return cell;
+    return YES;
 }
 
-- (UITableViewCellAccessoryType)tableView:(UITableView *)tableView accessoryTypeForRowWithIndexPath:(NSIndexPath *)indexPath {
-    return UITableViewCellAccessoryDetailDisclosureButton;
-    //return UITableViewCellAccessoryDisclosureIndicator;
-}
-
-- (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath{
-    //
-}
-
-// 选择
-- (IBAction)segmentAction:(UISegmentedControl *)segment{
-    [iOSApi showAlert:@"读取收件箱..."];
-    
-    NSArray *list = nil;
-    _page = 1;
-    if (segment.selectedSegmentIndex == 0) {
-        list = [[Api ebuy_message_recv:_page] retain];
+- (void)tableView:(UITableViewCell *)cell onCustomAccessoryTapped:(id)object {
+    EBProductType *obj = object;
+    if (obj.child > 0) {
+        // 有子分类
+        EBuyTypes *nextView = [[EBuyTypes alloc] init];
+        nextView.frontId = typeId;
+        nextView.typeId = obj.typeId;
+        [self.navigationController pushViewController:nextView animated:YES];
+        [nextView release];
     } else {
-        list = [[Api ebuy_message_send:_page] retain];
+        // 无子分类, 跳转产品
     }
-    if (_items.count > 0) {
-        [_items removeAllObjects];
+}
+
+- (NSArray *)reloadData:(iOSTableViewController *)tableView {
+    [iOSApi showAlert:@"正在获取商品信息"];
+    NSArray *data = [Api ebuy_type:_page typeId:typeId];
+    if (data == nil || data.count < 1) {
+        [iOSApi showCompleted:@"服务器正忙，请稍候"];
     }
-    [_items addObjectsFromArray:list];
-    [list release];
     [iOSApi closeAlert];
-    [_tableView reloadData];
+    return data;
+}
+
+- (NSArray *)arrayOfHeader:(iOSTableViewController *)tableView {
+    return nil;
+}
+
+- (NSArray *)arrayOfFooter:(iOSTableViewController *)tableView {
+    NSArray *list = [Api ebuy_type:_page + 1 typeId:typeId];
+    if (list.count > 0) {
+        _page += 1;
+    }
+    return list;
 }
 
 @end

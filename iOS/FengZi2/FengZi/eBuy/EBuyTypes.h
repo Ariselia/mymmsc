@@ -1,21 +1,21 @@
 //
-//  EBMessageList.h
+//  EBuyTypes.h
 //  FengZi
 //
-//  Created by wangfeng on 12-4-10.
+//  Created by wangfeng on 12-4-20.
 //  Copyright (c) 2012年 ifengzi.cn. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import <iOSApi/iOSTableViewController.h>
 
-// 站内消息
-@interface EBMessageList : UIViewController{
+@interface EBuyTypes : iOSTableViewController<iOSTableDataDelegate>{
     UITextBorderStyle   _borderStyle;
     NSMutableArray     *_items;
     UIFont             *_font;
     int                 _page;
 }
 @property (nonatomic, retain) IBOutlet UITableView *tableView;
-// 选择
-- (IBAction)segmentAction:(UISegmentedControl *)segment;
+@property (nonatomic, assign) int frontId;
+@property (nonatomic, assign) int typeId;
+
 @end
