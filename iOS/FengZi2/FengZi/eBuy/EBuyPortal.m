@@ -68,7 +68,7 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    
+    [Api seTabView:self];
     UIImage *image = [UIImage imageNamed:@"navigation_bg.png"];
     Class ios5Class = (NSClassFromString(@"CIImage"));
     if (nil != ios5Class) {
@@ -112,18 +112,25 @@
     } else {
         [_headers removeAllObjects];
     }
+    BOOL bFresh = NO;
+    if (isOnline != [Api isOnLine]) {
+        bFresh = YES;
+    }
     isOnline = [Api isOnLine];
-    // 广告视图
+    // 广告视图, 登录不登录都是必须的
     EBAdBar *view = [(EBAdBar*)[[[NSBundle mainBundle] loadNibNamed:@"EBAdBar" owner:self options:nil] objectAtIndex:0] retain];
     [_headers addObject:view];
-    EBuyRecommend *topView = [(EBuyRecommend*)[[[NSBundle mainBundle] loadNibNamed:@"EBuyRecommend" owner:self options:nil] objectAtIndex:0] retain];
-    topView.ownerId = self;
-    [_headers addObject:topView];
     // 判断是否登录
     if (isOnline) {
-        // 登录
+        // 登录, 显示功能面板
+        EBuyPanel *topView = [(EBuyPanel*)[[[NSBundle mainBundle] loadNibNamed:@"EBuyPanel" owner:self options:nil] objectAtIndex:0] retain];
+        topView.ownerId = self;
+        [_headers addObject:topView];
     } else {
-        // 未登录
+        // 未登录, 显示推荐自定义Cell
+        EBuyRecommend *topView = [(EBuyRecommend*)[[[NSBundle mainBundle] loadNibNamed:@"EBuyRecommend" owner:self options:nil] objectAtIndex:0] retain];
+        topView.ownerId = self;
+        [_headers addObject:topView];
     }
     if ([_items count] == 0) {
         // 预加载项
@@ -135,6 +142,9 @@
     }
     //[iOSApi showCompleted:@"加载完毕"];
     [iOSApi closeAlert];
+    if(bFresh) {
+        [_tableView reloadData];
+    }
 }
 
 - (void)viewDidAppear:(BOOL)animated {

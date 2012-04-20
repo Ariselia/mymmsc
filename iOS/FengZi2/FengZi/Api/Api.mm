@@ -110,6 +110,17 @@
 
 @implementation Api
 
+//--------------------< 接口 - 视图 - 一个变态的用法 >--------------------
+//只为激活当前视图
+static UIViewController *s_view = nil;
+
++ (UIViewController *)tabView{
+    return s_view;
+}
++ (void)seTabView:(UIViewController *)view{
+    s_view = view;
+}
+
 + (NSString *)base64e:(NSString *)s {
     NSData *data = [s dataUsingEncoding:NSUTF8StringEncoding];
     NSData *dst = [GTMBase64 encodeData:data];

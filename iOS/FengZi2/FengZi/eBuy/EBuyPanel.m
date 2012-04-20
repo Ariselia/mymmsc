@@ -11,6 +11,7 @@
 @implementation EBuyPanel
 @synthesize ownerId;
 @synthesize group;
+@synthesize photo,name,userType,jiFen;
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {

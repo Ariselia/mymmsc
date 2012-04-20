@@ -43,7 +43,7 @@
 					<object class="IBUITableView" id="795723759">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">274</int>
-						<string key="NSFrame">{{0, 38}, {320, 329}}</string>
+						<string key="NSFrame">{{0, 44}, {320, 317}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
 						<string key="NSReuseIdentifierKey">_NS:178</string>
@@ -69,7 +69,7 @@
 					<object class="IBUISearchBar" id="536554164">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">290</int>
-						<string key="NSFrame">{{0, -6}, {320, 44}}</string>
+						<string key="NSFrameSize">{320, 44}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="795723759"/>

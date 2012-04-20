@@ -13,6 +13,8 @@
 
 #import "UserCenter.h"
 
+#import "Api.h"
+
 #define TAB_CONTROLLER_TAB_HIDDEN_Y 480.0f
 #define TAB_CONTROLLER_TAB_VISIBLE_Y 433.0f
 #define TAB_CONTROLLER_TAB_HEIGHT 47.0f
@@ -38,7 +40,13 @@ static TabBarController *_tabBarInstance;
 - (void)customTabbar:(CustomTabbar*)customTabbar didSelectTab:(int)tabIndex{
     [customTabbar selectTabAtIndex:tabIndex];
     self.selectedIndex = tabIndex;
-    [(UINavigationController*)[self.viewControllers objectAtIndex:tabIndex] popToRootViewControllerAnimated:YES];
+    //[(UINavigationController *)[self.viewControllers objectAtIndex:tabIndex] popToRootViewControllerAnimated:YES];
+    UINavigationController *nav = [self.viewControllers objectAtIndex:tabIndex];
+    [nav popToRootViewControllerAnimated:YES];
+    if (tabIndex == 0) {
+        UIViewController *view = [Api tabView];
+        [view viewWillAppear:YES];
+    }
 }
 
 #pragma mark - private methods

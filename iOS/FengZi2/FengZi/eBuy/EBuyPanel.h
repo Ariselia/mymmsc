@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Api.h"
 
 @interface EBuyPanel : UITableViewCell{
     //
@@ -14,6 +15,11 @@
 
 @property (nonatomic, assign) id ownerId;
 @property (nonatomic, retain) IBOutlet UISegmentedControl *group;
+
+@property (nonatomic, retain) IBOutlet iOSImageView *photo;
+@property (nonatomic, retain) IBOutlet UILabel *name;
+@property (nonatomic, retain) IBOutlet UILabel *userType;
+@property (nonatomic, retain) IBOutlet UILabel *jiFen;
 
 // 站内消息
 - (IBAction)doSiteMsg:(id)sender;
