@@ -121,7 +121,21 @@
 @property (retain, nonatomic) NSString *logId;
 @end
 
-//--------------------< 业务类型 - 对象 - 书签 >--------------------
+//--------------------< 业务类型 - 对象 - 日程 >--------------------
+@interface Schedule : ITTBaseModelObject{
+    NSString* _date;
+	NSString* _title;
+	NSString* _content;	
+	//标示身份的id，用作记录传递
+	NSString* _logId;	
+}
+@property (retain, nonatomic) NSString *date;
+@property (retain, nonatomic) NSString *title;
+@property (retain, nonatomic) NSString *content;
+@property (retain, nonatomic) NSString *logId;
+
+@end
+
 //--------------------< 业务类型 - 对象 - 书签 >--------------------
 //--------------------< 业务类型 - 对象 - 书签 >--------------------
 //--------------------< 业务类型 - 对象 - 书签 >--------------------

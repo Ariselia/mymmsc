@@ -551,7 +551,6 @@
 		71D850A8147E3739002A7BAF /* EditImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 71D850A7147E3739002A7BAF /* EditImageView.m */; };
 		71DA7DD914A85DBF00CA5CFD /* card_encode.png in Resources */ = {isa = PBXBuildFile; fileRef = 71DA7DD814A85DBF00CA5CFD /* card_encode.png */; };
 		71E0EE42147BA17B00DEA174 /* WebScanViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 71E0EE41147BA17B00DEA174 /* WebScanViewController.mm */; };
-		71F4D85014833C4200DB5650 /* Schedule.m in Sources */ = {isa = PBXBuildFile; fileRef = 71F4D84F14833C4100DB5650 /* Schedule.m */; };
 		71F4D85314833CC500DB5650 /* Shortmessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 71F4D85214833CC400DB5650 /* Shortmessage.m */; };
 		71F4D85614833D4100DB5650 /* Text.m in Sources */ = {isa = PBXBuildFile; fileRef = 71F4D85514833D4000DB5650 /* Text.m */; };
 		71F4D85914833D8200DB5650 /* Url.m in Sources */ = {isa = PBXBuildFile; fileRef = 71F4D85814833D8100DB5650 /* Url.m */; };
@@ -1395,8 +1394,6 @@
 		71D850A7147E3739002A7BAF /* EditImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditImageView.m; sourceTree = "<group>"; };
 		71DA7DD814A85DBF00CA5CFD /* card_encode.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = card_encode.png; sourceTree = "<group>"; };
 		71E0EE41147BA17B00DEA174 /* WebScanViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = WebScanViewController.mm; sourceTree = "<group>"; };
-		71F4D84E14833C4100DB5650 /* Schedule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Schedule.h; sourceTree = "<group>"; };
-		71F4D84F14833C4100DB5650 /* Schedule.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Schedule.m; sourceTree = "<group>"; };
 		71F4D85114833CC300DB5650 /* Shortmessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Shortmessage.h; sourceTree = "<group>"; };
 		71F4D85214833CC400DB5650 /* Shortmessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Shortmessage.m; sourceTree = "<group>"; };
 		71F4D85414833D3F00DB5650 /* Text.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Text.h; sourceTree = "<group>"; };
@@ -1883,8 +1880,6 @@
 				716ADCBD14973AA4005E82B1 /* DataBaseOperate.m */,
 				3E11F14814726A7C00ACC436 /* ITTBaseModelObject.h */,
 				3E11F14914726A7C00ACC436 /* ITTBaseModelObject.m */,
-				71F4D84E14833C4100DB5650 /* Schedule.h */,
-				71F4D84F14833C4100DB5650 /* Schedule.m */,
 				71F4D85114833CC300DB5650 /* Shortmessage.h */,
 				71F4D85214833CC400DB5650 /* Shortmessage.m */,
 				71F4D85414833D3F00DB5650 /* Text.h */,
@@ -3615,7 +3610,6 @@
 				71E0EE42147BA17B00DEA174 /* WebScanViewController.mm in Sources */,
 				7160DE9A147CF1FE00F47FB3 /* DecorateView.m in Sources */,
 				71D850A8147E3739002A7BAF /* EditImageView.m in Sources */,
-				71F4D85014833C4200DB5650 /* Schedule.m in Sources */,
 				71F4D85314833CC500DB5650 /* Shortmessage.m in Sources */,
 				71F4D85614833D4100DB5650 /* Text.m in Sources */,
 				71F4D85914833D8200DB5650 /* Url.m in Sources */,
