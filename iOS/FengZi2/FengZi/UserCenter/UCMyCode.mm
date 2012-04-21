@@ -445,7 +445,7 @@ static int xTimes = -1;
         [nextView release];
     } else if([category.type isEqualToString:CATEGORY_KMA]) {
         // 空码, 可以调到空码赋值页面, 默认为富媒体
-        NSDictionary *dict = [Api parseUrl:input];
+        NSDictionary *dict = [input uriParams];
         NSString *xcode = [dict objectForKey:@"id"];
         [Api kmaSetId:xcode];
         iOSLog(@"uuid=[%@]", xcode);
@@ -502,7 +502,7 @@ static int xTimes = -1;
 			{
                 // 重置
                 // 空码, 可以调到空码赋值页面, 默认为富媒体
-                NSDictionary *dict = [Api parseUrl:xInput.url];
+                NSDictionary *dict = [xInput.url uriParams];
                 NSString *xcode = [dict objectForKey:@"id"];
                 [Api kmaSetId:xcode];
                 iOSLog(@"uuid=[%@]", xcode);
