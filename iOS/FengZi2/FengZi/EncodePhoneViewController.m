@@ -8,7 +8,7 @@
 
 #import "EncodePhoneViewController.h"
 #import "EncodeEditViewController.h"
-#import "Phone.h"
+#import "Api+Category.h"
 #import "AddressBookUtils.h"
 @implementation EncodePhoneViewController
 

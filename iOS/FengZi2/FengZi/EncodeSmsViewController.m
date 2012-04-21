@@ -8,7 +8,8 @@
 
 #import "EncodeSmsViewController.h"
 #import "EncodeEditViewController.h"
-#import "Shortmessage.h"
+#import "Api+Category.h"
+
 @implementation EncodeSmsViewController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil

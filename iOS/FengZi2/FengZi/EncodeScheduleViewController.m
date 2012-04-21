@@ -8,7 +8,8 @@
 
 #import "EncodeScheduleViewController.h"
 #import "EncodeEditViewController.h"
-#import "Schedule.h"
+#import "Api+Category.h"
+
 @implementation EncodeScheduleViewController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil

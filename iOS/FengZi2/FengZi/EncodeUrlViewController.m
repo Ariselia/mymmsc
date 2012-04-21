@@ -8,7 +8,7 @@
 
 #import "EncodeUrlViewController.h"
 #import "EncodeEditViewController.h"
-#import "Url.h"
+#import "Api+Category.h"
 #import "BusDecoder.h"
 @implementation EncodeUrlViewController
 

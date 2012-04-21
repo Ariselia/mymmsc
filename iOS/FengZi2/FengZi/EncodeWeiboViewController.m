@@ -8,8 +8,9 @@
 
 #import "EncodeWeiboViewController.h"
 #import "EncodeEditViewController.h"
-#import "Weibo.h"
+#import "Api+Category.h"
 #import "BusDecoder.h"
+
 @implementation EncodeWeiboViewController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil

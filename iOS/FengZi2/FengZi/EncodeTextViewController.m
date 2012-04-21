@@ -8,7 +8,7 @@
 
 #import "EncodeTextViewController.h"
 #import "EncodeEditViewController.h"
-#import "Text.h"
+#import "Api+Category.h"
 @implementation EncodeTextViewController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil

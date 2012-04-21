@@ -8,7 +8,8 @@
 
 #import "EncodeWifiViewController.h"
 #import "EncodeEditViewController.h"
-#import "WifiText.h"
+#import "Api+Category.h"
+
 @implementation EncodeWifiViewController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil

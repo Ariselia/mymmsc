@@ -11,16 +11,6 @@
 #import "BusDescKey.h"
 #import "BusCategory.h"
 #import "Api+Category.h"
-#import "Phone.h"
-#import "Shortmessage.h"
-#import "Email.h"
-#import "Schedule.h"
-#import "Url.h"
-#import "Weibo.h"
-#import "WifiText.h"
-#import "Text.h"
-#import "GMap.h"
-#import "EncText.h"
 
 #import "RichMedia.h"
 

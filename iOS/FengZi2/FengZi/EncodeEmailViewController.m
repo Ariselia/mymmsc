@@ -8,7 +8,7 @@
 
 #import "EncodeEmailViewController.h"
 #import "EncodeEditViewController.h"
-#import "Email.h"
+#import "Api+Category.h"
 @implementation EncodeEmailViewController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
