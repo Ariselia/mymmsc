@@ -6,7 +6,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "Card.h"
+#import "Api+Category.h"
 #import "BusCategory.h"
 #import "DecodeCardCell.h"
 #import "AddressBookUtils.h"

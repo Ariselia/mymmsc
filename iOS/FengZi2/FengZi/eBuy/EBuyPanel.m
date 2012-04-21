@@ -9,6 +9,7 @@
 #import "EBuyPanel.h"
 #import "EBuyPortal.h"
 #import "EBMessageList.h"
+#import "EBuyTypes.h"
 
 @implementation EBuyPanel
 @synthesize ownerId;
@@ -63,7 +64,8 @@
 // 分类
 - (IBAction)doGroup:(id)sender{
     EBuyPortal *potal = ownerId;
-    EBMessageList *nextView = [[EBMessageList alloc] init];
+    EBuyTypes *nextView = [[EBuyTypes alloc] init];
+    nextView.typeId = 0;
     [potal.navigationController pushViewController:nextView animated:YES];
     [nextView release];
 }

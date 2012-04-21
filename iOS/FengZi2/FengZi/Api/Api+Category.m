@@ -1,13 +1,43 @@
 //
-//  Card.m
+//  Api+Category.m
 //  FengZi
 //
-
-//  Copyright (c) 2011年 iTotemStudio. All rights reserved.
+//  Created by wangfeng on 12-4-22.
+//  Copyright (c) 2012年 ifengzi.cn. All rights reserved.
 //
 
-#import "Card.h"
+#import "Api+Category.h"
 
+// 所有词条
+//--------------------< 业务类型 - 对象 - 应用程序 >--------------------
+@implementation AppUrl
+@synthesize url=_url;
+@synthesize logId=_logId;
+@synthesize title=_title;
+
+- (void)dealloc {
+    RELEASE_SAFELY(_url);
+    RELEASE_SAFELY(_logId);
+    RELEASE_SAFELY(_title);
+    [super dealloc];
+}
+@end
+
+//--------------------< 业务类型 - 对象 - 书签 >--------------------
+@implementation BookMark
+@synthesize url=_url;
+@synthesize logId=_logId;
+@synthesize title=_title;
+
+- (void)dealloc {
+    RELEASE_SAFELY(_url);
+    RELEASE_SAFELY(_logId);
+    RELEASE_SAFELY(_title);
+    [super dealloc];
+}
+@end
+
+//--------------------< 业务类型 - 对象 - 通讯录 >--------------------
 @implementation Card
 @synthesize name=_name;
 @synthesize title=_title;
@@ -43,4 +73,9 @@
     RELEASE_SAFELY(_corporation);
     [super dealloc];
 }
+@end
+
+
+@implementation Api (Category)
+
 @end

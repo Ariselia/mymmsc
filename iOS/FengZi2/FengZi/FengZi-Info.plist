@@ -55,5 +55,7 @@
 		<string>UIInterfaceOrientationLandscapeRight</string>
 		<string>UIInterfaceOrientationPortraitUpsideDown</string>
 	</array>
+	<key>Application supports iTunes files sharing</key>
+	<string>YES</string>
 </dict>
 </plist>

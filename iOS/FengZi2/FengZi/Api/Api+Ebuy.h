@@ -171,7 +171,10 @@
 
 @end
 
+@interface EBTest : NSObject
+@property (nonatomic, assign) long long id;
 
+@end
 //====================================< 电子商城 - 接口 >====================================
 
 @interface Api (Ebuy)

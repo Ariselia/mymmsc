@@ -19,6 +19,7 @@
 		0A71F1F015044A41007714BB /* EBuyPortal.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A71F1EE15044A41007714BB /* EBuyPortal.xib */; };
 		0A8447E1154126D1000381E0 /* EBuyTypes.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A8447DF154126D1000381E0 /* EBuyTypes.m */; };
 		0A8447E2154126D1000381E0 /* EBuyTypes.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A8447E0154126D1000381E0 /* EBuyTypes.xib */; };
+		0A8447EC154370A5000381E0 /* Api+Category.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A8447EB154370A3000381E0 /* Api+Category.m */; };
 		0AADFE5115223C84004B4D4D /* EBShopInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AADFE5015223C84004B4D4D /* EBShopInfo.m */; };
 		0AADFE5315223CA3004B4D4D /* EBShopInfo.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0AADFE5215223CA3004B4D4D /* EBShopInfo.xib */; };
 		0AAECA6E1517EAD000D5DDBE /* EBExpressDetail.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AAECA6C1517EAD000D5DDBE /* EBExpressDetail.m */; };
@@ -550,9 +551,6 @@
 		71D850A8147E3739002A7BAF /* EditImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 71D850A7147E3739002A7BAF /* EditImageView.m */; };
 		71DA7DD914A85DBF00CA5CFD /* card_encode.png in Resources */ = {isa = PBXBuildFile; fileRef = 71DA7DD814A85DBF00CA5CFD /* card_encode.png */; };
 		71E0EE42147BA17B00DEA174 /* WebScanViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 71E0EE41147BA17B00DEA174 /* WebScanViewController.mm */; };
-		71F4D837148333B700DB5650 /* AppUrl.m in Sources */ = {isa = PBXBuildFile; fileRef = 71F4D836148333B700DB5650 /* AppUrl.m */; };
-		71F4D83E148334DF00DB5650 /* BookMark.m in Sources */ = {isa = PBXBuildFile; fileRef = 71F4D83D148334DF00DB5650 /* BookMark.m */; };
-		71F4D8411483356F00DB5650 /* Card.m in Sources */ = {isa = PBXBuildFile; fileRef = 71F4D8401483356F00DB5650 /* Card.m */; };
 		71F4D844148337A000DB5650 /* Email.m in Sources */ = {isa = PBXBuildFile; fileRef = 71F4D8431483379F00DB5650 /* Email.m */; };
 		71F4D84714833B0800DB5650 /* EncText.m in Sources */ = {isa = PBXBuildFile; fileRef = 71F4D84614833B0800DB5650 /* EncText.m */; };
 		71F4D84A14833B8000DB5650 /* GMap.m in Sources */ = {isa = PBXBuildFile; fileRef = 71F4D84914833B7F00DB5650 /* GMap.m */; };
@@ -691,6 +689,8 @@
 		0A8447DE154126D0000381E0 /* EBuyTypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EBuyTypes.h; sourceTree = "<group>"; };
 		0A8447DF154126D1000381E0 /* EBuyTypes.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EBuyTypes.m; sourceTree = "<group>"; };
 		0A8447E0154126D1000381E0 /* EBuyTypes.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EBuyTypes.xib; sourceTree = "<group>"; };
+		0A8447EA154370A2000381E0 /* Api+Category.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Api+Category.h"; sourceTree = "<group>"; };
+		0A8447EB154370A3000381E0 /* Api+Category.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Api+Category.m"; sourceTree = "<group>"; };
 		0AADFE4F15223C84004B4D4D /* EBShopInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EBShopInfo.h; sourceTree = "<group>"; };
 		0AADFE5015223C84004B4D4D /* EBShopInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EBShopInfo.m; sourceTree = "<group>"; };
 		0AADFE5215223CA3004B4D4D /* EBShopInfo.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EBShopInfo.xib; sourceTree = "<group>"; };
@@ -1399,12 +1399,6 @@
 		71D850A7147E3739002A7BAF /* EditImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditImageView.m; sourceTree = "<group>"; };
 		71DA7DD814A85DBF00CA5CFD /* card_encode.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = card_encode.png; sourceTree = "<group>"; };
 		71E0EE41147BA17B00DEA174 /* WebScanViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = WebScanViewController.mm; sourceTree = "<group>"; };
-		71F4D835148333B700DB5650 /* AppUrl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppUrl.h; sourceTree = "<group>"; };
-		71F4D836148333B700DB5650 /* AppUrl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppUrl.m; sourceTree = "<group>"; };
-		71F4D83C148334DF00DB5650 /* BookMark.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BookMark.h; sourceTree = "<group>"; };
-		71F4D83D148334DF00DB5650 /* BookMark.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BookMark.m; sourceTree = "<group>"; };
-		71F4D83F1483356E00DB5650 /* Card.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Card.h; sourceTree = "<group>"; };
-		71F4D8401483356F00DB5650 /* Card.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Card.m; sourceTree = "<group>"; };
 		71F4D8421483379F00DB5650 /* Email.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Email.h; sourceTree = "<group>"; };
 		71F4D8431483379F00DB5650 /* Email.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Email.m; sourceTree = "<group>"; };
 		71F4D84514833B0700DB5650 /* EncText.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EncText.h; sourceTree = "<group>"; };
@@ -1901,12 +1895,6 @@
 				716ADCBD14973AA4005E82B1 /* DataBaseOperate.m */,
 				3E11F14814726A7C00ACC436 /* ITTBaseModelObject.h */,
 				3E11F14914726A7C00ACC436 /* ITTBaseModelObject.m */,
-				71F4D835148333B700DB5650 /* AppUrl.h */,
-				71F4D836148333B700DB5650 /* AppUrl.m */,
-				71F4D83C148334DF00DB5650 /* BookMark.h */,
-				71F4D83D148334DF00DB5650 /* BookMark.m */,
-				71F4D83F1483356E00DB5650 /* Card.h */,
-				71F4D8401483356F00DB5650 /* Card.m */,
 				71F4D8421483379F00DB5650 /* Email.h */,
 				71F4D8431483379F00DB5650 /* Email.m */,
 				71F4D84514833B0700DB5650 /* EncText.h */,
@@ -3012,6 +3000,8 @@
 				0AC0D15315322551001F1930 /* UIView+Effect.m */,
 				0ABEA06F15332103009A9642 /* Api+Style.h */,
 				0ABEA07015332103009A9642 /* Api+Style.m */,
+				0A8447EA154370A2000381E0 /* Api+Category.h */,
+				0A8447EB154370A3000381E0 /* Api+Category.m */,
 			);
 			path = Api;
 			sourceTree = "<group>";
@@ -3645,9 +3635,6 @@
 				71E0EE42147BA17B00DEA174 /* WebScanViewController.mm in Sources */,
 				7160DE9A147CF1FE00F47FB3 /* DecorateView.m in Sources */,
 				71D850A8147E3739002A7BAF /* EditImageView.m in Sources */,
-				71F4D837148333B700DB5650 /* AppUrl.m in Sources */,
-				71F4D83E148334DF00DB5650 /* BookMark.m in Sources */,
-				71F4D8411483356F00DB5650 /* Card.m in Sources */,
 				71F4D844148337A000DB5650 /* Email.m in Sources */,
 				71F4D84714833B0800DB5650 /* EncText.m in Sources */,
 				71F4D84A14833B8000DB5650 /* GMap.m in Sources */,
@@ -3800,6 +3787,7 @@
 				0A0399A8153F79490078C039 /* RMRideReal.m in Sources */,
 				0A0399AD153F8D1F0078C039 /* RMRidePath.m in Sources */,
 				0A8447E1154126D1000381E0 /* EBuyTypes.m in Sources */,
+				0A8447EC154370A5000381E0 /* Api+Category.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

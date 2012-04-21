@@ -2,8 +2,8 @@
 //  UIViewController+Utils.m
 //  FengZi
 //
-//  Created by  on 12-2-12.
-//  Copyright (c) 2012年 iTotemStudio. All rights reserved.
+//  Created by wangfeng on 12-2-12.
+//  Copyright (c) 2012年 ifengzi.cn. All rights reserved.
 //
 
 #import "UIViewController+Utils.h"
@@ -50,7 +50,7 @@ static int iTimes = -1;
     iOSLog(@"decode input = %@", input);
     NSString *url = [Api fixUrl:input];
     if (input != nil && [url hasPrefix:API_URL_SHOW]) {
-        NSDictionary *dict = [Api parseUrl:url];
+        NSDictionary *dict = [url uriParams];
         NSString *userId = [dict objectForKey:@"userId"];
         UCUpdateNikename *nextView = [[UCUpdateNikename alloc] init];
         nextView.idDest = [userId intValue];
@@ -59,6 +59,7 @@ static int iTimes = -1;
         return;
     }
     BusCategory *category = [BusDecoder classify:input];
+    BusCategory *category_url = [BusDecoder classify:url];
     [TabBarController hide:NO animated:NO];
     UIImage *saveImage = [Api generateImageWithInput:input];
     UIImage *inputImage = saveImage;
@@ -69,15 +70,15 @@ static int iTimes = -1;
         DecodeCardViewControlle *cardView = [[DecodeCardViewControlle alloc] initWithNibName:@"DecodeCardViewControlle" category:category result:input withImage:inputImage withType:HistoryTypeFavAndHistory withSaveImage:saveImage];
         [self.navigationController pushViewController:cardView animated:YES];
         RELEASE_SAFELY(cardView);
-    } else if([category.type isEqualToString:CATEGORY_MEDIA]) {
+    } else if([category.type isEqualToString:CATEGORY_MEDIA] || [category_url.type isEqualToString:CATEGORY_MEDIA] ) {
         // 富媒体业务
         UCRichMedia *nextView = [[UCRichMedia alloc] init];
-        nextView.urlMedia = input;
+        nextView.urlMedia = url;
         [self.navigationController pushViewController:nextView animated:YES];
         [nextView release];
-    } else if([category.type isEqualToString:CATEGORY_KMA]) {
+    } else if([category.type isEqualToString:CATEGORY_KMA] || [category_url.type isEqualToString:CATEGORY_KMA] ) {
         // 空码, 可以调到空码赋值页面, 默认为富媒体
-        NSDictionary *dict = [Api parseUrl:input];
+        NSDictionary *dict = [url uriParams];
         NSString *xcode = [dict objectForKey:@"id"];
         [Api kmaSetId:xcode];
         iOSLog(@"uuid=[%@]", xcode);

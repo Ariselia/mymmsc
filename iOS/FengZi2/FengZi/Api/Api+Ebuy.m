@@ -78,6 +78,12 @@
 @synthesize id,des,picUrl,name,itemGroupType;
 
 @end
+
+@implementation EBTest
+
+@synthesize id;
+
+@end
 //====================================< 电子商城 - 接口 >====================================
 @implementation Api (Ebuy)
 

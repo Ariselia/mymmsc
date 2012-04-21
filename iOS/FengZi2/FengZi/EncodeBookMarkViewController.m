@@ -8,7 +8,7 @@
 
 #import "EncodeBookMarkViewController.h"
 #import "EncodeEditViewController.h"
-#import "BookMark.h"
+#import "Api+Category.h"
 #import "BusDecoder.h"
 @implementation EncodeBookMarkViewController
 

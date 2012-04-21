@@ -10,7 +10,7 @@
 #import "BusChannele.h"
 #import "BusDescKey.h"
 #import "BusCategory.h"
-#import "Card.h"
+#import "Api+Category.h"
 #import "Phone.h"
 #import "Shortmessage.h"
 #import "Email.h"
@@ -19,8 +19,6 @@
 #import "Weibo.h"
 #import "WifiText.h"
 #import "Text.h"
-#import "AppUrl.h"
-#import "BookMark.h"
 #import "GMap.h"
 #import "EncText.h"
 @interface BusDecoder : NSObject

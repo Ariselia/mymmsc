@@ -102,7 +102,10 @@
     int count = 0;
     if (_product != nil) {
         count = 5;
-        //return [_items count];
+        if ([Api isOnLine]) {
+            // 如果登录了, 增加一行功能按钮.
+            count = 6;
+        }
     }
     return count;
 }
@@ -125,10 +128,10 @@
         cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier] autorelease];
     }
     int pos = [indexPath row];
-    /*
-    if (pos >= [_items count] + 1) {
-        return nil;
-    }*/
+    int row3 = 0;
+    if ([Api isOnLine]) {
+        row3 = 1;
+    }
     if (pos == 0) {
         NSArray *tmpList = [_product.picUrl componentsSeparatedByString:@"*"];
         UIScrollView *scroll = [[UIScrollView alloc] initWithFrame:CGRectMake(12, 0, 295, 90)];
@@ -156,7 +159,6 @@
             [scroll addSubview:iv];
             i ++;
         }
-        
         //scroll.contentOffset = CGPointMake(0, xWidth);
         //[scroll setContentOffset:CGPointMake(0, xWidth) animated:YES];
         [scroll release];
@@ -173,9 +175,30 @@
         [cell.contentView addSubview:btn];
     } else if (pos == 2) {
         cell.textLabel.text = [NSString stringWithFormat:@"库存：%d 现货", _product.storeInfo];
-    } else if (pos == 3) {
+    } else if (row3 > 0 && pos == 3) {
+        CGRect frame = CGRectMake(15, 10, 90, 30);
+        UIButton *btn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+        [btn setTitle:@"放入购物车" forState:UIControlStateNormal];
+        btn.frame = frame;
+        [btn addTarget:self action:@selector(addShop) forControlEvents:UIControlEventTouchUpInside];
+        [cell.contentView addSubview:btn];
+        
+        btn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+        frame.origin.x += 100;
+        [btn setTitle:@"立即购买" forState:UIControlStateNormal];
+        btn.frame = frame;
+        [btn addTarget:self action:@selector(goBuy) forControlEvents:UIControlEventTouchUpInside];
+        [cell.contentView addSubview:btn];
+        
+        btn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+        frame.origin.x += 100;
+        [btn setTitle:@"添加收藏" forState:UIControlStateNormal];
+        btn.frame = frame;
+        [btn addTarget:self action:@selector(addShouCang) forControlEvents:UIControlEventTouchUpInside];
+        [cell.contentView addSubview:btn];
+    } else if (pos == 3 + row3) {
         cell.textLabel.text = [NSString stringWithFormat:@"很喜欢(%d) 喜欢(%d) 不喜欢(%d)", _product.Goodcommentcount, _product.Middlecommentcount, _product.Poorcommentcount];
-    } else if (pos == 4) {
+    } else if (pos == 4 + row3) {
         cell.textLabel.text = [NSString stringWithFormat:@"评论(%d)", _product.Experiencecount];
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }
@@ -204,6 +227,21 @@
     nextView.param = param;
     [self.navigationController pushViewController:nextView animated:YES];
     [nextView release];
+}
+
+// 加入购物车
+- (void)addShop{
+    //
+}
+
+// 立即购买
+- (void)goBuy{
+    //
+}
+
+// 添加收藏
+- (void)addShouCang{
+    //
 }
 
 @end

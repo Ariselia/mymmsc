@@ -8,7 +8,7 @@
 
 #import "EncodeCardViewController.h"
 #import "EncodeEditViewController.h"
-#import "Card.h"
+#import "Api+Category.h"
 #import "AddressBookUtils.h"
 #import "BusDecoder.h"
 
