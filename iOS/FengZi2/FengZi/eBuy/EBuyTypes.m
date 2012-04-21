@@ -8,6 +8,7 @@
 
 #import "EBuyTypes.h"
 #import "Api+Ebuy.h"
+#import "EBProductList.h"
 
 @interface EBuyTypes ()
 
@@ -15,7 +16,7 @@
 
 @implementation EBuyTypes
 @synthesize tableView = _tableView;
-@synthesize frontId, typeId;
+@synthesize subject, frontId, typeId;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -64,7 +65,8 @@
     label.textAlignment = UITextAlignmentCenter;
     label.font = [UIFont fontWithName:@"黑体" size:60];
     label.textColor = [UIColor blackColor];
-    label.text= @"全部分类";
+    _curSubject = subject != nil? subject:@"全部分类";
+    label.text= _curSubject;
     self.navigationItem.titleView = label;
     [label release];
     
@@ -113,10 +115,16 @@
         EBuyTypes *nextView = [[EBuyTypes alloc] init];
         nextView.frontId = typeId;
         nextView.typeId = obj.typeId;
+        nextView.subject = [NSString stringWithFormat:@"%@>>%@",_curSubject, obj.typeName];
         [self.navigationController pushViewController:nextView animated:YES];
         [nextView release];
     } else {
         // 无子分类, 跳转产品
+        EBProductList *nextView = [[EBProductList alloc] init];
+        nextView.way = 1;
+        nextView.typeId = obj.typeId;
+        [self.navigationController pushViewController:nextView animated:YES];
+        [nextView release];
     }
 }
 
