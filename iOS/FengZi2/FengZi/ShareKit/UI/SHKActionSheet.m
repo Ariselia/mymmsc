@@ -45,7 +45,7 @@
 + (SHKActionSheet *)actionSheetForType:(SHKShareType)type
 {
 	SHKActionSheet *as = [[SHKActionSheet alloc] initWithTitle:SHKLocalizedString(@"")
-													  delegate:self
+													  delegate:(id<UIActionSheetDelegate>)self
 											 cancelButtonTitle:nil
 										destructiveButtonTitle:nil
 											 otherButtonTitles:nil];
