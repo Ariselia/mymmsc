@@ -70,10 +70,57 @@
 @property (retain, nonatomic) NSString *logId;
 @end
 
-//--------------------< 业务类型 - 对象 - 书签 >--------------------
-//--------------------< 业务类型 - 对象 - 书签 >--------------------
-//--------------------< 业务类型 - 对象 - 书签 >--------------------
-//--------------------< 业务类型 - 对象 - 书签 >--------------------
+//--------------------< 业务类型 - 对象 - 电子邮件 >--------------------
+@interface Email : ITTBaseModelObject{
+    NSString* _mail;	
+	NSString* _title;	
+	NSString* _contente;	
+	//标示身份的id，用作记录传递
+	NSString* _logId;	
+}
+@property (retain, nonatomic) NSString *mail;
+@property (retain, nonatomic) NSString *title;
+@property (retain, nonatomic) NSString *contente;
+@property (retain, nonatomic) NSString *logId;
+@end
+
+//--------------------< 业务类型 - 对象 - 加密文本 >--------------------
+@interface EncText : ITTBaseModelObject{
+    NSString* _content;
+	NSString* _encContent;
+	NSString* _key;	
+	
+	//标示身份的id，用作记录传递
+	NSString* _logId;
+}
+@property (retain, nonatomic) NSString *content;
+@property (retain, nonatomic) NSString *encContent;
+@property (retain, nonatomic) NSString *key;
+@property (retain, nonatomic) NSString *logId;
+@end
+
+//--------------------< 业务类型 - 对象 - 位置信息 >--------------------
+@interface GMap : ITTBaseModelObject{
+    NSString* _url;	
+    
+	//标示身份的id，用作记录传递
+	NSString* _logId;
+}
+@property (retain, nonatomic) NSString *url;
+@property (retain, nonatomic) NSString *logId;
+@end
+
+//--------------------< 业务类型 - 对象 - 电话号码 >--------------------
+@interface Phone : ITTBaseModelObject{
+    NSString* _telephone;
+	
+	//标示身份的id，用作记录传递
+	NSString* _logId;
+}
+@property (retain, nonatomic) NSString *telephone;
+@property (retain, nonatomic) NSString *logId;
+@end
+
 //--------------------< 业务类型 - 对象 - 书签 >--------------------
 //--------------------< 业务类型 - 对象 - 书签 >--------------------
 //--------------------< 业务类型 - 对象 - 书签 >--------------------

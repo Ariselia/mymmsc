@@ -551,10 +551,6 @@
 		71D850A8147E3739002A7BAF /* EditImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 71D850A7147E3739002A7BAF /* EditImageView.m */; };
 		71DA7DD914A85DBF00CA5CFD /* card_encode.png in Resources */ = {isa = PBXBuildFile; fileRef = 71DA7DD814A85DBF00CA5CFD /* card_encode.png */; };
 		71E0EE42147BA17B00DEA174 /* WebScanViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 71E0EE41147BA17B00DEA174 /* WebScanViewController.mm */; };
-		71F4D844148337A000DB5650 /* Email.m in Sources */ = {isa = PBXBuildFile; fileRef = 71F4D8431483379F00DB5650 /* Email.m */; };
-		71F4D84714833B0800DB5650 /* EncText.m in Sources */ = {isa = PBXBuildFile; fileRef = 71F4D84614833B0800DB5650 /* EncText.m */; };
-		71F4D84A14833B8000DB5650 /* GMap.m in Sources */ = {isa = PBXBuildFile; fileRef = 71F4D84914833B7F00DB5650 /* GMap.m */; };
-		71F4D84D14833BF100DB5650 /* Phone.m in Sources */ = {isa = PBXBuildFile; fileRef = 71F4D84C14833BF000DB5650 /* Phone.m */; };
 		71F4D85014833C4200DB5650 /* Schedule.m in Sources */ = {isa = PBXBuildFile; fileRef = 71F4D84F14833C4100DB5650 /* Schedule.m */; };
 		71F4D85314833CC500DB5650 /* Shortmessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 71F4D85214833CC400DB5650 /* Shortmessage.m */; };
 		71F4D85614833D4100DB5650 /* Text.m in Sources */ = {isa = PBXBuildFile; fileRef = 71F4D85514833D4000DB5650 /* Text.m */; };
@@ -1399,14 +1395,6 @@
 		71D850A7147E3739002A7BAF /* EditImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditImageView.m; sourceTree = "<group>"; };
 		71DA7DD814A85DBF00CA5CFD /* card_encode.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = card_encode.png; sourceTree = "<group>"; };
 		71E0EE41147BA17B00DEA174 /* WebScanViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = WebScanViewController.mm; sourceTree = "<group>"; };
-		71F4D8421483379F00DB5650 /* Email.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Email.h; sourceTree = "<group>"; };
-		71F4D8431483379F00DB5650 /* Email.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Email.m; sourceTree = "<group>"; };
-		71F4D84514833B0700DB5650 /* EncText.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EncText.h; sourceTree = "<group>"; };
-		71F4D84614833B0800DB5650 /* EncText.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EncText.m; sourceTree = "<group>"; };
-		71F4D84814833B7F00DB5650 /* GMap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GMap.h; sourceTree = "<group>"; };
-		71F4D84914833B7F00DB5650 /* GMap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GMap.m; sourceTree = "<group>"; };
-		71F4D84B14833BF000DB5650 /* Phone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Phone.h; sourceTree = "<group>"; };
-		71F4D84C14833BF000DB5650 /* Phone.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Phone.m; sourceTree = "<group>"; };
 		71F4D84E14833C4100DB5650 /* Schedule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Schedule.h; sourceTree = "<group>"; };
 		71F4D84F14833C4100DB5650 /* Schedule.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Schedule.m; sourceTree = "<group>"; };
 		71F4D85114833CC300DB5650 /* Shortmessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Shortmessage.h; sourceTree = "<group>"; };
@@ -1895,14 +1883,6 @@
 				716ADCBD14973AA4005E82B1 /* DataBaseOperate.m */,
 				3E11F14814726A7C00ACC436 /* ITTBaseModelObject.h */,
 				3E11F14914726A7C00ACC436 /* ITTBaseModelObject.m */,
-				71F4D8421483379F00DB5650 /* Email.h */,
-				71F4D8431483379F00DB5650 /* Email.m */,
-				71F4D84514833B0700DB5650 /* EncText.h */,
-				71F4D84614833B0800DB5650 /* EncText.m */,
-				71F4D84814833B7F00DB5650 /* GMap.h */,
-				71F4D84914833B7F00DB5650 /* GMap.m */,
-				71F4D84B14833BF000DB5650 /* Phone.h */,
-				71F4D84C14833BF000DB5650 /* Phone.m */,
 				71F4D84E14833C4100DB5650 /* Schedule.h */,
 				71F4D84F14833C4100DB5650 /* Schedule.m */,
 				71F4D85114833CC300DB5650 /* Shortmessage.h */,
@@ -3635,10 +3615,6 @@
 				71E0EE42147BA17B00DEA174 /* WebScanViewController.mm in Sources */,
 				7160DE9A147CF1FE00F47FB3 /* DecorateView.m in Sources */,
 				71D850A8147E3739002A7BAF /* EditImageView.m in Sources */,
-				71F4D844148337A000DB5650 /* Email.m in Sources */,
-				71F4D84714833B0800DB5650 /* EncText.m in Sources */,
-				71F4D84A14833B8000DB5650 /* GMap.m in Sources */,
-				71F4D84D14833BF100DB5650 /* Phone.m in Sources */,
 				71F4D85014833C4200DB5650 /* Schedule.m in Sources */,
 				71F4D85314833CC500DB5650 /* Shortmessage.m in Sources */,
 				71F4D85614833D4100DB5650 /* Text.m in Sources */,

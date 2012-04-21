@@ -75,6 +75,68 @@
 }
 @end
 
+//--------------------< 业务类型 - 对象 - 电子邮件 >--------------------
+@implementation Email
+@synthesize mail=_mail;
+@synthesize title=_title;
+@synthesize contente=_contente;
+@synthesize logId =_logId;
+- (void)dealloc {
+    RELEASE_SAFELY(_mail);
+    RELEASE_SAFELY(_logId);
+    RELEASE_SAFELY(_contente);
+    RELEASE_SAFELY(_title);
+    [super dealloc];
+}
+@end
+
+//--------------------< 业务类型 - 对象 - 加密文本 >--------------------
+@implementation EncText
+@synthesize content=_content;
+@synthesize encContent=_encContent;
+@synthesize logId=_logId;
+@synthesize key=_key;
+
+- (void)dealloc {
+    RELEASE_SAFELY(_encContent);
+    RELEASE_SAFELY(_key);
+    RELEASE_SAFELY(_logId);
+    RELEASE_SAFELY(_content);
+    [super dealloc];
+}
+@end
+
+//--------------------< 业务类型 - 对象 - 位置信息 >--------------------
+@implementation GMap
+@synthesize url=_url;
+@synthesize logId=_logId;
+
+- (void)dealloc {
+    RELEASE_SAFELY(_url);
+    RELEASE_SAFELY(_logId);
+    [super dealloc];
+}
+
+@end
+
+//--------------------< 业务类型 - 对象 - 电话号码 >--------------------
+@implementation Phone
+@synthesize telephone=_telephone;
+@synthesize logId=_logId;
+
+- (void)dealloc {
+    RELEASE_SAFELY(_telephone);
+    RELEASE_SAFELY(_logId);
+    [super dealloc];
+}
+@end
+
+
+
+
+
+
+
 
 @implementation Api (Category)
 
