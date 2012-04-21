@@ -156,7 +156,6 @@
 
 //--------------------< 业务处理 - 接口 >--------------------
 + (NSString *)fixUrl:(NSString *)url;
-+ (NSDictionary *)parseUrl:(NSString *)url;
 + (int)getInt:(id)value;
 + (float)getFloat:(id)value;
 + (NSString *)getString:(id)value;
