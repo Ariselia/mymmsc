@@ -161,7 +161,7 @@
     [iOSApi showAlert:@"Loading..."];
     
     if (urlMedia != nil) {
-        NSDictionary *dict = [Api parseUrl:urlMedia];
+        NSDictionary *dict = [urlMedia uriParams];
         code = [dict objectForKey:@"id"];
 
     }
