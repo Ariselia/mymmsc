@@ -6,7 +6,7 @@
 //  Copyright (c) 2011年 iTotemStudio. All rights reserved.
 //
 
-#import "ITTBaseModelObject.h"
+#import "Api+Category.h"
 
 // 富媒体, 生码只对纯URL进行编码
 @interface RichMedia : ITTBaseModelObject {

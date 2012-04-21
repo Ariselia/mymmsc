@@ -8,7 +8,6 @@
 
 #import "Api.h"
 
-#import "ITTBaseModelObject.h"
 //--------------------< 业务类型 - 对象 - 基础业务模型 >--------------------
 @interface ITTBaseModelObject :NSObject <NSCoding> {
     
@@ -19,6 +18,40 @@
 - (NSString *)customDescription;
 - (NSString *)description;
 - (NSData*)getArchivedData;
+@end
+
+//--------------------< 业务类型 - 对象 - 收藏 >--------------------
+@interface FaviroteObject : NSObject{
+    int _uuid;
+    NSString *_content;
+    NSString *_image;
+    NSString *_date;
+    BusinessType _type;
+}
+
+@property (nonatomic,retain) NSString *image;
+@property (nonatomic,retain) NSString *date;
+@property (nonatomic,retain) NSString *content;
+@property (nonatomic,assign) int uuid;
+@property (nonatomic,assign) BusinessType type;
+@end
+
+//--------------------< 业务类型 - 对象 - 历史记录 >--------------------
+@interface HistoryObject : NSObject{
+    int _uuid;
+    NSString *_content;
+    NSString *_image;
+    NSString *_date;
+    BusinessType _type;
+    BOOL _isEncode;
+}
+
+@property (nonatomic,retain) NSString *image;
+@property (nonatomic,retain) NSString *date;
+@property (nonatomic,retain) NSString *content;
+@property (nonatomic,assign) int uuid;
+@property (nonatomic,assign) BusinessType type;
+@property (nonatomic,assign) BOOL isEncode;
 @end
 
 //--------------------< 业务类型 - 对象 - 应用程序 >--------------------

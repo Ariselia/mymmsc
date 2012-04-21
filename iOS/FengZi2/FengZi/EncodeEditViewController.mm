@@ -12,7 +12,7 @@
 #import "UIUtil.h"
 #import "NotePLogService.h"
 #import "BusEncoder.h"
-#import "DataBaseOperate.h"
+#import "Api+Database.h"
 #import "FileUtil.h"
 #import "EncryptTools.h"
 #import "SHK.h"

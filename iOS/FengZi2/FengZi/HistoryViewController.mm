@@ -7,8 +7,8 @@
 //
 
 #import "HistoryViewController.h"
-#import "DataBaseOperate.h"
-#import "HistoryObject.h"
+#import "Api+Database.h"
+#import "Api+Category.h"
 #import "DecodeCardViewControlle.h"
 #import "BusDecoder.h"
 #import "BusCategory.h"

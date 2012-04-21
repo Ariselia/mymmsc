@@ -8,8 +8,7 @@
 
 #import "FaviroteViewController.h"
 #import <QuartzCore/QuartzCore.h>
-#import "DataBaseOperate.h"
-#import "FaviroteObject.h"
+#import "Api+Database.h"
 #import "DecodeCardViewControlle.h"
 #import "BusDecoder.h"
 #import "BusCategory.h"

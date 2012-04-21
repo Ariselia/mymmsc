@@ -9,8 +9,7 @@
 #import "Api.h"
 //====================================< 本地数据库 - 接口 >====================================
 #import "sqlite3.h"
-#import "FaviroteObject.h"
-#import "HistoryObject.h"
+#import "Api+Category.h"
 
 @interface DataBaseOperate : NSObject{
     BOOL _isOpen;

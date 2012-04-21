@@ -138,6 +138,7 @@
 
 @end
 
+//--------------------< 业务类型 - 对象 - 收藏 >--------------------
 @implementation FaviroteObject
 @synthesize uuid=_uuid;
 @synthesize type=_type;
@@ -153,6 +154,7 @@
 }
 @end
 
+//--------------------< 业务类型 - 对象 - 历史记录 >--------------------
 @implementation HistoryObject
 @synthesize uuid=_uuid;
 @synthesize type=_type;

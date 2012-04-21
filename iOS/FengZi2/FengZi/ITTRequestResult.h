@@ -3,7 +3,7 @@
 //
 //  Copyright 2010 Apple Inc. All rights reserved.
 //
-#import "ITTBaseModelObject.h"
+#import "Api+Category.h"
 
 @interface ITTRequestResult : NSObject {
     NSNumber *_code;
