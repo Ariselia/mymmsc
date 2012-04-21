@@ -551,11 +551,6 @@
 		71D850A8147E3739002A7BAF /* EditImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 71D850A7147E3739002A7BAF /* EditImageView.m */; };
 		71DA7DD914A85DBF00CA5CFD /* card_encode.png in Resources */ = {isa = PBXBuildFile; fileRef = 71DA7DD814A85DBF00CA5CFD /* card_encode.png */; };
 		71E0EE42147BA17B00DEA174 /* WebScanViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 71E0EE41147BA17B00DEA174 /* WebScanViewController.mm */; };
-		71F4D85314833CC500DB5650 /* Shortmessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 71F4D85214833CC400DB5650 /* Shortmessage.m */; };
-		71F4D85614833D4100DB5650 /* Text.m in Sources */ = {isa = PBXBuildFile; fileRef = 71F4D85514833D4000DB5650 /* Text.m */; };
-		71F4D85914833D8200DB5650 /* Url.m in Sources */ = {isa = PBXBuildFile; fileRef = 71F4D85814833D8100DB5650 /* Url.m */; };
-		71F4D85C14833DA900DB5650 /* Weibo.m in Sources */ = {isa = PBXBuildFile; fileRef = 71F4D85B14833DA800DB5650 /* Weibo.m */; };
-		71F4D85F14833E0B00DB5650 /* WifiText.m in Sources */ = {isa = PBXBuildFile; fileRef = 71F4D85E14833E0900DB5650 /* WifiText.m */; };
 		71F4D8631483411600DB5650 /* EncodeAppUrlViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 71F4D8611483411600DB5650 /* EncodeAppUrlViewController.m */; };
 		71F4D8641483411600DB5650 /* EncodeAppUrlViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 71F4D8621483411600DB5650 /* EncodeAppUrlViewController.xib */; };
 		71F4D8681483412F00DB5650 /* EncodeBookMarkViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 71F4D8661483412F00DB5650 /* EncodeBookMarkViewController.m */; };
@@ -1394,16 +1389,6 @@
 		71D850A7147E3739002A7BAF /* EditImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditImageView.m; sourceTree = "<group>"; };
 		71DA7DD814A85DBF00CA5CFD /* card_encode.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = card_encode.png; sourceTree = "<group>"; };
 		71E0EE41147BA17B00DEA174 /* WebScanViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = WebScanViewController.mm; sourceTree = "<group>"; };
-		71F4D85114833CC300DB5650 /* Shortmessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Shortmessage.h; sourceTree = "<group>"; };
-		71F4D85214833CC400DB5650 /* Shortmessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Shortmessage.m; sourceTree = "<group>"; };
-		71F4D85414833D3F00DB5650 /* Text.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Text.h; sourceTree = "<group>"; };
-		71F4D85514833D4000DB5650 /* Text.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Text.m; sourceTree = "<group>"; };
-		71F4D85714833D8000DB5650 /* Url.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Url.h; sourceTree = "<group>"; };
-		71F4D85814833D8100DB5650 /* Url.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Url.m; sourceTree = "<group>"; };
-		71F4D85A14833DA700DB5650 /* Weibo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Weibo.h; sourceTree = "<group>"; };
-		71F4D85B14833DA800DB5650 /* Weibo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Weibo.m; sourceTree = "<group>"; };
-		71F4D85D14833E0800DB5650 /* WifiText.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WifiText.h; sourceTree = "<group>"; };
-		71F4D85E14833E0900DB5650 /* WifiText.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WifiText.m; sourceTree = "<group>"; };
 		71F4D8601483411600DB5650 /* EncodeAppUrlViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EncodeAppUrlViewController.h; sourceTree = "<group>"; };
 		71F4D8611483411600DB5650 /* EncodeAppUrlViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EncodeAppUrlViewController.m; sourceTree = "<group>"; };
 		71F4D8621483411600DB5650 /* EncodeAppUrlViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EncodeAppUrlViewController.xib; sourceTree = "<group>"; };
@@ -1880,16 +1865,6 @@
 				716ADCBD14973AA4005E82B1 /* DataBaseOperate.m */,
 				3E11F14814726A7C00ACC436 /* ITTBaseModelObject.h */,
 				3E11F14914726A7C00ACC436 /* ITTBaseModelObject.m */,
-				71F4D85114833CC300DB5650 /* Shortmessage.h */,
-				71F4D85214833CC400DB5650 /* Shortmessage.m */,
-				71F4D85414833D3F00DB5650 /* Text.h */,
-				71F4D85514833D4000DB5650 /* Text.m */,
-				71F4D85714833D8000DB5650 /* Url.h */,
-				71F4D85814833D8100DB5650 /* Url.m */,
-				71F4D85A14833DA700DB5650 /* Weibo.h */,
-				71F4D85B14833DA800DB5650 /* Weibo.m */,
-				71F4D85D14833E0800DB5650 /* WifiText.h */,
-				71F4D85E14833E0900DB5650 /* WifiText.m */,
 				716ADCBF14973AD1005E82B1 /* FaviroteObject.h */,
 				716ADCC014973AD1005E82B1 /* FaviroteObject.m */,
 				716ADCC214973AF0005E82B1 /* HistoryObject.h */,
@@ -3610,11 +3585,6 @@
 				71E0EE42147BA17B00DEA174 /* WebScanViewController.mm in Sources */,
 				7160DE9A147CF1FE00F47FB3 /* DecorateView.m in Sources */,
 				71D850A8147E3739002A7BAF /* EditImageView.m in Sources */,
-				71F4D85314833CC500DB5650 /* Shortmessage.m in Sources */,
-				71F4D85614833D4100DB5650 /* Text.m in Sources */,
-				71F4D85914833D8200DB5650 /* Url.m in Sources */,
-				71F4D85C14833DA900DB5650 /* Weibo.m in Sources */,
-				71F4D85F14833E0B00DB5650 /* WifiText.m in Sources */,
 				71F4D8631483411600DB5650 /* EncodeAppUrlViewController.m in Sources */,
 				71F4D8681483412F00DB5650 /* EncodeBookMarkViewController.m in Sources */,
 				71F4D86D1483414600DB5650 /* EncodeCardViewController.m in Sources */,

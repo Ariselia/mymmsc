@@ -136,10 +136,76 @@
 
 @end
 
-//--------------------< 业务类型 - 对象 - 书签 >--------------------
-//--------------------< 业务类型 - 对象 - 书签 >--------------------
-//--------------------< 业务类型 - 对象 - 书签 >--------------------
+//--------------------< 业务类型 - 对象 - 文本 >--------------------
+@interface Text : ITTBaseModelObject{	
+	NSString* _content;	
+	
+	//标示身份的id，用作记录传递
+	NSString* _logId;	
+}
+@property (retain, nonatomic) NSString *content;
+@property (retain, nonatomic) NSString *logId;
 
+@end
+
+//--------------------< 业务类型 - 对象 - 网络地址 >--------------------
+@interface Url : ITTBaseModelObject{	
+	NSString* _content;	
+	
+	//标示身份的id，用作记录传递
+	NSString* _logId;	
+}
+@property (retain, nonatomic) NSString *content;
+@property (retain, nonatomic) NSString *logId;
+
+@end
+
+//--------------------< 业务类型 - 对象 - 短信 >--------------------
+@interface Shortmessage : ITTBaseModelObject{
+    NSString* _cellphone;
+	
+	NSString* _contente;	
+	
+	//标示身份的id，用作记录传递
+	NSString* _logId;	
+}
+@property (retain, nonatomic) NSString *cellphone;
+@property (retain, nonatomic) NSString *contente;
+@property (retain, nonatomic) NSString *logId;
+
+@end
+
+//--------------------< 业务类型 - 对象 - 微博 >--------------------
+@interface Weibo : ITTBaseModelObject{	
+	NSString* _title;
+    
+    NSString* _url;	
+    
+    //标示身份的id，用作记录传递
+    NSString* _logId;	
+}
+@property (retain, nonatomic) NSString *title;
+@property (retain, nonatomic) NSString *logId;
+@property (retain, nonatomic) NSString *url;
+
+@end
+
+//--------------------< 业务类型 - 对象 - WIFI >--------------------
+@interface WifiText : ITTBaseModelObject{	
+	NSString* _name;
+    
+    NSString* _password;	
+    
+    //标示身份的id，用作记录传递
+    NSString* _logId;	
+}
+@property (retain, nonatomic) NSString *name;
+@property (retain, nonatomic) NSString *logId;
+@property (retain, nonatomic) NSString *password;
+
+@end
+
+//====================================< 词条 - 接口 >====================================
 @interface Api (Category)
 
 @end

@@ -147,11 +147,74 @@
 }
 @end
 
+//--------------------< 业务类型 - 对象 - 文本 >--------------------
+@implementation Text
+@synthesize content=_content;
+@synthesize logId=_logId;
 
+- (void)dealloc {
+    RELEASE_SAFELY(_content);
+    RELEASE_SAFELY(_logId);
+    [super dealloc];
+}
+@end
 
+//--------------------< 业务类型 - 对象 - 网络地址 >--------------------
+@implementation Url
+@synthesize content=_content;
+@synthesize logId=_logId;
 
+- (void)dealloc {
+    RELEASE_SAFELY(_content);
+    RELEASE_SAFELY(_logId);
+    [super dealloc];
+}
 
+@end
 
+//--------------------< 业务类型 - 对象 - 短信 >--------------------
+@implementation Shortmessage
+@synthesize contente=_contente;
+@synthesize logId=_logId;
+@synthesize cellphone=_cellphone;
+
+- (void)dealloc {
+    RELEASE_SAFELY(_cellphone);
+    RELEASE_SAFELY(_contente);
+    RELEASE_SAFELY(_logId);
+    [super dealloc];
+}
+@end
+
+//--------------------< 业务类型 - 对象 - 微博 >--------------------
+@implementation Weibo
+@synthesize title=_title;
+@synthesize logId=_logId;
+@synthesize url=_url;
+
+- (void)dealloc {
+    RELEASE_SAFELY(_url);
+    RELEASE_SAFELY(_title);
+    RELEASE_SAFELY(_logId);
+    [super dealloc];
+}
+@end
+
+//--------------------< 业务类型 - 对象 - WIFI >--------------------
+@implementation WifiText
+@synthesize name=_name;
+@synthesize logId=_logId;
+@synthesize password=_password;
+
+- (void)dealloc {
+    RELEASE_SAFELY(_name);
+    RELEASE_SAFELY(_password);
+    RELEASE_SAFELY(_logId);
+    [super dealloc];
+}
+@end
+
+//====================================< 词条 - 接口 >====================================
 @implementation Api (Category)
 
 @end
