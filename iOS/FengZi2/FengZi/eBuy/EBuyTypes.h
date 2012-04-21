@@ -13,8 +13,11 @@
     NSMutableArray     *_items;
     UIFont             *_font;
     int                 _page;
+    NSString           *_curSubject;
 }
+
 @property (nonatomic, retain) IBOutlet UITableView *tableView;
+@property (nonatomic, copy) NSString *subject;
 @property (nonatomic, assign) int frontId;
 @property (nonatomic, assign) int typeId;
 
