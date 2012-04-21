@@ -175,7 +175,6 @@
 		3E11F1361472686900ACC436 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3E11F1341472686900ACC436 /* InfoPlist.strings */; };
 		3E11F1381472686900ACC436 /* main.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3E11F1371472686900ACC436 /* main.mm */; };
 		3E11F13C1472686900ACC436 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E11F13B1472686900ACC436 /* AppDelegate.m */; };
-		3E11F14A14726A7C00ACC436 /* ITTBaseModelObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E11F14914726A7C00ACC436 /* ITTBaseModelObject.m */; };
 		3E11F16514726AF400ACC436 /* ITSActivityIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E11F15D14726AF400ACC436 /* ITSActivityIndicator.m */; };
 		3E11F17414726B1500ACC436 /* DataEnvironment.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E11F17114726B1500ACC436 /* DataEnvironment.m */; };
 		3E11F17514726B1500ACC436 /* DataCacheManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E11F17314726B1500ACC436 /* DataCacheManager.m */; };
@@ -385,9 +384,6 @@
 		715FC1011488D0A2009D0263 /* DecodeBusinessCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 715FC1001488D0A2009D0263 /* DecodeBusinessCell.xib */; };
 		7160DE9A147CF1FE00F47FB3 /* DecorateView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7160DE99147CF1FE00F47FB3 /* DecorateView.m */; };
 		7160DE9C147CF21200F47FB3 /* DecorateView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7160DE9B147CF21200F47FB3 /* DecorateView.xib */; };
-		716ADCBE14973AA4005E82B1 /* DataBaseOperate.m in Sources */ = {isa = PBXBuildFile; fileRef = 716ADCBD14973AA4005E82B1 /* DataBaseOperate.m */; };
-		716ADCC114973AD2005E82B1 /* FaviroteObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 716ADCC014973AD1005E82B1 /* FaviroteObject.m */; };
-		716ADCC414973AF0005E82B1 /* HistoryObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 716ADCC314973AF0005E82B1 /* HistoryObject.m */; };
 		716ADCCA14974385005E82B1 /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 716ADCC914974385005E82B1 /* libsqlite3.0.dylib */; };
 		716ADCD514974948005E82B1 /* FileUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 716ADCD414974948005E82B1 /* FileUtil.m */; };
 		71747D201484BA5A007BF851 /* add_address_tap.png in Resources */ = {isa = PBXBuildFile; fileRef = 71747D1E1484BA59007BF851 /* add_address_tap.png */; };
@@ -866,8 +862,6 @@
 		3E11F1391472686900ACC436 /* FengZi-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "FengZi-Prefix.pch"; sourceTree = "<group>"; };
 		3E11F13A1472686900ACC436 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		3E11F13B1472686900ACC436 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		3E11F14814726A7C00ACC436 /* ITTBaseModelObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ITTBaseModelObject.h; sourceTree = "<group>"; };
-		3E11F14914726A7C00ACC436 /* ITTBaseModelObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ITTBaseModelObject.m; sourceTree = "<group>"; };
 		3E11F14B14726A8600ACC436 /* CONSTS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CONSTS.h; sourceTree = "<group>"; };
 		3E11F15C14726AF400ACC436 /* ITSActivityIndicator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ITSActivityIndicator.h; sourceTree = "<group>"; };
 		3E11F15D14726AF400ACC436 /* ITSActivityIndicator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ITSActivityIndicator.m; sourceTree = "<group>"; };
@@ -1192,12 +1186,6 @@
 		7160DE98147CF1FE00F47FB3 /* DecorateView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DecorateView.h; sourceTree = "<group>"; };
 		7160DE99147CF1FE00F47FB3 /* DecorateView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DecorateView.m; sourceTree = "<group>"; };
 		7160DE9B147CF21200F47FB3 /* DecorateView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DecorateView.xib; sourceTree = "<group>"; };
-		716ADCBC14973AA4005E82B1 /* DataBaseOperate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataBaseOperate.h; sourceTree = "<group>"; };
-		716ADCBD14973AA4005E82B1 /* DataBaseOperate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataBaseOperate.m; sourceTree = "<group>"; };
-		716ADCBF14973AD1005E82B1 /* FaviroteObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FaviroteObject.h; sourceTree = "<group>"; };
-		716ADCC014973AD1005E82B1 /* FaviroteObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FaviroteObject.m; sourceTree = "<group>"; };
-		716ADCC214973AF0005E82B1 /* HistoryObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HistoryObject.h; sourceTree = "<group>"; };
-		716ADCC314973AF0005E82B1 /* HistoryObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HistoryObject.m; sourceTree = "<group>"; };
 		716ADCC914974385005E82B1 /* libsqlite3.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.0.dylib; path = usr/lib/libsqlite3.0.dylib; sourceTree = SDKROOT; };
 		716ADCD314974948005E82B1 /* FileUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileUtil.h; sourceTree = "<group>"; };
 		716ADCD414974948005E82B1 /* FileUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FileUtil.m; sourceTree = "<group>"; };
@@ -1853,24 +1841,8 @@
 				3E11F18614726B8300ACC436 /* Utils */,
 				3E11F17614726B5300ACC436 /* DataServices */,
 				3E11F14C14726AA100ACC436 /* Common */,
-				3E11F14714726A6100ACC436 /* Model */,
 			);
 			name = Classes;
-			sourceTree = "<group>";
-		};
-		3E11F14714726A6100ACC436 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				716ADCBC14973AA4005E82B1 /* DataBaseOperate.h */,
-				716ADCBD14973AA4005E82B1 /* DataBaseOperate.m */,
-				3E11F14814726A7C00ACC436 /* ITTBaseModelObject.h */,
-				3E11F14914726A7C00ACC436 /* ITTBaseModelObject.m */,
-				716ADCBF14973AD1005E82B1 /* FaviroteObject.h */,
-				716ADCC014973AD1005E82B1 /* FaviroteObject.m */,
-				716ADCC214973AF0005E82B1 /* HistoryObject.h */,
-				716ADCC314973AF0005E82B1 /* HistoryObject.m */,
-			);
-			name = Model;
 			sourceTree = "<group>";
 		};
 		3E11F14C14726AA100ACC436 /* Common */ = {
@@ -3530,7 +3502,6 @@
 			files = (
 				3E11F1381472686900ACC436 /* main.mm in Sources */,
 				3E11F13C1472686900ACC436 /* AppDelegate.m in Sources */,
-				3E11F14A14726A7C00ACC436 /* ITTBaseModelObject.m in Sources */,
 				3E11F16514726AF400ACC436 /* ITSActivityIndicator.m in Sources */,
 				3E11F17414726B1500ACC436 /* DataEnvironment.m in Sources */,
 				3E11F17514726B1500ACC436 /* DataCacheManager.m in Sources */,
@@ -3618,9 +3589,6 @@
 				71C5D6D51495FB9900055F5C /* FontManager.m in Sources */,
 				71C5D6D61495FB9900055F5C /* ZAttributedString.m in Sources */,
 				71C5D6D71495FB9900055F5C /* ZFont.m in Sources */,
-				716ADCBE14973AA4005E82B1 /* DataBaseOperate.m in Sources */,
-				716ADCC114973AD2005E82B1 /* FaviroteObject.m in Sources */,
-				716ADCC414973AF0005E82B1 /* HistoryObject.m in Sources */,
 				716ADCD514974948005E82B1 /* FileUtil.m in Sources */,
 				71AFBC471498675A00BABA85 /* GTMBase64.m in Sources */,
 				713FBA52149EDEF500396FB9 /* RefreshTableFooterView.m in Sources */,

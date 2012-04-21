@@ -9,6 +9,17 @@
 #import "Api.h"
 
 #import "ITTBaseModelObject.h"
+//--------------------< 业务类型 - 对象 - 基础业务模型 >--------------------
+@interface ITTBaseModelObject :NSObject <NSCoding> {
+    
+}
+-(id)initWithDataDic:(NSDictionary*)data;
+- (NSDictionary*)attributeMapDictionary;
+- (void)setAttributes:(NSDictionary*)dataDic;
+- (NSString *)customDescription;
+- (NSString *)description;
+- (NSData*)getArchivedData;
+@end
 
 //--------------------< 业务类型 - 对象 - 应用程序 >--------------------
 @interface AppUrl : ITTBaseModelObject{
