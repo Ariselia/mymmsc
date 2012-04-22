@@ -726,4 +726,17 @@ static NSString *s_abFilename = @"cache/files/fengzi_addressbook.db";
     return bRet;
 }
 
+// 删除地址
++ (BOOL)ebuy_addess_del:(int)index{
+    BOOL bRet = NO;
+    NSString *filename = [iOSFile path:s_abFilename];
+    s_addressbook = [self ebuy_address_list];
+    
+    [s_addressbook removeObjectAtIndex:index];
+    iOSLog(@"addressbook=[%@]", filename);
+    NSData *data = [NSKeyedArchiver archivedDataWithRootObject:s_addressbook];
+    bRet = [data writeToFile:filename atomically:YES];
+    return bRet;
+}
+
 @end

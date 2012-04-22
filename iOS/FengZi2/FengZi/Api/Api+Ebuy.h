@@ -279,5 +279,7 @@
 + (NSMutableArray *)ebuy_address_list;
 // 添加地址簿
 + (BOOL)ebuy_address_add:(EBAddress *)obj;
+// 删除地址
++ (BOOL)ebuy_addess_del:(int)index;
 
 @end

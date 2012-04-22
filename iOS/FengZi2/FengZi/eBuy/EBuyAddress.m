@@ -16,12 +16,14 @@
 @implementation EBuyAddress
 @synthesize sheng, chengshi,dizhi,shouhuoren,youbian,shouji;
 @synthesize seqId;
+@synthesize shopName;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
+        seqId = -1;
     }
     return self;
 }
@@ -80,6 +82,19 @@
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
+}
+
+- (void)viewWillAppear:(BOOL)animated{
+    NSArray *list = [Api ebuy_address_list];
+    if (list.count > 0 && seqId >= 0 && seqId < list.count) {
+        EBAddress *addr = [list objectAtIndex:seqId];
+        sheng.text = addr.sheng;
+        chengshi.text = addr.chengshi;
+        dizhi.text = addr.dizhi;
+        shouhuoren.text = addr.shouhuoren;
+        youbian.text = addr.youbian;
+        shouji.text = addr.shouji;
+    }
 }
 
 - (void)setDDListHidden:(BOOL)hidden {
@@ -159,10 +174,11 @@
         return;
     }
     [Api ebuy_address_add:addr];
+    [self goBack];
 }
 
 - (IBAction)doCancel:(id)sender{
-    //
+    [self goBack];
 }
 
 - (IBAction)doShowList:(id)sender{

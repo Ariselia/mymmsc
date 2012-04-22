@@ -137,14 +137,24 @@
     // 地址簿非空
     if (pos == 0) {
         EBAddress *obj = [al objectAtIndex:0];
-        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
+        NSString *str = nil;
+        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle
                                        reuseIdentifier:CellIdentifier] autorelease];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         cell.textLabel.textAlignment = UITextAlignmentCenter;
         cell.textLabel.textColor = [UIColor grayColor];
         cell.textLabel.highlightedTextColor = [UIColor blackColor];
         cell.textLabel.font = [UIFont systemFontOfSize:15.0];
-        cell.textLabel.text = [iOSApi urlDecode:obj.dizhi];
+        str = [NSString stringWithFormat:@"省:%@ 市:%@",obj.sheng, obj.chengshi];
+        cell.textLabel.text = [iOSApi urlDecode:str];
+        
+        cell.detailTextLabel.textAlignment = UITextAlignmentCenter;
+        cell.detailTextLabel.textColor = [UIColor grayColor];
+        cell.detailTextLabel.highlightedTextColor = [UIColor blackColor];
+        cell.detailTextLabel.font = [UIFont systemFontOfSize:15.0];
+        str = [NSString stringWithFormat:@"%@(%@)",obj.dizhi, obj.youbian];
+        cell.detailTextLabel.text = [iOSApi urlDecode:str];
         return cell;
     }
     if (pos == _items.count + 1) {
@@ -154,12 +164,12 @@
         }
         cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle                                       reuseIdentifier:CellIdentifier] autorelease];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        cell.textLabel.textAlignment = UITextAlignmentRight;
+        //cell.textLabel.textAlignment = UITextAlignmentRight;
         cell.textLabel.textColor = [UIColor grayColor];
         cell.textLabel.highlightedTextColor = [UIColor blackColor];
         cell.textLabel.font = [UIFont systemFontOfSize:15.0];
         cell.textLabel.text = [NSString stringWithFormat:@"原始价格:¥%.2f -- 返现:¥%.2f", yj, 0.00f];
-        cell.detailTextLabel.textAlignment = UITextAlignmentRight;
+        //cell.detailTextLabel.textAlignment = UITextAlignmentRight;
         cell.detailTextLabel.textColor = [UIColor grayColor];
         cell.detailTextLabel.highlightedTextColor = [UIColor blackColor];
         cell.detailTextLabel.font = [UIFont systemFontOfSize:15.0];
@@ -215,6 +225,7 @@
     
 }
 
+// 确认购买
 - (void)doClear:(id)sender event:(id)event{
     NSSet *touches = [event allTouches];
 	UITouch *touch = [touches anyObject];
