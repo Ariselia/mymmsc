@@ -193,6 +193,8 @@
     return list;
 }
 
+//--------------------< 电子商城 - 接口 - 分类 >--------------------
+
 // 分类列表接口
 + (NSMutableArray *)ebuy_type:(int)page typeId:(int)typeId{
     NSMutableArray *list = nil;
@@ -693,6 +695,38 @@ static NSString *s_carFilename = @"cache/files/fengzi_buycar.db";
     [s_buycar setObject:list forKey:shopName];
     iOSLog(@"buycar=[%@]", filename);
     NSData *data = [NSKeyedArchiver archivedDataWithRootObject:s_buycar];
+    bRet = [data writeToFile:filename atomically:YES];
+    return bRet;
+}
+
+//--------------------< 电子商城 - 接口 - 地址簿 >--------------------
+// 地址簿
+static NSMutableArray *s_addressbook = nil;
+static NSString *s_abFilename = @"cache/files/fengzi_addressbook.db";
+
+// 地址簿列表
++ (NSMutableArray *)ebuy_address_list{
+    NSString *filename = [iOSFile path:s_abFilename];
+    iOSLog(@"addressbook=[%@]", filename);
+    if (s_addressbook == nil) {
+        NSData *data = [NSData dataWithContentsOfFile:filename];  
+        s_addressbook = [NSKeyedUnarchiver unarchiveObjectWithData:data]; 
+    }
+    if (s_addressbook == nil) {
+        s_addressbook = [[NSMutableArray alloc] initWithCapacity:0];
+    }
+    return s_addressbook;
+}
+
+// 添加地址簿
++ (BOOL)ebuy_address_add:(EBAddress *)obj{
+    BOOL bRet = NO;
+    NSString *filename = [iOSFile path:s_abFilename];
+    s_addressbook = [self ebuy_address_list];
+    
+    [s_addressbook addObject:obj];
+    iOSLog(@"addressbook=[%@]", filename);
+    NSData *data = [NSKeyedArchiver archivedDataWithRootObject:s_addressbook];
     bRet = [data writeToFile:filename atomically:YES];
     return bRet;
 }

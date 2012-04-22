@@ -198,6 +198,7 @@
 // 商品推荐接口
 + (NSMutableArray *)ebuy_push:(int)page;
 
+//--------------------< 电子商城 - 接口 - 分类 >--------------------
 // 分类列表接口 typeId=0为全部分类
 + (NSMutableArray *)ebuy_type:(int)page typeId:(int)typeId;
 
@@ -272,4 +273,11 @@
 + (NSMutableDictionary *)ebuy_car_list;
 // 放入购物车
 + (BOOL)ebuy_car_add:(EBProductInfo *)obj;
+
+//--------------------< 电子商城 - 接口 - 地址簿 >--------------------
+// 地址簿列表
++ (NSMutableArray *)ebuy_address_list;
+// 添加地址簿
++ (BOOL)ebuy_address_add:(EBAddress *)obj;
+
 @end
