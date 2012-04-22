@@ -18,7 +18,7 @@
     int                _page;
     int                _size;
     
-     UITextField *content;
+    UITextField *content;
 }
 @property (nonatomic, copy) NSString *param;
 @property (nonatomic, retain) IBOutlet UITableView *tableView;

@@ -419,13 +419,9 @@
     if (page < 0) {
         page = 0;
     }
-    NSString *query = [NSString stringWithFormat:@"page=%d", page];
-    NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
-                            API_INTERFACE_TONKEN, @"token",
-                            [NSString valueOf:[Api userId]], @"id",
-                            nil];
+    NSString *query = [NSString stringWithFormat:@"page=%d&id=%d", page, [Api userId]];
     NSString *action = [NSString stringWithFormat:@"%@/%@?%@", API_URL_EBUY, method, query];
-    NSDictionary *response = [Api post:action params:params];
+    NSDictionary *response = [Api post:action params:nil];
     if (response) {
         NSMutableArray *data = [response objectForKey:method];
         if (data.count > 0) {

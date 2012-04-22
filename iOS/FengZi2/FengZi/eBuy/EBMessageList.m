@@ -119,16 +119,26 @@
     }
     int pos = [indexPath row];
     EBSiteMessage *obj = [_items objectAtIndex:pos];
-    NSString *tmpTitle = [NSString stringWithFormat:@"%@:%@", obj.sendName, obj.recevTime];
+    NSString *tmpTitle = [NSString stringWithFormat:@"%@:  %@", obj.sendName, obj.recevTime];
     cell.textLabel.text = [iOSApi urlDecode:tmpTitle];
+    cell.textLabel.font = [UIFont systemFontOfSize:15.0];
     cell.detailTextLabel.text = [iOSApi urlDecode:obj.content];
     cell.detailTextLabel.lineBreakMode = 0;
-    
-    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    cell.detailTextLabel.font = [UIFont systemFontOfSize:14.0];
+    if (1) {
+        CGRect frame = CGRectMake(230, 10, 60, 20);
+        UIButton *btn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+        [btn setTitle:@"回复" forState:UIControlStateNormal];
+        btn.frame = frame;
+        [btn addTarget:self action:@selector(doReply:event:) forControlEvents:UIControlEventTouchUpInside];
+        [cell.contentView addSubview:btn];
+    }
+    //cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;
 }
 
+#if 0
 - (UITableViewCellAccessoryType)tableView:(UITableView *)tableView accessoryTypeForRowWithIndexPath:(NSIndexPath *)indexPath {
     return UITableViewCellAccessoryDetailDisclosureButton;
     //return UITableViewCellAccessoryDisclosureIndicator;
@@ -137,6 +147,7 @@
 - (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath{
     //
 }
+#endif
 
 // 选择
 - (IBAction)segmentAction:(UISegmentedControl *)segment{
@@ -156,6 +167,45 @@
     [list release];
     [iOSApi closeAlert];
     [_tableView reloadData];
+}
+
+static EBSiteMessage *theObj = nil;
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger) buttonIndex{
+    if (buttonIndex == 1) {
+        NSString *msg = [content.text trim];
+        if (msg.length < 1) {
+            [iOSApi Alert:@"站内消息 提示" message:@"内容不能为空"];
+            return;
+        } else {
+            ApiResult *iRet = [[Api ebuy_message_reply:theObj.id content:msg] retain];
+            [iOSApi Alert:@"站内消息 提示" message:iRet.message];
+            [iRet release];
+        }
+    }
+}
+
+- (void)doReply:(id)sender event:(id)event{
+    NSSet *touches = [event allTouches];
+	UITouch *touch = [touches anyObject];
+	CGPoint currentTouchPosition = [touch locationInView: _tableView];
+	NSIndexPath *indexPath = [_tableView indexPathForRowAtPoint: currentTouchPosition];
+    theObj = [_items objectAtIndex:indexPath.row];
+    
+    UIAlertView *alert = [[UIAlertView alloc]
+						  initWithTitle: [NSString stringWithFormat:@"对 %@ 说点什么吧", theObj.sendName]
+						  message:[NSString stringWithFormat:@"\n\n"]
+						  delegate:self
+						  cancelButtonTitle:@"取消"
+						  otherButtonTitles:@"发表", nil];
+    content = [[UITextField alloc] initWithFrame:CGRectMake(12, 60, 260, 25)];
+	[content setTag:1001];
+	CGAffineTransform mytrans = CGAffineTransformMakeTranslation(-0, -150);
+	[alert setTransform:mytrans];
+	[content setBackgroundColor:[UIColor whiteColor]];
+	[alert addSubview:content];
+	[alert show];
+	[alert release];
 }
 
 @end
