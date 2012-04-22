@@ -255,4 +255,9 @@
 //--------------------< 电子商城 - 接口 - 商铺列表 >--------------------
 + (NSMutableArray *)ebuy_shoplist:(int)page;
 
+//--------------------< 电子商城 - 接口 - 购物车 >--------------------
+// 购物车列表
++ (NSMutableDictionary *)ebuy_car_list;
+// 放入购物车
++ (BOOL)ebuy_car_add:(EBProductInfo *)obj;
 @end

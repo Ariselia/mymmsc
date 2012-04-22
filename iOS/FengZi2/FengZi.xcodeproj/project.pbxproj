@@ -15,6 +15,8 @@
 		0A4A3AFF15366E9B00FAAE4C /* site_sms.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A4A3AFE15366E9B00FAAE4C /* site_sms.png */; };
 		0A4A3B04153681CC00FAAE4C /* EBuyComments.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A4A3B02153681CC00FAAE4C /* EBuyComments.m */; };
 		0A4A3B05153681CC00FAAE4C /* EBuyComments.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A4A3B03153681CC00FAAE4C /* EBuyComments.xib */; };
+		0A58AC901543A8A500A8F42F /* EBuyCar.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A58AC8E1543A8A500A8F42F /* EBuyCar.m */; };
+		0A58AC911543A8A500A8F42F /* EBuyCar.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A58AC8F1543A8A500A8F42F /* EBuyCar.xib */; };
 		0A71F1EF15044A41007714BB /* EBuyPortal.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A71F1ED15044A41007714BB /* EBuyPortal.m */; };
 		0A71F1F015044A41007714BB /* EBuyPortal.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A71F1EE15044A41007714BB /* EBuyPortal.xib */; };
 		0A8447E1154126D1000381E0 /* EBuyTypes.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A8447DF154126D1000381E0 /* EBuyTypes.m */; };
@@ -669,6 +671,9 @@
 		0A4A3B01153681CC00FAAE4C /* EBuyComments.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EBuyComments.h; sourceTree = "<group>"; };
 		0A4A3B02153681CC00FAAE4C /* EBuyComments.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EBuyComments.m; sourceTree = "<group>"; };
 		0A4A3B03153681CC00FAAE4C /* EBuyComments.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EBuyComments.xib; sourceTree = "<group>"; };
+		0A58AC8D1543A8A500A8F42F /* EBuyCar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EBuyCar.h; sourceTree = "<group>"; };
+		0A58AC8E1543A8A500A8F42F /* EBuyCar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EBuyCar.m; sourceTree = "<group>"; };
+		0A58AC8F1543A8A500A8F42F /* EBuyCar.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EBuyCar.xib; sourceTree = "<group>"; };
 		0A71F1EC15044A41007714BB /* EBuyPortal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EBuyPortal.h; sourceTree = "<group>"; };
 		0A71F1ED15044A41007714BB /* EBuyPortal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EBuyPortal.m; sourceTree = "<group>"; };
 		0A71F1EE15044A41007714BB /* EBuyPortal.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EBuyPortal.xib; sourceTree = "<group>"; };
@@ -1656,6 +1661,9 @@
 				0A8447DE154126D0000381E0 /* EBuyTypes.h */,
 				0A8447DF154126D1000381E0 /* EBuyTypes.m */,
 				0A8447E0154126D1000381E0 /* EBuyTypes.xib */,
+				0A58AC8D1543A8A500A8F42F /* EBuyCar.h */,
+				0A58AC8E1543A8A500A8F42F /* EBuyCar.m */,
+				0A58AC8F1543A8A500A8F42F /* EBuyCar.xib */,
 			);
 			path = eBuy;
 			sourceTree = "<group>";
@@ -3474,6 +3482,7 @@
 				0A0399AA153F79700078C039 /* RMRideReal.xib in Resources */,
 				0A0399B3154068DC0078C039 /* Ride.bundle in Resources */,
 				0A8447E2154126D1000381E0 /* EBuyTypes.xib in Resources */,
+				0A58AC911543A8A500A8F42F /* EBuyCar.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3696,6 +3705,7 @@
 				0A0399AD153F8D1F0078C039 /* RMRidePath.m in Sources */,
 				0A8447E1154126D1000381E0 /* EBuyTypes.m in Sources */,
 				0A8447EC154370A5000381E0 /* Api+Category.m in Sources */,
+				0A58AC901543A8A500A8F42F /* EBuyCar.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

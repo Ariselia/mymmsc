@@ -615,4 +615,49 @@
     
     return list;
 }
+
+//--------------------< 电子商城 - 接口 - 购物车 >--------------------
+// 购物车
+static NSMutableDictionary *s_buycar = nil;
+static NSString *s_carFilename = @"cache/files/fengzi_buycar.db";
+
+// 购物车列表
++ (NSMutableDictionary *)ebuy_car_list{
+    NSString *filename = [iOSFile path:s_carFilename];
+    iOSLog(@"buycar=[%@]", filename);
+    if (s_buycar == nil) {
+        s_buycar = [[NSMutableDictionary alloc] initWithContentsOfFile:filename];
+    }
+    if (s_buycar == nil) {
+        s_buycar = [[NSMutableDictionary alloc] initWithCapacity:0];
+    }
+    return s_buycar;
+}
+
+// 放入购物车
++ (BOOL)ebuy_car_add:(EBProductInfo *)obj{
+    BOOL bRet = NO;
+    NSString *filename = [iOSFile path:s_carFilename];
+    NSString *shopName = [obj.shopName copy];
+    if (s_buycar == nil) {
+        s_buycar = [[NSMutableDictionary alloc] initWithContentsOfFile:filename];
+    }
+    if (s_buycar == nil) {
+        s_buycar = [[NSMutableDictionary alloc] initWithCapacity:0];
+    }
+    NSMutableArray *list = [s_buycar objectForKey:shopName];
+    if (list == nil) {
+        list = [NSMutableArray arrayWithCapacity:0];
+    }
+    [list addObject:obj];
+    [s_buycar setObject:list forKey:shopName];
+    iOSLog(@"buycar=[%@]", filename);
+    NSFileHandle *fileHandle = [iOSFile create:filename];
+    //BOOL bRet = [s_buycar writeToFile:filename atomically:YES];
+    NSString *data = [s_buycar JSONString];
+    [fileHandle writeData:[data dataUsingEncoding:NSUTF8StringEncoding]];
+    bRet = YES;
+    return bRet;
+}
+
 @end

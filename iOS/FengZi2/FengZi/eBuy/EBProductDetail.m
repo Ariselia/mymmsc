@@ -231,7 +231,7 @@
 
 // 加入购物车
 - (void)addShop{
-    //
+    [Api ebuy_car_add:_product];
 }
 
 // 立即购买
