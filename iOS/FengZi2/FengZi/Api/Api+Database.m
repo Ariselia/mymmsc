@@ -225,6 +225,7 @@ static sqlite3 *database;
 	sqlite3_finalize(statement);
 	return result;
 }
+
 - (NSArray*)searchHistory:(int)pageIndex withKey:(NSString*)key withType:(BOOL)isEncode{
     NSMutableArray *result = [[[NSMutableArray alloc] initWithCapacity:0] autorelease];
 	sqlite3_stmt *statement;
