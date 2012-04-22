@@ -10,6 +10,7 @@
 #import "EBuyPortal.h"
 #import "EBMessageList.h"
 #import "EBuyTypes.h"
+#import "EBuyCar.h"
 
 @implementation EBuyPanel
 @synthesize ownerId;
@@ -48,7 +49,10 @@
 
 // 购物车
 - (IBAction)doShoppingCar:(id)sender{
-    //
+    EBuyPortal *potal = ownerId;
+    EBuyCar *nextView = [[EBuyCar alloc] init];
+    [potal.navigationController pushViewController:nextView animated:YES];
+    [nextView release];
 }
 
 // 我的收藏
