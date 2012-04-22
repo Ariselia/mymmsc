@@ -8,7 +8,9 @@
 
 #import "EBuyCar.h"
 #import "Api+Ebuy.h"
+#import "EBuyOrder.h"
 #import "EBuyTypes.h"
+#import "EBuyEditAddress.h"
 #import <iOSApi/iOSAsyncImageView.h>
 
 @interface EBuyCar ()
@@ -81,7 +83,7 @@
     
     _borderStyle = UITextBorderStyleNone;
     isEmpty = NO;
-    NSMutableDictionary *data = [Api ebuy_car_list];
+    NSMutableDictionary *data = [[Api ebuy_car_list] retain];
     if (data.count < 1) {
         isEmpty = YES;
     } else {
@@ -89,6 +91,7 @@
             [_items release];
         }
         _items = [[NSMutableDictionary alloc] initWithDictionary:data];
+        [data release];
     }
 }
 
@@ -244,7 +247,20 @@
 	UITouch *touch = [touches anyObject];
 	CGPoint currentTouchPosition = [touch locationInView: _tableView];
 	NSIndexPath *indexPath = [_tableView indexPathForRowAtPoint: currentTouchPosition];
-    
+    NSArray *keys = [_items allKeys];
+    NSArray *values = [_items objectForKey:[keys objectAtIndex:indexPath.section]];
+    EBProductInfo *obj = [values objectAtIndex:indexPath.row - 2];
+    if ([Api ebuy_address_list].count > 0) {
+        EBuyEditAddress *nextView = [[EBuyEditAddress alloc] init];
+        nextView.shopName = obj.shopName;
+        [self.navigationController pushViewController:nextView animated:YES];
+        [nextView release];
+    } else {
+        EBuyOrder *nextView = [[EBuyOrder alloc] init];
+        nextView.param = obj.shopName;
+        [self.navigationController pushViewController:nextView animated:YES];
+        [nextView release];
+    }
 }
 
 @end

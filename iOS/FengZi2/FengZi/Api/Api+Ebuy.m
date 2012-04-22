@@ -667,8 +667,8 @@ static NSString *s_carFilename = @"cache/files/fengzi_buycar.db";
     NSString *filename = [iOSFile path:s_carFilename];
     iOSLog(@"buycar=[%@]", filename);
     if (s_buycar == nil) {
-        NSData *data2 = [NSData dataWithContentsOfFile:filename];  
-        s_buycar = [NSKeyedUnarchiver unarchiveObjectWithData:data2]; 
+        NSData *data = [NSData dataWithContentsOfFile:filename];
+        s_buycar = [[NSMutableDictionary alloc] initWithDictionary:[NSKeyedUnarchiver unarchiveObjectWithData:data]];
     }
     if (s_buycar == nil) {
         s_buycar = [[NSMutableDictionary alloc] initWithCapacity:0];
@@ -681,12 +681,7 @@ static NSString *s_carFilename = @"cache/files/fengzi_buycar.db";
     BOOL bRet = NO;
     NSString *filename = [iOSFile path:s_carFilename];
     NSString *shopName = [obj.shopName copy];
-    if (s_buycar == nil) {
-        s_buycar = [[NSMutableDictionary alloc] initWithContentsOfFile:filename];
-    }
-    if (s_buycar == nil) {
-        s_buycar = [[NSMutableDictionary alloc] initWithCapacity:0];
-    }
+    s_buycar = [self ebuy_car_list];
     NSMutableArray *list = [s_buycar objectForKey:shopName];
     if (list == nil) {
         list = [NSMutableArray arrayWithCapacity:0];
@@ -709,8 +704,8 @@ static NSString *s_abFilename = @"cache/files/fengzi_addressbook.db";
     NSString *filename = [iOSFile path:s_abFilename];
     iOSLog(@"addressbook=[%@]", filename);
     if (s_addressbook == nil) {
-        NSData *data = [NSData dataWithContentsOfFile:filename];  
-        s_addressbook = [NSKeyedUnarchiver unarchiveObjectWithData:data]; 
+        NSData *data = [NSData dataWithContentsOfFile:filename];
+        s_addressbook = [[NSMutableArray alloc] initWithArray:[NSKeyedUnarchiver unarchiveObjectWithData:data]];
     }
     if (s_addressbook == nil) {
         s_addressbook = [[NSMutableArray alloc] initWithCapacity:0];

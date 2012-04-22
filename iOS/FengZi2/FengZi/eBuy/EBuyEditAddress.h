@@ -1,5 +1,5 @@
 //
-//  EBuyOrder.h
+//  EBuyEditAddress.h
 //  FengZi
 //
 //  Created by wangfeng on 12-4-23.
@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface EBuyOrder : UIViewController{
+@interface EBuyEditAddress : UIViewController{
     UITextBorderStyle    _borderStyle;
     NSMutableArray      *_items;
     UIFont              *_font;
@@ -17,5 +17,6 @@
 }
 @property (nonatomic, retain) IBOutlet UITableView *tableView;
 @property (nonatomic, copy) NSString *param;
+@property (nonatomic, copy) NSString *shopName;
 
 @end
