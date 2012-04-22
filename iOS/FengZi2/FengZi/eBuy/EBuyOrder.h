@@ -12,5 +12,6 @@
     //
 }
 @property (nonatomic, retain) IBOutlet UITableView *tableView;
+@property (nonatomic, copy) NSString *param;
 
 @end
