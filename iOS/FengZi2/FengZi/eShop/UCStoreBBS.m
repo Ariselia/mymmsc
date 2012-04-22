@@ -25,10 +25,10 @@
     NSString *nk = [nikename.text trim];
     NSString *msg = [content.text trim];
     if (msg.length < 1) {
-        [iOSToast show:@"请输入评论内容!"];
+        [iOSApi toast:@"请输入评论内容!"];
         return;
     } else if(msg.length > 140) {
-        [iOSToast show:@"字数超出限制，请控制在140字以内!"];
+        [iOSApi toast:@"字数超出限制，请控制在140字以内!"];
         return;
     }
     if (nk.length < 1) {

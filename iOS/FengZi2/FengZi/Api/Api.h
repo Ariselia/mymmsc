@@ -21,7 +21,6 @@
 #import <iOSApi/NSString+Utils.h>
 #import <iOSApi/NSDictionary+Utils.h>
 #import <iOSApi/UIImageView+Utils.h>
-#import <iOSApi/iOSToast.h>
 #import <iOSApi/iOSImageView.h>
 #import <QuartzCore/QuartzCore.h>
 
@@ -39,10 +38,10 @@
 #define API_INTERFACE_TONKEN @"uLN9UhI9Uhd-UhGGuh78uQ"
 
 // 富媒体接口地址
-#define API_URL_RICHMEDIA    @"http://m.fengxiafei.com/mb"
+#define API_URL_RICHMEDIA    @"http://m.ifengzi.cn/mb"
 //#define API_URL_RICHMEDIA    @"http://labs.ifengzi.cn/mb"
 // 空码接口地址
-#define API_URL_KMA          @"http://devp.ifengzi.cn/mb"
+#define API_URL_KMA          @"http://m.ifengzi.cn/mb"
 //#define API_URL_KMA          @"http://labs.ifengzi.cn/mb"
 // 用户中心接口地址
 #define API_URL_USERCENTER   @"http://m.ifengzi.cn"
