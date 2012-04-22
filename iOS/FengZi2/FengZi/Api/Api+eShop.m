@@ -76,7 +76,7 @@
                           @"电子书", @"dianzishu",
                           @"音乐", @"yinyue",
                           @"游戏", @"youxi",
-                          @"图片", @"tupian",
+                          @"图片", @"meitu",
                           @"视频", @"shipin",
                           @"漫画", @"manhua",
                           @"其它", @"qita",

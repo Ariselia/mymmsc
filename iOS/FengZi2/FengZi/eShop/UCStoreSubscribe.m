@@ -122,28 +122,28 @@ static ProductInfo *theObj = nil;
     NSString *btnTitle = nil;
     if ([Api fileIsExists:obj.orderProductUrl]) {
         btnTitle = nil;
-        switch (obj.type) {
-            case 1: // 电子书
-                btnTitle = @"阅读";
-                break;
-            case 2: // 音乐
-                btnTitle = @"收听";
-                break;
-            case 3: // 游戏
-                btnTitle = @"安装";
-                break;
-            case 4: // 美图
-                btnTitle = @"查看";
-                break;
-            case 5: // 视频
-                btnTitle = @"播放";
-                break;
-            case 6: // 漫画
-                btnTitle = @"阅览";
-                break;
-            default:
-                btnTitle = @"XX";
-                break;
+        btnTitle = @"阅读";
+        if ([obj.type isSame:@"dianzishu"]) {
+            // 电子书
+            btnTitle = @"阅读";
+        } else if ([obj.type isSame:@"yinyue"]) {
+            // 音乐
+            btnTitle = @"收听";
+        } else if ([obj.type isSame:@"youxi"]) {
+            // 游戏
+            btnTitle = @"安装";
+        } else if ([obj.type isSame:@"meitu"]) {
+            // 美图
+            btnTitle = @"查看";
+        } else if ([obj.type isSame:@"shipin"]) {
+            // 视频
+            btnTitle = @"播放";
+        } else if ([obj.type isSame:@"manhua"]) {
+            // 漫画
+            btnTitle = @"阅览";
+        } else {
+            // 游戏
+            btnTitle = @"展示";
         }
         obj.state = 1;
     } else {
@@ -190,24 +190,24 @@ static ProductInfo *theObj = nil;
     } else {
         // 阅读
         //[iOSApi closeAlert];
-        if (obj.type == 5) {
+        if ([obj.type isSame:@"shipin"]) {
             UCMoviePlayer *nextView = [[UCMoviePlayer alloc] init];
             nextView.info = obj;
             [self.navigationController pushViewController:nextView animated:YES];
             [nextView release];
-        } else if(obj.type == 4) {
+        } else if([obj.type isSame:@"meitu"]) {
             // 图片
             NSString *filePath = [iOSFile path:[Api filePath:obj.orderProductUrl]];
             UIImage *im = [UIImage imageWithData:[NSData dataWithContentsOfFile:filePath]];
             iOSImageView2 *iv = [[iOSImageView2 alloc] initWithImage:im superView:self.view];
             [iv release];
-        } else if(obj.type == 2) {
+        } else if([obj.type isSame:@"yinyue"]) {
             // 音频
             UCMusicPlayer *nextView = [[UCMusicPlayer alloc] init];
             nextView.info = obj;
             [self.navigationController pushViewController:nextView animated:YES];
             [nextView release];
-        } else if(obj.type == 1){
+        } else if([obj.type isSame:@"dianzishu"]){
             // 电子书
             UCBookReader *nextView = [UCBookReader new];
             nextView.subject = obj.name;
@@ -239,7 +239,7 @@ static ProductInfo *theObj = nil;
     NSString *filePath = [Api filePath:theUrl];
     NSLog(@"1: %@", filePath);
     NSFileHandle *fileHandle = [iOSFile create:filePath];
-    if (theObj.type == 1) {
+    if ([theObj.type isSame:@"shipin"]) {
         NSStringEncoding enc = CFStringConvertEncodingToNSStringEncoding(kCFStringEncodingGB_18030_2000);
         NSString *content = [[[NSString alloc] initWithData:buffer encoding:enc] autorelease];
         [fileHandle writeData:[content dataUsingEncoding:NSUTF8StringEncoding]];
@@ -250,28 +250,27 @@ static ProductInfo *theObj = nil;
     iDownload = API_DOWNLOAD_NONE;
     theObj.state = 1;
     NSString *btnTitle = nil;
-    switch (theObj.type) {
-        case 1: // 电子书
-            btnTitle = @"阅读";
-            break;
-        case 2: // 音乐
-            btnTitle = @"收听";
-            break;
-        case 3: // 游戏
-            btnTitle = @"安装";
-            break;
-        case 4: // 美图
-            btnTitle = @"查看";
-            break;
-        case 5: // 视频
-            btnTitle = @"播放";
-            break;
-        case 6: // 漫画
-            btnTitle = @"阅览";
-            break;
-        default:
-            btnTitle = @"XX";
-            break;
+    if ([theObj.type isSame:@"dianzishu"]) {
+        // 电子书
+        btnTitle = @"阅读";
+    } else if ([theObj.type isSame:@"yinyue"]) {
+        // 音乐
+        btnTitle = @"收听";
+    } else if ([theObj.type isSame:@"youxi"]) {
+        // 游戏
+        btnTitle = @"安装";
+    } else if ([theObj.type isSame:@"meitu"]) {
+        // 美图
+        btnTitle = @"查看";
+    } else if ([theObj.type isSame:@"shipin"]) {
+        // 视频
+        btnTitle = @"播放";
+    } else if ([theObj.type isSame:@"manhua"]) {
+        // 漫画
+        btnTitle = @"阅览";
+    } else {
+        // 游戏
+        btnTitle = @"展示";
     }
     //theBtn.titleLabel.text = btnTitle;
     [theBtn setTitle:btnTitle forState:UIControlStateNormal];

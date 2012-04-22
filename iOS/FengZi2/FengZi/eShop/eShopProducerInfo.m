@@ -69,28 +69,27 @@
     NSString *btnTitle = @"下载";
     if (isOrder) {
         btnTitle = @"阅读";
-        switch (info.type) {
-            case 1: // 电子书
-                btnTitle = @"阅读";
-                break;
-            case 2: // 音乐
-                btnTitle = @"收听";
-                break;
-            case 3: // 游戏
-                btnTitle = @"安装";
-                break;
-            case 4: // 美图
-                btnTitle = @"查看";
-                break;
-            case 5: // 视频
-                btnTitle = @"播放";
-                break;
-            case 6: // 漫画
-                btnTitle = @"阅览";
-                break;
-            default:
-                btnTitle = @"XX";
-                break;
+        if ([info.type isSame:@"dianzishu"]) {
+            // 电子书
+            btnTitle = @"阅读";
+        } else if ([info.type isSame:@"yinyue"]) {
+            // 音乐
+            btnTitle = @"收听";
+        } else if ([info.type isSame:@"youxi"]) {
+            // 游戏
+            btnTitle = @"安装";
+        } else if ([info.type isSame:@"meitu"]) {
+            // 美图
+            btnTitle = @"查看";
+        } else if ([info.type isSame:@"shipin"]) {
+            // 视频
+            btnTitle = @"播放";
+        } else if ([info.type isSame:@"manhua"]) {
+            // 漫画
+            btnTitle = @"阅览";
+        } else {
+            // 游戏
+            btnTitle = @"展示";
         }
     }
     [btnAction setTitle:btnTitle forState:UIControlStateNormal];
@@ -104,24 +103,24 @@
     // 是否可展示
     if (bRead) {
         // 可以显示
-        if (info.type == 5) {
+        if ([info.type isSame:@"shipin"]) {
             UCMoviePlayer *nextView = [[UCMoviePlayer alloc] init];
             nextView.info = info;
             [view.navigationController pushViewController:nextView animated:YES];
             [nextView release];
-        } else if(info.type == 4) {
+        } else if([info.type isSame:@"meitu"]) {
             // 图片
             NSString *filePath = [iOSFile path:[Api filePath:info.orderProductUrl]];
             UIImage *im = [UIImage imageWithData:[NSData dataWithContentsOfFile:filePath]];
             iOSImageView2 *iv = [[iOSImageView2 alloc] initWithImage:im superView:self];
             [iv release];
-        } else if(info.type == 2) {
+        } else if([info.type isSame:@"yinyue"]) {
             // 音频
             UCMusicPlayer *nextView = [[UCMusicPlayer alloc] init];
             nextView.info = info;
             [view.navigationController pushViewController:nextView animated:YES];
             [nextView release];
-        } else if(info.type == 1){
+        } else if([info.type isSame:@"dianzishu"]){
             // 电子书
             UCBookReader *nextView = [UCBookReader new];
             nextView.subject = info.name;
@@ -166,7 +165,7 @@
     NSString *filePath = [Api filePath:info2.productUrl];
     NSLog(@"1: %@", filePath);
     NSFileHandle *fileHandle = [iOSFile create:filePath];
-    if (info.type == 1) {
+    if ([info.type isSame:@"dianzishu"]) {
         NSStringEncoding enc = CFStringConvertEncodingToNSStringEncoding(kCFStringEncodingGB_18030_2000);
         NSString *content = [[[NSString alloc] initWithData:buffer encoding:enc] autorelease];
         [fileHandle writeData:[content dataUsingEncoding:NSUTF8StringEncoding]];
