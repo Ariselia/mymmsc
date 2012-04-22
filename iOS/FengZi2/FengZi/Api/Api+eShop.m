@@ -64,17 +64,25 @@
 //====================================< 数字商城 - 接口 >====================================
 @implementation Api (AppStore)
 
-+ (NSString *)typeIcon:(int)index {
-    return [NSString stringWithFormat:@"as_app_%d.png", index];
++ (NSString *)typeIcon:(NSString *)type {
+    return [NSString stringWithFormat:@"as_app_%@.png", type];
     
 }
 
-+ (NSString *)typeName:(int)index {
++ (NSString *)typeName:(NSString *)type {
     // type 媒体文件的类型
-    NSArray *list = [NSArray arrayWithObjects:@"全部", @"电子书", @"音乐", @"游戏", @"图片", @"视频", @"漫画", @"其它", nil];
-    index = index < 0 ? 0 : index;
-    index = index >= list.count ? list.count - 1: index;
-    NSString *sRet = [list objectAtIndex:index];
+    NSDictionary *list = [NSDictionary dictionaryWithObjectsAndKeys:
+                          @"全部", @"all",
+                          @"电子书", @"dianzishu",
+                          @"音乐", @"yinyue",
+                          @"游戏", @"youxi",
+                          @"图片", @"tupian",
+                          @"视频", @"shipin",
+                          @"漫画", @"manhua",
+                          @"其它", @"qita",
+                           nil];
+    //NSArray *list = [NSArray arrayWithObjects:@"全部", @"电子书", @"音乐", @"游戏", @"图片", @"视频", @"漫画", @"其它", nil];
+    NSString *sRet = [list objectForKey:[type trim]];
     if (sRet == nil) {
         sRet = @"其它";
     }
@@ -125,7 +133,7 @@
             obj = [ProductInfo new];
             obj.pid = [Api getInt:[item objectForKey:@"id"]];
             obj.name = [item objectForKey:@"name"];
-            obj.type = [Api getInt:[item objectForKey:@"type"]];
+            obj.type = [item objectForKey:@"type"];
             obj.info = [item objectForKey:@"info"];
             obj.writer = [item objectForKey:@"writer"];
             obj.price = [Api getFloat:[item objectForKey:@"price"]];
@@ -164,7 +172,7 @@
             obj = [ProductInfo new];
             obj.pid = [Api getInt:[item objectForKey:@"id"]];
             obj.name = [item objectForKey:@"name"];
-            obj.type = [Api getInt:[item objectForKey:@"type"]];
+            obj.type = [item objectForKey:@"type"];
             obj.info = [item objectForKey:@"info"];
             obj.writer = [item objectForKey:@"writer"];
             obj.price = [Api getFloat:[item objectForKey:@"price"]];
@@ -217,7 +225,7 @@
             obj = [ProductInfo new];
             obj.pid = [Api getInt:[item objectForKey:@"id"]];
             obj.name = [item objectForKey:@"name"];
-            obj.type = [Api getInt:[item objectForKey:@"type"]];
+            obj.type = [item objectForKey:@"type"];
             obj.info = [item objectForKey:@"info"];
             obj.writer = [item objectForKey:@"writer"];
             obj.price = [Api getFloat:[item objectForKey:@"price"]];

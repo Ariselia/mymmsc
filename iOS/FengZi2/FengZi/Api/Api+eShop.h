@@ -15,7 +15,8 @@
 //====================================< 数字商城 - 接口 >====================================
 @interface ProductInfo : NSObject {
     NSString *name, *info, *writer, *orderProductUrl, *realUrl;
-    int pid, type;
+    int pid;
+    NSString *type;
     float price;
     NSString *picurl;
     NSString *productLogo;
@@ -23,8 +24,9 @@
     int state;
 }
 
-@property (nonatomic, retain) NSString *name, *info, *writer, *orderProductUrl, *realUrl, *picurl, *productLogo;
-@property (nonatomic, assign) int pid, type;
+@property (nonatomic, copy) NSString *name, *info, *writer, *orderProductUrl, *realUrl, *picurl, *productLogo;
+@property (nonatomic, assign) int pid;
+@property (nonatomic, copy) NSString *type;
 @property (nonatomic, assign) float price;
 @property (nonatomic, assign) int state;
 
@@ -79,8 +81,8 @@
 //====================================< 数字商城 - 接口 >====================================
 @interface Api (AppStore)
 
-+ (NSString *)typeIcon:(int)index;
-+ (NSString *)typeName:(int)index;
++ (NSString *)typeIcon:(NSString *)type;
++ (NSString *)typeName:(NSString *)type;
 + (NSString *)sortName:(int)index;
 + (NSString *)priceName:(int)index;
 
