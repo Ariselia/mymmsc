@@ -14,6 +14,8 @@
     NSMutableDictionary *_items;
     UIFont              *_font;
     int                  _page;
+    
+    BOOL                 isEmpty; // 购物车是否空
 }
 @property (nonatomic, retain) IBOutlet UITableView *tableView;
 
