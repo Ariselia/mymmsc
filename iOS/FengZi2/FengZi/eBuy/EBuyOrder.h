@@ -11,5 +11,6 @@
 @interface EBuyOrder : UIViewController{
     //
 }
+@property (nonatomic, retain) IBOutlet UITableView *tableView;
 
 @end

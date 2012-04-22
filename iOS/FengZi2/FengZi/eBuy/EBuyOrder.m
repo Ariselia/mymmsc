@@ -13,6 +13,7 @@
 @end
 
 @implementation EBuyOrder
+@synthesize tableView = _tableView;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
