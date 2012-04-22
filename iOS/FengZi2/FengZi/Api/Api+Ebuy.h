@@ -18,7 +18,7 @@
 //====================================< 电子商城 - 对象定义 >====================================
 
 //--------------------< 电子商城 - 对象 - 商品 >--------------------
-@interface EBProductInfo : NSObject {
+@interface EBProductInfo : NSObject<NSCoding> {
     NSString *id;          // 商品编号
     NSString *title;       // 商品名称
     NSString *content;     // 商品介绍
@@ -175,6 +175,19 @@
 @property (nonatomic, assign) long long id;
 
 @end
+
+//--------------------< 电子商城 - 对象 - 收货地址 >--------------------
+@interface EBAddress : NSObject<NSCoding>{
+    //
+}
+@property(nonatomic, copy) NSString *sheng;// 省份
+@property(nonatomic, copy) NSString *chengshi;// 城市
+@property(nonatomic, copy) NSString *dizhi;// 详细地址
+@property(nonatomic, copy) NSString *shouhuoren;// 收货人
+@property(nonatomic, copy) NSString *youbian;// 邮编
+@property(nonatomic, copy) NSString *shouji;// 手机号
+@end
+
 //====================================< 电子商城 - 接口 >====================================
 
 @interface Api (Ebuy)

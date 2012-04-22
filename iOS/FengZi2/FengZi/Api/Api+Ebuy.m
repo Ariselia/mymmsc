@@ -19,6 +19,33 @@
 @synthesize Goodcommentcount,Experiencecount,Middlecommentcount,Poorcommentcount;
 @synthesize storeInfo,info,orderId,service,listInfo,parameters;
 
+- (void)encodeWithCoder:(NSCoder *)aCoder//要一一对应  
+{
+    [aCoder encodeObject:id forKey:@"id"];
+    [aCoder encodeObject:title forKey:@"title"];
+    [aCoder encodeObject:content forKey:@"content"];
+    [aCoder encodeObject:picUrl forKey:@"picUrl"];
+    [aCoder encodeFloat:price forKey:@"price"];
+    [aCoder encodeInt:shopId forKey:@"shopId"];
+    [aCoder encodeObject:shopName forKey:@"shopName"];
+    [aCoder encodeObject:orderId forKey:@"orderId"];
+}
+
+- (id)initWithCoder:(NSCoder *)aDecoder//和上面对应  
+{  
+    if (self = [super init]) {
+        self.id = [aDecoder decodeObjectForKey:@"id"];
+        self.title = [aDecoder decodeObjectForKey:@"title"];
+        self.content = [aDecoder decodeObjectForKey:@"content"];
+        self.picUrl = [aDecoder decodeObjectForKey:@"picUrl"];
+        self.price = [aDecoder decodeFloatForKey:@"price"];
+        self.shopId = [aDecoder decodeIntForKey:@"shopId"];
+        self.shopName = [aDecoder decodeObjectForKey:@"shopName"];
+        self.orderId = [aDecoder decodeObjectForKey:@"orderId"];
+    }
+    return self;
+}
+
 @end
 
 //--------------------< 电子商城 - 对象 - 商品分类 >--------------------
@@ -82,6 +109,36 @@
 @implementation EBTest
 
 @synthesize id;
+
+@end
+
+//--------------------< 电子商城 - 对象 - 收货地址 >--------------------
+@implementation EBAddress
+
+@synthesize sheng,chengshi,dizhi,shouhuoren,youbian,shouji;
+
+- (void)encodeWithCoder:(NSCoder *)aCoder//要一一对应
+{
+    [aCoder encodeObject:sheng forKey:@"sheng"];
+    [aCoder encodeObject:chengshi forKey:@"chengshi"];
+    [aCoder encodeObject:dizhi forKey:@"dizhi"];
+    [aCoder encodeObject:shouhuoren forKey:@"shouhuoren"];
+    [aCoder encodeObject:youbian forKey:@"youbian"];
+    [aCoder encodeObject:shouji forKey:@"shouji"];
+}
+
+- (id)initWithCoder:(NSCoder *)aDecoder
+{  
+    if (self = [super init]) {
+        self.sheng = [aDecoder decodeObjectForKey:@"title"];
+        self.chengshi = [aDecoder decodeObjectForKey:@"content"];
+        self.dizhi = [aDecoder decodeObjectForKey:@"picUrl"];
+        self.shouhuoren = [aDecoder decodeObjectForKey:@"shouhuoren"];
+        self.youbian = [aDecoder decodeObjectForKey:@"youbian"];
+        self.shouji = [aDecoder decodeObjectForKey:@"shouji"];
+    }
+    return self;
+}
 
 @end
 //====================================< 电子商城 - 接口 >====================================
@@ -608,7 +665,8 @@ static NSString *s_carFilename = @"cache/files/fengzi_buycar.db";
     NSString *filename = [iOSFile path:s_carFilename];
     iOSLog(@"buycar=[%@]", filename);
     if (s_buycar == nil) {
-        s_buycar = [[NSMutableDictionary alloc] initWithContentsOfFile:filename];
+        NSData *data2 = [NSData dataWithContentsOfFile:filename];  
+        s_buycar = [NSKeyedUnarchiver unarchiveObjectWithData:data2]; 
     }
     if (s_buycar == nil) {
         s_buycar = [[NSMutableDictionary alloc] initWithCapacity:0];
@@ -634,11 +692,8 @@ static NSString *s_carFilename = @"cache/files/fengzi_buycar.db";
     [list addObject:obj];
     [s_buycar setObject:list forKey:shopName];
     iOSLog(@"buycar=[%@]", filename);
-    NSFileHandle *fileHandle = [iOSFile create:filename];
-    //BOOL bRet = [s_buycar writeToFile:filename atomically:YES];
-    NSString *data = [s_buycar JSONString];
-    [fileHandle writeData:[data dataUsingEncoding:NSUTF8StringEncoding]];
-    bRet = YES;
+    NSData *data = [NSKeyedArchiver archivedDataWithRootObject:s_buycar];
+    bRet = [data writeToFile:filename atomically:YES];
     return bRet;
 }
 
