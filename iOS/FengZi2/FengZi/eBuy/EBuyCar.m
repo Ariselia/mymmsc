@@ -81,12 +81,14 @@
     
     _borderStyle = UITextBorderStyleNone;
     isEmpty = NO;
-    NSMutableDictionary *data = [[Api ebuy_car_list] retain];
+    NSMutableDictionary *data = [Api ebuy_car_list];
     if (data.count < 1) {
         isEmpty = YES;
     } else {
-        _items = [NSMutableDictionary dictionaryWithDictionary:data];
-        [data release];
+        if (_items != nil) {
+            [_items release];
+        }
+        _items = [[NSMutableDictionary alloc] initWithDictionary:data];
     }
 }
 
@@ -186,6 +188,20 @@
         cell.detailTextLabel.highlightedTextColor = [UIColor blackColor];
         cell.detailTextLabel.font = [UIFont systemFontOfSize:15.0];
         cell.detailTextLabel.text = [NSString stringWithFormat:@"合计:¥%.2f", yj];
+        
+        CGRect frame = CGRectMake(140, 40, 70, 20);
+        UIButton *btn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+        [btn setTitle:@"去结算" forState:UIControlStateNormal];
+        btn.frame = frame;
+        [btn addTarget:self action:@selector(doClear:event:) forControlEvents:UIControlEventTouchUpInside];
+        [cell.contentView addSubview:btn];
+        
+        frame = CGRectMake(220, 40, 70, 20);
+        btn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+        [btn setTitle:@"继续购物" forState:UIControlStateNormal];
+        btn.frame = frame;
+        [btn addTarget:self action:@selector(doBuy) forControlEvents:UIControlEventTouchUpInside];
+        [cell.contentView addSubview:btn];
         return cell;
     }
     obj = [values objectAtIndex:pos - 1];
@@ -205,7 +221,7 @@
     }
     [cell.imageView addSubview:ai];
     
-    cell.textLabel.text = [iOSApi urlDecode:obj.content];
+    cell.textLabel.text = [iOSApi urlDecode:obj.title];
     NSString *tmpTitle = [NSString stringWithFormat:@"编号:%d 数量:1 价格:%.2f", obj.shopId, obj.price];
     cell.detailTextLabel.text = [iOSApi urlDecode:tmpTitle];
     cell.detailTextLabel.lineBreakMode = UILineBreakModeTailTruncation;
@@ -221,6 +237,14 @@
     nextView.typeId = 0;
     [self.navigationController pushViewController:nextView animated:YES];
     [nextView release];
+}
+
+- (void)doClear:(id)sender event:(id)event{
+    NSSet *touches = [event allTouches];
+	UITouch *touch = [touches anyObject];
+	CGPoint currentTouchPosition = [touch locationInView: _tableView];
+	NSIndexPath *indexPath = [_tableView indexPathForRowAtPoint: currentTouchPosition];
+    
 }
 
 @end
