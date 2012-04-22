@@ -1,15 +1,15 @@
 //
-//  EBuyTypes.h
+//  EBuyCollect.h
 //  FengZi
 //
-//  Created by wangfeng on 12-4-20.
+//  Created by wangfeng on 12-4-22.
 //  Copyright (c) 2012年 ifengzi.cn. All rights reserved.
 //
 
 #import <iOSApi/iOSTableViewController.h>
 
-// 商品分类
-@interface EBuyTypes : iOSTableViewController<iOSTableDataDelegate>{
+// 我的收藏
+@interface EBuyCollect : iOSTableViewController<iOSTableDataDelegate>{
     UITextBorderStyle   _borderStyle;
     NSMutableArray     *_items;
     UIFont             *_font;
@@ -18,8 +18,5 @@
 }
 
 @property (nonatomic, retain) IBOutlet UITableView *tableView;
-@property (nonatomic, copy) NSString *subject;
-@property (nonatomic, assign) int frontId;
-@property (nonatomic, assign) int typeId;
 
 @end

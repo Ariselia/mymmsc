@@ -241,7 +241,7 @@
 
 // 添加收藏
 - (void)addShouCang{
-    //
+    [Api ebuy_collect_add:_product.id];
 }
 
 @end

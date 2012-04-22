@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
+// 购物车
 @interface EBuyCar : UIViewController{
     UITextBorderStyle    _borderStyle;
     NSMutableDictionary *_items;

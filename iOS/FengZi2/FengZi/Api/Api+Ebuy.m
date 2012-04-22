@@ -464,18 +464,12 @@
 //--------------------< 电子商城 - 接口 - 收藏 >--------------------
 
 // 我的收藏
-+ (NSMutableArray *)ebuy_collect:(int)userId
-                            page:(int)page{
++ (NSMutableArray *)ebuy_collect:(int)page{
     NSMutableArray *list = nil;
     static NSString *method = @"collect";
-    NSString *query = [NSString stringWithFormat:@"id=%d", [Api userId]];
-    NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
-                            API_INTERFACE_TONKEN, @"token",
-                            [NSString valueOf:[Api userId]], @"userId",
-                            [NSString valueOf:page], @"page",
-                            nil];
+    NSString *query = [NSString stringWithFormat:@"id=%d&page=%d", [Api userId], page];
     NSString *action = [NSString stringWithFormat:@"%@/%@?%@", API_URL_EBUY, method, query];
-    NSDictionary *response = [Api post:action params:params];
+    NSDictionary *response = [Api post:action params:nil];
     if (response) {
         NSMutableArray *data = [response objectForKey:method];
         if (data.count > 0) {
@@ -491,13 +485,9 @@
     ApiResult *iRet = [ApiResult new];
     // 方法
     static NSString *method = @"addcollect";
-    NSString *query = [NSString stringWithFormat:@"id=%@", cid];
-    NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
-                            API_INTERFACE_TONKEN, @"token",
-                            [NSString valueOf:[Api userId]], @"userId",
-                            nil];
+    NSString *query = [NSString stringWithFormat:@"id=%@&userid=%d", cid,[Api userId]];
     NSString *action = [NSString stringWithFormat:@"%@/%@?%@", API_URL_EBUY, method, query];
-    NSDictionary *response = [Api post:action params:params];
+    NSDictionary *response = [Api post:action params:nil];
     NSDictionary *data = [iRet parse:response];
     if (data) {
         //
@@ -510,13 +500,9 @@
     ApiResult *iRet = [ApiResult new];
     // 方法
     static NSString *method = @"delcollect";
-    NSString *query = [NSString stringWithFormat:@"id=%@", cid];
-    NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
-                            API_INTERFACE_TONKEN, @"token",
-                            [NSString valueOf:[Api userId]], @"userId",
-                            nil];
+    NSString *query = [NSString stringWithFormat:@"id=%@&userid=%d", cid,[Api userId]];
     NSString *action = [NSString stringWithFormat:@"%@/%@?%@", API_URL_EBUY, method, query];
-    NSDictionary *response = [Api post:action params:params];
+    NSDictionary *response = [Api post:action params:nil];
     NSDictionary *data = [iRet parse:response];
     if (data) {
         //

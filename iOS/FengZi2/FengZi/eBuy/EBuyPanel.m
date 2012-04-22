@@ -11,6 +11,7 @@
 #import "EBMessageList.h"
 #import "EBuyTypes.h"
 #import "EBuyCar.h"
+#import "EBuyCollect.h"
 
 @implementation EBuyPanel
 @synthesize ownerId;
@@ -57,7 +58,10 @@
 
 // 我的收藏
 - (IBAction)doCollect:(id)sender{
-    //
+    EBuyPortal *potal = ownerId;
+    EBuyCollect *nextView = [[EBuyCollect alloc] init];
+    [potal.navigationController pushViewController:nextView animated:YES];
+    [nextView release];
 }
 
 // 评价

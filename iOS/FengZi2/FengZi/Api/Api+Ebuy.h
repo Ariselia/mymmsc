@@ -235,8 +235,7 @@
 //--------------------< 电子商城 - 接口 - 收藏 >--------------------
 
 // 我的收藏
-+ (NSMutableArray *)ebuy_collect:(int)userId
-                            page:(int)page;
++ (NSMutableArray *)ebuy_collect:(int)page;
 // 添加收藏
 + (ApiResult *)ebuy_collect_add:(NSString *)cid;
 // 删除收藏
