@@ -130,9 +130,9 @@
 - (id)initWithCoder:(NSCoder *)aDecoder
 {  
     if (self = [super init]) {
-        self.sheng = [aDecoder decodeObjectForKey:@"title"];
-        self.chengshi = [aDecoder decodeObjectForKey:@"content"];
-        self.dizhi = [aDecoder decodeObjectForKey:@"picUrl"];
+        self.sheng = [aDecoder decodeObjectForKey:@"sheng"];
+        self.chengshi = [aDecoder decodeObjectForKey:@"chengshi"];
+        self.dizhi = [aDecoder decodeObjectForKey:@"dizhi"];
         self.shouhuoren = [aDecoder decodeObjectForKey:@"shouhuoren"];
         self.youbian = [aDecoder decodeObjectForKey:@"youbian"];
         self.shouji = [aDecoder decodeObjectForKey:@"shouji"];
