@@ -119,12 +119,19 @@
 {
     CGFloat height = 70.f;
     NSArray *keys = [_items allKeys];
-    NSArray *values = [_items objectForKey:[keys objectAtIndex:indexPath.section]];
+    int iCount = 0;
+    if (keys.count > 0) {
+        NSString *name = [keys objectAtIndex:indexPath.section];
+        if (name != nil) {
+            NSArray *values = [_items objectForKey:name];
+            iCount = values.count;
+        }
+    }    
     if (isEmpty) {
-        height = 367;
+        height = 357;
     } else if(indexPath.row == 0){
         height = 30;
-    } else if(indexPath.row == values.count + 1){
+    } else if(indexPath.row == iCount + 1){
         height = 60;
     }
 	return height;
@@ -137,7 +144,7 @@
         cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier] autorelease];
     }
     int pos = [indexPath row];
-    [cell.contentView removeSubviews];
+    cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier] autorelease];
     // 购物车空
     if (pos == 0 && isEmpty) {
         // 加载购物车图片
@@ -229,7 +236,13 @@
     cell.detailTextLabel.text = [iOSApi urlDecode:tmpTitle];
     cell.detailTextLabel.lineBreakMode = UILineBreakModeTailTruncation;
     cell.detailTextLabel.numberOfLines = 0;
-    //cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    CGRect frame = CGRectMake(200, 0, 70, 20);
+    UIButton *btn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    [btn setTitle:@"删除" forState:UIControlStateNormal];
+    btn.frame = frame;
+    [btn addTarget:self action:@selector(doRemove:event:) forControlEvents:UIControlEventTouchUpInside];
+    [cell.contentView addSubview:btn];
+    
     _tableView.separatorStyle=UITableViewCellSeparatorStyleSingleLine;
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;
@@ -263,4 +276,27 @@
     }
 }
 
+- (void)doRemove:(id)sender event:(id)event{
+    NSSet *touches = [event allTouches];
+	UITouch *touch = [touches anyObject];
+	CGPoint currentTouchPosition = [touch locationInView: _tableView];
+	NSIndexPath *indexPath = [_tableView indexPathForRowAtPoint: currentTouchPosition];
+    NSArray *keys = [_items allKeys];
+    NSArray *values = [_items objectForKey:[keys objectAtIndex:indexPath.section]];
+    EBProductInfo *obj = [values objectAtIndex:indexPath.row - 1];
+    [Api ebuy_car_delete:obj.shopName index:indexPath.row - 1];
+    isEmpty = NO;
+    NSMutableDictionary *data = [[Api ebuy_car_list] retain];
+    if (data.count < 1) {
+        isEmpty = YES;
+        [_items removeAllObjects];
+    } else {
+        if (_items != nil) {
+            [_items release];
+        }
+        _items = [[NSMutableDictionary alloc] initWithDictionary:data];
+        [data release];
+    }
+     [_tableView reloadData];
+}
 @end

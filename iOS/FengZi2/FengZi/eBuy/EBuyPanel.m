@@ -12,6 +12,7 @@
 #import "EBuyTypes.h"
 #import "EBuyCar.h"
 #import "EBuyCollect.h"
+#import "EBuyOrderList.h"
 
 @implementation EBuyPanel
 @synthesize ownerId;
@@ -45,7 +46,10 @@
 
 // 我的订单
 - (IBAction)doMyOrder:(id)sender{
-    //
+    EBuyPortal *potal = ownerId;
+    EBuyOrderList *nextView = [[EBuyOrderList alloc] init];
+    [potal.navigationController pushViewController:nextView animated:YES];
+    [nextView release];
 }
 
 // 购物车

@@ -567,20 +567,13 @@
 
 //--------------------< 电子商城 - 接口 - 订单 >--------------------
 // 订单获取接口
-+ (NSMutableArray *)ebuy_order_list:(int)userId
-                               type:(int)type
++ (NSMutableArray *)ebuy_order_list:(int)type
                                page:(int)page{
     NSMutableArray *list = nil;
     static NSString *method = @"orderlist";
-    NSString *query = [NSString stringWithFormat:@"id=%d", [Api userId]];
-    NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
-                            API_INTERFACE_TONKEN, @"token",
-                            [NSString valueOf:[Api userId]], @"userId",
-                            [NSString valueOf:type], @"type",
-                            [NSString valueOf:page], @"page",
-                            nil];
+    NSString *query = [NSString stringWithFormat:@"id=%d&type=%d&page=%d", [Api userId],type,page];
     NSString *action = [NSString stringWithFormat:@"%@/%@?%@", API_URL_EBUY, method, query];
-    NSDictionary *response = [Api post:action params:params];
+    NSDictionary *response = [Api post:action params:nil];
     if (response) {
         NSMutableArray *data = [response objectForKey:method];
         if (data.count > 0) {
@@ -612,26 +605,78 @@
     
     return iRet;
 }
-/*
+
 // 订购
 + (ApiResult *)ebuy_order:(EBOrderInfo *)info{
     ApiResult *iRet = [ApiResult new];
     // 方法
     static NSString *method = @"order";
-    NSString *query = [NSString stringWithFormat:@"id=%@", cid];
-    NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
-                            API_INTERFACE_TONKEN, @"token",
-                            [NSString valueOf:[Api userId]], @"userId",
-                            nil];
+    NSString *query = @"";
+    NSDictionary *heads = [NSDictionary dictionaryWithObjectsAndKeys:
+                           @"application/json", @"Content-Type",
+                           nil];
+    NSMutableDictionary *jsonDic = [NSMutableDictionary dictionary];
+    NSMutableDictionary *request = [NSMutableDictionary dictionary];
+    // 订单头信息
+    NSMutableDictionary *orderhead = [NSMutableDictionary dictionary];
+    EBOrderUser *user = info.userInfo;
+    //{"userid":"001","type":"01","address":"北京朝阳区","receiver":"孙超","mobile":"12345678901","areacode":"100010","orderid":"OD20120115000003","state":0,"goodscount":10}
+    [orderhead setObject:[NSString valueOf:user.userId] forKey:@"userid"];
+    [orderhead setObject:info.userInfo.type forKey:@"type"];
+    [orderhead setObject:user.address forKey:@"address"];
+    [orderhead setObject:user.receiver forKey:@"receiver"];
+    [orderhead setObject:user.mobile forKey:@"mobile"];;
+    [orderhead setObject:user.areaCode forKey:@"areacode"];
+    [orderhead setObject:user.orderId forKey:@"orderid"];
+    [orderhead setObject:[NSString valueOf:user.state] forKey:@"state"];
+    [orderhead setObject:[NSString valueOf:user.goodsCount] forKey:@"goodscount"];
+    
+    [request setObject:orderhead forKey:@"orderhead"];
+    
+    // 订单消息体
+    NSMutableArray *orderbody = [NSMutableArray array];
+    //{"id":"8ae40e1a-73fb-469a-8123-dcd973bf6264","name":"内衣","totalcount":"1","price":"10.00"}
+    for (EBOrderProduct *obj in info.products) {
+        NSMutableDictionary *product = [NSMutableDictionary dictionary];
+        [product setObject:obj.id forKey:@"id"];
+        [product setObject:obj.name forKey:@"name"];
+        [product setObject:[NSString valueOf:obj.totalCount] forKey:@"totalcount"];
+        [product setObject:[NSString stringWithFormat:@"%.2f", obj.price] forKey:@"price"];
+        [orderbody addObject:product];
+    }
+    [request setObject:orderbody forKey:@"orderbody"];
+    
+    [jsonDic setObject:request forKey:method];
+    
+    NSString *params = [jsonDic JSONString];
+    
     NSString *action = [NSString stringWithFormat:@"%@/%@?%@", API_URL_EBUY, method, query];
-    NSDictionary *response = [Api post:action params:params];
+    NSDictionary *response = [Api post:action header:heads body:[params dataUsingEncoding:NSUTF8StringEncoding]];
     NSDictionary *data = [iRet parse:response];
+    if (data == nil) {
+        data = [response objectForKey:@"Response"];
+    }
     if (data) {
-        //
+        NSNumber *state = [data objectForKey:@"status"];
+        iRet.status = state.intValue;
+        NSString *msg = [data objectForKey:@"status_code"];
+        if (msg != nil) {
+            iRet.message = msg;
+            if ([msg hasPrefix:@"Duplicate"]) {
+                iRet.message = @"重复订购";
+            }/* else {
+                iRet.message = @"订购失败";
+            }*/
+        } else {
+            if (iRet.status == 0) {
+                iRet.message = @"订购成功";
+            }else {
+                iRet.message = @"订购失败";
+            }
+        }        
     }
     return [iRet autorelease];
 }
-*/
 
 //--------------------< 电子商城 - 接口 - 商铺 >--------------------
 + (NSMutableArray *)ebuy_shoplist:(int)page{
@@ -694,6 +739,39 @@ static NSString *s_carFilename = @"cache/files/fengzi_buycar.db";
     return bRet;
 }
 
+// 购物车 删除商品
++ (BOOL)ebuy_car_delete:(EBProductInfo *)obj{
+    BOOL bRet = NO;
+    NSString *filename = [iOSFile path:s_carFilename];
+    NSString *shopName = [obj.shopName copy];
+    s_buycar = [self ebuy_car_list];
+    [s_buycar removeObjectForKey:shopName];
+    iOSLog(@"buycar=[%@]", filename);
+    NSData *data = [NSKeyedArchiver archivedDataWithRootObject:s_buycar];
+    bRet = [data writeToFile:filename atomically:YES];
+    return bRet;
+}
+
++ (BOOL)ebuy_car_delete:(NSString *)shopName index:(int)index{
+    BOOL bRet = NO;
+    NSString *filename = [iOSFile path:s_carFilename];
+    s_buycar = [self ebuy_car_list];
+    NSMutableArray *list = [s_buycar objectForKey:shopName];
+    if (list == nil) {
+        list = [NSMutableArray arrayWithCapacity:0];
+    }
+    [list removeObjectAtIndex:index];
+    if (list.count == 0) {
+        [s_buycar removeObjectForKey:shopName];
+    } else {
+        [s_buycar setObject:list forKey:shopName];
+    }
+    
+    iOSLog(@"buycar=[%@]", filename);
+    NSData *data = [NSKeyedArchiver archivedDataWithRootObject:s_buycar];
+    bRet = [data writeToFile:filename atomically:YES];
+    return bRet;
+}
 //--------------------< 电子商城 - 接口 - 地址簿 >--------------------
 // 地址簿
 static NSMutableArray *s_addressbook = nil;

@@ -258,12 +258,14 @@
 //--------------------< 电子商城 - 接口 - 订单 >--------------------
 
 // 订单获取接口
-+ (NSMutableArray *)ebuy_order_list:(int)userId
-                               type:(int)type
++ (NSMutableArray *)ebuy_order_list:(int)type
                                page:(int)page;
 
 // 订单详情
 + (EBOrderInfo *)ebuy_order_get:(NSString *)orderId;
+
+// 订购
++ (ApiResult *)ebuy_order:(EBOrderInfo *)info;
 
 //--------------------< 电子商城 - 接口 - 商铺列表 >--------------------
 + (NSMutableArray *)ebuy_shoplist:(int)page;
@@ -273,7 +275,9 @@
 + (NSMutableDictionary *)ebuy_car_list;
 // 放入购物车
 + (BOOL)ebuy_car_add:(EBProductInfo *)obj;
-
+// 购物车 删除商品
++ (BOOL)ebuy_car_delete:(EBProductInfo *)obj;
++ (BOOL)ebuy_car_delete:(NSString *)shopName index:(int)index;
 //--------------------< 电子商城 - 接口 - 地址簿 >--------------------
 // 地址簿列表
 + (NSMutableArray *)ebuy_address_list;

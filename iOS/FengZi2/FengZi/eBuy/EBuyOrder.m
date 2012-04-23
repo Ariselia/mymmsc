@@ -146,7 +146,7 @@
         cell.textLabel.textColor = [UIColor grayColor];
         cell.textLabel.highlightedTextColor = [UIColor blackColor];
         cell.textLabel.font = [UIFont systemFontOfSize:15.0];
-        str = [NSString stringWithFormat:@"省:%@ 市:%@",obj.sheng, obj.chengshi];
+        str = [NSString stringWithFormat:@"收货地址 省:%@ 市:%@",obj.sheng, obj.chengshi];
         cell.textLabel.text = [iOSApi urlDecode:str];
         
         cell.detailTextLabel.textAlignment = UITextAlignmentCenter;
@@ -222,7 +222,6 @@
     //nextView.param = param;
     [self.navigationController pushViewController:nextView animated:YES];
     [nextView release];
-    
 }
 
 // 确认购买
@@ -232,6 +231,46 @@
 	CGPoint currentTouchPosition = [touch locationInView: _tableView];
 	NSIndexPath *indexPath = [_tableView indexPathForRowAtPoint: currentTouchPosition];
     
+    EBOrderInfo *info = [[[EBOrderInfo alloc] init] autorelease];
+    EBAddress *addr = [[Api ebuy_address_list] objectAtIndex:0];
+    EBOrderUser *user = [[[EBOrderUser alloc] init] autorelease];
+    user.userId = [Api userId];
+    user.type = @"01";
+    user.state = 1;
+    user.address = [NSString stringWithFormat:@"%@(%@)", addr.dizhi, addr.youbian];
+    user.mobile = addr.shouji;
+    user.receiver = addr.shouhuoren;
+    user.goodsCount = _items.count;
+    user.areaCode = addr.youbian;
+    /*
+    //{"userid":"001","type":"01","address":"北京朝阳区","receiver":"孙超","mobile":"12345678901","areacode":"100010","orderid":"OD20120115000003","state":0,"goodscount":10}
+    //{"id":"8ae40e1a-73fb-469a-8123-dcd973bf6264","name":"内衣","totalcount":"1","price":"10.00"}
+    for (EBProductInfo *obj in info.products) {
+        NSMutableDictionary *product = [NSMutableDictionary dictionary];
+        [product setObject:obj.id forKey:@"id"];
+        [product setObject:obj.title forKey:@"name"];
+        [product setObject:@"1" forKey:@"totalcount"];
+        [product setObject:[NSString stringWithFormat:@"%.2f", obj.price] forKey:@"price"];
+        [orderbody addObject:product];
+    }
+    */
+    NSMutableArray *array = [NSMutableArray array];
+    for (EBProductInfo *obj in _items) {
+        EBOrderProduct *product = [[[EBOrderProduct alloc] init] autorelease];
+        product.id = obj.id;
+        product.name = obj.title;
+        product.totalCount = 1;
+        product.price = obj.price;
+        [array addObject:product];
+        user.orderId = obj.orderId;
+    }
+    info.userInfo = user;
+    info.products = array;
+    [iOSApi showAlert:@"订购操作中..."];
+    ApiResult *iRet = [[Api ebuy_order:info] retain];
+    [iOSApi showCompleted:iRet.message];
+    [iOSApi closeAlert];
+    [iRet release];
 }
 
 @end
