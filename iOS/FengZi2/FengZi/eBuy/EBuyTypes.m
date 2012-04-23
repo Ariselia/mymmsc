@@ -92,7 +92,7 @@
 #pragma mark -
 #pragma mark UITableViewDataSource
 
-- (BOOL)configure:(UITableViewCell *)cell withObject:(id)object {
+- (UITableViewCell *)configure:(UITableViewCell *)cell withObject:(id)object {
     EBProductType *obj = object;
     // 设置字体
     UIFont *textFont = [UIFont systemFontOfSize:17.0];
@@ -105,7 +105,7 @@
     cell.textLabel.font = textFont;
     
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-    return YES;
+    return cell;
 }
 
 - (void)tableView:(UITableViewCell *)cell onCustomAccessoryTapped:(id)object {

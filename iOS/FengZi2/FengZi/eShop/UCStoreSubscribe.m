@@ -104,7 +104,7 @@ static ProductInfo *theObj = nil;
     }
 }
 
-- (BOOL)configure:(UITableViewCell *)cell withObject:(id)object {
+- (UITableViewCell *)configure:(UITableViewCell *)cell withObject:(id)object {
     ProductInfo *obj = object;
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     // 设置字体
@@ -154,7 +154,7 @@ static ProductInfo *theObj = nil;
     [btn setTitle:btnTitle forState:UIControlStateSelected];
     [btn addTarget:self action:@selector(onButtonClick:event:) forControlEvents:UIControlEventTouchUpInside];
     [cell.contentView addSubview:btn];
-    return YES;
+    return cell;
 }
 
 // 按钮点击事件

@@ -89,7 +89,7 @@
 
 #define IMAGE_VIEW_TAG (9001)
 
-- (BOOL)configure:(UITableViewCell *)cell withObject:(id)object {
+- (UITableViewCell *)configure:(UITableViewCell *)cell withObject:(id)object {
     EBProductComment *obj = object;
     // 设置字体
     UIFont *textFont = [UIFont systemFontOfSize:15.0];    
@@ -126,11 +126,11 @@
     cell.detailTextLabel.text = [iOSApi urlDecode:obj.userName];
     //cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    return YES;
+    return cell;
 }
 
 - (NSArray *)reloadData:(iOSTableViewController *)tableView {
-    [iOSApi showAlert:@"获取订单列表..."];
+    [iOSApi showAlert:@"获取评论列表..."];
     NSArray *data = [Api ebuy_sdandcomentlist:_page];
     if (data == nil || data.count < 1) {
         [iOSApi showCompleted:@"服务器正忙，请稍候"];

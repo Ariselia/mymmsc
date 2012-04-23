@@ -213,7 +213,7 @@ static int nClickTimes = 0;
     }
 }
 
-- (BOOL)configure:(UITableViewCell *)cell withObject:(id)object {
+- (UITableViewCell *)configure:(UITableViewCell *)cell withObject:(id)object {
     ProductInfo *obj = object;
     // 设置字体
     UIFont *textFont = [UIFont systemFontOfSize:17.0];
@@ -266,7 +266,7 @@ static int nClickTimes = 0;
     [cell.contentView addSubview:price];
     
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-    return YES;
+    return cell;
 }
 
 - (void)tableView:(UITableViewCell *)cell onCustomAccessoryTapped:(id)object {

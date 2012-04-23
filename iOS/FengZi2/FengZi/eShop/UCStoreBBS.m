@@ -131,7 +131,7 @@
     }
 }
 
-- (BOOL)configure:(UITableViewCell *)cell withObject:(id)object {
+- (UITableViewCell *)configure:(UITableViewCell *)cell withObject:(id)object {
     ContentInfo *obj = object;
     // 设置字体
     UIFont *textFont = [UIFont systemFontOfSize:15.0];
@@ -142,7 +142,7 @@
     cell.detailTextLabel.text = obj.content;
     cell.detailTextLabel.font = detailFont;
     cell.accessoryType = UITableViewCellAccessoryNone;
-    return YES;
+    return cell;
 }
 
 - (NSArray *)reloadData:(iOSTableViewController *)tableView {

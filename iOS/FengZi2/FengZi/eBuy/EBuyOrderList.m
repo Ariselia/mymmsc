@@ -88,7 +88,7 @@
 #pragma mark -
 #pragma mark UITableViewDataSource
 
-- (BOOL)configure:(UITableViewCell *)cell withObject:(id)object {
+- (UITableViewCell *)configure:(UITableViewCell *)cell withObject:(id)object {
     EBOrder *obj = object;
     // 设置字体
     UIFont *textFont = [UIFont systemFontOfSize:17.0];
@@ -109,7 +109,7 @@
     
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    return YES;
+    return cell;
 }
 
 - (void)tableView:(UITableViewCell *)cell onCustomAccessoryTapped:(id)object {

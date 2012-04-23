@@ -132,7 +132,7 @@
     //[iOSApi closeAlert];
 }
 
-- (BOOL)configure:(UITableViewCell *)cell withObject:(id)object {
+- (UITableViewCell *)configure:(UITableViewCell *)cell withObject:(id)object {
     ucComment *obj = object;
     // 设置字体
     UIFont *textFont = [UIFont systemFontOfSize:15.0];
@@ -175,7 +175,7 @@
      [effectView.layer insertSublayer:gradient atIndex:0];
      */
     [cell setBackgroundView:effectView];
-    return YES;
+    return cell;
 }
 
 - (NSArray *)reloadData:(iOSTableViewController *)tableView {
