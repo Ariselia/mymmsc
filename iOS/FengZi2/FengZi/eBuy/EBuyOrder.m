@@ -125,7 +125,8 @@
     if (pos == 0 && isEmpty) {
         // 下面配文字
         cell.textLabel.text = @"亲，请输入你的地址";
-        cell.textLabel.font = [UIFont systemFontOfSize:30.0];
+        cell.textLabel.font = [UIFont systemFontOfSize:20.0];
+        cell.textLabel.textAlignment = UITextAlignmentCenter;
         cell.textLabel.lineBreakMode = UILineBreakModeTailTruncation;
         cell.textLabel.numberOfLines = 0;
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;

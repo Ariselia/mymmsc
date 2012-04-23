@@ -13,6 +13,7 @@
 #import "EBuyCar.h"
 #import "EBuyCollect.h"
 #import "EBuyOrderList.h"
+#import "EBuyEvaluate.h"
 
 @implementation EBuyPanel
 @synthesize ownerId;
@@ -70,7 +71,10 @@
 
 // 评价
 - (IBAction)doComment:(id)sender{
-    //
+    EBuyPortal *potal = ownerId;
+    EBuyEvaluate *nextView = [[EBuyEvaluate alloc] init];
+    [potal.navigationController pushViewController:nextView animated:YES];
+    [nextView release];
 }
 
 // 分类

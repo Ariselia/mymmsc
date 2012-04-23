@@ -120,6 +120,15 @@
 		0ABF47FD1544E28F00840459 /* EBuyOrderList.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0ABF47FB1544E28E00840459 /* EBuyOrderList.xib */; };
 		0ABF48061544E92000840459 /* EBuyOrderInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ABF48041544E91E00840459 /* EBuyOrderInfo.m */; };
 		0ABF48071544E92000840459 /* EBuyOrderInfo.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0ABF48051544E91F00840459 /* EBuyOrderInfo.xib */; };
+		0ABF480A1544FF3700840459 /* EBuyOrderUserCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ABF48091544FF3500840459 /* EBuyOrderUserCell.m */; };
+		0ABF480C1544FF5300840459 /* EBuyOrderUserCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0ABF480B1544FF5100840459 /* EBuyOrderUserCell.xib */; };
+		0ABF480F154501AC00840459 /* EBuyOrderAddressCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ABF480E154501AA00840459 /* EBuyOrderAddressCell.m */; };
+		0ABF4811154501E400840459 /* EBuyOrderAddressCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0ABF4810154501E200840459 /* EBuyOrderAddressCell.xib */; };
+		0ABF48151545137B00840459 /* EBuyEvaluate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ABF48131545137300840459 /* EBuyEvaluate.m */; };
+		0ABF48161545137B00840459 /* EBuyEvaluate.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0ABF48141545137700840459 /* EBuyEvaluate.xib */; };
+		0ABF481915456BF800840459 /* RMRideGuest.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ABF481815456BF700840459 /* RMRideGuest.m */; };
+		0ABF481B15456C4300840459 /* RMRideGuest.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0ABF481A15456C4300840459 /* RMRideGuest.xib */; };
+		0ABF481D1545706D00840459 /* RMRidePath.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0ABF481C1545706C00840459 /* RMRidePath.xib */; };
 		0AC0D14F153119C9001F1930 /* EBProductIntro.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AC0D14D153119C8001F1930 /* EBProductIntro.m */; };
 		0AC0D150153119C9001F1930 /* EBProductIntro.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0AC0D14E153119C8001F1930 /* EBProductIntro.xib */; };
 		0AC0D15415322551001F1930 /* UIView+Effect.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AC0D15315322551001F1930 /* UIView+Effect.m */; };
@@ -809,6 +818,19 @@
 		0ABF48031544E91E00840459 /* EBuyOrderInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EBuyOrderInfo.h; sourceTree = "<group>"; };
 		0ABF48041544E91E00840459 /* EBuyOrderInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EBuyOrderInfo.m; sourceTree = "<group>"; };
 		0ABF48051544E91F00840459 /* EBuyOrderInfo.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EBuyOrderInfo.xib; sourceTree = "<group>"; };
+		0ABF48081544FF3300840459 /* EBuyOrderUserCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EBuyOrderUserCell.h; sourceTree = "<group>"; };
+		0ABF48091544FF3500840459 /* EBuyOrderUserCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EBuyOrderUserCell.m; sourceTree = "<group>"; };
+		0ABF480B1544FF5100840459 /* EBuyOrderUserCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EBuyOrderUserCell.xib; sourceTree = "<group>"; };
+		0ABF480D154501A700840459 /* EBuyOrderAddressCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EBuyOrderAddressCell.h; sourceTree = "<group>"; };
+		0ABF480E154501AA00840459 /* EBuyOrderAddressCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EBuyOrderAddressCell.m; sourceTree = "<group>"; };
+		0ABF4810154501E200840459 /* EBuyOrderAddressCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EBuyOrderAddressCell.xib; sourceTree = "<group>"; };
+		0ABF48121545137100840459 /* EBuyEvaluate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EBuyEvaluate.h; sourceTree = "<group>"; };
+		0ABF48131545137300840459 /* EBuyEvaluate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EBuyEvaluate.m; sourceTree = "<group>"; };
+		0ABF48141545137700840459 /* EBuyEvaluate.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EBuyEvaluate.xib; sourceTree = "<group>"; };
+		0ABF481715456BF600840459 /* RMRideGuest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMRideGuest.h; sourceTree = "<group>"; };
+		0ABF481815456BF700840459 /* RMRideGuest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RMRideGuest.m; sourceTree = "<group>"; };
+		0ABF481A15456C4300840459 /* RMRideGuest.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RMRideGuest.xib; sourceTree = "<group>"; };
+		0ABF481C1545706C00840459 /* RMRidePath.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RMRidePath.xib; sourceTree = "<group>"; };
 		0AC0D14C153119C7001F1930 /* EBProductIntro.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EBProductIntro.h; sourceTree = "<group>"; };
 		0AC0D14D153119C8001F1930 /* EBProductIntro.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EBProductIntro.m; sourceTree = "<group>"; };
 		0AC0D14E153119C8001F1930 /* EBProductIntro.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EBProductIntro.xib; sourceTree = "<group>"; };
@@ -1712,6 +1734,15 @@
 				0ABF48031544E91E00840459 /* EBuyOrderInfo.h */,
 				0ABF48041544E91E00840459 /* EBuyOrderInfo.m */,
 				0ABF48051544E91F00840459 /* EBuyOrderInfo.xib */,
+				0ABF48081544FF3300840459 /* EBuyOrderUserCell.h */,
+				0ABF48091544FF3500840459 /* EBuyOrderUserCell.m */,
+				0ABF480B1544FF5100840459 /* EBuyOrderUserCell.xib */,
+				0ABF480D154501A700840459 /* EBuyOrderAddressCell.h */,
+				0ABF480E154501AA00840459 /* EBuyOrderAddressCell.m */,
+				0ABF4810154501E200840459 /* EBuyOrderAddressCell.xib */,
+				0ABF48121545137100840459 /* EBuyEvaluate.h */,
+				0ABF48131545137300840459 /* EBuyEvaluate.m */,
+				0ABF48141545137700840459 /* EBuyEvaluate.xib */,
 			);
 			path = eBuy;
 			sourceTree = "<group>";
@@ -3017,11 +3048,15 @@
 				0AC2E2AD153AF68200C731AC /* RMRide.h */,
 				0AC2E2AE153AF68200C731AC /* RMRide.m */,
 				0AC2E2AF153AF68200C731AC /* RMRide.xib */,
+				0A0399AB153F8D1E0078C039 /* RMRidePath.h */,
+				0A0399AC153F8D1E0078C039 /* RMRidePath.m */,
+				0ABF481C1545706C00840459 /* RMRidePath.xib */,
 				0A0399A6153F79480078C039 /* RMRideReal.h */,
 				0A0399A7153F79480078C039 /* RMRideReal.m */,
 				0A0399A9153F79700078C039 /* RMRideReal.xib */,
-				0A0399AB153F8D1E0078C039 /* RMRidePath.h */,
-				0A0399AC153F8D1E0078C039 /* RMRidePath.m */,
+				0ABF481715456BF600840459 /* RMRideGuest.h */,
+				0ABF481815456BF700840459 /* RMRideGuest.m */,
+				0ABF481A15456C4300840459 /* RMRideGuest.xib */,
 			);
 			path = RichMedia;
 			sourceTree = "<group>";
@@ -3513,6 +3548,11 @@
 				0ABF47F71544A2D100840459 /* EBuyEditAddress.xib in Resources */,
 				0ABF47FD1544E28F00840459 /* EBuyOrderList.xib in Resources */,
 				0ABF48071544E92000840459 /* EBuyOrderInfo.xib in Resources */,
+				0ABF480C1544FF5300840459 /* EBuyOrderUserCell.xib in Resources */,
+				0ABF4811154501E400840459 /* EBuyOrderAddressCell.xib in Resources */,
+				0ABF48161545137B00840459 /* EBuyEvaluate.xib in Resources */,
+				0ABF481B15456C4300840459 /* RMRideGuest.xib in Resources */,
+				0ABF481D1545706D00840459 /* RMRidePath.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3742,6 +3782,10 @@
 				0ABF47F61544A2D100840459 /* EBuyEditAddress.m in Sources */,
 				0ABF47FC1544E28F00840459 /* EBuyOrderList.m in Sources */,
 				0ABF48061544E92000840459 /* EBuyOrderInfo.m in Sources */,
+				0ABF480A1544FF3700840459 /* EBuyOrderUserCell.m in Sources */,
+				0ABF480F154501AC00840459 /* EBuyOrderAddressCell.m in Sources */,
+				0ABF48151545137B00840459 /* EBuyEvaluate.m in Sources */,
+				0ABF481915456BF800840459 /* RMRideGuest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

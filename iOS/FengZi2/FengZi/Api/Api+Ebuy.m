@@ -330,14 +330,9 @@
     if (page < 0) {
         page = 0;
     }
-    NSString *query = [NSString stringWithFormat:@"page=%d", page];
-    NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
-                            API_INTERFACE_TONKEN, @"token",
-                            [NSString valueOf:[Api userId]], @"userid",
-                            [NSString valueOf:page], @"page",
-                            nil];
+    NSString *query = [NSString stringWithFormat:@"page=%d&userid=%d", page, [Api userId]];
     NSString *action = [NSString stringWithFormat:@"%@/%@?%@", API_URL_EBUY, method, query];
-    NSDictionary *response = [Api post:action params:params];
+    NSDictionary *response = [Api post:action params:nil];
     if (response) {
         NSMutableArray *data = [response objectForKey:method];
         if (data.count > 0) {
@@ -576,7 +571,7 @@
     NSDictionary *response = [Api post:action params:nil];
     if (response) {
         NSMutableArray *data = [response objectForKey:method];
-        if (data.count > 0) {
+        if ([data isKindOfClass:NSMutableArray.class] && data.count > 0) {
             list = [data toList:EBOrder.class];
         }
     }
@@ -588,17 +583,12 @@
 + (EBOrderInfo *)ebuy_order_get:(NSString *)orderId{
     EBOrderInfo *iRet = nil;
     static NSString *method = @"orderinfo";
-    NSString *query = [NSString stringWithFormat:@"id=%d", [Api userId]];
-    NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
-                            API_INTERFACE_TONKEN, @"token",
-                            [NSString valueOf:[Api userId]], @"userId",
-                            orderId, @"orderid",
-                            nil];
+    NSString *query = [NSString stringWithFormat:@"orderid=%d", orderId];
     NSString *action = [NSString stringWithFormat:@"%@/%@?%@", API_URL_EBUY, method, query];
-    NSDictionary *response = [Api post:action params:params];
+    NSDictionary *response = [Api post:action params:nil];
     if (response) {
         NSDictionary *data = [response objectForKey:method];
-        if (data.count > 0) {
+        if ([data isKindOfClass:NSDictionary.class] && data.count > 0) {
             iRet = [data toObject:EBOrderInfo.class];
         }
     }

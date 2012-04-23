@@ -7,7 +7,9 @@
 //
 
 #import "RMRide.h"
+#import "RMRidePath.h"
 #import "RMRideReal.h"
+#import "RMRideGuest.h"
 // 共享
 #import "SHK.h"
 #import "ShareView.h"
@@ -103,12 +105,15 @@
     }
     if (_ride != nil) {
         RideReal *real = _ride.real;
-#if 0
         BOOL bC2P = NO;
         // 根据车龄字段大于0类判断页面类型
         if (real.drvage > 0) {
             bC2P = YES;
         }
+        RMRidePath *cellView = [(RMRidePath *)[[[NSBundle mainBundle] loadNibNamed:@"RMRidePath" owner:self options:nil] objectAtIndex:0] retain];
+        [_items addObject:cellView];
+#if 0
+        
         NSArray *drvList = _ride.drvList;
         NSArray *psgList = _ride.psgList;
         if (bC2P) {
@@ -176,26 +181,42 @@
         }
 #endif
         if (real != nil) {
-            RMRideReal *cellView = [(RMRideReal *)[[[NSBundle mainBundle] loadNibNamed:@"RMRideReal" owner:self options:nil] objectAtIndex:0] retain];
-            cellView.photo.image = [UIImage imageNamed:@"unknown.png"];
-            [cellView.photo imageWithURL:[iOSApi urlDecode:real.headimg]];
-            cellView.carPhoto.image = [UIImage imageNamed:@"unknown.png"];
-            [cellView.carPhoto imageWithURL:[iOSApi urlDecode:real.carimg]];
-            cellView.name.text = [iOSApi urlDecode:real.realname];
-            cellView.sex.text = real.gender == 1 ? @"男" : @"女";
-            cellView.jiLing.text = [NSString valueOf:real.drvage];
-            cellView.carType.text = [iOSApi urlDecode:real.carseries];
-            cellView.carModel.text = [iOSApi urlDecode:real.cartype];
-            cellView.carColor.text = [iOSApi urlDecode:real.carcolor];
-            cellView.carNumber.text = [iOSApi urlDecode:real.carplate];
-            [_items addObject:cellView];
+            if (bC2P) {
+                // 车找人
+                RMRideReal *cellView = [(RMRideReal *)[[[NSBundle mainBundle] loadNibNamed:@"RMRideReal" owner:self options:nil] objectAtIndex:0] retain];
+                cellView.photo.image = [UIImage imageNamed:@"unknown.png"];
+                [cellView.photo imageWithURL:[iOSApi urlDecode:real.headimg]];
+                cellView.carPhoto.image = [UIImage imageNamed:@"unknown.png"];
+                [cellView.carPhoto imageWithURL:[iOSApi urlDecode:real.carimg]];
+                cellView.name.text = [iOSApi urlDecode:real.realname];
+                cellView.sex.text = real.gender == 1 ? @"男" : @"女";
+                cellView.jiLing.text = [NSString valueOf:real.drvage];
+                cellView.carType.text = [iOSApi urlDecode:real.carseries];
+                cellView.carModel.text = [iOSApi urlDecode:real.cartype];
+                cellView.carColor.text = [iOSApi urlDecode:real.carcolor];
+                cellView.carNumber.text = [iOSApi urlDecode:real.carplate];
+                [_items addObject:cellView];
+            } else {
+                // 人找车
+                RMRideGuest *cellView = [(RMRideGuest *)[[[NSBundle mainBundle] loadNibNamed:@"RMRideGuest" owner:self options:nil] objectAtIndex:0] retain];
+                cellView.photo.image = [UIImage imageNamed:@"unknown.png"];
+                [cellView.photo imageWithURL:[iOSApi urlDecode:real.headimg]];
+                cellView.name.text = [iOSApi urlDecode:real.realname];
+                cellView.sex.text = real.gender == 1 ? @"男" : @"女";
+                [_items addObject:cellView];
+            }
             
+            UITableViewCell *cell = nil;
+            NSString *s = nil;
+            CGFloat h = 0.00f;
+            CGRect frame;
+#if 0
             // 顺风车历史
-            NSString *s = [iOSApi urlDecode:real.his];
-            CGFloat h = [iOSApi heightForString:s width:300 fontSize:12];
-            CGRect frame = CGRectMake(0, 0, 320, 50+h);
+            s = [iOSApi urlDecode:real.his];
+            h = [iOSApi heightForString:s width:300 fontSize:12];
+            frame = CGRectMake(0, 0, 320, 50+h);
             // 车找人
-            UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"cell"];
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"cell"];
             cell.frame = frame;
             cell.contentMode = UITableViewCellStyleSubtitle;
             cell.textLabel.text= @"顺风车经历：";
@@ -208,7 +229,7 @@
             //imageView.frame = frame;
             //[imageView release];
             [_items addObject:cell];
-            
+#endif       
             // 顺风车 宣言
             s = [iOSApi urlDecode:real.decl];
             h = [iOSApi heightForString:s width:300 fontSize:12];
