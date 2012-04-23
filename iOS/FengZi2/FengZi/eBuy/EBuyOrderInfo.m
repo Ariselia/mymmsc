@@ -7,12 +7,16 @@
 //
 
 #import "EBuyOrderInfo.h"
+#import "Api+Ebuy.h"
+#import <iOSApi/iOSAsyncImageView.h>
 
 @interface EBuyOrderInfo ()
 
 @end
 
 @implementation EBuyOrderInfo
+@synthesize tableView = _tableView;
+@synthesize orderId;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -23,10 +27,39 @@
     return self;
 }
 
+- (void)goBack{
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    UIImage *image = [UIImage imageNamed:@"navigation_bg.png"];
+    Class ios5Class = (NSClassFromString(@"CIImage"));
+    if (nil != ios5Class) {
+        [self.navigationController.navigationBar setBackgroundImage:image forBarMetrics:UIBarMetricsDefault];
+    } else {
+        self.navigationController.navigationBar.layer.contents = (id)[UIImage imageNamed:@"navigation_bg.png"].CGImage;
+    }
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(110, 0, 150,44)];
+    label.backgroundColor = [UIColor clearColor];
+    label.textAlignment = UITextAlignmentCenter;
+    label.font = [UIFont fontWithName:@"黑体" size:60];
+    label.textColor = [UIColor blackColor];
+    label.text= @"查看订单";
+    self.navigationItem.titleView = label;
+    [label release];
+    
+    UIButton *backbtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    backbtn.frame =CGRectMake(0, 0, 60, 32);
+    
+    [backbtn setImage:[UIImage imageNamed:@"back.png"] forState:UIControlStateNormal];
+    [backbtn setImage:[UIImage imageNamed:@"back_tap.png"] forState:UIControlStateHighlighted];
+    [backbtn addTarget:self action:@selector(goBack) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *backitem = [[UIBarButtonItem alloc] initWithCustomView:backbtn];
+    self.navigationItem.leftBarButtonItem = backitem;
+    [backitem release];
 }
 
 - (void)viewDidUnload
@@ -39,6 +72,195 @@
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
+}
+
+- (void)viewWillAppear:(BOOL)animated{
+    _orderInfo = [[Api ebuy_order_get:orderId] retain];
+}
+
+#pragma mark -
+#pragma mark UITableViewDataSource
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return 1;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return [_items count] + 2;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    CGFloat height = 70.f;
+    
+	return height;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    static NSString *CellIdentifier = @"Cell";
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    if (cell == nil) {
+        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier] autorelease];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    }
+    cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier] autorelease];
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    int pos = [indexPath row];
+    [cell.contentView removeSubviews];
+    // 地址簿空
+    NSArray *al = [Api ebuy_address_list];
+    isEmpty = al.count < 1;
+    if (pos == 0 && isEmpty) {
+        // 下面配文字
+        cell.textLabel.text = @"亲，请输入你的地址";
+        cell.textLabel.font = [UIFont systemFontOfSize:30.0];
+        cell.textLabel.lineBreakMode = UILineBreakModeTailTruncation;
+        cell.textLabel.numberOfLines = 0;
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        // 下面加按钮
+        return cell;
+    }
+    
+    EBProductInfo *obj = nil;
+    // 地址簿非空
+    if (pos == 0) {
+        EBAddress *obj = [al objectAtIndex:0];
+        NSString *str = nil;
+        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle
+                                       reuseIdentifier:CellIdentifier] autorelease];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        cell.textLabel.textAlignment = UITextAlignmentCenter;
+        cell.textLabel.textColor = [UIColor grayColor];
+        cell.textLabel.highlightedTextColor = [UIColor blackColor];
+        cell.textLabel.font = [UIFont systemFontOfSize:15.0];
+        str = [NSString stringWithFormat:@"收货地址 省:%@ 市:%@",obj.sheng, obj.chengshi];
+        cell.textLabel.text = [iOSApi urlDecode:str];
+        
+        cell.detailTextLabel.textAlignment = UITextAlignmentCenter;
+        cell.detailTextLabel.textColor = [UIColor grayColor];
+        cell.detailTextLabel.highlightedTextColor = [UIColor blackColor];
+        cell.detailTextLabel.font = [UIFont systemFontOfSize:15.0];
+        str = [NSString stringWithFormat:@"%@(%@)",obj.dizhi, obj.youbian];
+        cell.detailTextLabel.text = [iOSApi urlDecode:str];
+        return cell;
+    }
+    if (pos == _items.count + 1) {
+        CGFloat yj = 0.00f;
+        for (obj in _items) {
+            yj += obj.price;
+        }
+        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle                                       reuseIdentifier:CellIdentifier] autorelease];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        //cell.textLabel.textAlignment = UITextAlignmentRight;
+        cell.textLabel.textColor = [UIColor grayColor];
+        cell.textLabel.highlightedTextColor = [UIColor blackColor];
+        cell.textLabel.font = [UIFont systemFontOfSize:15.0];
+        cell.textLabel.text = [NSString stringWithFormat:@"原始价格:¥%.2f -- 返现:¥%.2f", yj, 0.00f];
+        //cell.detailTextLabel.textAlignment = UITextAlignmentRight;
+        cell.detailTextLabel.textColor = [UIColor grayColor];
+        cell.detailTextLabel.highlightedTextColor = [UIColor blackColor];
+        cell.detailTextLabel.font = [UIFont systemFontOfSize:15.0];
+        cell.detailTextLabel.text = [NSString stringWithFormat:@"合计:¥%.2f", yj];
+        if (!isEmpty) {
+            CGRect frame = CGRectMake(180, 50, 100, 20);
+            UIButton *btn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+            [btn setTitle:@"确认购买" forState:UIControlStateNormal];
+            btn.frame = frame;
+            [btn addTarget:self action:@selector(doClear:event:) forControlEvents:UIControlEventTouchUpInside];
+            [cell.contentView addSubview:btn];
+        }
+        return cell;
+    }
+    obj = [_items objectAtIndex:pos - 1];
+    cell.imageView.frame = CGRectMake(0, 0, 50, 50);
+    iOSAsyncImageView *ai = nil; //[info aimage];
+    if (ai == nil)
+    {
+        // 默认图片
+        cell.imageView.image = [[UIImage imageNamed:@"unknown.png"] toSize:CGSizeMake(50, 50)];
+        ai = [[[iOSAsyncImageView alloc] initWithFrame:cell.imageView.frame] autorelease];
+        NSString *tmp = [iOSApi urlDecode:obj.picUrl];
+        NSArray *arr = [tmp split:@"*"];
+        //NSString *tmpUrl;
+        
+        NSURL *url = [NSURL URLWithString: [arr objectAtIndex:0]];
+        [ai loadImageFromURL:url];
+    }
+    [cell.imageView addSubview:ai];
+    
+    cell.textLabel.text = [iOSApi urlDecode:obj.title];
+    NSString *tmpTitle = [NSString stringWithFormat:@"编号:%d 数量:1 价格:%.2f", obj.shopId, obj.price];
+    cell.detailTextLabel.text = [iOSApi urlDecode:tmpTitle];
+    cell.detailTextLabel.lineBreakMode = UILineBreakModeTailTruncation;
+    cell.detailTextLabel.numberOfLines = 0;
+    //cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    _tableView.separatorStyle=UITableViewCellSeparatorStyleSingleLine;
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    int pos = indexPath.row;
+    if (pos > 0) {
+        return;
+    }
+    /*
+    // 跳转 地址簿编辑页面
+    EBuyAddress *nextView = [[EBuyAddress alloc] init];
+    //nextView.param = param;
+    [self.navigationController pushViewController:nextView animated:YES];
+    [nextView release];
+    */
+}
+
+// 确认购买
+- (void)doClear:(id)sender event:(id)event{
+    NSSet *touches = [event allTouches];
+	UITouch *touch = [touches anyObject];
+	CGPoint currentTouchPosition = [touch locationInView: _tableView];
+	NSIndexPath *indexPath = [_tableView indexPathForRowAtPoint: currentTouchPosition];
+    
+    EBOrderInfo *info = [[[EBOrderInfo alloc] init] autorelease];
+    EBAddress *addr = [[Api ebuy_address_list] objectAtIndex:0];
+    EBOrderUser *user = [[[EBOrderUser alloc] init] autorelease];
+    user.userId = [Api userId];
+    user.type = @"01";
+    user.state = 1;
+    user.address = [NSString stringWithFormat:@"%@(%@)", addr.dizhi, addr.youbian];
+    user.mobile = addr.shouji;
+    user.receiver = addr.shouhuoren;
+    user.goodsCount = _items.count;
+    user.areaCode = addr.youbian;
+    /*
+     //{"userid":"001","type":"01","address":"北京朝阳区","receiver":"孙超","mobile":"12345678901","areacode":"100010","orderid":"OD20120115000003","state":0,"goodscount":10}
+     //{"id":"8ae40e1a-73fb-469a-8123-dcd973bf6264","name":"内衣","totalcount":"1","price":"10.00"}
+     for (EBProductInfo *obj in info.products) {
+     NSMutableDictionary *product = [NSMutableDictionary dictionary];
+     [product setObject:obj.id forKey:@"id"];
+     [product setObject:obj.title forKey:@"name"];
+     [product setObject:@"1" forKey:@"totalcount"];
+     [product setObject:[NSString stringWithFormat:@"%.2f", obj.price] forKey:@"price"];
+     [orderbody addObject:product];
+     }
+     */
+    NSMutableArray *array = [NSMutableArray array];
+    for (EBProductInfo *obj in _items) {
+        EBOrderProduct *product = [[[EBOrderProduct alloc] init] autorelease];
+        product.id = obj.id;
+        product.name = obj.title;
+        product.totalCount = 1;
+        product.price = obj.price;
+        [array addObject:product];
+        user.orderId = obj.orderId;
+    }
+    info.userInfo = user;
+    info.products = array;
+    [iOSApi showAlert:@"订购操作中..."];
+    ApiResult *iRet = [[Api ebuy_order:info] retain];
+    [iOSApi showCompleted:iRet.message];
+    [iOSApi closeAlert];
+    [iRet release];
 }
 
 @end

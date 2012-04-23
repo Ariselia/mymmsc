@@ -226,11 +226,12 @@
 
 // 确认购买
 - (void)doClear:(id)sender event:(id)event{
+    /*
     NSSet *touches = [event allTouches];
 	UITouch *touch = [touches anyObject];
 	CGPoint currentTouchPosition = [touch locationInView: _tableView];
 	NSIndexPath *indexPath = [_tableView indexPathForRowAtPoint: currentTouchPosition];
-    
+    */
     EBOrderInfo *info = [[[EBOrderInfo alloc] init] autorelease];
     EBAddress *addr = [[Api ebuy_address_list] objectAtIndex:0];
     EBOrderUser *user = [[[EBOrderUser alloc] init] autorelease];

@@ -48,7 +48,7 @@
     label.textAlignment = UITextAlignmentCenter;
     label.font = [UIFont fontWithName:@"黑体" size:60];
     label.textColor = [UIColor blackColor];
-    label.text= @"查看订单";
+    label.text= @"我的订单";
     self.navigationItem.titleView = label;
     [label release];
     
@@ -115,6 +115,7 @@
 - (void)tableView:(UITableViewCell *)cell onCustomAccessoryTapped:(id)object {
     EBOrder *obj = object;
     EBuyOrderInfo *nextView = [[EBuyOrderInfo alloc] init];
+    nextView.orderId = obj.ordered;
     [self.navigationController pushViewController:nextView animated:YES];
     [nextView release];
 }
