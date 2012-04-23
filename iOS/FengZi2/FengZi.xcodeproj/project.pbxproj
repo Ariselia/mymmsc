@@ -118,8 +118,6 @@
 		0ABF47F71544A2D100840459 /* EBuyEditAddress.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0ABF47F51544A2D100840459 /* EBuyEditAddress.xib */; };
 		0ABF47FC1544E28F00840459 /* EBuyOrderList.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ABF47FA1544E28D00840459 /* EBuyOrderList.m */; };
 		0ABF47FD1544E28F00840459 /* EBuyOrderList.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0ABF47FB1544E28E00840459 /* EBuyOrderList.xib */; };
-		0ABF48011544E88000840459 /* EbuyOrderInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ABF47FF1544E87E00840459 /* EbuyOrderInfo.m */; };
-		0ABF48021544E88000840459 /* EbuyOrderInfo.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0ABF48001544E87F00840459 /* EbuyOrderInfo.xib */; };
 		0AC0D14F153119C9001F1930 /* EBProductIntro.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AC0D14D153119C8001F1930 /* EBProductIntro.m */; };
 		0AC0D150153119C9001F1930 /* EBProductIntro.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0AC0D14E153119C8001F1930 /* EBProductIntro.xib */; };
 		0AC0D15415322551001F1930 /* UIView+Effect.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AC0D15315322551001F1930 /* UIView+Effect.m */; };
@@ -806,9 +804,6 @@
 		0ABF47F91544E28D00840459 /* EBuyOrderList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EBuyOrderList.h; sourceTree = "<group>"; };
 		0ABF47FA1544E28D00840459 /* EBuyOrderList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EBuyOrderList.m; sourceTree = "<group>"; };
 		0ABF47FB1544E28E00840459 /* EBuyOrderList.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EBuyOrderList.xib; sourceTree = "<group>"; };
-		0ABF47FE1544E87D00840459 /* EbuyOrderInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EbuyOrderInfo.h; sourceTree = "<group>"; };
-		0ABF47FF1544E87E00840459 /* EbuyOrderInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EbuyOrderInfo.m; sourceTree = "<group>"; };
-		0ABF48001544E87F00840459 /* EbuyOrderInfo.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EbuyOrderInfo.xib; sourceTree = "<group>"; };
 		0AC0D14C153119C7001F1930 /* EBProductIntro.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EBProductIntro.h; sourceTree = "<group>"; };
 		0AC0D14D153119C8001F1930 /* EBProductIntro.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EBProductIntro.m; sourceTree = "<group>"; };
 		0AC0D14E153119C8001F1930 /* EBProductIntro.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EBProductIntro.xib; sourceTree = "<group>"; };
@@ -1709,9 +1704,6 @@
 				0ABF47F91544E28D00840459 /* EBuyOrderList.h */,
 				0ABF47FA1544E28D00840459 /* EBuyOrderList.m */,
 				0ABF47FB1544E28E00840459 /* EBuyOrderList.xib */,
-				0ABF47FE1544E87D00840459 /* EbuyOrderInfo.h */,
-				0ABF47FF1544E87E00840459 /* EbuyOrderInfo.m */,
-				0ABF48001544E87F00840459 /* EbuyOrderInfo.xib */,
 			);
 			path = eBuy;
 			sourceTree = "<group>";
@@ -3512,7 +3504,6 @@
 				0A58ACA5154484E100A8F42F /* EBuyAddress.xib in Resources */,
 				0ABF47F71544A2D100840459 /* EBuyEditAddress.xib in Resources */,
 				0ABF47FD1544E28F00840459 /* EBuyOrderList.xib in Resources */,
-				0ABF48021544E88000840459 /* EbuyOrderInfo.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3741,7 +3732,6 @@
 				0A58ACA4154484E100A8F42F /* EBuyAddress.m in Sources */,
 				0ABF47F61544A2D100840459 /* EBuyEditAddress.m in Sources */,
 				0ABF47FC1544E28F00840459 /* EBuyOrderList.m in Sources */,
-				0ABF48011544E88000840459 /* EbuyOrderInfo.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
