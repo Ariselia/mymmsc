@@ -8,6 +8,7 @@
 
 #import "EBuyOrderList.h"
 #import "Api+Ebuy.h"
+#import "EBuyOrderInfo.h"
 
 @interface EBuyOrderList ()
 
@@ -112,7 +113,10 @@
 }
 
 - (void)tableView:(UITableViewCell *)cell onCustomAccessoryTapped:(id)object {
-    //EBProductType *obj = object;
+    EBOrder *obj = object;
+    EBuyOrderInfo *nextView = [[EBuyOrderInfo alloc] init];
+    [self.navigationController pushViewController:nextView animated:YES];
+    [nextView release];
 }
 
 - (NSArray *)reloadData:(iOSTableViewController *)tableView {

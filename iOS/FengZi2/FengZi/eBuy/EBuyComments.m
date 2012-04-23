@@ -63,7 +63,7 @@
     label.textAlignment = UITextAlignmentCenter;
     label.font = [UIFont fontWithName:@"黑体" size:60];
     label.textColor = [UIColor blackColor];
-    label.text= @"站内消息";
+    label.text= @"商品评论";
     self.navigationItem.titleView = label;
     [label release];
     
