@@ -191,9 +191,7 @@
                 cellView.name.text = [iOSApi urlDecode:real.realname];
                 cellView.sex.text = real.gender == 1 ? @"男" : @"女";
                 cellView.jiLing.text = [NSString valueOf:real.drvage];
-                cellView.carType.text = [iOSApi urlDecode:real.carseries];
-                cellView.carModel.text = [iOSApi urlDecode:real.cartype];
-                cellView.carColor.text = [iOSApi urlDecode:real.carcolor];
+                cellView.carType.text = [NSString stringWithFormat:@"%@%@%@", [iOSApi urlDecode:real.carseries], [iOSApi urlDecode:real.cartype], [iOSApi urlDecode:real.carcolor]];
                 cellView.carNumber.text = [iOSApi urlDecode:real.carplate];
                 [_items addObject:cellView];
             } else {

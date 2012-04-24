@@ -543,14 +543,14 @@
 }
 
 // 富媒体 评论列表
-+ (NSMutableArray *)mb_comments_get:(NSString *)userId
++ (NSMutableArray *)mb_comments_get:(NSString *)maId
                                page:(int)number
                                size:(int)size {
     static NSString *action = API_URL_USERCENTER "/uc/m_findMaComment.action";
     NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
                             API_INTERFACE_TONKEN, @"token",
                             [Api base64e:[Api passwd]], @"sessionPassword",
-                            userId, @"userId",
+                            maId, @"maId",
                             [NSString valueOf:number], @"curPage",
                             [NSString valueOf:size], @"pageSize",
                             nil];

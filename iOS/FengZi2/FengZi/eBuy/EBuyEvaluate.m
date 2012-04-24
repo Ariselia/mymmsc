@@ -7,6 +7,7 @@
 //
 
 #import "EBuyEvaluate.h"
+#import "EBuyEvaluateCell.h"
 #import "Api+Ebuy.h"
 #import <iOSApi/iOSAsyncImageView.h>
 
@@ -91,42 +92,14 @@
 
 - (UITableViewCell *)configure:(UITableViewCell *)cell withObject:(id)object {
     EBProductComment *obj = object;
-    // 设置字体
-    UIFont *textFont = [UIFont systemFontOfSize:15.0];    
-    cell.textLabel.text = [iOSApi urlDecode:obj.content];
-    cell.textLabel.font = textFont;
-    cell.imageView.frame = CGRectMake(0, 0, 50, 50);
-    //cell.imageView.image = [UIImage imageNamed:@"unknown.png"];
-    //[cell.imageView imageWithURL:[iOSApi urlDecode:obj.picUrl]];
-    iOSAsyncImageView *imageView = nil; //[info aimage];
-    if (imageView == nil)
-    {
-        // 默认图片
-        //cell.imageView.image = [[UIImage imageNamed:@"unknown.png"] toSize:CGSizeMake(50, 50)];
-        imageView = [[iOSAsyncImageView alloc] initWithFrame:cell.imageView.frame];
-        imageView.contentMode = UIViewContentModeScaleAspectFill;
-		imageView.clipsToBounds = YES;
-		imageView.tag = IMAGE_VIEW_TAG;
-        [cell addSubview:imageView];
-		[imageView release];
-        
-		//common settings
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        //cell.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
-		//cell.indentationWidth = 44.0f;
-		//cell.indentationLevel = 1;
-    }
-    imageView = (iOSAsyncImageView *)[cell viewWithTag:IMAGE_VIEW_TAG];
     NSString *tmp = [iOSApi urlDecode:obj.picUrl];
     NSArray *arr = [tmp split:@"*"];
-    
-    NSURL *url = [NSURL URLWithString: [arr objectAtIndex:0]];
-    [imageView loadImageFromURL:url];
-    
-    cell.detailTextLabel.text = [iOSApi urlDecode:obj.userName];
-    //cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    return cell;
+    EBuyEvaluateCell *cellView = [(EBuyEvaluateCell *)[[[NSBundle mainBundle] loadNibNamed:@"EBuyEvaluateCell" owner:self options:nil] objectAtIndex:0] retain];
+    cellView.ownerId = self;
+    cellView.content.text = [iOSApi urlDecode:obj.content];
+    [cellView.imageView imageWithURL:[arr objectAtIndex:0]];
+    cellView.selectionStyle = UITableViewCellSelectionStyleNone;
+    return cellView;
 }
 
 - (NSArray *)reloadData:(iOSTableViewController *)tableView {

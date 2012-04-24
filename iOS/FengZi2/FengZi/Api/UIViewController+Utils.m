@@ -48,7 +48,13 @@ static int iTimes = -1;
 
 -(void) chooseShowController:(NSString*)input{
     iOSLog(@"decode input = %@", input);
+    if (input == nil) {
+        input = @"";
+    }
     NSString *url = [Api fixUrl:input];
+    if (url == nil) {
+        url = @"";
+    }
     if (input != nil && [url hasPrefix:API_URL_SHOW]) {
         NSDictionary *dict = [url uriParams];
         NSString *userId = [dict objectForKey:@"userId"];

@@ -164,7 +164,7 @@
 + (ucToal *)uc_total_get:(int)userId;
 
 // 富媒体 评论列表
-+ (NSMutableArray *)mb_comments_get:(NSString *)userId
++ (NSMutableArray *)mb_comments_get:(NSString *)maId
                                page:(int)number
                                size:(int)size;
 

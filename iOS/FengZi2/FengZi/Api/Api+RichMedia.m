@@ -200,12 +200,13 @@
     [media setObject:tiny forKey:@"tinyName"];
     [pageList addObject:media];
     [jsonDic setObject:pageList forKey:@"pageList"];
-    
+    NSString *serv = API_URL_RICHMEDIA;
     NSString *path = @"dynamic/m_uploadMediaInfo.action";
     if ([Api kma]) {
         path = @"kma/m_uploadMediaInfo.action";
+        serv = API_URL_KMA;
     }
-    NSString *action = [NSString stringWithFormat:@"%@/%@?userid=%d", API_URL_RICHMEDIA, path, [Api userId]];
+    NSString *action = [NSString stringWithFormat:@"%@/%@?userid=%d", serv, path, [Api userId]];
     NSString *jsonStr = [jsonDic JSONString];
     NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
                             API_RICHMEDIA_TOKEN, @"token",
@@ -400,7 +401,7 @@ static NSString *kma_id = nil;
                 content:(NSString *)content{
     // http://m.fengxiafei.com/mb/kma/m_uploadTraditionInfo.action
     static NSString *path = @"kma/m_uploadTraditionInfo.action";
-    NSString *action = [NSString stringWithFormat:@"%@/%@?userid=%d", API_URL_RICHMEDIA, path, [NSString valueOf:[Api userId]]];
+    NSString *action = [NSString stringWithFormat:@"%@/%@?userid=%d", API_URL_KMA, path, [NSString valueOf:[Api userId]]];
     
     NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
                             API_RICHMEDIA_TOKEN, @"token",

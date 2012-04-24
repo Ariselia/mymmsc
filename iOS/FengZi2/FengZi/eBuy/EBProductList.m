@@ -17,10 +17,10 @@
 @end
 
 @implementation EBProductList
-
 @synthesize tableView=_tableView;
 @synthesize way, typeId;
 @synthesize pClass, subject;
+@synthesize param;
 
 #define kTAG_BASE (10000)
 #define kTAG_STAR (kTAG_BASE + 1)
@@ -112,7 +112,6 @@
         _page = 1;
     }
     if (_items != nil) {
-        
         NSArray *list = [[Api ebuy_goodslist:_page way:way typeId:typeId] retain];
         [_items addObjectsFromArray:list];
         [list release];
@@ -169,6 +168,7 @@
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     return cell;
 }
+
 - (UITableViewCellAccessoryType)tableView:(UITableView *)tableView accessoryTypeForRowWithIndexPath:(NSIndexPath *)indexPath {
     return UITableViewCellAccessoryDetailDisclosureButton;
     //return UITableViewCellAccessoryDisclosureIndicator;

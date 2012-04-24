@@ -233,7 +233,7 @@
 {
     //能过待删除的key数组删除数组
     EBProductList *nextView = [EBProductList new];
-    //nextView.param = searchTerm;
+    nextView.param = searchTerm;
     [self.navigationController pushViewController:nextView animated:YES];
     [nextView release];
     //[_tableView reloadData];

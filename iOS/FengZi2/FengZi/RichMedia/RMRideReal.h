@@ -17,8 +17,8 @@
 @property (nonatomic, retain) IBOutlet UILabel *sex;
 @property (nonatomic, retain) IBOutlet UILabel *jiLing;
 @property (nonatomic, retain) IBOutlet UILabel *carType;
-@property (nonatomic, retain) IBOutlet UILabel *carModel;
-@property (nonatomic, retain) IBOutlet UILabel *carColor;
+//@property (nonatomic, retain) IBOutlet UILabel *carModel;
+//@property (nonatomic, retain) IBOutlet UILabel *carColor;
 @property (nonatomic, retain) IBOutlet UILabel *carNumber;
 @property (nonatomic, retain) IBOutlet iOSImageView *photo;
 @property (nonatomic, retain) IBOutlet iOSImageView *carPhoto;

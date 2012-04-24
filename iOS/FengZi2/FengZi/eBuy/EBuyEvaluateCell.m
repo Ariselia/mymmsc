@@ -1,16 +1,15 @@
 //
-//  RMRideReal.m
+//  EBuyEvaluateCell.m
 //  FengZi
 //
-//  Created by wangfeng on 12-4-19.
+//  Created by wangfeng on 12-4-24.
 //  Copyright (c) 2012年 ifengzi.cn. All rights reserved.
 //
 
-#import "RMRideReal.h"
+#import "EBuyEvaluateCell.h"
 
-@implementation RMRideReal
-@synthesize sex,photo,name,jiLing,carType,carPhoto,carNumber;
-//@synthesize carColor,carModel;
+@implementation EBuyEvaluateCell
+@synthesize ownerId, imageView,subject,content;
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {

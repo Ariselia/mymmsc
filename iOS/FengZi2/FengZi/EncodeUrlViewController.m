@@ -32,7 +32,8 @@
 -(void)goBack{
     [self.navigationController popViewControllerAnimated:YES];
 }
--(void)generateCode{
+
+- (void)generateCode{
     if ([_webText.text isEqualToString:@""]) {
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"网址不能为空！" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles: nil];
         [alertView show];

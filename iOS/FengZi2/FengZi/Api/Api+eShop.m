@@ -245,9 +245,6 @@
     static NSString *path = @"eshop/commnetlist.action";
     NSString *action = [NSString stringWithFormat:@"%@/%@?userid=%d&page=%d&id=%d", API_URL_ESHOP, path, [Api userId], page, pid];
     NSDictionary *map = [Api post:action params:nil];
-    if (map.count == 0) {
-        map = [@"[{\"id\":\"1001\",\"username\":\"孙超\",\"content\":\"孙超喜欢刘玉珠\"},{\"id\":\"1002\",\"username\":\"白志鹏\",\"content\":\"白志鹏喜欢王继红\"}]" objectFromJSONString];
-    }
     ApiResult *iRet = [[ApiResult alloc] init];
     NSArray *list = (NSArray *)map;
     NSMutableArray *aRet = [[[NSMutableArray alloc] initWithCapacity:0] autorelease];
