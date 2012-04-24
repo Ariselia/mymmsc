@@ -110,7 +110,8 @@
             [nextView release];
         } else if([info.type isSame:@"meitu"]) {
             // 图片
-            NSString *filePath = [iOSFile path:[Api filePath:info.orderProductUrl]];
+            NSString *filePath = [iOSFile path:[Api filePath:info2.productUrl]];
+            iOSLog(@"filePath = %@", filePath);
             UIImage *im = [UIImage imageWithData:[NSData dataWithContentsOfFile:filePath]];
             iOSImageView2 *iv = [[iOSImageView2 alloc] initWithImage:im superView:self];
             [iv release];
@@ -124,7 +125,7 @@
             // 电子书
             UCBookReader *nextView = [UCBookReader new];
             nextView.subject = info.name;
-            NSString *filePath = [iOSFile path:[Api filePath:info.orderProductUrl]];
+            NSString *filePath = [iOSFile path:[Api filePath:info2.productUrl]];
             NSLog(@"1: %@", filePath);
             NSData *buffer = [NSData dataWithContentsOfFile:filePath]; 
             nextView.bookContent = [[[NSString alloc] initWithData:buffer encoding:NSUTF8StringEncoding] autorelease];
