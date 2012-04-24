@@ -112,14 +112,19 @@
         _page = 1;
     }
     if (_items != nil) {
-        NSArray *list = [[Api ebuy_goodslist:_page way:way typeId:typeId] retain];
+        NSArray *list = nil;
+        if (param != nil) {
+            list = [[Api ebuy_search:param] retain];
+        } else { 
+            list = [[Api ebuy_goodslist:_page way:way typeId:typeId] retain];
+        }
         [_items addObjectsFromArray:list];
         [list release];
         if (_items.count > 0) {
             EBProductInfo *obj = [_items objectAtIndex:0];
             subject.text = [iOSApi urlDecode:obj.title];
             [self setStarClass:3];
-            shopName = [NSString stringWithString:obj.shopName];
+            shopName = subject.text;
         }
     }
 }

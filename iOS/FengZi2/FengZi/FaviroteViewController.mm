@@ -35,6 +35,7 @@
     [super didReceiveMemoryWarning];  
     // Release any cached data, images, etc that aren't in use.
 }
+
 /*
 -(void) chooseShowController:(NSString*)input{
     BusCategory *category = [BusDecoder classify:input];
@@ -57,6 +58,7 @@
     }
 }
 */
+
 -(void)decoderWithImage:(UIImage*)image{
     Decoder *decoder = [[Decoder alloc] init];
     QRCodeReader* qrcodeReader = [[QRCodeReader alloc] init];
