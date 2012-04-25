@@ -133,10 +133,14 @@ static UIViewController *s_view = nil;
     return [[[NSString alloc] initWithData:dst encoding:NSUTF8StringEncoding] autorelease];
 }
 
-+ (NSData *)base64d_data:(NSString *)s {
-    s = [iOSApi urlDecode:s];
++ (NSData *)base64d_data_old:(NSString *)s {
+    //s = [iOSApi urlDecode:s];
     NSData *data = [s dataUsingEncoding:NSUTF8StringEncoding];
     return [GTMBase64 decodeData:data];
+}
+
++ (NSData *)base64d_data:(NSString *)s {
+    return [iOSApi base64Decode:s];
 }
 
 static BOOL cache_kma = NO;
@@ -198,7 +202,7 @@ static UserInfo *cache_info = nil;
         sRet = [[iOSApi cache] objectForKey:API_CACHE_PASSWD];
     }
     if (sRet == nil) {
-        sRet = @"123456";
+        sRet = @"";
     }
     return sRet;
 }

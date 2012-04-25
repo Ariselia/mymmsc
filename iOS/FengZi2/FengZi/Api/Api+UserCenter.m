@@ -459,9 +459,11 @@
         // 把JSON转为数组
         [iRet parse:ret];
         if (iRet.status == 0) {
-            //[iOSApi showCompleted:@"上传成功!"];
             NSDictionary *data = [ret objectForKey:@"data"];
             NSString *sBuf = [data objectForKey:@"imagFile"];
+            iOSLog(@"sBuf = [%@]", sBuf);
+            sBuf = [sBuf replace:@"\r\n" withString:@""];
+            iOSLog(@"sBuf = [%@]", sBuf);
             NSData *buffer = [Api base64d_data:sBuf];
             NSString *filePath = [Api filePath:filename];
             NSFileHandle *fileHandle = [iOSFile create:filePath];
@@ -526,12 +528,10 @@
 }
 
 + (ucToal *)uc_total_get:(int)userId{
-    static NSString *action = API_URL_USERCENTER "/uc/m_findMaComment.action";
+    static NSString *action = API_URL_RICHMEDIA "/dataStatis/getCodeCount.action";
     NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
                             API_INTERFACE_TONKEN, @"token",
-                            [NSString valueOf:userId], @"maId",
-                            [NSString valueOf:0], @"curPage",
-                            [NSString valueOf:8], @"pageSize",
+                            [NSString valueOf:userId], @"userid",
                             nil];
     NSDictionary *map = [Api post:action params:params];
     ucToal *iRet = [[ucToal alloc] init];

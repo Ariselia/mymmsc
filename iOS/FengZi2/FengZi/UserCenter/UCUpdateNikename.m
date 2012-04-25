@@ -544,28 +544,43 @@
     
     if (idDest > 0 && pos == 0) {
         // 加载照片
+        UIImage *im = nil;
+        BOOL bDown = NO;
+        // 取得照片文件名
         NSString *photoName = [Api uc_photo_name:idDest];
-        if (![Api fileIsExists:photoName]) {
+        // 组织照片本地文件路径
+        NSString *filePath = [iOSFile path:[Api filePath:photoName]];
+        iOSLog(@"filePath = %@", filePath);
+        NSData *data = [NSData dataWithContentsOfFile:filePath];
+        if (![Api fileIsExists:photoName] || data.length == 0) {
+            bDown = YES;
+        } else {
+            im = [UIImage imageWithData:data];
+            if (im == nil) {
+                [iOSFile remove:[Api filePath:photoName]];
+                bDown = YES;
+            } else {
+                bDown = NO;
+            }
+        }
+        if (bDown) {
             // 如果照片不存在, 进行下载
             [Api uc_photo_down:idDest];
         }
-        UIImage *im = nil;
+        
         CGRect frame = CGRectMake(0.00f, 5.00f, 80, 80);
         cell.imageView.frame = frame;
         if ([Api fileIsExists:photoName]) {
-            
-            NSString *filePath = [iOSFile path:[Api filePath:photoName]];
-            NSData *data = [NSData dataWithContentsOfFile:filePath];
+            data = [NSData dataWithContentsOfFile:filePath];
             if (data.length > 0) {
-                 im = [UIImage imageWithData:data];
+                im = [UIImage imageWithData:data];
             } else {
                 im = [UIImage imageNamed:@"usercenter_userinfo_image_default.png"];
             }
         } else {
             im = [UIImage imageNamed:@"usercenter_userinfo_image_default.png"];
         }
-        [cell.imageView loadImage:im];
-        
+        [cell.imageView loadImage:im];        
         
         // 增加统计信息
         ucToal *total = [[Api uc_total_get:idDest] retain];
