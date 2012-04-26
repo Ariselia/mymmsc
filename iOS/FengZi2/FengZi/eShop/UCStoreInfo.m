@@ -92,7 +92,7 @@
         items = [[NSMutableArray alloc] initWithCapacity:0];
     }
     [iOSApi showAlert:@"正在获取商品信息"];
-    NSArray *data = [[Api relation:info.pid page:_page] retain];
+    NSArray *data = [[Api relation:info.id page:_page] retain];
     [items addObjectsFromArray: data];
     [data release];
     [iOSApi closeAlert];

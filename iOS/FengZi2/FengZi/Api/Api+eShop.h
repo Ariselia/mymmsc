@@ -15,7 +15,7 @@
 //====================================< 数字商城 - 接口 >====================================
 @interface ProductInfo : NSObject {
     NSString *name, *info, *writer, *orderProductUrl, *realUrl;
-    int pid;
+    int id;
     NSString *type;
     float price;
     NSString *picurl;
@@ -25,7 +25,7 @@
 }
 
 @property (nonatomic, copy) NSString *name, *info, *writer, *orderProductUrl, *realUrl, *picurl, *productLogo;
-@property (nonatomic, assign) int pid;
+@property (nonatomic, assign) int id;
 @property (nonatomic, copy) NSString *type;
 @property (nonatomic, assign) float price;
 @property (nonatomic, assign) int state;
@@ -48,7 +48,7 @@
 }
 
 @property (nonatomic, assign) int id;
-@property (nonatomic, retain) NSString *typename, *shopname, *info, *writer, *publisher, *pricetype, *picurl, *productUrl;
+@property (nonatomic, copy) NSString *typename, *shopname, *info, *writer, *publisher, *pricetype, *picurl, *productUrl;
 @property (nonatomic, assign) BOOL isOrder;
 
 @end
@@ -59,22 +59,25 @@
     NSString *picUrl;
 }
 
-@property (nonatomic, retain) NSString *picUrl;
+@property (nonatomic, copy) NSString *picUrl;
 @property (nonatomic, assign) int pid;
 
 @end
 
 //====================================< 数字商城 - 接口 >====================================
-
-@interface ContentInfo : NSObject {
-    int pid;
+//{"id":40,"content":"默默","createTime":"2012-04-26 15:28:46","productId":81,"userId":100046,"userName":"啦啦啦啦"}
+// 商品品论
+@interface ESContentInfo : NSObject {
+    int id;
     NSString *username;
     NSString *content;
 }
 
-@property (nonatomic, assign) int pid;
-@property (nonatomic, retain) NSString *username;
-@property (nonatomic, retain) NSString *content;
+@property (nonatomic, assign) int id;
+@property (nonatomic, copy) NSString *username;
+@property (nonatomic, copy) NSString *content;
+@property (nonatomic, copy) NSString *createTime;
+@property (nonatomic, assign) int productId, userId;
 
 @end
 

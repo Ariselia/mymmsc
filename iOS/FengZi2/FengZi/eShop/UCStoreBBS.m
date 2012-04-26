@@ -35,7 +35,7 @@
         nk = @"匿名";
     }
     [iOSApi showAlert:@"提交评论中"];
-    ApiResult *iRet = [Api conmment:info.pid username:nk msg:msg];
+    ApiResult *iRet = [Api conmment:info.id username:nk msg:msg];
     msg = nil;
     if (iRet.status == 0) {
         msg = @"评论信息提交成功";
@@ -54,6 +54,7 @@
     if (self) {
         // Custom initialization
         self.proxy = self;
+        _page = 1;
     }
     return self;
 }
@@ -132,7 +133,7 @@
 }
 
 - (UITableViewCell *)configure:(UITableViewCell *)cell withObject:(id)object {
-    ContentInfo *obj = object;
+    ESContentInfo *obj = object;
     // 设置字体
     UIFont *textFont = [UIFont systemFontOfSize:15.0];
     UIFont *detailFont = [UIFont systemFontOfSize:10.0];
@@ -146,7 +147,7 @@
 }
 
 - (NSArray *)reloadData:(iOSTableViewController *)tableView {
-    return [Api bbsList:info.pid page:_page];
+    return [Api bbsList:info.id page:_page];
 }
 
 - (NSArray *)arrayOfHeader:(iOSTableViewController *)tableView {
@@ -154,7 +155,7 @@
 }
 
 - (NSArray *)arrayOfFooter:(iOSTableViewController *)tableView {
-    NSArray *list = [Api bbsList:info.pid page:_page + 1];
+    NSArray *list = [Api bbsList:info.id page:_page + 1];
     if (list.count > 0) {
         _page += 1;
     }

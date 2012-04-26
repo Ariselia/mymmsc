@@ -12,7 +12,7 @@
 
 @implementation ProductInfo
 
-@synthesize pid, type, name, price, info, writer, orderProductUrl, realUrl, picurl, productLogo;
+@synthesize id, type, name, price, info, writer, orderProductUrl, realUrl, picurl, productLogo;
 @synthesize state;
 
 - (void)dealloc {
@@ -25,7 +25,7 @@
 }
 
 - (NSString *)url {
-    NSString *sRet = [NSString stringWithFormat:API_URL_ESHOP "/eshop/download.action?userid=%d&id=%d", 1, pid];
+    NSString *sRet = [NSString stringWithFormat:API_URL_ESHOP "/eshop/download.action?userid=%d&id=%d", 1, id];
     iOSLog(@"real url: %@", sRet);
     return sRet;
 }
@@ -50,11 +50,12 @@
 @end
 
 
-@implementation ContentInfo
+@implementation ESContentInfo
 
-@synthesize pid, username, content;
+@synthesize id, username, content,userId,productId,createTime;
 
 - (void) dealloc{
+    IOSAPI_RELEASE(createTime);
     [username release];
     [content release];
     [super dealloc];
@@ -76,7 +77,7 @@
                           @"电子书", @"dianzishu",
                           @"音乐", @"yinyue",
                           @"游戏", @"youxi",
-                          @"图片", @"meitu",
+                          @"美图", @"meitu",
                           @"视频", @"shipin",
                           @"漫画", @"manhua",
                           @"其它", @"qita",
@@ -128,10 +129,12 @@
     NSMutableArray *aRet = [[[NSMutableArray alloc] initWithCapacity:0] autorelease];
     if (list.count > 0) {
         // 业务数据处理
+        aRet = [list toList:ProductInfo.class];
+        /*
         ProductInfo *obj = nil;
         for (NSDictionary *item in list) {
             obj = [ProductInfo new];
-            obj.pid = [Api getInt:[item objectForKey:@"id"]];
+            obj.id = [Api getInt:[item objectForKey:@"id"]];
             obj.name = [item objectForKey:@"name"];
             obj.type = [item objectForKey:@"type"];
             obj.info = [item objectForKey:@"info"];
@@ -142,6 +145,7 @@
             [aRet addObject:obj];
             [obj release];
         }
+         */
     }
     [iRet release];
     return aRet;
@@ -164,13 +168,15 @@
     NSDictionary *map = [Api post:action params:nil];
     ApiResult *iRet = [[ApiResult alloc] init];
     NSArray *list = (NSArray *)map;
-    NSMutableArray *aRet = [[[NSMutableArray alloc] initWithCapacity:0] autorelease];
+    NSMutableArray *aRet = nil;
     if (list.count > 0) {
         // 业务数据处理
+        aRet = [list toList:ProductInfo.class];
+        /*
         ProductInfo *obj = nil;
         for (NSDictionary *item in list) {
             obj = [ProductInfo new];
-            obj.pid = [Api getInt:[item objectForKey:@"id"]];
+            obj.id = [Api getInt:[item objectForKey:@"id"]];
             obj.name = [item objectForKey:@"name"];
             obj.type = [item objectForKey:@"type"];
             obj.info = [item objectForKey:@"info"];
@@ -180,7 +186,8 @@
             obj.productLogo = [item objectForKey:@"productLogo"];
             [aRet addObject:obj];
             [obj release];
-        }        
+        } 
+        */
     }
     [iRet release];
     return aRet;
@@ -192,9 +199,11 @@
     NSDictionary *map = [Api post:action params:nil];
     ApiResult *iRet = [[ApiResult alloc] init];
     NSArray *list = (NSArray *)map;
-    NSMutableArray *aRet = [[[NSMutableArray alloc] initWithCapacity:0] autorelease];
+    NSMutableArray *aRet = nil;
     if (list.count > 0) {
         // 业务数据处理
+        aRet = [list toList:PersonInfo.class];
+        /*
         PersonInfo *obj = nil;
         for (NSDictionary *item in list) {
             obj = [PersonInfo new];
@@ -203,7 +212,7 @@
             [aRet addObject:obj];
             [obj release];
         }
-        
+        */
     }
     [iRet release];
     return aRet;
@@ -217,13 +226,15 @@
     NSDictionary *map = [Api post:action params:nil];
     ApiResult *iRet = [[ApiResult alloc] init];
     NSArray *list = (NSArray *)map;
-    NSMutableArray *aRet = [[[NSMutableArray alloc] initWithCapacity:0] autorelease];
+    NSMutableArray *aRet = nil;
     if (list.count > 0) {
         // 业务数据处理
+        aRet = [list toList:ProductInfo.class];
+        /*
         ProductInfo *obj = nil;
         for (NSDictionary *item in list) {
             obj = [ProductInfo new];
-            obj.pid = [Api getInt:[item objectForKey:@"id"]];
+            obj.id = [Api getInt:[item objectForKey:@"id"]];
             obj.name = [item objectForKey:@"name"];
             obj.type = [item objectForKey:@"type"];
             obj.info = [item objectForKey:@"info"];
@@ -234,6 +245,7 @@
             [aRet addObject:obj];
             [obj release];
         }
+         */
     }
     [iRet release];
     return aRet;
@@ -247,19 +259,9 @@
     NSDictionary *map = [Api post:action params:nil];
     ApiResult *iRet = [[ApiResult alloc] init];
     NSArray *list = (NSArray *)map;
-    NSMutableArray *aRet = [[[NSMutableArray alloc] initWithCapacity:0] autorelease];
+    NSMutableArray *aRet = nil;
     if (list.count > 0) {
-        // 业务数据处理
-        ContentInfo *obj = nil;
-        for (NSDictionary *item in list) {
-            obj = [ContentInfo new];
-            obj.pid = [Api getInt:[item objectForKey:@"id"]];
-            obj.username = [item objectForKey:@"userName"];
-            obj.content = [item objectForKey:@"content"];
-            [aRet addObject:obj];
-            [obj release];
-        }
-        
+        aRet = [list toList:ESContentInfo.class];
     }
     [iRet release];
     return aRet;

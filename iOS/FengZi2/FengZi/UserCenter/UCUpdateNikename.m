@@ -14,15 +14,16 @@
 #define TAG_FIELD_NKNAME   (TAG_FIELD_BASE + 2) // 昵称
 #define TAG_FIELD_REALNAME (TAG_FIELD_BASE + 3) // 真实姓名
 #define TAG_FIELD_SEX      (TAG_FIELD_BASE + 4) // 性别
-#define TAG_FIELD_EMAIL    (TAG_FIELD_BASE + 5) // 邮箱地址
-#define TAG_FIELD_BIRTHDAY (TAG_FIELD_BASE + 6) // 生日
-#define TAG_FIELD_IDNUMBER (TAG_FIELD_BASE + 7) // 身份证号码
-#define TAG_FIELD_ADDRESS  (TAG_FIELD_BASE + 8) // 通信地址
-#define TAG_FIELD_POSTCODE (TAG_FIELD_BASE + 9) // 邮编
-#define TAG_FIELD_ISOPEN   (TAG_FIELD_BASE + 10) // 是否公开
-#define TAG_FIELD_WEIBO    (TAG_FIELD_BASE + 11) // 微博
-#define TAG_FIELD_QQ       (TAG_FIELD_BASE + 12) // QQ号码
-#define TAG_FIELD_CONTACT  (TAG_FIELD_BASE + 13) // 联系方式
+#define TAG_FIELD_LIKES    (TAG_FIELD_BASE + 5) // 爱好
+#define TAG_FIELD_EMAIL    (TAG_FIELD_BASE + 6) // 邮箱地址
+#define TAG_FIELD_BIRTHDAY (TAG_FIELD_BASE + 7) // 生日
+#define TAG_FIELD_IDNUMBER (TAG_FIELD_BASE + 8) // 身份证号码
+#define TAG_FIELD_ADDRESS  (TAG_FIELD_BASE + 9) // 通信地址
+#define TAG_FIELD_POSTCODE (TAG_FIELD_BASE + 10) // 邮编
+#define TAG_FIELD_ISOPEN   (TAG_FIELD_BASE + 11) // 是否公开
+#define TAG_FIELD_WEIBO    (TAG_FIELD_BASE + 12) // 微博
+#define TAG_FIELD_QQ       (TAG_FIELD_BASE + 13) // QQ号码
+#define TAG_FIELD_CONTACT  (TAG_FIELD_BASE + 14) // 联系方式
 
 #define ALERT_TITLE @"个人空间 提示"
 
@@ -63,25 +64,25 @@
     NSString *sAddress = [address.text trim];
     NSString *sPostCode = [postCode.text trim];
     NSString *sLikes = [likes.text trim];
-    NSString *sIsopen = (isopen.isOn ? @"1":@"0");
+    NSString *sIsopen = (isopen.isOn ? @"0":@"1");
     NSString *sWeibo = [weibo.text trim];
     NSString *sQQ = [QQ.text trim];
     NSString *sContact = [contact.text trim];
     /*
-    // 密码长度判断
-    if (pwd.length < 6 || pwd.length > 18) {
-        [iOSApi Alert:ALERT_TITLE message:@"密码必须是6～18位的数字字母。"];
-        [passwd becomeFirstResponder];
-        return;
-    }
-    
-    // 昵称长度判断
-    if (nkm.length < 6 || nkm.length > 18) {
-        [iOSApi Alert:ALERT_TITLE message:@"昵称必须是6～18位的文字。"];
-        [passwd becomeFirstResponder];
-        return;
-    }
-    */
+     // 密码长度判断
+     if (pwd.length < 6 || pwd.length > 18) {
+     [iOSApi Alert:ALERT_TITLE message:@"密码必须是6～18位的数字字母。"];
+     [passwd becomeFirstResponder];
+     return;
+     }
+     
+     // 昵称长度判断
+     if (nkm.length < 6 || nkm.length > 18) {
+     [iOSApi Alert:ALERT_TITLE message:@"昵称必须是6～18位的文字。"];
+     [passwd becomeFirstResponder];
+     return;
+     }
+     */
     [iOSApi showAlert:@"正在提交信息..."];
     //ApiResult *iRet = [Api updateNikename:pwd nikename:nkm];
     ApiResult *iRet = [Api uc_userinfo_set:sRealName sex:sSex email:sEmail birthday:sBirthday idNumber:sIdNumber address:sAddress postCode:sPostCode likes:sLikes isopen:sIsopen weibo:sWeibo QQ:sQQ contact:sContact];
@@ -287,12 +288,12 @@
             
             isopen = [[UISwitch alloc] initWithFrame:swFrame];
             isopen.tag = input.tag;
-            [isopen setOn:ucInfo.isopen];
+            [isopen setOn:!ucInfo.isopen];
             [isopen setEnabled:bEdit];
             [input setObject: isopen];
             [items addObject: input];
         }
-        if (bEdit || ucInfo.isopen) {
+        if (bEdit || ucInfo.isopen == 0) {
             // 姓名
             input = [[iOSInput new] autorelease];
             [input setName:@"姓名"];
@@ -311,6 +312,26 @@
             [realname addTarget:self action:@selector(textRestore:) forControlEvents:UIControlEventEditingDidEndOnExit];
             [realname addTarget:self action:@selector(textUpdate:) forControlEvents:UIControlEventEditingChanged];
             [input setObject: realname];
+            [items addObject: input];
+            
+            // 爱好
+            input = [[iOSInput new] autorelease];
+            [input setName:@"爱好"];
+            [input setTag:TAG_FIELD_LIKES];
+            likes = [[UITextField alloc] initWithFrame:frame];
+            likes.text = ucInfo.likes;
+            likes.tag = input.tag;
+            likes.returnKeyType = UIReturnKeyDone;
+            likes.borderStyle = _borderStyle;
+            if(bEdit) likes.placeholder = @"输入爱好";
+            likes.font = font;
+            [likes setEnabled:bEdit];
+            // 绑定事件
+            [likes addTarget:self action:@selector(editBegin:event:) forControlEvents:UIControlEventEditingDidBegin];
+            
+            [likes addTarget:self action:@selector(textRestore:) forControlEvents:UIControlEventEditingDidEndOnExit];
+            [likes addTarget:self action:@selector(textUpdate:) forControlEvents:UIControlEventEditingChanged];
+            [input setObject: likes];
             [items addObject: input];
             
             // 性别
@@ -490,7 +511,7 @@
             [input setObject: QQ];
             [items addObject: input];
         }
-               
+        
         // 处理所有文本输入框的被键盘挡住问题
         //[super unregisterForKeyboardNotifications];
     }
@@ -532,7 +553,7 @@
     for (UIView *view in [cell.contentView subviews]) {
         [view removeFromSuperview];
     }
-    
+    cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier] autorelease];
     // Configure the cell.
     int pos = [indexPath row];
     //if (pos >= [items count]) {

@@ -293,57 +293,6 @@
     return [iRet autorelease];
 }
 
-+ (ApiResult *)uc_userinfo_set1:(NSString *)realname
-                            sex:(NSString *)sex
-                          email:(NSString *)email
-                       birthday:(NSString *)birthday
-                       idNumber:(NSString *)idNumber
-                        address:(NSString *)address
-                       postCode:(NSString *)postCode
-                          likes:(NSString *)likes
-                         isopen:(NSString *)isopen
-                          weibo:(NSString *)weibo
-                             QQ:(NSString *)QQ
-                        contact:(NSString *)contact {
-    static NSString *action = API_URL_USERCENTER "/uc/m_modDetailInfo.action";
-    if (realname == nil) realname = @"";
-    if (sex == nil) sex = @"";
-    if (email == nil) email = @"";
-    if (birthday == nil) birthday = @"";
-    if (idNumber == nil) idNumber = @"";
-    if (address == nil) address = @"";
-    if (postCode == nil) postCode = @"";
-    if (likes == nil) likes = @"";
-    if (QQ == nil) QQ = @"";
-    if (weibo == nil) weibo = @"";
-    if (contact == nil) contact = @"";
-    
-    NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
-                            API_INTERFACE_TONKEN, @"token",
-                            [NSString valueOf:[Api userId]], @"userid",
-                            realname, @"userInfo.realname",
-                            sex, @"userInfo.sex",
-                            email, @"userInfo.email",
-                            birthday, @"userInfo.birthday",
-                            idNumber, @"userInfo.idNumber",
-                            address, @"userInfo.address",
-                            postCode, @"userInfo.postCode",
-                            likes, @"userInfo.likes",
-                            isopen, @"userInfo.isopen",
-                            weibo, @"userInfo.weibo",
-                            QQ, @"userInfo.QQ",
-                            contact, @"userInfo.contact",
-                            [Api base64e:[Api passwd]], @"sessionPassword",
-                            nil];
-    NSDictionary *map = [Api post:action params:params];
-    ApiResult *iRet = [[ApiResult alloc] init];
-    NSDictionary *data = [iRet parse:map];
-    if (data.count > 0) {
-        //
-    }
-    return [iRet autorelease];
-}
-
 + (ApiResult *)uc_userinfo_set:(NSString *)realname
                            sex:(NSString *)sex
                          email:(NSString *)email

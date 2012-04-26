@@ -184,14 +184,14 @@
 - (void)loadData:(ProductInfo *)pInfo
 {
     info = [pInfo retain];
+    info2 = [[Api proinfo:info.id] retain];
     infoType.text     = [NSString stringWithFormat:@"商品类型:  %@", [Api typeName:info.type]];
     infoName.text     = [NSString stringWithFormat:@"商品名称:  %@", info.name];
-    infoUploader.text = [NSString stringWithFormat:@"商品发布:  %@", @"未知"];;
-    infoWriter.text   = [NSString stringWithFormat:@"署名作者:  %@", info.writer];;
-    infoInfo.text     = [NSString stringWithFormat:@"内容描述:  %@", info.info];;
-    infoPrice.text    = [NSString stringWithFormat:@"收费金额:  %0.2f", info.price];;
+    infoUploader.text = [NSString stringWithFormat:@"商品发布:  %@", info2.publisher];
+    infoWriter.text   = [NSString stringWithFormat:@"署名作者:  %@", info2.writer];
+    infoPrice.text    = [NSString stringWithFormat:@"收费金额:  %0.2f", info.price];
+    infoInfo.text     = info2.info;
     
-    info2 = [[Api proinfo:info.pid] retain];
     // 修订类型名称
     if (info2 != nil) {
         infoType.text     = [NSString stringWithFormat:@"商品类型:  %@", info2.typename];
