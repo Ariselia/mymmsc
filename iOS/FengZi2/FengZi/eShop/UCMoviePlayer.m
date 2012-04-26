@@ -55,7 +55,6 @@
 				   initWithContentURL:fileURL];
     //moviePlayer.movieSourceType = MPMovieControlStyleFullscreen;
 	//初始化视频播放器对象，并传入被播放文件的地址
-	//moviePlayer.movieControlMode = MPMovieControlModeDefault;
 	
     [[NSNotificationCenter defaultCenter] addObserver:self
 											 selector:@selector(moviePlaybackComplete:)
