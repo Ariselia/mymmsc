@@ -267,10 +267,10 @@
     return aRet;
 }
 
-+ (ApiResult *)conmment:(int)pid
-              username:(NSString *)username
-                   msg:(NSString *)msg {
-    //http://220.231.48.34:9000/eshop/eshop/commnet.action;jsessionid=9E4C07BB88579E5C14033C64EC218D8D?content=aebcs&id=1&userid=1
++ (ApiResult *)conmment_old:(int)pid
+               username:(NSString *)username
+                    msg:(NSString *)msg {
+    //http://devp.ifengzi.cn:38090/eshop/commnet.action?content=aebcs&id=3&userid=1&username=%E6%B5%8B%E8%AF%95%E5%91%98
     static NSString *path = @"eshop/commnet.action";
     NSString *action = [NSString stringWithFormat:@"%@/%@?userid=%d&id=%d", API_URL_ESHOP, path, [Api userId], pid];
     NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
@@ -278,6 +278,22 @@
                             msg, @"content",
                             nil];
     NSDictionary *map = [Api post:action params:params];
+    
+    ApiResult *iRet = [[ApiResult alloc] init];
+    if ([map isKindOfClass:NSDictionary.class]) {
+        [iRet parse:map];
+    }
+    
+    return [iRet autorelease];
+}
+
++ (ApiResult *)conmment:(int)pid
+              username:(NSString *)username
+                   msg:(NSString *)msg {
+    //http://devp.ifengzi.cn:38090/eshop/commnet.action?content=aebcs&id=3&userid=1&username=%E6%B5%8B%E8%AF%95%E5%91%98
+    static NSString *path = @"eshop/commnet.action";
+    NSString *action = [NSString stringWithFormat:@"%@/%@?userid=%d&id=%d&username=%@&content=%@", API_URL_ESHOP, path, [Api userId], pid, [iOSApi urlEncode:username], [iOSApi urlEncode:msg]];
+    NSDictionary *map = [Api post:action params:nil];
     
     ApiResult *iRet = [[ApiResult alloc] init];
     if ([map isKindOfClass:NSDictionary.class]) {
