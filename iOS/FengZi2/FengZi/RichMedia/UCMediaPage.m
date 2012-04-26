@@ -282,9 +282,10 @@ static int sButton = 0;
     }
     if (sFile == nil) {
         [iOSApi showAlert:@"正在下载音乐文件"];
+        NSDictionary *aList = [info.soundUrl uriParams];
         fileURL = [NSURL URLWithString:info.soundUrl];
         NSData *data = [NSData dataWithContentsOfURL:fileURL];
-        NSString *tFile = @"123.mp3";
+        NSString *tFile = [NSString stringWithFormat:@"%@.%@", [aList objectForKey:@"id"], [aList objectForKey:@"type"]];
         NSLog(@"1: %@", tFile);
         NSFileHandle *fileHandle = [iOSFile create:tFile];
         [fileHandle writeData:data];
@@ -293,11 +294,19 @@ static int sButton = 0;
         [iOSApi closeAlert];
     }
     fileURL = [NSURL fileURLWithPath:sFile];
-    audioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:fileURL error:nil];
-    [audioPlayer play];
-    [btnAudio setImage:[UIImage imageNamed:@"duomeiti_stop.png"] forState:UIControlStateNormal];
-    [btnAudio setImage:[UIImage imageNamed:@"duomeiti_stop.png"] forState:UIControlStateHighlighted];
-    sButton = MS_PLAYING;
+    NSError *error = nil;
+    audioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:fileURL error:&error];
+    if (!audioPlayer && error != nil) {
+        // 异常
+        iOSLog(@"删除文件[%@] 异常: [%d]%@", fileURL, [error code], [error localizedDescription]);
+        [iOSApi Alert:@"媒体文件播放 提示" message:[error localizedDescription]];
+    } else {
+        [audioPlayer play];
+        [btnAudio setImage:[UIImage imageNamed:@"duomeiti_stop.png"] forState:UIControlStateNormal];
+        [btnAudio setImage:[UIImage imageNamed:@"duomeiti_stop.png"] forState:UIControlStateHighlighted];
+        sButton = MS_PLAYING;
+        sFile = nil;
+    }
 }
 
 -(IBAction)playMovie2:(id)sender {

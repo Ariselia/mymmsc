@@ -280,7 +280,10 @@
     NSDictionary *map = [Api post:action params:params];
     
     ApiResult *iRet = [[ApiResult alloc] init];
-    [iRet parse:map];
+    if ([map isKindOfClass:NSDictionary.class]) {
+        [iRet parse:map];
+    }
+    
     return [iRet autorelease];
 }
 

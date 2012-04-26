@@ -29,7 +29,7 @@
 @property (nonatomic, copy) NSString *contact;
 @property (nonatomic, copy) NSString *birthday;
 //@property (nonatomic, copy) NSString *QQ;
-@property (nonatomic, assign) int QQ;
+@property (nonatomic, assign) long long QQ;
 @property (nonatomic, copy) NSString *address;
 @property (nonatomic, copy) NSString *email;
 @property (nonatomic, copy) NSString *idNumber;

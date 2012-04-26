@@ -288,7 +288,7 @@ static UserInfo *cache_info = nil;
         NSString *_url = [url substringFromIndex:range.location];
         range = [_url rangeOfString:@";"];
         if (range.length > 0) {
-            sRet = [_url substringToIndex:range.location - 1];
+            sRet = [_url substringToIndex:range.location];
         } else {
             sRet = _url;
         }
