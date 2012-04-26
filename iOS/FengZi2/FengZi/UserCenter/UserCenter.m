@@ -215,6 +215,8 @@ static int iTimes = -1;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    self.navigationController.navigationBarHidden = NO;
     if (items != nil) {
         [items removeAllObjects];
     }
