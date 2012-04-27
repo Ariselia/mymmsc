@@ -53,7 +53,7 @@
     NSURL *fileURL = [NSURL fileURLWithPath:filePath];
 	player = [[MPMoviePlayerController alloc]
 				   initWithContentURL:fileURL];
-    //moviePlayer.movieSourceType = MPMovieControlStyleFullscreen;
+    player.movieSourceType = MPMovieControlStyleFullscreen;
 	//初始化视频播放器对象，并传入被播放文件的地址
 	
     [[NSNotificationCenter defaultCenter] addObserver:self
