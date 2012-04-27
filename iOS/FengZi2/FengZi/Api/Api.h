@@ -96,6 +96,20 @@
 
 @end
 
+//--------------------< 接口 - 业务类型 - 码 >--------------------
+@interface ApiCode : NSObject{
+    NSString *_shopType;
+    NSString *_cType;
+    int       _id;
+}
+@property (nonatomic, copy) NSString *shopType;
+@property (nonatomic, copy) NSString *cType;
+@property (nonatomic, assign) int id;
+
++ (id)codeWithUrl:(NSString *)url;
+
+@end
+
 //====================================< 接口功能 >====================================
 @interface Api : NSObject {
     //
@@ -158,6 +172,8 @@
 + (void)setKma:(BOOL)isKma;
 
 //--------------------< 业务处理 - 接口 >--------------------
+
+// 新增业务码处理
 + (NSString *)fixUrl:(NSString *)url;
 + (int)getInt:(id)value;
 + (float)getFloat:(id)value;

@@ -106,6 +106,45 @@
 
 @end
 
+//--------------------< 接口 - 业务类型 - 码 >--------------------
+@implementation ApiCode
+@synthesize shopType = _shopType, cType = _cType, id = _id;
+
++ (id)codeWithUrl:(NSString *)url{
+    ApiCode *code = nil;
+    if (url != nil && url.length > 10) {
+        url = [iOSApi urlDecode:url];
+        url = [url stringByReplacingOccurrencesOfString:@"\\:" withString:@":"];
+        NSRange range = [url rangeOfString: @"BM:URL:"];
+        if (range.length > 0) {
+            code = [[[self alloc] init] autorelease];
+            NSString *_url = [url substringFromIndex:range.length];
+            range = [_url rangeOfString:@";"];
+            if (range.length > 0) {
+                url = [_url substringToIndex:range.location];
+            } else {
+                url = _url;
+            }
+            NSArray *list = [url split:@","];
+            if (list.count > 0) {
+                code.shopType = [[list objectAtIndex:0] trim];
+            }
+            if (list.count > 1) {
+                code.cType = [[list objectAtIndex:1] trim];
+            }
+            if (list.count > 2) {
+                NSString *sid = [[list objectAtIndex:2] trim];
+                code.id = [sid intValue];
+            } else {
+                code.id = -1;
+            }
+        }
+    }
+    return code;
+}
+
+@end
+
 //====================================< 接口功能 >====================================
 
 @implementation Api

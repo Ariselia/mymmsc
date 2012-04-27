@@ -76,7 +76,19 @@ static int iTimes = -1;
             return;
         }        
     }
-    
+    ApiCode *code = [[ApiCode codeWithUrl:input] retain];
+    if (code != nil) {
+        // eshop:数字商城, ebuy:电商; Ctype->shanghu:商户,shangpin:商品;Id->用户id或者商品id
+        // 数字商城
+        if ([code.shopType isSame:@"eshop"] && code.id > 0) {
+            UCStoreInfo *nextView = [[UCStoreInfo alloc] init];
+            nextView.productId = code.id;
+            [self.navigationController pushViewController:nextView animated:YES];
+            [nextView release];
+        }
+        [code release];
+        return;
+    }
     BusCategory *category = [BusDecoder classify:input];
     BusCategory *category_url = [BusDecoder classify:url];
     [TabBarController hide:NO animated:NO];
