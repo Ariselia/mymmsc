@@ -17,9 +17,9 @@
 #import <iOSApi/iOSAsyncImageView.h>
 #import <iOSApi/iOSImageView2.h>
 #import "UCBookReader.h"
-#import "UCMoviePlayer.h"
 #import "UCMusicPlayer.h"
 #import "UCStoreInfo.h"
+#import <MediaPlayer/MediaPlayer.h>
 
 @implementation eShopProducerInfo
 @synthesize productId; // 传入参数
@@ -33,6 +33,7 @@
     if (self) {
         // Initialization code
         bRead = NO;
+        _isLoad = NO;
     }
     return self;
 }
@@ -102,13 +103,16 @@
     UCStoreInfo *view = idInfo;
     // 是否可展示
     if (bRead) {
+        NSString *filePath = [iOSFile path:[Api filePath:info2.productUrl]];
+        iOSLog(@"1: %@", filePath);
         // 可以显示
         NSString *typeName = [Api eshop_type:info2.typename];
         if ([typeName isSame:@"shipin"]) {
-            UCMoviePlayer *nextView = [[UCMoviePlayer alloc] init];
-            nextView.info = info2;
-            [view.navigationController pushViewController:nextView animated:YES];
-            [nextView release];
+            
+            NSURL *fileURL = [NSURL fileURLWithPath:filePath];
+            MPMoviePlayerViewController *player = [[MPMoviePlayerViewController alloc] initWithContentURL:fileURL];
+            [view presentMoviePlayerViewControllerAnimated:player];
+            [player release];
         } else if([typeName isSame:@"meitu"]) {
             // 图片
             NSString *filePath = [iOSFile path:[Api filePath:info2.productUrl]];

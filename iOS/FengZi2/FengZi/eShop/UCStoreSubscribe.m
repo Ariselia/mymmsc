@@ -13,7 +13,6 @@
 #import "UCLogin.h"
 #import "UCBookReader.h"
 
-#import "UCMoviePlayer.h"
 #import "UCMusicPlayer.h"
 
 #define API_DOWNLOAD_NONE (0)
@@ -191,10 +190,7 @@ static ProductInfo *theObj = nil;
         // 阅读
         //[iOSApi closeAlert];
         if ([obj.type isSame:@"shipin"]) {
-            UCMoviePlayer *nextView = [[UCMoviePlayer alloc] init];
-            //nextView.info = obj;
-            [self.navigationController pushViewController:nextView animated:YES];
-            [nextView release];
+            //
         } else if([obj.type isSame:@"meitu"]) {
             // 图片
             NSString *filePath = [iOSFile path:[Api filePath:obj.orderProductUrl]];

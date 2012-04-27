@@ -18,7 +18,6 @@
 
 #import <iOSApi/iOSImageView2.h>
 #import "UCBookReader.h"
-#import "UCMoviePlayer.h"
 #import "UCMusicPlayer.h"
 #import "eShopProducerInfo.h"
 
@@ -104,6 +103,7 @@
     }
     [iOSApi showAlert:@"正在获取商品信息"];
     NSArray *data = [[Api relation:productId page:_page] retain];
+    [_items removeAllObjects];
     [_items addObjectsFromArray: data];
     [data release];
     [iOSApi closeAlert];

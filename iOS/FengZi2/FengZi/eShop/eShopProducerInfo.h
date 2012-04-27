@@ -21,6 +21,7 @@
     UITextView   *infoInfo;
     ProductInfo2 *info2;
     BOOL          bRead;
+    BOOL          _isLoad;
 }
 
 @property (nonatomic, assign) int productId;
