@@ -378,6 +378,7 @@ static UserInfo *cache_info = nil;
     return ret;
 }
 
+// 生成二维码图
 + (UIImage*)generateImageWithInput:(NSString*)s{
     int qrcodeImageDimension = 250;
     //the string can be very long

@@ -11,19 +11,20 @@
 #import <iOSApi/HttpDownload.h>
 
 @interface eShopProducerInfo : UITableViewCell<HttpDownloadDelegate>{
-    ProductInfo *info;
-    UIImageView *infoImage;
-    UILabel    *infoType;
-    UILabel    *infoName;
-    UILabel    *infoWriter;
-    UILabel    *infoUploader;
-    UILabel    *infoPrice;
-    UITextView *infoInfo;
+    //ProductInfo *info;
+    UIImageView  *infoImage;
+    UILabel      *infoType;
+    UILabel      *infoName;
+    UILabel      *infoWriter;
+    UILabel      *infoUploader;
+    UILabel      *infoPrice;
+    UITextView   *infoInfo;
     ProductInfo2 *info2;
     BOOL          bRead;
 }
 
-@property (nonatomic, retain) ProductInfo *info;
+@property (nonatomic, assign) int productId;
+//@property (nonatomic, retain) ProductInfo *info;
 @property (nonatomic, retain) IBOutlet UIImageView *infoImage;
 @property (nonatomic, retain) IBOutlet UILabel *infoType;
 @property (nonatomic, retain) IBOutlet UILabel *infoName;
@@ -34,7 +35,7 @@
 @property (nonatomic, retain) IBOutlet UIButton *btnAction;
 @property (nonatomic, assign) id idInfo;
 
-- (void)loadData:(ProductInfo *)pInfo;
+- (void)viewLoad;
 
 - (IBAction)doShare:(id)sender;
 - (IBAction)doPinglun:(id)sender;

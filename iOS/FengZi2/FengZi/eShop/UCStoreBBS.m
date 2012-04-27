@@ -89,7 +89,7 @@
     label.textAlignment = UITextAlignmentCenter;
     label.font = [UIFont fontWithName:@"黑体" size:60];
     label.textColor = [UIColor blackColor];
-    label.text= [NSString stringWithFormat:@"%@ 的评论", info.name];
+    label.text= [NSString stringWithFormat:@"%@ 的评论", info.shopname];
     UIButton *backbtn = [UIButton buttonWithType:UIButtonTypeCustom];
     backbtn.frame = label.frame;
     [backbtn addTarget:self action:@selector(textFieldShouldReturn:) forControlEvents:UIControlEventTouchUpInside];

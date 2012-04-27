@@ -12,13 +12,12 @@
 #import <iOSApi/HttpDownload.h>
 
 @interface UCStoreInfo : UITableViewController{
-    ProductInfo    *info;
-    NSMutableArray *items;
-    UIFont         *font;
+    NSMutableArray  *_items;
+    UIFont          *_font;
     int             _page;
 }
 
-@property (nonatomic, retain) ProductInfo *info;
-@property (nonatomic, assign) int page;
+@property (nonatomic, assign) int productId;
+//@property (nonatomic, assign) int page;
 
 @end

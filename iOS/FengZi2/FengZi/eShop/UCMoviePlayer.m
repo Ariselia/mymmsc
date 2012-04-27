@@ -48,7 +48,7 @@
 - (void)playVideo
 {
 	
-    NSString *filePath = [iOSFile path:[Api filePath:info.orderProductUrl]];
+    NSString *filePath = [iOSFile path:[Api filePath:info.productUrl]];
     iOSLog(@"1: %@", filePath);
     NSURL *fileURL = [NSURL fileURLWithPath:filePath];
 	player = [[MPMoviePlayerController alloc]
@@ -117,7 +117,7 @@
     label.textAlignment = UITextAlignmentCenter;
     label.font = [UIFont fontWithName:@"黑体" size:60];
     label.textColor = [UIColor blackColor];
-    label.text= info.name;
+    label.text= info.shopname;
     UIButton *backbtn = [UIButton buttonWithType:UIButtonTypeCustom];
     backbtn.frame = label.frame;
     [backbtn addTarget:self action:@selector(textFieldShouldReturn:) forControlEvents:UIControlEventTouchUpInside];

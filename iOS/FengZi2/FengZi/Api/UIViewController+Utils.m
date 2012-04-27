@@ -39,6 +39,7 @@ static NSString *kma_content = @"";
 #import "RMRide.h" // 顺风车
 #import "UCKmaViewController.h"
 #import "DecodeBusinessViewController.h"
+#import "UCStoreInfo.h" // 数字商城 - 商品信息展示
 
 #define AniInterval 0.3f
 
@@ -55,7 +56,7 @@ static int iTimes = -1;
     if (url == nil) {
         url = @"";
     }
-    if (input != nil && [url hasPrefix:API_URL_SHOW]) {
+    if (url != nil && [url hasPrefix:API_URL_SHOW]) {
         NSDictionary *dict = [url uriParams];
         NSString *userId = [dict objectForKey:@"userId"];
         UCUpdateNikename *nextView = [[UCUpdateNikename alloc] init];
@@ -63,7 +64,19 @@ static int iTimes = -1;
         [self.navigationController pushViewController:nextView animated:YES];
         [nextView release];
         return;
+    } else if (url != nil && [url hasPrefix:API_QRCODE_ESHOP]) {
+        // 数字商城
+        NSDictionary *dict = [url uriParams];
+        NSString *maId = [dict objectForKey:@"id"];
+        if ([iOSApi regexpMatch:maId withPattern:@"[0-9]+"]) {
+            UCStoreInfo *nextView = [[UCStoreInfo alloc] init];
+            nextView.productId = [maId intValue];
+            [self.navigationController pushViewController:nextView animated:YES];
+            [nextView release];
+            return;
+        }        
     }
+    
     BusCategory *category = [BusDecoder classify:input];
     BusCategory *category_url = [BusDecoder classify:url];
     [TabBarController hide:NO animated:NO];

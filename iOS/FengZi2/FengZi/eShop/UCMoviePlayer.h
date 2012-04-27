@@ -13,10 +13,10 @@
 @interface UCMoviePlayer : UIViewController {
     UIButton *playButton;
     MPMoviePlayerController *player;
-    ProductInfo *info;
+    ProductInfo2 *info;
     
 }
 
-@property (nonatomic, retain) ProductInfo *info;
+@property (nonatomic, retain) ProductInfo2 *info;
 
 @end

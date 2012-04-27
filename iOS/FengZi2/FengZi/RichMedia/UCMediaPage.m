@@ -318,8 +318,7 @@ static int sButton = 0;
         if (state == MS_READY) {
             NSString *tfilePath = [iOSFile path:filePath];
             iOSLog(@"1: %@", filePath);
-            NSURL *fileURL = [NSString stringWithFormat:@"file://%@", tfilePath];
-            fileURL = [NSURL fileURLWithPath:tfilePath];
+            NSURL *fileURL = [NSURL fileURLWithPath:tfilePath];
             moviePlayer = [[MPMoviePlayerController alloc] initWithContentURL:fileURL];
                         
             [[NSNotificationCenter defaultCenter] addObserver:self

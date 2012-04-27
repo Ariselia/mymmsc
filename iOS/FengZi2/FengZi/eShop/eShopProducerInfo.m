@@ -22,8 +22,8 @@
 #import "UCStoreInfo.h"
 
 @implementation eShopProducerInfo
-
-@synthesize info, infoInfo, infoType, infoWriter, infoUploader, infoName, infoPrice, infoImage;
+@synthesize productId; // 传入参数
+@synthesize infoInfo, infoType, infoWriter, infoUploader, infoName, infoPrice, infoImage;
 @synthesize btnAction;
 @synthesize idInfo;
 
@@ -46,11 +46,11 @@
 
 - (IBAction)doShare:(id)sender {
     SHKItem *item = [SHKItem text:@"快来扫码，即有惊喜！"];
-    //item.image = _image;
-    item.shareType = SHKShareTypeURL;
-    NSString *result = [iOSApi urlDecode:info.orderProductUrl];
+    item.image = [Api eshop_qrcode:productId];
+    item.shareType = SHKShareTypeImage;
+    //NSString *result = [iOSApi urlDecode:info2.productUrl];
     
-    item.URL = [NSURL URLWithString:result];
+    //item.URL = [NSURL URLWithString:result];
     item.title = @"快来扫码，即有惊喜！\n来自蜂子客户端";
     ShareView *actionSheet = [[ShareView alloc] initWithItem:item];
     [actionSheet showInView:self];
@@ -60,7 +60,7 @@
 - (IBAction)doPinglun:(id)sender {
     UCStoreInfo *view = idInfo;
     UCStoreBBS *nextView = [[UCStoreBBS alloc] init];
-    nextView.info = info;
+    nextView.info = info2;
     [view.navigationController pushViewController:nextView animated:YES];
     [nextView release];
 }
@@ -68,23 +68,23 @@
 - (void)changeState:(BOOL)isOrder{
     NSString *btnTitle = @"下载";
     if (isOrder) {
-        btnTitle = @"阅读";
-        if ([info.type isSame:@"dianzishu"]) {
+        NSString *typeName = [Api eshop_type:info2.typename]; 
+        if ([typeName isSame:@"dianzishu"]) {
             // 电子书
             btnTitle = @"阅读";
-        } else if ([info.type isSame:@"yinyue"]) {
+        } else if ([typeName isSame:@"yinyue"]) {
             // 音乐
             btnTitle = @"收听";
-        } else if ([info.type isSame:@"youxi"]) {
+        } else if ([typeName isSame:@"youxi"]) {
             // 游戏
             btnTitle = @"安装";
-        } else if ([info.type isSame:@"meitu"]) {
+        } else if ([typeName isSame:@"meitu"]) {
             // 美图
             btnTitle = @"查看";
-        } else if ([info.type isSame:@"shipin"]) {
+        } else if ([typeName isSame:@"shipin"]) {
             // 视频
             btnTitle = @"播放";
-        } else if ([info.type isSame:@"manhua"]) {
+        } else if ([typeName isSame:@"manhua"]) {
             // 漫画
             btnTitle = @"阅览";
         } else {
@@ -103,28 +103,29 @@
     // 是否可展示
     if (bRead) {
         // 可以显示
-        if ([info.type isSame:@"shipin"]) {
+        NSString *typeName = [Api eshop_type:info2.typename];
+        if ([typeName isSame:@"shipin"]) {
             UCMoviePlayer *nextView = [[UCMoviePlayer alloc] init];
-            nextView.info = info;
+            nextView.info = info2;
             [view.navigationController pushViewController:nextView animated:YES];
             [nextView release];
-        } else if([info.type isSame:@"meitu"]) {
+        } else if([typeName isSame:@"meitu"]) {
             // 图片
             NSString *filePath = [iOSFile path:[Api filePath:info2.productUrl]];
             iOSLog(@"filePath = %@", filePath);
             UIImage *im = [UIImage imageWithData:[NSData dataWithContentsOfFile:filePath]];
             iOSImageView2 *iv = [[iOSImageView2 alloc] initWithImage:im superView:self];
             [iv release];
-        } else if([info.type isSame:@"yinyue"]) {
+        } else if([typeName isSame:@"yinyue"]) {
             // 音频
             UCMusicPlayer *nextView = [[UCMusicPlayer alloc] init];
-            nextView.info = info;
+            nextView.info = info2;
             [view.navigationController pushViewController:nextView animated:YES];
             [nextView release];
-        } else if([info.type isSame:@"dianzishu"]){
+        } else if([typeName isSame:@"dianzishu"]){
             // 电子书
             UCBookReader *nextView = [UCBookReader new];
-            nextView.subject = info.name;
+            nextView.subject = info2.shopname;
             NSString *filePath = [iOSFile path:[Api filePath:info2.productUrl]];
             NSLog(@"1: %@", filePath);
             NSData *buffer = [NSData dataWithContentsOfFile:filePath]; 
@@ -133,7 +134,7 @@
             [view.navigationController pushViewController:nextView animated:YES];
             [nextView release];
         } else {
-            [iOSApi Alert:@"提示" message:[NSString stringWithFormat:@"暂不支持%@格式文件", [Api typeName:info.type]]];
+            [iOSApi Alert:@"提示" message:[NSString stringWithFormat:@"暂不支持%@格式文件", typeName]];
         }
     } else {
         // 不能展示进行下载
@@ -166,7 +167,7 @@
     NSString *filePath = [Api filePath:info2.productUrl];
     NSLog(@"1: %@", filePath);
     NSFileHandle *fileHandle = [iOSFile create:filePath];
-    if ([info.type isSame:@"dianzishu"]) {
+    if ([info2.typename isSame:@"电子书"]) {
         NSStringEncoding enc = CFStringConvertEncodingToNSStringEncoding(kCFStringEncodingGB_18030_2000);
         NSString *content = [[[NSString alloc] initWithData:buffer encoding:enc] autorelease];
         [fileHandle writeData:[content dataUsingEncoding:NSUTF8StringEncoding]];
@@ -181,15 +182,23 @@
     return YES;
 }
 
-- (void)loadData:(ProductInfo *)pInfo
-{
-    info = [pInfo retain];
-    info2 = [[Api proinfo:info.id] retain];
-    infoType.text     = [NSString stringWithFormat:@"商品类型:  %@", [Api typeName:info.type]];
-    infoName.text     = [NSString stringWithFormat:@"商品名称:  %@", info.name];
+- (void)awakeFromNib{
+    //[super awakeFromNib];
+}
+
+// 绘制事件将被调用两次
+- (void)drawRect:(CGRect)rect{
+    //
+}
+
+- (void)viewLoad{
+    info2 = [[Api proinfo:productId] retain];
+    //infoType.text     = [NSString stringWithFormat:@"商品类型:  %@", [Api typeName:info2.typename]];
+    infoType.text     = [NSString stringWithFormat:@"商品类型:  %@", info2.typename];
+    infoName.text     = [NSString stringWithFormat:@"商品名称:  %@", info2.shopname];
     infoUploader.text = [NSString stringWithFormat:@"商品发布:  %@", info2.publisher];
     infoWriter.text   = [NSString stringWithFormat:@"署名作者:  %@", info2.writer];
-    infoPrice.text    = [NSString stringWithFormat:@"收费金额:  %0.2f", info.price];
+    infoPrice.text    = [NSString stringWithFormat:@"收费金额:  %@", info2.pricetype];
     infoInfo.text     = info2.info;
     
     // 修订类型名称

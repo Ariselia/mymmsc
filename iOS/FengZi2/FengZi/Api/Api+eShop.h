@@ -84,8 +84,12 @@
 //====================================< 数字商城 - 接口 >====================================
 @interface Api (AppStore)
 
+// 商品二维码的URL
++ (UIImage *)eshop_qrcode:(int)id;
+
 + (NSString *)typeIcon:(NSString *)type;
-+ (NSString *)typeName:(NSString *)type;
++ (NSString *)eshop_type:(NSString *)type;
++ (NSString *)eshop_typename:(NSString *)type;
 + (NSString *)sortName:(int)index;
 + (NSString *)priceName:(int)index;
 

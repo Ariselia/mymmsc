@@ -173,7 +173,7 @@
     // 获取媒体内容
     MediaContent *mc = nil;
     if (urlMedia != nil) {
-       mc = [[Api getContent:code] retain];
+        mc = [[Api getContent:code] retain];
     } else {
         KmaObject *ko = [[Api kmaContent:code] retain];
         mc = ko.mediaObj;

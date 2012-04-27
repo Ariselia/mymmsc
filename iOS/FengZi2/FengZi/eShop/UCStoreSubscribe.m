@@ -111,7 +111,7 @@ static ProductInfo *theObj = nil;
     UIFont *textFont = [UIFont systemFontOfSize:15.0];
     UIFont *detailFont = [UIFont systemFontOfSize:10.0];
     cell.imageView.image = [[iOSApi imageNamed:[Api typeIcon:obj.type]] toSize:CGSizeMake(36, 36)];
-    cell.textLabel.text = [Api typeName:obj.type];
+    cell.textLabel.text = [Api eshop_typename:obj.type];
     cell.textLabel.font = textFont;
     cell.detailTextLabel.text = [NSString stringWithFormat:@"%@  %@  %.02f", obj.name, obj.writer, obj.price];
     cell.detailTextLabel.font = detailFont;
@@ -192,7 +192,7 @@ static ProductInfo *theObj = nil;
         //[iOSApi closeAlert];
         if ([obj.type isSame:@"shipin"]) {
             UCMoviePlayer *nextView = [[UCMoviePlayer alloc] init];
-            nextView.info = obj;
+            //nextView.info = obj;
             [self.navigationController pushViewController:nextView animated:YES];
             [nextView release];
         } else if([obj.type isSame:@"meitu"]) {
@@ -204,7 +204,7 @@ static ProductInfo *theObj = nil;
         } else if([obj.type isSame:@"yinyue"]) {
             // 音频
             UCMusicPlayer *nextView = [[UCMusicPlayer alloc] init];
-            nextView.info = obj;
+            //nextView.info = obj;
             [self.navigationController pushViewController:nextView animated:YES];
             [nextView release];
         } else if([obj.type isSame:@"dianzishu"]){
@@ -219,7 +219,7 @@ static ProductInfo *theObj = nil;
             [self.navigationController pushViewController:nextView animated:YES];
             [nextView release];
         } else {
-            [iOSApi Alert:@"提示" message:[NSString stringWithFormat:@"暂不支持%@格式文件", [Api typeName:obj.type]]];
+            [iOSApi Alert:@"提示" message:[NSString stringWithFormat:@"暂不支持%@格式文件", [Api eshop_typename:obj.type]]];
         }
     }
 }

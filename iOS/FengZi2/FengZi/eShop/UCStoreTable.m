@@ -184,7 +184,7 @@ static int nClickTimes = 0;
     [rightItem release];
     
     // type 媒体文件的类型
-    NSArray *list1 = [[NSArray alloc] initWithObjects:@"全部", @"电子书", @"音乐", @"游戏", @"图片", @"视频", @"漫画", @"其它", nil];
+    NSArray *list1 = [[NSArray alloc] initWithObjects:@"全部", @"电子书", @"音乐", @"游戏", @"美图", @"视频", @"漫画", @"其它", nil];
     // sorttype	订购排行的类型
     NSArray *list2 = [[NSArray alloc] initWithObjects:@"全部", @"最新", @"热门", nil];
     // pricetype
@@ -246,7 +246,7 @@ static int nClickTimes = 0;
     [cell.imageView addSubview:ai];
     //[cell.imageView setImage:ai.image];
     
-    cell.textLabel.text = [Api typeName:obj.type];
+    cell.textLabel.text = [Api eshop_typename:obj.type];
     cell.textLabel.font = textFont;
     cell.detailTextLabel.textColor = [UIColor blueColor];
     NSString *tmpPrice = [NSString stringWithFormat:@"%.02f元", obj.price];
@@ -272,7 +272,7 @@ static int nClickTimes = 0;
 - (void)tableView:(UITableViewCell *)cell onCustomAccessoryTapped:(id)object {
     ProductInfo *obj = object;
     UCStoreInfo *nextView = [[UCStoreInfo alloc] init];
-    nextView.info = obj;
+    nextView.productId = obj.id;
     [self.navigationController pushViewController:nextView animated:YES];
     [nextView release];
 }
@@ -281,7 +281,7 @@ static int nClickTimes = 0;
     [iOSApi showAlert:@"正在获取商品信息"];
     NSArray *data = [Api storeList:_type sorttype:_sorttype pricetype:_pricetype person:_person page:_page];
     if (data == nil || data.count < 1) {
-        [iOSApi showCompleted:@"服务器正忙，请稍候"];
+        [iOSApi showCompleted:@"没有要查询的商品信息"];
     }
     [iOSApi closeAlert];
     return data;

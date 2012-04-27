@@ -24,8 +24,8 @@
 
 @implementation UCStoreInfo
 
-@synthesize info;
-@synthesize page;
+@synthesize productId;
+//@synthesize page;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -33,6 +33,7 @@
     if (self) {
         // Custom initialization
         //self.proxy = self;
+        _page = 1;
     }
     return self;
 }
@@ -67,7 +68,7 @@
     label.textAlignment = UITextAlignmentCenter;
     label.font = [UIFont fontWithName:@"黑体" size:60];
     label.textColor = [UIColor blackColor];
-    label.text= info.name;
+    label.text= @"商品信息";
     self.navigationItem.titleView = label;
     [label release];
     
@@ -79,23 +80,6 @@
     UIBarButtonItem *backitem = [[UIBarButtonItem alloc] initWithCustomView:backbtn];
     self.navigationItem.leftBarButtonItem = backitem;
     [backitem release];
-    /*
-    DetailedInfo *topView = [[DetailedInfo alloc] initWithNibName:@"DetailedInfo" bundle:nil];
-    topView.info = info;
-    CGRect frame = topView.view.frame;
-    frame.size.height = 270;
-    topView.view.frame = frame;
-    [self.tableView addSubview:topView.view];
-     */
-    if ([items count] == 0) {
-        // 预加载项
-        items = [[NSMutableArray alloc] initWithCapacity:0];
-    }
-    [iOSApi showAlert:@"正在获取商品信息"];
-    NSArray *data = [[Api relation:info.id page:_page] retain];
-    [items addObjectsFromArray: data];
-    [data release];
-    [iOSApi closeAlert];
 }
 
 - (void)viewDidUnload
@@ -113,6 +97,16 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:YES];
+       
+    if ([_items count] == 0) {
+        // 预加载项
+        _items = [[NSMutableArray alloc] initWithCapacity:0];
+    }
+    [iOSApi showAlert:@"正在获取商品信息"];
+    NSArray *data = [[Api relation:productId page:_page] retain];
+    [_items addObjectsFromArray: data];
+    [data release];
+    [iOSApi closeAlert];
     
 }
 
@@ -120,7 +114,7 @@ static BOOL dLoaded = NO;
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:YES];
     
-    if (dLoaded && items.count > 1) {
+    if (dLoaded && _items.count > 1) {
         /*
         NSIndexPath *indexPath = [NSIndexPath indexPathWithIndex:0];
         [super.tableView selectRowAtIndexPath:indexPath animated:NO scrollPosition:UITableViewScrollPositionMiddle];
@@ -138,7 +132,7 @@ static BOOL dLoaded = NO;
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     //return 2;
-    return [items count] + 1;
+    return [_items count] + 1;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -160,18 +154,18 @@ static BOOL dLoaded = NO;
     }
     // Configure the cell.
     int pos = [indexPath row];
-    if (pos >= [items count] + 1) {
+    if (pos >= [_items count] + 1) {
         return nil;
     }
     if (pos == 0) {
          eShopProducerInfo *topView = [(eShopProducerInfo*)[[[NSBundle mainBundle] loadNibNamed:@"eShopProducerInfo" owner:self options:nil] objectAtIndex:0] retain];
-        topView.info = info;
+        topView.productId = productId;
         topView.idInfo = self;
-        [topView loadData:info];
+        [topView viewLoad];
         cell = topView;
         dLoaded = YES;
     } else {
-        ProductInfo *obj = [items objectAtIndex: pos - 1];
+        ProductInfo *obj = [_items objectAtIndex: pos - 1];
         // 设置字体
         UIFont *textFont = [UIFont systemFontOfSize:17.0];
         UIFont *detailFont = [UIFont systemFontOfSize:12.0];
@@ -202,7 +196,7 @@ static BOOL dLoaded = NO;
         [cell.imageView addSubview:ai];
         //[cell.imageView setImage:ai.image];
         
-        cell.textLabel.text = [Api typeName:obj.type];
+        cell.textLabel.text = [Api eshop_typename:obj.type];
         cell.textLabel.font = textFont;
         cell.detailTextLabel.textColor = [UIColor blueColor];
         NSString *tmpPrice = [NSString stringWithFormat:@"%.02f元", obj.price];
@@ -223,6 +217,7 @@ static BOOL dLoaded = NO;
         
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;
 }
 
@@ -234,10 +229,10 @@ static BOOL dLoaded = NO;
         return;
     }
     pos -= 1;
-    ProductInfo *object = [items objectAtIndex:pos];
+    ProductInfo *object = [_items objectAtIndex:pos];
     ProductInfo *obj = object;
     UCStoreInfo *nextView = [[UCStoreInfo alloc] init];
-    nextView.info = obj;
+    nextView.productId = obj.id;
     [self.navigationController pushViewController:nextView animated:YES];
     [nextView release];
     

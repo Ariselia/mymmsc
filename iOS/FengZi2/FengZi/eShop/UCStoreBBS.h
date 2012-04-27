@@ -11,15 +11,13 @@
 #import <iOSApi/iOSTableViewController.h>
 
 @interface UCStoreBBS : iOSTableViewController<iOSTableDataDelegate>{
-    ProductInfo *info;
-    
-    UITextField *nikename;
-    UITextView *content;
+    UITextField     *nikename;
+    UITextView      *content;
     
     NSMutableArray *items;
     int             _page;
 }
-@property (nonatomic, retain) ProductInfo *info;
+@property (nonatomic, assign) ProductInfo2 *info;
 
 @property (nonatomic, retain) IBOutlet UITextField *nikename;
 @property (nonatomic, retain) IBOutlet UITextView *content;
