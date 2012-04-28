@@ -13,8 +13,6 @@
 #import "UCLogin.h"
 #import "UCBookReader.h"
 
-#import "UCMusicPlayer.h"
-
 #define API_DOWNLOAD_NONE (0)
 #define API_DOWNLOAD_ING  (1)
 
@@ -199,10 +197,7 @@ static ProductInfo *theObj = nil;
             [iv release];
         } else if([obj.type isSame:@"yinyue"]) {
             // 音频
-            UCMusicPlayer *nextView = [[UCMusicPlayer alloc] init];
-            //nextView.info = obj;
-            [self.navigationController pushViewController:nextView animated:YES];
-            [nextView release];
+            //
         } else if([obj.type isSame:@"dianzishu"]){
             // 电子书
             UCBookReader *nextView = [UCBookReader new];

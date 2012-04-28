@@ -148,8 +148,6 @@
 		0AE7932E14FAB2330018367B /* UCAppStore.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0AE7931414FAB2330018367B /* UCAppStore.xib */; };
 		0AE7932F14FAB2330018367B /* UCBookReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AE7931614FAB2330018367B /* UCBookReader.m */; };
 		0AE7933014FAB2330018367B /* UCBookReader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0AE7931714FAB2330018367B /* UCBookReader.xib */; };
-		0AE7933314FAB2330018367B /* UCMusicPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AE7931C14FAB2330018367B /* UCMusicPlayer.m */; };
-		0AE7933414FAB2330018367B /* UCMusicPlayer.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0AE7931D14FAB2330018367B /* UCMusicPlayer.xib */; };
 		0AE7933514FAB2330018367B /* UCStoreBBS.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AE7931F14FAB2330018367B /* UCStoreBBS.m */; };
 		0AE7933614FAB2330018367B /* UCStoreBBS.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0AE7932014FAB2330018367B /* UCStoreBBS.xib */; };
 		0AE7933714FAB2330018367B /* UCStoreInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AE7932214FAB2330018367B /* UCStoreInfo.m */; };
@@ -858,9 +856,6 @@
 		0AE7931514FAB2330018367B /* UCBookReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UCBookReader.h; sourceTree = "<group>"; };
 		0AE7931614FAB2330018367B /* UCBookReader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UCBookReader.m; sourceTree = "<group>"; };
 		0AE7931714FAB2330018367B /* UCBookReader.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UCBookReader.xib; sourceTree = "<group>"; };
-		0AE7931B14FAB2330018367B /* UCMusicPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UCMusicPlayer.h; sourceTree = "<group>"; };
-		0AE7931C14FAB2330018367B /* UCMusicPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UCMusicPlayer.m; sourceTree = "<group>"; };
-		0AE7931D14FAB2330018367B /* UCMusicPlayer.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UCMusicPlayer.xib; sourceTree = "<group>"; };
 		0AE7931E14FAB2330018367B /* UCStoreBBS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UCStoreBBS.h; sourceTree = "<group>"; };
 		0AE7931F14FAB2330018367B /* UCStoreBBS.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UCStoreBBS.m; sourceTree = "<group>"; };
 		0AE7932014FAB2330018367B /* UCStoreBBS.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UCStoreBBS.xib; sourceTree = "<group>"; };
@@ -1773,9 +1768,6 @@
 				0AE7931514FAB2330018367B /* UCBookReader.h */,
 				0AE7931614FAB2330018367B /* UCBookReader.m */,
 				0AE7931714FAB2330018367B /* UCBookReader.xib */,
-				0AE7931B14FAB2330018367B /* UCMusicPlayer.h */,
-				0AE7931C14FAB2330018367B /* UCMusicPlayer.m */,
-				0AE7931D14FAB2330018367B /* UCMusicPlayer.xib */,
 				0AE7931E14FAB2330018367B /* UCStoreBBS.h */,
 				0AE7931F14FAB2330018367B /* UCStoreBBS.m */,
 				0AE7932014FAB2330018367B /* UCStoreBBS.xib */,
@@ -3418,7 +3410,6 @@
 				B8F123E414E9B76C0042EAA9 /* bg33.png in Resources */,
 				0AE7932E14FAB2330018367B /* UCAppStore.xib in Resources */,
 				0AE7933014FAB2330018367B /* UCBookReader.xib in Resources */,
-				0AE7933414FAB2330018367B /* UCMusicPlayer.xib in Resources */,
 				0AE7933614FAB2330018367B /* UCStoreBBS.xib in Resources */,
 				0AE7933814FAB2330018367B /* UCStoreInfo.xib in Resources */,
 				0AE7933A14FAB2330018367B /* UCStorePerson.xib in Resources */,
@@ -3749,7 +3740,6 @@
 				B8ECE09214E70E58005DF9AF /* UIViewController+Utils.m in Sources */,
 				0AE7932D14FAB2330018367B /* UCAppStore.m in Sources */,
 				0AE7932F14FAB2330018367B /* UCBookReader.m in Sources */,
-				0AE7933314FAB2330018367B /* UCMusicPlayer.m in Sources */,
 				0AE7933514FAB2330018367B /* UCStoreBBS.m in Sources */,
 				0AE7933714FAB2330018367B /* UCStoreInfo.m in Sources */,
 				0AE7933914FAB2330018367B /* UCStorePerson.m in Sources */,

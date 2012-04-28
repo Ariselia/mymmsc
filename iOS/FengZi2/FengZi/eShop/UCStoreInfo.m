@@ -18,7 +18,6 @@
 
 #import <iOSApi/iOSImageView2.h>
 #import "UCBookReader.h"
-#import "UCMusicPlayer.h"
 #import "eShopProducerInfo.h"
 
 @implementation UCStoreInfo

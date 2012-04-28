@@ -17,7 +17,6 @@
 #import <iOSApi/iOSAsyncImageView.h>
 #import <iOSApi/iOSImageView2.h>
 #import "UCBookReader.h"
-#import "UCMusicPlayer.h"
 #import "UCStoreInfo.h"
 #import <MediaPlayer/MediaPlayer.h>
 
@@ -33,7 +32,7 @@
     if (self) {
         // Initialization code
         bRead = NO;
-        _isLoad = NO;
+        //_isLoad = NO;
     }
     return self;
 }
@@ -108,7 +107,6 @@
         // 可以显示
         NSString *typeName = [Api eshop_type:info2.typename];
         if ([typeName isSame:@"shipin"]) {
-            
             NSURL *fileURL = [NSURL fileURLWithPath:filePath];
             MPMoviePlayerViewController *player = [[MPMoviePlayerViewController alloc] initWithContentURL:fileURL];
             [view presentMoviePlayerViewControllerAnimated:player];
@@ -122,10 +120,10 @@
             [iv release];
         } else if([typeName isSame:@"yinyue"]) {
             // 音频
-            UCMusicPlayer *nextView = [[UCMusicPlayer alloc] init];
-            nextView.info = info2;
-            [view.navigationController pushViewController:nextView animated:YES];
-            [nextView release];
+            NSURL *fileURL = [NSURL fileURLWithPath:filePath];
+            MPMoviePlayerViewController *player = [[MPMoviePlayerViewController alloc] initWithContentURL:fileURL];
+            [view presentMoviePlayerViewControllerAnimated:player];
+            [player release];
         } else if([typeName isSame:@"dianzishu"]){
             // 电子书
             UCBookReader *nextView = [UCBookReader new];
