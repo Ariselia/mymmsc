@@ -203,7 +203,7 @@
      */
 }
 
-- (void)testDataInit{
+- (void)testDataInit123{
     UserInfo *info = [Api user];
     info.userId = 1;
     info.userName = @"iOS测试者";
