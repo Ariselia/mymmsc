@@ -69,10 +69,6 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [Api seTabView:self];
-    NSString *ss = @"{\"id\":123456789012345}";
-    NSDictionary *aa = [ss objectFromJSONString];
-    EBTest *test = [aa toObject:EBTest.class];
-    iOSLog(@"id = %lld", test.id);
     UIImage *image = [UIImage imageNamed:@"navigation_bg.png"];
     Class ios5Class = (NSClassFromString(@"CIImage"));
     if (nil != ios5Class) {
