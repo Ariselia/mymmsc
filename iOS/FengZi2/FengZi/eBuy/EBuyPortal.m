@@ -99,7 +99,7 @@
     UIBarButtonItem *backitem = [[UIBarButtonItem alloc] initWithCustomView:backbtn];
     self.navigationItem.leftBarButtonItem = backitem;
     [backitem release];
-        
+    
     _borderStyle = UITextBorderStyleNone;
     _font = [UIFont systemFontOfSize:13.0];
     
