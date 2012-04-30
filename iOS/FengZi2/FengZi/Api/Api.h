@@ -48,7 +48,7 @@
 //#define API_URL_USERCENTER   @"http://devp.ifengzi.cn"
 #define API_URL_SHOW         @"http://m.ifengzi.cn/uc/m_zoneComment.action"
 // 顺风车 接口地址
-#define API_URL_RIDE         @"http://220.231.48.34:38090/sfc/fx/facade"
+#define API_URL_RIDE         @"http://m.ifengzi.cn/sfc/fx/facade"
 
 // 数字商城
 #define API_URL_ESHOP        @"http://220.231.48.34:38090/eshop"
