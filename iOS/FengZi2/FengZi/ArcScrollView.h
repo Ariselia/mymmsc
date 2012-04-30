@@ -6,6 +6,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CONSTS.h"
+
 @protocol ArcScrollViewDelegate <NSObject>
 
 - (void)gotoEditController:(BusinessType)type;
