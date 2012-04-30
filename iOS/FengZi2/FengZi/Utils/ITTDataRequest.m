@@ -68,7 +68,7 @@
 #pragma mark - MobileInfoDataRequest
 @implementation MobileInfoDataRequest
 - (NSString*)getRequestUrl{
-    return @"http://m.fengxiafei.com/mb/log/mobInfo.action?";
+    return @"http://m.ifengzi.cn/mb/log/mobInfo.action?";
 }
 - (void)processResult{
     self.result = [[[ITTRequestResult alloc] initWithCode:@"0" withMessage:@""] autorelease];
@@ -79,7 +79,7 @@
 #pragma mark - ScanLogDataRequest
 @implementation ScanLogDataRequest
 - (NSString*)getRequestUrl{
-    return @"http://m.fengxiafei.com/mb/log/scanLog.action?";
+    return @"http://m.ifengzi.cn/mb/log/scanLog.action?";
 }
 - (void)processResult{
     self.result = [[[ITTRequestResult alloc] initWithCode:@"0" withMessage:@""]autorelease];
@@ -90,7 +90,7 @@
 #pragma mark - MakeLogDataRequest
 @implementation MakeLogDataRequest
 - (NSString*)getRequestUrl{
-    return @"http://m.fengxiafei.com/mb/log/makeLog.action?";
+    return @"http://m.ifengzi.cn/mb/log/makeLog.action?";
 }
 - (void)processResult{
     self.result = [[[ITTRequestResult alloc] initWithCode:@"0" withMessage:@""]autorelease];
@@ -101,7 +101,7 @@
 #pragma mark - LastVersionDataRequest
 @implementation LastVersionDataRequest
 - (NSString*)getRequestUrl{
-    return @"http://m.fengxiafei.com/mb/vs/lastVersion.action?type=1";
+    return @"http://m.ifengzi.cn/mb/vs/lastVersion.action?type=1";
 }
 - (void)processResult{
     self.result = [[[ITTRequestResult alloc] initWithCode:@"0" withMessage:@""]autorelease];
@@ -115,7 +115,7 @@
 //人的标示，采用Imei和version号码，进行base64加密，即a参数部署
 @implementation ShareLogDataRequest
 - (NSString*)getRequestUrl{
-    return @"http://m.fengxiafei.com/mb/log/shareLog.action?";
+    return @"http://m.ifengzi.cn/mb/log/shareLog.action?";
 }
 - (void)processResult{
     self.result = [[[ITTRequestResult alloc] initWithCode:@"0" withMessage:@""]autorelease];
@@ -126,7 +126,7 @@
 #pragma mark - FeedBackDataRequest
 @implementation FeedBackDataRequest
 - (NSString*)getRequestUrl{
-    return @"http://m.fengxiafei.com/mb/fb/fb.action";
+    return @"http://m.ifengzi.cn/mb/fb/fb.action";
 }
 
 -(ITTRequestMethod)getRequestMethod{
@@ -140,7 +140,7 @@
 
 @implementation AuthorizeLogDataRequest
 - (NSString*)getRequestUrl{
-    return @"http://m.fengxiafei.com/mb/log/authorizeLog.action?";
+    return @"http://m.ifengzi.cn/mb/log/authorizeLog.action?";
 }
 
 - (void)processResult{
@@ -151,7 +151,7 @@
 
 @implementation WeiboShareLogDataRequest
 - (NSString*)getRequestUrl{
-    return @"http://m.fengxiafei.com/mb/log/weiboShareLog.action?";
+    return @"http://m.ifengzi.cn/mb/log/weiboShareLog.action?";
 }
 
 - (void)processResult{

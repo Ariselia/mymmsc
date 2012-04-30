@@ -9,7 +9,7 @@
 #define REQUEST_DOMAIN @"http://cx.itotemstudio.com/api.php" // default env
 
 #define APPSTORE_URL @"http://itunes.apple.com/us/app//id494490342?l=zh&ls=1&mt=8"//appstore 地址
-#define REQUEST_URL @"http://fengxiafei.com/mb"
+#define REQUEST_URL @"http://m.ifengzi.cn/mb"
 #define DEFAULT_SEARCH @"http://www.baidu.com/s?wd=%@"
 #define DEFAULT_MAP_SEARCH @"http://maps.google.com/maps?q=%@"
 #define VERSION_NUMBER @"1" // 版本号

@@ -25,11 +25,11 @@
 @interface ShareLogDataRequest : ASIBaseDataRequest 
 
 @end
-//http://fengxiafei.com/mb/log/authorizeLog.action?t=0&a=eeeeeeeeee
+//http://m.ifengzi.cn/mb/log/authorizeLog.action?t=0&a=eeeeeeeeee
 @interface AuthorizeLogDataRequest : ASIBaseDataRequest 
 
 @end
-//http://fengxiafei.com/mb/log/weiboShareLog.action?t=0&a=eeeeeeeeee.
+//http://m.ifengzi.cn/mb/log/weiboShareLog.action?t=0&a=eeeeeeeeee.
 @interface WeiboShareLogDataRequest : ASIBaseDataRequest 
 
 @end
