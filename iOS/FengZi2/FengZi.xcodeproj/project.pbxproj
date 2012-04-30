@@ -1061,6 +1061,8 @@
 		0AD426EA154E991E003253B6 /* UIViewAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIViewAdditions.h; sourceTree = "<group>"; };
 		0AD426EB154E991E003253B6 /* UIViewAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIViewAdditions.m; sourceTree = "<group>"; };
 		0AD426F6154E99B9003253B6 /* scan_tip.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = scan_tip.mp3; path = Resources/scan_tip.mp3; sourceTree = "<group>"; };
+		0ADD8F46154E9CC40025DF29 /* CONSTS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CONSTS.h; sourceTree = "<group>"; };
+		0ADD8F47154E9CC40025DF29 /* ITTDebug.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ITTDebug.h; sourceTree = "<group>"; };
 		0AE7931214FAB2330018367B /* UCAppStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UCAppStore.h; sourceTree = "<group>"; };
 		0AE7931314FAB2330018367B /* UCAppStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UCAppStore.m; sourceTree = "<group>"; };
 		0AE7931414FAB2330018367B /* UCAppStore.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UCAppStore.xib; sourceTree = "<group>"; };
@@ -1127,8 +1129,6 @@
 		3E11F1391472686900ACC436 /* FengZi-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "FengZi-Prefix.pch"; sourceTree = "<group>"; };
 		3E11F13A1472686900ACC436 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		3E11F13B1472686900ACC436 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		3E11F14B14726A8600ACC436 /* CONSTS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CONSTS.h; sourceTree = "<group>"; };
-		3E11F1AA14726BC900ACC436 /* ITTDebug.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ITTDebug.h; sourceTree = "<group>"; };
 		3E11F1CE14726C3700ACC436 /* ASIAuthenticationDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASIAuthenticationDialog.h; sourceTree = "<group>"; };
 		3E11F1CF14726C3700ACC436 /* ASIAuthenticationDialog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASIAuthenticationDialog.m; sourceTree = "<group>"; };
 		3E11F1D014726C3700ACC436 /* ASICacheDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASICacheDelegate.h; sourceTree = "<group>"; };
@@ -2077,7 +2077,6 @@
 			children = (
 				3E11F21014726C8400ACC436 /* Resources */,
 				3E11F14614726A0600ACC436 /* Classes */,
-				3E11F14B14726A8600ACC436 /* CONSTS.h */,
 				3E11F13A1472686900ACC436 /* AppDelegate.h */,
 				3E11F13B1472686900ACC436 /* AppDelegate.m */,
 				3E11F1321472686800ACC436 /* Supporting Files */,
@@ -2116,6 +2115,8 @@
 		3E11F18614726B8300ACC436 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				0ADD8F46154E9CC40025DF29 /* CONSTS.h */,
+				0ADD8F47154E9CC40025DF29 /* ITTDebug.h */,
 				0AD4265F154E89D6003253B6 /* RefreshTableFooterView.m */,
 				0AD4265E154E89CD003253B6 /* RefreshTableFooterView.h */,
 				0AD4265C154E89BE003253B6 /* ITSActivityIndicator.m */,
@@ -2163,7 +2164,6 @@
 				71C5D6C71495FB9900055F5C /* FontLabel */,
 				3E11F1AF14726BFA00ACC436 /* Additions */,
 				3E11F1AE14726BD900ACC436 /* References */,
-				3E11F1AA14726BC900ACC436 /* ITTDebug.h */,
 			);
 			name = Support;
 			sourceTree = "<group>";
