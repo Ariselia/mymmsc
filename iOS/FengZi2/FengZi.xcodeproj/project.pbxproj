@@ -2648,20 +2648,20 @@
 		71747D671484DC23007BF851 /* skin */ = {
 			isa = PBXGroup;
 			children = (
+				71747D801484DEB1007BF851 /* skin_0.png */,
 				713A7E3114A309DA001F897E /* skin_1.png */,
 				713A7E3214A309DA001F897E /* skin_2.png */,
 				713A7E3314A309DA001F897E /* skin_3.png */,
 				713A7E3414A309DA001F897E /* skin_4.png */,
 				713A7E3514A309DA001F897E /* skin_5.png */,
 				713A7E3614A309DA001F897E /* skin_6.png */,
+				71747D581484D023007BF851 /* thumbnail_0.png */,
 				713A7E3D14A309DB001F897E /* thumbnail_1.png */,
 				713A7E3E14A309DB001F897E /* thumbnail_2.png */,
 				713A7E3F14A309DB001F897E /* thumbnail_3.png */,
 				713A7E4014A309DB001F897E /* thumbnail_4.png */,
 				713A7E4114A309DB001F897E /* thumbnail_5.png */,
 				713A7E4214A309DB001F897E /* thumbnail_6.png */,
-				71747D801484DEB1007BF851 /* skin_0.png */,
-				71747D581484D023007BF851 /* thumbnail_0.png */,
 			);
 			name = skin;
 			path = Images/skin;
