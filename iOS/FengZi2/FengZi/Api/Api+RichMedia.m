@@ -156,8 +156,6 @@
                      type:(NSString *)type {
     ApiResult *iRet = [ApiResult new];
     
-    
-    
     return [iRet autorelease];
 }
 
@@ -233,13 +231,6 @@
         }
         iRet.url = [NSString stringWithFormat:@"%@?id=$@", path, uuid];
     }
-    /*
-    if (iRet.url == nil) {
-        // 服务器异常, 此处模拟数据
-        iRet.url = [[NSString alloc] initWithString:@"http://m.fengxiafei.com/mb/dynamic/getContent.action?id=test_mediakey"];
-        iRet.status = 0;
-    }
-     */
     return [iRet autorelease];
 }
 
@@ -399,7 +390,6 @@ static NSString *kma_id = nil;
 + (ApiResult *)kmaUpload:(NSString *)pid
                    type:(int)type
                 content:(NSString *)content{
-    // http://m.fengxiafei.com/mb/kma/m_uploadTraditionInfo.action
     static NSString *path = @"kma/m_uploadTraditionInfo.action";
     NSString *action = [NSString stringWithFormat:@"%@/%@?userid=%d", API_URL_KMA, path, [NSString valueOf:[Api userId]]];
     
