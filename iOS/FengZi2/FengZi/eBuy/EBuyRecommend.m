@@ -72,9 +72,6 @@ static EBProductInfo *dst = nil;
 }
 
 - (void)awakeFromNib{
-    //[items removeAllObjects];
-    //UIImage *image = [UIImage imageNamed:@"ebuy_sun_main_putbg.png"];
-    //desc.backgroundColor = [UIColor colorWithPatternImage:[image scaleToSize:desc.frame.size]];
     if (items.count < 1) {
         items = [[NSMutableArray alloc] initWithCapacity:0];
     }
@@ -88,7 +85,6 @@ static EBProductInfo *dst = nil;
         _scrollView.contentSize = CGSizeMake(xWidth * (num + 2) , xHeight);
         CGRect bounds = _scrollView.bounds;
         bounds.size.width = 90;
-        //_scrollView.bounds = bounds;
         _scrollView.contentOffset = CGPointMake(90, 180);
         UIImage *undef = [UIImage imageNamed:@"unknown.png"];
         int i = 1;
@@ -126,12 +122,10 @@ static EBProductInfo *dst = nil;
     int max = min + 90;
     if (currentOffset.x >= min && currentOffset.x < min + 45) {
         scrollView.contentOffset = CGPointMake(min, currentOffset.y);
-        //desc.text = [NSString stringWithFormat:@"第 %d 个商品", pos];
         EBProductInfo *obj = [items objectAtIndex:pos];
         desc.text = [iOSApi urlDecode:obj.title];
     } else if (currentOffset.x >= min + 45 && currentOffset.x < max) {
         scrollView.contentOffset = CGPointMake(max, currentOffset.y);
-        //desc.text = [NSString stringWithFormat:@"第 %d 个商品", pos];
         pos ++;
         if (pos >= [items count] ) {
             return;
