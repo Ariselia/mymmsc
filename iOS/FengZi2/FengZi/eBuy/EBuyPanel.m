@@ -89,7 +89,8 @@
 // 选择
 - (IBAction)segmentAction:(UISegmentedControl *)segment{
     NSInteger Index = segment.selectedSegmentIndex;
-    NSLog(@"Seg.selectedSegmentIndex:%d", Index);
+    EBuyPortal *potal = ownerId;
+    [potal doSelect:Index];
 }
 
 @end

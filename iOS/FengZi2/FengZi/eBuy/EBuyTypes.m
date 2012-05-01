@@ -66,7 +66,7 @@
     label.font = [UIFont fontWithName:@"黑体" size:60];
     label.textColor = [UIColor blackColor];
     _curSubject = subject != nil? subject:@"全部分类";
-    label.text= _curSubject;
+    label.text= [iOSApi urlDecode:_curSubject];
     self.navigationItem.titleView = label;
     [label release];
     

@@ -1762,6 +1762,7 @@
 		0AD4257F154E7D4E003253B6 /* TabViews */ = {
 			isa = PBXGroup;
 			children = (
+				0AD425A5154E7F2E003253B6 /* Decode */,
 				0AD425D4154E827D003253B6 /* Encode */,
 				71C5D6B41495EDA100055F5C /* FaviroteViewController.h */,
 				71C5D6B51495EDA400055F5C /* FaviroteViewController.mm */,
@@ -1771,7 +1772,6 @@
 				71C5D6BB1495EDDF00055F5C /* HistoryViewController.xib */,
 				3E11F21B14726CF500ACC436 /* TabBarController.h */,
 				3E11F21C14726CF500ACC436 /* TabBarController.m */,
-				0AD425A5154E7F2E003253B6 /* Decode */,
 				0AD42581154E7D7D003253B6 /* More */,
 			);
 			name = TabViews;

@@ -8,11 +8,12 @@
 
 #import "EBuyPortal.h"
 #import "Api+Ebuy.h"
+#import "EBAdBar.h"
+#import "EBuyPanel.h"
 #import "EBuyRecommend.h"
 #import "EBExpressDetail.h"
 #import "EBProductList.h"
-#import "EBAdBar.h"
-#import "EBuyPanel.h"
+#import "EBProductDetail.h"
 
 @implementation EBuyPortal
 
@@ -25,6 +26,7 @@
     if (self) {
         // Custom initialization
         isOnline = NO;
+        _segIndex = -1;
     }
     return self;
 }
@@ -125,14 +127,20 @@
         // 登录, 显示功能面板
         EBuyPanel *topView = [(EBuyPanel*)[[[NSBundle mainBundle] loadNibNamed:@"EBuyPanel" owner:self options:nil] objectAtIndex:0] retain];
         topView.ownerId = self;
-        [_headers addObject:topView];
-    } else {
-        // 未登录, 显示推荐自定义Cell
-        EBuyRecommend *topView = [(EBuyRecommend*)[[[NSBundle mainBundle] loadNibNamed:@"EBuyRecommend" owner:self options:nil] objectAtIndex:0] retain];
-        topView.ownerId = self;
+        topView.name.text = [Api nikeName];
         [_headers addObject:topView];
     }
-    if ([_items count] == 0) {
+    // 未登录, 显示推荐自定义Cell
+    EBuyRecommend *topView = [(EBuyRecommend*)[[[NSBundle mainBundle] loadNibNamed:@"EBuyRecommend" owner:self options:nil] objectAtIndex:0] retain];
+    topView.ownerId = self;
+    [_headers addObject:topView];
+    if ([_items count] == 0 || bFresh) {
+        if (bFresh) {
+            _segIndex = 0;
+        }
+        if (_items.count > 0) {
+            [_items release];
+        }
         // 预加载项
         _items = [[NSMutableArray alloc] initWithCapacity:0];
         _page = 1;
@@ -143,9 +151,11 @@
         } else {
             // 登录后
             if (_segIndex == 0) {
-                // 疯狂抢购
+                // 疯狂抢购:push接口
+                list = [[Api ebuy_push:1] retain];
             } else {
-                // 金牌店铺
+                // 金牌店铺:shoplist接口
+                list = [[Api ebuy_shoplist:1] retain];
             }
         }
         [_items addObjectsFromArray:list];
@@ -161,6 +171,23 @@
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     //
+}
+
+// 登录后选择疯狂抢购或者金牌店铺
+- (void)doSelect:(int)index{
+    _segIndex = index;
+    [_items removeAllObjects];
+    NSArray *list = nil;
+    if (_segIndex == 0) {
+        // 疯狂抢购:push接口
+        list = [[Api ebuy_push:1] retain];
+    } else {
+        // 金牌店铺:shoplist接口
+        list = [[Api ebuy_shoplist:1] retain];
+    }
+    [_items addObjectsFromArray:list];
+    [list release];
+    [_tableView reloadData];
 }
 
 #pragma mark -
@@ -199,8 +226,20 @@
     if (pos < _headers.count) {
         cell = [_headers objectAtIndex:pos];
     } else {
-        EBExpressType *obj = [_items objectAtIndex:(pos - _headers.count)];
-        cell.textLabel.text = [iOSApi urlDecode:[obj title]];
+        pos -= _headers.count;
+        id obj = [_items objectAtIndex:pos];
+        NSString *title = @"没有商品或商铺信息";
+        if ([obj isKindOfClass:EBExpressType.class]) {
+            EBExpressType *info = (EBExpressType *)obj;
+            title = [iOSApi urlDecode:[info title]];
+        } else if ([obj isKindOfClass:EBShop.class]) {
+            EBShop *info = (EBShop *)obj;
+            title = [iOSApi urlDecode:info.name];
+        } else if ([obj isKindOfClass:EBProductInfo.class]) {
+            EBProductInfo *info = (EBProductInfo *)obj;
+            title = [iOSApi urlDecode:info.title];
+        }
+        cell.textLabel.text = title;
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -215,11 +254,29 @@
     }
     // 跳转 快讯详情页面
     pos -= _headers.count;
-    EBExpressType *obj = [_items objectAtIndex:pos];
-    EBExpressDetail *nextView = [[EBExpressDetail alloc] init];
-    nextView.param = obj;
-    [self.navigationController pushViewController:nextView animated:YES];
-    [nextView release];
+    id obj = [_items objectAtIndex:pos];
+    if ([obj isKindOfClass:EBExpressType.class]) {
+        EBExpressType *info = (EBExpressType *)obj;
+        EBExpressDetail *nextView = [[EBExpressDetail alloc] init];
+        nextView.param = info;
+        [self.navigationController pushViewController:nextView animated:YES];
+        [nextView release];
+    } else if ([obj isKindOfClass:EBShop.class]) {
+        EBShop *info = (EBShop *)obj;
+        EBProductList *nextView = [[EBProductList alloc] init];
+        nextView.way = 0;
+        nextView.typeId = info.id;
+        [self.navigationController pushViewController:nextView animated:YES];
+        [nextView release];
+    } else if ([obj isKindOfClass:EBProductInfo.class]) {
+        EBProductInfo *info = (EBProductInfo *)obj;
+        EBProductDetail *nextView = [[EBProductDetail alloc] init];
+        nextView.param = info.id;
+        [self.navigationController pushViewController:nextView animated:YES];
+        [nextView release];
+    }
+    
+    
 }
 
 #pragma mark -

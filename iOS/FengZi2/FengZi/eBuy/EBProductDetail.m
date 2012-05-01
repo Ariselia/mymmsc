@@ -163,7 +163,7 @@
         //[scroll setContentOffset:CGPointMake(0, xWidth) animated:YES];
         [scroll release];
     } else if (pos == 1) {
-        cell.textLabel.text = [NSString stringWithFormat:@"商品名称：%@", _product.title];
+        cell.textLabel.text = [NSString stringWithFormat:@"商品名称：%@", [iOSApi urlDecode:_product.title]];
         cell.detailTextLabel.text = [NSString stringWithFormat:@"价格：%.2f", _product.price];
         //cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
