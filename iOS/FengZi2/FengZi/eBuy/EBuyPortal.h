@@ -10,8 +10,6 @@
 
 // 电子商城 入口
 @interface EBuyPortal : UIViewController{
-    //UIButton           *_btnRight; // 导航条按钮
-    //UIImage            *_curImage;
     UITextBorderStyle   _borderStyle;
     NSMutableArray     *_headers; // 表头显示CELL
     NSMutableArray     *_items; // 数据CELL
@@ -22,5 +20,8 @@
 }
 @property (nonatomic, retain) IBOutlet UITableView *tableView;
 @property (nonatomic, retain) IBOutlet UISearchBar *searchBar;
+
+// 登录后选择疯狂抢购或者金牌店铺
+- (void)doSelect:(int)index;
 
 @end
