@@ -131,7 +131,7 @@
         [_headers addObject:topView];
     }
     // 未登录, 显示推荐自定义Cell
-    EBuyRecommend *topView = [(EBuyRecommend*)[[[NSBundle mainBundle] loadNibNamed:@"EBuyRecommend" owner:self options:nil] objectAtIndex:0] retain];
+    EBuyRecommend *topView = [(EBuyRecommend *)[[[NSBundle mainBundle] loadNibNamed:@"EBuyRecommend" owner:self options:nil] objectAtIndex:0] retain];
     topView.ownerId = self;
     [_headers addObject:topView];
     if ([_items count] == 0 || bFresh) {

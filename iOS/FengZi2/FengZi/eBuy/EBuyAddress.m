@@ -173,7 +173,7 @@
         [shouji becomeFirstResponder];
         return;
     }
-    [Api ebuy_address_add:addr];
+    [Api ebuy_address_set:addr index:seqId];
     [self goBack];
 }
 

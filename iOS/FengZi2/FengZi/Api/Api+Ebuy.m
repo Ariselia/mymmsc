@@ -782,12 +782,16 @@ static NSString *s_abFilename = @"cache/files/fengzi_addressbook.db";
 }
 
 // 添加地址簿
-+ (BOOL)ebuy_address_add:(EBAddress *)obj{
++ (BOOL)ebuy_address_set:(EBAddress *)obj index:(int)index{
     BOOL bRet = NO;
     NSString *filename = [iOSFile path:s_abFilename];
     s_addressbook = [self ebuy_address_list];
+    if (index < 0 || index >= s_addressbook.count) {
+        [s_addressbook addObject:obj];
+    } else {
+        [s_addressbook replaceObjectAtIndex:index withObject:obj];
+    }
     
-    [s_addressbook addObject:obj];
     iOSLog(@"addressbook=[%@]", filename);
     NSData *data = [NSKeyedArchiver archivedDataWithRootObject:s_addressbook];
     bRet = [data writeToFile:filename atomically:YES];

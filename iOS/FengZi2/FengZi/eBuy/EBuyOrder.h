@@ -17,5 +17,6 @@
 }
 @property (nonatomic, retain) IBOutlet UITableView *tableView;
 @property (nonatomic, copy) NSString *param;
+@property (nonatomic, assign) int addrId;
 
 @end

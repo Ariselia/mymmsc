@@ -18,12 +18,14 @@
 @implementation EBuyOrder
 @synthesize tableView = _tableView;
 @synthesize param;
+@synthesize addrId;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
+        addrId = 0; // 默认取第一个地址
     }
     return self;
 }
@@ -89,6 +91,7 @@
             [_items release];
         }
         _items = [[NSMutableArray alloc] initWithArray:data];
+        [_tableView reloadData];
     }
 }
 
@@ -137,7 +140,7 @@
     EBProductInfo *obj = nil;
     // 地址簿非空
     if (pos == 0) {
-        EBAddress *obj = [al objectAtIndex:0];
+        EBAddress *obj = [al objectAtIndex:addrId];
         NSString *str = nil;
         cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle
                                        reuseIdentifier:CellIdentifier] autorelease];
@@ -220,7 +223,7 @@
     }
     // 跳转 地址簿编辑页面
     EBuyAddress *nextView = [[EBuyAddress alloc] init];
-    //nextView.param = param;
+    nextView.seqId = addrId;
     [self.navigationController pushViewController:nextView animated:YES];
     [nextView release];
 }

@@ -210,6 +210,7 @@ static int iTimes = -1;
     } else {
         EBuyOrder *nextView = [[EBuyOrder alloc] init];
         nextView.param = shopName;
+        nextView.addrId = s_idxAddress;
         [self.navigationController pushViewController:nextView animated:YES];
         [nextView release];
     }

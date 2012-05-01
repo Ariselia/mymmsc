@@ -273,16 +273,18 @@
 //--------------------< 电子商城 - 接口 - 购物车 >--------------------
 // 购物车列表
 + (NSMutableDictionary *)ebuy_car_list;
+
 // 放入购物车
 + (BOOL)ebuy_car_add:(EBProductInfo *)obj;
 // 购物车 删除商品
 + (BOOL)ebuy_car_delete:(EBProductInfo *)obj;
 + (BOOL)ebuy_car_delete:(NSString *)shopName index:(int)index;
+
 //--------------------< 电子商城 - 接口 - 地址簿 >--------------------
 // 地址簿列表
 + (NSMutableArray *)ebuy_address_list;
 // 添加地址簿
-+ (BOOL)ebuy_address_add:(EBAddress *)obj;
++ (BOOL)ebuy_address_set:(EBAddress *)obj index:(int)index;
 // 删除地址
 + (BOOL)ebuy_addess_del:(int)index;
 
