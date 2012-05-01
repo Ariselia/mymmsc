@@ -93,4 +93,9 @@
     [potal doSelect:Index];
 }
 
+- (void)awakeFromNib{
+    [super awakeFromNib];
+    group.selectedSegmentIndex = [EBuyRecommend type];
+}
+
 @end

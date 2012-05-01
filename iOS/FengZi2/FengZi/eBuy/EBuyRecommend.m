@@ -10,15 +10,14 @@
 #import "Api+Ebuy.h"
 #import "EBuyPortal.h"
 #import "EBExpressDetail.h"
+#import "EBProductList.h"
 #import "EBProductDetail.h"
-#import "EBShopList.h"
 
 @implementation EBuyRecommend
 
 @synthesize ownerId;
 @synthesize scrollView=_scrollView;
 @synthesize desc;
-//@synthesize pic;
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
@@ -26,6 +25,7 @@
     if (self) {
         // Initialization code
         //_scrollView.delegate = self;
+        segIndex = -1;
     }
     return self;
 }
@@ -37,48 +37,97 @@
     // Configure the view for the selected state
 }
 
-- (IBAction)doShopList:(id)sender {
-    EBuyPortal *portal = ownerId;
-    EBShopList *nextView = [[EBShopList alloc] init];
-    //nextView.param = dst;
-    [portal.navigationController pushViewController:nextView animated:YES];
-    [nextView release];
+//static EBProductInfo *dst = nil;
+static int dst_index = 0;
+static int segIndex = 0;
+
++ (void)setType:(int)index{
+    segIndex = index;
 }
 
-static EBProductInfo *dst = nil;
++ (int)type{
+    return segIndex;
+}
+
+- (NSString *)subject:(int)pos{
+    dst_index = pos;
+    id obj = [_items objectAtIndex:pos];
+    NSString *title = @"没有商品或商铺信息";
+    if ([obj isKindOfClass:EBShop.class]) {
+        EBShop *info = (EBShop *)obj;
+        title = [iOSApi urlDecode:info.name];
+    } else if ([obj isKindOfClass:EBProductInfo.class]) {
+        EBProductInfo *info = (EBProductInfo *)obj;
+        title = [iOSApi urlDecode:info.title];
+    }
+    return title;
+}
+
+- (NSString *)picUrl:(int)pos{
+    dst_index = pos;
+    id obj = [_items objectAtIndex:pos];
+    NSString *title = @"没有商品或商铺信息";
+    if ([obj isKindOfClass:EBShop.class]) {
+        EBShop *info = (EBShop *)obj;
+        title = [iOSApi urlDecode:info.picUrl];
+    } else if ([obj isKindOfClass:EBProductInfo.class]) {
+        EBProductInfo *info = (EBProductInfo *)obj;
+        title = [iOSApi urlDecode:info.picUrl];
+    }
+    return title;
+}
 
 - (void)gotoInfo{
     EBuyPortal *portal = ownerId;
-    EBProductDetail *nextView = [[EBProductDetail alloc] init];
-    nextView.param = dst.id;
-    [portal.navigationController pushViewController:nextView animated:YES];
-    [nextView release];
+    id obj = [_items objectAtIndex:dst_index];
+    if ([obj isKindOfClass:EBExpressType.class]) {
+        EBExpressType *info = (EBExpressType *)obj;
+        EBExpressDetail *nextView = [[EBExpressDetail alloc] init];
+        nextView.param = info;
+        [portal.navigationController pushViewController:nextView animated:YES];
+        [nextView release];
+    } else if ([obj isKindOfClass:EBShop.class]) {
+        EBShop *info = (EBShop *)obj;
+        EBProductList *nextView = [[EBProductList alloc] init];
+        nextView.way = 0;
+        nextView.typeId = info.id;
+        [portal.navigationController pushViewController:nextView animated:YES];
+        [nextView release];
+    } else if ([obj isKindOfClass:EBProductInfo.class]) {
+        EBProductInfo *info = (EBProductInfo *)obj;
+        EBProductDetail *nextView = [[EBProductDetail alloc] init];
+        nextView.param = info.id;
+        [portal.navigationController pushViewController:nextView animated:YES];
+        [nextView release];
+    }
 }
 
 - (void)setAction:(int)pos{
     if (pos < 1) {
         return;
     }
-    dst = [items objectAtIndex: pos];
-    desc.text = [iOSApi urlDecode:dst.title];
-    /*
-    CGRect frame = desc.frame;
-    frame.origin.y += 5;
-    UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
-    btn.frame = frame;
-    [btn addTarget:self action:@selector(gotoInfo) forControlEvents:UIControlEventTouchUpInside];
-    [self addSubview:btn];
-    */
+    dst_index = pos;
+    desc.text = [self subject:dst_index];
 }
 
 - (void)awakeFromNib{
-    if (items.count < 1) {
-        items = [[NSMutableArray alloc] initWithCapacity:0];
+    [super awakeFromNib];
+    if (_items.count < 1) {
+        _items = [[NSMutableArray alloc] initWithCapacity:0];
     }
-    NSArray *list = [Api ebuy_push:1];
+    [_items removeAllObjects];
+    NSArray *list = nil;
+    if (segIndex == 0) {
+        // 疯狂抢购:push接口
+        list = [[Api ebuy_push:1] retain];
+    } else {
+        // 金牌店铺:shoplist接口
+        list = [[Api ebuy_shoplist:1] retain];
+    }
+    [_scrollView removeSubviews];
     if (list.count > 0) {
         [list retain];
-        [items addObjectsFromArray: list];
+        [_items addObjectsFromArray:list];
         int xWidth = 90;
         int xHeight = 90;
         int num = list.count;
@@ -88,9 +137,9 @@ static EBProductInfo *dst = nil;
         _scrollView.contentOffset = CGPointMake(90, 180);
         UIImage *undef = [UIImage imageNamed:@"unknown.png"];
         int i = 1;
-        for (EBProductInfo *obj in list) {
+        for (int j = 0; j < _items.count; j++) {
             iOSImageView *iv = [[[iOSImageView alloc] initWithImage:undef] autorelease];
-            [iv imageWithURL:[iOSApi urlDecode:obj.picUrl]];
+            [iv imageWithURL:[self picUrl:j]];
             CGRect frame = iv.frame;
             frame.origin.x = xWidth * i;
             frame.origin.y = 15;
@@ -101,9 +150,12 @@ static EBProductInfo *dst = nil;
             i ++;
         }
         [list release];
-        if (items.count >= 2) {
+        _scrollView.contentOffset = CGPointMake(0, 90);
+        _scrollView.contentOffset = CGPointMake(90, 180);
+        if (_items.count >= 2) {
             [self setAction:1];
         }
+        [_scrollView flashScrollIndicators];
         CGRect frame = CGRectMake(115, 30, 90, 90);
         UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
         btn.frame = frame;
@@ -122,12 +174,11 @@ static EBProductInfo *dst = nil;
     int max = min + 90;
     if (currentOffset.x >= min && currentOffset.x < min + 45) {
         scrollView.contentOffset = CGPointMake(min, currentOffset.y);
-        EBProductInfo *obj = [items objectAtIndex:pos];
-        desc.text = [iOSApi urlDecode:obj.title];
+        desc.text = [self subject:pos];
     } else if (currentOffset.x >= min + 45 && currentOffset.x < max) {
         scrollView.contentOffset = CGPointMake(max, currentOffset.y);
         pos ++;
-        if (pos >= [items count] ) {
+        if (pos >= [_items count] ) {
             return;
         }
         [self setAction:pos];

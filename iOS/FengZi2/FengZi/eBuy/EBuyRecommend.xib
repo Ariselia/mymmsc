@@ -76,7 +76,7 @@
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 								<object class="NSCustomResource" key="IBUIImage">
 									<string key="NSClassName">NSImage</string>
-									<string key="NSResourceName">ebuy_sun_main_putbg.png</string>
+									<string key="NSResourceName">ebuy_main_putbg.png</string>
 								</object>
 							</object>
 							<object class="IBUIImageView" id="222543349">
@@ -115,6 +115,7 @@
 								<string key="NSFrame">{{6, 95}, {307, 50}}</string>
 								<reference key="NSSuperview" ref="137851720"/>
 								<reference key="NSWindow"/>
+								<reference key="NSNextKeyView"/>
 								<string key="NSReuseIdentifierKey">_NS:121</string>
 								<object class="NSColor" key="IBUIBackgroundColor" id="1032643256">
 									<int key="NSColorSpace">3</int>
@@ -124,7 +125,7 @@
 								<int key="IBUIContentMode">7</int>
 								<bool key="IBUIUserInteractionEnabled">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
-								<string key="IBUIText">123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890</string>
+								<string key="IBUIText">没有推荐的商品或商家</string>
 								<object class="NSColor" key="IBUITextColor">
 									<int key="NSColorSpace">1</int>
 									<bytes key="NSRGB">MCAwIDAAA</bytes>
@@ -148,7 +149,7 @@
 						<string key="NSFrameSize">{320, 140}</string>
 						<reference key="NSSuperview" ref="722284548"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView"/>
+						<reference key="NSNextKeyView" ref="222543349"/>
 						<string key="NSReuseIdentifierKey">_NS:315</string>
 						<reference key="IBUIBackgroundColor" ref="1032643256"/>
 						<bool key="IBUIOpaque">NO</bool>
@@ -380,7 +381,7 @@
 				<bool key="EncodedWithXMLCoder">YES</bool>
 				<string>ebuy_main_icon_left.png</string>
 				<string>ebuy_main_icon_right.png</string>
-				<string>ebuy_sun_main_putbg.png</string>
+				<string>ebuy_main_putbg.png</string>
 			</object>
 			<object class="NSArray" key="dict.values">
 				<bool key="EncodedWithXMLCoder">YES</bool>

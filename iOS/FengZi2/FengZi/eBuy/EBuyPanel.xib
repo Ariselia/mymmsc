@@ -211,16 +211,16 @@
 								<string key="NSFrame">{{0, 258}, {320, 44}}</string>
 								<reference key="NSSuperview" ref="491432887"/>
 								<reference key="NSWindow"/>
-								<reference key="NSNextKeyView"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIOpaque">NO</bool>
-								<bool key="IBUIAutoresizesSubviews">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
+								<int key="IBUIContentHorizontalAlignment">0</int>
+								<int key="IBUIContentVerticalAlignment">0</int>
 								<int key="IBNumberOfSegments">2</int>
 								<int key="IBSelectedSegmentIndex">0</int>
 								<array key="IBSegmentTitles">
-									<string/>
-									<string/>
+									<string>疯狂抢购</string>
+									<string>金牌店铺</string>
 								</array>
 								<array class="NSMutableArray" key="IBSegmentWidths">
 									<real value="159.5"/>
@@ -235,14 +235,8 @@
 									<string>{0, 0}</string>
 								</array>
 								<array class="NSMutableArray" key="IBSegmentImages">
-									<object class="NSCustomResource">
-										<string key="NSClassName">NSImage</string>
-										<string key="NSResourceName">ebuy_main_product.png</string>
-									</object>
-									<object class="NSCustomResource">
-										<string key="NSClassName">NSImage</string>
-										<string key="NSResourceName">ebuy_main_store.png</string>
-									</object>
+									<object class="NSNull" id="4"/>
+									<reference ref="4"/>
 								</array>
 							</object>
 							<object class="IBUIImageView" id="264057963">
@@ -718,9 +712,7 @@
 			<string key="ebuy_main_message.png">{152, 134}</string>
 			<string key="ebuy_main_mycollection.png">{152, 134}</string>
 			<string key="ebuy_main_myorder.png">{152, 134}</string>
-			<string key="ebuy_main_product.png">{209, 45}</string>
 			<string key="ebuy_main_shopcar.png">{152, 134}</string>
-			<string key="ebuy_main_store.png">{209, 45}</string>
 			<string key="ebuy_main_userphoto.png">{122, 122}</string>
 		</dictionary>
 		<string key="IBCocoaTouchPluginVersion">1181</string>

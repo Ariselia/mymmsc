@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "EBuyRecommend.h"
 
 // 电子商城 入口
 @interface EBuyPortal : UIViewController{
@@ -17,6 +18,8 @@
     int                 _page;
     BOOL                isOnline;
     int                 _segIndex;
+    EBuyRecommend      *topView;
+    int                 topIndex;
 }
 @property (nonatomic, retain) IBOutlet UITableView *tableView;
 @property (nonatomic, retain) IBOutlet UISearchBar *searchBar;

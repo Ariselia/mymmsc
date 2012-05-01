@@ -80,7 +80,7 @@
     _product = [[Api ebuy_goodsinfo:param] retain];
     if (_product != nil) {
         _items = [[NSMutableArray alloc] initWithCapacity:0];
-        [_items addObject:_product.info];
+        [_items addObject:[iOSApi urlDecode:_product.info]];
         proId.text = [NSString stringWithFormat:@"编号: %@", _product.orderId];
         proPrice.text = [NSString stringWithFormat:@"%.2f 元", _product.price];
     }

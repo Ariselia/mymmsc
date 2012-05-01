@@ -583,7 +583,7 @@
 + (EBOrderInfo *)ebuy_order_get:(NSString *)orderId{
     EBOrderInfo *iRet = nil;
     static NSString *method = @"orderinfo";
-    NSString *query = [NSString stringWithFormat:@"orderid=%d", orderId];
+    NSString *query = [NSString stringWithFormat:@"orderid=%@", orderId];
     NSString *action = [NSString stringWithFormat:@"%@/%@?%@", API_URL_EBUY, method, query];
     NSDictionary *response = [Api post:action params:nil];
     if (response) {

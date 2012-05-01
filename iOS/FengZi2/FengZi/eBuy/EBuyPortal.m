@@ -27,6 +27,7 @@
         // Custom initialization
         isOnline = NO;
         _segIndex = -1;
+        topIndex = 0;
     }
     return self;
 }
@@ -119,19 +120,22 @@
         bFresh = YES;
     }
     isOnline = [Api isOnLine];
+    topIndex = 0;
     // 广告视图, 登录不登录都是必须的
     EBAdBar *view = [(EBAdBar*)[[[NSBundle mainBundle] loadNibNamed:@"EBAdBar" owner:self options:nil] objectAtIndex:0] retain];
     [_headers addObject:view];
     // 判断是否登录
     if (isOnline) {
         // 登录, 显示功能面板
-        EBuyPanel *topView = [(EBuyPanel*)[[[NSBundle mainBundle] loadNibNamed:@"EBuyPanel" owner:self options:nil] objectAtIndex:0] retain];
-        topView.ownerId = self;
-        topView.name.text = [Api nikeName];
-        [_headers addObject:topView];
+        EBuyPanel *buyPanel = [(EBuyPanel*)[[[NSBundle mainBundle] loadNibNamed:@"EBuyPanel" owner:self options:nil] objectAtIndex:0] retain];
+        buyPanel.ownerId = self;
+        buyPanel.name.text = [Api nikeName];
+        [_headers addObject:buyPanel];
+        topIndex ++;
     }
+    topIndex ++;
     // 未登录, 显示推荐自定义Cell
-    EBuyRecommend *topView = [(EBuyRecommend *)[[[NSBundle mainBundle] loadNibNamed:@"EBuyRecommend" owner:self options:nil] objectAtIndex:0] retain];
+    topView = [(EBuyRecommend *)[[[NSBundle mainBundle] loadNibNamed:@"EBuyRecommend" owner:self options:nil] objectAtIndex:0] retain];
     topView.ownerId = self;
     [_headers addObject:topView];
     if ([_items count] == 0 || bFresh) {
@@ -149,6 +153,7 @@
             // 未登录, 下放列表是推荐产品
             list = [[Api ebuy_new:_page++] retain];
         } else {
+#if 0
             // 登录后
             if (_segIndex == 0) {
                 // 疯狂抢购:push接口
@@ -157,6 +162,7 @@
                 // 金牌店铺:shoplist接口
                 list = [[Api ebuy_shoplist:1] retain];
             }
+#endif
         }
         [_items addObjectsFromArray:list];
         [list release];
@@ -174,7 +180,7 @@
 }
 
 // 登录后选择疯狂抢购或者金牌店铺
-- (void)doSelect:(int)index{
+- (void)doSelect_old:(int)index{
     _segIndex = index;
     [_items removeAllObjects];
     NSArray *list = nil;
@@ -188,6 +194,19 @@
     [_items addObjectsFromArray:list];
     [list release];
     [_tableView reloadData];
+}
+
+- (void)doSelect:(int)index{
+    [iOSApi showAlert:@"正在加载信息..."];
+    _segIndex = index;
+    [EBuyRecommend setType:index];
+    //topView = [(EBuyRecommend *)[[[NSBundle mainBundle] loadNibNamed:@"EBuyRecommend" owner:self options:nil] objectAtIndex:0] retain];
+    //topView.ownerId = self;
+    //[_headers replaceObjectAtIndex:topIndex withObject:topView];
+    [topView awakeFromNib];
+    topView.scrollView.contentOffset = CGPointMake(90, 180);
+    [_tableView reloadData];
+    [iOSApi closeAlert];
 }
 
 #pragma mark -
@@ -275,8 +294,6 @@
         [self.navigationController pushViewController:nextView animated:YES];
         [nextView release];
     }
-    
-    
 }
 
 #pragma mark -

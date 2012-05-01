@@ -23,7 +23,7 @@
     if (self) {
         // Custom initialization
         self.proxy = self;
-        _type = 0;
+        _type = 1;
     }
     return self;
 }

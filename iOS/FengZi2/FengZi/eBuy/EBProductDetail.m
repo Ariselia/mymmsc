@@ -148,6 +148,10 @@
         UIImage *undef = [UIImage imageNamed:@"unknown.png"];
         int i = 0;
         for (NSString *tmpUrl in tmpList) {
+            tmpUrl = [tmpUrl trim];
+            if (tmpUrl == nil || tmpUrl.length < 7) {
+                break;
+            }
             iOSImageView *iv = [[[iOSImageView alloc] initWithImage:undef] autorelease];
             [iv imageWithURL:[iOSApi urlDecode:tmpUrl]];
             CGRect frame = iv.frame;
@@ -159,8 +163,6 @@
             [scroll addSubview:iv];
             i ++;
         }
-        //scroll.contentOffset = CGPointMake(0, xWidth);
-        //[scroll setContentOffset:CGPointMake(0, xWidth) animated:YES];
         [scroll release];
     } else if (pos == 1) {
         cell.textLabel.text = [NSString stringWithFormat:@"商品名称：%@", [iOSApi urlDecode:_product.title]];
@@ -211,7 +213,11 @@
     // Navigation logic may go here. Create and push another view controller.
     //NSLog(@"module goto...");
     int pos = indexPath.row;
-    if (pos < 4) {
+    int row3 = 0;
+    if ([Api isOnLine]) {
+        row3 = 1;
+    }
+    if (pos < 4 + row3) {
         return;
     }
     // 跳转 评论页面

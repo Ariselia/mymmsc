@@ -11,17 +11,17 @@
 
 @interface EBuyRecommend : UITableViewCell<UIScrollViewDelegate>{
     UIScrollView *_scrollView;
-    int          imgCount; // 一屏图片数
-    int          imgWidth; // 单个图片宽度
-    int          imgHeight; // 单个图片高度
+    int           _imgCount; // 一屏图片数
+    int           _imgWidth; // 单个图片宽度
+    int           _imgHeight; // 单个图片高度
     
-    NSMutableArray *items;
+    NSMutableArray *_items;
 }
 @property(nonatomic, assign) id ownerId;
 @property(nonatomic, retain) IBOutlet UIScrollView *scrollView; // 滚动视图
-//@property(nonatomic, retain) IBOutlet UIImageView *pic;
 @property(nonatomic, retain) IBOutlet UILabel *desc; // 推荐图片显示文本
-
-- (IBAction)doShopList:(id)sender;
+//@property(nonatomic, assign) int segIndex;
++ (void)setType:(int)index;
++ (int)type;
 
 @end

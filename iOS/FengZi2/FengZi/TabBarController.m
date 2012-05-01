@@ -45,7 +45,9 @@ static TabBarController *_tabBarInstance;
     [nav popToRootViewControllerAnimated:YES];
     if (tabIndex == 0) {
         UIViewController *view = [Api tabView];
-        [view viewWillAppear:YES];
+        if (view != nil && view.retainCount > 0) {
+            [view viewWillAppear:YES];
+        }        
     }
 }
 

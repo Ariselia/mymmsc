@@ -9,6 +9,7 @@
 #import "UCAppStore.h"
 #import "UCStoreTable.h"
 #import "EBuyPortal.h"
+#import "Api+eShop.h"
 
 @implementation UCAppStore
 
@@ -33,6 +34,7 @@
 }
 
 - (IBAction)hideWindow:(id)sender {
+    [Api seTabView:nil];
     [proxy closeAppStore];
 }
 
