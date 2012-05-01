@@ -169,7 +169,7 @@
         cell.detailTextLabel.text = [NSString stringWithFormat:@"价格：%.2f", _product.price];
         //cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
-        UIImage *image = [UIImage imageNamed:@"ebug_commodity_info.png"];
+        UIImage *image = [UIImage imageNamed:@"ebuy_shopping_info.png"];
         [btn setImage:image forState:UIControlStateNormal];
         [btn setImage:image forState:UIControlStateSelected];
         [btn addTarget:self action:@selector(gotoProduct) forControlEvents:UIControlEventTouchUpInside];

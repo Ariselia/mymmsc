@@ -18,4 +18,7 @@
 @property (nonatomic, retain) IBOutlet UILabel *subject;
 @property (nonatomic, retain) IBOutlet UILabel *content;
 
+// 跳转发表评论页面
+- (IBAction)doWrite:(id)sender;
+
 @end

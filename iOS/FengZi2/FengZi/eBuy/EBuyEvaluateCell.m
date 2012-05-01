@@ -27,4 +27,9 @@
     // Configure the view for the selected state
 }
 
+// 跳转发表评论页面
+- (IBAction)doWrite:(id)sender{
+    //
+}
+
 @end
