@@ -301,6 +301,7 @@
 		0AD426F7154E99B9003253B6 /* scan_tip.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 0AD426F6154E99B9003253B6 /* scan_tip.mp3 */; };
 		0AD755A015509FD4006C17B3 /* EBuyEvaluatePage.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AD7559E15509FD4006C17B3 /* EBuyEvaluatePage.m */; };
 		0AD755A115509FD4006C17B3 /* EBuyEvaluatePage.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0AD7559F15509FD4006C17B3 /* EBuyEvaluatePage.xib */; };
+		0AD755A41550A4F7006C17B3 /* UIButton+Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AD755A31550A4F7006C17B3 /* UIButton+Utils.m */; };
 		0AE7932D14FAB2330018367B /* UCAppStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AE7931314FAB2330018367B /* UCAppStore.m */; };
 		0AE7932E14FAB2330018367B /* UCAppStore.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0AE7931414FAB2330018367B /* UCAppStore.xib */; };
 		0AE7932F14FAB2330018367B /* UCBookReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AE7931614FAB2330018367B /* UCBookReader.m */; };
@@ -1108,6 +1109,8 @@
 		0AD7559D15509FD4006C17B3 /* EBuyEvaluatePage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EBuyEvaluatePage.h; sourceTree = "<group>"; };
 		0AD7559E15509FD4006C17B3 /* EBuyEvaluatePage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EBuyEvaluatePage.m; sourceTree = "<group>"; };
 		0AD7559F15509FD4006C17B3 /* EBuyEvaluatePage.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EBuyEvaluatePage.xib; sourceTree = "<group>"; };
+		0AD755A21550A4F7006C17B3 /* UIButton+Utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+Utils.h"; sourceTree = "<group>"; };
+		0AD755A31550A4F7006C17B3 /* UIButton+Utils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+Utils.m"; sourceTree = "<group>"; };
 		0ADD8F46154E9CC40025DF29 /* CONSTS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CONSTS.h; sourceTree = "<group>"; };
 		0ADD8F47154E9CC40025DF29 /* ITTDebug.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ITTDebug.h; sourceTree = "<group>"; };
 		0AE7931214FAB2330018367B /* UCAppStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UCAppStore.h; sourceTree = "<group>"; };
@@ -3023,6 +3026,8 @@
 				B8ECE09114E70E58005DF9AF /* UIViewController+Utils.m */,
 				0AC0D15215322551001F1930 /* UIView+Effect.h */,
 				0AC0D15315322551001F1930 /* UIView+Effect.m */,
+				0AD755A21550A4F7006C17B3 /* UIButton+Utils.h */,
+				0AD755A31550A4F7006C17B3 /* UIButton+Utils.m */,
 			);
 			path = Api;
 			sourceTree = "<group>";
@@ -3844,6 +3849,7 @@
 				0AD426F4154E991E003253B6 /* UIKitAddition.m in Sources */,
 				0AD426F5154E991E003253B6 /* UIViewAdditions.m in Sources */,
 				0AD755A015509FD4006C17B3 /* EBuyEvaluatePage.m in Sources */,
+				0AD755A41550A4F7006C17B3 /* UIButton+Utils.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

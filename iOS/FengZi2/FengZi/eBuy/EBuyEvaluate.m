@@ -106,7 +106,7 @@
     [iOSApi showAlert:@"获取评论列表..."];
     NSArray *data = [Api ebuy_sdandcomentlist:_page];
     if (data == nil || data.count < 1) {
-        [iOSApi showCompleted:@"服务器正忙，请稍候"];
+        [iOSApi showCompleted:@"没有评论信息"];
     }
     [iOSApi closeAlert];
     return data;

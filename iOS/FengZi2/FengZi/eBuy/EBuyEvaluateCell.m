@@ -7,6 +7,8 @@
 //
 
 #import "EBuyEvaluateCell.h"
+#import "EBuyEvaluatePage.h"
+#import "EBuyEvaluate.h"
 
 @implementation EBuyEvaluateCell
 @synthesize ownerId, imageView,subject,content;
@@ -29,7 +31,10 @@
 
 // 跳转发表评论页面
 - (IBAction)doWrite:(id)sender{
-    //
+    EBuyEvaluate *owner = (EBuyEvaluate *)ownerId;
+    EBuyEvaluatePage *nextView = [[EBuyEvaluatePage alloc] init];
+    [owner.navigationController pushViewController:nextView animated:YES];
+    [nextView release];
 }
 
 @end
