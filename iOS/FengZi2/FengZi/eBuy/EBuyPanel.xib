@@ -68,7 +68,7 @@
 								</object>
 								<object class="NSCustomResource" key="IBUINormalImage">
 									<string key="NSClassName">NSImage</string>
-									<string key="NSResourceName">ebuy_sun_main_message.png</string>
+									<string key="NSResourceName">ebuy_main_message.png</string>
 								</object>
 								<object class="IBUIFontDescription" key="IBUIFontDescription" id="534376419">
 									<int key="type">2</int>
@@ -100,7 +100,7 @@
 								<reference key="IBUINormalTitleShadowColor" ref="289779684"/>
 								<object class="NSCustomResource" key="IBUINormalImage">
 									<string key="NSClassName">NSImage</string>
-									<string key="NSResourceName">ebuy_sun_main_myorder.png</string>
+									<string key="NSResourceName">ebuy_main_myorder.png</string>
 								</object>
 								<reference key="IBUIFontDescription" ref="534376419"/>
 								<reference key="IBUIFont" ref="822358155"/>
@@ -125,7 +125,7 @@
 								<reference key="IBUINormalTitleShadowColor" ref="289779684"/>
 								<object class="NSCustomResource" key="IBUINormalImage">
 									<string key="NSClassName">NSImage</string>
-									<string key="NSResourceName">ebuy_sun_main_shopcar.png</string>
+									<string key="NSResourceName">ebuy_main_shopcar.png</string>
 								</object>
 								<reference key="IBUIFontDescription" ref="534376419"/>
 								<reference key="IBUIFont" ref="822358155"/>
@@ -150,7 +150,7 @@
 								<reference key="IBUINormalTitleShadowColor" ref="289779684"/>
 								<object class="NSCustomResource" key="IBUINormalImage">
 									<string key="NSClassName">NSImage</string>
-									<string key="NSResourceName">ebuy_sun_main_mycollection.png</string>
+									<string key="NSResourceName">ebuy_main_mycollection.png</string>
 								</object>
 								<reference key="IBUIFontDescription" ref="534376419"/>
 								<reference key="IBUIFont" ref="822358155"/>
@@ -175,7 +175,7 @@
 								<reference key="IBUINormalTitleShadowColor" ref="289779684"/>
 								<object class="NSCustomResource" key="IBUINormalImage">
 									<string key="NSClassName">NSImage</string>
-									<string key="NSResourceName">ebuy_sun_main_comment.png</string>
+									<string key="NSResourceName">ebuy_main_comment.png</string>
 								</object>
 								<reference key="IBUIFontDescription" ref="534376419"/>
 								<reference key="IBUIFont" ref="822358155"/>
@@ -200,7 +200,7 @@
 								<reference key="IBUINormalTitleShadowColor" ref="289779684"/>
 								<object class="NSCustomResource" key="IBUINormalImage">
 									<string key="NSClassName">NSImage</string>
-									<string key="NSResourceName">ebuy_sun_main_groupclss.png</string>
+									<string key="NSResourceName">ebuy_main_groupclss.png</string>
 								</object>
 								<reference key="IBUIFontDescription" ref="534376419"/>
 								<reference key="IBUIFont" ref="822358155"/>
@@ -214,16 +214,17 @@
 								<reference key="NSNextKeyView"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIOpaque">NO</bool>
+								<bool key="IBUIAutoresizesSubviews">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 								<int key="IBNumberOfSegments">2</int>
 								<int key="IBSelectedSegmentIndex">0</int>
 								<array key="IBSegmentTitles">
-									<string>疯狂抢购</string>
-									<string>金牌店铺</string>
+									<string/>
+									<string/>
 								</array>
 								<array class="NSMutableArray" key="IBSegmentWidths">
-									<real value="0.0"/>
-									<real value="0.0"/>
+									<real value="159.5"/>
+									<real value="159.5"/>
 								</array>
 								<array class="NSMutableArray" key="IBSegmentEnabledStates">
 									<boolean value="YES"/>
@@ -234,8 +235,14 @@
 									<string>{0, 0}</string>
 								</array>
 								<array class="NSMutableArray" key="IBSegmentImages">
-									<object class="NSNull" id="4"/>
-									<reference ref="4"/>
+									<object class="NSCustomResource">
+										<string key="NSClassName">NSImage</string>
+										<string key="NSResourceName">ebuy_main_product.png</string>
+									</object>
+									<object class="NSCustomResource">
+										<string key="NSClassName">NSImage</string>
+										<string key="NSResourceName">ebuy_main_store.png</string>
+									</object>
 								</array>
 							</object>
 							<object class="IBUIImageView" id="264057963">
@@ -587,7 +594,7 @@
 				<string key="-2.CustomClassName">UIResponder</string>
 				<string key="-2.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="17.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-				<integer value="1" key="17.IUISegmentedControlInspectorSelectedSegmentMetadataKey"/>
+				<integer value="0" key="17.IUISegmentedControlInspectorSelectedSegmentMetadataKey"/>
 				<string key="21.CustomClassName">iOSImageView</string>
 				<string key="21.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="22.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
@@ -706,13 +713,15 @@
 		<bool key="IBDocument.PluginDeclaredDependenciesTrackSystemTargetVersion">YES</bool>
 		<int key="IBDocument.defaultPropertyAccessControl">3</int>
 		<dictionary class="NSMutableDictionary" key="IBDocument.LastKnownImageSizes">
+			<string key="ebuy_main_comment.png">{152, 134}</string>
+			<string key="ebuy_main_groupclss.png">{152, 134}</string>
+			<string key="ebuy_main_message.png">{152, 134}</string>
+			<string key="ebuy_main_mycollection.png">{152, 134}</string>
+			<string key="ebuy_main_myorder.png">{152, 134}</string>
+			<string key="ebuy_main_product.png">{209, 45}</string>
+			<string key="ebuy_main_shopcar.png">{152, 134}</string>
+			<string key="ebuy_main_store.png">{209, 45}</string>
 			<string key="ebuy_main_userphoto.png">{122, 122}</string>
-			<string key="ebuy_sun_main_comment.png">{149, 134}</string>
-			<string key="ebuy_sun_main_groupclss.png">{147, 134}</string>
-			<string key="ebuy_sun_main_message.png">{154, 138}</string>
-			<string key="ebuy_sun_main_mycollection.png">{154, 134}</string>
-			<string key="ebuy_sun_main_myorder.png">{149, 138}</string>
-			<string key="ebuy_sun_main_shopcar.png">{147, 138}</string>
 		</dictionary>
 		<string key="IBCocoaTouchPluginVersion">1181</string>
 	</data>
