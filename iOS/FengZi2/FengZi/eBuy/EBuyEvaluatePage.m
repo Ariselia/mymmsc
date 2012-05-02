@@ -82,7 +82,7 @@
     [UIView setAnimationDuration:0.3];
     [UIView setAnimationDelegate:self];
     CGRect frame = self.view.frame;
-    frame.origin.y = -135;
+    frame.origin.y = -130;
     self.view.frame = frame;
     [UIView commitAnimations];
     
