@@ -78,8 +78,46 @@
 }
 
 // 文本框变动的时候
-- (void)textUpdate:(UITextView *)textView{
-    iOSLog("正在输入内容...");
+- (void)textViewDidChange:(UITextView *)textView{
+    //
+}
+
+/*
+- (void)textViewDidBeginEditing:(UITextView *)textView {  
+    UIBarButtonItem *done = [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(leaveEditMode)] autorelease];
+    self.navigationItem.rightBarButtonItem = done;
+}*/
+
+- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
+    BOOL bRet = NO;
+    if ([text isEqualToString:@"\n"]) {
+        [textView resignFirstResponder];
+    } else {
+        static int text_maxlength = 140;
+        NSString *str = textView.text;
+        int length = str.length + text.length - range.length;
+        if (length <= text_maxlength) {
+            xState.text = [NSString stringWithFormat:@"剩余文字 %d.", text_maxlength - length];
+            bRet = YES;
+        } else {
+            [iOSApi toast:[NSString stringWithFormat:@"文字最长%d", text_maxlength]];
+        }
+    }
+    return bRet;    
+}
+
+- (void)textViewDidEndEditing:(UITextView *)textView {
+    //self.navigationItem.rightBarButtonItem = nil;
+}
+
+/*
+- (void)leaveEditMode {
+    [self.xContent resignFirstResponder];  
+}
+*/
+// 选择
+- (IBAction)segmentAction:(UISegmentedControl *)segment{
+    //
 }
 
 @end

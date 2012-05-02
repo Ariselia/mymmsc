@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
+// 撰写评论内容页
 @interface EBuyEvaluatePage : UIViewController{
     
 }
@@ -18,7 +19,7 @@
 // 选择图片
 - (IBAction)selectPic:(id)sender;
 
-// 文本框变动的时候
-- (void)textUpdate:(UITextView *)textView;
+// 选择 喜爱度
+- (IBAction)segmentAction:(UISegmentedControl *)segment;
 
 @end
