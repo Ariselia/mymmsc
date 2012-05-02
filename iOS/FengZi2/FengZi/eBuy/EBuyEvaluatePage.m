@@ -77,6 +77,18 @@
     //
 }
 
+- (BOOL)textViewShouldBeginEditing:(UITextView *)textView{
+    [UIView beginAnimations:nil context:NULL];
+    [UIView setAnimationDuration:0.3];
+    [UIView setAnimationDelegate:self];
+    CGRect frame = self.view.frame;
+    frame.origin.y = -135;
+    self.view.frame = frame;
+    [UIView commitAnimations];
+    
+    return YES;
+}
+
 // 文本框变动的时候
 - (void)textViewDidChange:(UITextView *)textView{
     //
@@ -92,6 +104,13 @@
     BOOL bRet = NO;
     if ([text isEqualToString:@"\n"]) {
         [textView resignFirstResponder];
+        [UIView beginAnimations:nil context:NULL];
+        [UIView setAnimationDuration:0.3];
+        [UIView setAnimationDelegate:self];
+        CGRect frame = self.view.frame;
+        frame.origin.y = 0;
+        self.view.frame = frame;
+        [UIView commitAnimations];
     } else {
         static int text_maxlength = 140;
         NSString *str = textView.text;
