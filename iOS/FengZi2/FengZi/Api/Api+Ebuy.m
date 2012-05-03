@@ -632,6 +632,7 @@ static const char *kPayWay[] = {"支付宝客户端支付", "支付宝wap支付"
 
 // 订单状态
 + (NSString *)ebuy_state_order:(int)state{
+    // 计算订单状态数组的长度
     int c = sizeof(kOrderState) / sizeof(kOrderState[0]);
     int s = state >> 4;
     int t = state | 0x0f;
@@ -648,6 +649,7 @@ static const char *kPayWay[] = {"支付宝客户端支付", "支付宝wap支付"
 
 // 支付类型
 + (NSString *)ebuy_pay_type:(int)type{
+    // 计算支付类型数组的长度
     int c = sizeof(kPayWay) / sizeof(kPayWay[0]);
     NSString *sRet = @"货到付款";
     if (type >= 0 && type < c) {
