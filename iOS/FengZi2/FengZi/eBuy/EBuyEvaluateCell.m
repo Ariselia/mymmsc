@@ -11,6 +11,7 @@
 #import "EBuyEvaluate.h"
 
 @implementation EBuyEvaluateCell
+@synthesize productId, orderId;
 @synthesize ownerId, imageView,subject,content;
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
@@ -33,6 +34,8 @@
 - (IBAction)doWrite:(id)sender{
     EBuyEvaluate *owner = (EBuyEvaluate *)ownerId;
     EBuyEvaluatePage *nextView = [[EBuyEvaluatePage alloc] init];
+    nextView.productId = productId;
+    nextView.orderId = orderId;
     [owner.navigationController pushViewController:nextView animated:YES];
     [nextView release];
 }

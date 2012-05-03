@@ -56,7 +56,7 @@
 #define API_QRCODE_ESHOP     API_URL_ESHOP "/info.action"
 
 // 电子商城
-#define API_URL_EBUY         @"http://220.231.48.34:38090/ebuy/fx"
+#define API_URL_EBUY         @"http://220.231.48.34:38090/ebuy"
 
 //====================================< 用户信息 >====================================
 

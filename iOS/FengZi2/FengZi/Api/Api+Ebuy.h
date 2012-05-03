@@ -79,6 +79,8 @@
     //
 }
 @property (nonatomic, copy) NSString *id; // 该评论的id
+@property (nonatomic, copy) NSString *orderId; // 订单id
+@property (nonatomic, assign) int state; // 状态
 @property (nonatomic, copy) NSString *userName; //用户昵称 (encode)
 @property (nonatomic, copy) NSString *content; // 评论的内容 (encode)
 @property (nonatomic, assign) int grade;
@@ -125,9 +127,11 @@
 @property (nonatomic, copy) NSString *type; // 01-货到付款
 @property (nonatomic, copy) NSString *receiver; // 收件人
 @property (nonatomic, copy) NSString *address; // 地址
-@property (nonatomic, copy) NSString *areaCode; // 邮编
-@property (nonatomic, copy) NSString *mobile; // 电话
-@property (nonatomic, copy) NSString *shopId;
+//@property (nonatomic, copy) NSString *areaCode; // 邮编
+//@property (nonatomic, copy) NSString *mobile; // 电话
+@property (nonatomic, assign) int areaCode; // 邮编
+@property (nonatomic, assign) long long mobile; // 电话
+@property (nonatomic, assign) int shopId;
 @property (nonatomic, copy) NSString *shopName;
 @end
 
@@ -148,6 +152,7 @@
 //@property (nonatomic, copy) NSString *orderTime; // 订单时间
 //@property (nonatomic, assign) int state; // 订单状态
 @property (nonatomic, assign) int totalCount; // 商品数量单位
+//@property (nonatomic, copy) NSString *totalCount; // 商品数量单位
 
 @end
 
@@ -232,6 +237,8 @@
 + (EBProductComment *)ebuy_comment_get:(NSString *)pid
                                orderId:(NSString *)orderId;
 
+// 这个接口不安全
++ (NSString *)ebuy_commentpic_upload:(NSData *)buffer;
 //--------------------< 电子商城 - 接口 - 站内消息 >--------------------
 
 // 发送站内消息

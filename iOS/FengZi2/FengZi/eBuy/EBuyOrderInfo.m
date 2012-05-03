@@ -141,6 +141,7 @@
             [cell.imageView addSubview:ai];
             
             NSString *tmpTitle = [NSString stringWithFormat:@"数量:%d\t价格:%.2f", op.totalCount, op.price];
+            //NSString *tmpTitle = [NSString stringWithFormat:@"数量:%@\t价格:%.2f", op.totalCount, op.price];
             cell.detailTextLabel.text = [iOSApi urlDecode:tmpTitle];
             cell.detailTextLabel.lineBreakMode = UILineBreakModeTailTruncation;
             cell.detailTextLabel.numberOfLines = 0;;
@@ -153,9 +154,9 @@
         // 收货地址信息
         EBuyOrderAddressCell *cell2 = [(EBuyOrderAddressCell*)[[[NSBundle mainBundle] loadNibNamed:@"EBuyOrderAddressCell" owner:self options:nil] objectAtIndex:0] retain];
         cell2.addrAddress.text = [iOSApi urlDecode:user.address];
-        cell2.addrCode.text = user.areaCode;
+        cell2.addrCode.text = [[NSNumber numberWithInt:user.areaCode] stringValue];
         cell2.addrName.text = [iOSApi urlDecode:user.receiver];
-        cell2.addrPhone.text = user.mobile;
+        cell2.addrPhone.text = [[NSNumber numberWithLongLong:user.mobile] stringValue];
         [_items addObject:cell2];
     }
     [_orderInfo release];
@@ -239,10 +240,10 @@
     user.type = @"01";
     user.state = 1;
     user.address = [NSString stringWithFormat:@"%@(%@)", addr.dizhi, addr.youbian];
-    user.mobile = addr.shouji;
+    user.mobile = addr.shouji.longLongValue;
     user.receiver = addr.shouhuoren;
     user.goodsCount = _items.count;
-    user.areaCode = addr.youbian;
+    user.areaCode = addr.youbian.intValue;
     /*
      //{"userid":"001","type":"01","address":"北京朝阳区","receiver":"孙超","mobile":"12345678901","areacode":"100010","orderid":"OD20120115000003","state":0,"goodscount":10}
      //{"id":"8ae40e1a-73fb-469a-8123-dcd973bf6264","name":"内衣","totalcount":"1","price":"10.00"}

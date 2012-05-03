@@ -96,6 +96,8 @@
     NSArray *arr = [tmp split:@"*"];
     EBuyEvaluateCell *cellView = [(EBuyEvaluateCell *)[[[NSBundle mainBundle] loadNibNamed:@"EBuyEvaluateCell" owner:self options:nil] objectAtIndex:0] retain];
     cellView.ownerId = self;
+    cellView.productId = obj.id;
+    cellView.orderId = obj.orderId;
     cellView.content.text = [iOSApi urlDecode:obj.content];
     [cellView.imageView imageWithURL:[arr objectAtIndex:0]];
     cellView.selectionStyle = UITableViewCellSelectionStyleNone;

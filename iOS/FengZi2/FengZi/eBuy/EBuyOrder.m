@@ -243,10 +243,10 @@
     user.type = @"01";
     user.state = 1;
     user.address = [NSString stringWithFormat:@"%@(%@)", addr.dizhi, addr.youbian];
-    user.mobile = addr.shouji;
+    user.mobile = addr.shouji.longLongValue;
     user.receiver = addr.shouhuoren;
     user.goodsCount = _items.count;
-    user.areaCode = addr.youbian;
+    user.areaCode = addr.youbian.intValue;
     /*
     //{"userid":"001","type":"01","address":"北京朝阳区","receiver":"孙超","mobile":"12345678901","areacode":"100010","orderid":"OD20120115000003","state":0,"goodscount":10}
     //{"id":"8ae40e1a-73fb-469a-8123-dcd973bf6264","name":"内衣","totalcount":"1","price":"10.00"}

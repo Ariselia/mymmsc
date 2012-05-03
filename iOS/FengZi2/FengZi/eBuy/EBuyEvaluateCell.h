@@ -13,6 +13,7 @@
     
 }
 
+@property (nonatomic, copy) NSString *productId, *orderId;
 @property (nonatomic, assign) id ownerId;
 @property (nonatomic, retain) IBOutlet iOSImageView *imageView;
 @property (nonatomic, retain) IBOutlet UILabel *subject;

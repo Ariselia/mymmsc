@@ -66,7 +66,7 @@
 //--------------------< 电子商城 - 对象 - 商品评论 >--------------------
 @implementation EBProductComment
 
-@synthesize id,userName,content,picUrl,commentTime,love,grade;
+@synthesize id,state,orderId,userName,content,picUrl,commentTime,love,grade;
 
 @end
 
@@ -141,6 +141,7 @@
 }
 
 @end
+
 //====================================< 电子商城 - 接口 >====================================
 @implementation Api (Ebuy)
 
@@ -160,7 +161,7 @@
     
     NSString *params = [jsonDic JSONString];
     
-    NSString *action = [NSString stringWithFormat:@"%@/%@", API_URL_EBUY, method];
+    NSString *action = [NSString stringWithFormat:@"%@/%@", API_URL_EBUY "/fx", method];
     NSDictionary *map = [Api post:action header:heads body:[params dataUsingEncoding:NSUTF8StringEncoding]];
     if (map) {
         NSMutableArray *data = [map objectForKey:@"search"];
@@ -181,7 +182,7 @@
         page = 1;
     }
     NSString *query = [NSString stringWithFormat:@"page=%d", page];
-    NSString *action = [NSString stringWithFormat:@"%@/%@?%@", API_URL_EBUY, method, query];
+    NSString *action = [NSString stringWithFormat:@"%@/%@?%@", API_URL_EBUY "/fx", method, query];
     NSDictionary *map = [Api post:action params:nil];
     if (map) {
         NSMutableArray *data = [map objectForKey:@"push"];
@@ -204,7 +205,7 @@
         page = 1;
     }
     NSString *query = [NSString stringWithFormat:@"page=%d&typeid=%d", page, typeId];
-    NSString *action = [NSString stringWithFormat:@"%@/%@?%@", API_URL_EBUY, method, query];
+    NSString *action = [NSString stringWithFormat:@"%@/%@?%@", API_URL_EBUY "/fx", method, query];
     NSDictionary *map = [Api post:action params:nil];
     if (map) {
         NSMutableArray *data = [map objectForKey:@"type"];
@@ -225,7 +226,7 @@
         page = 1;
     }
     NSString *query = [NSString stringWithFormat:@"page=%d&typeid=%d&way=%d", page, typeId, way];
-    NSString *action = [NSString stringWithFormat:@"%@/%@?%@", API_URL_EBUY, method, query];
+    NSString *action = [NSString stringWithFormat:@"%@/%@?%@", API_URL_EBUY "/fx", method, query];
     NSDictionary *map = [Api post:action params:nil];
     if (map) {
         NSMutableArray *data = [map objectForKey:@"goodslist"];
@@ -246,7 +247,7 @@
         page = 0;
     }
     NSString *query = [NSString stringWithFormat:@"page=%d", page];
-    NSString *action = [NSString stringWithFormat:@"%@/%@?%@", API_URL_EBUY, method, query];
+    NSString *action = [NSString stringWithFormat:@"%@/%@?%@", API_URL_EBUY "/fx", method, query];
     NSDictionary *map = [Api post:action params:nil];
     if (map) {
         NSMutableArray *data = [map objectForKey:@"new"];
@@ -264,7 +265,7 @@
     // 方法
     static NSString *method = @"messagenewinfo";
     NSString *query = [NSString stringWithFormat:@"id=%@", id];
-    NSString *action = [NSString stringWithFormat:@"%@/%@?%@", API_URL_EBUY, method, query];
+    NSString *action = [NSString stringWithFormat:@"%@/%@?%@", API_URL_EBUY "/fx", method, query];
     NSDictionary *map = [Api post:action params:nil];
     if (map) {
         NSDictionary *data = [map objectForKey:@"messagenewinfo"];
@@ -286,7 +287,7 @@
      nil];
      */
     NSString *query = [NSString stringWithFormat:@"id=%@", id];
-    NSString *action = [NSString stringWithFormat:@"%@/%@?%@", API_URL_EBUY, method, query];
+    NSString *action = [NSString stringWithFormat:@"%@/%@?%@", API_URL_EBUY "/fx", method, query];
     NSDictionary *map = [Api post:action params:nil];
     if (map) {
         NSDictionary *data = [map objectForKey:method];
@@ -310,7 +311,7 @@
         page = 0;
     }
     NSString *query = [NSString stringWithFormat:@"page=%d&id=%@", page, id];
-    NSString *action = [NSString stringWithFormat:@"%@/%@?%@", API_URL_EBUY, method, query];
+    NSString *action = [NSString stringWithFormat:@"%@/%@?%@", API_URL_EBUY "/fx", method, query];
     NSDictionary *response = [Api post:action params:nil];
     if (response) {
         NSMutableArray *data = [response objectForKey:method];
@@ -331,7 +332,7 @@
         page = 0;
     }
     NSString *query = [NSString stringWithFormat:@"page=%d&userid=%d", page, [Api userId]];
-    NSString *action = [NSString stringWithFormat:@"%@/%@?%@", API_URL_EBUY, method, query];
+    NSString *action = [NSString stringWithFormat:@"%@/%@?%@", API_URL_EBUY "/fx", method, query];
     NSDictionary *response = [Api post:action params:nil];
     if (response) {
         NSMutableArray *data = [response objectForKey:method];
@@ -351,6 +352,19 @@
                            love:(int)love // 1喜欢, 2一般, 3不喜欢, 4其他
                         orderId:(NSString *)orderId // 订单号
 {
+    if (love < 1) {
+        love = 1;
+    } else if (love > 3) {
+        love = 3;
+    }
+    if (grade < 1) {
+        grade = 1;
+    } else if (grade > 5) {
+        grade = 5;
+    }
+    if (picUrl == nil) {
+        picUrl = @"";
+    }
     ApiResult *iRet = [ApiResult new];
     // 方法
     static NSString *method = @"addcomment";
@@ -370,11 +384,19 @@
     
     NSString *params = [jsonDic JSONString];
     
-    NSString *action = [NSString stringWithFormat:@"%@/%@?%@", API_URL_EBUY, method, query];
+    NSString *action = [NSString stringWithFormat:@"%@/%@?%@", API_URL_EBUY "/fx", method, query];
     NSDictionary *response = [Api post:action header:heads body:[params dataUsingEncoding:NSUTF8StringEncoding]];
-    NSDictionary *data = [iRet parse:response];
-    if (data) {
-        //
+    NSDictionary *data = [response objectForKey:method];
+    if (data.count > 0) {
+        NSNumber *v = [data objectForKey:@"status"];
+        if ([v isKindOfClass:NSNumber.class]) {
+            iRet.status = v.intValue;
+        }
+        if (iRet.status != 0) {
+            iRet.message = @"提交失败";
+        } else {
+            iRet.message = @"提交成功";
+        }
     }
     return [iRet autorelease];
 }
@@ -390,7 +412,7 @@
                             [NSString valueOf:[Api userId]], @"userid",
                             orderId, @"orderid",
                             nil];
-    NSString *action = [NSString stringWithFormat:@"%@/%@?%@", API_URL_EBUY, method, query];
+    NSString *action = [NSString stringWithFormat:@"%@/%@?%@", API_URL_EBUY "/fx", method, query];
     NSDictionary *response = [Api post:action params:params];
     EBProductComment *cRet = nil;
     if (response) {
@@ -401,6 +423,41 @@
     }
     
     return cRet;
+}
+
+// 评论上传图片
++ (NSString *)ebuy_commentpic_upload:(NSData *)buffer{
+    NSString *sRet = nil;
+    static NSString *action = API_URL_EBUY "/fx/file/pic";
+    [iOSApi showAlert:@"正在上传图片"];
+    HttpClient *hc = [[HttpClient alloc] initWithURL:action timeout:10];
+    //NSString *filename = [NSString stringWithFormat:@"%d.jpg", [Api userId]];
+    //[hc formAddImage:@"image" filename:filename data:buffer];
+    //[hc formAddField:@"token" value:API_INTERFACE_TONKEN];
+    //[hc formAddField:@"filename" value:filename];
+    NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
+                            @"image/png", @"Content-Type",
+                            nil];
+    NSData *response = [hc post:params body:buffer];
+    [iOSApi closeAlert];
+    if (response == nil) {
+        [iOSApi showCompleted:@"服务器正忙，请稍候重新登录。"];
+    } else {
+        // 取得JSON数据的字符串
+        NSString *json_string = [[[NSString alloc] initWithData:response encoding:NSUTF8StringEncoding] autorelease];
+        iOSLog(@"json.string = %@", json_string);
+        if ([json_string hasPrefix:@"http://"]) {
+            sRet = [json_string copy];
+            [json_string release];
+            [iOSApi showCompleted:@"上传成功"];
+        } else {
+            [iOSApi showCompleted:@"上传失败"];
+        }
+    }
+    [hc release];
+    [iOSApi closeAlert];
+    
+    return sRet;
 }
 
 //--------------------< 电子商城 - 接口 - 收件箱 >--------------------
@@ -425,7 +482,7 @@
     
     NSString *params = [jsonDic JSONString];
     
-    NSString *action = [NSString stringWithFormat:@"%@/%@?%@", API_URL_EBUY, method, query];
+    NSString *action = [NSString stringWithFormat:@"%@/%@?%@", API_URL_EBUY "/fx", method, query];
     NSDictionary *response = [Api post:action header:heads body:[params dataUsingEncoding:NSUTF8StringEncoding]];
     response = [response objectForKey:@"newmessage"];
     NSDictionary *data = [iRet parse:response];
@@ -450,7 +507,7 @@
                         [NSString valueOf:[Api userId]], @"id",
                         nil];
 #endif
-    NSString *action = [NSString stringWithFormat:@"%@/%@?%@", API_URL_EBUY, method, query];
+    NSString *action = [NSString stringWithFormat:@"%@/%@?%@", API_URL_EBUY "/fx", method, query];
     NSDictionary *response = [Api post:action params:nil];
     //if (response == nil) {
         NSString *test = @"{\"messagerecv\":[{\"content\":\"robin%20robin\",\"title\":\"test2\",\"senderid\":1,\"sendname\":\"robin\",\"recevtime\":\"2012-01-11 10:01:15\",\"id\":\"9a6683dc-46ce-4cd0-a2fd-7e6ff1ab2c31\"},{\"content\":\"testtesttest%20test\",\"title\":\"test\",\"senderid\":1,\"sendname\":\"sunny\",\"recevtime\":\"2012-01-11 10:01:15\",\"id\":\"9a6683dc-46ce-4cd0-a2fd-7e6ff1ab2c32\"}]}";
@@ -474,7 +531,7 @@
         page = 0;
     }
     NSString *query = [NSString stringWithFormat:@"page=%d&id=%d", page, [Api userId]];
-    NSString *action = [NSString stringWithFormat:@"%@/%@?%@", API_URL_EBUY, method, query];
+    NSString *action = [NSString stringWithFormat:@"%@/%@?%@", API_URL_EBUY "/fx", method, query];
     NSDictionary *response = [Api post:action params:nil];
     if (response) {
         NSMutableArray *data = [response objectForKey:method];
@@ -502,7 +559,7 @@
     
     NSString *params = [jsonDic JSONString];
     
-    NSString *action = [NSString stringWithFormat:@"%@/%@?%@", API_URL_EBUY, method, query];
+    NSString *action = [NSString stringWithFormat:@"%@/%@?%@", API_URL_EBUY "/fx", method, query];
     NSDictionary *response = [Api post:action header:heads body:[params dataUsingEncoding:NSUTF8StringEncoding]];
     NSDictionary *data = [iRet parse:response];
     if (data) {
@@ -518,7 +575,7 @@
     NSMutableArray *list = nil;
     static NSString *method = @"collect";
     NSString *query = [NSString stringWithFormat:@"id=%d&page=%d", [Api userId], page];
-    NSString *action = [NSString stringWithFormat:@"%@/%@?%@", API_URL_EBUY, method, query];
+    NSString *action = [NSString stringWithFormat:@"%@/%@?%@", API_URL_EBUY "/fx", method, query];
     NSDictionary *response = [Api post:action params:nil];
     if (response) {
         NSMutableArray *data = [response objectForKey:method];
@@ -536,7 +593,7 @@
     // 方法
     static NSString *method = @"addcollect";
     NSString *query = [NSString stringWithFormat:@"id=%@&userid=%d", cid,[Api userId]];
-    NSString *action = [NSString stringWithFormat:@"%@/%@?%@", API_URL_EBUY, method, query];
+    NSString *action = [NSString stringWithFormat:@"%@/%@?%@", API_URL_EBUY "/fx", method, query];
     NSDictionary *response = [Api post:action params:nil];
     NSDictionary *data = [iRet parse:response];
     if (data) {
@@ -551,7 +608,7 @@
     // 方法
     static NSString *method = @"delcollect";
     NSString *query = [NSString stringWithFormat:@"id=%@&userid=%d", cid,[Api userId]];
-    NSString *action = [NSString stringWithFormat:@"%@/%@?%@", API_URL_EBUY, method, query];
+    NSString *action = [NSString stringWithFormat:@"%@/%@?%@", API_URL_EBUY "/fx", method, query];
     NSDictionary *response = [Api post:action params:nil];
     NSDictionary *data = [iRet parse:response];
     if (data) {
@@ -567,7 +624,7 @@
     NSMutableArray *list = nil;
     static NSString *method = @"orderlist";
     NSString *query = [NSString stringWithFormat:@"id=%d&type=%d&page=%d", [Api userId],type,page];
-    NSString *action = [NSString stringWithFormat:@"%@/%@?%@", API_URL_EBUY, method, query];
+    NSString *action = [NSString stringWithFormat:@"%@/%@?%@", API_URL_EBUY "/fx", method, query];
     NSDictionary *response = [Api post:action params:nil];
     if (response) {
         NSMutableArray *data = [response objectForKey:method];
@@ -584,15 +641,20 @@
     EBOrderInfo *iRet = nil;
     static NSString *method = @"orderinfo";
     NSString *query = [NSString stringWithFormat:@"orderid=%@", orderId];
-    NSString *action = [NSString stringWithFormat:@"%@/%@?%@", API_URL_EBUY, method, query];
+    NSString *action = [NSString stringWithFormat:@"%@/%@?%@", API_URL_EBUY "/fx", method, query];
     NSDictionary *response = [Api post:action params:nil];
     if (response) {
         NSDictionary *data = [response objectForKey:method];
         if ([data isKindOfClass:NSDictionary.class] && data.count > 0) {
-            iRet = [data toObject:EBOrderInfo.class];
+            iRet = [[EBOrderInfo alloc] init];
+            NSDictionary *head = [data objectForKey:@"orderhead"];
+            EBOrderUser *oHead = [head toObject:EBOrderUser.class];
+            iRet.userInfo = oHead;
+            NSArray *body = [data objectForKey:@"orderbody"];
+            NSMutableArray *oBody = [body toList:EBOrderProduct.class];
+            iRet.products = oBody;
         }
     }
-    
     return iRet;
 }
 
@@ -611,12 +673,14 @@
     NSMutableDictionary *orderhead = [NSMutableDictionary dictionary];
     EBOrderUser *user = info.userInfo;
     //{"userid":"001","type":"01","address":"北京朝阳区","receiver":"孙超","mobile":"12345678901","areacode":"100010","orderid":"OD20120115000003","state":0,"goodscount":10}
+    NSNumber *mobile = [NSNumber numberWithLongLong:user.mobile];
+    NSNumber *areaCode = [NSNumber numberWithInt:user.areaCode];
     [orderhead setObject:[NSString valueOf:user.userId] forKey:@"userid"];
     [orderhead setObject:info.userInfo.type forKey:@"type"];
     [orderhead setObject:user.address forKey:@"address"];
     [orderhead setObject:user.receiver forKey:@"receiver"];
-    [orderhead setObject:user.mobile forKey:@"mobile"];;
-    [orderhead setObject:user.areaCode forKey:@"areacode"];
+    [orderhead setObject:mobile forKey:@"mobile"];;
+    [orderhead setObject:areaCode forKey:@"areacode"];
     [orderhead setObject:user.orderId forKey:@"orderid"];
     [orderhead setObject:[NSString valueOf:user.state] forKey:@"state"];
     [orderhead setObject:[NSString valueOf:user.goodsCount] forKey:@"goodscount"];
@@ -640,7 +704,7 @@
     
     NSString *params = [jsonDic JSONString];
     
-    NSString *action = [NSString stringWithFormat:@"%@/%@?%@", API_URL_EBUY, method, query];
+    NSString *action = [NSString stringWithFormat:@"%@/%@?%@", API_URL_EBUY "/fx", method, query];
     NSDictionary *response = [Api post:action header:heads body:[params dataUsingEncoding:NSUTF8StringEncoding]];
     NSDictionary *data = [iRet parse:response];
     if (data == nil) {
@@ -680,7 +744,7 @@
                             [NSString valueOf:page], @"page",
                             nil];
     */
-    NSString *action = [NSString stringWithFormat:@"%@/%@?%@", API_URL_EBUY, method, query];
+    NSString *action = [NSString stringWithFormat:@"%@/%@?%@", API_URL_EBUY "/fx", method, query];
     NSDictionary *response = [Api post:action params:nil];
     if (response) {
         NSMutableArray *data = [response objectForKey:method];
@@ -762,6 +826,7 @@ static NSString *s_carFilename = @"cache/files/fengzi_buycar.db";
     bRet = [data writeToFile:filename atomically:YES];
     return bRet;
 }
+
 //--------------------< 电子商城 - 接口 - 地址簿 >--------------------
 // 地址簿
 static NSMutableArray *s_addressbook = nil;
