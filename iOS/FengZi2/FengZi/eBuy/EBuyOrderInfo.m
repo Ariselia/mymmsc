@@ -11,6 +11,7 @@
 #import <iOSApi/iOSAsyncImageView.h>
 #import "EBuyOrderUserCell.h"
 #import "EBuyOrderAddressCell.h"
+#import "EBProductList.h"
 
 @interface EBuyOrderInfo ()
 
@@ -25,6 +26,7 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
+        _shopId = 0;
     }
     return self;
 }
@@ -87,6 +89,7 @@
         isEmpty = NO;
         // 表格顶部用户信息
         EBOrderUser *user = _orderInfo.userInfo;
+        _shopId = user.shopId;
         NSArray *list = _orderInfo.products;
         EBuyOrderUserCell *cell1 = [(EBuyOrderUserCell *)[[[NSBundle mainBundle] loadNibNamed:@"EBuyOrderUserCell" owner:self options:nil] objectAtIndex:0] retain];
         
@@ -102,31 +105,40 @@
         } else if(user.state == 3) {
             state = @"等待用户确认";
         }
-        cell1.orderId.text = state;
+        cell1.orderId.text = user.orderId;
         cell1.orderState.text = state;
+        cell1.orderModel.text = [Api ebuy_pay_type:user.payWay];
         cell1.orderNumber.text = [NSString stringWithFormat:@"%d", user.goodsCount];
         float hj = 0.00f;
         for (EBOrderProduct *obj in list) {
             hj += (obj.price * obj.totalCount);
         }
         cell1.orderPrice.text = [NSString stringWithFormat:@"%.2f", hj];
+        cell1.backgroundColor = [UIColor lightGrayColor];
         [_items addObject:cell1];
         
         // 店名
         UITableViewCell *cell3 = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
-        cell3.frame = CGRectMake(0, 0, 320, 20);
+        cell3.frame = CGRectMake(0, 0, 320, 50);
         cell3.textLabel.text= [iOSApi urlDecode:user.shopName];
         cell3.textLabel.textAlignment = UITextAlignmentCenter;
-        cell3.backgroundColor = [UIColor grayColor];
+        cell3.textLabel.backgroundColor = [UIColor lightGrayColor];
+        cell3.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         [_items addObject:cell3];
         // 商品信息 循环
         for (EBOrderProduct *op in list) {
-            UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
+            UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"cell"];
             cell.frame = CGRectMake(0, 0, 320, 60);
             cell.textLabel.text= [iOSApi urlDecode:op.name];
             cell.textLabel.textAlignment = UITextAlignmentCenter;
             cell.backgroundColor = [UIColor grayColor];
             cell.imageView.frame = CGRectMake(0, 0, 50, 50);
+            NSString *tmp = [iOSApi urlDecode:op.picUrl];
+            NSArray *arr = [tmp split:@"*"];
+            //NSURL *url = [NSURL URLWithString: [arr objectAtIndex:0]];
+            cell.imageView.image = [[UIImage imageNamed:@"unknown.png"] toSize:CGSizeMake(50, 50)];
+            [cell.imageView imageWithURL:[arr objectAtIndex:0]];
+            /*
             iOSAsyncImageView *ai = nil; //[info aimage];
             if (ai == nil)
             {
@@ -139,13 +151,14 @@
                 [ai loadImageFromURL:url];
             }
             [cell.imageView addSubview:ai];
-            
-            NSString *tmpTitle = [NSString stringWithFormat:@"数量:%d\t价格:%.2f", op.totalCount, op.price];
-            //NSString *tmpTitle = [NSString stringWithFormat:@"数量:%@\t价格:%.2f", op.totalCount, op.price];
+            */
+            NSString *tmpTitle = [NSString stringWithFormat:@"数量:%d, 价格:%.2f", op.totalCount, op.price];
             cell.detailTextLabel.text = [iOSApi urlDecode:tmpTitle];
-            cell.detailTextLabel.lineBreakMode = UILineBreakModeTailTruncation;
-            cell.detailTextLabel.numberOfLines = 0;;
-            _tableView.separatorStyle=UITableViewCellSeparatorStyleSingleLine;
+            cell.detailTextLabel.font = [UIFont systemFontOfSize:12.0f];
+            cell.detailTextLabel.width = 270;
+            //cell.detailTextLabel.lineBreakMode = UILineBreakModeTailTruncation;
+            //cell.detailTextLabel.numberOfLines = 0;
+            _tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             
             [_items addObject:cell];
@@ -157,6 +170,7 @@
         cell2.addrCode.text = [[NSNumber numberWithInt:user.areaCode] stringValue];
         cell2.addrName.text = [iOSApi urlDecode:user.receiver];
         cell2.addrPhone.text = [[NSNumber numberWithLongLong:user.mobile] stringValue];
+        cell2.backgroundColor = [UIColor lightGrayColor];
         [_items addObject:cell2];
     }
     [_orderInfo release];
@@ -206,6 +220,7 @@
         UITableViewCell *obj = [_items objectAtIndex:pos];
         cell = obj;
         _tableView.separatorStyle=UITableViewCellSeparatorStyleSingleLine;
+        cell.backgroundColor = obj.backgroundColor;
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
     return cell;
@@ -213,66 +228,16 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     int pos = indexPath.row;
-    if (pos > 0) {
+    if (pos != 1 || _shopId < 1) {
         return;
     }
-    /*
-    // 跳转 地址簿编辑页面
-    EBuyAddress *nextView = [[EBuyAddress alloc] init];
-    //nextView.param = param;
+    // 跳转 商户产品列表 页面
+    EBProductList *nextView = [[EBProductList alloc] init];
+    nextView.way = 0;
+    nextView.typeId = _shopId;
     [self.navigationController pushViewController:nextView animated:YES];
     [nextView release];
-    */
 }
 
-// 确认购买
-- (void)doClear:(id)sender event:(id)event{
-    /*
-    NSSet *touches = [event allTouches];
-	UITouch *touch = [touches anyObject];
-	CGPoint currentTouchPosition = [touch locationInView: _tableView];
-	NSIndexPath *indexPath = [_tableView indexPathForRowAtPoint: currentTouchPosition];
-    */
-    EBOrderInfo *info = [[[EBOrderInfo alloc] init] autorelease];
-    EBAddress *addr = [[Api ebuy_address_list] objectAtIndex:0];
-    EBOrderUser *user = [[[EBOrderUser alloc] init] autorelease];
-    user.userId = [Api userId];
-    user.type = @"01";
-    user.state = 1;
-    user.address = [NSString stringWithFormat:@"%@(%@)", addr.dizhi, addr.youbian];
-    user.mobile = addr.shouji.longLongValue;
-    user.receiver = addr.shouhuoren;
-    user.goodsCount = _items.count;
-    user.areaCode = addr.youbian.intValue;
-    /*
-     //{"userid":"001","type":"01","address":"北京朝阳区","receiver":"孙超","mobile":"12345678901","areacode":"100010","orderid":"OD20120115000003","state":0,"goodscount":10}
-     //{"id":"8ae40e1a-73fb-469a-8123-dcd973bf6264","name":"内衣","totalcount":"1","price":"10.00"}
-     for (EBProductInfo *obj in info.products) {
-     NSMutableDictionary *product = [NSMutableDictionary dictionary];
-     [product setObject:obj.id forKey:@"id"];
-     [product setObject:obj.title forKey:@"name"];
-     [product setObject:@"1" forKey:@"totalcount"];
-     [product setObject:[NSString stringWithFormat:@"%.2f", obj.price] forKey:@"price"];
-     [orderbody addObject:product];
-     }
-     */
-    NSMutableArray *array = [NSMutableArray array];
-    for (EBProductInfo *obj in _items) {
-        EBOrderProduct *product = [[[EBOrderProduct alloc] init] autorelease];
-        product.id = obj.id;
-        product.name = obj.title;
-        product.totalCount = 1;
-        product.price = obj.price;
-        [array addObject:product];
-        user.orderId = obj.orderId;
-    }
-    info.userInfo = user;
-    info.products = array;
-    [iOSApi showAlert:@"订购操作中..."];
-    ApiResult *iRet = [[Api ebuy_order:info] retain];
-    [iOSApi showCompleted:iRet.message];
-    [iOSApi closeAlert];
-    [iRet release];
-}
 
 @end

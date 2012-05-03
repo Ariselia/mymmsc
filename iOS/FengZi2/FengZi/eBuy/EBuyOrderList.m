@@ -23,7 +23,7 @@
     if (self) {
         // Custom initialization
         self.proxy = self;
-        _type = 1;
+        _type = 0;
     }
     return self;
 }
@@ -53,7 +53,7 @@
     [label release];
     
     UIButton *backbtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    backbtn.frame =CGRectMake(0, 0, 60, 32);
+    backbtn.frame = CGRectMake(0, 0, 60, 32);
     
     [backbtn setImage:[UIImage imageNamed:@"back.png"] forState:UIControlStateNormal];
     [backbtn setImage:[UIImage imageNamed:@"back_tap.png"] forState:UIControlStateHighlighted];
@@ -140,6 +140,13 @@
         _page += 1;
     }
     return list;
+}
+
+// 选择
+- (IBAction)segmentAction:(UISegmentedControl *)segment{
+    _page = 1;
+    _type = segment.selectedSegmentIndex;
+    [super reloadData];
 }
 
 @end

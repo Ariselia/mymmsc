@@ -19,5 +19,6 @@
 }
 
 @property (nonatomic, retain) IBOutlet UITableView *tableView;
-
+// 选择
+- (IBAction)segmentAction:(UISegmentedControl *)segment;
 @end

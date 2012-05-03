@@ -78,13 +78,20 @@
 @end
 
 //--------------------< 电子商城 - 对象 - 订单 >--------------------
+// 商品当前所处物流状态
+static const char *kOrderState[] = {"", "发货", "收货", "确认", "退货"};
+
+//支付类型
+static const char *kPayWay[] = {"支付宝客户端支付", "支付宝wap支付", "移动支付", "快钱支付"};
+//paystatus	支付状态：0x01：已支付，0x11：未支付
+
 @implementation EBOrder
 @synthesize id,ordered,orderTime,price,state;
 @end
 
 @implementation EBOrderUser
 
-@synthesize type,state,mobile,shopId,userId,address,orderId,payment,areaCode,receiver,shopName,goodsCount;
+@synthesize type,state,mobile,shopId,userId,address,orderId,payment,areaCode,receiver,shopName,goodsCount, payWay, payStatus;
 
 @end
 
@@ -99,7 +106,9 @@
 @synthesize products,userInfo;
 
 @end
+
 //--------------------< 电子商城 - 对象 - 商铺详情 >--------------------
+
 @implementation EBShop
 
 @synthesize id,des,picUrl,name,itemGroupType;
@@ -141,6 +150,8 @@
 }
 
 @end
+
+
 
 //====================================< 电子商城 - 接口 >====================================
 @implementation Api (Ebuy)
@@ -618,6 +629,33 @@
 }
 
 //--------------------< 电子商城 - 接口 - 订单 >--------------------
+
+// 订单状态
++ (NSString *)ebuy_state_order:(int)state{
+    int c = sizeof(kOrderState) / sizeof(kOrderState[0]);
+    int s = state >> 4;
+    int t = state | 0x0f;
+    NSString *prefix = @"未";
+    if (s == 1) {
+        prefix = @"已";
+    }
+    NSString *sRet = @"状态未知";
+    if (t >= 0 && t < c) {
+        sRet = [NSString stringWithFormat:@"%@%s", prefix, kOrderState[t]];
+    }
+    return sRet;
+}
+
+// 支付类型
++ (NSString *)ebuy_pay_type:(int)type{
+    int c = sizeof(kPayWay) / sizeof(kPayWay[0]);
+    NSString *sRet = @"货到付款";
+    if (type >= 0 && type < c) {
+        sRet = [NSString stringWithFormat:@"%s", kPayWay[type]];
+    }
+    return sRet;
+}
+
 // 订单获取接口
 + (NSMutableArray *)ebuy_order_list:(int)type
                                page:(int)page{

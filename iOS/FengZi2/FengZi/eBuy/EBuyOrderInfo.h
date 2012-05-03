@@ -17,6 +17,7 @@
     BOOL                 isEmpty; // 地址簿是否空
     
     EBOrderInfo         *_orderInfo;
+    int                  _shopId;
 }
 @property (nonatomic, retain) IBOutlet UITableView *tableView;
 @property (nonatomic, copy) NSString *orderId;

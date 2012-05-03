@@ -15,6 +15,31 @@
 #define API_EBUY_SCROLL_IMGCOUNT (3)
 #define API_EBUY_SCROLL_IMGWIDTH (48.0f)
 
+//商品当前所处物流状态
+typedef enum EBOrderState{
+    kOrderStateNotShipped   = 0x01, // 未发货
+    kOrderStateShipped      = 0x11, // 已发货
+    kOrderStateNotReceiving = 0x02, // 未收货
+    kOrderStateReceiving    = 0x12, // 已收货
+    kOrderStateNotConfirm   = 0x03, // 未确认
+    kOrderStateConfirm      = 0x13, // 已确认
+    kOrderStateNotReturn    = 0x04, // 未退货
+    kOrderStateReturn       = 0x14  // 已退货
+}EBOrderState;
+
+// 支付类型
+typedef enum EBPayWay {
+    kPayWayAlipay = 0x0, // 支付宝客户端支付
+    kPayWayAliWap = 0x1, // 支付宝wap支付
+    kPayWayMobile = 0x2, // 移动支付
+    kPayWayQuick  = 0x3  // 快钱支付
+}EBPayWay;
+
+// 支付状态
+typedef enum EBPayStatus {
+    kPayStatusYes = 0x01, // 已支付
+    kPayStatusNo  = 0x11  // 未支付
+} EBPayStatus;
 //====================================< 电子商城 - 对象定义 >====================================
 
 //--------------------< 电子商城 - 对象 - 商品 >--------------------
@@ -120,19 +145,23 @@
     //
 }
 @property (nonatomic, assign) int userId; // 用户ID
+
 @property (nonatomic, copy) NSString *orderId; // 订单编号
 @property (nonatomic, assign) int goodsCount; // 订单商品总数
 @property (nonatomic, assign) int state; // 订单状态
 @property (nonatomic, copy) NSString *payment;
+@property (nonatomic, assign) int payStatus; // 支付状态
+@property (nonatomic, assign) int payWay; // 支付类型
+
 @property (nonatomic, copy) NSString *type; // 01-货到付款
 @property (nonatomic, copy) NSString *receiver; // 收件人
 @property (nonatomic, copy) NSString *address; // 地址
-//@property (nonatomic, copy) NSString *areaCode; // 邮编
-//@property (nonatomic, copy) NSString *mobile; // 电话
 @property (nonatomic, assign) int areaCode; // 邮编
 @property (nonatomic, assign) long long mobile; // 电话
+
 @property (nonatomic, assign) int shopId;
 @property (nonatomic, copy) NSString *shopName;
+
 @end
 
 //--------------------< 电子商城 - 对象 - 订单 - 商品信息 >--------------------
@@ -263,6 +292,11 @@
 + (ApiResult *)ebuy_collect_delete:(NSString *)cid;
 
 //--------------------< 电子商城 - 接口 - 订单 >--------------------
+
+// 订单状态
++ (NSString *)ebuy_state_order:(int)state;
+// 支付类型
++ (NSString *)ebuy_pay_type:(int)type;
 
 // 订单获取接口
 + (NSMutableArray *)ebuy_order_list:(int)type
