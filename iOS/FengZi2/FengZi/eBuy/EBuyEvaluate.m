@@ -101,6 +101,7 @@
     cellView.content.text = [iOSApi urlDecode:obj.content];
     [cellView.imageView imageWithURL:[arr objectAtIndex:0]];
     cellView.selectionStyle = UITableViewCellSelectionStyleNone;
+    cell = cellView;
     return cellView;
 }
 

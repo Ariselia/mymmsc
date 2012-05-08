@@ -74,7 +74,7 @@ static int iTimes = -1;
             [self.navigationController pushViewController:nextView animated:YES];
             [nextView release];
             return;
-        }        
+        }
     }
     ApiCode *code = [[ApiCode codeWithUrl:input] retain];
     if (code != nil) {
@@ -82,7 +82,7 @@ static int iTimes = -1;
         // 数字商城
         if ([code.shopType isSame:@"eshop"] && code.id > 0) {
             UCStoreInfo *nextView = [[UCStoreInfo alloc] init];
-            nextView.productId = code.id;
+            nextView.productId = code.id.intValue;
             [self.navigationController pushViewController:nextView animated:YES];
             [nextView release];
         }

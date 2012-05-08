@@ -100,11 +100,11 @@
 @interface ApiCode : NSObject{
     NSString *_shopType;
     NSString *_cType;
-    int       _id;
+    NSString *_id;
 }
 @property (nonatomic, copy) NSString *shopType;
 @property (nonatomic, copy) NSString *cType;
-@property (nonatomic, assign) int id;
+@property (nonatomic, copy) NSString *id;
 
 + (id)codeWithUrl:(NSString *)url;
 

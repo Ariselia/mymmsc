@@ -117,7 +117,6 @@
         url = [url stringByReplacingOccurrencesOfString:@"\\:" withString:@":"];
         NSRange range = [url rangeOfString: @"BM:URL:"];
         if (range.length > 0) {
-            code = [[[self alloc] init] autorelease];
             NSString *_url = [url substringFromIndex:range.length];
             range = [_url rangeOfString:@";"];
             if (range.length > 0) {
@@ -127,16 +126,16 @@
             }
             NSArray *list = [url split:@","];
             if (list.count > 0) {
-                code.shopType = [[list objectAtIndex:0] trim];
+                
             }
             if (list.count > 1) {
-                code.cType = [[list objectAtIndex:1] trim];
+                
             }
             if (list.count > 2) {
-                NSString *sid = [[list objectAtIndex:2] trim];
-                code.id = [sid intValue];
-            } else {
-                code.id = -1;
+                code = [[[self alloc] init] autorelease];
+                code.shopType = [[list objectAtIndex:0] trim];
+                code.cType = [[list objectAtIndex:1] trim];
+                code.id = [[list objectAtIndex:2] trim];
             }
         }
     }
