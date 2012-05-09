@@ -18,13 +18,13 @@
 }
 @property (nonatomic, copy) NSString *param;
 @property (nonatomic, assign) int way;
-@property (nonatomic, assign) int typeId;
+@property (nonatomic, copy) NSString * typeId;
 
 @property (nonatomic, retain) IBOutlet UITableView *tableView;
 @property (nonatomic, retain) IBOutlet UILabel *subject;
 @property (nonatomic, retain) IBOutlet UILabel *pClass;
 
 // 发送站内信息
-- (IBAction)doWriteMsg:(id)sender;
+//- (IBAction)doWriteMsg:(id)sender;
 
 @end

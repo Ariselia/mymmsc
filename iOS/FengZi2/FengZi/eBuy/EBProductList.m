@@ -123,7 +123,7 @@
         if (_items.count > 0) {
             EBProductInfo *obj = [_items objectAtIndex:0];
             subject.text = [iOSApi urlDecode:obj.title];
-            [self setStarClass:3];
+            //[self setStarClass:3];
             shopName = subject.text;
         }
     }
@@ -187,6 +187,7 @@
     [nextView release];
 }
 
+/*
 - (IBAction)doWriteMsg:(id)sender{
     UIAlertView *alert = [[UIAlertView alloc]
 						  initWithTitle: [NSString stringWithFormat:@"对\"%@\"说点什么吧", shopName]
@@ -204,7 +205,7 @@
 	[alert release];
 }
 
--(void) alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger) buttonIndex{
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger) buttonIndex{
     if (buttonIndex == 1) {
         NSString *msg = [content.text trim];
         if (msg.length < 1) {
@@ -219,5 +220,5 @@
         }
     }
 }
-
+*/
 @end

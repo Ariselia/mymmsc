@@ -19,7 +19,7 @@
 
 @property (nonatomic, retain) IBOutlet UITableView *tableView;
 @property (nonatomic, copy) NSString *subject;
-@property (nonatomic, assign) int frontId;
-@property (nonatomic, assign) int typeId;
+@property (nonatomic, copy) NSString *frontId;
+@property (nonatomic, copy) NSString *typeId;
 
 @end

@@ -234,7 +234,7 @@
     // 跳转 商户产品列表 页面
     EBProductList *nextView = [[EBProductList alloc] init];
     nextView.way = 0;
-    nextView.typeId = _shopId;
+    nextView.typeId = [NSString valueOf:_shopId];
     [self.navigationController pushViewController:nextView animated:YES];
     [nextView release];
 }

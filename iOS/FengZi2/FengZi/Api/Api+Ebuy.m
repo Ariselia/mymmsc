@@ -10,6 +10,21 @@
 
 //====================================< 电子商城 - 对象定义 >====================================
 
+//--------------------< 电子商城 - 对象 - 首页广告条 >--------------------
+@implementation EBAd_OLD
+
+@synthesize mainadpic, mainadurl;
+@synthesize adpic1, adpic2, adpic3, adpic4, adpic5;
+@synthesize adurl1, adurl2, adurl3, adurl4, adurl5;
+
+@end
+
+@implementation EBAd
+
+@synthesize pic, url;
+
+@end
+
 //--------------------< 电子商城 - 对象 - 商品 >--------------------
 @implementation EBProductInfo
 
@@ -156,6 +171,39 @@ static const char *kPayWay[] = {"支付宝客户端支付", "支付宝wap支付"
 //====================================< 电子商城 - 接口 >====================================
 @implementation Api (Ebuy)
 
+//--------------------< 电子商城 - 接口 - 首页广告条 >--------------------
+// 广告列表
++ (NSMutableArray *)ebuy_ad_list{
+    //http://220.231.48.34:38090/ebuy/fx/sysad
+    NSMutableArray *list = nil;
+    // 方法名
+    static NSString *method = @"sysad";
+    NSString *action = [NSString stringWithFormat:@"%@/%@", API_URL_EBUY "/fx", method];
+    NSDictionary *map = [Api post:action params:nil];
+    if (map) {
+        NSDictionary *data = [map objectForKey:method];
+        // 有主广告
+        if (data.count > 1) {
+            list = [[NSMutableArray alloc] initWithCapacity:0];
+            EBAd *ad = [[[EBAd alloc] init] autorelease];
+            ad.pic = [data objectForKey:@"mainadpic"];
+            ad.url = [data objectForKey:@"mainadurl"];
+            [list addObject:ad];
+        }
+        for (int i = 1; i <= (data.count - 2)/2; i++) {
+            EBAd *ad = [[[EBAd alloc] init] autorelease];
+            NSString *kPic = [NSString stringWithFormat:@"adpic%d", i];
+            NSString *kUrl = [NSString stringWithFormat:@"adurl%d", i];
+            ad.pic = [data objectForKey:kPic];
+            ad.url = [data objectForKey:kUrl];
+            [list addObject:ad];
+        }
+    }
+    
+    return [list autorelease];
+}
+
+//--------------------< 电子商城 - 接口 - 首页搜索 >--------------------
 // 商品模糊搜索
 + (NSMutableArray *)ebuy_search:(NSString *)key {
     NSMutableArray *list = nil;
@@ -208,14 +256,14 @@ static const char *kPayWay[] = {"支付宝客户端支付", "支付宝wap支付"
 //--------------------< 电子商城 - 接口 - 分类 >--------------------
 
 // 分类列表接口
-+ (NSMutableArray *)ebuy_type:(int)page typeId:(int)typeId{
++ (NSMutableArray *)ebuy_type:(int)page typeId:(NSString *)typeId{
     NSMutableArray *list = nil;
     // 方法
     static NSString *method = @"type";
     if (page < 1) {
         page = 1;
     }
-    NSString *query = [NSString stringWithFormat:@"page=%d&typeid=%d", page, typeId];
+    NSString *query = [NSString stringWithFormat:@"page=%d&typeid=%@", page, typeId];
     NSString *action = [NSString stringWithFormat:@"%@/%@?%@", API_URL_EBUY "/fx", method, query];
     NSDictionary *map = [Api post:action params:nil];
     if (map) {
@@ -229,14 +277,14 @@ static const char *kPayWay[] = {"支付宝客户端支付", "支付宝wap支付"
 }
 
 // 获取商品列表
-+ (NSMutableArray *)ebuy_goodslist:(int)page way:(int)way typeId:(int)typeId{
++ (NSMutableArray *)ebuy_goodslist:(int)page way:(int)way typeId:(NSString *)typeId{
     NSMutableArray *list = nil;
     // 方法
     static NSString *method = @"goodslist";
     if (page < 1) {
         page = 1;
     }
-    NSString *query = [NSString stringWithFormat:@"page=%d&typeid=%d&way=%d", page, typeId, way];
+    NSString *query = [NSString stringWithFormat:@"page=%d&typeid=%@&way=%d", page, typeId, way];
     NSString *action = [NSString stringWithFormat:@"%@/%@?%@", API_URL_EBUY "/fx", method, query];
     NSDictionary *map = [Api post:action params:nil];
     if (map) {
@@ -606,9 +654,12 @@ static const char *kPayWay[] = {"支付宝客户端支付", "支付宝wap支付"
     NSString *query = [NSString stringWithFormat:@"id=%@&userid=%d", cid,[Api userId]];
     NSString *action = [NSString stringWithFormat:@"%@/%@?%@", API_URL_EBUY "/fx", method, query];
     NSDictionary *response = [Api post:action params:nil];
-    NSDictionary *data = [iRet parse:response];
-    if (data) {
-        //
+    if (response.count > 0) {
+        NSDictionary *data = [response objectForKey:method];
+        [iRet parse:data];
+        if(iRet.status < 0) {
+            iRet.message = @"商品不可以重复收藏";
+        }
     }
     return [iRet autorelease];
 }
@@ -621,9 +672,9 @@ static const char *kPayWay[] = {"支付宝客户端支付", "支付宝wap支付"
     NSString *query = [NSString stringWithFormat:@"id=%@&userid=%d", cid,[Api userId]];
     NSString *action = [NSString stringWithFormat:@"%@/%@?%@", API_URL_EBUY "/fx", method, query];
     NSDictionary *response = [Api post:action params:nil];
-    NSDictionary *data = [iRet parse:response];
-    if (data) {
-        //
+    if (response.count > 0) {
+        NSDictionary *data = [response objectForKey:method];
+        [iRet parse:data];
     }
     return [iRet autorelease];
 }

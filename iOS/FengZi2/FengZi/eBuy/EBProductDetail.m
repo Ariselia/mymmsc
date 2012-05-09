@@ -9,6 +9,7 @@
 #import "EBProductDetail.h"
 #import "EBProductIntro.h"
 #import "EBuyComments.h"
+#import "EBuyCar.h"
 
 @interface EBProductDetail ()
 
@@ -201,7 +202,8 @@
     } else if (pos == 3 + row3) {
         cell.textLabel.text = [NSString stringWithFormat:@"很喜欢(%d) 喜欢(%d) 不喜欢(%d)", _product.Goodcommentcount, _product.Middlecommentcount, _product.Poorcommentcount];
     } else if (pos == 4 + row3) {
-        cell.textLabel.text = [NSString stringWithFormat:@"评论(%d)", _product.Experiencecount];
+        //cell.textLabel.text = [NSString stringWithFormat:@"评论(%d)", _product.Experiencecount];
+        cell.textLabel.text = [NSString stringWithFormat:@"评论(%d)", _product.Goodcommentcount + _product.Middlecommentcount + _product.Poorcommentcount];
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }
     
@@ -237,17 +239,30 @@
 
 // 加入购物车
 - (void)addShop{
-    [Api ebuy_car_add:_product];
+    BOOL bRet = [Api ebuy_car_add:_product];
+    NSString *message = @"";
+    if (bRet) {
+        message = @"商品加入购物车完成";
+    } else {
+        message = @"商品加入购物车失败";
+    }
+    [iOSApi Alert:@"购物车 提示" message:message];
 }
 
 // 立即购买
 - (void)goBuy{
-    //
+    EBuyCar *nextView = [[EBuyCar alloc] init];
+    [self.navigationController pushViewController:nextView animated:YES];
+    [nextView release];
 }
 
 // 添加收藏
 - (void)addShouCang{
-    [Api ebuy_collect_add:_product.id];
+    [iOSApi showAlert:@"添加收藏..."];
+    ApiResult *iRet = [[Api ebuy_collect_add:_product.id] retain];
+    [iOSApi showCompleted:iRet.message];
+    [iRet release];
+    [iOSApi closeAlert];
 }
 
 @end

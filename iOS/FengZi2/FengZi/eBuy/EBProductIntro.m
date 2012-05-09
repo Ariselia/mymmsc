@@ -146,8 +146,8 @@
             case 0: // 商品介绍
                 content = [NSString stringWithString:[iOSApi urlDecode:_product.info]];
                 break;
-            case 1: // 价格参数
-                content = [NSString stringWithFormat:@"%.2f 元", _product.price];
+            case 1: // 规格参数
+                content = [iOSApi urlDecode:_product.parameters];
                 break;
             case 2: // 包装清单
                 content = [NSString stringWithString:[iOSApi urlDecode:_product.listInfo]];

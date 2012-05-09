@@ -391,7 +391,7 @@ static NSString *kma_id = nil;
                    type:(int)type
                 content:(NSString *)content{
     static NSString *path = @"kma/m_uploadTraditionInfo.action";
-    NSString *action = [NSString stringWithFormat:@"%@/%@?userid=%d", API_URL_KMA, path, [NSString valueOf:[Api userId]]];
+    NSString *action = [NSString stringWithFormat:@"%@/%@", API_URL_KMA, path];
     
     NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
                             API_RICHMEDIA_TOKEN, @"token",

@@ -130,6 +130,9 @@
 
 - (NSArray *)reloadData:(iOSTableViewController *)tableView {
     [iOSApi showAlert:@"正在获取商品信息"];
+    if (typeId == nil) {
+        typeId = @"0";
+    }
     NSArray *data = [Api ebuy_type:_page typeId:typeId];
     if (data == nil || data.count < 1) {
         [iOSApi showCompleted:@"服务器正忙，请稍候"];

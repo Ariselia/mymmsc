@@ -90,7 +90,7 @@ static int segIndex = 0;
         EBShop *info = (EBShop *)obj;
         EBProductList *nextView = [[EBProductList alloc] init];
         nextView.way = 0;
-        nextView.typeId = info.id;
+        nextView.typeId = [NSString valueOf:info.id];
         [portal.navigationController pushViewController:nextView animated:YES];
         [nextView release];
     } else if ([obj isKindOfClass:EBProductInfo.class]) {

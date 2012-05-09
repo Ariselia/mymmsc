@@ -41,6 +41,49 @@ typedef enum EBPayStatus {
     kPayStatusNo  = 0x11  // 未支付
 } EBPayStatus;
 //====================================< 电子商城 - 对象定义 >====================================
+/*
+mainadpic	主广告图片地址（数据库表：SYS_MAIN: MAIN_AD_PIC）
+mainadurl	主广告链接地址（数据库表：SYS_MAIN: MAIN_AD_URL）
+adpic1	轮询广告1图片地址 (encode)（数据库表：SYS_MAIN:AD_PIC1）
+adpic2	轮询广告2图片地址 (encode)（数据库表：SYS_MAIN:AD_PIC2）
+adpic3	轮询广告3图片地址 (encode)（数据库表：SYS_MAIN:AD_PIC3）
+adpic4	轮询广告4图片地址 (encode)（数据库表：SYS_MAIN:AD_PIC4）
+adpic5	轮询广告5图片地址 (encode)（数据库表：SYS_MAIN:AD_PIC5）
+adurl1	轮询广告1链接地址 (encode)（数据库表：SYS_MAIN:AD_URL1）
+adurl2	轮询广告2链接地址 (encode)（数据库表：SYS_MAIN:AD_URL2）
+adurl3	轮询广告3链接地址 (encode)（数据库表：SYS_MAIN:AD_URL3）
+adurl4	轮询广告4链接地址 (encode)（数据库表：SYS_MAIN:AD_URL4）
+adurl5	轮询广告5链接地址 (encode)（数据库表：SYS_MAIN:AD_URL5）
+*/
+
+//--------------------< 电子商城 - 对象 - 首页广告条 >--------------------
+
+// 广告接口
+@interface EBAd_OLD : NSObject{
+    //
+}
+@property (nonatomic, copy) NSString *mainadpic;
+@property (nonatomic, copy) NSString *mainadurl;
+@property (nonatomic, copy) NSString *adpic1;
+@property (nonatomic, copy) NSString *adpic2;
+@property (nonatomic, copy) NSString *adpic3;
+@property (nonatomic, copy) NSString *adpic4;
+@property (nonatomic, copy) NSString *adpic5;
+@property (nonatomic, copy) NSString *adurl1;
+@property (nonatomic, copy) NSString *adurl2;
+@property (nonatomic, copy) NSString *adurl3;
+@property (nonatomic, copy) NSString *adurl4;
+@property (nonatomic, copy) NSString *adurl5;
+
+@end
+
+@interface EBAd : NSObject{
+    //
+}
+@property (nonatomic, copy) NSString *pic;
+@property (nonatomic, copy) NSString *url;
+
+@end
 
 //--------------------< 电子商城 - 对象 - 商品 >--------------------
 @interface EBProductInfo : NSObject<NSCoding> {
@@ -75,13 +118,14 @@ typedef enum EBPayStatus {
 //--------------------< 电子商城 - 对象 - 商品分类 >--------------------
 @interface EBProductType : NSObject {
 @private
-    int typeId;         // 商品类型ID
-    int child;          // 是否有子分类
+    NSString *typeId;   // 商品类型ID
     NSString *typeName; // 商品类型名称
+    int       child;    // 是否有子分类
 }
 
-@property (nonatomic, assign) int typeId, child;
+@property (nonatomic, copy) NSString *typeId;
 @property (nonatomic, copy) NSString *typeName;
+@property (nonatomic, assign) int child;
 
 @end
 
@@ -226,6 +270,9 @@ typedef enum EBPayStatus {
 
 @interface Api (Ebuy)
 
+// 广告列表
++ (NSMutableArray *)ebuy_ad_list;
+
 // 商品模糊搜索
 + (NSMutableArray *)ebuy_search:(NSString *)key;
 
@@ -234,10 +281,10 @@ typedef enum EBPayStatus {
 
 //--------------------< 电子商城 - 接口 - 分类 >--------------------
 // 分类列表接口 typeId=0为全部分类
-+ (NSMutableArray *)ebuy_type:(int)page typeId:(int)typeId;
++ (NSMutableArray *)ebuy_type:(int)page typeId:(NSString *)typeId;
 
 // 获取商品列表
-+ (NSMutableArray *)ebuy_goodslist:(int)page way:(int)way typeId:(int)typeId;
++ (NSMutableArray *)ebuy_goodslist:(int)page way:(int)way typeId:(NSString *)typeId;
 
 // 快报资讯推荐接口
 + (NSMutableArray *)ebuy_new:(int)page;

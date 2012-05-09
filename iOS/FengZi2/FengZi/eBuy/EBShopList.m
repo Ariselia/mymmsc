@@ -143,7 +143,7 @@
     EBShop *obj = [_items objectAtIndex:indexPath.row];
     EBProductList *nextView = [[EBProductList alloc] init];
     nextView.way = 0;
-    nextView.typeId = obj.id;
+    nextView.typeId = [NSString valueOf:obj.id];
     [self.navigationController pushViewController:nextView animated:YES];
     [nextView release];
 }
