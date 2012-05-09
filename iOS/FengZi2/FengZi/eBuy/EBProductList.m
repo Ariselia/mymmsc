@@ -121,8 +121,12 @@
         [_items addObjectsFromArray:list];
         [list release];
         if (_items.count > 0) {
-            EBProductInfo *obj = [_items objectAtIndex:0];
-            subject.text = [iOSApi urlDecode:obj.title];
+            NSString *tmpTitle = param;
+            if (tmpTitle == nil) {
+                EBProductInfo *obj = [_items objectAtIndex:0];
+                tmpTitle = [iOSApi urlDecode:obj.shopName];
+            }
+            subject.text = tmpTitle;
             //[self setStarClass:3];
             shopName = subject.text;
         }

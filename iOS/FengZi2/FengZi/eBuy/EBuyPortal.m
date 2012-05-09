@@ -8,6 +8,7 @@
 
 #import "EBuyPortal.h"
 #import "Api+Ebuy.h"
+#import "Api+UserCenter.h"
 #import "EBAdBar.h"
 #import "EBuyPanel.h"
 #import "EBuyRecommend.h"
@@ -130,6 +131,18 @@
         EBuyPanel *buyPanel = [(EBuyPanel*)[[[NSBundle mainBundle] loadNibNamed:@"EBuyPanel" owner:self options:nil] objectAtIndex:0] retain];
         buyPanel.ownerId = self;
         buyPanel.name.text = [Api nikeName];
+        // 加载照片
+        NSString *photoName = [Api uc_photo_name:[Api userId]];
+        if (![Api fileIsExists:photoName]) {
+            // 如果照片不存在, 进行下载
+            [Api uc_photo_down:[Api userId]];
+        }
+        UIImage *im = nil;
+        if ([Api fileIsExists:photoName]) {
+            NSString *filePath = [iOSFile path:[Api filePath:photoName]];
+            im = [UIImage imageWithData:[NSData dataWithContentsOfFile:filePath]];
+        }
+        [buyPanel.photo loadImage:im];
         [_headers addObject:buyPanel];
         topIndex ++;
     }
