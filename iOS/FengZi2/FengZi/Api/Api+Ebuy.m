@@ -21,7 +21,7 @@
 
 @implementation EBAd
 
-@synthesize pic, url;
+@synthesize pic, url, image;
 
 @end
 
@@ -88,7 +88,7 @@
 //--------------------< 电子商城 - 对象 - 站内消息 >--------------------
 @implementation EBSiteMessage
 
-@synthesize id,senderId,sendName,title,content,recevTime;
+@synthesize id,senderId,sendName,recvName,title,content,recevTime,sendTime;
 
 @end
 
@@ -544,9 +544,9 @@ static const char *kPayWay[] = {"支付宝客户端支付", "支付宝wap支付"
     NSString *action = [NSString stringWithFormat:@"%@/%@?%@", API_URL_EBUY "/fx", method, query];
     NSDictionary *response = [Api post:action header:heads body:[params dataUsingEncoding:NSUTF8StringEncoding]];
     response = [response objectForKey:@"newmessage"];
-    NSDictionary *data = [iRet parse:response];
-    if (data) {
-        //
+    if (response) {
+        NSDictionary *data = [response objectForKey:method];
+        [iRet parse:data];
     }
     return [iRet autorelease];
 }
@@ -568,10 +568,6 @@ static const char *kPayWay[] = {"支付宝客户端支付", "支付宝wap支付"
 #endif
     NSString *action = [NSString stringWithFormat:@"%@/%@?%@", API_URL_EBUY "/fx", method, query];
     NSDictionary *response = [Api post:action params:nil];
-    //if (response == nil) {
-        NSString *test = @"{\"messagerecv\":[{\"content\":\"robin%20robin\",\"title\":\"test2\",\"senderid\":1,\"sendname\":\"robin\",\"recevtime\":\"2012-01-11 10:01:15\",\"id\":\"9a6683dc-46ce-4cd0-a2fd-7e6ff1ab2c31\"},{\"content\":\"testtesttest%20test\",\"title\":\"test\",\"senderid\":1,\"sendname\":\"sunny\",\"recevtime\":\"2012-01-11 10:01:15\",\"id\":\"9a6683dc-46ce-4cd0-a2fd-7e6ff1ab2c32\"}]}";
-        response = [test objectFromJSONString];
-    //}
     if (response) {
         NSMutableArray *data = [response objectForKey:method];
         if (data.count > 0) {
@@ -620,9 +616,9 @@ static const char *kPayWay[] = {"支付宝客户端支付", "支付宝wap支付"
     
     NSString *action = [NSString stringWithFormat:@"%@/%@?%@", API_URL_EBUY "/fx", method, query];
     NSDictionary *response = [Api post:action header:heads body:[params dataUsingEncoding:NSUTF8StringEncoding]];
-    NSDictionary *data = [iRet parse:response];
-    if (data) {
-        //
+    if (response) {
+        NSDictionary *data = [response objectForKey:method];
+        [iRet parse:data];
     }
     return [iRet autorelease];
 }
@@ -905,13 +901,14 @@ static NSString *s_carFilename = @"cache/files/fengzi_buycar.db";
     if (list == nil) {
         list = [NSMutableArray arrayWithCapacity:0];
     }
-    [list removeObjectAtIndex:index];
-    if (list.count == 0) {
-        [s_buycar removeObjectForKey:shopName];
-    } else {
-        [s_buycar setObject:list forKey:shopName];
+    if (list.count > index) {
+        [list removeObjectAtIndex:index];
+        if (list.count == 0) {
+            [s_buycar removeObjectForKey:shopName];
+        } else {
+            [s_buycar setObject:list forKey:shopName];
+        }
     }
-    
     iOSLog(@"buycar=[%@]", filename);
     NSData *data = [NSKeyedArchiver archivedDataWithRootObject:s_buycar];
     bRet = [data writeToFile:filename atomically:YES];

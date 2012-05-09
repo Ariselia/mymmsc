@@ -49,7 +49,7 @@
     label.textAlignment = UITextAlignmentCenter;
     label.font = [UIFont fontWithName:@"黑体" size:60];
     label.textColor = [UIColor blackColor];
-    label.text= @"收货地址";
+    label.text= @"确认订单";
     self.navigationItem.titleView = label;
     [label release];
     
@@ -77,6 +77,10 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated{
+    NSDictionary *carList = [Api ebuy_car_list];
+    if (carList.count == 0) {
+        [self goBack];
+    }
     NSArray *data = [Api ebuy_address_list];
     if (data.count < 1) {
         isEmpty = YES;

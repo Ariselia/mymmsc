@@ -117,15 +117,24 @@
     if (cell == nil) {
         cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier] autorelease];
     }
+    [cell.contentView removeSubviews];
     int pos = [indexPath row];
     EBSiteMessage *obj = [_items objectAtIndex:pos];
-    NSString *tmpTitle = [NSString stringWithFormat:@"%@:  %@", obj.sendName, obj.recevTime];
+    NSString *tmpTitle = @"";
+    if (_selected == 0) {
+        // 收件箱
+        tmpTitle = [NSString stringWithFormat:@"%@:  %@", obj.sendName, obj.sendTime];
+    } else {
+        // 发件箱
+        tmpTitle = [NSString stringWithFormat:@"%@:  %@", obj.recvName, obj.sendTime];
+    }
+     
     cell.textLabel.text = [iOSApi urlDecode:tmpTitle];
     cell.textLabel.font = [UIFont systemFontOfSize:15.0];
     cell.detailTextLabel.text = [iOSApi urlDecode:obj.content];
     cell.detailTextLabel.lineBreakMode = 0;
     cell.detailTextLabel.font = [UIFont systemFontOfSize:14.0];
-    if (1) {
+    if (_selected == 0) {
         CGRect frame = CGRectMake(230, 10, 60, 20);
         UIButton *btn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
         [btn setTitle:@"回复" forState:UIControlStateNormal];
@@ -151,10 +160,11 @@
 
 // 选择
 - (IBAction)segmentAction:(UISegmentedControl *)segment{
-    [iOSApi showAlert:@"读取收件箱..."];
+    [iOSApi showAlert:@"读取消息列表..."];
     
     NSArray *list = nil;
     _page = 1;
+    _selected = segment.selectedSegmentIndex;
     if (segment.selectedSegmentIndex == 0) {
         list = [[Api ebuy_message_recv:_page] retain];
     } else {
@@ -179,6 +189,7 @@ static EBSiteMessage *theObj = nil;
             return;
         } else {
             ApiResult *iRet = [[Api ebuy_message_reply:theObj.id content:msg] retain];
+            //ApiResult *iRet = [[Api ebuy_message_new:[NSString valueOf:theObj.senderId] baseId:theObj.id content:msg] retain];
             [iOSApi Alert:@"站内消息 提示" message:iRet.message];
             [iRet release];
         }
@@ -193,7 +204,7 @@ static EBSiteMessage *theObj = nil;
     theObj = [_items objectAtIndex:indexPath.row];
     
     UIAlertView *alert = [[UIAlertView alloc]
-						  initWithTitle: [NSString stringWithFormat:@"对 %@ 说点什么吧", theObj.sendName]
+						  initWithTitle: [NSString stringWithFormat:@"对 %@ 说点什么吧", [iOSApi urlDecode:theObj.sendName]]
 						  message:[NSString stringWithFormat:@"\n\n"]
 						  delegate:self
 						  cancelButtonTitle:@"取消"

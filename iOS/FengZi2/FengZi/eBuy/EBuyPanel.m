@@ -17,7 +17,7 @@
 
 @implementation EBuyPanel
 @synthesize ownerId;
-@synthesize group;
+//@synthesize group;
 @synthesize photo,name,userType,jiFen;
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
@@ -86,16 +86,16 @@
     [nextView release];
 }
 
+/*
 // 选择
 - (IBAction)segmentAction:(UISegmentedControl *)segment{
     NSInteger Index = segment.selectedSegmentIndex;
     EBuyPortal *potal = ownerId;
     [potal doSelect:Index];
 }
-
+*/
 - (void)awakeFromNib{
     [super awakeFromNib];
-    group.selectedSegmentIndex = [EBuyRecommend type];
 }
 
 @end

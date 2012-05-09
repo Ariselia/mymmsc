@@ -14,7 +14,7 @@
 }
 
 @property (nonatomic, assign) id ownerId;
-@property (nonatomic, retain) IBOutlet UISegmentedControl *group;
+//@property (nonatomic, retain) IBOutlet UISegmentedControl *group;
 
 @property (nonatomic, retain) IBOutlet iOSImageView *photo;
 @property (nonatomic, retain) IBOutlet UILabel *name;
@@ -40,6 +40,6 @@
 - (IBAction)doGroup:(id)sender;
 
 // 选择
-- (IBAction)segmentAction:(UISegmentedControl *)segment;
+//- (IBAction)segmentAction:(UISegmentedControl *)segment;
 
 @end

@@ -18,6 +18,7 @@
 @synthesize ownerId;
 @synthesize scrollView=_scrollView;
 @synthesize desc;
+@synthesize group;
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
@@ -112,6 +113,7 @@ static int segIndex = 0;
 
 - (void)awakeFromNib{
     [super awakeFromNib];
+    group.selectedSegmentIndex = [EBuyRecommend type];
     if (_items.count < 1) {
         _items = [[NSMutableArray alloc] initWithCapacity:0];
     }
@@ -162,6 +164,13 @@ static int segIndex = 0;
         [btn addTarget:self action:@selector(gotoInfo) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:btn];
     }
+}
+
+// 选择
+- (IBAction)segmentAction:(UISegmentedControl *)segment{
+    NSInteger Index = segment.selectedSegmentIndex;
+    EBuyPortal *potal = ownerId;
+    [potal doSelect:Index];
 }
 
 #pragma mark - scroll view

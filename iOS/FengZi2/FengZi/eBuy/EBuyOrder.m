@@ -172,7 +172,7 @@
         cell.textLabel.textColor = [UIColor grayColor];
         cell.textLabel.highlightedTextColor = [UIColor blackColor];
         cell.textLabel.font = [UIFont systemFontOfSize:15.0];
-        cell.textLabel.text = [NSString stringWithFormat:@"原始价格:¥%.2f -- 返现:¥%.2f", yj, 0.00f];
+        //cell.textLabel.text = [NSString stringWithFormat:@"原始价格:¥%.2f -- 返现:¥%.2f", yj, 0.00f];
         //cell.detailTextLabel.textAlignment = UITextAlignmentRight;
         cell.detailTextLabel.textColor = [UIColor grayColor];
         cell.detailTextLabel.highlightedTextColor = [UIColor blackColor];
@@ -272,10 +272,20 @@
     info.userInfo = user;
     info.products = array;
     [iOSApi showAlert:@"订购操作中..."];
+    BOOL bBuy = NO;
     ApiResult *iRet = [[Api ebuy_order:info] retain];
     [iOSApi showCompleted:iRet.message];
     [iOSApi closeAlert];
+    if (iRet.status == 0) {
+        bBuy = YES;
+    }
     [iRet release];
+    if (bBuy) {
+        for (EBProductInfo *obj in _items) {
+            [Api ebuy_car_delete:obj];
+        }
+        [self.navigationController popToRootViewControllerAnimated:YES];
+    }
 }
 
 @end

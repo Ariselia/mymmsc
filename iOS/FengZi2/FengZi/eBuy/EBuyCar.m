@@ -11,6 +11,7 @@
 #import "EBuyOrder.h"
 #import "EBuyTypes.h"
 #import "EBuyEditAddress.h"
+#import "EBProductList.h"
 #import <iOSApi/iOSAsyncImageView.h>
 
 @interface EBuyCar ()
@@ -132,7 +133,7 @@
     } else if(indexPath.row == 0){
         height = 30;
     } else if(indexPath.row == iCount + 1){
-        height = 60;
+        height = 50;
     }
 	return height;
 }
@@ -145,12 +146,17 @@
     }
     int pos = [indexPath row];
     cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier] autorelease];
+    [cell.contentView removeSubviews];
     // 购物车空
     if (pos == 0 && isEmpty) {
         // 加载购物车图片
+        UIImage *image = [UIImage imageNamed:@"ebuy_shopping_empty.png"];
+        UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
+        imageView.frame = CGRectMake(80, 0, 160, 160);
+        [cell.contentView addSubview:imageView];
         // 下面配文字
         cell.textLabel.text = @"购物车还是空的，快去选购吧～～";
-        cell.textLabel.font = [UIFont systemFontOfSize:30.0];
+        cell.textLabel.font = [UIFont systemFontOfSize:15.0];
         cell.textLabel.lineBreakMode = UILineBreakModeTailTruncation;
         cell.textLabel.numberOfLines = 0;
         CGRect frame = CGRectMake(100, 300, 120, 30);
@@ -179,6 +185,7 @@
         cell.textLabel.highlightedTextColor = [UIColor blackColor];
         cell.textLabel.font = [UIFont systemFontOfSize:15.0];
         cell.textLabel.text = [iOSApi urlDecode:obj.shopName];
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         return cell;
     }
     if (pos == values.count + 1) {
@@ -192,25 +199,25 @@
         cell.textLabel.textColor = [UIColor grayColor];
         cell.textLabel.highlightedTextColor = [UIColor blackColor];
         cell.textLabel.font = [UIFont systemFontOfSize:15.0];
-        cell.textLabel.text = [NSString stringWithFormat:@"原始价格:¥%.2f -- 返现:¥%.2f", yj, 0.00f];
+        cell.textLabel.text = [NSString stringWithFormat:@"合计:¥%.2f", yj];/*[NSString stringWithFormat:@"原始价格:¥%.2f -- 返现:¥%.2f", yj, 0.00f];
         cell.detailTextLabel.textAlignment = UITextAlignmentRight;
         cell.detailTextLabel.textColor = [UIColor grayColor];
         cell.detailTextLabel.highlightedTextColor = [UIColor blackColor];
         cell.detailTextLabel.font = [UIFont systemFontOfSize:15.0];
         cell.detailTextLabel.text = [NSString stringWithFormat:@"合计:¥%.2f", yj];
-        
-        CGRect frame = CGRectMake(140, 40, 70, 20);
+        */
+        CGRect frame = CGRectMake(140, 30, 70, 20);
         UIButton *btn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
         [btn setTitle:@"去结算" forState:UIControlStateNormal];
         btn.frame = frame;
         [btn addTarget:self action:@selector(doClear:event:) forControlEvents:UIControlEventTouchUpInside];
         [cell.contentView addSubview:btn];
         
-        frame = CGRectMake(220, 40, 70, 20);
+        frame = CGRectMake(220, 30, 70, 20);
         btn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
         [btn setTitle:@"继续购物" forState:UIControlStateNormal];
         btn.frame = frame;
-        [btn addTarget:self action:@selector(doBuy) forControlEvents:UIControlEventTouchUpInside];
+        [btn addTarget:self action:@selector(doBuy:event:) forControlEvents:UIControlEventTouchUpInside];
         [cell.contentView addSubview:btn];
         return cell;
     }
@@ -248,11 +255,45 @@
     return cell;
 }
 
-- (void)doBuy{
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    int pos = indexPath.row;
+    if (pos != 0 || isEmpty) {
+        return;
+    }
+    NSArray *keys = [_items allKeys];
+    NSArray *values = [_items objectForKey:[keys objectAtIndex:indexPath.section]];
+    EBProductInfo *obj = nil;
+    obj = [values objectAtIndex:0];
+    // 跳转 商户产品列表 页面
+    EBProductList *nextView = [[EBProductList alloc] init];
+    nextView.way = 0;
+    nextView.typeId = [NSString valueOf:obj.shopId];
+    [self.navigationController pushViewController:nextView animated:YES];
+    [nextView release];
+}
+
+
+- (void)doBuy:(id)sender event:(id)event{
+    NSSet *touches = [event allTouches];
+	UITouch *touch = [touches anyObject];
+	CGPoint currentTouchPosition = [touch locationInView: _tableView];
+	NSIndexPath *indexPath = [_tableView indexPathForRowAtPoint: currentTouchPosition];
+    NSArray *keys = [_items allKeys];
+    NSArray *values = [_items objectForKey:[keys objectAtIndex:indexPath.section]];
+    EBProductInfo *obj = [values objectAtIndex:indexPath.row - 2];
+    obj = [values objectAtIndex:0];
+    // 跳转 商户产品列表 页面
+    EBProductList *nextView = [[EBProductList alloc] init];
+    nextView.way = 0;
+    nextView.typeId = [NSString valueOf:obj.shopId];
+    [self.navigationController pushViewController:nextView animated:YES];
+    [nextView release];
+    /*
     EBuyTypes *nextView = [[EBuyTypes alloc] init];
     nextView.typeId = 0;
     [self.navigationController pushViewController:nextView animated:YES];
     [nextView release];
+    */
 }
 
 - (void)doClear:(id)sender event:(id)event{

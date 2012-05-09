@@ -18,6 +18,7 @@
     NSMutableArray *_items;
 }
 @property(nonatomic, assign) id ownerId;
+@property (nonatomic, retain) IBOutlet UISegmentedControl *group;
 @property(nonatomic, retain) IBOutlet UIScrollView *scrollView; // 滚动视图
 @property(nonatomic, retain) IBOutlet UILabel *desc; // 推荐图片显示文本
 //@property(nonatomic, assign) int segIndex;

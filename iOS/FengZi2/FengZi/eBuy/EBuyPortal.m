@@ -69,6 +69,7 @@
 }
 
 - (void)goBack{
+    [Api seTabView:nil];
     [self dismissModalViewControllerAnimated:YES];
     [TabBarController hide:NO animated:YES];
 }

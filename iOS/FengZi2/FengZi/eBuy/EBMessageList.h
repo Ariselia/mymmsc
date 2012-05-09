@@ -14,7 +14,7 @@
     NSMutableArray     *_items;
     UIFont             *_font;
     int                 _page;
-    
+    int                 _selected;
     UITextField *content;
 }
 @property (nonatomic, retain) IBOutlet UITableView *tableView;

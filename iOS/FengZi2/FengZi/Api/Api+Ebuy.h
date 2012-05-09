@@ -82,6 +82,7 @@ adurl5	轮询广告5链接地址 (encode)（数据库表：SYS_MAIN:AD_URL5）
 }
 @property (nonatomic, copy) NSString *pic;
 @property (nonatomic, copy) NSString *url;
+@property (nonatomic, retain) UIImage *image;
 
 @end
 
@@ -167,9 +168,11 @@ adurl5	轮询广告5链接地址 (encode)（数据库表：SYS_MAIN:AD_URL5）
 @property (nonatomic, copy) NSString *id; // 信息ID
 @property (nonatomic, assign) int senderId; // 系统id定义为0，其它为商家
 @property (nonatomic, copy) NSString *sendName; // 发件人 (Encode)
+@property (nonatomic, copy) NSString *recvName; // 收件人 (Encode)
 @property (nonatomic, copy) NSString *title; // 站内信的信息标题 (Encode)
 @property (nonatomic, copy) NSString *content; // 站内信信息内容 (Encode)
 @property (nonatomic, copy) NSString *recevTime; // 收信时间
+@property (nonatomic, copy) NSString *sendTime; // 收信时间
 
 @end
 

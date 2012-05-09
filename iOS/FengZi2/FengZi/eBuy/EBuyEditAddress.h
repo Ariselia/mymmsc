@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
+// 确认订单页
 @interface EBuyEditAddress : UIViewController{
     UITextBorderStyle    _borderStyle;
     NSMutableArray      *_items;
