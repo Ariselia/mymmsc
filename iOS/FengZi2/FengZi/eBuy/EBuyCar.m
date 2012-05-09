@@ -163,7 +163,7 @@
         UIButton *btn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
         [btn setTitle:@"去逛逛" forState:UIControlStateNormal];
         btn.frame = frame;
-        [btn addTarget:self action:@selector(doBuy) forControlEvents:UIControlEventTouchUpInside];
+        [btn addTarget:self action:@selector(doBuyList) forControlEvents:UIControlEventTouchUpInside];
         [cell.contentView addSubview:btn];
         
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -191,7 +191,7 @@
     if (pos == values.count + 1) {
         CGFloat yj = 0.00f;
         for (obj in values) {
-            yj += obj.price;
+            yj += obj.price * obj.carCount;
         }
         cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle                                       reuseIdentifier:CellIdentifier] autorelease];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -239,7 +239,7 @@
     [cell.imageView addSubview:ai];
     
     cell.textLabel.text = [iOSApi urlDecode:obj.title];
-    NSString *tmpTitle = [NSString stringWithFormat:@"编号:%d 数量:1 价格:%.2f", obj.shopId, obj.price];
+    NSString *tmpTitle = [NSString stringWithFormat:@"编号:%d 数量:%d 价格:%.2f", obj.shopId, obj.carCount, obj.price];
     cell.detailTextLabel.text = [iOSApi urlDecode:tmpTitle];
     cell.detailTextLabel.lineBreakMode = UILineBreakModeTailTruncation;
     cell.detailTextLabel.numberOfLines = 0;
@@ -272,6 +272,13 @@
     [nextView release];
 }
 
+
+- (void)doBuyList{
+    EBuyTypes *nextView = [[EBuyTypes alloc] init];
+    nextView.typeId = 0;
+    [self.navigationController pushViewController:nextView animated:YES];
+    [nextView release];
+}
 
 - (void)doBuy:(id)sender event:(id)event{
     NSSet *touches = [event allTouches];

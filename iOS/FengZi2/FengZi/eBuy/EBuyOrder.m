@@ -164,7 +164,7 @@
     if (pos == _items.count + 1) {
         CGFloat yj = 0.00f;
         for (obj in _items) {
-            yj += obj.price;
+            yj += obj.price * obj.carCount;
         }
         cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle                                       reuseIdentifier:CellIdentifier] autorelease];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -206,7 +206,7 @@
     [cell.imageView addSubview:ai];
     
     cell.textLabel.text = [iOSApi urlDecode:obj.title];
-    NSString *tmpTitle = [NSString stringWithFormat:@"编号:%d 数量:1 价格:%.2f", obj.shopId, obj.price];
+    NSString *tmpTitle = [NSString stringWithFormat:@"编号:%d 数量:%d 价格:%.2f", obj.shopId, obj.carCount, obj.price];
     cell.detailTextLabel.text = [iOSApi urlDecode:tmpTitle];
     cell.detailTextLabel.lineBreakMode = UILineBreakModeTailTruncation;
     cell.detailTextLabel.numberOfLines = 0;
@@ -245,7 +245,7 @@
     user.address = [NSString stringWithFormat:@"%@(%@)", addr.dizhi, addr.youbian];
     user.mobile = addr.shouji.longLongValue;
     user.receiver = addr.shouhuoren;
-    user.goodsCount = _items.count;
+    user.goodsCount = 0;
     user.areaCode = addr.youbian.intValue;
     /*
     //{"userid":"001","type":"01","address":"北京朝阳区","receiver":"孙超","mobile":"12345678901","areacode":"100010","orderid":"OD20120115000003","state":0,"goodscount":10}
@@ -264,10 +264,11 @@
         EBOrderProduct *product = [[[EBOrderProduct alloc] init] autorelease];
         product.id = obj.id;
         product.name = obj.title;
-        product.totalCount = 1;
+        product.totalCount = obj.carCount;
         product.price = obj.price;
         [array addObject:product];
         user.orderId = obj.orderId;
+        user.goodsCount += obj.carCount;
     }
     info.userInfo = user;
     info.products = array;

@@ -100,6 +100,7 @@ adurl5	轮询广告5链接地址 (encode)（数据库表：SYS_MAIN:AD_URL5）
 @property (nonatomic, assign) float price;
 @property (nonatomic, assign) int shopId;
 @property (nonatomic, copy) NSString *shopName;
+@property (nonatomic, assign) int carCount;
 
 @property (nonatomic, copy) NSString *realizeTime;
 
@@ -112,7 +113,7 @@ adurl5	轮询广告5链接地址 (encode)（数据库表：SYS_MAIN:AD_URL5）
 @property (nonatomic, copy) NSString *info;//商品介绍 (Encode)
 @property (nonatomic, copy) NSString *parameters;//规格参数 (Encode)
 @property (nonatomic, copy) NSString *listInfo;//包装清单 (Encode)
-@property (nonatomic, copy) NSString *service;//售后服务 (Encode)
+@property (nonatomic, copy) NSString *service;//售后服务 (Encode)@
 
 @end
 

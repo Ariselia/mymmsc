@@ -28,7 +28,7 @@
 //--------------------< 电子商城 - 对象 - 商品 >--------------------
 @implementation EBProductInfo
 
-@synthesize id, title, content, picUrl, price, shopId, shopName;
+@synthesize id, title, content, picUrl, price, shopId, shopName,carCount;
 @synthesize realizeTime;
 // 商品详情字段
 @synthesize Goodcommentcount,Experiencecount,Middlecommentcount,Poorcommentcount;
@@ -44,6 +44,7 @@
     [aCoder encodeInt:shopId forKey:@"shopId"];
     [aCoder encodeObject:shopName forKey:@"shopName"];
     [aCoder encodeObject:orderId forKey:@"orderId"];
+    [aCoder encodeInt:carCount forKey:@"carCount"];
 }
 
 - (id)initWithCoder:(NSCoder *)aDecoder//和上面对应  
@@ -57,6 +58,7 @@
         self.shopId = [aDecoder decodeIntForKey:@"shopId"];
         self.shopName = [aDecoder decodeObjectForKey:@"shopName"];
         self.orderId = [aDecoder decodeObjectForKey:@"orderId"];
+        self.carCount = [aDecoder decodeIntForKey:@"carCount"];
     }
     return self;
 }
@@ -872,7 +874,23 @@ static NSString *s_carFilename = @"cache/files/fengzi_buycar.db";
     if (list == nil) {
         list = [NSMutableArray arrayWithCapacity:0];
     }
-    [list addObject:obj];
+    BOOL bFound = NO;
+    int nIndex = -1;
+    for (int i = 0; i < list.count; i++) {
+        EBProductInfo *t = [list objectAtIndex:i];
+        if ([t.id isEqualToString:obj.id]) {
+            bFound = YES;
+            nIndex = i;
+            obj.carCount += t.carCount;
+        }
+    }
+    if (bFound) {
+        [list replaceObjectAtIndex:nIndex withObject:obj];
+    } else {
+        obj.carCount = 1;
+        [list addObject:obj];
+    }
+    
     [s_buycar setObject:list forKey:shopName];
     iOSLog(@"buycar=[%@]", filename);
     NSData *data = [NSKeyedArchiver archivedDataWithRootObject:s_buycar];

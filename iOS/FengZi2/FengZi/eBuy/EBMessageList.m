@@ -188,8 +188,9 @@ static EBSiteMessage *theObj = nil;
             [iOSApi Alert:@"站内消息 提示" message:@"内容不能为空"];
             return;
         } else {
-            ApiResult *iRet = [[Api ebuy_message_reply:theObj.id content:msg] retain];
-            //ApiResult *iRet = [[Api ebuy_message_new:[NSString valueOf:theObj.senderId] baseId:theObj.id content:msg] retain];
+            msg = [iOSApi urlEncode:msg];
+            //ApiResult *iRet = [[Api ebuy_message_reply:theObj.id content:msg] retain];
+            ApiResult *iRet = [[Api ebuy_message_new:[NSString valueOf:theObj.senderId] baseId:theObj.id content:msg] retain];
             [iOSApi Alert:@"站内消息 提示" message:iRet.message];
             [iRet release];
         }

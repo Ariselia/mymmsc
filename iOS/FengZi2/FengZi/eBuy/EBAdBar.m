@@ -65,7 +65,7 @@
     obj = [_items objectAtIndex:++_number];
     if (obj.image == nil) {
         NSString *url = [iOSApi urlDecode:obj.pic];
-        iOSLog(@"%d: %@", _number, url);
+        //iOSLog(@"%d: %@", _number, url);
         [pic imageWithURL:url];
     } else {
         pic.image = obj.image;
