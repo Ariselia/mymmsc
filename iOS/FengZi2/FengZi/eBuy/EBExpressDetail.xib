@@ -120,7 +120,7 @@
 					<object class="IBUITextView" id="1056645638">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{0, 272}, {320, 97}}</string>
+						<string key="NSFrame">{{0, 272}, {320, 145}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<string key="NSReuseIdentifierKey">_NS:525</string>
 						<object class="NSColor" key="IBUIBackgroundColor">
@@ -147,7 +147,7 @@
 						</object>
 					</object>
 				</object>
-				<string key="NSFrame">{{0, 20}, {320, 411}}</string>
+				<string key="NSFrame">{{0, 20}, {320, 460}}</string>
 				<reference key="NSSuperview"/>
 				<reference key="NSNextKeyView" ref="1058274708"/>
 				<object class="NSColor" key="IBUIBackgroundColor">
@@ -158,7 +158,6 @@
 					</object>
 				</object>
 				<object class="IBUISimulatedStatusBarMetrics" key="IBUISimulatedStatusBarMetrics"/>
-				<object class="IBUISimulatedTabBarMetrics" key="IBUISimulatedBottomBarMetrics"/>
 				<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 			</object>
 		</object>

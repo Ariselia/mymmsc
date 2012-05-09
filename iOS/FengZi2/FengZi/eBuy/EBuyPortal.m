@@ -15,6 +15,7 @@
 #import "EBExpressDetail.h"
 #import "EBProductList.h"
 #import "EBProductDetail.h"
+#import "TabBarController.h"
 
 @implementation EBuyPortal
 
@@ -29,6 +30,7 @@
         isOnline = NO;
         _segIndex = -1;
         topIndex = 0;
+        [TabBarController hide:YES animated:YES];
     }
     return self;
 }
@@ -68,6 +70,7 @@
 
 - (void)goBack{
     [self dismissModalViewControllerAnimated:YES];
+    [TabBarController hide:NO animated:YES];
 }
 
 - (void)viewWillAppear:(BOOL)animated {

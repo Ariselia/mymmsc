@@ -21,6 +21,8 @@
 @synthesize proId, proPrice;
 @synthesize tableView = _tableView;
 
+#define kTagTitle (10001)
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -52,6 +54,7 @@
     label.font = [UIFont fontWithName:@"黑体" size:60];
     label.textColor = [UIColor blackColor];
     label.text= @"商品详情";
+    label.tag = kTagTitle;
     self.navigationItem.titleView = label;
     [label release];
     
@@ -83,6 +86,8 @@
     _product = [[Api ebuy_goodsinfo:param] retain];
     if (_product != nil) {
         _items = [[NSMutableArray alloc] initWithCapacity:0];
+        UILabel *lable = (UILabel *)self.navigationItem.titleView;
+        lable.text = [iOSApi urlDecode:_product.shopName];
     }
     [iOSApi closeAlert];
 }
