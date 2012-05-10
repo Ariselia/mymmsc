@@ -874,6 +874,9 @@ static NSString *s_carFilename = @"cache/files/fengzi_buycar.db";
     if (list == nil) {
         list = [NSMutableArray arrayWithCapacity:0];
     }
+    if (obj.carCount < 1) {
+        obj.carCount = 1;
+    }
     BOOL bFound = NO;
     int nIndex = -1;
     for (int i = 0; i < list.count; i++) {

@@ -169,6 +169,7 @@
             [scroll addSubview:iv];
             i ++;
         }
+        scroll.contentSize = CGSizeMake(xWidth * (i + 0) , xHeight);
         [scroll release];
     } else if (pos == 1) {
         cell.textLabel.text = [NSString stringWithFormat:@"商品名称：%@", [iOSApi urlDecode:_product.title]];

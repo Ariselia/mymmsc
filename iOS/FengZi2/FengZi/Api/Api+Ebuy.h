@@ -41,20 +41,6 @@ typedef enum EBPayStatus {
     kPayStatusNo  = 0x11  // 未支付
 } EBPayStatus;
 //====================================< 电子商城 - 对象定义 >====================================
-/*
-mainadpic	主广告图片地址（数据库表：SYS_MAIN: MAIN_AD_PIC）
-mainadurl	主广告链接地址（数据库表：SYS_MAIN: MAIN_AD_URL）
-adpic1	轮询广告1图片地址 (encode)（数据库表：SYS_MAIN:AD_PIC1）
-adpic2	轮询广告2图片地址 (encode)（数据库表：SYS_MAIN:AD_PIC2）
-adpic3	轮询广告3图片地址 (encode)（数据库表：SYS_MAIN:AD_PIC3）
-adpic4	轮询广告4图片地址 (encode)（数据库表：SYS_MAIN:AD_PIC4）
-adpic5	轮询广告5图片地址 (encode)（数据库表：SYS_MAIN:AD_PIC5）
-adurl1	轮询广告1链接地址 (encode)（数据库表：SYS_MAIN:AD_URL1）
-adurl2	轮询广告2链接地址 (encode)（数据库表：SYS_MAIN:AD_URL2）
-adurl3	轮询广告3链接地址 (encode)（数据库表：SYS_MAIN:AD_URL3）
-adurl4	轮询广告4链接地址 (encode)（数据库表：SYS_MAIN:AD_URL4）
-adurl5	轮询广告5链接地址 (encode)（数据库表：SYS_MAIN:AD_URL5）
-*/
 
 //--------------------< 电子商城 - 对象 - 首页广告条 >--------------------
 
@@ -151,7 +137,7 @@ adurl5	轮询广告5链接地址 (encode)（数据库表：SYS_MAIN:AD_URL5）
 }
 @property (nonatomic, copy) NSString *id; // 该评论的id
 @property (nonatomic, copy) NSString *orderId; // 订单id
-@property (nonatomic, assign) int state; // 状态
+@property (nonatomic, assign) BOOL state; // 状态
 @property (nonatomic, copy) NSString *userName; //用户昵称 (encode)
 @property (nonatomic, copy) NSString *content; // 评论的内容 (encode)
 @property (nonatomic, assign) int grade;

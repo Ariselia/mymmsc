@@ -8,6 +8,7 @@
 
 #import <iOSApi/iOSTableViewController.h>
 
+// 心情评价
 @interface EBuyEvaluate : iOSTableViewController<iOSTableDataDelegate>{
     UITextBorderStyle   _borderStyle;
     NSMutableArray     *_items;
