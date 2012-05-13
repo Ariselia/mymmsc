@@ -47,7 +47,7 @@ static int iTimes = -1;
 #define kCODE_NONE (0)
 #define kCODE_KMA  (9)
 
--(void) chooseShowController:(NSString*)input{
+- (void)chooseShowController:(NSString*)input{
     iOSLog(@"decode input = %@", input);
     if (input == nil) {
         input = @"";
