@@ -21,7 +21,7 @@
 
 @implementation EBAd
 
-@synthesize pic, url, image;
+@synthesize pic = _pic, url = _url, image = _image;
 
 @end
 

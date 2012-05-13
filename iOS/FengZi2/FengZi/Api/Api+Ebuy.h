@@ -64,7 +64,9 @@ typedef enum EBPayStatus {
 @end
 
 @interface EBAd : NSObject{
-    //
+    NSString *_pic;
+    NSString *_url;
+    UIImage  *_image;
 }
 @property (nonatomic, copy) NSString *pic;
 @property (nonatomic, copy) NSString *url;

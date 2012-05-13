@@ -25,6 +25,8 @@
 - (IBAction)gotoStoreTable:(id)sender;
 // 转向电子商城
 - (IBAction)gotoEBuy:(id)sender;
+// 转向电子蜂夹
+- (IBAction)gotoEFile:(id)sender;
 
 @end
 

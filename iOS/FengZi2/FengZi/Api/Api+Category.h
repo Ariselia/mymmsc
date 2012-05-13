@@ -12,7 +12,7 @@
 @interface ITTBaseModelObject :NSObject <NSCoding> {
     
 }
--(id)initWithDataDic:(NSDictionary*)data;
+- (id)initWithDataDic:(NSDictionary*)data;
 - (NSDictionary*)attributeMapDictionary;
 - (void)setAttributes:(NSDictionary*)dataDic;
 - (NSString *)customDescription;

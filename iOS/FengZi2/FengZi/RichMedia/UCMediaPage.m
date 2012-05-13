@@ -182,7 +182,7 @@
     // 下载完毕保存到本地
     
     filePath = [Api filePath:info.mediaUrl];
-    filePath = [httpDownload.filename copy];
+    filePath = [httpDownload.fileName copy];
     NSLog(@"1: %@", filePath);
     NSFileHandle *fileHandle = [iOSFile create:filePath];
     [fileHandle writeData:buffer];

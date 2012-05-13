@@ -39,13 +39,11 @@
 
 // 富媒体接口地址
 #define API_URL_RICHMEDIA    @"http://m.ifengzi.cn/mb"
-//#define API_URL_RICHMEDIA    @"http://labs.ifengzi.cn/mb"
 // 空码接口地址
 #define API_URL_KMA          @"http://m.ifengzi.cn/mb"
-//#define API_URL_KMA          @"http://devp.ifengzi.cn/mb"
 // 用户中心接口地址
 #define API_URL_USERCENTER   @"http://m.ifengzi.cn"
-//#define API_URL_USERCENTER   @"http://devp.ifengzi.cn"
+// 个人空间秀
 #define API_URL_SHOW         @"http://m.ifengzi.cn/uc/m_zoneComment.action"
 // 顺风车 接口地址
 #define API_URL_RIDE         @"http://m.ifengzi.cn/sfc/fx/facade"
@@ -58,6 +56,8 @@
 // 电子商城
 #define API_URL_EBUY         @"http://220.231.48.34:38090/ebuy"
 
+// 电子蜂夹
+#define API_URL_EFILE        @"http://220.231.48.34:38090/mobile/fx"
 //====================================< 用户信息 >====================================
 
 #define API_CACHE_USERID @"app_userId"
@@ -66,11 +66,11 @@
 #define API_CACHE_ISSAVE @"app_isSave"
 
 @interface UserInfo : NSObject {
-    int       userId;      // 用户Id
-    NSString *userName;    // 姓名
-    NSString *phoneNumber; // 用户手机号码
-    NSString *nikeName;    // 用户昵称
-    NSString *password;    // 用户密码
+    int       userId;          // 用户Id
+    NSString *userName;        // 姓名
+    NSString *phoneNumber;     // 用户手机号码
+    NSString *nikeName;        // 用户昵称
+    NSString *password;        // 用户密码
     NSString *sessionPassword; // 密码明文进行base64加密的结果
 }
 
@@ -91,6 +91,7 @@
 
 @property (nonatomic, assign) int status;
 @property (nonatomic, copy) NSString *message;
+
 // 返回DATA区域 数据
 - (NSDictionary *)parse:(NSDictionary *)map;
 
@@ -117,7 +118,7 @@
 
 //--------------------< 接口 - 视图 - 一个变态的用法 >--------------------
 
-//只为激活当前视图
+// 只为激活当前视图
 + (UIViewController *)tabView;
 + (void)seTabView:(UIViewController *)view;
 

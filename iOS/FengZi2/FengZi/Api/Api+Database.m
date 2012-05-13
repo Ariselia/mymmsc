@@ -9,6 +9,7 @@
 #import "Api+Database.h"
 //====================================< 本地数据库 - 接口 >====================================
 #import "FileUtil.h"
+
 @implementation DataBaseOperate
 static DataBaseOperate *shareData = nil;
 static sqlite3 *database;
@@ -27,7 +28,7 @@ static sqlite3 *database;
             NSLog(@"Error: failed to open database with message '%s'.", sqlite3_errmsg(database));
         }
 	}
-	else 
+	 
 	{
         if (sqlite3_open([path UTF8String], &database ) == SQLITE_OK) {
             //创建数据库
@@ -35,6 +36,11 @@ static sqlite3 *database;
             sqlite3_exec( database, createSql, NULL, NULL, nil);
             
             createSql = "CREATE TABLE `history` (`id` INTEGER PRIMARY KEY  DEFAULT '', `type` INTEGER DEFAULT 0,`is_encode` smallint DEFAULT 0, `date` DATETIME DEFAULT '', `content` VARCHAR DEFAULT '', `image` VARCHAR DEFAULT '')";
+            sqlite3_exec( database, createSql, NULL, NULL, nil);
+            
+            createSql = "create table if not exists `member` (`id` INTEGER PRIMARY KEY  DEFAULT '', `memberclassid` VARCHAR DEFAULT '',`memberclassname` VARCHAR DEFAULT '',`memberlistid` VARCHAR DEFAULT '',`memberlistname` VARCHAR DEFAULT '',`memberlistpicurl` VARCHAR DEFAULT '',`memberinfocodename` VARCHAR DEFAULT '',`memberinfocodepicurl` VARCHAR DEFAULT '',`memberinfocodecontent` VARCHAR DEFAULT '',`memberinfocodenum` VARCHAR DEFAULT '',`memberinfopicurl` VARCHAR DEFAULT '',`memberinfocodeserialnum` VARCHAR DEFAULT '',`memberinfocodeusetime` VARCHAR DEFAULT '',`userid` VARCHAR DEFAULT '')";
+            sqlite3_exec( database, createSql, NULL, NULL, nil);
+            createSql = "create table if not exists `card` (`id` INTEGER PRIMARY KEY  DEFAULT '', `cardclassid` VARCHAR DEFAULT '',`cardclassname` VARCHAR DEFAULT '',`cardlistid` VARCHAR DEFAULT '',`cardlistname` VARCHAR DEFAULT '',`cardlistpicurl` VARCHAR DEFAULT '',`cardlistflag` VARCHAR DEFAULT '',`cardinfocode` VARCHAR DEFAULT '',`cardinfocodepicurl` VARCHAR DEFAULT '',`cardinfocontent` VARCHAR DEFAULT '',`cardinfoname` VARCHAR DEFAULT '',`cardinfodiscount` VARCHAR DEFAULT '',`cardinfopicurl` VARCHAR DEFAULT '',`cardinfoserialnum` VARCHAR DEFAULT '',`cardinfousetime` VARCHAR DEFAULT '',`cardinfousestate` VARCHAR DEFAULT '',`cardlistarealist` VARCHAR DEFAULT '',`cardlisttypelist` VARCHAR DEFAULT '',`cardinfoshoplist` VARCHAR DEFAULT '',`userid` VARCHAR DEFAULT '')";
             sqlite3_exec( database, createSql, NULL, NULL, nil);
             
             _isOpen = YES;
@@ -50,8 +56,6 @@ static sqlite3 *database;
         NSAssert1(0, @"Error: failed to close database with message '%s'.", sqlite3_errmsg(database));
     }
 }
-
-
 
 - (id)init{
 	if ((self = [super init]) ) {
@@ -255,6 +259,232 @@ static sqlite3 *database;
 	sqlite3_finalize(statement);
 	return result;
 }
+
+//--------------------< 本地数据库 - 接口 - eFile >--------------------
+#import "Api+eFile.h"
+#import <iOSApi/iOSDatabase.h>
+
+#define API_DB_NAME @"ifengzi.db"
+
+#define SQL_CREATE_MEMBER  @"create table if not exists `member` (`id` INTEGER PRIMARY KEY  DEFAULT '', `memberclassid` VARCHAR DEFAULT '',`memberclassname` VARCHAR DEFAULT '',`memberlistid` VARCHAR DEFAULT '',`memberlistname` VARCHAR DEFAULT '',`memberlistpicurl` VARCHAR DEFAULT '',`memberinfocodename` VARCHAR DEFAULT '',`memberinfocodepicurl` VARCHAR DEFAULT '',`memberinfocodecontent` VARCHAR DEFAULT '',`memberinfocodenum` VARCHAR DEFAULT '',`memberinfopicurl` VARCHAR DEFAULT '',`memberinfocodeserialnum` VARCHAR DEFAULT '',`memberinfocodeusetime` VARCHAR DEFAULT '',`userid` VARCHAR DEFAULT '')"
+
+#define SQL_CREATE_CARD @"create table if not exists `card` (`id` INTEGER PRIMARY KEY  DEFAULT '', `cardclassid` VARCHAR DEFAULT '',`cardclassname` VARCHAR DEFAULT '',`cardlistid` VARCHAR DEFAULT '',`cardlistname` VARCHAR DEFAULT '',`cardlistpicurl` VARCHAR DEFAULT '',`cardlistflag` VARCHAR DEFAULT '',`cardinfocode` VARCHAR DEFAULT '',`cardinfocodepicurl` VARCHAR DEFAULT '',`cardinfocontent` VARCHAR DEFAULT '',`cardinfoname` VARCHAR DEFAULT '',`cardinfodiscount` VARCHAR DEFAULT '',`cardinfopicurl` VARCHAR DEFAULT '',`cardinfoserialnum` VARCHAR DEFAULT '',`cardinfousetime` VARCHAR DEFAULT '',`cardinfousestate` VARCHAR DEFAULT '',`cardlistarealist` VARCHAR DEFAULT '',`cardlisttypelist` VARCHAR DEFAULT '',`cardinfoshoplist` VARCHAR DEFAULT '',`userid` VARCHAR DEFAULT '')"
+
+- (void)checkTableMember:(iOSDatabase *)db{
+    [db execute2:SQL_CREATE_MEMBER];
+}
+
+- (void)checkTableCard:(iOSDatabase *)db{
+    [db execute2:SQL_CREATE_CARD];
+}
+
+- (BOOL)checkMemberExists:(NSString*)sid
+{
+    iOSDatabase *db = [iOSDatabase open:API_DB_NAME];
+    if (db != nil) {
+        [self checkTableMember:db];
+    }
+    BOOL _isExists= NO;
+    NSString *sql = @"select memberlistid from member where memberlistid = ?";
+    _isExists = [db prepare:sql];
+    if ([db prepare:sql])
+    {   
+        [db bind:1 text:sid];
+        if ([db execute]) {
+            _isExists = YES;
+        } else {
+            // NSLog(@"NO");
+            _isExists=NO;
+        }
+    }
+    [db release];
+    return _isExists;
+}
+
+
+- (BOOL)checkCardExists:(NSString*)sid
+{
+    iOSDatabase *db = [iOSDatabase open:API_DB_NAME];
+    if (db != nil) {
+        [self checkTableCard:db];
+    }
+    BOOL _isExists= NO;
+    NSString *sql = @"select cardlistid from card where cardlistid = ?";
+    if ([db prepare:sql])
+    {   
+        [db bind:1 text:sid];
+        if ([db execute]) {
+            _isExists = YES;
+        } else {
+            _isExists=NO;
+        }
+        
+    }
+    [db release];
+    return _isExists;
+}
+
+- (void)insertMember:(NSString*)a b:(NSString*)b c:(NSString*)c d:(NSString*)d e:(NSString*)e f:(NSString*)f g:(NSString*)g h:(NSString*)h i:(NSString*)i j:(NSString*)j k:(NSString*)k l:(NSString*)l m:(NSString*)m{
+    
+    iOSDatabase *db = [iOSDatabase open:API_DB_NAME];
+    [self checkTableMember:db];
+    NSString *sql = @"INSERT INTO member (memberclassid,memberclassname,memberlistid,memberlistname,memberlistpicurl,memberinfocodename,memberinfocodepicurl,memberinfocodecontent,memberinfocodenum,memberinfopicurl,memberinfocodeserialnum,memberinfocodeusetime,userid) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)";
+    if ([db prepare:sql])
+    {                    
+        [db bind:1 text:a];
+        [db bind:2 text:b];
+        [db bind:3 text:c];
+        [db bind:4 text:d];
+        [db bind:5 text:e];
+        [db bind:6 text:f];
+        [db bind:7 text:g];
+        [db bind:8 text:h];
+        [db bind:9 text:i];
+        [db bind:10 text:j];
+        [db bind:11 text:k];
+        [db bind:12 text:l];
+        [db bind:13 text:m];
+        
+        [db execute];
+    } else {
+		//NSLog(@"Error: failed to insert '%s'.", sqlite3_errmsg(database));
+	}
+    [db release];
+}
+
+- (void)insertCard:(NSString*)a b:(NSString*)b c:(NSString*)c d:(NSString*)d e:(NSString*)e f:(NSString*)f g:(NSString*)g h:(NSString*)h i:(NSString*)i j:(NSString*)j k:(NSString*)k l:(NSString*)l m:(NSString*)m  n:(NSString*)n o:(NSString*)o p:(NSString*)p q:(NSString*)q r:(NSString*)r s:(NSString*)s{
+    iOSDatabase *db = [iOSDatabase open:API_DB_NAME];
+    [self checkTableCard:db];
+    /*
+     1 cardclassid,2 cardclassname,3 cardlistid,
+     4 cardlistname,5 cardlistpicurl,6 cardlistflag,7 cardinfocode,
+     8 cardinfocodepicurl,9 cardinfocontent,10 cardinfoname,
+     11 cardinfodiscount,12 cardinfopicurl,13 cardinfoserialnum,14 cardinfousetime,
+     15 cardinfousestate,16 cardlistarealist,17 cardlisttypelist,18 cardinfoshoplist,19 userid
+     */
+    
+    NSString *sql = @"INSERT INTO card (cardclassid,cardclassname,cardlistid,cardlistname,cardlistpicurl,cardlistflag,cardinfocode,cardinfocodepicurl,cardinfocontent,cardinfoname,cardinfodiscount,cardinfopicurl,cardinfoserialnum,cardinfousetime,cardinfousestate,cardlistarealist,cardlisttypelist,cardinfoshoplist,userid) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+    if ([db prepare:sql])
+    {                    
+        [db bind:1 text:a];
+        [db bind:2 text:b];
+        [db bind:3 text:c];
+        [db bind:4 text:d];
+        [db bind:5 text:e];
+        [db bind:6 text:f];
+        [db bind:7 text:g];
+        [db bind:8 text:h];
+        [db bind:9 text:i];
+        [db bind:10 text:j];
+        [db bind:11 text:k];
+        [db bind:12 text:l];
+        [db bind:13 text:m];
+        [db bind:14 text:n];
+        [db bind:15 text:o];
+        [db bind:16 text:p];
+        [db bind:17 text:q];
+        [db bind:18 text:r];
+        [db bind:19 text:s];
+        [db execute];
+    } else {
+		//NSLog(@"Error: failed to insert '%s'.", sqlite3_errmsg(database));
+	}
+    [db release];
+}
+
+- (EFileMemberInfo *)loadMemberInfo:(NSString *)sid{
+    EFileMemberInfo *obj = nil;
+    iOSDatabase *db = [iOSDatabase open:API_DB_NAME];
+    NSString *sql = @"select memberinfocodename,memberinfocodepicurl,memberinfocodecontent,memberinfocodenum,memberinfopicurl,memberinfocodeserialnum,memberinfocodeusetime,userid FROM member where memberlistid = ?";
+    [self checkTableMember:db];
+    if ([db prepare:sql]) {
+        [db bind:1 text:sid];
+        NSMutableArray *list = [db execute:EFileMemberInfo.class];
+        if (list.count > 0) {
+            obj = [list objectAtIndex:0];
+        }
+	} else {
+		NSLog(@"Error: failed to prepare statement with message '%s'.", sqlite3_errmsg(database));
+	}
+	[db release];
+    db = nil;
+	return obj;
+}
+
+
+- (NSMutableArray*)loadCard:(int)pageIndex{
+    NSMutableArray *list = nil;
+    NSString *sql = @"select cardclassid as sid, cardclassname as name FROM card group by cardclassid";
+    iOSDatabase *db = [iOSDatabase open:API_DB_NAME];
+	[self checkTableCard:db];
+    if ([db prepare:sql]) {
+        list = [db execute:EFileCard.class];
+    }
+	
+	[db release];
+	return list;
+}
+
+- (NSMutableArray *)loadCardList:(int)pageIndex sid:(NSString *)sid{
+    NSMutableArray *list = nil;
+    iOSDatabase *db = [iOSDatabase open:API_DB_NAME];
+    [self checkTableCard:db];
+    NSString *sql = @"select cardlistid as sid,cardlistname as name,cardlistpicurl as picurl,cardlistflag as flag FROM card where cardclassid = ?";
+    //const char *sql = "select memberclassid,memberclassname  FROM member";
+	if ([db prepare:sql]) {
+        [db bind:1 text:sid];
+        list = [db execute:EFileCardList.class];
+	}
+	
+	[db release];
+	return list;
+}
+
+- (EFileCardInfo *)loadCardInfo:(NSString *)sid{
+    EFileCardInfo *obj = nil;
+    iOSDatabase *db = [iOSDatabase open:API_DB_NAME];
+    [self checkTableCard:db];
+    NSString *sql = @"select cardinfocode,cardinfocodepicurl,cardinfocontent,cardinfoname,cardinfodiscount,cardinfopicurl,cardinfoserialnum,cardinfousetime,cardinfousestate,cardlistarealist,cardlisttypelist,cardinfoshoplist,userid FROM card where cardlistid = ?";
+  	if ([db prepare:sql]) {
+        [db bind:1 text:sid];
+        NSMutableArray *list = [db execute:EFileCardInfo.class];
+        if (list.count > 0) {
+            obj = [list objectAtIndex:0];
+        }
+	}
+	
+	[db release];
+	return obj;
+}
+
+- (NSMutableArray*)loadMember:(int)pageIndex{
+    NSMutableArray *list = nil;
+    iOSDatabase *db = [iOSDatabase open:API_DB_NAME];
+    [self checkTableMember:db];
+	NSString *sql = @"select memberclassid as sid,memberclassname as name FROM member group by memberclassid";
+	if ([db prepare:sql]) {
+        list = [db execute:EFileMember.class];
+	}
+	
+	[db release];
+	return list;
+}
+
+
+- (NSMutableArray*)loadMemberList:(int)pageIndex sid:(NSString *)sid{
+    NSMutableArray *list = nil;
+    iOSDatabase *db = [iOSDatabase open:API_DB_NAME];
+    [self checkTableMember:db];
+	NSString *sql = @"select memberlistid as sid,memberlistname as name,memberlistpicurl as picurl FROM member where memberclassid = ?";
+    if ([db prepare:sql]) {
+        [db bind:1 text:sid];
+        list = [db execute:EFileMemberList.class];
+	}
+	
+	[db release];
+	return list;
+}
+
 @end
 
 //====================================< 本地数据库 - 接口 >====================================

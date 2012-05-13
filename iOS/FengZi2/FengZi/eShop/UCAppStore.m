@@ -7,9 +7,11 @@
 //
 
 #import "UCAppStore.h"
-#import "UCStoreTable.h"
-#import "EBuyPortal.h"
 #import "Api+eShop.h"
+#import "UCStoreTable.h" // 数字商城
+#import "EBuyPortal.h" // 电子商城
+#import "EFileMain.h" // 蜂夹
+
 
 @implementation UCAppStore
 
@@ -52,6 +54,22 @@
     UINavigationController *nextView = [[UINavigationController alloc] initWithRootViewController:theView];
     [self presentModalViewController:nextView animated:YES];
     [nextView release];
+}
+
+// 转向电子蜂夹
+- (IBAction)gotoEFile:(id)sender {
+    // 判断是否登录
+    if ([Api isOnLine]) {
+        // 登录
+        EFileMain *theView = [[[EFileMain alloc] init] autorelease];
+        UINavigationController *nextView = [[UINavigationController alloc] initWithRootViewController:theView];
+        [self presentModalViewController:nextView animated:YES];
+        [nextView release];
+    } else {
+        // 未登录
+        [iOSApi toast:@"请先登录"];
+        [proxy closeAppStore];
+    }
 }
 
 #pragma mark - View lifecycle

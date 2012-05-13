@@ -14,10 +14,14 @@
 
 //====================================< 数字商城 - 接口 >====================================
 @interface ProductInfo : NSObject {
-    NSString *name, *info, *writer, *orderProductUrl, *realUrl;
-    int id;
+    NSString *name;
+    NSString *info;
+    NSString *writer;
+    NSString *orderProductUrl;
+    NSString *realUrl;
+    int       id;
     NSString *type;
-    float price;
+    float     price;
     NSString *picurl;
     NSString *productLogo;
     
@@ -55,7 +59,7 @@
 
 //====================================< 数字商城 - 接口 >====================================
 @interface PersonInfo : NSObject {
-    int pid;
+    int       pid;
     NSString *picUrl;
 }
 
@@ -68,9 +72,12 @@
 //{"id":40,"content":"默默","createTime":"2012-04-26 15:28:46","productId":81,"userId":100046,"userName":"啦啦啦啦"}
 // 商品品论
 @interface ESContentInfo : NSObject {
-    int id;
+    int       id;
     NSString *username;
     NSString *content;
+    NSString *createTime;
+    int       productId;
+    int       userId;
 }
 
 @property (nonatomic, assign) int id;
@@ -92,7 +99,6 @@
 + (NSString *)eshop_typename:(NSString *)type;
 + (NSString *)sortName:(int)index;
 + (NSString *)priceName:(int)index;
-
 
 // 商城列表
 + (NSMutableArray *)storeList:(int)type
