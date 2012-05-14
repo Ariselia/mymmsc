@@ -12,6 +12,6 @@
     
 }
 @property (nonatomic, retain) EWall *param;
-@property (nonatomic, retain) UIWebView *webView;
+@property (nonatomic, retain) IBOutlet UIWebView *webView;
 
 @end
