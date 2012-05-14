@@ -14,9 +14,7 @@
 #import "UCAppStore.h"
 #import "CommonUtils.h"
 
-@interface EFileMain : UIViewController
-<UIWebViewDelegate>{
-	
+@interface EFileMain : UIViewController <UIWebViewDelegate>{
 	IBOutlet UIWebView *myWebView;
     IBOutlet UIImageView *myImg;
 }

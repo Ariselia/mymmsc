@@ -45,9 +45,9 @@
     
     NSURLRequest* request = [[NSURLRequest alloc] initWithURL:URL];
     /*
-    NSData *allData=[NSData dataWithContentsOfURL:URL];
-    NSInteger n=[allData length];
-    */
+     NSData *allData=[NSData dataWithContentsOfURL:URL];
+     NSInteger n=[allData length];
+     */
     [myWebView loadRequest:request];
     [request release];
     
@@ -63,10 +63,8 @@
 
 
 - (void)goBack{
-    
-    
     [self dismissModalViewControllerAnimated:YES];
-   
+    
 }
 
 - (void)goLocal{
@@ -97,7 +95,7 @@
     } else {
         self.navigationController.navigationBar.layer.contents = (id)[UIImage imageNamed:@"navigation_bg.png"].CGImage;
     }
- 
+    
     
     UIButton *backbtn = [UIButton buttonWithType:UIButtonTypeCustom];
     backbtn.frame = CGRectMake(0, 0, 60, 32);
@@ -127,8 +125,8 @@
 #pragma mark UIWebViewDelegate
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
-  
-       
+    
+    
     NSString *rurl = [[request URL] absoluteString]; 
     // NSLog(@"转往本地蜂夹"); 
     if([rurl hasSuffix:@"goLocal"])  
@@ -140,12 +138,12 @@
     if([rurl hasSuffix:@"goMap"])  
     { 
         NSDictionary *dict = [rurl uriParams];
-       // NSLog([NSString stringWithFormat:@"%@", rurl]);
+        // NSLog([NSString stringWithFormat:@"%@", rurl]);
         NSString *sh_name = [dict objectForKey:@"name"];
         NSString *sh_add = [dict objectForKey:@"add"];
         [self goMap:sh_name add:sh_add];
         return false;
-       //[self goMap:@"北京"];
+        //[self goMap:@"北京"];
     } 
     
     //调用下载
@@ -154,7 +152,7 @@
     { 
         NSLog(@"dc");
         NSDictionary *dict = [rurl uriParams];
-               NSString *cardinfoserialnum=[dict objectForKey:@"cardinfoserialnum"];
+        NSString *cardinfoserialnum=[dict objectForKey:@"cardinfoserialnum"];
         NSString *cardinfousetime=[dict objectForKey:@"cardinfousetime"];
         NSString *cardinfousestate=[dict objectForKey:@"cardinfousestate"];
         NSString *cardlistarealist=[dict objectForKey:@"cardlistarealist"];
@@ -192,7 +190,7 @@
             BOOL save1;
             BOOL save2;
             BOOL save3;
-           
+            
             save1=[FileUtil writeImage:cardlistImg toFileAtPath:[FileUtil filePathInEncode:cardlistImgUrl]];
             
             save2= [FileUtil writeImage:cardinfocodeImg toFileAtPath:[FileUtil filePathInEncode:cardinfocodeImgUrl]];
@@ -206,7 +204,7 @@
              11 cardinfodiscount,12 cardinfopicurl,13 cardinfoserialnum,14 cardinfousetime,
              15 cardinfousestate,16 cardlistarealist,17 cardlisttypelist,18 cardinfoshoplist,19 userid
              */
-
+            
             
             [[DataBaseOperate shareData] insertCard:cardclassid b:cardclassname c:cardlistid d:cardlistname e:cardlistImgUrl f:cardlistflag g:cardinfocode h:cardinfocodeImgUrl i:cardinfocontent j:cardinfoname k:cardinfodiscount l:cardinfoImgUrl m:cardinfoserialnum n:cardinfousetime o:cardinfousestate p:cardlistarealist q:cardlisttypelist r:cardinfoshoplist s:userid];
             
@@ -217,26 +215,26 @@
     //会员卡下载
     if([rurl hasSuffix:@"goDownMember"])  
     {   
-       // NSLog(@"dm");
+        // NSLog(@"dm");
         NSDictionary *dict = [rurl uriParams];
         /*
-        NSString *memberID = [dict objectForKey:@"id"];
-        
-        
-        NSArray *urlComps = [rurl componentsSeparatedByString:@"&"];
-        NSString *memberID = [urlComps 
-        
-        EFileMemberInfo *memberInfo = nil;
-        
-        memberInfo= [[Api get_member_info:memberID] retain]; 
-        //将list数据写到本地，文字和图片
-        //[iOSApi showAlert:@"正在下载..."];
-        if(memberInfo!=nil)
-        {
-            
-        }
+         NSString *memberID = [dict objectForKey:@"id"];
+         
+         
+         NSArray *urlComps = [rurl componentsSeparatedByString:@"&"];
+         NSString *memberID = [urlComps 
+         
+         EFileMemberInfo *memberInfo = nil;
+         
+         memberInfo= [[Api get_member_info:memberID] retain]; 
+         //将list数据写到本地，文字和图片
+         //[iOSApi showAlert:@"正在下载..."];
+         if(memberInfo!=nil)
+         {
+         
+         }
          */
-      
+        
         
         NSString *memberclassid=[dict objectForKey:@"memberclassid"];
         
@@ -252,65 +250,65 @@
         NSString *memberinfocodeserialnum=[dict objectForKey:@"memberinfocodeserialnum"];
         NSString *memberinfocodeusetime=[dict objectForKey:@"memberinfocodeusetime"];
         NSString *userid=[dict objectForKey:@"userid"];
-      
+        
         
         if([[DataBaseOperate shareData] checkMemberExists:memberlistid])
         {
-             [iOSApi toast:@"该会员卡已经下载过，请勿重复下载"];
+            [iOSApi toast:@"该会员卡已经下载过，请勿重复下载"];
         }
         else
         {
-        UIImage *memberlistImg = [CommonUtils getImageFromUrl:memberlistpicurl];
-        UIImage *memberinfocodeImg = [CommonUtils getImageFromUrl:memberinfocodepicurl];
-         UIImage *memberinfoImg = [CommonUtils getImageFromUrl:memberinfopicurl];
-        
-        
-        NSString  *memberlistImgUrl= [NSString stringWithFormat:@"%@.png",[CommonUtils createUUID]];
-        
-        NSString  *memberinfocodeImgUrl= [NSString stringWithFormat:@"%@.png",[CommonUtils createUUID]];
-        
-        NSString  *memberinfoImgUrl= [NSString stringWithFormat:@"%@.png",[CommonUtils createUUID]];
+            UIImage *memberlistImg = [CommonUtils getImageFromUrl:memberlistpicurl];
+            UIImage *memberinfocodeImg = [CommonUtils getImageFromUrl:memberinfocodepicurl];
+            UIImage *memberinfoImg = [CommonUtils getImageFromUrl:memberinfopicurl];
+            
+            
+            NSString  *memberlistImgUrl= [NSString stringWithFormat:@"%@.png",[CommonUtils createUUID]];
+            
+            NSString  *memberinfocodeImgUrl= [NSString stringWithFormat:@"%@.png",[CommonUtils createUUID]];
+            
+            NSString  *memberinfoImgUrl= [NSString stringWithFormat:@"%@.png",[CommonUtils createUUID]];
             BOOL save1;
             BOOL save2;
             BOOL save3;
-        save1=[FileUtil writeImage:memberlistImg toFileAtPath:[FileUtil filePathInEncode:memberlistImgUrl]];
-        
-         save2=[FileUtil writeImage:memberinfocodeImg toFileAtPath:[FileUtil filePathInEncode:memberinfocodeImgUrl]];
-        
-         save3=[FileUtil writeImage:memberinfoImg toFileAtPath:[FileUtil filePathInEncode:memberinfoImgUrl]];
-      
-        [[DataBaseOperate shareData] insertMember:memberclassid b:memberclassname c:memberlistid d:memberlistname e:memberlistImgUrl f:memberinfocodename g:memberinfocodeImgUrl h:memberinfocodecontent i:memberinfocodenum j:memberinfoImgUrl k:memberinfocodeserialnum l:memberinfocodeusetime m:userid];
-              
-         [iOSApi toast:@"下载完毕"];
+            save1=[FileUtil writeImage:memberlistImg toFileAtPath:[FileUtil filePathInEncode:memberlistImgUrl]];
+            
+            save2=[FileUtil writeImage:memberinfocodeImg toFileAtPath:[FileUtil filePathInEncode:memberinfocodeImgUrl]];
+            
+            save3=[FileUtil writeImage:memberinfoImg toFileAtPath:[FileUtil filePathInEncode:memberinfoImgUrl]];
+            
+            [[DataBaseOperate shareData] insertMember:memberclassid b:memberclassname c:memberlistid d:memberlistname e:memberlistImgUrl f:memberinfocodename g:memberinfocodeImgUrl h:memberinfocodecontent i:memberinfocodenum j:memberinfoImgUrl k:memberinfocodeserialnum l:memberinfocodeusetime m:userid];
+            
+            [iOSApi toast:@"下载完毕"];
         }
         return false;
     } 
     
-
-/*    
-    NSRange go_local=[rurl rangeOfString:@"goLocal"];
-    if(go_local.location!=NSNotFound)
-    {
-        [self goLocal];
-    }
     
-    NSRange go_map=[rurl rangeOfString:@"goMap"];
-    if(go_map.location!=NSNotFound)
-    {
-        
-        [self goMap];
-        
-    }  
-*/
+    /*    
+     NSRange go_local=[rurl rangeOfString:@"goLocal"];
+     if(go_local.location!=NSNotFound)
+     {
+     [self goLocal];
+     }
+     
+     NSRange go_map=[rurl rangeOfString:@"goMap"];
+     if(go_map.location!=NSNotFound)
+     {
+     
+     [self goMap];
+     
+     }  
+     */
     
     return true;  
-
+    
 }
 - (void)webViewDidStartLoad:(UIWebView *)webView
 {
 	/*
-    NSString *title = [webView stringByEvaluatingJavaScriptFromString:@"document.title"]; 
-	NSLog(@"title11=%@",title);
+     NSString *title = [webView stringByEvaluatingJavaScriptFromString:@"document.title"]; 
+     NSLog(@"title11=%@",title);
      */
     
     webView.hidden=YES;
@@ -319,7 +317,7 @@
 - (void)webViewDidFinishLoad:(UIWebView *)webView
 {
     webView.hidden=NO;
-   
+    
 }
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error
 {

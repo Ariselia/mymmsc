@@ -28,7 +28,11 @@
 }
 
 - (void)goBack{
-    [self.navigationController popViewControllerAnimated:YES];
+    if (_webView.canGoBack) {
+        [_webView goBack];
+    } else {
+        [self.navigationController popViewControllerAnimated:YES];
+    }
 }
 
 - (void)viewDidLoad

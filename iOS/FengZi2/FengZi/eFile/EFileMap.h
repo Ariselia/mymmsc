@@ -15,8 +15,7 @@
 #import <MapKit/MKAnnotation.h>
 
 
-@interface DisplayMapX : NSObject
-<MKAnnotation>{
+@interface DisplayMapX : NSObject<MKAnnotation>{
     CLLocationCoordinate2D coordinate;
     NSString *title;
     NSString *subtitle;
