@@ -39,7 +39,11 @@ static NSString *kma_content = @"";
 #import "RMRide.h" // 顺风车
 #import "UCKmaViewController.h"
 #import "DecodeBusinessViewController.h"
-#import "UCStoreInfo.h" // 数字商城 - 商品信息展示
+
+// 商城信息
+#import "UCStoreInfo.h"     // 数字商城 - 商品信息展示
+#import "EBProductDetail.h" // 电子商城 - 商品详情
+#import "EBProductList.h"   // 电子商城 - 商铺信息
 
 // 墙贴引入
 #import "Api+eWall.h" // 墙贴
@@ -82,16 +86,38 @@ static int iTimes = -1;
     }
     ApiCode *code = [[ApiCode codeWithUrl:input] retain];
     if (code != nil) {
+        BOOL bGoto = NO;
         // eshop:数字商城, ebuy:电商; Ctype->shanghu:商户,shangpin:商品;Id->用户id或者商品id
         // 数字商城
-        if ([code.shopType isSame:@"eshop"] && code.id > 0) {
+        if ([code.shopType isSame:@"eshop"]) {
             UCStoreInfo *nextView = [[UCStoreInfo alloc] init];
             nextView.productId = code.id.intValue;
             [self.navigationController pushViewController:nextView animated:YES];
             [nextView release];
+            bGoto = YES;
+        } else if ([code.shopType isSame:@"ebuy"]) {
+            // 电子商城
+            if ([code.cType isSame:@"shanghu"]) {
+                // 商户
+                EBProductList *nextView = [[EBProductList alloc] init];
+                nextView.way = 0;
+                nextView.typeId = code.id;
+                [self.navigationController pushViewController:nextView animated:YES];
+                [nextView release];
+            } else {
+                // 商品
+                EBProductDetail *nextView = [[EBProductDetail alloc] init];
+                nextView.param = code.id;
+                [self.navigationController pushViewController:nextView animated:YES];
+                [nextView release];
+            }
+            bGoto = YES;
         }
         [code release];
-        return;
+        // 如果跳转了, 返回, 否则按照其它业务规则继续处理
+        if (bGoto) {
+            return;
+        }
     }
     BusCategory *category = [BusDecoder classify:input];
     BusCategory *category_url = [BusDecoder classify:url];
@@ -158,7 +184,7 @@ static int iTimes = -1;
             nextView.param = param;
             [self.navigationController pushViewController:nextView animated:YES];
             [nextView release];
-        } else {
+        } else { // 默认传统业务 [WangFeng at 2012/05/14 11:31]
             DecodeBusinessViewController *businessView = [[DecodeBusinessViewController alloc] initWithNibName:@"DecodeBusinessViewController" category:category result:input image:inputImage withType:HistoryTypeFavAndHistory withSaveImage:saveImage];
             [self.navigationController pushViewController:businessView animated:YES];
             RELEASE_SAFELY(businessView);
