@@ -1,12 +1,12 @@
 //
-//  Api+Ebuy.m
+//  Api+eBuy.m
 //  FengZi
 //
 //  Created by wangfeng on 12-1-29.
 //  Copyright (c) 2012年 iTotemStudio. All rights reserved.
 //
 
-#import "Api+Ebuy.h"
+#import "Api+eBuy.h"
 
 //====================================< 电子商城 - 对象定义 >====================================
 

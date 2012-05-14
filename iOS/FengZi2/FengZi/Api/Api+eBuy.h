@@ -1,5 +1,5 @@
 //
-//  Api+Ebuy.h
+//  Api+eBuy.h
 //  FengZi
 //
 //  Created by wangfeng on 12-1-29.

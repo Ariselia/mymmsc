@@ -736,7 +736,7 @@
 		B8D49E3514E4B2400057203A /* Api.mm in Sources */ = {isa = PBXBuildFile; fileRef = B8D49E2A14E4B2400057203A /* Api.mm */; };
 		B8D49E3614E4B2400057203A /* Api+eShop.m in Sources */ = {isa = PBXBuildFile; fileRef = B8D49E2C14E4B2400057203A /* Api+eShop.m */; };
 		B8D49E3714E4B2400057203A /* Api+Database.m in Sources */ = {isa = PBXBuildFile; fileRef = B8D49E2E14E4B2400057203A /* Api+Database.m */; };
-		B8D49E3814E4B2400057203A /* Api+aEbuy.m in Sources */ = {isa = PBXBuildFile; fileRef = B8D49E3014E4B2400057203A /* Api+aEbuy.m */; };
+		B8D49E3814E4B2400057203A /* Api+eBuy.m in Sources */ = {isa = PBXBuildFile; fileRef = B8D49E3014E4B2400057203A /* Api+eBuy.m */; };
 		B8D49E3914E4B2400057203A /* Api+RichMedia.m in Sources */ = {isa = PBXBuildFile; fileRef = B8D49E3214E4B2400057203A /* Api+RichMedia.m */; };
 		B8D49E3A14E4B2400057203A /* Api+UserCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = B8D49E3414E4B2400057203A /* Api+UserCenter.m */; };
 		B8D4A3A614E4B2A20057203A /* UCForget.m in Sources */ = {isa = PBXBuildFile; fileRef = B8D49E3D14E4B29F0057203A /* UCForget.m */; };
@@ -1723,8 +1723,8 @@
 		B8D49E2C14E4B2400057203A /* Api+eShop.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Api+eShop.m"; sourceTree = "<group>"; };
 		B8D49E2D14E4B2400057203A /* Api+Database.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Api+Database.h"; sourceTree = "<group>"; };
 		B8D49E2E14E4B2400057203A /* Api+Database.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Api+Database.m"; sourceTree = "<group>"; };
-		B8D49E2F14E4B2400057203A /* Api+aEbuy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Api+aEbuy.h"; sourceTree = "<group>"; };
-		B8D49E3014E4B2400057203A /* Api+aEbuy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Api+aEbuy.m"; sourceTree = "<group>"; };
+		B8D49E2F14E4B2400057203A /* Api+eBuy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Api+eBuy.h"; sourceTree = "<group>"; };
+		B8D49E3014E4B2400057203A /* Api+eBuy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Api+eBuy.m"; sourceTree = "<group>"; };
 		B8D49E3114E4B2400057203A /* Api+RichMedia.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Api+RichMedia.h"; sourceTree = "<group>"; };
 		B8D49E3214E4B2400057203A /* Api+RichMedia.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Api+RichMedia.m"; sourceTree = "<group>"; };
 		B8D49E3314E4B2400057203A /* Api+UserCenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Api+UserCenter.h"; sourceTree = "<group>"; };
@@ -3281,8 +3281,8 @@
 				0A58BE01155F3F6F004574DB /* Api+eFile.m */,
 				B8D49E2B14E4B2400057203A /* Api+eShop.h */,
 				B8D49E2C14E4B2400057203A /* Api+eShop.m */,
-				B8D49E2F14E4B2400057203A /* Api+aEbuy.h */,
-				B8D49E3014E4B2400057203A /* Api+aEbuy.m */,
+				B8D49E2F14E4B2400057203A /* Api+eBuy.h */,
+				B8D49E3014E4B2400057203A /* Api+eBuy.m */,
 				0AE8B0C61560B03600952708 /* Api+eWall.h */,
 				0AE8B0C71560B03600952708 /* Api+eWall.m */,
 				B8D49E3114E4B2400057203A /* Api+RichMedia.h */,
@@ -4046,7 +4046,7 @@
 				B8D49E3514E4B2400057203A /* Api.mm in Sources */,
 				B8D49E3614E4B2400057203A /* Api+eShop.m in Sources */,
 				B8D49E3714E4B2400057203A /* Api+Database.m in Sources */,
-				B8D49E3814E4B2400057203A /* Api+aEbuy.m in Sources */,
+				B8D49E3814E4B2400057203A /* Api+eBuy.m in Sources */,
 				B8D49E3914E4B2400057203A /* Api+RichMedia.m in Sources */,
 				B8D49E3A14E4B2400057203A /* Api+UserCenter.m in Sources */,
 				B8D4A3A614E4B2A20057203A /* UCForget.m in Sources */,
