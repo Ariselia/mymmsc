@@ -27,6 +27,8 @@
 - (IBAction)gotoEBuy:(id)sender;
 // 转向电子蜂夹
 - (IBAction)gotoEFile:(id)sender;
+// 转向蜂幸运
+- (IBAction)gotoLucky:(id)sender;
 
 @end
 

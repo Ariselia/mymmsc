@@ -9,9 +9,9 @@
 #import "UCAppStore.h"
 #import "Api+eShop.h"
 #import "UCStoreTable.h" // 数字商城
-#import "EBuyPortal.h" // 电子商城
-#import "EFileMain.h" // 蜂夹
-
+#import "EBuyPortal.h"   // 电子商城
+#import "EFileMain.h"    // 蜂夹
+#import "GamePortal.h"   // 蜂幸运
 
 @implementation UCAppStore
 
@@ -62,6 +62,22 @@
     if ([Api isOnLine]) {
         // 登录
         EFileMain *theView = [[[EFileMain alloc] init] autorelease];
+        UINavigationController *nextView = [[UINavigationController alloc] initWithRootViewController:theView];
+        [self presentModalViewController:nextView animated:YES];
+        [nextView release];
+    } else {
+        // 未登录
+        [iOSApi toast:@"请先登录"];
+        [proxy closeAppStore];
+    }
+}
+
+// 转向蜂幸运
+- (IBAction)gotoLucky:(id)sender{
+    // 判断是否登录
+    if ([Api isOnLine]) {
+        // 登录
+        GamePortal *theView = [[[GamePortal alloc] init] autorelease];
         UINavigationController *nextView = [[UINavigationController alloc] initWithRootViewController:theView];
         [self presentModalViewController:nextView animated:YES];
         [nextView release];

@@ -461,6 +461,8 @@
 		0AE8B1451560E58500952708 /* icon_code12.png in Resources */ = {isa = PBXBuildFile; fileRef = 0AE8B1401560E58500952708 /* icon_code12.png */; };
 		0AE8B1461560E58500952708 /* icon_code13.png in Resources */ = {isa = PBXBuildFile; fileRef = 0AE8B1411560E58500952708 /* icon_code13.png */; };
 		0AE8B1481560E8AC00952708 /* fengxingyun_logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 0AE8B1471560E8AC00952708 /* fengxingyun_logo.png */; };
+		0AE8B14C1560EA9500952708 /* GamePortal.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AE8B14A1560EA9500952708 /* GamePortal.m */; };
+		0AE8B14D1560EA9500952708 /* GamePortal.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0AE8B14B1560EA9500952708 /* GamePortal.xib */; };
 		0AF64ED0152671C00017E298 /* UCMyComments.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AF64ECE152671C00017E298 /* UCMyComments.m */; };
 		0AF64ED1152671C00017E298 /* UCMyComments.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0AF64ECF152671C00017E298 /* UCMyComments.xib */; };
 		0AF64ED5152673C10017E298 /* UCMySpace.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AF64ED3152673C10017E298 /* UCMySpace.m */; };
@@ -1412,6 +1414,9 @@
 		0AE8B1401560E58500952708 /* icon_code12.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_code12.png; sourceTree = "<group>"; };
 		0AE8B1411560E58500952708 /* icon_code13.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_code13.png; sourceTree = "<group>"; };
 		0AE8B1471560E8AC00952708 /* fengxingyun_logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fengxingyun_logo.png; sourceTree = "<group>"; };
+		0AE8B1491560EA9500952708 /* GamePortal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GamePortal.h; sourceTree = "<group>"; };
+		0AE8B14A1560EA9500952708 /* GamePortal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GamePortal.m; sourceTree = "<group>"; };
+		0AE8B14B1560EA9500952708 /* GamePortal.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GamePortal.xib; sourceTree = "<group>"; };
 		0AF64ECD152671C00017E298 /* UCMyComments.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UCMyComments.h; sourceTree = "<group>"; };
 		0AF64ECE152671C00017E298 /* UCMyComments.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UCMyComments.m; sourceTree = "<group>"; };
 		0AF64ECF152671C00017E298 /* UCMyComments.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UCMyComments.xib; sourceTree = "<group>"; };
@@ -2450,6 +2455,9 @@
 		0AE8B0CD1560D8D400952708 /* Games */ = {
 			isa = PBXGroup;
 			children = (
+				0AE8B1491560EA9500952708 /* GamePortal.h */,
+				0AE8B14A1560EA9500952708 /* GamePortal.m */,
+				0AE8B14B1560EA9500952708 /* GamePortal.xib */,
 				0AE8B0E61560DD4200952708 /* BreakEgg.h */,
 				0AE8B0E71560DD4200952708 /* BreakEgg.m */,
 				0AE8B0E81560DD4200952708 /* BreakEgg.xib */,
@@ -4148,6 +4156,7 @@
 				0AE8B1451560E58500952708 /* icon_code12.png in Resources */,
 				0AE8B1461560E58500952708 /* icon_code13.png in Resources */,
 				0AE8B1481560E8AC00952708 /* fengxingyun_logo.png in Resources */,
+				0AE8B14D1560EA9500952708 /* GamePortal.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4399,6 +4408,7 @@
 				0AE8B0EC1560DD4300952708 /* BreakEgg.m in Sources */,
 				0AE8B0EE1560DD4300952708 /* EggReward.m in Sources */,
 				0AE8B0F21560DD9C00952708 /* Api+GameReward.m in Sources */,
+				0AE8B14C1560EA9500952708 /* GamePortal.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
