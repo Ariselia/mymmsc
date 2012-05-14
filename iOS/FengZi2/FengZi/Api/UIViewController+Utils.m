@@ -46,6 +46,11 @@ static NSString *kma_content = @"";
 #import "EBProductDetail.h" // 电子商城 - 商品详情
 #import "EBProductList.h"   // 电子商城 - 商铺信息
 
+#import "Roulette.h" // 轮盘
+#import "Hamster.h"  // 打地鼠
+#import "BreakEgg.h" // 砸蛋
+#import "OpenBox.h"  // 开箱子
+
 // 墙贴引入
 #import "Api+eWall.h" // 墙贴
 #import "EWallView.h"
@@ -187,17 +192,36 @@ static int iTimes = -1;
                     if (n == 1) {
                         // 轮盘
                         Roulette *theView = [[[Roulette alloc] init] autorelease];
-                        theView.luckyid = @"test002";
-                        theView.shopguid = @"96";
+                        theView.luckyid = shopId;
+                        theView.shopguid = shopId;
                         UINavigationController *nextView = [[UINavigationController alloc] initWithRootViewController:theView];
                         [self presentModalViewController:nextView animated:YES];
                         [nextView release];
                     } else if (n == 2) {
                         // 打地鼠
+                        Hamster *theView = [[[Hamster alloc] init] autorelease];
+                        theView.luckyid = shopId;
+                        theView.shopguid = shopId;
+                        UINavigationController *nextView = [[UINavigationController alloc] initWithRootViewController:theView];
+                        [self presentModalViewController:nextView animated:YES];
+                        [nextView release];
                     } else if (n == 3) {
                         // 开箱子
+                        OpenBox *theView = [[[OpenBox alloc] init] autorelease];
+                        theView.luckyid = shopId;
+                        theView.shopguid = shopId;
+                        UINavigationController *nextView = [[UINavigationController alloc] initWithRootViewController:theView];
+                        [self presentModalViewController:nextView animated:YES];
+                        [nextView release];
                     } else if (n == 4) {
                         // 砸蛋
+                        BreakEgg *theView = [[[BreakEgg alloc] init] autorelease];
+                        theView.luckyid = shopId;
+                        theView.shopguid = shopId;
+                        
+                        UINavigationController *nextView = [[UINavigationController alloc] initWithRootViewController:theView];
+                        [self presentModalViewController:nextView animated:YES];
+                        [nextView release];
                     }
                 } else {
                     // 格式不对

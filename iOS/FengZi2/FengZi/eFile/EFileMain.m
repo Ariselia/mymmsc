@@ -61,10 +61,12 @@
     // e.g. self.myOutlet = nil;
 }
 
-
 - (void)goBack{
-    [self dismissModalViewControllerAnimated:YES];
-    
+    if (myWebView.canGoBack) {
+        [myWebView goBack];
+    } else {
+        [self dismissModalViewControllerAnimated:YES];
+    }
 }
 
 - (void)goLocal{
