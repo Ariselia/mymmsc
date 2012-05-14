@@ -13,6 +13,7 @@
 @end
 
 @implementation EWallView
+@synthesize param;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {

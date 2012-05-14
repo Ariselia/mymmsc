@@ -7,10 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
-#import ""
+#import "Api+eWall.h"
 @interface EWallView : UIViewController{
     
 }
-@property (nonatomic, retain) eWall *param;
+@property (nonatomic, retain) EWall *param;
 
 @end
