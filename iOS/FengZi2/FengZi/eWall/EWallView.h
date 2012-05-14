@@ -11,7 +11,7 @@
 #import "Api+eWall.h"
 
 @interface EWallView : UIViewController<UIWebViewDelegate> {
-    
+    UIActivityIndicatorView *activity;
 }
 @property (nonatomic, retain) EWall *param;
 @property (nonatomic, retain) IBOutlet UIWebView *webView;

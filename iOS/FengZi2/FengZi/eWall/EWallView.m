@@ -67,6 +67,8 @@
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
+    IOSAPI_RELEASE(activity);
+    _webView = nil;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -87,14 +89,14 @@
     [_webView loadRequest:request];
     [request release];
     
-    UIActivityIndicatorView *activityIndicatorView = [[UIActivityIndicatorView alloc] 
+    activity = [[UIActivityIndicatorView alloc] 
                              initWithFrame : CGRectMake(0.0f, 0.0f, 32.0f, 32.0f)];
-    activityIndicatorView.tag = kTagHintView;
-    [activityIndicatorView setCenter: self.view.center];
+    activity.tag = kTagHintView;
+    [activity setCenter: self.view.center];
     //[activityIndicatorView setActivityIndicatorViewStyle: UIActivityIndicatorViewStyleWhite];
-	[activityIndicatorView setActivityIndicatorViewStyle: UIActivityIndicatorViewStyleGray];
-    [self.view addSubview: activityIndicatorView];
-    [activityIndicatorView release];
+	[activity setActivityIndicatorViewStyle: UIActivityIndicatorViewStyleGray];
+    [self.view addSubview: activity];
+    [activity release];
 }
 
 /*
@@ -109,13 +111,13 @@
 - (void)webViewDidStartLoad:(UIWebView *)webView
 {
 	[UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
-    UIActivityIndicatorView *activity = (UIActivityIndicatorView *)[self.view viewWithTag:kTagActivity];
+    //UIActivityIndicatorView *activity = (UIActivityIndicatorView *)[self.view viewWithTag:kTagActivity];
     [activity startAnimating];
 }
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView
 {
-    UIActivityIndicatorView *activity = (UIActivityIndicatorView *)[self.view viewWithTag:kTagActivity];
+    //UIActivityIndicatorView *activity = (UIActivityIndicatorView *)[self.view viewWithTag:kTagActivity];
     [activity stopAnimating];
 	[UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
 }
