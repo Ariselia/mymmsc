@@ -6,7 +6,8 @@
 //  Copyright (c) 2012年 ifengzi.cn. All rights reserved.
 //
 
-#import "Api.h"
+#import "Api+Category.h"
+#import "BusCategory.h"
 
 @interface EWall : NSObject{
     //
@@ -18,5 +19,7 @@
 @end
 
 @interface Api (eWall)
+
++ (EWall *)getWall:(BusCategory *)category content:(NSString *)content;
 
 @end

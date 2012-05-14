@@ -41,6 +41,10 @@ static NSString *kma_content = @"";
 #import "DecodeBusinessViewController.h"
 #import "UCStoreInfo.h" // 数字商城 - 商品信息展示
 
+// 墙贴引入
+#import "Api+eWall.h" // 墙贴
+#import "EWallView.h"
+
 #define AniInterval 0.3f
 
 static int iTimes = -1;
@@ -148,9 +152,17 @@ static int iTimes = -1;
         [nextView release];
     } else {
         // 墙贴条件判断判断 [WangFeng at 2012/05/14 11:31]
-        DecodeBusinessViewController *businessView = [[DecodeBusinessViewController alloc] initWithNibName:@"DecodeBusinessViewController" category:category result:input image:inputImage withType:HistoryTypeFavAndHistory withSaveImage:saveImage];
-        [self.navigationController pushViewController:businessView animated:YES];
-        RELEASE_SAFELY(businessView);
+        EWall *param = [Api getWall:category content:input];
+        if (param != nil) {
+            EWallView *nextView = [[EWallView alloc] init];
+            nextView.param = param;
+            [self.navigationController pushViewController:nextView animated:YES];
+            [nextView release];
+        } else {
+            DecodeBusinessViewController *businessView = [[DecodeBusinessViewController alloc] initWithNibName:@"DecodeBusinessViewController" category:category result:input image:inputImage withType:HistoryTypeFavAndHistory withSaveImage:saveImage];
+            [self.navigationController pushViewController:businessView animated:YES];
+            RELEASE_SAFELY(businessView);
+        }
     }
 }
 

@@ -7,6 +7,8 @@
 //
 
 #import "Api+eWall.h"
+#import "BusDescKey.h"
+#import "BusDecoder.h"
 
 @implementation EWall
 
@@ -25,4 +27,23 @@
 // 墙贴
 @implementation Api (eWall)
 
++ (EWall *)getWall:(BusCategory *)category content:(NSString *)content{
+    EWall *oRet = nil;
+    if([category.type isEqualToString:CATEGORY_TEXT]){
+        NSLog(@"文本");
+        Text *object = [[BusDecoder decodeText:content channel:category.channel] retain];
+        
+        NSString *NSjson = object.content;
+        
+        NSDictionary *aa = [NSjson objectFromJSONString];
+        oRet = [aa toObject:EWall.class];
+        
+        
+        //墙贴条件
+        if (oRet.factoryid.length < 1 || oRet.doorid.length < 1) {
+            oRet = nil;
+        }
+    }
+    return oRet;
+}
 @end
