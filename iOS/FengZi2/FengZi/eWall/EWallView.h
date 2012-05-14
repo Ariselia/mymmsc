@@ -6,9 +6,11 @@
 //  Copyright (c) 2012年 ifengzi.cn. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+// 墙贴 来自文本应用扩展
+
 #import "Api+eWall.h"
-@interface EWallView : UIViewController{
+
+@interface EWallView : UIViewController<UIWebViewDelegate> {
     
 }
 @property (nonatomic, retain) EWall *param;
