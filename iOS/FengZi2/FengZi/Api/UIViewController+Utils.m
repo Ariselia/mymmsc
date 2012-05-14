@@ -180,10 +180,32 @@ static int iTimes = -1;
                 // 活动链接, 数据格式:参数1,参数2. 
                 // 参数1:为游戏 1-轮盘,2-打地鼠,3-开箱子,4-砸蛋
                 // 参数2:商户id
+                NSArray *params = [temp split:@","];
+                if (params.count > 1) {
+                    int n = [[params objectAtIndex:0] intValue];
+                    NSString *shopId = [params objectAtIndex:1];
+                    if (n == 1) {
+                        // 轮盘
+                        Roulette *theView = [[[Roulette alloc] init] autorelease];
+                        theView.luckyid = @"test002";
+                        theView.shopguid = @"96";
+                        UINavigationController *nextView = [[UINavigationController alloc] initWithRootViewController:theView];
+                        [self presentModalViewController:nextView animated:YES];
+                        [nextView release];
+                    } else if (n == 2) {
+                        // 打地鼠
+                    } else if (n == 3) {
+                        // 开箱子
+                    } else if (n == 4) {
+                        // 砸蛋
+                    }
+                } else {
+                    // 格式不对
+                }
             } else {
                 // 默认, 怎么处理
             }
-            return; // 终止流程
+            return;
         } else {
             // 富媒体业务
             UCRichMedia *nextView = [[UCRichMedia alloc] init];
