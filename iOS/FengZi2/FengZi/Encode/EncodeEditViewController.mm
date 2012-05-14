@@ -2,7 +2,7 @@
 //  EncodeEditViewController.m
 //  FengZi
 //
-
+//
 //  Copyright (c) 2011年 iTotemStudio. All rights reserved.
 //
 
@@ -72,7 +72,8 @@
         historyobject.content = _showInfo;
         historyobject.isEncode = YES;
         historyobject.image= [NSString stringWithFormat:@"%@.png",[CommonUtils createUUID]];
-        [FileUtil writeImage:_encodeImageView.image toFileAtPath:[FileUtil filePathInEncode:historyobject.image]];
+        //[FileUtil writeImage:_encodeImageView.image toFileAtPath:[FileUtil filePathInEncode:historyobject.image]];
+        [FileUtil writeImage:[_encodeImageView.image toSize:CGSizeMake(API_QRCODE_DIMENSION, API_QRCODE_DIMENSION)] toFileAtPath:[FileUtil filePathInEncode:historyobject.image]];
         [[DataBaseOperate shareData] insertHistory:historyobject];
         [historyobject release];
     }
@@ -99,6 +100,7 @@
 -(void)request:(ITTBaseDataRequest *)request didFailLoadWithError:(NSError *)error{
     NSLog(@"%@",error);
 }
+
 #pragma mark - View lifecycle
 
 - (void)viewDidLoad
@@ -178,7 +180,7 @@
     int red = [[arr objectAtIndex:0] intValue];
     int green = [[arr objectAtIndex:1] intValue];
     int blue = [[arr objectAtIndex:2] intValue];
-    int qrcodeImageDimension = 320;
+    int qrcodeImageDimension = API_QRCODE_DIMENSION;
     //the string can be very long
     NSString* aVeryLongURL = _content;
     //first encode the string into a matrix of bools, TRUE for black dot and FALSE for white. Let the encoder decide the error correction level and version
@@ -502,7 +504,7 @@
 -(void)finishShare:(NSNotification*)notification{
     [self tapOnSaveBtn:nil];
     
-    NSString *info= [NSString stringWithFormat:@"eqn=%@&version=%@",[[UIDevice currentDevice] uniqueIdentifier],VERSION_NUMBER];
+    NSString *info= [NSString stringWithFormat:@"eqn=%@&version=%@",[[UIDevice currentDevice] uniqueIdentifier],[iOSApi version]];
     info = [EncryptTools Base64EncryptString:info];
     NSString *type = [notification.userInfo objectForKey:@"type"];
     if ([type isEqualToString:@"sina"]) {
@@ -515,7 +517,7 @@
 }
 
 -(void)finishShareAuth:(NSNotification*)notification{
-    NSString *info= [NSString stringWithFormat:@"eqn=%@&version=%@",[[UIDevice currentDevice] uniqueIdentifier],VERSION_NUMBER];
+    NSString *info= [NSString stringWithFormat:@"eqn=%@&version=%@",[[UIDevice currentDevice] uniqueIdentifier],[iOSApi version]];
     info = [EncryptTools Base64EncryptString:info];
     NSString *type = [notification.userInfo objectForKey:@"type"];
     if ([type isEqualToString:@"sina"]) {

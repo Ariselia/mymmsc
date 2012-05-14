@@ -99,7 +99,7 @@
             
             [buffer appendFormat:@"&eqn=%@",[[UIDevice currentDevice] uniqueIdentifier]];// 型号
             
-            [buffer appendFormat:@"&version=%@",VERSION_NUMBER];// 版本
+            [buffer appendFormat:@"&version=%@",[iOSApi version]];// 版本
             
             [buffer appendFormat:@"&ch=%@",CHANNEL_NUMBER];// 渠道
             

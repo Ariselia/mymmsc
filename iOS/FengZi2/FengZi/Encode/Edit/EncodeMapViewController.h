@@ -2,7 +2,7 @@
 //  EncodeMapViewController.h
 //  FengZi
 //
-
+//
 //  Copyright (c) 2011年 iTotemStudio. All rights reserved.
 //
 
@@ -19,6 +19,7 @@
     NSString *title;
     NSString *subtitle;
 }
+
 @property (nonatomic, assign) CLLocationCoordinate2D coordinate;
 @property (nonatomic, copy) NSString *title;
 @property (nonatomic, copy) NSString *subtitle;
@@ -33,6 +34,7 @@
     MKReverseGeocoder *_geoCoder;
     NSString *_locationName;
     NSArray *_searchResult;
+    BOOL isLocation;
 }
 
 @end

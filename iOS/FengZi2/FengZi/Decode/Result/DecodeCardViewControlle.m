@@ -338,7 +338,7 @@
 }
 
 -(void)finishShare:(NSNotification*)notification{    
-    NSString *info= [NSString stringWithFormat:@"eqn=%@&version=%@",[[UIDevice currentDevice] uniqueIdentifier],VERSION_NUMBER];
+    NSString *info= [NSString stringWithFormat:@"eqn=%@&version=%@",[[UIDevice currentDevice] uniqueIdentifier],[iOSApi version]];
     info = [EncryptTools Base64EncryptString:info];
     NSString *type = [notification.userInfo objectForKey:@"type"];
     if ([type isEqualToString:@"sina"]) {
@@ -351,7 +351,7 @@
 }
 
 -(void)finishShareAuth:(NSNotification*)notification{
-    NSString *info= [NSString stringWithFormat:@"eqn=%@&version=%@",[[UIDevice currentDevice] uniqueIdentifier],VERSION_NUMBER];
+    NSString *info= [NSString stringWithFormat:@"eqn=%@&version=%@",[[UIDevice currentDevice] uniqueIdentifier],[iOSApi version]];
     info = [EncryptTools Base64EncryptString:info];
     NSString *type = [notification.userInfo objectForKey:@"type"];
     if ([type isEqualToString:@"sina"]) {

@@ -9,6 +9,7 @@
 #import "EncodeMapViewController.h"
 #import "EncodeEditViewController.h"
 #import "Api+Category.h"
+
 #define ARC4RANDOM_MAX      0x100000000
 #define ZoomLevel @"12"
 
@@ -27,6 +28,7 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
+        isLocation = NO;   
     }
     return self;
 }
@@ -61,6 +63,9 @@
     [editView release];
 }
 - (IBAction)locationMap:(id)sender {
+    isLocation = YES;
+    [_mapView removeAnnotations:_mapView.annotations];
+    _mapView.showsUserLocation=YES;
     _searchBar.hidden=YES;
     _searchBtn.selected= NO;
     _locationBtn.selected=YES;
@@ -111,43 +116,112 @@
     
     _locationBtn.selected=YES;
     _searchBar.hidden = YES;
-    [self locationMap:nil];
+    _mapView.showsUserLocation=YES;
+    _searchBar.hidden=YES;
+    _searchBtn.selected= NO;
+    _locationBtn.selected=YES;
+    if (_locationManager == nil) {
+        _locationManager = [[CLLocationManager alloc] init];//创建位置管理器
+        _locationManager.delegate=self;//设置代理
+        _locationManager.desiredAccuracy=kCLLocationAccuracyBest;//指定需要的精度级别
+        _locationManager.distanceFilter=1000.0f;//设置距离筛选器
+    }
+    [_locationManager startUpdatingLocation];//启动位置管理器
 }
 
 - (MKAnnotationView *)mapView:(MKMapView *)mV viewForAnnotation:(id <MKAnnotation>)annotation
 {
-    MKPinAnnotationView *pinView = nil;
-    
-    static NSString *defaultPinID = @"com.invasivecode.pin";
-    pinView = (MKPinAnnotationView *)[_mapView dequeueReusableAnnotationViewWithIdentifier:defaultPinID];
-    if ( pinView == nil ) {
-        pinView = [[[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:defaultPinID] autorelease];
+    //判断是不是当前位置
+    if ([annotation isKindOfClass:[MKUserLocation class]])
+    {
+        //[self.navigationItem.rightBarButtonItem setEnabled:YES];//导航栏右边回到当前位置的按钮可用
+        return nil;
     }
-    pinView.pinColor = MKPinAnnotationColorRed;
-    pinView.canShowCallout = YES;
-    pinView.animatesDrop = YES;
-    [_mapView.userLocation setTitle:_locationName];
-    return pinView;
+    
+    
+    
+    static NSString* AnnotationIdentifier = @"AnnotationIdentifier";
+    MKPinAnnotationView* customPinView = (MKPinAnnotationView *)[_mapView dequeueReusableAnnotationViewWithIdentifier:AnnotationIdentifier];
+    
+    if (!customPinView) {
+        customPinView = [[[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:AnnotationIdentifier] autorelease];
+        
+        customPinView.pinColor = MKPinAnnotationColorRed;//设置大头针的颜色
+        customPinView.animatesDrop = YES;
+        customPinView.canShowCallout = YES;
+        customPinView.draggable = YES;//可以拖动
+        
+        //添加tips上的按钮
+        /*
+         UIButton* rightButton = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
+         [rightButton addTarget:self action:@selector(showDetails:) forControlEvents:UIControlEventTouchUpInside];
+         customPinView.rightCalloutAccessoryView = rightButton;
+         */
+    }else{
+        customPinView.annotation = annotation;
+    }
+    return customPinView;
 }
 
 
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation
 {
-    MKCoordinateSpan theSpan;
+    //判断用户当前位置是否可见（只读属性）：
+    //得到用户位置坐标：当userLocationVisible为YES时
+    //得到无线网的坐标//五道口华联坐标--用户坐标,(39.990410,116.332237)
+    CLLocationCoordinate2D userLocation =[[_locationManager location] coordinate]; 
+    float lat = userLocation.latitude;
+    float lng = userLocation.longitude;
+    NSLog(@"%@,(%f,%f)",@"用户坐标",lat,lng);
+    //得到gps的坐标
+    CLLocationCoordinate2D coords = _mapView.userLocation.location.coordinate;
+    float lat1 = coords.latitude;
+    float lng1 = coords.longitude;
+    NSLog(@"%@,(%f,%f)",@"用户坐标",lat1,lng1);
+    
+    
+    
     //地图的范围 越小越精确
-    theSpan.latitudeDelta=0.05;
-    theSpan.longitudeDelta=0.05;
-    MKCoordinateRegion theRegion;
-    theRegion.center=newLocation.coordinate;
+    MKCoordinateSpan theSpan;
+    theSpan.latitudeDelta=0.01;
+    theSpan.longitudeDelta=0.01;
+    MKCoordinateRegion theRegion ;
+    //判断是否开启gps
+    if(lat1==0.000000)
+    {
+        theRegion.center = newLocation.coordinate;
+        
+    }
+    else {
+        theRegion.center=coords;   
+    }
     theRegion.span=theSpan;
-    [_mapView setRegion:theRegion];
+    
+    MKCoordinateRegion adjustedRegion = [_mapView regionThatFits:theRegion]; 
+    //以上代码创建出来一个符合MapView横纵比例的区域
+    [_mapView setRegion:adjustedRegion animated:YES];
+    
+    
+    
     RELEASE_SAFELY(_geoCoder);
-    _geoCoder= [[MKReverseGeocoder alloc] initWithCoordinate:newLocation.coordinate]; 
+    if(lat1==0.000000)
+    {
+        _geoCoder= [[MKReverseGeocoder alloc] initWithCoordinate:newLocation.coordinate];
+    }
+    else {
+        
+        _geoCoder= [[MKReverseGeocoder alloc] initWithCoordinate:coords]; 
+        
+    }
     _geoCoder.delegate = self;
     [_geoCoder start];
+    
     [_locationManager stopUpdatingLocation];
+    
+    
 }
+
 
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
 {
@@ -160,11 +234,20 @@
 
 #pragma mark -
 - (void)reverseGeocoder:(MKReverseGeocoder *)geocoder didFindPlacemark:(MKPlacemark *)placemark{
+    
+    
     _locationName = [NSString stringWithFormat:@"%@ %@",placemark.subLocality,placemark.thoroughfare];
-    DisplayMap *ann = [[[DisplayMap alloc] init] autorelease];
-    ann.title = _locationName;
-    ann.coordinate = _mapView.centerCoordinate;
-    [_mapView addAnnotation:ann];
+    if(!isLocation)
+    {
+        _mapView.userLocation.title=_locationName;
+    }
+    else {
+        DisplayMap *ann = [[[DisplayMap alloc] init] autorelease];
+        ann.title = _locationName;
+        ann.coordinate = _mapView.centerCoordinate;
+        [_mapView addAnnotation:ann];   
+    }
+    
     [_geoCoder cancel];
 }
 - (void)reverseGeocoder:(MKReverseGeocoder *)geocoder didFailWithError:(NSError *)error{

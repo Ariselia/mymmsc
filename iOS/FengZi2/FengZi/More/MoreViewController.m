@@ -233,7 +233,7 @@
     if([request isKindOfClass:[LastVersionDataRequest class]]){
         if ([[request.resultDic objectForKey:@"status"] intValue]==0) {
             NSDictionary *dic = [request.resultDic objectForKey:@"data"];
-            if (dic&&[[dic objectForKey:@"version"] intValue]>[VERSION_NUMBER intValue]) {
+            if (dic && [iOSApi isNeedUpload:[dic objectForKey:@"version"]]) {
                 UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"当前有新版本，是否要更新？" message:nil delegate:self cancelButtonTitle:@"确认" otherButtonTitles: @"取消", nil];
                 [alertView show];
                 RELEASE_SAFELY(alertView);

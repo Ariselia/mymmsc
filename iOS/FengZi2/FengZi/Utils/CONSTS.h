@@ -2,17 +2,18 @@
 //  CONSTS.h
 //  Hupan
 //
-//  Copyright 2010 iTotem Studio. All rights reserved.
+//  Copyright 2011-2012 ifengzi.cn. All rights reserved.
 //
 
 
 #define REQUEST_DOMAIN @"http://cx.itotemstudio.com/api.php" // default env
 
+#define API_QRCODE_DIMENSION (100) // 二维码尺寸
 #define APPSTORE_URL @"http://itunes.apple.com/us/app//id494490342?l=zh&ls=1&mt=8"//appstore 地址
 #define REQUEST_URL @"http://m.ifengzi.cn/mb"
 #define DEFAULT_SEARCH @"http://www.baidu.com/s?wd=%@"
 #define DEFAULT_MAP_SEARCH @"http://maps.google.com/maps?q=%@"
-#define VERSION_NUMBER @"1" // 版本号
+
 #define CHANNEL_NUMBER @"0" // 渠道号
 #define BUSINESS_NUM 14 //业务数目
 #define HELPSHOW @"HELPSHOW"

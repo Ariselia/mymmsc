@@ -201,6 +201,7 @@
         path = [FileUtil filePathInScan:object.image];
     }
     [self decoderWithImage:[UIImage imageWithContentsOfFile:path]];
+    //[self chooseShowController:object.content];
 }
 
 //search Button clicked....  

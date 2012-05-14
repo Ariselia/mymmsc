@@ -40,43 +40,6 @@
     
     // Release any cached data, images, etc that aren't in use.
 }
-/*
--(void) chooseShowController:(NSString*)input{
-    if (input != nil && [input hasPrefix:API_URL_SHOW]) {
-        NSDictionary *dict = [Api parseUrl:input];
-        NSString *userId = [dict objectForKey:@"id"];
-        UCUpdateNikename *nextView = [[UCUpdateNikename alloc] init];
-        nextView.idDest = [userId intValue];
-        [self.navigationController pushViewController:nextView animated:YES];
-        [nextView release];
-        return;
-    }
-    
-    BusCategory *category = [BusDecoder classify:input];
-    if ([category.type isEqualToString:CATEGORY_CARD]) {
-        DecodeCardViewControlle *cardView = [[DecodeCardViewControlle alloc] initWithNibName:@"DecodeCardViewControlle" category:category result:input withImage:_curImage withType:HistoryTypeFavAndHistory withSaveImage:_curImage];
-        [self.navigationController pushViewController:cardView animated:YES];
-        [cardView release];
-    } else if([category.type isEqualToString:CATEGORY_MEDIA]) {
-        // 富媒体业务
-        UCRichMedia *nextView = [[UCRichMedia alloc] init];
-        nextView.urlMedia = input;
-        [self.navigationController pushViewController:nextView animated:YES];
-        [nextView release];  
-    } else if([category.type isEqualToString:CATEGORY_KMA]) {
-        // 空码, 可以调到空码赋值页面, 默认为富媒体
-        UCKmaViewController *nextView = [[UCKmaViewController alloc] init];
-        //nextView.bKma = YES; // 标记为空码赋值富媒体
-        nextView.code = input;
-        [self.navigationController pushViewController:nextView animated:YES];
-        [nextView release];
-    } else{
-        DecodeBusinessViewController *businessView = [[DecodeBusinessViewController alloc] initWithNibName:@"DecodeBusinessViewController" category:category result:input image:_curImage withType:HistoryTypeFavAndHistory withSaveImage:_curImage];
-        [self.navigationController pushViewController:businessView animated:YES];
-        [businessView release];
-    }
-}
-*/
 
 - (void)decoder:(Decoder *)decoder didDecodeImage:(UIImage *)image usingSubset:(UIImage *)subset withResult:(TwoDDecoderResult *)twoDResult {
     _curImage = image;

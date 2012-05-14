@@ -418,7 +418,7 @@ static UserInfo *cache_info = nil;
 
 // 生成二维码图
 + (UIImage*)generateImageWithInput:(NSString*)s{
-    int qrcodeImageDimension = 250;
+    int qrcodeImageDimension = API_QRCODE_DIMENSION;
     //the string can be very long
     NSString* aVeryLongURL = s;
     //first encode the string into a matrix of bools, TRUE for black dot and FALSE for white. Let the encoder decide the error correction level and version
