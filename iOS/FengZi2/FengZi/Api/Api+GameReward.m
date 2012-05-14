@@ -32,10 +32,9 @@
 + (Api_GameReward *)get_reward_info:(NSString*) luckyid shopguid:(NSString*) shopguid
 {
     Api_GameReward *iRet = nil;
-        
     
-   NSString *params = [NSString stringWithFormat:@"{luckydrawrequest:{userid:%@,luckyid:%@,shopguid:%@}}",[NSString valueOf:[Api userId]],luckyid,shopguid];
-
+    NSString *params = [NSString stringWithFormat:@"{luckydrawrequest:{userid:%@,luckyid:%@,shopguid:%@}}",[NSString valueOf:[Api userId]],luckyid,shopguid];
+    
     
     NSString *action = @"http://devp.ifengzi.cn:38090/lucky/fx/luckyfacade/draw";
     
@@ -46,16 +45,12 @@
     NSDictionary *response = [Api post:action header:heads body:[params dataUsingEncoding:NSUTF8StringEncoding]];
     
     NSDictionary *data = [response objectForKey:@"response"];
-      
-        if (data.count > 0) {
-            //表数据
-           // NSLog(@"go here");
-            iRet = [data toObject:Api_GameReward.class];
-            
-        }
-    
+    if (data.count > 0) {
+        //表数据
+        // NSLog(@"go here");
+        iRet = [data toObject:Api_GameReward.class];
+    }
     return iRet;
-    
 }
 
 @end
