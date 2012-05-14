@@ -12,13 +12,13 @@
 
 @interface Api_GameReward : NSObject
 {
-    int status;	//0接口调用成功，1调用出错
-    NSString  *info;	//接口调用出错是的错误信息
-    int islucky	;//是否中奖。1中奖，0未中奖
-    NSString *name;	//中奖物品名
-    NSString *luckyimg;//	奖品图片地址
-    
+    int        status;   // 0接口调用成功，1调用出错
+    NSString  *info;     // 接口调用出错是的错误信息
+    int        islucky;  // 是否中奖。1中奖，0未中奖
+    NSString  *name;     // 中奖物品名
+    NSString  *luckyimg; // 奖品图片地址
 }
+
 @property (nonatomic, copy) NSString *info;
 @property (nonatomic, copy) NSString *name;
 @property (nonatomic, copy) NSString *luckyimg;
