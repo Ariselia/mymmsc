@@ -89,7 +89,7 @@
     UCStoreTable *nextView = [[UCStoreTable alloc] init];
     nextView.person = pid;
     nextView.person = 0;
-    nextView.page = 3;
+    nextView.page = 1;
     nextView.bPerson = YES;
     [self.navigationController pushViewController:nextView animated:YES];
     [nextView release];

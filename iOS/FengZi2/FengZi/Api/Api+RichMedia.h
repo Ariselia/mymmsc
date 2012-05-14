@@ -16,6 +16,16 @@
 #define API_RICHMEDIA_PICTYPE_FLASH (1)
 #define API_RICHMEDIA_PICTYPE_VIDEO (3)
 
+// 富媒体跳转 类型
+#define API_RICHMEDIA_ISJUMP  (1) // 富媒体是否跳转
+#define API_RMJUMP_WWW        (1) // 网站链接
+#define API_RMJUMP_EBUY_SHOP  (2) // 电商商户
+#define API_RMJUMP_EBUY_PROD  (3) // 电商商品
+#define API_RMJUMP_ESHOP_SHOP (4) // 数字商城商户
+#define API_RMJUMP_ESHOP_PROD (5) // 数字商城商品
+#define API_RMJUMP_ACTION     (6) // 活动链接
+#define API_RMJUMP_URL_PRICE  (7) // 优惠价链接
+
 //--------------------< 富媒体 - 对象 - 媒体信息类 >--------------------
 @interface MediaInfo : ApiResult {
     

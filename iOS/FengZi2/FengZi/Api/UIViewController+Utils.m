@@ -41,6 +41,7 @@ static NSString *kma_content = @"";
 #import "DecodeBusinessViewController.h"
 
 // 商城信息
+#import "UCStoreTable.h"    // 数字商城 - 商户信息
 #import "UCStoreInfo.h"     // 数字商城 - 商品信息展示
 #import "EBProductDetail.h" // 电子商城 - 商品详情
 #import "EBProductList.h"   // 电子商城 - 商铺信息
@@ -132,11 +133,64 @@ static int iTimes = -1;
         [self.navigationController pushViewController:cardView animated:YES];
         RELEASE_SAFELY(cardView);
     } else if([category.type isEqualToString:CATEGORY_MEDIA] || [category_url.type isEqualToString:CATEGORY_MEDIA] ) {
-        // 富媒体业务
-        UCRichMedia *nextView = [[UCRichMedia alloc] init];
-        nextView.urlMedia = url;
-        [self.navigationController pushViewController:nextView animated:YES];
-        [nextView release];
+        NSDictionary *dict = [url uriParams];
+        NSString *isJump = [dict objectForKey:@"isend"];
+        if ([isJump isEqual:@"1"]) {
+            // 富媒体跳转
+            NSString *temp = [dict objectForKey:@"sendtype"];
+            int jumpType = -1;
+            if (temp != nil) {
+                jumpType = temp.intValue;
+            }
+            temp = [dict objectForKey:@"sendcontent"];
+            if (jumpType == API_RMJUMP_WWW || jumpType == API_RMJUMP_URL_PRICE) {
+                // 网站链接
+                [iOSApi openUrl:temp];
+            } else if (jumpType == API_RMJUMP_URL_PRICE) {
+                // 优惠价链接
+            } else if (jumpType == API_RMJUMP_ESHOP_SHOP) {
+                // 数字商城 - 商户
+                UCStoreTable *nextView = [[UCStoreTable alloc] init];
+                nextView.person = temp.intValue;
+                nextView.person = 0;
+                nextView.page = 1;
+                nextView.bPerson = YES;
+                [self.navigationController pushViewController:nextView animated:YES];
+                [nextView release];
+            } else if (jumpType == API_RMJUMP_ESHOP_PROD) {
+                // 数字商城 - 商品
+                UCStoreInfo *nextView = [[UCStoreInfo alloc] init];
+                nextView.productId = temp.intValue;
+                [self.navigationController pushViewController:nextView animated:YES];
+                [nextView release];
+            } else if (jumpType == API_RMJUMP_EBUY_SHOP) {
+                // 电子商城 - 商户
+                EBProductList *nextView = [[EBProductList alloc] init];
+                nextView.way = 0;
+                nextView.typeId = temp;
+                [self.navigationController pushViewController:nextView animated:YES];
+                [nextView release];
+            } else if (jumpType == API_RMJUMP_EBUY_PROD) {
+                // 电子商城 - 商品
+                EBProductDetail *nextView = [[EBProductDetail alloc] init];
+                nextView.param = temp;
+                [self.navigationController pushViewController:nextView animated:YES];
+                [nextView release];
+            } else if (jumpType == API_RMJUMP_ACTION) {
+                // 活动链接, 数据格式:参数1,参数2. 
+                // 参数1:为游戏 1-轮盘,2-打地鼠,3-开箱子,4-砸蛋
+                // 参数2:商户id
+            } else {
+                // 默认, 怎么处理
+            }
+            return; // 终止流程
+        } else {
+            // 富媒体业务
+            UCRichMedia *nextView = [[UCRichMedia alloc] init];
+            nextView.urlMedia = url;
+            [self.navigationController pushViewController:nextView animated:YES];
+            [nextView release];
+        }
     } else if([category.type isEqualToString:CATEGORY_KMA] || [category_url.type isEqualToString:CATEGORY_KMA] ) {
         // 空码, 可以调到空码赋值页面, 默认为富媒体
         NSDictionary *dict = [url uriParams];
