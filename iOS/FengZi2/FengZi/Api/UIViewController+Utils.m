@@ -47,7 +47,7 @@ static int iTimes = -1;
 #define kCODE_NONE (0)
 #define kCODE_KMA  (9)
 
-- (void)chooseShowController:(NSString*)input{
+- (void)chooseShowController:(NSString *)input{
     iOSLog(@"decode input = %@", input);
     if (input == nil) {
         input = @"";
@@ -146,7 +146,8 @@ static int iTimes = -1;
         nextView.curImage = [Api generateImageWithInput:input];
         [self.navigationController pushViewController:nextView animated:YES];
         [nextView release];
-    } else{
+    } else {
+        // 墙贴条件判断判断 [WangFeng at 2012/05/14 11:31]
         DecodeBusinessViewController *businessView = [[DecodeBusinessViewController alloc] initWithNibName:@"DecodeBusinessViewController" category:category result:input image:inputImage withType:HistoryTypeFavAndHistory withSaveImage:saveImage];
         [self.navigationController pushViewController:businessView animated:YES];
         RELEASE_SAFELY(businessView);

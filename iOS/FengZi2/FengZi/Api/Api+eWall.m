@@ -23,6 +23,6 @@
 @end
 
 // 墙贴
-@implementation iOSApi (eWall)
+@implementation Api (eWall)
 
 @end

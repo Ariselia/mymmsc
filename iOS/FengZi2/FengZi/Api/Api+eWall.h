@@ -6,7 +6,7 @@
 //  Copyright (c) 2012年 ifengzi.cn. All rights reserved.
 //
 
-#import <iOSApi/iOSApi.h>
+#import "Api.h"
 
 @interface EWall : NSObject{
     //
@@ -17,6 +17,6 @@
 @property (nonatomic, copy) NSString *ischeck;
 @end
 
-@interface iOSApi (eWall)
+@interface Api (eWall)
 
 @end

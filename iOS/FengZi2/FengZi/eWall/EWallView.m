@@ -14,6 +14,7 @@
 
 @implementation EWallView
 @synthesize param;
+@synthesize webView = _webView;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -73,7 +74,7 @@
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:YES];
-    NSString *url = [NSString stringWithFormat:@"http://devp.ifengzi.cn:38090/misc/checktokenlist.action?doorid=%@&num=%@&factoryid=%@&userid=%d",eWallparam.doorid,eWallparam.num,eWallparam.factoryid,[Api userId]];
+    NSString *url = [NSString stringWithFormat:@"http://devp.ifengzi.cn:38090/misc/checktokenlist.action?doorid=%@&num=%@&factoryid=%@&userid=%d",param.doorid,param.num,param.factoryid,[Api userId]];
     
     // NSString *url = @"http://devp.ifengzi.cn:38090/misc/checktokenlist.action?doorid=70&num=&factoryid=68&userid=100046";    
     
