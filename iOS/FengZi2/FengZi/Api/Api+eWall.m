@@ -6,7 +6,7 @@
 //  Copyright (c) 2012年 ifengzi.cn. All rights reserved.
 //
 
-#import "iOSApi+eWall.h"
+#import "Api+eWall.h"
 
 @implementation EWall
 
