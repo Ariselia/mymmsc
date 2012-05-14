@@ -11,14 +11,21 @@
 
 @implementation Api_GameReward
 
-@synthesize  status;	//0接口调用成功，1调用出错
+@synthesize status;	//0接口调用成功，1调用出错
 @synthesize info;	//接口调用出错是的错误信息
 @synthesize islucky	;//是否中奖。1中奖，0未中奖
 @synthesize name;	//中奖物品名
 @synthesize luckyimg;//	奖品图片地
 
-@end
+- (void)dealloc{
+    IOSAPI_RELEASE(info);
+    IOSAPI_RELEASE(name);
+    IOSAPI_RELEASE(luckyimg);
+    
+    [super dealloc];
+}
 
+@end
 
 @implementation  Api(getReward)
 
