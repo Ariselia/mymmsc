@@ -372,7 +372,6 @@ static int xTimes = -1;
         cell.textLabel.text = @"当前没有你的专属码";
     } else {
         CodeInfo *obj = [items objectAtIndex: pos];
-        //cell.imageView.image = [[UIImage imageNamed:@"uc-code.png"] scaleToSize:CGSizeMake(50, 50)];
         cell.imageView.image = [DATA_ENV getTableImage:(BusinessType)(obj.type - 1)];
         cell.textLabel.font = font;
         cell.textLabel.text = [NSString stringWithFormat:@"%@  %@%@", [obj title], [obj createTime], iRow == indexPath.row ? @"\n\n\n\n\n" : @""];
@@ -401,96 +400,6 @@ static int xTimes = -1;
 						  otherButtonTitles:@"重置", nil];
     [alert show];
 	[alert release];
-    
-    /*
-    iRow = indexPath.row;
-    UITableViewCell* cell = [tableView cellForRowAtIndexPath:indexPath];
-    CGRect frame = cell.frame;
-    frame.origin.y = 30;
-    frame.size.height = 50;
-    sideSwipeView.frame = frame;
-    [cell.contentView addSubview:sideSwipeView];
-    [self.tableView reloadData];
-    */
-}
-
-- (UIImage*)generateImageWithInput:(NSString*)s{
-    int qrcodeImageDimension = 250;
-    //the string can be very long
-    NSString* aVeryLongURL = s;
-    //first encode the string into a matrix of bools, TRUE for black dot and FALSE for white. Let the encoder decide the error correction level and version
-    int qr_level = QR_ECLEVEL_L;
-    DataMatrix* qrMatrix = [QREncoder encodeWithECLevel:qr_level version:QR_VERSION_AUTO string:aVeryLongURL];
-    //then render the matrix
-    UIImage* qrcodeImage = [QREncoder renderDataMatrix:qrMatrix imageDimension:qrcodeImageDimension];
-    return qrcodeImage;
-}
-
--(void) chooseShowController:(NSString*)input{
-    BusCategory *category = [BusDecoder classify:input];
-    UIImage *saveImage = [self generateImageWithInput:input];
-    UIImage *inputImage = saveImage;
-    if (xTimes == kCODE_KMA) {
-        inputImage = saveImage;
-    }
-    if ([category.type isEqualToString:CATEGORY_CARD]) {
-        DecodeCardViewControlle *cardView = [[DecodeCardViewControlle alloc] initWithNibName:@"DecodeCardViewControlle" category:category result:input withImage:inputImage withType:HistoryTypeFavAndHistory withSaveImage:saveImage];
-        [self.navigationController pushViewController:cardView animated:YES];
-        RELEASE_SAFELY(cardView);
-    } else if([category.type isEqualToString:CATEGORY_MEDIA]) {
-        // 富媒体业务
-        UCRichMedia *nextView = [[UCRichMedia alloc] init];
-        nextView.urlMedia = input;
-        [self.navigationController pushViewController:nextView animated:YES];
-        [nextView release];
-    } else if([category.type isEqualToString:CATEGORY_KMA]) {
-        // 空码, 可以调到空码赋值页面, 默认为富媒体
-        NSDictionary *dict = [input uriParams];
-        NSString *xcode = [dict objectForKey:@"id"];
-        [Api kmaSetId:xcode];
-        iOSLog(@"uuid=[%@]", xcode);
-        //[iOSApi Alert:@"赋值码" message:[NSString stringWithFormat:@"id=%@", xcode]];
-        // 扫码
-        BOOL isRichMedia = NO;
-        KmaObject *info = [Api kmaContent:xcode];
-        if (info.type == API_KMA_INVAILD) {
-            // 可能是富媒体
-            info.isKma = 0;
-            info.type = 14;
-            //isRichMedia = YES;
-            [iOSApi Alert:@"提示" message:@"服务器忙，请稍候重试"];
-            return;
-        }
-        if (info.isKma == 0) {
-            // 不是空码, 展示
-            if (info.type >= 14) {
-                // 富媒体业务
-                UCRichMedia *nextView = [[UCRichMedia alloc] init];
-                nextView.urlMedia = nil;
-                if (isRichMedia) {
-                    nextView.urlMedia = xInput.url;
-                }
-                nextView.code = xcode;
-                [self.navigationController pushViewController:nextView animated:YES];
-                [nextView release];
-                return;
-            } else {
-                xTimes = kCODE_KMA;
-                [self chooseShowController:info.tranditionContent];
-                return;
-            }
-        }
-        UCKmaViewController *nextView = [[UCKmaViewController alloc] init];
-        //nextView.bKma = YES; // 标记为空码赋值富媒体
-        nextView.code = xcode;
-        nextView.curImage = [self generateImageWithInput:input];
-        [self.navigationController pushViewController:nextView animated:YES];
-        [nextView release];
-    } else{
-        DecodeBusinessViewController *businessView = [[DecodeBusinessViewController alloc] initWithNibName:@"DecodeBusinessViewController" category:category result:input image:inputImage withType:HistoryTypeFavAndHistory withSaveImage:saveImage];
-        [self.navigationController pushViewController:businessView animated:YES];
-        RELEASE_SAFELY(businessView);
-    }
 }
 
 -(void) alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger) buttonIndex {
@@ -510,17 +419,9 @@ static int xTimes = -1;
                 UCKmaViewController *nextView = [[UCKmaViewController alloc] init];
                 nextView.forceEdit = YES; // 强制赋值
                 nextView.code = xcode;
-                nextView.curImage = [self generateImageWithInput:xInput.url];
+                nextView.curImage = [Api generateImageWithInput:xInput.url];
                 [self.navigationController pushViewController:nextView animated:YES];
                 [nextView release];
-                
-                /*
-                [Api setKma:YES];
-                NSDictionary *dict = [Api parseUrl:input.url];
-                NSString *xcode = [dict objectForKey:@"id"];
-                [Api kmaSetId:xcode];
-                [self gotoEditController:input.type];
-                 */
 			}
 				break;
 			default: 

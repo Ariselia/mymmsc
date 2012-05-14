@@ -135,37 +135,6 @@ static DataEnvironment *sharedInst = nil;
 }
 
 - (int)getHexColorWithIndex:(int)index{
-//    char *chars;
-//    switch (index) {
-//        case 0:// 黑
-//            chars = "000000";
-//            break;
-//        case 1://红
-//            chars = "ff0000";
-//            break;
-//        case 2://橙 
-//            chars = "ffa500";
-//            break;
-//        case 3://黄
-//            chars = "ffff00";
-//            break;
-//        case 4://绿
-//            chars = "008000";
-//            break;
-//        case 5://青
-//            chars = "00ffff";
-//            break;
-//        case 6://蓝
-//            chars = "0000ff";
-//            break;
-//        case 7://紫
-//            chars = "800080";
-//            break;
-//        default:
-//            chars = "000000";
-//            break;
-//    }
-//    return strtol(chars,NULL,16);
     int color;
     switch (index) {
         case 0:// 黑
@@ -199,7 +168,7 @@ static DataEnvironment *sharedInst = nil;
     return color;
 }
 
-- (NSMutableArray*)getSkinThumbnail{
+- (NSMutableArray *)getSkinThumbnail{
     NSMutableArray *arr = [NSMutableArray array];
     UIImage *imgage = [UIImage imageNamed:@"thumbnail_0.png"];
     int i = 0;
@@ -211,7 +180,7 @@ static DataEnvironment *sharedInst = nil;
     return arr;
 }
 
-- (UIImage*)getSkinImageWithIndex:(int)index{
+- (UIImage *)getSkinImageWithIndex:(int)index{
     return [UIImage imageNamed:[NSString stringWithFormat:@"skin_%d.png",index]];
 }
 

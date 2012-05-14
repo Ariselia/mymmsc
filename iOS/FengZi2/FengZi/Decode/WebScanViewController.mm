@@ -43,55 +43,7 @@
     
     // Release any cached data, images, etc that aren't in use.
 }
-/*
--(UIImage*)generateImageWithInput:(NSString*)input{
-    int qrcodeImageDimension = 250;
-    //the string can be very long
-    NSString* aVeryLongURL = input;
-    //first encode the string into a matrix of bools, TRUE for black dot and FALSE for white. Let the encoder decide the error correction level and version
-    int qr_level = QR_ECLEVEL_L;
-    DataMatrix* qrMatrix = [QREncoder encodeWithECLevel:qr_level version:QR_VERSION_AUTO string:aVeryLongURL];
-    //then render the matrix
-    UIImage* qrcodeImage = [QREncoder renderDataMatrix:qrMatrix imageDimension:qrcodeImageDimension];
-    return qrcodeImage;
-}
 
--(void) chooseShowController:(NSString*)input{
-    if (input != nil && [input hasPrefix:API_URL_SHOW]) {
-        NSDictionary *dict = [Api parseUrl:input];
-        NSString *userId = [dict objectForKey:@"id"];
-        UCUpdateNikename *nextView = [[UCUpdateNikename alloc] init];
-        nextView.idDest = [userId intValue];
-        [self.navigationController pushViewController:nextView animated:YES];
-        [nextView release];
-        return;
-    }
-    BusCategory *category = [BusDecoder classify:input];
-    [TabBarController hide:NO animated:NO];
-    if ([category.type isEqualToString:CATEGORY_CARD]) {
-        DecodeCardViewControlle *cardView = [[DecodeCardViewControlle alloc] initWithNibName:@"DecodeCardViewControlle" category:category result:input withImage:_webImage withType:HistoryTypeFavAndHistory withSaveImage:[self generateImageWithInput:input]];
-        [self.navigationController pushViewController:cardView animated:YES];
-        [cardView release];
-    } else if([category.type isEqualToString:CATEGORY_MEDIA]) {
-        // 富媒体业务
-        UCRichMedia *nextView = [[UCRichMedia alloc] init];
-        nextView.urlMedia = input;
-        [self.navigationController pushViewController:nextView animated:YES];
-        [nextView release];  
-    } else if([category.type isEqualToString:CATEGORY_KMA]) {
-        // 空码, 可以调到空码赋值页面, 默认为富媒体
-        UCKmaViewController *nextView = [[UCKmaViewController alloc] init];
-        //nextView.bKma = YES; // 标记为空码赋值富媒体
-        nextView.code = input;
-        [self.navigationController pushViewController:nextView animated:YES];
-        [nextView release];
-    } else{
-        DecodeBusinessViewController *businessView = [[DecodeBusinessViewController alloc] initWithNibName:@"DecodeBusinessViewController" category:category result:input image:_webImage withType:HistoryTypeFavAndHistory withSaveImage:[self generateImageWithInput:input]];
-        [self.navigationController pushViewController:businessView animated:YES];
-        [businessView release];
-    }
-}
-*/
 - (void)decoder:(Decoder *)decoder didDecodeImage:(UIImage *)image usingSubset:(UIImage *)subset withResult:(TwoDDecoderResult *)twoDResult {
     [self chooseShowController:twoDResult.text];
     decoder.delegate = nil;
