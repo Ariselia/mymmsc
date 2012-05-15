@@ -467,14 +467,9 @@ static const char *kPayWay[] = {"支付宝客户端支付", "支付宝wap支付"
                                orderId:(NSString *)orderId{
     // 方法
     static NSString *method = @"realize";
-    NSString *query = [NSString stringWithFormat:@"id=%@", pid];
-    NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
-                            API_INTERFACE_TONKEN, @"token",
-                            [NSString valueOf:[Api userId]], @"userid",
-                            orderId, @"orderid",
-                            nil];
+    NSString *query = [NSString stringWithFormat:@"id=%@&orderid=%@userid=%d", pid, orderId, [Api userId]];
     NSString *action = [NSString stringWithFormat:@"%@/%@?%@", API_URL_EBUY "/fx", method, query];
-    NSDictionary *response = [Api post:action params:params];
+    NSDictionary *response = [Api post:action params:nil];
     EBProductComment *cRet = nil;
     if (response) {
         NSDictionary *data = [response objectForKey:method];

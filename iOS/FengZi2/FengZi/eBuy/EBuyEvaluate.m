@@ -9,7 +9,6 @@
 #import "EBuyEvaluate.h"
 #import "EBuyEvaluateCell.h"
 #import "Api+Ebuy.h"
-#import <iOSApi/iOSAsyncImageView.h>
 
 @interface EBuyEvaluate ()
 
@@ -67,7 +66,7 @@
 {
     [super viewDidUnload];
     // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
+    _items = nil;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -94,15 +93,24 @@
     EBProductComment *obj = object;
     NSString *tmp = [iOSApi urlDecode:obj.picUrl];
     NSArray *arr = [tmp split:@"*"];
+    NSString *sUrl = [arr objectAtIndex:0];
     EBuyEvaluateCell *cellView = [(EBuyEvaluateCell *)[[[NSBundle mainBundle] loadNibNamed:@"EBuyEvaluateCell" owner:self options:nil] objectAtIndex:0] retain];
     cellView.ownerId = self;
     cellView.productId = obj.id;
     cellView.orderId = obj.orderId;
     cellView.content.text = [iOSApi urlDecode:obj.content];
-    [cellView.imageView imageWithURL:[arr objectAtIndex:0]];
+    if (obj.state == 1) {
+        [cellView.action setTitle:@"查看评论" forState:UIControlStateNormal];
+    }
+    [cellView.imageView imageWithURL:sUrl];
     cellView.selectionStyle = UITableViewCellSelectionStyleNone;
     cell = cellView;
-    return cellView;
+    /*
+    cell.imageView.image = [UIImage imageNamed:@"ebuy_unknown.png"];
+    [cell.imageView imageWithURL:sUrl];
+    cell.textLabel.text = [iOSApi urlDecode:obj.content];
+    */
+    return cell;
 }
 
 - (NSArray *)reloadData:(iOSTableViewController *)tableView {

@@ -9,10 +9,12 @@
 #import "EBuyEvaluateCell.h"
 #import "EBuyEvaluatePage.h"
 #import "EBuyEvaluate.h"
+#import "EBuyEvaluateInfo.h"
 
 @implementation EBuyEvaluateCell
-@synthesize productId, orderId;
+@synthesize comm, productId, orderId;
 @synthesize ownerId, imageView,subject,content;
+@synthesize action;
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
@@ -32,12 +34,21 @@
 
 // 跳转发表评论页面
 - (IBAction)doWrite:(id)sender{
+    UIButton *btn = sender;
     EBuyEvaluate *owner = (EBuyEvaluate *)ownerId;
-    EBuyEvaluatePage *nextView = [[EBuyEvaluatePage alloc] init];
-    nextView.productId = productId;
-    nextView.orderId = orderId;
-    [owner.navigationController pushViewController:nextView animated:YES];
-    [nextView release];
+    if ([btn.titleLabel.text isEqualToString:@"发表评论"]) {
+        EBuyEvaluatePage *nextView = [[EBuyEvaluatePage alloc] init];
+        nextView.productId = productId;
+        nextView.orderId = orderId;
+        [owner.navigationController pushViewController:nextView animated:YES];
+        [nextView release];
+    } else {
+        EBuyEvaluateInfo *nextView = [[EBuyEvaluateInfo alloc] init];
+        nextView.id = comm.id;
+        nextView.orderId = comm.orderId;
+        [owner.navigationController pushViewController:nextView animated:YES];
+        [nextView release];
+    }    
 }
 
 @end
