@@ -24,6 +24,7 @@
 
 @synthesize tableView=_tableView;
 @synthesize bDownload;
+@synthesize bModel;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -61,7 +62,13 @@
 
 // 返回上一个界面
 - (void)goBack{
-    [self.navigationController popViewControllerAnimated:YES];
+    if (!bModel) {
+        [self.navigationController popToRootViewControllerAnimated:YES];
+    } else {
+        [self dismissModalViewControllerAnimated:YES];
+    }
+    
+    //[self.navigationController popViewControllerAnimated:YES];
 }
 
 // 转向注册页面

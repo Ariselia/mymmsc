@@ -27,7 +27,7 @@
     
     BOOL       bDownload;
 }
-
+@property (nonatomic, assign) BOOL bModel;
 @property (nonatomic, retain) IBOutlet UITableView *tableView;
 @property (nonatomic, assign) BOOL bDownload;
 

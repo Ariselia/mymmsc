@@ -114,10 +114,6 @@
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    if (![Api isOnLine]) {
-        [self gotoLogin];
-        return;
-    }
     [iOSApi toast:@"正在访问，请等待"];
 }
 

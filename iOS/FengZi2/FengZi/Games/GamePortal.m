@@ -80,10 +80,6 @@
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    if (![Api isOnLine]) {
-        [self gotoLogin];
-        return;
-    }
     _borderStyle = UITextBorderStyleNone;
     //font = [UIFont systemFontOfSize:13.0];
     if ([_items count] == 0) {
@@ -125,7 +121,7 @@ static GameInfo *theObj = nil;
 	[alert release];
 }
 
--(void) alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger) buttonIndex {
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger) buttonIndex {
     GameInfo *obj = theObj;
     int n = buttonIndex + 1;
     if (n == 1) {

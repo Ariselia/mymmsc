@@ -12,6 +12,7 @@
 #import "EBuyPortal.h"   // 电子商城
 #import "EFileMain.h"    // 蜂夹
 #import "GamePortal.h"   // 蜂幸运
+#import "UCLogin.h"
 
 @implementation UCAppStore
 
@@ -56,11 +57,18 @@
     [nextView release];
 }
 
+- (void)goLogin{
+    UCLogin *theView = [[[UCLogin alloc] init] autorelease];
+    theView.bModel = YES;
+    UINavigationController *nextView = [[UINavigationController alloc] initWithRootViewController:theView];
+    [self presentModalViewController:nextView animated:YES];
+}
+
 // 转向电子蜂夹
 - (IBAction)gotoEFile:(id)sender {
     // 登录
     if (![Api isOnLine]) {
-        [self gotoLogin];
+        [self goLogin];
         return;
     }
     EFileMain *theView = [[[EFileMain alloc] init] autorelease];
@@ -71,7 +79,7 @@
 // 转向蜂幸运
 - (IBAction)gotoLucky:(id)sender{
     if (![Api isOnLine]) {
-        [self gotoLogin];
+        [self goLogin];
         return;
     }
     // 登录
