@@ -33,7 +33,7 @@
     [self dismissModalViewControllerAnimated:YES];
 }
 //查看具体中奖信息
--(void)goReward:(Api_GameReward*)rs{
+-(void)goReward:(GameReward*)rs{
     
     EggReward *nextView = [[EggReward alloc] init];
     //nextView.param = obj;
@@ -85,7 +85,7 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-     jstime = 1;
+    jstime = 1;
     isJs = NO;
 }
 
@@ -104,23 +104,23 @@
 -(void)goBreak:(id)sender
 {
     self.navigationItem.leftBarButtonItem = nil;
-   [btn1 setEnabled:NO];
+    [btn1 setEnabled:NO];
     [btn1 setHidden:YES];
     num  = 1;
     time = 1;
-  timer =[NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(xuanzhuan) userInfo:nil repeats:YES]; 
+    timer =[NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(xuanzhuan) userInfo:nil repeats:YES]; 
 }
 
 -(void)goJianSu
 {
-   
+    
     isJs = YES;
-     timer =[NSTimer scheduledTimerWithTimeInterval:0.3 target:self selector:@selector(xuanzhuan) userInfo:nil repeats:YES]; 
+    timer =[NSTimer scheduledTimerWithTimeInterval:0.3 target:self selector:@selector(xuanzhuan) userInfo:nil repeats:YES]; 
 }
 
 -(void)xuanzhuan
 {
-        //用切换图片得形式
+    //用切换图片得形式
     time++;
     
     if (time>30) {
@@ -129,87 +129,44 @@
         //goto 减速
         [self goJianSu];
         
-    }
-    else {
+    } else {
         jstime++;
-    if (jstime>35&&isJs) {
-        //
-        [timer invalidate];
-        
-        //加载成功，失败图片
-        
-        UIImage *yesImg = [UIImage imageNamed:@"lp10.png"];
-        
-        UIImage *noImg = [UIImage imageNamed:@"lp9.png"];
-        
-        
-        //调用接口。获得返回值 判断返回值。
-      
-        Api_GameReward *rs = [Api get_reward_info:luckyid shopguid:shopguid];
-        
-        if (rs.status==0&&rs.islucky==1) 
-        {
-
-            [imgView setImage:yesImg];
-            [yesImg release];
-            [iOSApi toast:@"恭喜，中奖啦"];
+        if (jstime>35&&isJs) {
+            //
+            [timer invalidate];
+            timer = nil;
+            //加载成功，失败图片
+            UIImage *yesImg = [UIImage imageNamed:@"lp10.png"];            
+            UIImage *noImg = [UIImage imageNamed:@"lp9.png"];            
             
-            [self performSelector:@selector(goReward:) withObject:rs afterDelay:0.8];  
+            //调用接口。获得返回值 判断返回值。
             
+            GameReward *rs = [Api get_reward_info:luckyid shopguid:shopguid];
+            if (rs.status==0&&rs.islucky==1)
+            {                
+                [imgView setImage:yesImg];
+                [yesImg release];
+                [iOSApi Alert:@"系统提示" message:@"恭喜，中奖啦"];
+                [self performSelector:@selector(goReward:) withObject:rs afterDelay:0.8];
+            } else {
+                [imgView setImage:noImg];
+                [yesImg release];
+                [noImg release];
+                [iOSApi Alert:@"系统提示" message:@"很遗憾，未中奖"];
+                //延时执行            
+                [self performSelector:@selector(goBack) withObject:nil afterDelay:0.8];
+            }
+        } else {
+            NSString *imgUrl = [NSString stringWithFormat:@"lp%d.png", num];
+            UIImage *image = [UIImage imageNamed:imgUrl];
+            [imgView setImage:image];
+            //[imgUrl release];
+            num++;
+            if(num == 10) {
+                num=1;
+            }
         }
-        else {
-            
-            
-            [imgView setImage:noImg];
-            [yesImg release];
-            [noImg release];
-            [iOSApi toast:@"很遗憾，未中奖"];
-            
-            //延时执行
-            
-            [self performSelector:@selector(goBack) withObject:nil afterDelay:0.8];  
-            
-        }
-        
-        
     }
-    else {
-        
-    
-    
-    NSString *imgUrl = [NSString stringWithFormat:@"lp%d.png",num];
-    
-     UIImage *image = [UIImage imageNamed:imgUrl];
-    
-    [imgView setImage:image];
-    //[imgUrl release];
-    
-     num++;
-    if(num==10)
-    {
-        num=1;
-    }
-    }
-    }
-    /*
-    //角度动画
-    int du = 0;
-
-    if(num>50)
-    {
-        du = 0.1;
-    }
-    else {
-        
-        du=num;  
-   
-    }
-        
-    CGFloat angle = M_PI * du;
-    
-    [imgView setTransform:CGAffineTransformMakeRotation(angle)]; 
-*/
-  
 }
 
 @end

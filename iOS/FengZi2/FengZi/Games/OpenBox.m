@@ -26,8 +26,9 @@
    // [self.navigationController popViewControllerAnimated:YES];
     [self dismissModalViewControllerAnimated:YES];
 }
+
 //查看具体中奖信息
--(void)goReward:(Api_GameReward*)rs{
+-(void)goReward:(GameReward*)rs{
     
     EggReward *nextView = [[EggReward alloc] init];
     //nextView.param = obj;
@@ -97,54 +98,35 @@
 {
     
     //设置所有砸鸡蛋不可用
-    
     [btn1 setEnabled:NO];
-     [btn2 setEnabled:NO];
-     [btn3 setEnabled:NO];
-     [btn4 setEnabled:NO];
-     [btn5 setEnabled:NO];
-     [btn6 setEnabled:NO];
-     [btn7 setEnabled:NO];
-     [btn8 setEnabled:NO];
-     [btn9 setEnabled:NO];
+    [btn2 setEnabled:NO];
+    [btn3 setEnabled:NO];
+    [btn4 setEnabled:NO];
+    [btn5 setEnabled:NO];
+    [btn6 setEnabled:NO];
+    [btn7 setEnabled:NO];
+    [btn8 setEnabled:NO];
+    [btn9 setEnabled:NO];
     
-    
-       //加载成功，失败图片
-     
-     UIImage *yesImg = [UIImage imageNamed:@"bxcg.png"];
-    
+    //加载成功，失败图片
+    UIImage *yesImg = [UIImage imageNamed:@"bxcg.png"];
     UIImage *noImg = [UIImage imageNamed:@"bxsb.png"];
-
-    
     //调用接口。获得返回值 判断返回值。
-    Api_GameReward *rs = [Api get_reward_info:luckyid shopguid:shopguid];
-    if (rs.status==0&&rs.islucky==1) 
+    GameReward *rs = [Api get_reward_info:luckyid shopguid:shopguid];
+    if (rs.status == 0 && rs.islucky == 1) 
     {
-
-    
         UIButton *sbtn = (UIButton*)sender;
         [sbtn setImage:yesImg forState:UIControlStateDisabled];
         [yesImg release];
-        [iOSApi toast:@"恭喜，中奖啦"];
-        
-        [self performSelector:@selector(goReward:) withObject:rs afterDelay:0.8];  
-        
-    }
-    else {
-        
-        
+        [iOSApi Alert:@"系统提示" message:@"恭喜，中奖啦"];
+        [self performSelector:@selector(goReward:) withObject:rs afterDelay:0.8];
+    } else {        
         UIButton *sbtn = (UIButton*)sender;
         [sbtn setImage:noImg forState:UIControlStateDisabled];
         [noImg release];
-        [iOSApi toast:@"很遗憾，未中奖"];
-        
+        [iOSApi Alert:@"系统提示" message:@"很遗憾，未中奖"];
         //延时执行
-        
-        [self performSelector:@selector(goBack) withObject:nil afterDelay:0.8];  
-        
+        [self performSelector:@selector(goBack) withObject:nil afterDelay:0.8];
     }
-    
-    
-    
 }
 @end

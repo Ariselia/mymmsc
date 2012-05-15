@@ -59,6 +59,8 @@
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
+    self.myImg = nil;
+    self.myWebView = nil;
 }
 
 - (void)goBack{
@@ -108,13 +110,15 @@
     UIBarButtonItem *backitem = [[UIBarButtonItem alloc] initWithCustomView:backbtn];
     self.navigationItem.leftBarButtonItem = backitem;
     [backitem release];
-    
-    [iOSApi toast:@"正在访问，请等待"];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    //
+    if (![Api isOnLine]) {
+        [self gotoLogin];
+        return;
+    }
+    [iOSApi toast:@"正在访问，请等待"];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -127,7 +131,6 @@
 #pragma mark UIWebViewDelegate
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
-    
     
     NSString *rurl = [[request URL] absoluteString]; 
     // NSLog(@"转往本地蜂夹"); 

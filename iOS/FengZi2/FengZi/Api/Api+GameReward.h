@@ -7,10 +7,12 @@
 //
 
 #import "Api.h"
-#import <iOSApi/NSArray+Utils.h>
-#import <iOSApi/NSObject+Utils.h>
 
-@interface Api_GameReward : NSObject
+//====================================< 蜂幸运 - 对象 >====================================
+
+//--------------------< 蜂幸运 - 对象 - 中奖信息 >--------------------
+
+@interface GameReward : NSObject
 {
     int        status;   // 0接口调用成功，1调用出错
     NSString  *info;     // 接口调用出错是的错误信息
@@ -27,9 +29,27 @@
 
 @end
 
+//--------------------< 蜂幸运 - 对象 - 抽奖活动列表信息 >--------------------
+
+@interface GameInfo : NSObject{
+    NSString *caseName;   // 抽奖项目名称
+    NSString *caseId;     // 抽奖项目id
+    NSString *activeId;   // 游戏抽奖的形式ID
+    NSString *activeName; // 游戏抽奖的形式名称
+}
+
+@property (nonatomic, copy) NSString *caseName;
+@property (nonatomic, copy) NSString *caseId;
+@property (nonatomic, copy) NSString *activeName;
+@property (nonatomic, copy) NSString *activeId;
+
+@end
+
+//====================================< 蜂幸运 - 接口 >====================================
 
 @interface Api(getReward)
 
-+ (Api_GameReward *)get_reward_info:(NSString*) luckyid shopguid:(NSString*) shopguid;
++ (GameReward *)get_reward_info:(NSString*) luckyid shopguid:(NSString*) shopguid;
++ (NSMutableArray *)activeList;
 
 @end

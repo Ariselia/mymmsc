@@ -29,7 +29,7 @@
     [self dismissModalViewControllerAnimated:YES];
 }
 //查看具体中奖信息
--(void)goReward:(Api_GameReward*)rs{
+-(void)goReward:(GameReward*)rs{
     
     EggReward *nextView = [[EggReward alloc] init];
     //nextView.param = obj;
@@ -140,46 +140,27 @@
     [timer invalidate];
     if (num>2&&num<6) {
         //加载成功，失败图片
-        
         UIImage *yesImg = [UIImage imageNamed:@"dsok.png"];
-        
         UIImage *noImg = [UIImage imageNamed:@"dsok.png"];
-        
         //调用接口。获得返回值 判断返回值。
-        Api_GameReward *rs = [Api get_reward_info:luckyid shopguid:shopguid];
-        
-        if (rs.status==0&&rs.islucky==1) 
+        GameReward *rs = [Api get_reward_info:luckyid shopguid:shopguid];
+        if (rs.status == 0 && rs.islucky == 1) 
         {
-
             [temBtn setImage:yesImg forState:0];
-
             [yesImg release];
-            [iOSApi toast:@"恭喜，中奖啦"];
-            
-            [self performSelector:@selector(goReward:) withObject:rs afterDelay:0.8];  
-            
-        }
-        else {
-            
+            [iOSApi Alert:@"系统提示" message:@"恭喜，中奖啦"];
+            [self performSelector:@selector(goReward:) withObject:rs afterDelay:0.8];
+        } else {
             [temBtn setImage:noImg forState:0];
-            
             [noImg release];
-            [iOSApi toast:@"很遗憾，未中奖"];
-            
+            [iOSApi Alert:@"系统提示" message:@"很遗憾，未中奖"];
             //延时执行
-            
-            [self performSelector:@selector(goBack) withObject:nil afterDelay:0.8];  
-            
+            [self performSelector:@selector(goBack) withObject:nil afterDelay:0.8];
         }
-
-    
-        
-    }
-    else {
-        
-    UIImage *startImg = [UIImage imageNamed:@"ds1.png"];
-    [temBtn setImage:startImg forState:0];
-    [self goPlay];
+    } else {
+        UIImage *startImg = [UIImage imageNamed:@"ds1.png"];
+        [temBtn setImage:startImg forState:0];
+        [self goPlay];
     }
 }
 

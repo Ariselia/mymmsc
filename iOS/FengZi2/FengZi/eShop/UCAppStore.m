@@ -58,34 +58,19 @@
 
 // 转向电子蜂夹
 - (IBAction)gotoEFile:(id)sender {
-    // 判断是否登录
-    if ([Api isOnLine]) {
-        // 登录
-        EFileMain *theView = [[[EFileMain alloc] init] autorelease];
-        UINavigationController *nextView = [[UINavigationController alloc] initWithRootViewController:theView];
-        [self presentModalViewController:nextView animated:YES];
-        [nextView release];
-    } else {
-        // 未登录
-        [iOSApi toast:@"请先登录"];
-        [proxy closeAppStore];
-    }
+    // 登录
+    EFileMain *theView = [[[EFileMain alloc] init] autorelease];
+    UINavigationController *nextView = [[UINavigationController alloc] initWithRootViewController:theView];
+    [self presentModalViewController:nextView animated:YES];
 }
 
 // 转向蜂幸运
 - (IBAction)gotoLucky:(id)sender{
-    // 判断是否登录
-    if ([Api isOnLine]) {
-        // 登录
-        GamePortal *theView = [[[GamePortal alloc] init] autorelease];
-        UINavigationController *nextView = [[UINavigationController alloc] initWithRootViewController:theView];
-        [self presentModalViewController:nextView animated:YES];
-        [nextView release];
-    } else {
-        // 未登录
-        [iOSApi toast:@"请先登录"];
-        [proxy closeAppStore];
-    }
+    // 登录
+    GamePortal *theView = [[[GamePortal alloc] init] autorelease];
+    UINavigationController *nextView = [[UINavigationController alloc] initWithRootViewController:theView];
+    [self presentModalViewController:nextView animated:YES];
+    [nextView release];
 }
 
 #pragma mark - View lifecycle

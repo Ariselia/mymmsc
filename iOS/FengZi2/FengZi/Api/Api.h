@@ -58,6 +58,9 @@
 
 // 电子蜂夹
 #define API_URL_EFILE        @"http://220.231.48.34:38090/mobile/fx"
+// 蜂幸运
+#define API_URL_LUCKY        @"http://devp.ifengzi.cn:38090/lucky"
+
 //====================================< 用户信息 >====================================
 
 #define API_CACHE_USERID @"app_userId"

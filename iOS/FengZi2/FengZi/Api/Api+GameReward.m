@@ -8,8 +8,11 @@
 //
 
 #import "Api+GameReward.h"
+//====================================< 蜂幸运 - 对象 >====================================
 
-@implementation Api_GameReward
+//--------------------< 蜂幸运 - 对象 - 中奖信息 >--------------------
+
+@implementation GameReward
 
 @synthesize status;	//0接口调用成功，1调用出错
 @synthesize info;	//接口调用出错是的错误信息
@@ -27,17 +30,31 @@
 
 @end
 
-@implementation  Api(getReward)
+//--------------------< 蜂幸运 - 对象 - 抽奖活动列表信息 >--------------------
 
-+ (Api_GameReward *)get_reward_info:(NSString*) luckyid shopguid:(NSString*) shopguid
+@implementation GameInfo
+
+@synthesize caseId, caseName, activeId, activeName;
+
+- (void)dealloc{
+    IOSAPI_RELEASE(caseId);
+    IOSAPI_RELEASE(caseName);
+    IOSAPI_RELEASE(activeId);
+    IOSAPI_RELEASE(activeName);
+    [super dealloc];
+}
+
+@end
+
+//====================================< 蜂幸运 - 接口 >====================================
+
+@implementation Api(getReward)
+
++ (GameReward *)get_reward_info:(NSString*) luckyid shopguid:(NSString*) shopguid
 {
-    Api_GameReward *iRet = nil;
-    
-    NSString *params = [NSString stringWithFormat:@"{luckydrawrequest:{userid:%@,luckyid:%@,shopguid:%@}}",[NSString valueOf:[Api userId]],luckyid,shopguid];
-    
-    
-    NSString *action = @"http://devp.ifengzi.cn:38090/lucky/fx/luckyfacade/draw";
-    
+    GameReward *iRet = nil;
+    NSString *params = [NSString stringWithFormat:@"{\"luckydrawrequest\":{\"userid\":%@,\"luckyid\":\"%@\",\"shopguid\":\"%@\"}}",[NSString valueOf:[Api userId]],luckyid,shopguid];
+    NSString *action = API_URL_LUCKY "/fx/luckyfacade/draw";
     NSDictionary *heads = [NSDictionary dictionaryWithObjectsAndKeys:
                            @"application/json", @"Content-Type",
                            nil];
@@ -48,9 +65,34 @@
     if (data.count > 0) {
         //表数据
         // NSLog(@"go here");
-        iRet = [data toObject:Api_GameReward.class];
+        iRet = [data toObject:GameReward.class];
     }
     return iRet;
+}
+
++ (NSMutableArray *)activeList{
+    NSMutableArray *list = nil;
+    NSString *params = @"0000";
+    NSString *action = API_URL_LUCKY "/fx/luckyfacade/list";
+    NSDictionary *heads = [NSDictionary dictionaryWithObjectsAndKeys:
+                           @"application/json", @"Content-Type",
+                           nil];
+    
+    NSDictionary *response = [Api post:action header:heads body:[params dataUsingEncoding:NSUTF8StringEncoding]];
+    if (response == nil) {
+        //NSString *temp = @"{\"response\":[{\"luckyname\":\"轮盘\",\"luckyid\":\"11-111\",\"activename\":\"轮盘1111\",\"activeid\":\"1\"}]}";
+        //response = [temp objectFromJSONString];
+    }
+    if (response.count > 0 && [response isKindOfClass:NSDictionary.class]) {
+        NSDictionary *resp = [response objectForKey:@"response"];
+        if (resp.count > 0 && [resp isKindOfClass:NSDictionary.class]) {
+            NSArray *data = [resp objectForKey:@"datalist"];
+            if (data.count > 0 && [data isKindOfClass:NSArray.class]) {
+                list = [data toList:GameInfo.class];
+            }
+        }
+    }
+    return list;
 }
 
 @end
