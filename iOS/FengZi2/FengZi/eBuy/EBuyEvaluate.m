@@ -95,6 +95,7 @@
     NSArray *arr = [tmp split:@"*"];
     NSString *sUrl = [arr objectAtIndex:0];
     EBuyEvaluateCell *cellView = [(EBuyEvaluateCell *)[[[NSBundle mainBundle] loadNibNamed:@"EBuyEvaluateCell" owner:self options:nil] objectAtIndex:0] retain];
+    cellView.comm = obj;
     cellView.ownerId = self;
     cellView.productId = obj.id;
     cellView.orderId = obj.orderId;

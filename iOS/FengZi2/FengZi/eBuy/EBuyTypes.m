@@ -135,7 +135,7 @@
     }
     NSArray *data = [Api ebuy_type:_page typeId:typeId];
     if (data == nil || data.count < 1) {
-        [iOSApi showCompleted:@"服务器正忙，请稍候"];
+        [iOSApi showCompleted:@"没有商品分类信息"];
     }
     [iOSApi closeAlert];
     return data;

@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import <iOSApi/iOSStar.h>
+#import <iOSApi/iOSImageView.h>
 
 @interface EBuyEvaluateInfo : UIViewController{
     iOSStar *_star;
@@ -16,5 +17,7 @@
 @property (nonatomic, copy) NSString *orderId;
 @property (nonatomic, retain) IBOutlet UITextView *xContent;
 @property (nonatomic, retain) IBOutlet UILabel *xState;
+@property (nonatomic, retain) IBOutlet UILabel *xTime;
+@property (nonatomic, retain) IBOutlet iOSImageView *xPic;
 
 @end

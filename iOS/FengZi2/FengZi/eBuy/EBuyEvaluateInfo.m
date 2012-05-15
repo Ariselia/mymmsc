@@ -14,7 +14,7 @@
 @end
 
 @implementation EBuyEvaluateInfo
-@synthesize id, orderId, xState, xContent;
+@synthesize id, orderId, xState, xContent, xTime, xPic;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -97,7 +97,7 @@
     if (starNum > 5) {
         starNum = 5;
     }
-    _star = [[iOSStar alloc] initWithFrame:CGRectMake(90.0f, 10.0f, 150.0f, 21.0f)];
+    _star = [[iOSStar alloc] initWithFrame:CGRectMake(90.0f, 4.0f, 150.0f, 21.0f)];
     _star.show_star = 20 * starNum;
     _star.font_size = 17;
     _star.isSelect = YES;
@@ -107,6 +107,8 @@
     [self.view addSubview:_star];
     _star.delegate = self;
     [_star release];
+    xTime.text = comm.realizeTime;
+    [xPic imageWithURL:[iOSApi urlDecode:comm.picUrl]];
 }
 
 @end

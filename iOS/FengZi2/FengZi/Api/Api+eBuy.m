@@ -83,7 +83,7 @@
 //--------------------< 电子商城 - 对象 - 商品评论 >--------------------
 @implementation EBProductComment
 
-@synthesize id,state,orderId,userName,content,picUrl,commentTime,love,grade;
+@synthesize id,state,orderId,userName,content,picUrl,commentTime,love,grade,realizeTime;
 
 @end
 
@@ -108,7 +108,7 @@ static const char *kPayWay[] = {"支付宝客户端支付", "支付宝wap支付"
 
 @implementation EBOrderUser
 
-@synthesize type,state,mobile,shopId,userId,address,orderId,payment,areaCode,receiver,shopName,goodsCount, payWay, payStatus;
+@synthesize type,state,mobile,shopId,userId,address,orderId,payment,areaCode,receiver,shopName,goodsCount, payWay, payStatus, actionSource;
 
 @end
 
@@ -448,6 +448,10 @@ static const char *kPayWay[] = {"支付宝客户端支付", "支付宝wap支付"
     NSString *action = [NSString stringWithFormat:@"%@/%@?%@", API_URL_EBUY "/fx", method, query];
     NSDictionary *response = [Api post:action header:heads body:[params dataUsingEncoding:NSUTF8StringEncoding]];
     NSDictionary *data = [response objectForKey:method];
+    if (data == nil) {
+        // 没有method标签
+        data = response;
+    }
     if (data.count > 0) {
         NSNumber *v = [data objectForKey:@"status"];
         if ([v isKindOfClass:NSNumber.class]) {
@@ -467,7 +471,7 @@ static const char *kPayWay[] = {"支付宝客户端支付", "支付宝wap支付"
                                orderId:(NSString *)orderId{
     // 方法
     static NSString *method = @"realize";
-    NSString *query = [NSString stringWithFormat:@"id=%@&orderid=%@userid=%d", pid, orderId, [Api userId]];
+    NSString *query = [NSString stringWithFormat:@"id=%@&orderid=%@&userid=%d", pid, orderId, [Api userId]];
     NSString *action = [NSString stringWithFormat:@"%@/%@?%@", API_URL_EBUY "/fx", method, query];
     NSDictionary *response = [Api post:action params:nil];
     EBProductComment *cRet = nil;
@@ -768,6 +772,7 @@ static const char *kPayWay[] = {"支付宝客户端支付", "支付宝wap支付"
     [orderhead setObject:user.orderId forKey:@"orderid"];
     [orderhead setObject:[NSString valueOf:user.state] forKey:@"state"];
     [orderhead setObject:[NSString valueOf:user.goodsCount] forKey:@"goodscount"];
+    [orderhead setObject:@"ios" forKey:@"actionsource"];
     
     [request setObject:orderhead forKey:@"orderhead"];
     
@@ -879,7 +884,7 @@ static NSString *s_carFilename = @"cache/files/fengzi_buycar.db";
         if ([t.id isEqualToString:obj.id]) {
             bFound = YES;
             nIndex = i;
-            obj.carCount += t.carCount;
+            obj.carCount = t.carCount + 1;
         }
     }
     if (bFound) {

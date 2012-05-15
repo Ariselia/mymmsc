@@ -242,7 +242,7 @@
     user.userId = [Api userId];
     user.type = @"01";
     user.state = 1;
-    user.address = [NSString stringWithFormat:@"%@(%@)", addr.dizhi, addr.youbian];
+    user.address = [NSString stringWithFormat:@"%@%@ %@(%@)", addr.sheng, addr.chengshi, addr.dizhi, addr.youbian];
     user.mobile = addr.shouji.longLongValue;
     user.receiver = addr.shouhuoren;
     user.goodsCount = 0;

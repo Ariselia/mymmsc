@@ -146,6 +146,7 @@ typedef enum EBPayStatus {
 @property (nonatomic, assign) int love;
 @property (nonatomic, copy) NSString *picUrl; // 图片url (encode)
 @property (nonatomic, copy) NSString *commentTime;// 评论的时间
+@property (nonatomic, copy) NSString *realizeTime;
 
 @end
 
@@ -197,6 +198,7 @@ typedef enum EBPayStatus {
 
 @property (nonatomic, assign) int shopId;
 @property (nonatomic, copy) NSString *shopName;
+@property (nonatomic, copy) NSString *actionSource; // 操作来源
 
 @end
 
