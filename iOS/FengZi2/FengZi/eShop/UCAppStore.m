@@ -59,6 +59,10 @@
 // 转向电子蜂夹
 - (IBAction)gotoEFile:(id)sender {
     // 登录
+    if (![Api isOnLine]) {
+        [self gotoLogin];
+        return;
+    }
     EFileMain *theView = [[[EFileMain alloc] init] autorelease];
     UINavigationController *nextView = [[UINavigationController alloc] initWithRootViewController:theView];
     [self presentModalViewController:nextView animated:YES];
@@ -66,6 +70,10 @@
 
 // 转向蜂幸运
 - (IBAction)gotoLucky:(id)sender{
+    if (![Api isOnLine]) {
+        [self gotoLogin];
+        return;
+    }
     // 登录
     GamePortal *theView = [[[GamePortal alloc] init] autorelease];
     UINavigationController *nextView = [[UINavigationController alloc] initWithRootViewController:theView];
