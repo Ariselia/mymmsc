@@ -15,4 +15,9 @@
 @property (nonatomic, retain) IBOutlet UILabel *addrCode;
 @property (nonatomic, retain) IBOutlet UILabel *addrName;
 @property (nonatomic, retain) IBOutlet UILabel *addrPhone;
+
+@property (nonatomic, retain) IBOutlet UILabel *logicName;
+@property (nonatomic, retain) IBOutlet UILabel *logicId;
+@property (nonatomic, retain) IBOutlet UILabel *logicDate;
+@property (nonatomic, retain) IBOutlet UILabel *logicPhone;
 @end

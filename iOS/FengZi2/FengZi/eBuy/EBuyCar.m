@@ -239,11 +239,21 @@
     [cell.imageView addSubview:ai];
     
     cell.textLabel.text = [iOSApi urlDecode:obj.title];
-    NSString *tmpTitle = [NSString stringWithFormat:@"编号:%d 数量:%d 价格:%.2f", obj.shopId, obj.carCount, obj.price];
+    NSString *tmpTitle = [NSString stringWithFormat:@"编号:%d 价格:%.2f 数量:", obj.shopId, obj.price];
     cell.detailTextLabel.text = [iOSApi urlDecode:tmpTitle];
+    UITextField *tfNumber = [[[UITextField alloc] initWithFrame:CGRectMake(250, 35, 20, 20)] autorelease];
+    tfNumber.tag = indexPath.section * 1000 + (pos - 1);
+    // 绑定事件
+    //[tfNumber addTarget:self action:@selector(textRestore:) forControlEvents:UIControlEventEditingDidEndOnExit];
+    //[tfNumber addTarget:self action:@selector(textRestore:) forControlEvents:UIControlEventEditingDidEnd];
+    [tfNumber addTarget:self action:@selector(textUpdate:) forControlEvents:UIControlEventEditingChanged];
+    //[tfNumber addTarget:self action:@selector(textSelect:event:) forControlEvents:UIControlEventTouchUpInside];
+    tfNumber.backgroundColor = [UIColor redColor];
+    tfNumber.text = [NSString valueOf:obj.carCount];
+    [cell.contentView addSubview:tfNumber];
     cell.detailTextLabel.lineBreakMode = UILineBreakModeTailTruncation;
-    cell.detailTextLabel.numberOfLines = 0;
-    CGRect frame = CGRectMake(200, 0, 70, 20);
+    cell.detailTextLabel.numberOfLines = 1;
+    CGRect frame = CGRectMake(230, 0, 50, 20);
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     [btn setTitle:@"删除" forState:UIControlStateNormal];
     btn.frame = frame;
@@ -272,6 +282,47 @@
     [nextView release];
 }
 
+static int s_textIndex = -1;
+
+// 文本框变动的时候
+- (void)textUpdate:(id)sender event:(id)event{
+    NSSet *touches = [event allTouches];
+	UITouch *touch = [touches anyObject];
+	CGPoint currentTouchPosition = [touch locationInView: _tableView];
+	NSIndexPath *indexPath = [_tableView indexPathForRowAtPoint: currentTouchPosition];
+    s_textIndex = indexPath.row;
+}
+
+// 文本框变动的时候
+- (void)textUpdate:(id)sender{
+	if ([sender isKindOfClass: [UITextField class]]) {
+        UITextField *field = sender;
+        NSString *msg = [field.text trim];
+        if (msg.length >= 1) {
+            if ([iOSApi regexpMatch:msg withPattern:@"^[0-9]+$"]) {
+                [field resignFirstResponder];
+            } else {
+                // 非手机号码
+                [iOSApi toast:@"商品数量输入,必须是数字。"];
+                msg = [msg substringToIndex:msg.length -1];
+                field.text = msg;
+                [sender becomeFirstResponder];
+            }
+            int n = field.tag;
+            int s = n / 1000;
+            int r = n - s * 1000;
+            NSArray *keys = [_items allKeys];
+            NSArray *values = [_items objectForKey:[keys objectAtIndex:s]];
+            EBProductInfo *obj = [values objectAtIndex:r];
+            obj.carCount = msg.intValue;
+        }
+	}
+}
+
+// 恢复数据到文本框
+- (void)textRestore:(UITextField *)field {
+    [field resignFirstResponder];
+}
 
 - (void)doBuyList{
     EBuyTypes *nextView = [[EBuyTypes alloc] init];

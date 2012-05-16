@@ -92,17 +92,7 @@
     EBOrder *obj = object;
     // 设置字体
     UIFont *textFont = [UIFont systemFontOfSize:17.0];
-    NSString *state = @"完成";
-    if (obj.state == 0) {
-        state = @"完成";
-    } else if(obj.state == 1) {
-        state = @"正在处理订单";
-    } else if(obj.state == 2) {
-        state = @"派送途中";
-    } else if(obj.state == 3) {
-        state = @"等待用户确认";
-    }
-    cell.textLabel.text = [NSString stringWithFormat:@"%@,  %@", [iOSApi urlDecode:obj.ordered], state];
+    cell.textLabel.text = [NSString stringWithFormat:@"%@,  %@", [iOSApi urlDecode:obj.ordered], [Api ebuy_state_order:obj.state]];
     cell.textLabel.font = textFont;
     
     cell.detailTextLabel.text = [NSString stringWithFormat:@"总价：%.2f, %@", obj.price,obj.orderTime];

@@ -106,7 +106,8 @@
             state = @"等待用户确认";
         }
         cell1.orderId.text = user.orderId;
-        cell1.orderState.text = state;
+        cell1.orderState.text = [Api ebuy_state_order:user.state];
+        cell1.orderPayStatus.text = user.payStatus == 0x01 ? @"未支付" : @"已支付";//[Api ebuy_state_order:user.payStatus];
         cell1.orderModel.text = [Api ebuy_pay_type:user.payWay];
         cell1.orderNumber.text = [NSString stringWithFormat:@"%d", user.goodsCount];
         float hj = 0.00f;
@@ -170,6 +171,10 @@
         cell2.addrCode.text = [[NSNumber numberWithInt:user.areaCode] stringValue];
         cell2.addrName.text = [iOSApi urlDecode:user.receiver];
         cell2.addrPhone.text = [[NSNumber numberWithLongLong:user.mobile] stringValue];
+        cell2.logicId.text = [iOSApi urlDecode:user.logicId];
+        cell2.logicName.text = [iOSApi urlDecode:user.logicName];
+        cell2.logicDate.text = [iOSApi urlDecode:user.logicDt];
+        cell2.logicPhone.text = [iOSApi urlDecode:user.servicNo];
         cell2.backgroundColor = [UIColor lightGrayColor];
         [_items addObject:cell2];
     }

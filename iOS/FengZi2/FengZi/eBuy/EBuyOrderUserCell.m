@@ -9,7 +9,7 @@
 #import "EBuyOrderUserCell.h"
 
 @implementation EBuyOrderUserCell
-@synthesize orderId,orderModel,orderPrice,orderState,orderNumber;
+@synthesize orderId,orderModel,orderPrice,orderState,orderNumber,orderPayStatus;
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
@@ -30,4 +30,5 @@
 - (void)awakeFromNib{
     [super awakeFromNib];
 }
+
 @end

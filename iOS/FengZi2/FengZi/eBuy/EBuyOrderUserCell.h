@@ -16,4 +16,6 @@
 @property (nonatomic, retain) IBOutlet UILabel *orderState;
 @property (nonatomic, retain) IBOutlet UILabel *orderNumber;
 @property (nonatomic, retain) IBOutlet UILabel *orderPrice;
+@property (nonatomic, retain) IBOutlet UILabel *orderPayStatus;
+
 @end

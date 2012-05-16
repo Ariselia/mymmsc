@@ -13,8 +13,8 @@
     UITextBorderStyle   _borderStyle;
     NSMutableArray     *_items;
     
-    UITextField *content;
-    NSString *shopName;
+    UITextField         *content;
+    NSString            *shopName;
 }
 @property (nonatomic, copy) NSString *param;
 @property (nonatomic, assign) int way;

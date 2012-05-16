@@ -109,6 +109,7 @@ static const char *kPayWay[] = {"支付宝客户端支付", "支付宝wap支付"
 @implementation EBOrderUser
 
 @synthesize type,state,mobile,shopId,userId,address,orderId,payment,areaCode,receiver,shopName,goodsCount, payWay, payStatus, actionSource;
+@synthesize logicName, logicId, logicDt, servicNo;
 
 @end
 
@@ -548,6 +549,11 @@ static const char *kPayWay[] = {"支付宝客户端支付", "支付宝wap支付"
     if (response) {
         NSDictionary *data = [response objectForKey:method];
         [iRet parse:data];
+        if (iRet.status != API_SUCCESS) {
+            iRet.message = @"发送失败";
+        } else {
+            iRet.message = @"发送成功";
+        }
     }
     return [iRet autorelease];
 }
@@ -683,14 +689,14 @@ static const char *kPayWay[] = {"支付宝客户端支付", "支付宝wap支付"
     // 计算订单状态数组的长度
     int c = sizeof(kOrderState) / sizeof(kOrderState[0]);
     int s = state >> 4;
-    int t = state | 0x0f;
+    int t = state & 0x0f;
     NSString *prefix = @"未";
     if (s == 1) {
         prefix = @"已";
     }
     NSString *sRet = @"状态未知";
     if (t >= 0 && t < c) {
-        sRet = [NSString stringWithFormat:@"%@%s", prefix, kOrderState[t]];
+        sRet = [NSString stringWithFormat:@"%@%@", prefix, [NSString stringWithCString:kOrderState[t] encoding:NSUTF8StringEncoding]];
     }
     return sRet;
 }
@@ -701,7 +707,7 @@ static const char *kPayWay[] = {"支付宝客户端支付", "支付宝wap支付"
     int c = sizeof(kPayWay) / sizeof(kPayWay[0]);
     NSString *sRet = @"货到付款";
     if (type >= 0 && type < c) {
-        sRet = [NSString stringWithFormat:@"%s", kPayWay[type]];
+        sRet = [NSString stringWithCString:kPayWay[type] encoding:NSUTF8StringEncoding];
     }
     return sRet;
 }

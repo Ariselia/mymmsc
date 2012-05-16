@@ -200,6 +200,11 @@ typedef enum EBPayStatus {
 @property (nonatomic, copy) NSString *shopName;
 @property (nonatomic, copy) NSString *actionSource; // 操作来源
 
+@property (nonatomic, copy) NSString *logicDt;   // 发货日期
+@property (nonatomic, copy) NSString *logicId;   // 快递单号
+@property (nonatomic, copy) NSString *logicName; // 快递公司
+@property (nonatomic, copy) NSString *servicNo;  // 客服电话
+
 @end
 
 //--------------------< 电子商城 - 对象 - 订单 - 商品信息 >--------------------

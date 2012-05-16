@@ -111,6 +111,32 @@ static int segIndex = 0;
     desc.text = [self subject:dst_index];
 }
 
+- (void)moveInfo1{
+    if (dst_index < 0) {
+        return;
+    }
+    int pos = dst_index - 1;
+    [CATransaction begin];
+    [CATransaction setAnimationDuration:0.3];
+    [CATransaction commit];
+    self.scrollView.contentOffset = CGPointMake(pos * 90, 0);
+    [self setAction:pos];
+}
+
+- (void)moveInfo2{
+    if (dst_index < 1) {
+        return;
+    }
+    int pos = dst_index + 1;
+    [CATransaction begin];
+    [CATransaction setAnimationDuration:0.3];
+    [CATransaction commit];
+    self.scrollView.contentOffset = CGPointMake(pos * 90, 0);
+    
+    [self setAction:pos];
+}
+
+
 - (void)awakeFromNib{
     [super awakeFromNib];
     group.selectedSegmentIndex = [EBuyRecommend type];
@@ -162,6 +188,17 @@ static int segIndex = 0;
         UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
         btn.frame = frame;
         [btn addTarget:self action:@selector(gotoInfo) forControlEvents:UIControlEventTouchUpInside];
+        [self addSubview:btn];
+        frame = CGRectMake(25, 30, 90, 90);
+        btn = [UIButton buttonWithType:UIButtonTypeCustom];
+        btn.frame = frame;
+        [btn addTarget:self action:@selector(moveInfo1) forControlEvents:UIControlEventTouchUpInside];
+        [self addSubview:btn];
+        
+        frame = CGRectMake(205, 30, 90, 90);
+        btn = [UIButton buttonWithType:UIButtonTypeCustom];
+        btn.frame = frame;
+        [btn addTarget:self action:@selector(moveInfo2) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:btn];
     }
 }

@@ -10,6 +10,7 @@
 
 @implementation EBuyOrderAddressCell
 @synthesize addrAddress, addrCode, addrName, addrPhone;
+@synthesize logicId, logicDate, logicName, logicPhone;
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {

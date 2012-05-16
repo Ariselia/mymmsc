@@ -123,10 +123,14 @@
     NSString *tmpTitle = @"";
     if (_selected == 0) {
         // 收件箱
-        tmpTitle = [NSString stringWithFormat:@"%@: %@", obj.sendName, obj.sendTime];
+        tmpTitle = [NSString stringWithFormat:@"%@: %@", [iOSApi urlDecode:obj.sendName], obj.sendTime];
     } else {
+        NSString *temp = [iOSApi urlDecode:obj.recvName];
+        if (temp != nil && temp.length < 1) {
+            temp = [Api nikeName];
+        }
         // 发件箱
-        tmpTitle = [NSString stringWithFormat:@"%@: %@", obj.recvName, obj.sendTime];
+        tmpTitle = [NSString stringWithFormat:@"%@: %@", temp, obj.sendTime];
     }
      
     cell.textLabel.text = [iOSApi urlDecode:tmpTitle];
@@ -135,7 +139,7 @@
     cell.detailTextLabel.lineBreakMode = 0;
     cell.detailTextLabel.font = [UIFont systemFontOfSize:14.0];
     if (_selected == 0) {
-        CGRect frame = CGRectMake(269, 10, 50, 20);
+        CGRect frame = CGRectMake(269, 3, 50, 20);
         UIButton *btn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
         [btn setTitle:@"回复" forState:UIControlStateNormal];
         btn.frame = frame;

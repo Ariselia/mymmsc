@@ -257,6 +257,7 @@
 
 // 立即购买
 - (void)goBuy{
+    [Api ebuy_car_add:_product];
     EBuyCar *nextView = [[EBuyCar alloc] init];
     [self.navigationController pushViewController:nextView animated:YES];
     [nextView release];

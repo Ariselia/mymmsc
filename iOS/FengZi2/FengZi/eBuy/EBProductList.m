@@ -71,6 +71,23 @@
     [star2 release];
 }
 
+- (void)doWriteMsg{
+    UIAlertView *alert = [[UIAlertView alloc]
+						  initWithTitle: [NSString stringWithFormat:@"对\"%@\"说点什么吧", shopName]
+						  message:[NSString stringWithFormat:@"\n\n"]
+						  delegate:self
+						  cancelButtonTitle:@"取消"
+						  otherButtonTitles:@"发表", nil];
+    content = [[UITextField alloc] initWithFrame:CGRectMake(12, 60, 260, 25)];
+	[content setTag:1001];
+	CGAffineTransform mytrans = CGAffineTransformMakeTranslation(-0, -150);
+	[alert setTransform:mytrans];
+	[content setBackgroundColor:[UIColor whiteColor]];
+	[alert addSubview:content];
+	[alert show];
+	[alert release];
+}
+
 - (void)goBack{
     [self.navigationController popViewControllerAnimated:YES];
 }
@@ -94,16 +111,28 @@
     self.navigationItem.titleView = label;
     [label release];
     
-    UIButton *backbtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    backbtn.frame =CGRectMake(0, 0, 60, 32);
+    UIButton *btnLeft = [UIButton buttonWithType:UIButtonTypeCustom];
+    btnLeft.frame = CGRectMake(0, 0, 60, 32);
     
-    [backbtn setImage:[UIImage imageNamed:@"back.png"] forState:UIControlStateNormal];
-    [backbtn setImage:[UIImage imageNamed:@"back_tap.png"] forState:UIControlStateHighlighted];
-    [backbtn addTarget:self action:@selector(goBack) forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem *backitem = [[UIBarButtonItem alloc] initWithCustomView:backbtn];
-    self.navigationItem.leftBarButtonItem = backitem;
-    [backitem release];
+    [btnLeft setImage:[UIImage imageNamed:@"back.png"] forState:UIControlStateNormal];
+    [btnLeft setImage:[UIImage imageNamed:@"back_tap.png"] forState:UIControlStateHighlighted];
+    [btnLeft addTarget:self action:@selector(goBack) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *itemLeft = [[UIBarButtonItem alloc] initWithCustomView:btnLeft];
+    self.navigationItem.leftBarButtonItem = itemLeft;
+    [itemLeft release];
     
+    // Bug #519, 如果找到商户商品列表, 在导航条右侧增加一个按钮 [WangFeng fixed at 2012/05/16 06:48]
+    if (param == nil) {
+        UIImage *tmpImg = [[UIImage imageNamed:@"nav-at.png"] toSize:CGSizeMake(32, 32)];
+        UIButton *btnRight = [UIButton buttonWithType:UIButtonTypeCustom];
+        btnRight.frame = CGRectMake(0, 0, 60, 32);
+        [btnRight setImage:tmpImg forState:UIControlStateNormal];
+        [btnRight setImage:tmpImg forState:UIControlStateHighlighted];
+        [btnRight addTarget:self action:@selector(doWriteMsg) forControlEvents:UIControlEventTouchUpInside];
+        UIBarButtonItem *itemRight = [[UIBarButtonItem alloc] initWithCustomView:btnRight];
+        self.navigationItem.rightBarButtonItem = itemRight;
+        [itemRight release];
+    }
     _borderStyle = UITextBorderStyleNone;
     //font = [UIFont systemFontOfSize:13.0];
     if ([_items count] == 0) {
@@ -174,39 +203,20 @@
     cellView.desc.text = [NSString stringWithFormat:@"商品简介: %@", [iOSApi urlDecode:obj.content]];
     cell = cellView;
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    cell.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
     return cell;
 }
-
+/*
 - (UITableViewCellAccessoryType)tableView:(UITableView *)tableView accessoryTypeForRowWithIndexPath:(NSIndexPath *)indexPath {
     return UITableViewCellAccessoryDetailDisclosureButton;
-    //return UITableViewCellAccessoryDisclosureIndicator;
 }
-
+*/
 - (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath{
     EBProductInfo *obj = [_items objectAtIndex:indexPath.row];
     EBProductDetail *nextView = [[EBProductDetail alloc] init];
     nextView.param = obj.id;
     [self.navigationController pushViewController:nextView animated:YES];
     [nextView release];
-}
-
-/*
-- (IBAction)doWriteMsg:(id)sender{
-    UIAlertView *alert = [[UIAlertView alloc]
-						  initWithTitle: [NSString stringWithFormat:@"对\"%@\"说点什么吧", shopName]
-						  message:[NSString stringWithFormat:@"\n\n"]
-						  delegate:self
-						  cancelButtonTitle:@"取消"
-						  otherButtonTitles:@"发表", nil];
-    content = [[UITextField alloc] initWithFrame:CGRectMake(12, 60, 260, 25)];
-	[content setTag:1001];
-	CGAffineTransform mytrans = CGAffineTransformMakeTranslation(-0, -150);
-	[alert setTransform:mytrans];
-	[content setBackgroundColor:[UIColor whiteColor]];
-	[alert addSubview:content];
-	[alert show];
-	[alert release];
 }
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger) buttonIndex{
@@ -224,5 +234,5 @@
         }
     }
 }
-*/
+
 @end
