@@ -9,6 +9,7 @@
 #import "Api+Database.h"
 //====================================< 本地数据库 - 接口 >====================================
 #import "FileUtil.h"
+#import "Api.h"
 
 @implementation DataBaseOperate
 static DataBaseOperate *shareData = nil;
@@ -38,9 +39,9 @@ static sqlite3 *database;
             createSql = "CREATE TABLE `history` (`id` INTEGER PRIMARY KEY  DEFAULT '', `type` INTEGER DEFAULT 0,`is_encode` smallint DEFAULT 0, `date` DATETIME DEFAULT '', `content` VARCHAR DEFAULT '', `image` VARCHAR DEFAULT '')";
             sqlite3_exec( database, createSql, NULL, NULL, nil);
             
-            createSql = "create table if not exists `member` (`id` INTEGER PRIMARY KEY  DEFAULT '', `memberclassid` VARCHAR DEFAULT '',`memberclassname` VARCHAR DEFAULT '',`memberlistid` VARCHAR DEFAULT '',`memberlistname` VARCHAR DEFAULT '',`memberlistpicurl` VARCHAR DEFAULT '',`memberinfocodename` VARCHAR DEFAULT '',`memberinfocodepicurl` VARCHAR DEFAULT '',`memberinfocodecontent` VARCHAR DEFAULT '',`memberinfocodenum` VARCHAR DEFAULT '',`memberinfopicurl` VARCHAR DEFAULT '',`memberinfocodeserialnum` VARCHAR DEFAULT '',`memberinfocodeusetime` VARCHAR DEFAULT '',`userid` VARCHAR DEFAULT '')";
+            createSql = "create table if not exists `member` (`id` INTEGER PRIMARY KEY  DEFAULT '', `memberclassid` VARCHAR DEFAULT '',`memberclassname` VARCHAR DEFAULT '',`memberlistid` VARCHAR DEFAULT '',`memberlistname` VARCHAR DEFAULT '',`memberlistpicurl` VARCHAR DEFAULT '',`memberinfocodename` VARCHAR DEFAULT '',`memberinfocodepicurl` VARCHAR DEFAULT '',`memberinfocodecontent` VARCHAR DEFAULT '',`memberinfocodenum` VARCHAR DEFAULT '',`memberinfopicurl` VARCHAR DEFAULT '',`memberinfocodeserialnum` VARCHAR DEFAULT '',`memberinfocodeusetime` VARCHAR DEFAULT '',`userid` VARCHAR DEFAULT '',`userphone` VARCHAR DEFAULT '')";
             sqlite3_exec( database, createSql, NULL, NULL, nil);
-            createSql = "create table if not exists `card` (`id` INTEGER PRIMARY KEY  DEFAULT '', `cardclassid` VARCHAR DEFAULT '',`cardclassname` VARCHAR DEFAULT '',`cardlistid` VARCHAR DEFAULT '',`cardlistname` VARCHAR DEFAULT '',`cardlistpicurl` VARCHAR DEFAULT '',`cardlistflag` VARCHAR DEFAULT '',`cardinfocode` VARCHAR DEFAULT '',`cardinfocodepicurl` VARCHAR DEFAULT '',`cardinfocontent` VARCHAR DEFAULT '',`cardinfoname` VARCHAR DEFAULT '',`cardinfodiscount` VARCHAR DEFAULT '',`cardinfopicurl` VARCHAR DEFAULT '',`cardinfoserialnum` VARCHAR DEFAULT '',`cardinfousetime` VARCHAR DEFAULT '',`cardinfousestate` VARCHAR DEFAULT '',`cardlistarealist` VARCHAR DEFAULT '',`cardlisttypelist` VARCHAR DEFAULT '',`cardinfoshoplist` VARCHAR DEFAULT '',`userid` VARCHAR DEFAULT '')";
+            createSql = "create table if not exists `card` (`id` INTEGER PRIMARY KEY  DEFAULT '', `cardclassid` VARCHAR DEFAULT '',`cardclassname` VARCHAR DEFAULT '',`cardlistid` VARCHAR DEFAULT '',`cardlistname` VARCHAR DEFAULT '',`cardlistpicurl` VARCHAR DEFAULT '',`cardlistflag` VARCHAR DEFAULT '',`cardinfocode` VARCHAR DEFAULT '',`cardinfocodepicurl` VARCHAR DEFAULT '',`cardinfocontent` VARCHAR DEFAULT '',`cardinfoname` VARCHAR DEFAULT '',`cardinfodiscount` VARCHAR DEFAULT '',`cardinfopicurl` VARCHAR DEFAULT '',`cardinfoserialnum` VARCHAR DEFAULT '',`cardinfousetime` VARCHAR DEFAULT '',`cardinfousestate` VARCHAR DEFAULT '',`cardlistarealist` VARCHAR DEFAULT '',`cardlisttypelist` VARCHAR DEFAULT '',`cardinfoshoplist` VARCHAR DEFAULT '',`userid` VARCHAR DEFAULT '',`userphone` VARCHAR DEFAULT '')";
             sqlite3_exec( database, createSql, NULL, NULL, nil);
             
             _isOpen = YES;
@@ -266,9 +267,9 @@ static sqlite3 *database;
 
 #define API_DB_NAME @"ifengzi.db"
 
-#define SQL_CREATE_MEMBER  @"create table if not exists `member` (`id` INTEGER PRIMARY KEY  DEFAULT '', `memberclassid` VARCHAR DEFAULT '',`memberclassname` VARCHAR DEFAULT '',`memberlistid` VARCHAR DEFAULT '',`memberlistname` VARCHAR DEFAULT '',`memberlistpicurl` VARCHAR DEFAULT '',`memberinfocodename` VARCHAR DEFAULT '',`memberinfocodepicurl` VARCHAR DEFAULT '',`memberinfocodecontent` VARCHAR DEFAULT '',`memberinfocodenum` VARCHAR DEFAULT '',`memberinfopicurl` VARCHAR DEFAULT '',`memberinfocodeserialnum` VARCHAR DEFAULT '',`memberinfocodeusetime` VARCHAR DEFAULT '',`userid` VARCHAR DEFAULT '')"
+#define SQL_CREATE_MEMBER  @"create table if not exists `member` (`id` INTEGER PRIMARY KEY  DEFAULT '', `memberclassid` VARCHAR DEFAULT '',`memberclassname` VARCHAR DEFAULT '',`memberlistid` VARCHAR DEFAULT '',`memberlistname` VARCHAR DEFAULT '',`memberlistpicurl` VARCHAR DEFAULT '',`memberinfocodename` VARCHAR DEFAULT '',`memberinfocodepicurl` VARCHAR DEFAULT '',`memberinfocodecontent` VARCHAR DEFAULT '',`memberinfocodenum` VARCHAR DEFAULT '',`memberinfopicurl` VARCHAR DEFAULT '',`memberinfocodeserialnum` VARCHAR DEFAULT '',`memberinfocodeusetime` VARCHAR DEFAULT '',`userid` VARCHAR DEFAULT '',`userphone` VARCHAR DEFAULT '')"
 
-#define SQL_CREATE_CARD @"create table if not exists `card` (`id` INTEGER PRIMARY KEY  DEFAULT '', `cardclassid` VARCHAR DEFAULT '',`cardclassname` VARCHAR DEFAULT '',`cardlistid` VARCHAR DEFAULT '',`cardlistname` VARCHAR DEFAULT '',`cardlistpicurl` VARCHAR DEFAULT '',`cardlistflag` VARCHAR DEFAULT '',`cardinfocode` VARCHAR DEFAULT '',`cardinfocodepicurl` VARCHAR DEFAULT '',`cardinfocontent` VARCHAR DEFAULT '',`cardinfoname` VARCHAR DEFAULT '',`cardinfodiscount` VARCHAR DEFAULT '',`cardinfopicurl` VARCHAR DEFAULT '',`cardinfoserialnum` VARCHAR DEFAULT '',`cardinfousetime` VARCHAR DEFAULT '',`cardinfousestate` VARCHAR DEFAULT '',`cardlistarealist` VARCHAR DEFAULT '',`cardlisttypelist` VARCHAR DEFAULT '',`cardinfoshoplist` VARCHAR DEFAULT '',`userid` VARCHAR DEFAULT '')"
+#define SQL_CREATE_CARD @"create table if not exists `card` (`id` INTEGER PRIMARY KEY  DEFAULT '', `cardclassid` VARCHAR DEFAULT '',`cardclassname` VARCHAR DEFAULT '',`cardlistid` VARCHAR DEFAULT '',`cardlistname` VARCHAR DEFAULT '',`cardlistpicurl` VARCHAR DEFAULT '',`cardlistflag` VARCHAR DEFAULT '',`cardinfocode` VARCHAR DEFAULT '',`cardinfocodepicurl` VARCHAR DEFAULT '',`cardinfocontent` VARCHAR DEFAULT '',`cardinfoname` VARCHAR DEFAULT '',`cardinfodiscount` VARCHAR DEFAULT '',`cardinfopicurl` VARCHAR DEFAULT '',`cardinfoserialnum` VARCHAR DEFAULT '',`cardinfousetime` VARCHAR DEFAULT '',`cardinfousestate` VARCHAR DEFAULT '',`cardlistarealist` VARCHAR DEFAULT '',`cardlisttypelist` VARCHAR DEFAULT '',`cardinfoshoplist` VARCHAR DEFAULT '',`userid` VARCHAR DEFAULT '',`userphone` VARCHAR DEFAULT '')"
 
 - (void)checkTableMember:(iOSDatabase *)db{
     [db execute2:SQL_CREATE_MEMBER];
@@ -285,11 +286,12 @@ static sqlite3 *database;
         [self checkTableMember:db];
     }
     BOOL _isExists= NO;
-    NSString *sql = @"select memberlistid from member where memberlistid = ?";
+    NSString *sql = @"select memberlistid from member where memberlistid = ? and userphone = ?";
     _isExists = [db prepare:sql];
     if ([db prepare:sql])
     {   
         [db bind:1 text:sid];
+        [db bind:2 text:[Api userPhone]];
         if ([db execute]) {
             _isExists = YES;
         } else {
@@ -309,10 +311,11 @@ static sqlite3 *database;
         [self checkTableCard:db];
     }
     BOOL _isExists= NO;
-    NSString *sql = @"select cardlistid from card where cardlistid = ?";
+    NSString *sql = @"select cardlistid from card where cardlistid = ? and userphone = ?";
     if ([db prepare:sql])
     {   
         [db bind:1 text:sid];
+        [db bind:2 text:[Api userPhone]];
         if ([db execute]) {
             _isExists = YES;
         } else {
@@ -328,7 +331,7 @@ static sqlite3 *database;
     
     iOSDatabase *db = [iOSDatabase open:API_DB_NAME];
     [self checkTableMember:db];
-    NSString *sql = @"INSERT INTO member (memberclassid,memberclassname,memberlistid,memberlistname,memberlistpicurl,memberinfocodename,memberinfocodepicurl,memberinfocodecontent,memberinfocodenum,memberinfopicurl,memberinfocodeserialnum,memberinfocodeusetime,userid) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)";
+    NSString *sql = @"INSERT INTO member (memberclassid,memberclassname,memberlistid,memberlistname,memberlistpicurl,memberinfocodename,memberinfocodepicurl,memberinfocodecontent,memberinfocodenum,memberinfopicurl,memberinfocodeserialnum,memberinfocodeusetime,userid,userphone) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
     if ([db prepare:sql])
     {                    
         [db bind:1 text:a];
@@ -344,7 +347,7 @@ static sqlite3 *database;
         [db bind:11 text:k];
         [db bind:12 text:l];
         [db bind:13 text:m];
-        
+        [db bind:14 text:[Api userPhone]];
         [db execute];
     } else {
 		//NSLog(@"Error: failed to insert '%s'.", sqlite3_errmsg(database));
@@ -363,7 +366,7 @@ static sqlite3 *database;
      15 cardinfousestate,16 cardlistarealist,17 cardlisttypelist,18 cardinfoshoplist,19 userid
      */
     
-    NSString *sql = @"INSERT INTO card (cardclassid,cardclassname,cardlistid,cardlistname,cardlistpicurl,cardlistflag,cardinfocode,cardinfocodepicurl,cardinfocontent,cardinfoname,cardinfodiscount,cardinfopicurl,cardinfoserialnum,cardinfousetime,cardinfousestate,cardlistarealist,cardlisttypelist,cardinfoshoplist,userid) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+    NSString *sql = @"INSERT INTO card (cardclassid,cardclassname,cardlistid,cardlistname,cardlistpicurl,cardlistflag,cardinfocode,cardinfocodepicurl,cardinfocontent,cardinfoname,cardinfodiscount,cardinfopicurl,cardinfoserialnum,cardinfousetime,cardinfousestate,cardlistarealist,cardlisttypelist,cardinfoshoplist,userid,userphone) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
     if ([db prepare:sql])
     {                    
         [db bind:1 text:a];
@@ -385,6 +388,8 @@ static sqlite3 *database;
         [db bind:17 text:q];
         [db bind:18 text:r];
         [db bind:19 text:s];
+        [db bind:20 text:[Api userPhone]];
+
         [db execute];
     } else {
 		//NSLog(@"Error: failed to insert '%s'.", sqlite3_errmsg(database));
@@ -395,10 +400,11 @@ static sqlite3 *database;
 - (EFileMemberInfo *)loadMemberInfo:(NSString *)sid{
     EFileMemberInfo *obj = nil;
     iOSDatabase *db = [iOSDatabase open:API_DB_NAME];
-    NSString *sql = @"select memberinfocodename,memberinfocodepicurl,memberinfocodecontent,memberinfocodenum,memberinfopicurl,memberinfocodeserialnum,memberinfocodeusetime,userid FROM member where memberlistid = ?";
+    NSString *sql = @"select memberinfocodename,memberinfocodepicurl,memberinfocodecontent,memberinfocodenum,memberinfopicurl,memberinfocodeserialnum,memberinfocodeusetime,userid FROM member where memberlistid = ? and userphone=?";
     [self checkTableMember:db];
     if ([db prepare:sql]) {
         [db bind:1 text:sid];
+        [db bind:2 text:[Api userPhone]];
         NSMutableArray *list = [db execute:EFileMemberInfo.class];
         if (list.count > 0) {
             obj = [list objectAtIndex:0];
@@ -414,10 +420,12 @@ static sqlite3 *database;
 
 - (NSMutableArray*)loadCard:(int)pageIndex{
     NSMutableArray *list = nil;
-    NSString *sql = @"select cardclassid as sid, cardclassname as name FROM card group by cardclassid";
+    NSString *sql = @"select cardclassid as sid, cardclassname as name FROM card where  userphone=? group by cardclassid";
     iOSDatabase *db = [iOSDatabase open:API_DB_NAME];
 	[self checkTableCard:db];
     if ([db prepare:sql]) {
+        
+        [db bind:1 text:[Api userPhone]];
         list = [db execute:EFileCard.class];
     }
 	
@@ -429,10 +437,11 @@ static sqlite3 *database;
     NSMutableArray *list = nil;
     iOSDatabase *db = [iOSDatabase open:API_DB_NAME];
     [self checkTableCard:db];
-    NSString *sql = @"select cardlistid as sid,cardlistname as name,cardlistpicurl as picurl,cardlistflag as flag FROM card where cardclassid = ?";
+    NSString *sql = @"select cardlistid as sid,cardlistname as name,cardlistpicurl as picurl,cardlistflag as flag FROM card where cardclassid = ? and userphone=?";
     //const char *sql = "select memberclassid,memberclassname  FROM member";
 	if ([db prepare:sql]) {
         [db bind:1 text:sid];
+        [db bind:2 text:[Api userPhone]];
         list = [db execute:EFileCardList.class];
 	}
 	
@@ -444,9 +453,10 @@ static sqlite3 *database;
     EFileCardInfo *obj = nil;
     iOSDatabase *db = [iOSDatabase open:API_DB_NAME];
     [self checkTableCard:db];
-    NSString *sql = @"select cardinfocode,cardinfocodepicurl,cardinfocontent,cardinfoname,cardinfodiscount,cardinfopicurl,cardinfoserialnum,cardinfousetime,cardinfousestate,cardlistarealist,cardlisttypelist,cardinfoshoplist,userid FROM card where cardlistid = ?";
+    NSString *sql = @"select cardinfocode,cardinfocodepicurl,cardinfocontent,cardinfoname,cardinfodiscount,cardinfopicurl,cardinfoserialnum,cardinfousetime,cardinfousestate,cardlistarealist,cardlisttypelist,cardinfoshoplist,userid FROM card where cardlistid = ? and userphone=?";
   	if ([db prepare:sql]) {
         [db bind:1 text:sid];
+        [db bind:2 text:[Api userPhone]];
         NSMutableArray *list = [db execute:EFileCardInfo.class];
         if (list.count > 0) {
             obj = [list objectAtIndex:0];
@@ -461,8 +471,9 @@ static sqlite3 *database;
     NSMutableArray *list = nil;
     iOSDatabase *db = [iOSDatabase open:API_DB_NAME];
     [self checkTableMember:db];
-	NSString *sql = @"select memberclassid as sid,memberclassname as name FROM member group by memberclassid";
+	NSString *sql = @"select memberclassid as sid,memberclassname as name FROM member where  userphone=? group by memberclassid";
 	if ([db prepare:sql]) {
+         [db bind:1 text:[Api userPhone]];
         list = [db execute:EFileMember.class];
 	}
 	
@@ -475,9 +486,10 @@ static sqlite3 *database;
     NSMutableArray *list = nil;
     iOSDatabase *db = [iOSDatabase open:API_DB_NAME];
     [self checkTableMember:db];
-	NSString *sql = @"select memberlistid as sid,memberlistname as name,memberlistpicurl as picurl FROM member where memberclassid = ?";
+	NSString *sql = @"select memberlistid as sid,memberlistname as name,memberlistpicurl as picurl FROM member where memberclassid = ? and userphone = ?";
     if ([db prepare:sql]) {
         [db bind:1 text:sid];
+        [db bind:2 text:[Api userPhone]];
         list = [db execute:EFileMemberList.class];
 	}
 	
