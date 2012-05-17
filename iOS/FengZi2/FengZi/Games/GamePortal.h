@@ -20,5 +20,11 @@
 }
 
 @property (nonatomic, retain) IBOutlet UITableView *tableView;
+@property (nonatomic, retain) IBOutlet UILabel *lable1;
+@property (nonatomic, retain) IBOutlet UILabel *lable2;
+@property (nonatomic, retain) IBOutlet UILabel *lable3;
+@property (nonatomic, retain) IBOutlet UILabel *lable4;
+@property (nonatomic, retain) IBOutlet UILabel *lable5;
+@property (nonatomic, retain) IBOutlet UILabel *lable6;
 
 @end
