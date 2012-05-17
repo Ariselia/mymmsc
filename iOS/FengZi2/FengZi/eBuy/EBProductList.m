@@ -19,7 +19,7 @@
 @implementation EBProductList
 @synthesize tableView=_tableView;
 @synthesize way, typeId;
-@synthesize pClass, subject;
+@synthesize pClass, subject, btnWrite;
 @synthesize param;
 
 #define kTAG_BASE (10000)
@@ -38,10 +38,56 @@
     return self;
 }
 
+- (IBAction)doWriteMsg:(id)sender{
+    UIAlertView *alert = [[UIAlertView alloc]
+						  initWithTitle: [NSString stringWithFormat:@"对\"%@\"说点什么吧", shopName]
+						  message:[NSString stringWithFormat:@"\n\n"]
+						  delegate:self
+						  cancelButtonTitle:@"取消"
+						  otherButtonTitles:@"发表", nil];
+    content = [[UITextField alloc] initWithFrame:CGRectMake(12, 60, 260, 25)];
+	[content setTag:1001];
+	CGAffineTransform mytrans = CGAffineTransformMakeTranslation(-0, -150);
+	[alert setTransform:mytrans];
+	[content setBackgroundColor:[UIColor whiteColor]];
+	[alert addSubview:content];
+	[alert show];
+	[alert release];
+}
+
+- (void)goBack{
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    UIImage *image = [UIImage imageNamed:@"navigation_bg.png"];
+    Class ios5Class = (NSClassFromString(@"CIImage"));
+    if (nil != ios5Class) {
+        [self.navigationController.navigationBar setBackgroundImage:image forBarMetrics:UIBarMetricsDefault];
+    } else {
+        self.navigationController.navigationBar.layer.contents = (id)[UIImage imageNamed:@"navigation_bg.png"].CGImage;
+    }
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 100,44)];
+    label.backgroundColor = [UIColor clearColor];
+    label.textAlignment = UITextAlignmentCenter;
+    label.font = [UIFont fontWithName:@"黑体" size:60];
+    label.textColor = [UIColor blackColor];
+    label.text= @"商品列表";
+    self.navigationItem.titleView = label;
+    [label release];
+    
+    UIButton *btnLeft = [UIButton buttonWithType:UIButtonTypeCustom];
+    btnLeft.frame = CGRectMake(0, 0, 60, 32);
+    
+    [btnLeft setImage:[UIImage imageNamed:@"back.png"] forState:UIControlStateNormal];
+    [btnLeft setImage:[UIImage imageNamed:@"back_tap.png"] forState:UIControlStateHighlighted];
+    [btnLeft addTarget:self action:@selector(goBack) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *itemLeft = [[UIBarButtonItem alloc] initWithCustomView:btnLeft];
+    self.navigationItem.leftBarButtonItem = itemLeft;
+    [itemLeft release];
 }
 
 - (void)viewDidUnload
@@ -71,67 +117,23 @@
     [star2 release];
 }
 
-- (void)doWriteMsg{
-    UIAlertView *alert = [[UIAlertView alloc]
-						  initWithTitle: [NSString stringWithFormat:@"对\"%@\"说点什么吧", shopName]
-						  message:[NSString stringWithFormat:@"\n\n"]
-						  delegate:self
-						  cancelButtonTitle:@"取消"
-						  otherButtonTitles:@"发表", nil];
-    content = [[UITextField alloc] initWithFrame:CGRectMake(12, 60, 260, 25)];
-	[content setTag:1001];
-	CGAffineTransform mytrans = CGAffineTransformMakeTranslation(-0, -150);
-	[alert setTransform:mytrans];
-	[content setBackgroundColor:[UIColor whiteColor]];
-	[alert addSubview:content];
-	[alert show];
-	[alert release];
-}
-
-- (void)goBack{
-    [self.navigationController popViewControllerAnimated:YES];
-}
-
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
-    UIImage *image = [UIImage imageNamed:@"navigation_bg.png"];
-    Class ios5Class = (NSClassFromString(@"CIImage"));
-    if (nil != ios5Class) {
-        [self.navigationController.navigationBar setBackgroundImage:image forBarMetrics:UIBarMetricsDefault];
-    } else {
-        self.navigationController.navigationBar.layer.contents = (id)[UIImage imageNamed:@"navigation_bg.png"].CGImage;
-    }
-    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(110, 0, 150,44)];
-    label.backgroundColor = [UIColor clearColor];
-    label.textAlignment = UITextAlignmentCenter;
-    label.font = [UIFont fontWithName:@"黑体" size:60];
-    label.textColor = [UIColor blackColor];
-    label.text= @"商品列表";
-    self.navigationItem.titleView = label;
-    [label release];
-    
-    UIButton *btnLeft = [UIButton buttonWithType:UIButtonTypeCustom];
-    btnLeft.frame = CGRectMake(0, 0, 60, 32);
-    
-    [btnLeft setImage:[UIImage imageNamed:@"back.png"] forState:UIControlStateNormal];
-    [btnLeft setImage:[UIImage imageNamed:@"back_tap.png"] forState:UIControlStateHighlighted];
-    [btnLeft addTarget:self action:@selector(goBack) forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem *itemLeft = [[UIBarButtonItem alloc] initWithCustomView:btnLeft];
-    self.navigationItem.leftBarButtonItem = itemLeft;
-    [itemLeft release];
-    
     // Bug #519, 如果找到商户商品列表, 在导航条右侧增加一个按钮 [WangFeng fixed at 2012/05/16 06:48]
     if (param == nil) {
+        /*
         UIImage *tmpImg = [[UIImage imageNamed:@"nav-at.png"] toSize:CGSizeMake(32, 32)];
         UIButton *btnRight = [UIButton buttonWithType:UIButtonTypeCustom];
         btnRight.frame = CGRectMake(0, 0, 60, 32);
         [btnRight setImage:tmpImg forState:UIControlStateNormal];
         [btnRight setImage:tmpImg forState:UIControlStateHighlighted];
-        [btnRight addTarget:self action:@selector(doWriteMsg) forControlEvents:UIControlEventTouchUpInside];
+        [btnRight addTarget:self action:@selector(doWriteMsg:) forControlEvents:UIControlEventTouchUpInside];
         UIBarButtonItem *itemRight = [[UIBarButtonItem alloc] initWithCustomView:btnRight];
         self.navigationItem.rightBarButtonItem = itemRight;
         [itemRight release];
+        */
+        btnWrite.hidden = NO;
     }
     _borderStyle = UITextBorderStyleNone;
     //font = [UIFont systemFontOfSize:13.0];

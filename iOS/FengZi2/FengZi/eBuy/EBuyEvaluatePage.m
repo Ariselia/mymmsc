@@ -15,7 +15,7 @@
 
 @implementation EBuyEvaluatePage
 @synthesize productId, orderId;
-@synthesize xType, xContent, xState, xStar;
+@synthesize xType, xContent, xState, xStar, xButton;
 
 #define kTAG_BASE (10000)
 #define kTAG_STAR (kTAG_BASE + 1)
@@ -82,7 +82,7 @@ static int text_maxlength = 140;
 {
     [super viewDidUnload];
     // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
+    IOSAPI_RELEASE(picUrl);
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -188,8 +188,10 @@ static int iTimes = -1;
     size = [img fixSize:size];
     UIImage *scaledImage = [img toSize:size];
     //photo.image = scaledImage;
+    [xButton setImage:[scaledImage toSize:CGSizeMake(56, 42)] forState:UIControlStateNormal];
+    [xButton setImage:[scaledImage toSize:CGSizeMake(56, 42)] forState:UIControlStateHighlighted];
     NSData *buffer = [UIImagePNGRepresentation(scaledImage) retain];
-    picUrl = [Api ebuy_commentpic_upload:buffer];
+    picUrl = [[Api ebuy_commentpic_upload:buffer] copy];
 }
 
 - (BOOL)textViewShouldBeginEditing:(UITextView *)textView{

@@ -21,7 +21,7 @@
 @synthesize leftBtn;
 @synthesize rightBtn;
 @synthesize netBtn;
-@synthesize localBtn;
+@synthesize localBtn,noHYK,noDZQ;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -34,6 +34,7 @@
         _isHYK = YES;
         _isDZQ = NO;
         _isnotFirst = NO;
+        
     }
     return self;
 }
@@ -92,17 +93,21 @@
     UIButton *backbtn = [UIButton buttonWithType:UIButtonTypeCustom];
     backbtn.frame = CGRectMake(0, 0, 60, 32);
     
-    [backbtn setAlpha:0];
-   
+    [backbtn setImage:[UIImage imageNamed:@"back.png"] forState:UIControlStateNormal];
+    [backbtn setImage:[UIImage imageNamed:@"back_tap.png"] forState:UIControlStateHighlighted];
     [backbtn addTarget:self action:@selector(goBack) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *backitem = [[UIBarButtonItem alloc] initWithCustomView:backbtn];
     self.navigationItem.leftBarButtonItem = backitem;
     [backitem release];
+    
         
     _borderStyle = UITextBorderStyleNone;
     _font = [UIFont systemFontOfSize:13.0];
      [self.tableView setBackgroundColor:[UIColor clearColor]];
     self.tableView.separatorStyle = NO;
+    
+    [noDZQ setHidden:YES];
+    [noHYK setHidden:YES];
     
      [iOSApi showAlert:@"正在加载信息..."];
     if ([_items count] == 0) {
@@ -113,11 +118,28 @@
         if(_isHYK)
         {
         NSMutableArray *result = [[DataBaseOperate shareData] loadMember:_page];
-        [_items addObjectsFromArray:result];
+        if(result.count<1||result==nil)
+        {
+            [noHYK setHidden:NO];
+        }
+        else {
+          [_items addObjectsFromArray:result];   
+        }
+       
         //[result release];
         }
         else {
             NSMutableArray *result = [[DataBaseOperate shareData] loadCard:_pageDZQ];
+            
+            if(result.count<1||result==nil)
+            {
+                [noDZQ setHidden:NO];
+            }
+            else {
+                [_items addObjectsFromArray:result];   
+            }
+
+            
             [_items addObjectsFromArray:result];
 
         }
@@ -136,7 +158,8 @@
 
 -(void)gotoDZQ:(id)sender
 {
-    
+    [noDZQ setHidden:YES];
+    [noHYK setHidden:YES];
     if(_isDZQ)
     {
         
@@ -164,7 +187,13 @@
         _pageDZQ = 1;
         
         NSMutableArray *result = [[DataBaseOperate shareData] loadCard:_pageDZQ];
-        [_items addObjectsFromArray:result];
+        if(result.count<1||result==nil)
+        {
+            [noDZQ setHidden:NO];
+        }
+        else {
+            [_items addObjectsFromArray:result];   
+        }
         //[result release];
         
         [self.tableView reloadData];   
@@ -176,6 +205,8 @@
 
 -(void)gotoHYK:(id)sender
 {
+    [noDZQ setHidden:YES];
+    [noHYK setHidden:YES];
     if(_isHYK)
     {
         
@@ -199,8 +230,13 @@
         _page = 1;
         
         NSMutableArray *result = [[DataBaseOperate shareData] loadMember:_page];
-        [_items addObjectsFromArray:result];
-        //[result release];
+        if(result.count<1||result==nil)
+        {
+            [noHYK setHidden:NO];
+        }
+        else {
+            [_items addObjectsFromArray:result];   
+        }
 
         [self.tableView reloadData];
    

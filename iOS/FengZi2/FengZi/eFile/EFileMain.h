@@ -17,6 +17,7 @@
 @interface EFileMain : UIViewController <UIWebViewDelegate>{
 	IBOutlet UIWebView *myWebView;
     IBOutlet UIImageView *myImg;
+    UIActivityIndicatorView *activity;
 }
 @property (nonatomic, retain)  UIWebView *myWebView;
 @property (nonatomic, retain)  UIImageView *myImg;

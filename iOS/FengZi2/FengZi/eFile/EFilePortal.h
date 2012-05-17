@@ -33,7 +33,8 @@
 @property (nonatomic, retain) IBOutlet UIButton *rightBtn;
 @property (nonatomic, retain) IBOutlet UIButton *localBtn;
 @property (nonatomic, retain) IBOutlet UIButton *netBtn;
-
+@property (nonatomic, retain) IBOutlet UIImageView *noHYK;
+@property (nonatomic, retain) IBOutlet UIImageView *noDZQ;
 // 分类
 - (IBAction)doGroup:(id)sender;
 

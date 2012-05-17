@@ -21,6 +21,7 @@
 @property (nonatomic, retain) IBOutlet UITextView *xContent;
 @property (nonatomic, retain) IBOutlet UILabel *xState;
 @property (nonatomic, retain) IBOutlet UILabel *xStar;
+@property (nonatomic, retain) IBOutlet UIButton *xButton;
 
 // 选择图片
 - (IBAction)selectPic:(id)sender;

@@ -104,7 +104,7 @@ static int segIndex = 0;
 }
 
 - (void)setAction:(int)pos{
-    if (pos < 1) {
+    if (pos < 0) {
         return;
     }
     dst_index = pos;
@@ -124,7 +124,7 @@ static int segIndex = 0;
 }
 
 - (void)moveInfo2{
-    if (dst_index < 1) {
+    if (dst_index < 0) {
         return;
     }
     int pos = dst_index + 1;

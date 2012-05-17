@@ -23,8 +23,9 @@
 @property (nonatomic, retain) IBOutlet UITableView *tableView;
 @property (nonatomic, retain) IBOutlet UILabel *subject;
 @property (nonatomic, retain) IBOutlet UILabel *pClass;
+@property (nonatomic, retain) IBOutlet UIButton *btnWrite;
 
 // 发送站内信息
-//- (IBAction)doWriteMsg:(id)sender;
+- (IBAction)doWriteMsg:(id)sender;
 
 @end

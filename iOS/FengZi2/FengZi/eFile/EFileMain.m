@@ -51,6 +51,15 @@
     [myWebView loadRequest:request];
     [request release];
     
+    activity = [[UIActivityIndicatorView alloc] 
+                initWithFrame : CGRectMake(0.0f, 0.0f, 32.0f, 32.0f)];
+    activity.tag = kTagHintView;
+    [activity setCenter: self.view.center];
+    //[activityIndicatorView setActivityIndicatorViewStyle: UIActivityIndicatorViewStyleWhite];
+	[activity setActivityIndicatorViewStyle: UIActivityIndicatorViewStyleGray];
+    [self.view addSubview: activity];
+    [activity release];
+    
     [URL release];
 }
 
@@ -104,8 +113,8 @@
     UIButton *backbtn = [UIButton buttonWithType:UIButtonTypeCustom];
     backbtn.frame = CGRectMake(0, 0, 60, 32);
     
-    [backbtn setImage:[UIImage imageNamed:@"as_nav_home.png"] forState:UIControlStateNormal];
-    [backbtn setImage:[UIImage imageNamed:@"as_nav_home.png"] forState:UIControlStateHighlighted];
+    [backbtn setImage:[UIImage imageNamed:@"back.png"] forState:UIControlStateNormal];
+    [backbtn setImage:[UIImage imageNamed:@"back_tap.png"] forState:UIControlStateHighlighted];
     [backbtn addTarget:self action:@selector(goBack) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *backitem = [[UIBarButtonItem alloc] initWithCustomView:backbtn];
     self.navigationItem.leftBarButtonItem = backitem;
@@ -114,7 +123,7 @@
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    [iOSApi toast:@"正在访问，请等待"];
+    //[iOSApi toast:@"正在访问，请等待"];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -311,18 +320,29 @@
      NSString *title = [webView stringByEvaluatingJavaScriptFromString:@"document.title"]; 
      NSLog(@"title11=%@",title);
      */
-    
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+    //UIActivityIndicatorView *activity = (UIActivityIndicatorView *)[self.view viewWithTag:kTagActivity];
+    [activity startAnimating];
+
     webView.hidden=YES;
 	
 }
 - (void)webViewDidFinishLoad:(UIWebView *)webView
 {
+    [activity stopAnimating];
+	[UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
     webView.hidden=NO;
     
 }
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error
 {
 	
-	
+    UIAlertView *alterview = [[UIAlertView alloc] initWithTitle:@""
+														message: [error localizedDescription]
+													   delegate: nil
+											  cancelButtonTitle: @"确定" 
+											  otherButtonTitles: nil];
+    [alterview show];
+    [alterview release];
 }
 @end

@@ -454,10 +454,7 @@ static const char *kPayWay[] = {"支付宝客户端支付", "支付宝wap支付"
         data = response;
     }
     if (data.count > 0) {
-        NSNumber *v = [data objectForKey:@"status"];
-        if ([v isKindOfClass:NSNumber.class]) {
-            iRet.status = v.intValue;
-        }
+        [data fillObject:iRet];
         if (iRet.status != 0) {
             iRet.message = @"提交失败";
         } else {
@@ -508,7 +505,7 @@ static const char *kPayWay[] = {"支付宝客户端支付", "支付宝wap支付"
         NSString *json_string = [[[NSString alloc] initWithData:response encoding:NSUTF8StringEncoding] autorelease];
         iOSLog(@"json.string = %@", json_string);
         if ([json_string hasPrefix:@"http://"]) {
-            sRet = [json_string copy];
+            sRet = [[NSString alloc] initWithString:json_string];
             [json_string release];
             [iOSApi showCompleted:@"上传成功"];
         } else {
@@ -545,9 +542,11 @@ static const char *kPayWay[] = {"支付宝客户端支付", "支付宝wap支付"
     
     NSString *action = [NSString stringWithFormat:@"%@/%@?%@", API_URL_EBUY "/fx", method, query];
     NSDictionary *response = [Api post:action header:heads body:[params dataUsingEncoding:NSUTF8StringEncoding]];
-    response = [response objectForKey:@"newmessage"];
     if (response) {
         NSDictionary *data = [response objectForKey:method];
+        if (data.count < 1) {
+            data = response;
+        }
         [iRet parse:data];
         if (iRet.status != API_SUCCESS) {
             iRet.message = @"发送失败";
