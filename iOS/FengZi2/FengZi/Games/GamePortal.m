@@ -22,6 +22,7 @@
 @synthesize tableView = _tableView;
 @synthesize lable1,lable2,lable3,lable4,lable5,lable6;
 
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -156,19 +157,65 @@
         cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
         
     }
-    cell.textLabel.text =@"dsfsdf"; 
+    cell.textLabel.text =@"蜂子二维码"; 
     GameInfo *obj = [self objectForIndexPath:indexPath];
     // 设置字体
     UIFont *textFont = [UIFont systemFontOfSize:17.0];
     cell.textLabel.text = [iOSApi urlDecode:obj.luckyName];
     cell.textLabel.font = textFont;
+    /*
     if (indexPath.row %2 == 0) {
-        cell.backgroundColor = [UIColor grayColor];
+        //cell.backgroundColor = [UIColor grayColor];
         cell.textLabel.textColor = [UIColor blackColor];
     } else {
-        cell.backgroundColor = [UIColor lightGrayColor];
+        //cell.backgroundColor = [UIColor lightGrayColor];
         cell.textLabel.textColor = [UIColor blueColor];
     }
+     */
+    UIColor *tempColor;
+    int tempNum = (arc4random() % 7) + 1;
+    
+    /*
+    
+     *)cyanColor;       // 0.0, 1.0, 1.0 RGB 
+     + (UIColor *)yellowColor;     // 1.0, 1.0, 0.0 RGB 
+     + (UIColor *)magentaColor;    // 1.0, 0.0, 1.0 RGB 
+     + (UIColor *)orangeColor;     // 1.0, 0.5, 0.0 RGB 
+     + (UIColor *)purpleColor;     // 0.5, 0.0, 0.5 RGB 
+     + (UIColor *)brownColor;    
+    */
+    if(tempNum==1)
+    {
+        tempColor = [UIColor redColor];
+    }
+    else if(tempNum==2) {
+        tempColor = [UIColor brownColor];
+    }
+    else if(tempNum==3) {
+        tempColor = [UIColor blueColor];
+    }
+ 
+    else if(tempNum==4) {
+        tempColor = [UIColor greenColor];
+    }
+   
+    else if(tempNum==5) {
+        tempColor = [UIColor blackColor];
+    }
+    else if(tempNum==6) {
+        tempColor = [UIColor orangeColor];
+    }
+    else if(tempNum==7) {
+        tempColor = [UIColor cyanColor];
+    }
+ 
+    else {
+         tempColor = [UIColor orangeColor];
+    }
+    
+    cell.textLabel.textColor =tempColor;
+    [tempColor release];
+    
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;
 }
@@ -300,8 +347,7 @@ static GameInfo *theObj = nil;
     [iOSApi closeAlert];
     if (data == nil || data.count < 1) {
         [iOSApi showCompleted:@"服务器正忙，请稍候"];
-    }
-    else {
+    } else {
         [_items addObjectsFromArray:[data retain]];
         for (int i=0; i<_items.count; i++) {
             GameInfo *obj = [_items objectAtIndex:i];
