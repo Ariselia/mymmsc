@@ -34,11 +34,11 @@
 
 @implementation GameInfo
 
-@synthesize caseId, caseName, activeId, activeName;
+@synthesize luckyId, luckyName, activeId, activeName;
 
 - (void)dealloc{
-    IOSAPI_RELEASE(caseId);
-    IOSAPI_RELEASE(caseName);
+    IOSAPI_RELEASE(luckyId);
+    IOSAPI_RELEASE(luckyName);
     IOSAPI_RELEASE(activeId);
     IOSAPI_RELEASE(activeName);
     [super dealloc];

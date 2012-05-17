@@ -32,14 +32,14 @@
 //--------------------< 蜂幸运 - 对象 - 抽奖活动列表信息 >--------------------
 
 @interface GameInfo : NSObject{
-    NSString *caseName;   // 抽奖项目名称
-    NSString *caseId;     // 抽奖项目id
+    NSString *luckyName;   // 抽奖项目名称
+    NSString *luckyId;     // 抽奖项目id
     NSString *activeId;   // 游戏抽奖的形式ID
     NSString *activeName; // 游戏抽奖的形式名称
 }
 
-@property (nonatomic, copy) NSString *caseName;
-@property (nonatomic, copy) NSString *caseId;
+@property (nonatomic, copy) NSString *luckyName;
+@property (nonatomic, copy) NSString *luckyId;
 @property (nonatomic, copy) NSString *activeName;
 @property (nonatomic, copy) NSString *activeId;
 
