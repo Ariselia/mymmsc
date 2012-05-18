@@ -90,10 +90,12 @@
 @interface ApiResult : NSObject {
     int       status;
     NSString *message;
+    NSString *data;
 }
 
 @property (nonatomic, assign) int status;
 @property (nonatomic, copy) NSString *message;
+@property (nonatomic, copy) NSString *data;
 
 // 返回DATA区域 数据
 - (NSDictionary *)parse:(NSDictionary *)map;

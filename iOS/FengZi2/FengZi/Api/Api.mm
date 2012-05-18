@@ -48,7 +48,7 @@
 //====================================< 接口响应类 >====================================
 @implementation ApiResult
 
-@synthesize status, message;
+@synthesize status, message, data;
 
 - (id)init{
 	if(!(self = [super init])) {
@@ -62,15 +62,14 @@
 }
 
 - (void)dealloc{
-    [message release];
-    message = nil;
-    
+    IOSAPI_RELEASE(message);
+    IOSAPI_RELEASE(data);
     [super dealloc];
 }
 
 // 返回DATA区域 数据
 - (NSDictionary *)parse:(NSDictionary *)map{
-    NSDictionary *data = nil;
+    NSDictionary *body = nil;
     if (map.count > 0) {
         id value = [map objectForKey:@"status"];
         if (value != nil) {
@@ -89,7 +88,7 @@
         } else {
             message = @"";
         }
-        data = [map objectForKey:@"data"];
+        body = [map objectForKey:@"data"];
     } else {
         status = 1;
         message = @"服务器正忙，请稍候...";
@@ -101,7 +100,7 @@
             message = @"提交失败";
         }
     }
-    return data;
+    return body;
 }
 
 @end
