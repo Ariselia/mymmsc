@@ -24,5 +24,6 @@
 //@property(nonatomic, assign) int segIndex;
 + (void)setType:(int)index;
 + (int)type;
-
+// 选择
+- (IBAction)segmentAction:(UISegmentedControl *)segment;
 @end
