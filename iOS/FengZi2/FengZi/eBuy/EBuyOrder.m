@@ -10,6 +10,7 @@
 #import "Api+Ebuy.h"
 #import "EBuyAddress.h"
 #import <iOSApi/iOSAsyncImageView.h>
+#import "EBuyOrderInfo.h"
 
 @interface EBuyOrder ()
 
@@ -298,6 +299,11 @@
             [Api ebuy_car_delete:obj];
         }
         //[self.navigationController popToRootViewControllerAnimated:YES];
+        EBuyOrderInfo *nextView = [[EBuyOrderInfo alloc] init];
+        nextView.bPay = YES;
+        nextView.xType = _xType;
+        [self.navigationController pushViewController:nextView animated:YES];
+        [nextView release];
     }
 }
 
