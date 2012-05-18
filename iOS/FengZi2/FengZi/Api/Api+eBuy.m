@@ -821,7 +821,8 @@ static const char *kPayWay[] = {"支付宝客户端支付", "支付宝wap支付"
             }else {
                 iRet.message = @"订购失败";
             }
-        }        
+        }
+        iRet.data = [data objectForKey:@"orderid"];
     }
     return [iRet autorelease];
 }
