@@ -8,7 +8,6 @@
 
 #import <Foundation/Foundation.h>
 
-
 @interface AlixPayOrder : NSObject {
 	NSString * _partner;
 	NSString * _seller;
