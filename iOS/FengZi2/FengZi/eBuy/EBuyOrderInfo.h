@@ -21,4 +21,6 @@
 }
 @property (nonatomic, retain) IBOutlet UITableView *tableView;
 @property (nonatomic, copy) NSString *orderId;
+@property (nonatomic, assign) BOOL bPay;
+@property (nonatomic, assign) int xType;
 @end

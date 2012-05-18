@@ -14,6 +14,7 @@
     UIFont              *_font;
     int                  _page;
     BOOL                 isEmpty; // 地址簿是否空
+    int                  _xType;
 }
 @property (nonatomic, retain) IBOutlet UITableView *tableView;
 @property (nonatomic, copy) NSString *param;

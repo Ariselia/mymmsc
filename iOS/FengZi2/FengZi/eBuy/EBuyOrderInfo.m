@@ -19,7 +19,7 @@
 
 @implementation EBuyOrderInfo
 @synthesize tableView = _tableView;
-@synthesize orderId;
+@synthesize orderId, bPay, xType;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -95,16 +95,6 @@
         
         cell1.orderId.text = [iOSApi urlDecode:user.orderId];
         // 支付方式
-        NSString *state = @"完成";
-        if (user.state == 0) {
-            state = @"完成";
-        } else if(user.state == 1) {
-            state = @"正在处理订单";
-        } else if(user.state == 2) {
-            state = @"派送途中";
-        } else if(user.state == 3) {
-            state = @"等待用户确认";
-        }
         cell1.orderId.text = user.orderId;
         cell1.orderState.text = [Api ebuy_state_order:user.state];
         cell1.orderPayStatus.text = user.payStatus == 0x01 ? @"未支付" : @"已支付";//[Api ebuy_state_order:user.payStatus];
@@ -177,6 +167,19 @@
         cell2.logicPhone.text = [iOSApi urlDecode:user.servicNo];
         cell2.backgroundColor = [UIColor lightGrayColor];
         [_items addObject:cell2];
+        
+        // 支付
+        if (bPay) {
+            UITableViewCell *cellPay = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
+            cellPay.frame = CGRectMake(0, 0, 320, 50);
+            CGRect frame = CGRectMake(2, 2, 316, 46);
+            UIButton *btn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+            [btn setTitle:[Api ebuy_pay_type:xType] forState:UIControlStateNormal];
+            btn.frame = frame;
+            [btn addTarget:self action:@selector(doPay:event:) forControlEvents:UIControlEventTouchUpInside];
+            cellPay.accessoryType = UITableViewCellAccessoryNone;
+            [_items addObject:cellPay];
+        }
     }
     [_orderInfo release];
 }
@@ -244,5 +247,8 @@
     [nextView release];
 }
 
+- (void)doPay:(id)sender event:(id)event{
+    [Api ebuy_alipay:_orderInfo];
+}
 
 @end

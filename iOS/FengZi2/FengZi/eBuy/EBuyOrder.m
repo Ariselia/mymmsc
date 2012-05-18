@@ -103,7 +103,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [_items count] + 2;
+    return [_items count] + 3;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -188,6 +188,21 @@
         }
         return cell;
     }
+    if (pos == _items.count + 2) {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
+        cell.frame = CGRectMake(0, 0, 320, 50);
+        CGRect frame = CGRectMake(2, 2, 316, 46);
+        //kPayWayAlipay = 0x0, // 支付宝客户端支付
+        //kPayWayAliWap = 0x1, // 支付宝wap支付
+        //kPayWayMobile = 0x2, // 移动支付
+        //kPayWayQuick  = 0x3  // 快钱支付
+        UISegmentedControl *seg = [[UISegmentedControl alloc] initWithItems:[NSArray arrayWithObjects:@"货到付款", @"支付宝支付", @"支付宝wap支付", @"移动支付", @"快钱支付", nil]];
+        seg.frame = frame;
+        [seg addTarget:self action:@selector(doPay:) forControlEvents:UIControlEventValueChanged];
+        [cell.contentView addSubview:seg];
+        cell.accessoryType = UITableViewCellAccessoryNone;
+        return cell;
+    }
     obj = [_items objectAtIndex:pos - 1];
     cell.imageView.frame = CGRectMake(0, 0, 50, 50);
     iOSAsyncImageView *ai = nil; //[info aimage];
@@ -228,6 +243,12 @@
     [nextView release];
 }
 
+// 选择
+- (IBAction)doPay:(UISegmentedControl *)segment{
+    NSInteger Index = segment.selectedSegmentIndex;
+    _xType = Index - 1;
+}
+
 // 确认购买
 - (void)doClear:(id)sender event:(id)event{
     /*
@@ -240,8 +261,10 @@
     EBAddress *addr = [[Api ebuy_address_list] objectAtIndex:0];
     EBOrderUser *user = [[[EBOrderUser alloc] init] autorelease];
     user.userId = [Api userId];
-    user.type = @"01";
-    user.state = 1;
+    user.type = _xType < 0 ? @"01" : @"02";
+    user.state = kPayStatusNo;
+    //user.payWay = _xType;
+    //user.payStatus = kPayStatusNo;
     user.address = [NSString stringWithFormat:@"%@%@ %@(%@)", addr.sheng, addr.chengshi, addr.dizhi, addr.youbian];
     user.mobile = addr.shouji.longLongValue;
     user.receiver = addr.shouhuoren;

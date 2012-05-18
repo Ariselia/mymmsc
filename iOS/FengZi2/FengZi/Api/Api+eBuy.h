@@ -37,8 +37,8 @@ typedef enum EBPayWay {
 
 // 支付状态
 typedef enum EBPayStatus {
-    kPayStatusYes = 0x01, // 已支付
-    kPayStatusNo  = 0x11  // 未支付
+    kPayStatusYes = 0x11, // 已支付
+    kPayStatusNo  = 0x01  // 未支付
 } EBPayStatus;
 //====================================< 电子商城 - 对象定义 >====================================
 
