@@ -826,6 +826,80 @@ static const char *kPayWay[] = {"支付宝客户端支付", "支付宝wap支付"
     return [iRet autorelease];
 }
 
+//--------------------< 电子商城 - 接口 - 支付 >--------------------
+#import "AlixPayOrder.h"
+#import "AlixPayResult.h"
+#import "AlixPay.h"
+#import "DataSigner.h"
+
+// 支付宝支付
++ (BOOL)ebuy_alipay:(EBOrderInfo *)info{
+    BOOL bRet = NO;
+    // 生成订单信息及签名
+	//将商品信息赋予AlixPayOrder的成员变量
+	AlixPayOrder *order = [[AlixPayOrder alloc] init];
+    NSString *partner = PARTNER;
+    NSString *seller = SELLER;
+	order.partner = partner;
+	order.seller = seller;
+	order.tradeNO = info.userInfo.orderId;
+	order.productName = info.userInfo.shopName; //商品标题
+    EBOrderProduct *first = [info.products objectAtIndex:0];
+	order.productDescription = [NSString stringWithFormat:@"%@等%@件商品", first.name, info.userInfo.goodsCount];
+    //商品描述
+    float hj = 0.00f;
+    for (EBOrderProduct *obj in info.products) {
+        hj += (obj.price * obj.totalCount);
+    }
+	order.amount = [NSString stringWithFormat:@"%.2f", hj]; //商品价格
+	order.notifyURL =  @"http://www.xxx.com"; //回调URL
+	
+	//应用注册scheme,在AlixPayDemo-Info.plist定义URL types,用于安全支付成功后重新唤起商户应用
+	NSString *appScheme = @"FengZi"; 
+	
+	//将商品信息拼接成字符串
+	NSString *orderSpec = [order description];
+	NSLog(@"orderSpec = %@",orderSpec);
+	
+	//获取私钥并将商户信息签名,外部商户可以根据情况存放私钥和签名,只需要遵循RSA签名规范,并将签名字符串base64编码和UrlEncode    
+    id<DataSigner> signer = CreateRSADataSigner(RSA_PRIVATE);
+    
+	NSString *signedString = [signer signString:orderSpec];
+	
+	//将签名成功字符串格式化为订单字符串,请严格按照该格式
+	NSString *orderString = nil;
+	if (signedString != nil) {
+		orderString = [NSString stringWithFormat:@"%@&sign=\"%@\"&sign_type=\"%@\"",
+                       orderSpec, signedString, @"RSA"];
+	}
+	//获取安全支付单例并调用安全支付接口
+	AlixPay * alixpay = [AlixPay shared];
+	int ret = [alixpay pay:orderString applicationScheme:appScheme];
+	
+	if (ret == kSPErrorAlipayClientNotInstalled) {
+		UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:@"提示" 
+															 message:@"您还没有安装支付宝的客户端，请先装。" 
+															delegate:self 
+												   cancelButtonTitle:@"确定" 
+												   otherButtonTitles:nil];
+		[alertView setTag:123];
+		[alertView show];
+		[alertView release];
+	} else if (ret == kSPErrorSignError) {
+		iOSLog(@"签名错误！");
+	} else {
+        bRet = YES;
+    }
+    return bRet;
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+	if (alertView.tag == 123) {
+		NSString * URLString = [NSString stringWithString:@"http://itunes.apple.com/cn/app/id333206289?mt=8"];
+		[[UIApplication sharedApplication] openURL:[NSURL URLWithString:URLString]];
+	}
+}
+
 //--------------------< 电子商城 - 接口 - 商铺 >--------------------
 + (NSMutableArray *)ebuy_shoplist:(int)page{
     NSMutableArray *list = nil;
