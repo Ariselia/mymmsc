@@ -2257,17 +2257,9 @@
 				0A91BEC91565C44F00E55EAC /* DataSigner.m */,
 				0A91BECA1565C44F00E55EAC /* DataVerifier.h */,
 				0A91BECB1565C44F00E55EAC /* DataVerifier.m */,
-				0A91BECC1565C44F00E55EAC /* openssl */,
 				0A91BECD1565C44F00E55EAC /* src */,
 			);
 			path = Utilities;
-			sourceTree = "<group>";
-		};
-		0A91BECC1565C44F00E55EAC /* openssl */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = openssl;
 			sourceTree = "<group>";
 		};
 		0A91BECD1565C44F00E55EAC /* src */ = {
