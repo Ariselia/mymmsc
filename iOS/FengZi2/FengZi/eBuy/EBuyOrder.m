@@ -247,18 +247,7 @@
     user.receiver = addr.shouhuoren;
     user.goodsCount = 0;
     user.areaCode = addr.youbian.intValue;
-    /*
-    //{"userid":"001","type":"01","address":"北京朝阳区","receiver":"孙超","mobile":"12345678901","areacode":"100010","orderid":"OD20120115000003","state":0,"goodscount":10}
-    //{"id":"8ae40e1a-73fb-469a-8123-dcd973bf6264","name":"内衣","totalcount":"1","price":"10.00"}
-    for (EBProductInfo *obj in info.products) {
-        NSMutableDictionary *product = [NSMutableDictionary dictionary];
-        [product setObject:obj.id forKey:@"id"];
-        [product setObject:obj.title forKey:@"name"];
-        [product setObject:@"1" forKey:@"totalcount"];
-        [product setObject:[NSString stringWithFormat:@"%.2f", obj.price] forKey:@"price"];
-        [orderbody addObject:product];
-    }
-    */
+    
     NSMutableArray *array = [NSMutableArray array];
     for (EBProductInfo *obj in _items) {
         EBOrderProduct *product = [[[EBOrderProduct alloc] init] autorelease];
@@ -285,7 +274,7 @@
         for (EBProductInfo *obj in _items) {
             [Api ebuy_car_delete:obj];
         }
-        [self.navigationController popToRootViewControllerAnimated:YES];
+        //[self.navigationController popToRootViewControllerAnimated:YES];
     }
 }
 
