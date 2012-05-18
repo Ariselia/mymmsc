@@ -104,7 +104,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [_items count] + 3;
+    return [_items count] + 2;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -252,12 +252,7 @@
 
 // 确认购买
 - (void)doClear:(id)sender event:(id)event{
-    /*
-    NSSet *touches = [event allTouches];
-	UITouch *touch = [touches anyObject];
-	CGPoint currentTouchPosition = [touch locationInView: _tableView];
-	NSIndexPath *indexPath = [_tableView indexPathForRowAtPoint: currentTouchPosition];
-    */
+    _xType = -1;
     EBOrderInfo *info = [[[EBOrderInfo alloc] init] autorelease];
     EBAddress *addr = [[Api ebuy_address_list] objectAtIndex:0];
     EBOrderUser *user = [[[EBOrderUser alloc] init] autorelease];
@@ -298,12 +293,15 @@
         for (EBProductInfo *obj in _items) {
             [Api ebuy_car_delete:obj];
         }
-        //[self.navigationController popToRootViewControllerAnimated:YES];
-        EBuyOrderInfo *nextView = [[EBuyOrderInfo alloc] init];
-        nextView.bPay = YES;
-        nextView.xType = _xType;
-        [self.navigationController pushViewController:nextView animated:YES];
-        [nextView release];
+        if (_xType < 0) {
+            [self.navigationController popToRootViewControllerAnimated:YES];
+        } else {
+            EBuyOrderInfo *nextView = [[EBuyOrderInfo alloc] init];
+            nextView.bPay = YES;
+            nextView.xType = _xType;
+            [self.navigationController pushViewController:nextView animated:YES];
+            [nextView release];
+        }
     }
 }
 
