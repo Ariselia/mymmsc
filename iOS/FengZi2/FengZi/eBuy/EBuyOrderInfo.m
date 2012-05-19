@@ -85,6 +85,7 @@ static int xState = -1;
 }
 
 - (void)viewWillAppear:(BOOL)animated{
+    IOSAPI_RELEASE(_orderInfo);
     _orderInfo = [[Api ebuy_order_get:orderId] retain];
     if (_items != nil) {
         [_items release];
