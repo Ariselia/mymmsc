@@ -19,7 +19,9 @@
 
 @implementation EBuyOrderInfo
 @synthesize tableView = _tableView;
-@synthesize orderId, bPay, xType;
+@synthesize orderId, bPay, xType;//
+
+static int xState = -1;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -27,6 +29,7 @@
     if (self) {
         // Custom initialization
         _shopId = 0;
+        xState = -1;
     }
     return self;
 }
@@ -70,7 +73,10 @@
 {
     [super viewDidUnload];
     // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
+    if (_timer != nil) {
+        [_timer invalidate];
+        _timer = nil;
+    }
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -177,11 +183,12 @@
             [btn setTitle:[Api ebuy_pay_type:xType] forState:UIControlStateNormal];
             btn.frame = frame;
             [btn addTarget:self action:@selector(doPay:event:) forControlEvents:UIControlEventTouchUpInside];
+            [cellPay addSubview:btn];
             cellPay.accessoryType = UITableViewCellAccessoryNone;
             [_items addObject:cellPay];
         }
     }
-    [_orderInfo release];
+    //[_orderInfo release];
 }
 
 #pragma mark -
@@ -249,6 +256,20 @@
 
 - (void)doPay:(id)sender event:(id)event{
     [Api ebuy_alipay:_orderInfo];
+    _timer = [NSTimer scheduledTimerWithTimeInterval:0.1f target:self selector:@selector(handleTimer:) userInfo:nil repeats:YES];
 }
 
+- (void)handleTimer:(NSTimer *)theTimer{
+    if (xState > -1) {
+        bPay = NO;
+        [_timer invalidate];
+        _timer = nil;
+        //[self.tableView reloadData];
+        [self viewWillAppear:YES];
+    }
+}
+
++ (void)changeState:(int)state{
+    xState = state;
+}
 @end

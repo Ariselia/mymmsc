@@ -42,8 +42,19 @@
 //--------------------< 富媒体 - 对象 - 内容类 >--------------------
 
 @implementation MediaObject
-
 @synthesize textContent, soundUrl, picType, tinyPicUrl, mediaUrl;
+@synthesize isSend, sendType, sendContent;
+
+- (void)dealloc{
+    IOSAPI_RELEASE(textContent);
+    IOSAPI_RELEASE(soundUrl);
+    IOSAPI_RELEASE(tinyPicUrl);
+    IOSAPI_RELEASE(mediaUrl);
+    IOSAPI_RELEASE(sendType);
+    IOSAPI_RELEASE(sendContent);
+    
+    [super dealloc];
+}
 
 @end
 
@@ -51,6 +62,16 @@
 @implementation MediaContent
 
 @synthesize title, pageList;
+@synthesize isSend, sendType, sendContent;
+
+- (void)dealloc{
+    IOSAPI_RELEASE(title);
+    IOSAPI_RELEASE(pageList);
+    IOSAPI_RELEASE(sendType);
+    IOSAPI_RELEASE(sendContent);
+    
+    [super dealloc];
+}
 
 @end
 
@@ -258,18 +279,7 @@
         }
         NSArray *pageList = [data objectForKey:@"pageList"];
         if (pageList.count > 0) {
-            NSMutableArray *list = [[[NSMutableArray alloc] initWithCapacity:0] autorelease];
-            iRet.pageList = [[[NSMutableArray alloc] initWithCapacity:0] autorelease];
-            for (NSDictionary *dict in pageList) {
-                MediaObject *obj = [MediaObject new];
-                for (NSString *key in [dict allKeys]) {
-                    id value = [dict objectForKey:key];
-                    [obj setValue:value forSameKey:key];
-                }
-                [list addObject:obj];
-                [obj release];
-            }
-            iRet.pageList = list;
+            iRet.pageList = [pageList toList:MediaObject.class];
         }
     }
     
@@ -300,18 +310,7 @@
         }
         NSArray *pageList = [data objectForKey:@"pageList"];
         if (pageList.count > 0) {
-            NSMutableArray *list = [[[NSMutableArray alloc] initWithCapacity:0] autorelease];
-            iRet.pageList = [[[NSMutableArray alloc] initWithCapacity:0] autorelease];
-            for (NSDictionary *dict in pageList) {
-                MediaObject *obj = [MediaObject new];
-                for (NSString *key in [dict allKeys]) {
-                    id value = [dict objectForKey:key];
-                    [obj setValue:value forSameKey:key];
-                }
-                [list addObject:obj];
-                [obj release];
-            }
-            iRet.pageList = list;
+            iRet.pageList = [pageList toList:MediaObject.class];
         }
     }
     
@@ -333,16 +332,24 @@ static NSString *kma_id = nil;
     return  kma_id;
 }
 
-// 空码扫码, 确定业务及内容
-+ (KmaObject *)kmaContent:(NSString *)pid {
+/**
+ * 空码扫码, 确定业务及内容
+ * 参数url, 如果是码id, 则以默认的主机
+ */
++ (KmaObject *)kmaContent:(NSString *)url {
     static NSString *path = @"kma/getContent.action";
-    NSString *action = [NSString stringWithFormat:@"%@/%@?userid=%d", API_URL_KMA, path, [Api userId]];
-    
     NSString *app = [Api base64e:[Api appAttribute:DATA_ENV.curBusinessType]];
+    NSString *action = nil;
+    if ([url hasPrefix:@"http://"]) {
+        action = url;
+    } else {
+        // 如果不是URL, 则认为是空码ID
+        action = [NSString stringWithFormat:@"%@/%@?id=%@", API_URL_KMA, path, url];
+    }
     
     NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
                             API_RICHMEDIA_TOKEN, @"token",
-                            pid, @"id",
+                            [NSString valueOf:[Api userId]], @"userid",
                             app, @"a",
                             nil];
     
@@ -355,30 +362,15 @@ static NSString *kma_id = nil;
         [data fillObject:iRet];
         if (iRet.type == 14) {
             // 富媒体
-            MediaContent *media = [[[MediaContent alloc] init] autorelease];
             NSDictionary *mo = [data objectForKey:@"mediacontent"];
-            NSString *value = [mo objectForKey:@"title"];
-            
-            if (value != nil) {
-                media.title = value;
-            } else {
+            MediaContent *media = [mo toObject:MediaContent.class];
+            if (media.title == nil) {
                 media.title = @"富媒体 内容";
             }
             NSArray *pageList = [mo objectForKey:@"pageList"];
             if (pageList.count > 0) {
-                NSMutableArray *list = [[[NSMutableArray alloc] initWithCapacity:0] autorelease];
-                media.pageList = [[[NSMutableArray alloc] initWithCapacity:0] autorelease];
-                for (NSDictionary *dict in pageList) {
-                    MediaObject *obj = [MediaObject new];
-                    for (NSString *key in [dict allKeys]) {
-                        id value = [dict objectForKey:key];
-                        [obj setValue:value forSameKey:key];
-                    }
-                    [list addObject:obj];
-                    [obj release];
-                }
                 media.status = iRet.status;
-                media.pageList = list;
+                media.pageList = [pageList toList:MediaObject.class];
             }
             iRet.mediaObj = media;
         }

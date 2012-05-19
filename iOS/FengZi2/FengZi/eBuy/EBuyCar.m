@@ -315,6 +315,7 @@ static int s_textIndex = -1;
             NSArray *values = [_items objectForKey:[keys objectAtIndex:s]];
             EBProductInfo *obj = [values objectAtIndex:r];
             obj.carCount = msg.intValue;
+            [self.tableView reloadData];
         }
 	}
 }

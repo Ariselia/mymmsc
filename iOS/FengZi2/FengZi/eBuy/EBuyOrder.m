@@ -104,7 +104,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [_items count] + 2;
+    return [_items count] + 3;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -197,8 +197,20 @@
         //kPayWayAliWap = 0x1, // 支付宝wap支付
         //kPayWayMobile = 0x2, // 移动支付
         //kPayWayQuick  = 0x3  // 快钱支付
-        UISegmentedControl *seg = [[UISegmentedControl alloc] initWithItems:[NSArray arrayWithObjects:@"货到付款", @"支付宝支付", @"支付宝wap支付", @"移动支付", @"快钱支付", nil]];
+        UISegmentedControl *seg = [[UISegmentedControl alloc] initWithItems:[NSArray arrayWithObjects:@"货到付款", @"支付宝", @"支付宝wap", @"移动支付", @"快钱", nil]];
         seg.frame = frame;
+        
+        NSArray *na = [seg subviews];
+        NSEnumerator *ne = [na objectEnumerator];
+        UIView *subView;
+        while (subView = [ne nextObject]) {
+            if ([subView isKindOfClass:[UILabel class]]) {
+                UILabel *lb = (UILabel *)subView;
+                [lb setTextAlignment:UITextAlignmentCenter];
+                [lb setFrame:CGRectMake(0, 0, 120, 30)];
+                [lb setFont:[UIFont systemFontOfSize:12]];
+            }
+        }
         [seg addTarget:self action:@selector(doPay:) forControlEvents:UIControlEventValueChanged];
         [cell.contentView addSubview:seg];
         cell.accessoryType = UITableViewCellAccessoryNone;
@@ -252,7 +264,7 @@
 
 // 确认购买
 - (void)doClear:(id)sender event:(id)event{
-    _xType = -1;
+    //_xType = -1;
     EBOrderInfo *info = [[[EBOrderInfo alloc] init] autorelease];
     EBAddress *addr = [[Api ebuy_address_list] objectAtIndex:0];
     EBOrderUser *user = [[[EBOrderUser alloc] init] autorelease];
@@ -288,21 +300,23 @@
     if (iRet.status == 0) {
         bBuy = YES;
     }
-    [iRet release];
+    
     if (bBuy) {
-        for (EBProductInfo *obj in _items) {
-            [Api ebuy_car_delete:obj];
-        }
         if (_xType < 0) {
+            for (EBProductInfo *obj in _items) {
+                [Api ebuy_car_delete:obj];
+            }
             [self.navigationController popToRootViewControllerAnimated:YES];
         } else {
             EBuyOrderInfo *nextView = [[EBuyOrderInfo alloc] init];
             nextView.bPay = YES;
             nextView.xType = _xType;
+            nextView.orderId = iRet.data;
             [self.navigationController pushViewController:nextView animated:YES];
             [nextView release];
         }
     }
+    [iRet release];
 }
 
 @end

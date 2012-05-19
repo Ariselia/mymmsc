@@ -198,7 +198,7 @@
     [cellView.pic imageWithURL:[iOSApi urlDecode:obj.picUrl]];
     cellView.subject.text = [iOSApi urlDecode:obj.title];
     NSString *tmpPrice = [NSString stringWithFormat:@"¥ %.02f", obj.price];
-    if (obj.price < 0.01) {
+    if (obj.price < 0.00001) {
         tmpPrice = @"免费";
     }
     cellView.price.text = tmpPrice;

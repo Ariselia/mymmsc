@@ -55,23 +55,39 @@
 @interface MediaObject : NSObject {
     NSString *textContent;
     NSString *soundUrl;
-    int picType;
+    int       picType;
     NSString *tinyPicUrl; //缩略图url
     NSString *mediaUrl; //大视频url
+    
+    BOOL            isSend;      // 富媒体是否跳转
+    NSString       *sendType;    // 跳转类型
+    NSString       *sendContent; // 跳转内容
 }
 @property (nonatomic, copy) NSString *textContent;
 @property (nonatomic, copy) NSString *soundUrl;
 @property (nonatomic, assign) int picType;
 @property (nonatomic, copy) NSString *tinyPicUrl;
 @property (nonatomic, copy) NSString *mediaUrl;
+@property (nonatomic, assign) BOOL isSend;
+@property (nonatomic, copy) NSString *sendType;
+@property (nonatomic, copy) NSString *sendContent;
 @end
 
 @interface MediaContent : ApiResult {
-    NSString *title;
+    NSString       *title;
     NSMutableArray *pageList;
+    
+    BOOL            isSend;      // 富媒体是否跳转
+    NSString       *sendType;    // 跳转类型
+    NSString       *sendContent; // 跳转内容
 }
+
 @property (nonatomic, copy) NSString *title;
 @property (nonatomic, copy) NSMutableArray *pageList;
+
+@property (nonatomic, assign) BOOL isSend;
+@property (nonatomic, copy) NSString *sendType;
+@property (nonatomic, copy) NSString *sendContent;
 
 @end
 
@@ -154,8 +170,11 @@
 + (void)kmaSetId:(NSString *)code;
 + (NSString *)kmaId;
 
-// 空码扫码, 确定业务及内容
-+ (KmaObject *)kmaContent:(NSString *)pid;
+/**
+ * 空码扫码, 确定业务及内容
+ * 参数url, 如果是码id, 则以默认的主机
+ */
++ (KmaObject *)kmaContent:(NSString *)url;
 
 + (ApiResult *)kmaUpload:(NSString *)pid
                    type:(int)type

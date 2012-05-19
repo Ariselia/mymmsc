@@ -15,6 +15,7 @@
 #import "AlixPayResult.h"
 #import "DataVerifier.h"
 #import <sys/utsname.h>
+#import "EBuyOrderInfo.h"
 
 @implementation AppDelegate
 
@@ -214,13 +215,19 @@
 	AlixPay *alixpay = [AlixPay shared];
 	AlixPayResult *result = [alixpay handleOpenURL:url];
 	if (result) {
+        iOSLog(@"AliPay result=[%@], message=[%@].", result.resultString, result.statusMessage);
+        NSString *msg = result.statusMessage;
+        if (msg == nil || msg.length < 1) {
+            msg = @"支付成功！";
+        }
 		//是否支付成功
 		if (9000 == result.statusCode) {
+            [EBuyOrderInfo changeState:0];
 			// 用公钥验证签名
             id<DataVerifier> verifier = CreateRSADataVerifier(RSA_ALIPAY_PUBLIC);
 			if ([verifier verifyString:result.resultString withSign:result.signString]) {
 				UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:@"提示" 
-																	 message:result.statusMessage 
+																	 message:msg
 																	delegate:nil 
 														   cancelButtonTitle:@"确定" 
 														   otherButtonTitles:nil];
@@ -236,6 +243,7 @@
 				[alertView release];
 			}
 		} else {
+            [EBuyOrderInfo changeState:1];
             //如果支付失败,可以通过result.statusCode查询错误码
 			UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:@"提示" 
 																 message:result.statusMessage 

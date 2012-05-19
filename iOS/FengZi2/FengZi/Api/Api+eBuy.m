@@ -802,7 +802,7 @@ static const char *kPayWay[] = {"支付宝客户端支付", "支付宝wap支付"
     NSDictionary *response = [Api post:action header:heads body:[params dataUsingEncoding:NSUTF8StringEncoding]];
     NSDictionary *data = [iRet parse:response];
     if (data == nil) {
-        data = [response objectForKey:@"Response"];
+        data = response;//[response objectForKey:@"Response"];
     }
     if (data) {
         NSNumber *state = [data objectForKey:@"status"];
@@ -836,6 +836,7 @@ static const char *kPayWay[] = {"支付宝客户端支付", "支付宝wap支付"
 // 支付宝支付
 + (BOOL)ebuy_alipay:(EBOrderInfo *)info{
     BOOL bRet = NO;
+    [info retain];
     // 生成订单信息及签名
 	//将商品信息赋予AlixPayOrder的成员变量
 	AlixPayOrder *order = [[AlixPayOrder alloc] init];
@@ -846,7 +847,7 @@ static const char *kPayWay[] = {"支付宝客户端支付", "支付宝wap支付"
 	order.tradeNO = info.userInfo.orderId;
 	order.productName = info.userInfo.shopName; //商品标题
     EBOrderProduct *first = [info.products objectAtIndex:0];
-	order.productDescription = [NSString stringWithFormat:@"%@等%@件商品", first.name, info.userInfo.goodsCount];
+	order.productDescription = [NSString stringWithFormat:@"%@等%d件商品", first.name, info.userInfo.goodsCount];
     //商品描述
     float hj = 0.00f;
     for (EBOrderProduct *obj in info.products) {
@@ -891,6 +892,7 @@ static const char *kPayWay[] = {"支付宝客户端支付", "支付宝wap支付"
 	} else {
         bRet = YES;
     }
+    [info release];
     return bRet;
 }
 

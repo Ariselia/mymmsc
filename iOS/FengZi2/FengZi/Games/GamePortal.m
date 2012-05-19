@@ -67,9 +67,7 @@
     self.navigationItem.leftBarButtonItem = backitem;
     [backitem release];
    
-    [_tableView setHidden:YES];
-    
-    
+    [_tableView setHidden:YES];    
 }
     //加载动画效果
 
@@ -108,7 +106,7 @@
     [self performSelector:@selector(showTable) withObject:nil afterDelay:3.5];
 }
 
--(void)showTable
+- (void)showTable
 {     
     [lable1 setHidden:YES];
     [lable2 setHidden:YES];
@@ -187,29 +185,19 @@
     if(tempNum==1)
     {
         tempColor = [UIColor redColor];
-    }
-    else if(tempNum==2) {
+    } else if(tempNum==2) {
         tempColor = [UIColor brownColor];
-    }
-    else if(tempNum==3) {
+    } else if(tempNum==3) {
         tempColor = [UIColor blueColor];
-    }
- 
-    else if(tempNum==4) {
+    } else if(tempNum==4) {
         tempColor = [UIColor greenColor];
-    }
-   
-    else if(tempNum==5) {
+    } else if(tempNum==5) {
         tempColor = [UIColor blackColor];
-    }
-    else if(tempNum==6) {
+    } else if(tempNum==6) {
         tempColor = [UIColor orangeColor];
-    }
-    else if(tempNum==7) {
+    } else if(tempNum==7) {
         tempColor = [UIColor cyanColor];
-    }
- 
-    else {
+    } else {
          tempColor = [UIColor orangeColor];
     }
     

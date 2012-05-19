@@ -18,9 +18,14 @@
     
     EBOrderInfo         *_orderInfo;
     int                  _shopId;
+    NSTimer             *_timer;
 }
 @property (nonatomic, retain) IBOutlet UITableView *tableView;
 @property (nonatomic, copy) NSString *orderId;
 @property (nonatomic, assign) BOOL bPay;
 @property (nonatomic, assign) int xType;
+//@property (nonatomic, assign) int xState;
+
++ (void)changeState:(int)state;
+
 @end

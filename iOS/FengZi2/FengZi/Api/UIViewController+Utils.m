@@ -61,6 +61,50 @@ static int iTimes = -1;
 #define kCODE_NONE (0)
 #define kCODE_KMA  (9)
 
+static NSString *s_luckyId = nil;
+
+- (void)doGame:(int)n luckyId:(NSString *)luckyId{
+    if (n == 0) {
+        // 轮盘
+        Roulette *theView = [[[Roulette alloc] init] autorelease];
+        theView.luckyid = luckyId;
+        theView.shopguid = luckyId;
+        UINavigationController *nextView = [[UINavigationController alloc] initWithRootViewController:theView];
+        [self presentModalViewController:nextView animated:YES];
+        [nextView release];
+    } else if (n == 1) {
+        // 打地鼠
+        Hamster *theView = [[[Hamster alloc] init] autorelease];
+        theView.luckyid = luckyId;
+        theView.shopguid = luckyId;
+        UINavigationController *nextView = [[UINavigationController alloc] initWithRootViewController:theView];
+        [self presentModalViewController:nextView animated:YES];
+        [nextView release];
+    } else if (n == 2) {
+        // 开箱子
+        OpenBox *theView = [[[OpenBox alloc] init] autorelease];
+        theView.luckyid = luckyId;
+        theView.shopguid = luckyId;
+        UINavigationController *nextView = [[UINavigationController alloc] initWithRootViewController:theView];
+        [self presentModalViewController:nextView animated:YES];
+        [nextView release];
+    } else if (n == 3) {
+        // 砸蛋
+        BreakEgg *theView = [[[BreakEgg alloc] init] autorelease];
+        theView.luckyid = luckyId;
+        theView.shopguid = luckyId;
+        
+        UINavigationController *nextView = [[UINavigationController alloc] initWithRootViewController:theView];
+        [self presentModalViewController:nextView animated:YES];
+        [nextView release];
+    }
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger) buttonIndex {
+    [self doGame:buttonIndex luckyId:s_luckyId];
+}
+
+// 解码入口
 - (void)chooseShowController:(NSString *)input{
     iOSLog(@"decode input = %@", input);
     if (input == nil) {
@@ -139,7 +183,7 @@ static int iTimes = -1;
         RELEASE_SAFELY(cardView);
     } else if([category.type isEqualToString:CATEGORY_MEDIA] || [category_url.type isEqualToString:CATEGORY_MEDIA] ) {
         NSDictionary *dict = [url uriParams];
-        NSString *isJump = [dict objectForKey:@"isend"];
+        NSString *isJump = [dict objectForKey:@"issend"];
         if ([isJump isEqual:@"1"]) {
             // 富媒体跳转
             NSString *temp = [dict objectForKey:@"sendtype"];
@@ -243,18 +287,92 @@ static int iTimes = -1;
         NSString *xcode = [dict objectForKey:@"id"];
         [Api kmaSetId:xcode];
         iOSLog(@"uuid=[%@]", xcode);
-        //[iOSApi Alert:@"赋值码" message:[NSString stringWithFormat:@"id=%@", xcode]];
         // 扫码
-        KmaObject *info = [Api kmaContent:xcode];
+        //KmaObject *info = [Api kmaContent:xcode];
+        KmaObject *info = [Api kmaContent:url];
         if (info.isKma == 0) {
             // 不是空码, 展示
             if (info.type == 14) {
-                // 富媒体业务
-                UCRichMedia *nextView = [[UCRichMedia alloc] init];
-                nextView.urlMedia = nil;
-                nextView.code = xcode;
-                [self.navigationController pushViewController:nextView animated:YES];
-                [nextView release];
+                MediaContent *media = info.mediaObj;
+                if (media.isSend) {
+                    // 富媒体跳转
+                    NSString *temp = media.sendType;
+                    int jumpType = -1;
+                    if (temp != nil) {
+                        jumpType = temp.intValue;
+                    }
+                    temp = [iOSApi urlDecode:media.sendContent];
+                    if (jumpType == API_RMJUMP_WWW || jumpType == API_RMJUMP_URL_PRICE) {
+                        // 网站链接
+                        NSString *url = [iOSApi urlDecode:temp];
+                        if (![url hasPrefix:@"http"]) {
+                            url = [NSString stringWithFormat:@"http://%@", url];
+                        }
+                        [iOSApi openUrl:url];
+                    } else if (jumpType == API_RMJUMP_URL_PRICE) {
+                        // 优惠价链接
+                    } else if (jumpType == API_RMJUMP_ESHOP_SHOP) {
+                        // 数字商城 - 商户
+                        UCStoreTable *nextView = [[UCStoreTable alloc] init];
+                        nextView.person = temp.intValue;
+                        nextView.page = 1;
+                        nextView.bPerson = YES;
+                        [self.navigationController pushViewController:nextView animated:YES];
+                        [nextView release];
+                    } else if (jumpType == API_RMJUMP_ESHOP_PROD) {
+                        // 数字商城 - 商品
+                        UCStoreInfo *nextView = [[UCStoreInfo alloc] init];
+                        nextView.productId = temp.intValue;
+                        [self.navigationController pushViewController:nextView animated:YES];
+                        [nextView release];
+                    } else if (jumpType == API_RMJUMP_EBUY_SHOP) {
+                        // 电子商城 - 商户
+                        EBProductList *nextView = [[EBProductList alloc] init];
+                        nextView.way = 0;
+                        nextView.typeId = temp;
+                        [self.navigationController pushViewController:nextView animated:YES];
+                        [nextView release];
+                    } else if (jumpType == API_RMJUMP_EBUY_PROD) {
+                        // 电子商城 - 商品
+                        EBProductDetail *nextView = [[EBProductDetail alloc] init];
+                        nextView.param = temp;
+                        [self.navigationController pushViewController:nextView animated:YES];
+                        [nextView release];
+                    } else if (jumpType == API_RMJUMP_ACTION) {
+                        // 活动链接, 数据格式:参数1,参数2. 
+                        // 参数1:为游戏 1-轮盘,2-打地鼠,3-开箱子,4-砸蛋
+                        // 参数2:商户id
+                        NSArray *params = [temp split:@","];
+                        if (params.count == 1) {
+                            IOSAPI_RELEASE(s_luckyId);
+                            s_luckyId = [[NSString alloc] initWithString:temp];
+                            UIAlertView *alert = [[UIAlertView alloc]
+                                                  initWithTitle:nil
+                                                  message:nil
+                                                  delegate:self
+                                                  cancelButtonTitle:@"轮盘"
+                                                  otherButtonTitles:@"打地鼠",@"开箱子",@"砸金蛋",
+                                                  nil];
+                            [alert show];
+                            [alert release];
+                        } else if (params.count > 0) {
+                            int n = [[params objectAtIndex:0] intValue];
+                            NSString *shopId = [params objectAtIndex:1];
+                            [self doGame:n - 1 luckyId:shopId];
+                        } else {
+                            // 格式不对
+                        }
+                    } else {
+                        // 默认, 怎么处理
+                    }
+                } else {
+                    // 富媒体业务
+                    UCRichMedia *nextView = [[UCRichMedia alloc] init];
+                    nextView.urlMedia = nil;
+                    nextView.code = xcode;
+                    [self.navigationController pushViewController:nextView animated:YES];
+                    [nextView release];
+                }
                 return;
             } else if (info.type == 15) {
                 // 顺风车业务
