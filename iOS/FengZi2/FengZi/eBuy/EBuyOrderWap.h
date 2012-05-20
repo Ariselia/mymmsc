@@ -13,5 +13,6 @@
 }
 @property (nonatomic, retain) IBOutlet UIWebView *webView;
 @property (nonatomic, copy) NSString *payUrl;
+@property (nonatomic, assign) float totalFee;
 
 @end

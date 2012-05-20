@@ -270,6 +270,7 @@ static int xState = -1;
         NSString *payUrl = [NSString stringWithFormat:@"%@?subject=%@&total_lee=%.2f&orderid=%@&paystatus=1&payway=%d", url, _orderInfo.userInfo.shopName, _totalFee, orderId, xType];
         EBuyOrderWap *nextView = [[EBuyOrderWap alloc] init];
         nextView.payUrl = payUrl;
+        nextView.totalFee = _totalFee;
         [self.navigationController pushViewController:nextView animated:YES];
         [nextView release];
     }

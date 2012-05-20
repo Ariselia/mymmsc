@@ -7,6 +7,7 @@
 //
 
 #import "EBuyOrderWap.h"
+#import "EBuyOrderInfo.h"
 
 @interface EBuyOrderWap ()
 
@@ -14,7 +15,7 @@
 
 @implementation EBuyOrderWap
 @synthesize webView = _webView;
-@synthesize payUrl;
+@synthesize payUrl, totalFee;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -114,7 +115,37 @@
     
     NSString *sUrl = [[request URL] absoluteString];
     iOSLog(@"WebView-url = [%@]", sUrl);
-    
+    //http://220.231.48.34:38090/WapPayChannel/servlet/CallBack?out_trade_no=OD1205201245000002&request_token=requestToken&result=success&trade_no=2012052076462009&sign=03d6d62a71df2630535348752431d264
+    // 如果URL, 首先判断是否富媒体
+    static NSString *kCallBack_Alipay = @"WapPayChannel/servlet/CallBack";
+    NSRange range = [sUrl rangeOfString:kCallBack_Alipay];
+    if (range.length > 0) {
+        // 支付宝wap支付
+        NSDictionary *params = [sUrl uriParams];
+        NSString *temp = nil;
+        temp = [params objectForKey:@"out_trade_no"];
+        NSString *orderId = [temp replace:@"\"" withString:@""];
+        temp = [params objectForKey:@"result"];
+        NSString *result = [temp replace:@"\"" withString:@""];
+        temp = [params objectForKey:@"trade_no"];
+        NSString *trade_no = [temp replace:@"\"" withString:@""];
+        float payAmount = totalFee;
+        int payStatus = 0x01;
+        if ([result isSame:@"success"]) {
+            payStatus = 0x11;
+        }
+        ApiResult *iRet = [[Api ebuy_order_change:orderId payId:trade_no payWay:1 payStatus:payStatus payAmount:payAmount serviceFee:0.00f] retain];
+        [EBuyOrderInfo changeState:0];
+        UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:@"提示" 
+                                                             message:iRet.message
+                                                            delegate:nil 
+                                                   cancelButtonTitle:@"确定" 
+                                                   otherButtonTitles:nil];
+        [alertView show];
+        [alertView release];
+        [iRet release];
+        [self.navigationController popViewControllerAnimated:YES];
+    }
     return YES;
 }
 
