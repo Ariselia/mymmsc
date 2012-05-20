@@ -87,9 +87,7 @@ static int xState = -1;
 - (void)viewWillAppear:(BOOL)animated{
     IOSAPI_RELEASE(_orderInfo);
     _orderInfo = [[Api ebuy_order_get:orderId] retain];
-    if (_items != nil) {
-        [_items release];
-    }
+    IOSAPI_RELEASE(_items);
     _items = [[NSMutableArray alloc] initWithCapacity:0];
     isEmpty = YES;
     if (_orderInfo.userInfo != nil) {
@@ -265,8 +263,9 @@ static int xState = -1;
         bPay = NO;
         [_timer invalidate];
         _timer = nil;
-        //[self.tableView reloadData];
+        
         [self viewWillAppear:YES];
+        [self.tableView reloadData];
     }
 }
 

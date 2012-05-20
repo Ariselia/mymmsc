@@ -217,11 +217,12 @@
 	if (result) {
         iOSLog(@"AliPay result=[%@], message=[%@].", result.resultString, result.statusMessage);
         NSString *msg = result.statusMessage;
-        if (msg == nil || msg.length < 1) {
-            msg = @"支付成功！";
-        }
+        
 		//是否支付成功
 		if (9000 == result.statusCode) {
+            if (msg == nil || msg.length < 1) {
+                msg = @"支付成功！";
+            }
             [EBuyOrderInfo changeState:0];
 			// 用公钥验证签名
             id<DataVerifier> verifier = CreateRSADataVerifier(RSA_ALIPAY_PUBLIC);

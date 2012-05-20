@@ -180,7 +180,7 @@
         cell.detailTextLabel.font = [UIFont systemFontOfSize:15.0];
         cell.detailTextLabel.text = [NSString stringWithFormat:@"合计:¥%.2f", yj];
         if (!isEmpty) {
-            CGRect frame = CGRectMake(180, 50, 100, 20);
+            CGRect frame = CGRectMake(180, 30, 100, 20);
             UIButton *btn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
             [btn setTitle:@"确认购买" forState:UIControlStateNormal];
             btn.frame = frame;
@@ -197,9 +197,9 @@
         //kPayWayAliWap = 0x1, // 支付宝wap支付
         //kPayWayMobile = 0x2, // 移动支付
         //kPayWayQuick  = 0x3  // 快钱支付
-        UISegmentedControl *seg = [[UISegmentedControl alloc] initWithItems:[NSArray arrayWithObjects:@"货到付款"/*, @"支付宝", @"支付宝wap", @"移动支付", @"快钱"*/, nil]];
+        UISegmentedControl *seg = [[UISegmentedControl alloc] initWithItems:[NSArray arrayWithObjects:@"货到付款", @"支付宝", @"支付宝wap", @"移动支付", @"快钱", nil]];
         seg.frame = frame;
-        
+        seg.segmentedControlStyle = UISegmentedControlStyleBar;
         NSArray *na = [seg subviews];
         NSEnumerator *ne = [na objectEnumerator];
         UIView *subView;

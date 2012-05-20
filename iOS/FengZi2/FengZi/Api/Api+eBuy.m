@@ -793,9 +793,7 @@ static const char *kPayWay[] = {"支付宝客户端支付", "支付宝wap支付"
         [orderbody addObject:product];
     }
     [request setObject:orderbody forKey:@"orderbody"];
-    
-    [jsonDic setObject:request forKey:method];
-    
+    [jsonDic setObject:request forKey:method];    
     NSString *params = [jsonDic JSONString];
     
     NSString *action = [NSString stringWithFormat:@"%@/%@?%@", API_URL_EBUY "/fx", method, query];
@@ -825,6 +823,63 @@ static const char *kPayWay[] = {"支付宝客户端支付", "支付宝wap支付"
         iRet.data = [data objectForKey:@"orderid"];
     }
     return [iRet autorelease];
+}
+
+// 支付状态变更
++ (ApiResult *)ebuy_order_change:(NSString *)orderId
+                           payId:(NSString *)payId
+                          payWay:(int)payWay
+                       payStatus:(int)payStatus
+                       payAmount:(float)payAmount
+                      serviceFee:(float)serviceFee{
+    ApiResult *iRet = [[ApiResult alloc] init];
+    // 方法
+    static NSString *method = @"payorder";
+    NSString *query = @"";
+    NSDictionary *heads = [NSDictionary dictionaryWithObjectsAndKeys:
+                           @"application/json", @"Content-Type",
+                           nil];
+    NSMutableDictionary *jsonDic = [NSMutableDictionary dictionary];
+    //{"orderid":"OD20120221000001","paystatus":"1","payway":"1","paymentid":"11-22","channelid":"ebay","payamount":"10.21","servicefee":"0.21","actionsource":"www","paychannel":"alipay"}
+    [jsonDic setObject:orderId forKey:@"orderid"];
+    [jsonDic setObject:[NSString valueOf:payStatus] forKey:@"paystatus"];
+    [jsonDic setObject:[NSString valueOf:payWay] forKey:@"payway"];
+    [jsonDic setObject:payId forKey:@"paymentid"];
+    [jsonDic setObject:@"0" forKey:@"channelid"];
+    [jsonDic setObject:[NSString stringWithFormat:@"%.2f", payAmount] forKey:@"payamount"];
+    [jsonDic setObject:[NSString stringWithFormat:@"%.2f", serviceFee] forKey:@"servicefee"];
+    [jsonDic setObject:[NSString valueOf:payWay] forKey:@"actionsource"];
+    [jsonDic setObject:[Api ebuy_pay_type:payWay] forKey:@"paychannel"];
+    
+    NSString *params = [jsonDic JSONString];
+    
+    NSString *action = [NSString stringWithFormat:@"%@/%@?%@", API_URL_EBUY "/fx", method, query];
+    NSDictionary *response = [Api post:action header:heads body:[params dataUsingEncoding:NSUTF8StringEncoding]];
+    NSDictionary *data = [iRet parse:response];
+    if (data == nil) {
+        data = response;//[response objectForKey:@"Response"];
+    }
+    if (data) {
+        NSNumber *state = [data objectForKey:@"status"];
+        iRet.status = state.intValue;
+        NSString *msg = [data objectForKey:@"status_code"];
+        if (msg != nil) {
+            iRet.message = msg;
+            if ([msg hasPrefix:@"Duplicate"]) {
+                iRet.message = @"重复订购";
+            }/* else {
+              iRet.message = @"订购失败";
+              }*/
+        } else {
+            if (iRet.status == 0) {
+                iRet.message = @"订购成功";
+            }else {
+                iRet.message = @"订购失败";
+            }
+        }
+        iRet.data = [data objectForKey:@"orderid"];
+    }
+    return iRet;
 }
 
 //--------------------< 电子商城 - 接口 - 支付 >--------------------

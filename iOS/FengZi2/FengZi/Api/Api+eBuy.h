@@ -354,6 +354,14 @@ typedef enum EBPayStatus {
 // 订购
 + (ApiResult *)ebuy_order:(EBOrderInfo *)info;
 
+// 支付状态变更
++ (ApiResult *)ebuy_order_change:(NSString *)orderId
+                           payId:(NSString *)payId
+                          payWay:(int)payWay
+                       payStatus:(int)payStatus
+                       payAmount:(float)payAmount
+                      serviceFee:(float)serviceFee;
+
 //--------------------< 电子商城 - 接口 - 支付 >--------------------
 // 支付宝支付
 + (BOOL)ebuy_alipay:(EBOrderInfo *)info;
