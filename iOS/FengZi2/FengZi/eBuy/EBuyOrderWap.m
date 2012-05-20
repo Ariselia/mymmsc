@@ -140,15 +140,19 @@
         NSString *msg = [NSString stringWithFormat:@"%@:[%@]", iRet.message, result];
         UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:@"提示" 
                                                              message:msg
-                                                            delegate:nil 
+                                                            delegate:self 
                                                    cancelButtonTitle:@"确定" 
                                                    otherButtonTitles:nil];
         [alertView show];
         [alertView release];
         [iRet release];
-        [self.navigationController popViewControllerAnimated:YES];
+        //[self.navigationController popViewControllerAnimated:YES];
     }
     return YES;
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger) buttonIndex {
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)webViewDidStartLoad:(UIWebView *)webView

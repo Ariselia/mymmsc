@@ -25,6 +25,7 @@
 @property (nonatomic, copy) NSString *orderId;
 @property (nonatomic, assign) BOOL bPay;
 @property (nonatomic, assign) int xType;
+@property (nonatomic, retain) NSMutableArray *orderList;
 
 + (void)changeState:(int)state;
 

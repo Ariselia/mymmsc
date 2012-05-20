@@ -28,7 +28,7 @@
 //--------------------< 电子商城 - 对象 - 商品 >--------------------
 @implementation EBProductInfo
 
-@synthesize id, title, content, picUrl, price, shopId, shopName,carCount;
+@synthesize id, title, des, content, picUrl, price, shopId, shopName,carCount;
 @synthesize realizeTime;
 // 商品详情字段
 @synthesize Goodcommentcount,Experiencecount,Middlecommentcount,Poorcommentcount;
@@ -129,7 +129,17 @@ static const char *kPayWay[] = {"支付宝客户端支付", "支付宝wap支付"
 
 @implementation EBShop
 
-@synthesize id,des,picUrl,name,itemGroupType;
+@synthesize id,des,picUrl,name,itemGroupType, shopId, shopName;
+
+- (void)dealloc{
+    IOSAPI_RELEASE(des);
+    IOSAPI_RELEASE(picUrl);
+    IOSAPI_RELEASE(name);
+    IOSAPI_RELEASE(shopId);
+    IOSAPI_RELEASE(shopName);
+    //IOSAPI_RELEASE(itemGroupType);
+    [super dealloc];
+}
 
 @end
 
@@ -291,7 +301,7 @@ static const char *kPayWay[] = {"支付宝客户端支付", "支付宝wap支付"
     NSString *action = [NSString stringWithFormat:@"%@/%@?%@", API_URL_EBUY "/fx", method, query];
     NSDictionary *map = [Api post:action params:nil];
     if (map) {
-        NSMutableArray *data = [map objectForKey:@"goodslist"];
+        NSMutableArray *data = [map objectForKey:method];
         if (data.count > 0) {
             list = [data toList:EBProductInfo.class];
         }
@@ -499,7 +509,7 @@ static const char *kPayWay[] = {"支付宝客户端支付", "支付宝wap支付"
     NSData *response = [hc post:params body:buffer];
     [iOSApi closeAlert];
     if (response == nil) {
-        [iOSApi showCompleted:@"服务器正忙，请稍候重新登录。"];
+        [iOSApi showCompleted:@"服务器正忙，请稍候重新上传。"];
     } else {
         // 取得JSON数据的字符串
         NSString *json_string = [[[NSString alloc] initWithData:response encoding:NSUTF8StringEncoding] autorelease];
@@ -971,15 +981,11 @@ static const char *kPayWay[] = {"支付宝客户端支付", "支付宝wap支付"
 //--------------------< 电子商城 - 接口 - 商铺 >--------------------
 + (NSMutableArray *)ebuy_shoplist:(int)page{
     NSMutableArray *list = nil;
-    static NSString *method = @"shoplist";
+    NSString *method = @"recmedshoplist";
+    if ([Api isOnLine]) {
+        method = @"recmedshoplist";
+    }
     NSString *query = [NSString stringWithFormat:@"page=%d", page];
-    /*
-    NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
-                            API_INTERFACE_TONKEN, @"token",
-                            [NSString valueOf:[Api userId]], @"userId",
-                            [NSString valueOf:page], @"page",
-                            nil];
-    */
     NSString *action = [NSString stringWithFormat:@"%@/%@?%@", API_URL_EBUY "/fx", method, query];
     NSDictionary *response = [Api post:action params:nil];
     if (response) {

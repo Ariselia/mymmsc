@@ -21,6 +21,7 @@
 @implementation EBuyOrderInfo
 @synthesize tableView = _tableView;
 @synthesize orderId, bPay, xType;//
+@synthesize orderList;
 
 static int xState = -1;
 
@@ -78,6 +79,7 @@ static int xState = -1;
         [_timer invalidate];
         _timer = nil;
     }
+    IOSAPI_RELEASE(orderList);
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -88,6 +90,11 @@ static int xState = -1;
 - (void)viewWillAppear:(BOOL)animated{
     IOSAPI_RELEASE(_orderInfo);
     _orderInfo = [[Api ebuy_order_get:orderId] retain];
+    if (orderList != nil &&_orderInfo.userInfo.payStatus == 0x11) {
+        for (EBProductInfo *obj in orderList) {
+            [Api ebuy_car_delete:obj];
+        }
+    }
     IOSAPI_RELEASE(_items);
     _items = [[NSMutableArray alloc] initWithCapacity:0];
     isEmpty = YES;
@@ -257,7 +264,6 @@ static int xState = -1;
 - (void)doPay:(id)sender event:(id)event{
     if (xType == 0) {
         [Api ebuy_alipay:_orderInfo];
-        _timer = [NSTimer scheduledTimerWithTimeInterval:0.1f target:self selector:@selector(handleTimer:) userInfo:nil repeats:YES]; 
     } else {
         NSString *url = @"http://devp.ifengzi.cn:38090/WapPayChannel/servlet/paychannellist";
         if (xType == 2) {
@@ -274,7 +280,7 @@ static int xState = -1;
         [self.navigationController pushViewController:nextView animated:YES];
         [nextView release];
     }
-    
+    _timer = [NSTimer scheduledTimerWithTimeInterval:0.1f target:self selector:@selector(handleTimer:) userInfo:nil repeats:YES];
 }
 
 - (void)handleTimer:(NSTimer *)theTimer{

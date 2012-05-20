@@ -56,7 +56,12 @@ static int segIndex = 0;
     NSString *title = @"没有商品或商铺信息";
     if ([obj isKindOfClass:EBShop.class]) {
         EBShop *info = (EBShop *)obj;
-        title = [iOSApi urlDecode:info.name];
+        if (info.name != nil && info.name.length > 2) {
+            title = [iOSApi urlDecode:info.name];
+        } else {
+            title = [iOSApi urlDecode:info.shopName];
+        }
+        
     } else if ([obj isKindOfClass:EBProductInfo.class]) {
         EBProductInfo *info = (EBProductInfo *)obj;
         title = [iOSApi urlDecode:info.title];

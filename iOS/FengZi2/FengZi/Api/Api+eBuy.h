@@ -79,12 +79,13 @@ typedef enum EBPayStatus {
     NSString *id;          // 商品编号
     NSString *title;       // 商品名称
     NSString *content;     // 商品介绍
+    NSString *des;         // 商品介绍
     NSString *picUrl;      // 商品图片,商品的缩略图,多个商品图片用*分开 (Encode)
     float     price;       // 商品价格
     NSString *realizeTime; // 快报资讯发送的时间, 仅快讯详细信息有此字段
 }
 @property (nonatomic, copy) NSString *id;
-@property (nonatomic, copy) NSString *title, *content, *picUrl;
+@property (nonatomic, copy) NSString *title, *des, *content, *picUrl;
 @property (nonatomic, assign) float price;
 @property (nonatomic, assign) int shopId;
 @property (nonatomic, copy) NSString *shopName;
@@ -245,6 +246,8 @@ typedef enum EBPayStatus {
 @property (nonatomic, copy) NSString *des;
 @property (nonatomic, assign) int id;
 @property (nonatomic, copy) NSString *name;
+@property (nonatomic, copy) NSString *shopId;
+@property (nonatomic, copy) NSString *shopName;
 
 @end
 
