@@ -223,6 +223,14 @@
             if (msg == nil || msg.length < 1) {
                 msg = @"支付成功！";
             }
+            NSDictionary *params = [result.resultString uriParams];
+            NSString *temp = nil;
+            temp = [params objectForKey:@"out_trade_no"];
+            NSString *orderId = [temp replace:@"\"" withString:@""];
+            temp = [params objectForKey:@"total_fee"];
+            temp = [temp replace:@"\"" withString:@""];
+            float totalFee = [temp floatValue];
+            [Api ebuy_order_change:orderId payId:@"----" payWay:0 payStatus:0x11 payAmount:totalFee serviceFee:0.00f];
             [EBuyOrderInfo changeState:0];
 			// 用公钥验证签名
             id<DataVerifier> verifier = CreateRSADataVerifier(RSA_ALIPAY_PUBLIC);
