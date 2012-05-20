@@ -116,7 +116,7 @@
     NSString *sUrl = [[request URL] absoluteString];
     iOSLog(@"WebView-url = [%@]", sUrl);
     //http://220.231.48.34:38090/WapPayChannel/servlet/CallBack?out_trade_no=OD1205201245000002&request_token=requestToken&result=success&trade_no=2012052076462009&sign=03d6d62a71df2630535348752431d264
-    // 如果URL, 首先判断是否富媒体
+    
     static NSString *kCallBack_Alipay = @"WapPayChannel/servlet/CallBack";
     NSRange range = [sUrl rangeOfString:kCallBack_Alipay];
     if (range.length > 0) {

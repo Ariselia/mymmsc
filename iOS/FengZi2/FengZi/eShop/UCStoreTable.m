@@ -161,13 +161,13 @@ static int nClickTimes = 0;
     [label release];
     
     UIButton *backbtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    backbtn.frame =CGRectMake(0, 0, 60, 32);
+    backbtn.frame = CGRectMake(0, 0, 60, 32);
     if (bPerson) {
         [backbtn setImage:[UIImage imageNamed:@"as_back.png"] forState:UIControlStateNormal];
         [backbtn setImage:[UIImage imageNamed:@"as_back_tap.png"] forState:UIControlStateHighlighted];
     } else {
-        [backbtn setImage:[UIImage imageNamed:@"as_nav_home.png"] forState:UIControlStateNormal];
-        [backbtn setImage:[UIImage imageNamed:@"as_nav_home.png"] forState:UIControlStateHighlighted];
+        [backbtn setImage:[UIImage imageNamed:@"as_home.png"] forState:UIControlStateNormal];
+        [backbtn setImage:[UIImage imageNamed:@"as_home_tap.png"] forState:UIControlStateHighlighted];
     }
     [backbtn addTarget:self action:@selector(goBack) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *backitem = [[UIBarButtonItem alloc] initWithCustomView:backbtn];

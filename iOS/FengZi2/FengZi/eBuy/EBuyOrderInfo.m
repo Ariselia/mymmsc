@@ -40,6 +40,10 @@ static int xState = -1;
     [self.navigationController popViewControllerAnimated:YES];
 }
 
+- (void)goBack1{
+    [self.navigationController popToRootViewControllerAnimated:YES];
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -51,7 +55,7 @@ static int xState = -1;
     } else {
         self.navigationController.navigationBar.layer.contents = (id)[UIImage imageNamed:@"navigation_bg.png"].CGImage;
     }
-    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(110, 0, 150,44)];
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 100, 44)];
     label.backgroundColor = [UIColor clearColor];
     label.textAlignment = UITextAlignmentCenter;
     label.font = [UIFont fontWithName:@"黑体" size:60];
@@ -60,15 +64,27 @@ static int xState = -1;
     self.navigationItem.titleView = label;
     [label release];
     
-    UIButton *backbtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    backbtn.frame =CGRectMake(0, 0, 60, 32);
+    UIButton *btnBack = [UIButton buttonWithType:UIButtonTypeCustom];
+    btnBack.frame = CGRectMake(0, 0, 60, 32);
     
-    [backbtn setImage:[UIImage imageNamed:@"back.png"] forState:UIControlStateNormal];
-    [backbtn setImage:[UIImage imageNamed:@"back_tap.png"] forState:UIControlStateHighlighted];
-    [backbtn addTarget:self action:@selector(goBack) forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem *backitem = [[UIBarButtonItem alloc] initWithCustomView:backbtn];
-    self.navigationItem.leftBarButtonItem = backitem;
-    [backitem release];
+    [btnBack setImage:[UIImage imageNamed:@"back.png"] forState:UIControlStateNormal];
+    [btnBack setImage:[UIImage imageNamed:@"back_tap.png"] forState:UIControlStateHighlighted];
+    [btnBack addTarget:self action:@selector(goBack) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *itemBack = [[UIBarButtonItem alloc] initWithCustomView:btnBack];
+    self.navigationItem.leftBarButtonItem = itemBack;
+    [itemBack release];
+    /*
+    UIButton *btnRight = [UIButton buttonWithType:UIButtonTypeCustom];
+    btnRight.frame = CGRectMake(0, 0, 60, 32);
+    [btnRight setImage:[UIImage imageNamed:@"as_nav_special.png"] forState:UIControlStateNormal];
+    [btnRight setImage:[UIImage imageNamed:@"as_nav_special.png"] forState:UIControlStateHighlighted];
+    [btnRight addTarget:self action:@selector(goBack1) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *itemRight = [[UIBarButtonItem alloc] initWithCustomView:btnRight];
+    self.navigationItem.rightBarButtonItem = itemRight;
+    [itemRight release];
+    */
+    
+    self.navigationController.navigationBar.tintColor = [UIColor colorWithRed:(21.0/255.0) green:(153.0 / 255.0) blue:(224.0 / 255.0) alpha:1];
 }
 
 - (void)viewDidUnload

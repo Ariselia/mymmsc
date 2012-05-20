@@ -168,7 +168,6 @@
 	return YES;
 }
 
-
 -(NSInteger) numberOfSectionsInTableView:(UITableView *)tableView{
     return 1;
 }
@@ -342,6 +341,7 @@
     [_historyArray removeAllObjects];
     [self reloadTableData];
 }
+
 - (IBAction)selectEncodeHistory:(id)sender {
     _reloading = NO;
     CGRect rect =  _encodeHistoryBtn.frame;

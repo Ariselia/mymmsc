@@ -163,13 +163,13 @@
     }
     BOOL bRet = [iOSApi regexpMatch:addr.youbian withPattern:@"[0-9]{6}"];
     if (!bRet) {
-        [iOSApi Alert:@"提示" message:@"手机号码格式有误，请重新输入。"];
+        [iOSApi Alert:@"提示" message:@"邮政编码为6位数字，请重新输入。"];
         [youbian becomeFirstResponder];
         return;
     }
     bRet = [iOSApi regexpMatch:addr.shouji withPattern:@"[0-9]{11}"];
     if (!bRet) {
-        [iOSApi Alert:@"提示" message:@"手机号码格式有误，请重新输入。"];
+        [iOSApi Alert:@"提示" message:@"手机号码为11位数字，请重新输入。"];
         [shouji becomeFirstResponder];
         return;
     }

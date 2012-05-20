@@ -101,8 +101,8 @@
     UIButton *backbtn = [UIButton buttonWithType:UIButtonTypeCustom];
     backbtn.frame = CGRectMake(0, 0, 60, 32);
     
-    [backbtn setImage:[UIImage imageNamed:@"as_nav_home.png"] forState:UIControlStateNormal];
-    [backbtn setImage:[UIImage imageNamed:@"as_nav_home.png"] forState:UIControlStateHighlighted];
+    [backbtn setImage:[UIImage imageNamed:@"as_home.png"] forState:UIControlStateNormal];
+    [backbtn setImage:[UIImage imageNamed:@"as_home_tap.png"] forState:UIControlStateHighlighted];
     [backbtn addTarget:self action:@selector(goBack) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *backitem = [[UIBarButtonItem alloc] initWithCustomView:backbtn];
     self.navigationItem.leftBarButtonItem = backitem;
