@@ -98,6 +98,8 @@
 		0A8447E1154126D1000381E0 /* EBuyTypes.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A8447DF154126D1000381E0 /* EBuyTypes.m */; };
 		0A8447E2154126D1000381E0 /* EBuyTypes.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A8447E0154126D1000381E0 /* EBuyTypes.xib */; };
 		0A8447EC154370A5000381E0 /* Api+Category.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A8447EB154370A3000381E0 /* Api+Category.m */; };
+		0A8C52D915689CA00056F40E /* EBuyOrderWap.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A8C52D715689CA00056F40E /* EBuyOrderWap.m */; };
+		0A8C52DA15689CA00056F40E /* EBuyOrderWap.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A8C52D815689CA00056F40E /* EBuyOrderWap.xib */; };
 		0A91BEDB1565C44F00E55EAC /* AlixPayDemoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A91BEC21565C44F00E55EAC /* AlixPayDemoViewController.m */; };
 		0A91BEDC1565C44F00E55EAC /* AlixPayDemoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A91BEC31565C44F00E55EAC /* AlixPayDemoViewController.xib */; };
 		0A91BEDD1565C44F00E55EAC /* AlixPayIPadDemoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A91BEC71565C44F00E55EAC /* AlixPayIPadDemoViewController.xib */; };
@@ -949,6 +951,9 @@
 		0A8447E0154126D1000381E0 /* EBuyTypes.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EBuyTypes.xib; sourceTree = "<group>"; };
 		0A8447EA154370A2000381E0 /* Api+Category.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Api+Category.h"; sourceTree = "<group>"; };
 		0A8447EB154370A3000381E0 /* Api+Category.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Api+Category.m"; sourceTree = "<group>"; };
+		0A8C52D615689C9F0056F40E /* EBuyOrderWap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EBuyOrderWap.h; sourceTree = "<group>"; };
+		0A8C52D715689CA00056F40E /* EBuyOrderWap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EBuyOrderWap.m; sourceTree = "<group>"; };
+		0A8C52D815689CA00056F40E /* EBuyOrderWap.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EBuyOrderWap.xib; sourceTree = "<group>"; };
 		0A91BEC01565C44F00E55EAC /* AlixPay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlixPay.h; sourceTree = "<group>"; };
 		0A91BEC11565C44F00E55EAC /* AlixPayDemoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlixPayDemoViewController.h; sourceTree = "<group>"; };
 		0A91BEC21565C44F00E55EAC /* AlixPayDemoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AlixPayDemoViewController.m; sourceTree = "<group>"; };
@@ -2213,6 +2218,9 @@
 				0ABF48031544E91E00840459 /* EBuyOrderInfo.h */,
 				0ABF48041544E91E00840459 /* EBuyOrderInfo.m */,
 				0ABF48051544E91F00840459 /* EBuyOrderInfo.xib */,
+				0A8C52D615689C9F0056F40E /* EBuyOrderWap.h */,
+				0A8C52D715689CA00056F40E /* EBuyOrderWap.m */,
+				0A8C52D815689CA00056F40E /* EBuyOrderWap.xib */,
 				0ABF48081544FF3300840459 /* EBuyOrderUserCell.h */,
 				0ABF48091544FF3500840459 /* EBuyOrderUserCell.m */,
 				0ABF480B1544FF5100840459 /* EBuyOrderUserCell.xib */,
@@ -4263,6 +4271,7 @@
 				0AE8B15C1561EBE100952708 /* EBuyEvaluateInfo.xib in Resources */,
 				0A91BEDC1565C44F00E55EAC /* AlixPayDemoViewController.xib in Resources */,
 				0A91BEDD1565C44F00E55EAC /* AlixPayIPadDemoViewController.xib in Resources */,
+				0A8C52DA15689CA00056F40E /* EBuyOrderWap.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4525,6 +4534,7 @@
 				0A91BEE31565C44F00E55EAC /* openssl_wrapper.m in Sources */,
 				0A91BEE41565C44F00E55EAC /* RSADataSigner.m in Sources */,
 				0A91BEE51565C44F00E55EAC /* RSADataVerifier.m in Sources */,
+				0A8C52D915689CA00056F40E /* EBuyOrderWap.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

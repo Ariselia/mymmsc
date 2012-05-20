@@ -1,22 +1,20 @@
 //
-//  EWallView.m
+//  EBuyOrderWap.m
 //  FengZi
 //
-//  Created by wangfeng on 12-5-14.
+//  Created by wangfeng on 12-5-20.
 //  Copyright (c) 2012年 ifengzi.cn. All rights reserved.
 //
 
-#import "EWallView.h"
+#import "EBuyOrderWap.h"
 
-@interface EWallView ()
+@interface EBuyOrderWap ()
 
 @end
 
-@implementation EWallView
-@synthesize param;
+@implementation EBuyOrderWap
 @synthesize webView = _webView;
-
-#define kTagActivity (10000 + 1)
+@synthesize payUrl;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -51,7 +49,7 @@
     label.textAlignment = UITextAlignmentCenter;
     label.font = [UIFont fontWithName:@"黑体" size:60];
     label.textColor = [UIColor blackColor];
-    label.text= @"墙贴";
+    label.text= @"在线支付";
     self.navigationItem.titleView = label;
     [label release];
     
@@ -82,19 +80,13 @@
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    NSString *sUrl = [NSString stringWithFormat:@"http://devp.ifengzi.cn:38090/misc/checktokenlist.action?doorid=%@&num=%@&factoryid=%@&userid=%d",param.doorid,param.num,param.factoryid,[Api userId]];
-    
-    // NSString *url = @"http://devp.ifengzi.cn:38090/misc/checktokenlist.action?doorid=70&num=&factoryid=68&userid=100046";    
-    
-    // iOSLog(@"url = %@", url);        
-    
-    NSURL *url = [NSURL URLWithString:sUrl];
+    NSURL *url = [NSURL URLWithString:payUrl];
     NSURLRequest *request = [[NSURLRequest alloc] initWithURL:url];
     [_webView loadRequest:request];
     [request release];
     
     activity = [[UIActivityIndicatorView alloc] 
-                             initWithFrame : CGRectMake(0.0f, 0.0f, 32.0f, 32.0f)];
+                initWithFrame : CGRectMake(0.0f, 0.0f, 32.0f, 32.0f)];
     activity.tag = kTagHintView;
     [activity setCenter: self.view.center];
     //[activityIndicatorView setActivityIndicatorViewStyle: UIActivityIndicatorViewStyleWhite];
@@ -102,6 +94,9 @@
     [self.view addSubview: activity];
     [activity release];
 }
+
+#pragma mark -
+#pragma mark UIWebViewDelegate
 
 /*
  UIWebView主要有下面几个委托方法：

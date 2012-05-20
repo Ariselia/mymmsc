@@ -909,7 +909,7 @@ static const char *kPayWay[] = {"支付宝客户端支付", "支付宝wap支付"
         hj += (obj.price * obj.totalCount);
     }
 	order.amount = [NSString stringWithFormat:@"%.2f", hj]; //商品价格
-	order.notifyURL =  @"http://www.xxx.com"; //回调URL
+	order.notifyURL =  @"http://devp.ifengzi.cn:38090/WapPayChannel/servlet/NotifyReceiver"; //回调URL
 	
 	//应用注册scheme,在AlixPayDemo-Info.plist定义URL types,用于安全支付成功后重新唤起商户应用
 	NSString *appScheme = @"FengZi"; 

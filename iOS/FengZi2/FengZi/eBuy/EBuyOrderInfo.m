@@ -12,6 +12,7 @@
 #import "EBuyOrderUserCell.h"
 #import "EBuyOrderAddressCell.h"
 #import "EBProductList.h"
+#import "EBuyOrderWap.h"
 
 @interface EBuyOrderInfo ()
 
@@ -254,8 +255,23 @@ static int xState = -1;
 }
 
 - (void)doPay:(id)sender event:(id)event{
-    [Api ebuy_alipay:_orderInfo];
-    _timer = [NSTimer scheduledTimerWithTimeInterval:0.1f target:self selector:@selector(handleTimer:) userInfo:nil repeats:YES];
+    if (xType == 0) {
+        [Api ebuy_alipay:_orderInfo];
+        _timer = [NSTimer scheduledTimerWithTimeInterval:0.1f target:self selector:@selector(handleTimer:) userInfo:nil repeats:YES]; 
+    } else {
+        NSString *payUrl = @"http://devp.ifengzi.cn:38090/WapPayChannel/servlet/paychannellist";
+        if (xType == 2) {
+            // 移动WAP支付
+            payUrl = @"http://devp.ifengzi.cn:38090/misc/wepcmpay.action";
+        } else {
+            // 支付宝WAP支付
+        }
+        EBuyOrderWap *nextView = [[EBuyOrderWap alloc] init];
+        nextView.payUrl = payUrl;
+        [self.navigationController pushViewController:nextView animated:YES];
+        [nextView release];
+    }
+    
 }
 
 - (void)handleTimer:(NSTimer *)theTimer{
