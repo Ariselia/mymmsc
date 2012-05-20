@@ -27,6 +27,7 @@
     if (self) {
         // Custom initialization
         addrId = 0; // 默认取第一个地址
+        _xType = -1;
     }
     return self;
 }
