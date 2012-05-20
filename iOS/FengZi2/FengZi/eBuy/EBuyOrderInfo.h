@@ -17,6 +17,7 @@
     BOOL                 isEmpty; // 地址簿是否空
     
     EBOrderInfo         *_orderInfo;
+    float                _totalFee;
     int                  _shopId;
     NSTimer             *_timer;
 }

@@ -107,6 +107,17 @@
  
  我们可以将activityIndicatorView放置到前面两个委托方法中。
  */
+#pragma mark -
+#pragma mark UIWebViewDelegate
+
+- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
+    
+    NSString *sUrl = [[request URL] absoluteString];
+    iOSLog(@"WebView-url = [%@]", sUrl);
+    
+    return YES;
+}
+
 - (void)webViewDidStartLoad:(UIWebView *)webView
 {
 	[UIApplication sharedApplication].networkActivityIndicatorVisible = YES;

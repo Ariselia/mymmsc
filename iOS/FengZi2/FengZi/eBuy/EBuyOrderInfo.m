@@ -106,11 +106,11 @@ static int xState = -1;
         cell1.orderPayStatus.text = user.payStatus == 0x01 ? @"未支付" : @"已支付";//[Api ebuy_state_order:user.payStatus];
         cell1.orderModel.text = [Api ebuy_pay_type:user.payWay];
         cell1.orderNumber.text = [NSString stringWithFormat:@"%d", user.goodsCount];
-        float hj = 0.00f;
+        _totalFee = 0.00f;
         for (EBOrderProduct *obj in list) {
-            hj += (obj.price * obj.totalCount);
+            _totalFee += (obj.price * obj.totalCount);
         }
-        cell1.orderPrice.text = [NSString stringWithFormat:@"%.2f", hj];
+        cell1.orderPrice.text = [NSString stringWithFormat:@"%.2f", _totalFee];
         cell1.backgroundColor = [UIColor lightGrayColor];
         [_items addObject:cell1];
         
@@ -259,13 +259,15 @@ static int xState = -1;
         [Api ebuy_alipay:_orderInfo];
         _timer = [NSTimer scheduledTimerWithTimeInterval:0.1f target:self selector:@selector(handleTimer:) userInfo:nil repeats:YES]; 
     } else {
-        NSString *payUrl = @"http://devp.ifengzi.cn:38090/WapPayChannel/servlet/paychannellist";
+        NSString *url = @"http://devp.ifengzi.cn:38090/WapPayChannel/servlet/paychannellist";
         if (xType == 2) {
             // 移动WAP支付
-            payUrl = @"http://devp.ifengzi.cn:38090/misc/wepcmpay.action";
+            url = @"http://devp.ifengzi.cn:38090/misc/wepcmpay.action";
         } else {
             // 支付宝WAP支付
         }
+        // ?subject=%@&total_lee=%.2f&orderid=%@&paystatus=1&payway%d
+        NSString *payUrl = [NSString stringWithFormat:@"%@?subject=%@&total_lee=%.2f&orderid=%@&paystatus=1&payway=%d", url, _orderInfo.userInfo.shopName, _totalFee, orderId, xType];
         EBuyOrderWap *nextView = [[EBuyOrderWap alloc] init];
         nextView.payUrl = payUrl;
         [self.navigationController pushViewController:nextView animated:YES];

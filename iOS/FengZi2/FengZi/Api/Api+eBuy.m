@@ -951,6 +951,16 @@ static const char *kPayWay[] = {"支付宝客户端支付", "支付宝wap支付"
     return bRet;
 }
 
+// 支付宝wap支付, 返回总金额
++ (float)ebuy_wappay:(EBOrderInfo *)info{
+    //商品描述
+    float hj = 0.00f;
+    for (EBOrderProduct *obj in info.products) {
+        hj += (obj.price * obj.totalCount);
+    }
+	return hj;
+}
+
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
 	if (alertView.tag == 123) {
 		NSString * URLString = [NSString stringWithString:@"http://itunes.apple.com/cn/app/id333206289?mt=8"];
