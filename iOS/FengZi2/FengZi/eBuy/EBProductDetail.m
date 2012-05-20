@@ -180,7 +180,7 @@
         [btn setImage:image forState:UIControlStateNormal];
         [btn setImage:image forState:UIControlStateSelected];
         [btn addTarget:self action:@selector(gotoProduct) forControlEvents:UIControlEventTouchUpInside];
-        btn.frame = CGRectMake(250, 5, 44, 29);
+        btn.frame = CGRectMake(250, 21, 44, 29);
         [cell.contentView addSubview:btn];
     } else if (pos == 2) {
         cell.textLabel.text = [NSString stringWithFormat:@"库存：%d 现货", _product.storeInfo];

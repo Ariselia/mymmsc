@@ -60,6 +60,8 @@
     UIBarButtonItem *backitem = [[UIBarButtonItem alloc] initWithCustomView:backbtn];
     self.navigationItem.leftBarButtonItem = backitem;
     [backitem release];
+    
+    _font = [UIFont systemFontOfSize:13.0f];
 }
 
 - (void)viewDidUnload
@@ -102,10 +104,11 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     CGFloat height = 36;
-	//CGSize size = [@"123" sizeWithFont:fontInfo constrainedToSize:CGSizeMake(labelWidth, 20000) lineBreakMode:UILineBreakModeWordWrap];
-	//return size.height + 10; // 10即消息上下的空间，可自由调整 
-    if (indexPath.row == 0) {
-        //height = 180.0f;
+    int pos = [indexPath row];
+    if (pos < [_items count]) {
+        NSString *s = [_items objectAtIndex:pos];
+        CGSize size = [s sizeWithFont:_font constrainedToSize:CGSizeMake(280, 20000) lineBreakMode:UILineBreakModeWordWrap];
+        height = MAX(height, size.height + 10);
     }
 	return height;
 }
@@ -121,6 +124,9 @@
         return nil;
     }
     cell.textLabel.text = [_items objectAtIndex:pos];
+    cell.textLabel.font = _font;
+    cell.textLabel.lineBreakMode = UILineBreakModeWordWrap;
+    cell.textLabel.numberOfLines = 0;
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;
 }
