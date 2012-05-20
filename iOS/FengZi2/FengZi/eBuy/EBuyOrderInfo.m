@@ -176,7 +176,7 @@ static int xState = -1;
         // 支付
         if (bPay) {
             UITableViewCell *cellPay = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
-            cellPay.frame = CGRectMake(0, 0, 320, 50);
+            cellPay.frame = CGRectMake(0, 0, 320, 60);
             CGRect frame = CGRectMake(2, 2, 316, 46);
             UIButton *btn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
             [btn setTitle:[Api ebuy_pay_type:xType] forState:UIControlStateNormal];
