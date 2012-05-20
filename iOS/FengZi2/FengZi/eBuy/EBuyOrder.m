@@ -197,7 +197,7 @@
         //kPayWayAliWap = 0x1, // 支付宝wap支付
         //kPayWayMobile = 0x2, // 移动支付
         //kPayWayQuick  = 0x3  // 快钱支付
-        UISegmentedControl *seg = [[UISegmentedControl alloc] initWithItems:[NSArray arrayWithObjects:@"货到付款", @"支付宝", @"支付宝wap", @"移动支付", @"快钱", nil]];
+        UISegmentedControl *seg = [[UISegmentedControl alloc] initWithItems:[NSArray arrayWithObjects:@"货到付款", @"支付宝"/*, @"支付宝wap", @"移动支付", @"快钱"*/, nil]];
         seg.frame = frame;
         
         NSArray *na = [seg subviews];
