@@ -136,8 +136,10 @@
         }
         ApiResult *iRet = [[Api ebuy_order_change:orderId payId:trade_no payWay:1 payStatus:payStatus payAmount:payAmount serviceFee:0.00f] retain];
         [EBuyOrderInfo changeState:0];
+        
+        NSString *msg = [NSString stringWithFormat:@"%@:[%@]", iRet.message, result];
         UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:@"提示" 
-                                                             message:iRet.message
+                                                             message:msg
                                                             delegate:nil 
                                                    cancelButtonTitle:@"确定" 
                                                    otherButtonTitles:nil];
