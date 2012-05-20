@@ -230,13 +230,13 @@
             temp = [params objectForKey:@"total_fee"];
             temp = [temp replace:@"\"" withString:@""];
             float totalFee = [temp floatValue];
-            [Api ebuy_order_change:orderId payId:@"----" payWay:0 payStatus:0x11 payAmount:totalFee serviceFee:0.00f];
+            ApiResult *iRet = [[Api ebuy_order_change:orderId payId:@"----" payWay:0 payStatus:0x11 payAmount:totalFee serviceFee:0.00f] retain];
             [EBuyOrderInfo changeState:0];
 			// 用公钥验证签名
             id<DataVerifier> verifier = CreateRSADataVerifier(RSA_ALIPAY_PUBLIC);
 			if ([verifier verifyString:result.resultString withSign:result.signString]) {
 				UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:@"提示" 
-																	 message:msg
+																	 message:iRet.message
 																	delegate:nil 
 														   cancelButtonTitle:@"确定" 
 														   otherButtonTitles:nil];
@@ -251,6 +251,7 @@
 				[alertView show];
 				[alertView release];
 			}
+            [iRet release];
 		} else {
             [EBuyOrderInfo changeState:1];
             //如果支付失败,可以通过result.statusCode查询错误码

@@ -857,7 +857,7 @@ static const char *kPayWay[] = {"支付宝客户端支付", "支付宝wap支付"
     NSDictionary *response = [Api post:action header:heads body:[params dataUsingEncoding:NSUTF8StringEncoding]];
     NSDictionary *data = [iRet parse:response];
     if (data == nil) {
-        data = response;//[response objectForKey:@"Response"];
+        data = [response objectForKey:method];
     }
     if (data) {
         NSNumber *state = [data objectForKey:@"status"];
@@ -872,9 +872,9 @@ static const char *kPayWay[] = {"支付宝客户端支付", "支付宝wap支付"
               }*/
         } else {
             if (iRet.status == 0) {
-                iRet.message = @"订购成功";
+                iRet.message = @"支付状态变更成功";
             }else {
-                iRet.message = @"订购失败";
+                iRet.message = @"支付状态变更失败";
             }
         }
         iRet.data = [data objectForKey:@"orderid"];
