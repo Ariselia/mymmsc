@@ -11,7 +11,7 @@
 #import "SHKItem.h"
 #import "ShareView.h"
 #import "UCLogin.h"
-#import <iOSApi/HttpDownload.h>
+#import <iOSApi/HttpDownloader.h>
 #import "UCStoreSubscribe.h"
 #import "UCStoreBBS.h"
 #import <iOSApi/iOSAsyncImageView.h>

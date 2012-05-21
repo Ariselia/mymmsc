@@ -7,12 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <iOSApi/HttpDownload.h>
+#import <iOSApi/HttpDownloader.h>
 #import <AVFoundation/AVFoundation.h>
 #import <MediaPlayer/MediaPlayer.h>
 #import "Api+RichMedia.h"
 
-@interface UCMediaPage : UIViewController<HttpDownloadDelegate> {
+@interface UCMediaPage : UIViewController<HttpDownloaderDelegate> {
     MediaObject *info;
     NSString *filePath;
     UIButton *btnDown;

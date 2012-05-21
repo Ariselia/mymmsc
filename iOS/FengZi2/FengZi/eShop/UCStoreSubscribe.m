@@ -172,7 +172,7 @@ static ProductInfo *theObj = nil;
             [alert release];
         } else if(iDownload < API_DOWNLOAD_ING){
             iDownload = API_DOWNLOAD_ING;
-            HttpDownload *hd = [HttpDownload new];
+            HttpDownloader *hd = [HttpDownloader new];
             hd.delegate = self;
             iOSLog(@"下载路径: [%@]", obj.orderProductUrl);
             NSString *result = [iOSApi urlDecode:obj.orderProductUrl];
@@ -215,7 +215,7 @@ static ProductInfo *theObj = nil;
     }
 }
 
-- (BOOL)httpDownload:(HttpDownload *)httpDownload didError:(BOOL)isError {
+- (BOOL)httpDownloader:(HttpDownloader *)downloader didError:(BOOL)isError {
     [iOSApi closeAlert];
     [iOSApi Alert:@"下载提示" message:@"下载失败"];
     iDownload = API_DOWNLOAD_NONE;
@@ -224,7 +224,7 @@ static ProductInfo *theObj = nil;
     return YES;
 }
 
-- (BOOL)httpDownload:(HttpDownload *)httpDownload didFinished:(NSMutableData *)buffer {
+- (BOOL)httpDownloader:(HttpDownloader *)downloader didFinished:(NSMutableData *)buffer {
     [iOSApi closeAlert];
     
     NSString *filePath = [Api filePath:theUrl];

@@ -8,10 +8,10 @@
 
 #import <UIKit/UIKit.h>
 #import <iOSApi/iOSTableViewController.h>
-#import <iOSApi/HttpDownload.h>
+#import <iOSApi/HttpDownloader.h>
 #import <MediaPlayer/MediaPlayer.h>
 
-@interface UCStoreSubscribe : iOSTableViewController<HttpDownloadDelegate, iOSTableDataDelegate> {
+@interface UCStoreSubscribe : iOSTableViewController<HttpDownloaderDelegate, iOSTableDataDelegate> {
     UIButton           *_btnRight; // 导航条按钮
     UIImage            *_curImage;
     NSMutableArray     *items;

@@ -9,7 +9,6 @@
 #import <UIKit/UIKit.h>
 #import "Api+eShop.h"
 #import <iOSApi/iOSTableViewController.h>
-#import <iOSApi/HttpDownload.h>
 
 @interface UCStoreInfo : UITableViewController{
     NSMutableArray  *_items;
