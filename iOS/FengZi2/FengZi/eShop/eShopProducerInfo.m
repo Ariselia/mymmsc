@@ -11,7 +11,7 @@
 #import "SHKItem.h"
 #import "ShareView.h"
 #import "UCLogin.h"
-#import <iOSApi/HttpDownload.h>
+#import <iOSApi/HttpDownloader.h>
 #import "UCStoreSubscribe.h"
 #import "UCStoreBBS.h"
 #import <iOSApi/iOSAsyncImageView.h>
@@ -140,7 +140,7 @@
         }
     } else {
         // 不能展示进行下载
-        HttpDownload *hd = [HttpDownload new];
+        HttpDownloader *hd = [HttpDownloader new];
         hd.delegate = self;
         iOSLog(@"下载路径: [%@]", info2.productUrl);
         NSString *result = [iOSApi urlDecode:info2.productUrl];
@@ -154,7 +154,7 @@
     }
 }
 
-- (BOOL)httpDownload:(HttpDownload *)httpDownload didError:(BOOL)isError {
+- (BOOL)httpDownloader:(HttpDownloader *)downloader didError:(BOOL)isError {
     [iOSApi closeAlert];
     [iOSApi Alert:@"下载提示" message:@"下载失败"];
     //iDownload = API_DOWNLOAD_NONE;
@@ -163,7 +163,7 @@
     return YES;
 }
 
-- (BOOL)httpDownload:(HttpDownload *)httpDownload didFinished:(NSMutableData *)buffer {
+- (BOOL)httpDownloader:(HttpDownloader *)downloader didFinished:(NSMutableData *)buffer {
     [iOSApi closeAlert];
     
     NSString *filePath = [Api filePath:info2.productUrl];
