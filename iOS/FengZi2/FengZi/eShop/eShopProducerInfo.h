@@ -8,9 +8,9 @@
 
 #import "Api+eShop.h"
 #import <iOSApi/iOSTableViewController.h>
-#import <iOSApi/HttpDownload.h>
+#import <iOSApi/HttpDownloader.h>
 
-@interface eShopProducerInfo : UITableViewCell<HttpDownloadDelegate>{
+@interface eShopProducerInfo : UITableViewCell<HttpDownloaderDelegate>{
     //ProductInfo *info;
     UIImageView  *infoImage;
     UILabel      *infoType;
