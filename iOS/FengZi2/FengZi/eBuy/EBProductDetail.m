@@ -108,10 +108,10 @@
     int count = 0;
     if (_product != nil) {
         count = 5;
-        if ([Api isOnLine]) {
+        //if ([Api isOnLine]) {
             // 如果登录了, 增加一行功能按钮.
             count = 6;
-        }
+        //}
     }
     return count;
 }
@@ -135,9 +135,9 @@
     }
     int pos = [indexPath row];
     int row3 = 0;
-    if ([Api isOnLine]) {
+    //if ([Api isOnLine]) {
         row3 = 1;
-    }
+    //}
     if (pos == 0) {
         NSArray *tmpList = [_product.picUrl componentsSeparatedByString:@"*"];
         UIScrollView *scroll = [[UIScrollView alloc] initWithFrame:CGRectMake(12, 0, 295, 90)];
@@ -257,6 +257,10 @@
 
 // 立即购买
 - (void)goBuy{
+    if (![Api isOnLine]) {
+        [self gotoLogin];
+        return;
+    }
     [Api ebuy_car_add:_product];
     EBuyCar *nextView = [[EBuyCar alloc] init];
     [self.navigationController pushViewController:nextView animated:YES];
@@ -265,6 +269,10 @@
 
 // 添加收藏
 - (void)addShouCang{
+    if (![Api isOnLine]) {
+        [self gotoLogin];
+        return;
+    }
     [iOSApi showAlert:@"添加收藏..."];
     ApiResult *iRet = [[Api ebuy_collect_add:_product.id] retain];
     [iOSApi showCompleted:iRet.message];

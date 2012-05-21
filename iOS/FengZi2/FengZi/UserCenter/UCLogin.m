@@ -81,44 +81,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
-    UIImage *image = [UIImage imageNamed:@"navigation_bg.png"];
-    Class ios5Class = (NSClassFromString(@"CIImage"));
-    if (nil != ios5Class) {
-        [self.navigationController.navigationBar setBackgroundImage:image forBarMetrics:UIBarMetricsDefault];
-    } else {
-        self.navigationController.navigationBar.layer.contents = (id)[UIImage imageNamed:@"navigation_bg.png"].CGImage;
-    }
-    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(110, 0, 100,44)];
-    label.backgroundColor = [UIColor clearColor];
-    label.textAlignment = UITextAlignmentCenter;
-    label.font = [UIFont fontWithName:@"黑体" size:60];
-    label.textColor = [UIColor blackColor];
-    label.text= @"登录";
-    self.navigationItem.titleView = label;
-    [label release];
-    
-    UIButton *backbtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    backbtn.frame =CGRectMake(0, 0, 60, 32);
-    [backbtn setImage:[UIImage imageNamed:@"back.png"] forState:UIControlStateNormal];
-    [backbtn setImage:[UIImage imageNamed:@"back_tap.png"] forState:UIControlStateHighlighted];
-    [backbtn addTarget:self action:@selector(goBack) forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem *backitem = [[UIBarButtonItem alloc] initWithCustomView:backbtn];
-    self.navigationItem.leftBarButtonItem = backitem;
-    [backitem release];
-    
-    _btnRight = [UIButton buttonWithType:UIButtonTypeCustom];
-    _btnRight.frame = CGRectMake(0, 0, 60, 32);
-    [_btnRight setImage:[UIImage imageNamed:@"uc-reg2.png"] forState:UIControlStateNormal];
-    [_btnRight setImage:[UIImage imageNamed:@"uc-reg2.png"] forState:UIControlStateHighlighted];
-    [_btnRight addTarget:self action:@selector(doReg:) forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem *rightItem = [[UIBarButtonItem alloc] initWithCustomView:_btnRight];
-    self.navigationItem.rightBarButtonItem = rightItem;
-    [rightItem release];
-    
-    _borderStyle = UITextBorderStyleNone;
-    font = [UIFont systemFontOfSize:13.0];
-    
+    // Do any additional setup after loading the view from its nib.    
 }
 
 - (void)viewDidUnload
@@ -268,6 +231,42 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated {
+    UIImage *image = [UIImage imageNamed:@"navigation_bg.png"];
+    Class ios5Class = (NSClassFromString(@"CIImage"));
+    if (nil != ios5Class) {
+        [self.navigationController.navigationBar setBackgroundImage:image forBarMetrics:UIBarMetricsDefault];
+    } else {
+        self.navigationController.navigationBar.layer.contents = (id)[UIImage imageNamed:@"navigation_bg.png"].CGImage;
+    }
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(110, 0, 100,44)];
+    label.backgroundColor = [UIColor clearColor];
+    label.textAlignment = UITextAlignmentCenter;
+    label.font = [UIFont fontWithName:@"黑体" size:60];
+    label.textColor = [UIColor blackColor];
+    label.text= @"登录";
+    self.navigationItem.titleView = label;
+    [label release];
+    
+    UIButton *backbtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    backbtn.frame =CGRectMake(0, 0, 60, 32);
+    [backbtn setImage:[UIImage imageNamed:@"back.png"] forState:UIControlStateNormal];
+    [backbtn setImage:[UIImage imageNamed:@"back_tap.png"] forState:UIControlStateHighlighted];
+    [backbtn addTarget:self action:@selector(goBack) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *backitem = [[UIBarButtonItem alloc] initWithCustomView:backbtn];
+    self.navigationItem.leftBarButtonItem = backitem;
+    [backitem release];
+    
+    _btnRight = [UIButton buttonWithType:UIButtonTypeCustom];
+    _btnRight.frame = CGRectMake(0, 0, 60, 32);
+    [_btnRight setImage:[UIImage imageNamed:@"uc-reg2.png"] forState:UIControlStateNormal];
+    [_btnRight setImage:[UIImage imageNamed:@"uc-reg2.png"] forState:UIControlStateHighlighted];
+    [_btnRight addTarget:self action:@selector(doReg:) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *rightItem = [[UIBarButtonItem alloc] initWithCustomView:_btnRight];
+    self.navigationItem.rightBarButtonItem = rightItem;
+    [rightItem release];
+    
+    _borderStyle = UITextBorderStyleNone;
+    font = [UIFont systemFontOfSize:13.0];
     if ([items count] == 0) {
         toSave = NO;
         NSString *sUserId = [Api userPhone];//[iOSApi objectForCache: API_CACHE_USERID];

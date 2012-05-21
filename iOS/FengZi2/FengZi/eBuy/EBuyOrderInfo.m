@@ -281,15 +281,20 @@ static int xState = -1;
     if (xType == 0) {
         [Api ebuy_alipay:_orderInfo];
     } else {
+        NSString *proInfo = [iOSApi urlEncode:_orderInfo.userInfo.shopName];
         NSString *url = @"http://devp.ifengzi.cn:38090/WapPayChannel/servlet/paychannellist";
+        NSString *params = [NSString stringWithFormat:@"subject=%@&total_lee=%.2f&orderid=%@&paystatus=1&payway=%d", proInfo, _totalFee, orderId, xType];
         if (xType == 2) {
             // 移动WAP支付
             url = @"http://devp.ifengzi.cn:38090/misc/wepcmpay.action";
+            //amount=1&orderId=20120511151500&productDesc=商品描述&merchantAbbr=中国&productId=abc&productName=测试商品&productNum=1&userToken=15211043570&showUrl=http://www.baidu.com
+            params = [NSString stringWithFormat:@"amount=%.2f&orderId=%@channelid0&productDesc=%@&merchantAbbr=%@&productName=%@&productNum=1&userToken=&showUrl=", _totalFee, orderId, proInfo, [iOSApi urlEncode:@"中国"], proInfo];
         } else {
             // 支付宝WAP支付
         }
         // ?subject=%@&total_lee=%.2f&orderid=%@&paystatus=1&payway%d
-        NSString *payUrl = [NSString stringWithFormat:@"%@?subject=%@&total_lee=%.2f&orderid=%@&paystatus=1&payway=%d", url, _orderInfo.userInfo.shopName, _totalFee, orderId, xType];
+        NSString *payUrl = [NSString stringWithFormat:@"%@?%@", url, params];
+        iOSLog(@"payUrl = [%@]", payUrl);
         EBuyOrderWap *nextView = [[EBuyOrderWap alloc] init];
         nextView.payUrl = payUrl;
         nextView.totalFee = _totalFee;

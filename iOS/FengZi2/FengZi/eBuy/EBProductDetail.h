@@ -10,7 +10,6 @@
 // 商品详情页
 // 
 
-#import <UIKit/UIKit.h>
 #import "Api+Ebuy.h"
 
 @interface EBProductDetail : UIViewController{

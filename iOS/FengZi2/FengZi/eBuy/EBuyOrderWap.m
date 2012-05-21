@@ -114,12 +114,17 @@
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
     
     NSString *sUrl = [[request URL] absoluteString];
+    if (sUrl == nil && sUrl.length < 1) {
+        return YES;
+    }
     iOSLog(@"WebView-url = [%@]", sUrl);
     //http://220.231.48.34:38090/WapPayChannel/servlet/CallBack?out_trade_no=OD1205201245000002&request_token=requestToken&result=success&trade_no=2012052076462009&sign=03d6d62a71df2630535348752431d264
     
-    static NSString *kCallBack_Alipay = @"WapPayChannel/servlet/CallBack";
-    NSRange range = [sUrl rangeOfString:kCallBack_Alipay];
-    if (range.length > 0) {
+    static NSString *kCallBackAlipay = @"WapPayChannel/servlet/CallBack";
+    static NSString *kCallBackCmPay = @"misc/callback.action";
+    NSRange rangeAlipay = [sUrl rangeOfString:kCallBackAlipay];
+    NSRange rangeCmpay = [sUrl rangeOfString:kCallBackCmPay];
+    if (rangeAlipay.length > 0) {
         // 支付宝wap支付
         NSDictionary *params = [sUrl uriParams];
         NSString *temp = nil;
@@ -134,7 +139,7 @@
         if ([result isSame:@"success"]) {
             payStatus = 0x11;
         }
-        ApiResult *iRet = [[Api ebuy_order_change:orderId payId:trade_no payWay:1 payStatus:payStatus payAmount:payAmount serviceFee:0.00f] retain];
+        ApiResult *iRet = [[Api ebuy_order_change:orderId payId:trade_no payWay:kPayWayAliWap payStatus:payStatus payAmount:payAmount serviceFee:0.00f] retain];
         [EBuyOrderInfo changeState:0];
         
         NSString *msg = [NSString stringWithFormat:@"%@:[%@]", iRet.message, result];
@@ -147,6 +152,34 @@
         [alertView release];
         [iRet release];
         //[self.navigationController popViewControllerAnimated:YES];
+    } else if (rangeCmpay.length > 0) {
+        // 移动支付
+        //http://devp.ifengzi.cn:38090/misc/callback.action?orderId=&paystatus=&payway=&act=success
+        NSDictionary *params = [sUrl uriParams];
+        NSString *temp = nil;
+        temp = [params objectForKey:@"orderId"];
+        NSString *orderId = [temp replace:@"\"" withString:@""];
+        temp = [params objectForKey:@"act"];
+        NSString *result = [temp replace:@"\"" withString:@""];
+        temp = [params objectForKey:@"paystatus"];
+        NSString *trade_no = [temp replace:@"\"" withString:@""];
+        float payAmount = totalFee;
+        int payStatus = 0x01;
+        if ([result isSame:@"success"]) {
+            payStatus = 0x11;
+        }
+        ApiResult *iRet = [[Api ebuy_order_change:orderId payId:trade_no payWay:kPayWayMobile payStatus:payStatus payAmount:payAmount serviceFee:0.00f] retain];
+        [EBuyOrderInfo changeState:0];
+        
+        NSString *msg = [NSString stringWithFormat:@"%@:[%@]", iRet.message, result];
+        UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:@"提示" 
+                                                             message:msg
+                                                            delegate:self 
+                                                   cancelButtonTitle:@"确定" 
+                                                   otherButtonTitles:nil];
+        [alertView show];
+        [alertView release];
+        [iRet release];
     }
     return YES;
 }

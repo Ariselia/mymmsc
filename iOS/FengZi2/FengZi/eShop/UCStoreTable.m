@@ -250,7 +250,7 @@ static int nClickTimes = 0;
     cell.textLabel.font = textFont;
     cell.detailTextLabel.textColor = [UIColor blueColor];
     NSString *tmpPrice = [NSString stringWithFormat:@"%.02f元", obj.price];
-    if (obj.price < 0.01) {
+    if (obj.price < 0.0001) {
         tmpPrice = @"免费";
     }
     cell.detailTextLabel.text = [NSString stringWithFormat:@"%@　%@", obj.name, obj.writer];
