@@ -87,7 +87,26 @@
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
+    
+    imgUrl=nil;
+    text = nil;
+    content =nil;
+    imgView =nil;
+    [imgUrl release];
+    [text release];
+    [content release];
+    [imgView release];
 }
+
+- (void)dealloc {
+    [imgUrl release];
+    [text release];
+    [content release];
+    [imgView release];
+ 
+    [super dealloc];
+}
+
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {

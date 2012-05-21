@@ -7,7 +7,7 @@
 //
 
 #import "EWallView.h"
-
+#import "Api.h"
 @interface EWallView ()
 
 @end
@@ -39,6 +39,15 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    
+    if(![Api isOnLine]){
+       
+        [self gotoLogin];
+       
+        return;
+       
+    }
+    
     UIImage *image = [UIImage imageNamed:@"navigation_bg.png"];
     Class ios5Class = (NSClassFromString(@"CIImage"));
     if (nil != ios5Class) {
@@ -81,7 +90,7 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated{
-    [super viewWillAppear:animated];
+    [super viewWillAppear:YES];
     NSString *sUrl = [NSString stringWithFormat:@"http://devp.ifengzi.cn:38090/misc/checktokenlist.action?doorid=%@&num=%@&factoryid=%@&userid=%d",param.doorid,param.num,param.factoryid,[Api userId]];
     
     // NSString *url = @"http://devp.ifengzi.cn:38090/misc/checktokenlist.action?doorid=70&num=&factoryid=68&userid=100046";    
@@ -149,5 +158,6 @@
     [alterview show];
     [alterview release];
 }
+
 
 @end

@@ -140,6 +140,40 @@
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
+    u_name=nil;
+    u_serialNum=nil;
+    u_num=nil;
+    u_usetime=nil;
+    u_pic=nil;
+    u_codepic=nil;
+    u_content=nil;
+    u_code=nil;
+    param=nil;
+    [u_name release];
+    [u_serialNum release];
+    [u_num release];
+    [u_usetime release];
+    [u_pic release];
+    [u_codepic release];
+    [u_content release];
+    [u_code release];
+    
+    [param release];
+      
+}
+
+- (void)dealloc {
+    [u_name release];
+    [u_serialNum release];
+    [u_num release];
+    [u_usetime release];
+    [u_pic release];
+    [u_codepic release];
+    [u_content release];
+    [u_code release];
+    
+    [param release];
+    [super dealloc];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation

@@ -19,8 +19,7 @@
 @end
 
 @implementation GamePortal
-@synthesize tableView = _tableView;
-@synthesize lable1,lable2,lable3,lable4,lable5,lable6;
+
 
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -28,7 +27,7 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
-         self.proxy = self;
+       //  self.proxy = self;
     }
     return self;
 }
@@ -66,63 +65,194 @@
     UIBarButtonItem *backitem = [[UIBarButtonItem alloc] initWithCustomView:backbtn];
     self.navigationItem.leftBarButtonItem = backitem;
     [backitem release];
-   
-    [_tableView setHidden:YES];    
-}
-    //加载动画效果
+    
+    [iOSApi showAlert:@"获取活动列表..."];
+    _items = [[NSMutableArray alloc] initWithCapacity:0];
 
--(void)animationLable
-{
+    _items = [[Api activeList] retain];
+    
+    [iOSApi closeAlert];
+    if (_items == nil || _items.count < 1) {
+        [iOSApi showCompleted:@"服务器正忙，请稍候"];
+    } else {
+        
+        for (int i=0; i<_items.count; i++) {
+            GameInfo *obj = [_items objectAtIndex:i];
+            int rx;
+            int ry;
+            CGRect labelCGRect;
+            rx = (arc4random() % 320) + 1;
+            
+            if(i%2 == 0)
+            {
+                rx = rx+100;   
+                ry = (arc4random() % 100) + 1; 
+                labelCGRect = CGRectMake(rx, -ry, 240,60);   
+            }
+            else {
+                rx = rx-100;
+                ry = (arc4random() % 100) + 320;   
+                labelCGRect = CGRectMake(rx, ry, 240,60);     
+            }
+            
+            
+            UILabel *tempLabel = [[UILabel alloc]initWithFrame:(labelCGRect)];
+            
+            UIButton *tempBtn = [[UIButton alloc]initWithFrame:(labelCGRect)];
+           // [tempBtn setBackgroundColor:[UIColor blueColor]];
+            [tempBtn addTarget:self action:@selector(goGame:) forControlEvents:UIControlEventTouchUpInside];
+            [tempBtn setTag:i];
+            UIColor *tempColor;
+            
+            int tempNum = (arc4random() % 7) + 1;
+            
+            if(tempNum==1)
+            {
+                tempColor = [UIColor redColor];
+            }
+            else if(tempNum==2) {
+                tempColor =[UIColor colorWithRed:30.0/255 green:144.0/255 blue:255.0/255 alpha:1];
+            }
+            else if(tempNum==3) {
+                tempColor = [UIColor blueColor];
+            }
+            
+            else if(tempNum==4) {
+                tempColor = [UIColor greenColor];
+            }
+            
+            else if(tempNum==5) {
+                tempColor =[UIColor colorWithRed:255.0/255 green:0 blue:255.0/255 alpha:1];
+            }
+            else if(tempNum==6) {
+                tempColor = [UIColor orangeColor];
+            }
+            else if(tempNum==7) {
+                tempColor = [UIColor yellowColor];
+            }
+            
+            else {
+                tempColor = [UIColor orangeColor];
+            }
+            
+            int tempSize = (arc4random() % 20) + 22;
+            
+            
+            
+            
+            [tempLabel setShadowColor:tempColor];  
+            [tempLabel setShadowOffset:CGSizeMake(-1, 1)];  
+            
+            
+            //设置是否能与用户进行交互       
+            tempLabel.userInteractionEnabled = YES;  
+            //设置点击事件
+            
+            
+            
+            [tempLabel setText:@"蜂子二维码"];
+            [tempLabel setFont:[UIFont boldSystemFontOfSize:tempSize]];
+            [tempLabel setBackgroundColor:[UIColor clearColor]];
+            [tempLabel setTextColor:tempColor];
+            [tempLabel setText:obj.luckyName];
+            [self.view addSubview:tempLabel];
+            [self.view addSubview:tempBtn];
+            //执行动画
+            
+            [UIView beginAnimations:@"huishou" context:nil]; 
+            //设置动画移动的时间为slider.value滑块的值  
+            [UIView setAnimationDuration:2.5]; 
+            //设置动画曲线类形为：直线UIViewAnimationCurveLinear  
+            [UIView setAnimationCurve:UIViewAnimationCurveLinear];
+            
+            int rxn = (arc4random() % 100) + 1;
+            
+            int ryn = (i+1)*60;
+            
+            CGRect a = CGRectMake(rxn, ryn, 240,44);
+            
+            
+            [tempBtn setFrame:a];
+            [tempLabel setFrame:a];        
+            //完成动画，必须写，不要忘了  
+            [UIView commitAnimations];
+            [tempLabel release];
+            [tempBtn release];
+        }
+        
+    }
 
-    
-    [UIView beginAnimations:@"huishou" context:nil]; 
-    //设置动画移动的时间为slider.value滑块的值  
-    [UIView setAnimationDuration:2.5]; 
-    //设置动画曲线类形为：直线UIViewAnimationCurveLinear  
-    [UIView setAnimationCurve:UIViewAnimationCurveLinear];
-    
-    int r1 = (arc4random() % 200) + 1;
-    int r2 = (arc4random() % 200) + 1;
-    int r3 = (arc4random() % 200) + 1;
-    int r4 = (arc4random() % 200) + 1;
-    int r5 = (arc4random() % 200) + 1;
-    int r6 = (arc4random() % 200) + 1;
-    CGRect a = CGRectMake(r1, 309, 240,44);
-    CGRect b = CGRectMake(r2, 185, 240,44);
-    CGRect c = CGRectMake(r3, 232, 240,44);
-    CGRect d = CGRectMake(r4,81, 240,44);
-    CGRect e = CGRectMake(r5, 143, 240,44);
-    CGRect f = CGRectMake(r6, 46, 240,44);
-    
-    [lable1 setFrame:a];
-    [lable2 setFrame:b];
-    [lable3 setFrame:c];
-    [lable4 setFrame:d];
-    [lable5 setFrame:e];
-    [lable6 setFrame:f];
-    
-    //完成动画，必须写，不要忘了  
-    [UIView commitAnimations];
-    [self performSelector:@selector(showTable) withObject:nil afterDelay:3.5];
+      
 }
 
-- (void)showTable
-{     
-    [lable1 setHidden:YES];
-    [lable2 setHidden:YES];
-    [lable3 setHidden:YES];
-    [lable4 setHidden:YES];
-    [lable5 setHidden:YES];
-    [lable6 setHidden:YES];
-    [_tableView setHidden:NO];
+-(void)goGame:(id) sender{
     
+    //NSLog(@"%d",[sender tag]);
+    int i= [sender tag];
+    
+    GameInfo *theObj = [_items objectAtIndex:i];
+    
+    
+    int n;
+    @try {
+        n =  [theObj.activeId integerValue];
+    }
+    @catch (NSException *exception) {
+        n = 1;
+    }
+    @finally {
+        //
+    }
+    
+    if (n == 1) {
+        // 轮盘
+        Roulette *theView = [[[Roulette alloc] init] autorelease];
+        theView.luckyid = theObj.luckyId;
+        theView.shopguid = theObj.activeId;
+        UINavigationController *nextView = [[UINavigationController alloc] initWithRootViewController:theView];
+        [self presentModalViewController:nextView animated:YES];
+        [nextView release];
+    } else if (n == 2) {
+        // 打地鼠
+        Hamster *theView = [[[Hamster alloc] init] autorelease];
+        theView.luckyid = theObj.luckyId;
+        theView.shopguid = theObj.activeId;
+        UINavigationController *nextView = [[UINavigationController alloc] initWithRootViewController:theView];
+        [self presentModalViewController:nextView animated:YES];
+        [nextView release];
+    } else if (n == 3) {
+        // 开箱子
+        OpenBox *theView = [[[OpenBox alloc] init] autorelease];
+        theView.luckyid = theObj.luckyId;
+        theView.shopguid = theObj.activeId;
+        UINavigationController *nextView = [[UINavigationController alloc] initWithRootViewController:theView];
+        [self presentModalViewController:nextView animated:YES];
+        [nextView release];
+    } else if (n == 4) {
+        // 砸蛋
+        BreakEgg *theView = [[[BreakEgg alloc] init] autorelease];
+        theView.luckyid = theObj.luckyId;
+        theView.shopguid = theObj.activeId;
+        
+        UINavigationController *nextView = [[UINavigationController alloc] initWithRootViewController:theView];
+        [self presentModalViewController:nextView animated:YES];
+        [nextView release];
+    }
+
 }
+
 
 - (void)viewDidUnload
 {
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
+    [_items release];
+    _items=nil;
+    [_font release];
+    _font = nil;
+    [_curSubject release];
+    _curSubject = nil;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -132,261 +262,15 @@
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    _borderStyle = UITextBorderStyleNone;
-    //font = [UIFont systemFontOfSize:13.0];
-    if ([_items count] == 0) {
-        // 预加载项
-        _items = [[NSMutableArray alloc] initWithCapacity:0];
-        _page = 1;
-    } else {
-        [_items removeAllObjects];
-    }
+
 }
 
-#pragma mark -
-#pragma mark UITableViewDataSource
-
-- (UITableViewCell *)configure:(UITableView *)tableView atIndexPath:(NSIndexPath *)indexPath
-{
-    static NSString *CellIdentifier = @"Cell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    if (cell == nil) {
-        
-        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
-        
-    }
-    cell.textLabel.text =@"蜂子二维码"; 
-    GameInfo *obj = [self objectForIndexPath:indexPath];
-    // 设置字体
-    UIFont *textFont = [UIFont systemFontOfSize:17.0];
-    cell.textLabel.text = [iOSApi urlDecode:obj.luckyName];
-    cell.textLabel.font = textFont;
-    /*
-    if (indexPath.row %2 == 0) {
-        //cell.backgroundColor = [UIColor grayColor];
-        cell.textLabel.textColor = [UIColor blackColor];
-    } else {
-        //cell.backgroundColor = [UIColor lightGrayColor];
-        cell.textLabel.textColor = [UIColor blueColor];
-    }
-     */
-    UIColor *tempColor;
-    int tempNum = (arc4random() % 7) + 1;
-    
-    /*
-    
-     *)cyanColor;       // 0.0, 1.0, 1.0 RGB 
-     + (UIColor *)yellowColor;     // 1.0, 1.0, 0.0 RGB 
-     + (UIColor *)magentaColor;    // 1.0, 0.0, 1.0 RGB 
-     + (UIColor *)orangeColor;     // 1.0, 0.5, 0.0 RGB 
-     + (UIColor *)purpleColor;     // 0.5, 0.0, 0.5 RGB 
-     + (UIColor *)brownColor;    
-    */
-    if(tempNum==1)
-    {
-        tempColor = [UIColor redColor];
-    } else if(tempNum==2) {
-        tempColor = [UIColor brownColor];
-    } else if(tempNum==3) {
-        tempColor = [UIColor blueColor];
-    } else if(tempNum==4) {
-        tempColor = [UIColor greenColor];
-    } else if(tempNum==5) {
-        tempColor = [UIColor blackColor];
-    } else if(tempNum==6) {
-        tempColor = [UIColor orangeColor];
-    } else if(tempNum==7) {
-        tempColor = [UIColor cyanColor];
-    } else {
-         tempColor = [UIColor orangeColor];
-    }
-    
-    cell.textLabel.textColor =tempColor;
-    [tempColor release];
-    
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    return cell;
+- (void)dealloc {
+    [_items release];
+    [_font release];
+    [_curSubject release];
+    [super dealloc];
 }
 
-/*
-- (UITableViewCell *)configure:(UITableViewCell *)cell withObject:(id)object {
-    
-    
-    
-    GameInfo *obj = object;
-    // 设置字体
-    UIFont *textFont = [UIFont systemFontOfSize:17.0];
-    cell.textLabel.text = [iOSApi urlDecode:obj.luckyName];
-    
-    cell.textLabel.font = textFont;
-    
-    //cell.detailTextLabel.text =obj.luckyName;
-    //[cell setLayerEffect:cell.layer];
-    //cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-    //cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    return cell;
-}
-*/
-static GameInfo *theObj = nil;
-
-- (void)tableView:(UITableViewCell *)cell onCustomAccessoryTapped:(id)object {
-    theObj = object;
-    int n;
-    @try {
-         n =  [theObj.activeId integerValue];
-    }
-    @catch (NSException *exception) {
-         n = 1;
-    }
-    @finally {
-        //
-    }
-   
-    if (n == 1) {
-        // 轮盘
-        Roulette *theView = [[[Roulette alloc] init] autorelease];
-        theView.luckyid = theObj.luckyId;
-        theView.shopguid = theObj.activeId;
-        UINavigationController *nextView = [[UINavigationController alloc] initWithRootViewController:theView];
-        [self presentModalViewController:nextView animated:YES];
-        [nextView release];
-    } else if (n == 2) {
-        // 打地鼠
-        Hamster *theView = [[[Hamster alloc] init] autorelease];
-        theView.luckyid = theObj.luckyId;
-        theView.shopguid = theObj.activeId;
-        UINavigationController *nextView = [[UINavigationController alloc] initWithRootViewController:theView];
-        [self presentModalViewController:nextView animated:YES];
-        [nextView release];
-    } else if (n == 3) {
-        // 开箱子
-        OpenBox *theView = [[[OpenBox alloc] init] autorelease];
-        theView.luckyid = theObj.luckyId;
-        theView.shopguid = theObj.activeId;
-        UINavigationController *nextView = [[UINavigationController alloc] initWithRootViewController:theView];
-        [self presentModalViewController:nextView animated:YES];
-        [nextView release];
-    } else if (n == 4) {
-        // 砸蛋
-        BreakEgg *theView = [[[BreakEgg alloc] init] autorelease];
-        theView.luckyid = theObj.luckyId;
-        theView.shopguid = theObj.activeId;
-        
-        UINavigationController *nextView = [[UINavigationController alloc] initWithRootViewController:theView];
-        [self presentModalViewController:nextView animated:YES];
-        [nextView release];
-    }
-
-    /*
-    UIAlertView *alert = [[UIAlertView alloc]
-						  initWithTitle:nil
-						  message:nil
-						  delegate:self
-						  cancelButtonTitle:@"轮盘"
-						  otherButtonTitles:@"打地鼠",@"开箱子",@"砸金蛋",
-                          nil];
-    [alert show];
-	[alert release];
-     */
-}
-
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger) buttonIndex {
-    GameInfo *obj = theObj;
-    int n = buttonIndex + 1;
-    if (n == 1) {
-        // 轮盘
-        Roulette *theView = [[[Roulette alloc] init] autorelease];
-        theView.luckyid = obj.luckyId;
-        theView.shopguid = obj.activeId;
-        UINavigationController *nextView = [[UINavigationController alloc] initWithRootViewController:theView];
-        [self presentModalViewController:nextView animated:YES];
-        [nextView release];
-    } else if (n == 2) {
-        // 打地鼠
-        Hamster *theView = [[[Hamster alloc] init] autorelease];
-        theView.luckyid = obj.luckyId;
-        theView.shopguid = obj.activeId;
-        UINavigationController *nextView = [[UINavigationController alloc] initWithRootViewController:theView];
-        [self presentModalViewController:nextView animated:YES];
-        [nextView release];
-    } else if (n == 3) {
-        // 开箱子
-        OpenBox *theView = [[[OpenBox alloc] init] autorelease];
-       theView.luckyid = obj.luckyId;
-        theView.shopguid = obj.activeId;
-        UINavigationController *nextView = [[UINavigationController alloc] initWithRootViewController:theView];
-        [self presentModalViewController:nextView animated:YES];
-        [nextView release];
-    } else if (n == 4) {
-        // 砸蛋
-        BreakEgg *theView = [[[BreakEgg alloc] init] autorelease];
-        theView.luckyid = obj.luckyId;
-        theView.shopguid = obj.activeId;
-        
-        UINavigationController *nextView = [[UINavigationController alloc] initWithRootViewController:theView];
-        [self presentModalViewController:nextView animated:YES];
-        [nextView release];
-    }
-}
-
-- (NSArray *)reloadData:(iOSTableViewController *)tableView {
-    [iOSApi showAlert:@"获取活动列表..."];
-    NSMutableArray *data = [Api activeList];
-    [iOSApi closeAlert];
-    if (data == nil || data.count < 1) {
-        [iOSApi showCompleted:@"服务器正忙，请稍候"];
-    } else {
-        [_items addObjectsFromArray:[data retain]];
-        for (int i=0; i<_items.count; i++) {
-            GameInfo *obj = [_items objectAtIndex:i];
-            if(i==0)
-            {
-               
-                [lable1 setText:obj.luckyName];
-            }
-            if(i==1)
-            {
-                
-                [lable2 setText:obj.luckyName];
-            }
-            if(i==2)
-            {
-                
-                [lable3 setText:obj.luckyName];
-            }
-            if(i==3)
-            {
-                
-                [lable4 setText:obj.luckyName];
-            }
-            if(i==4)
-            {
-                
-                [lable5 setText:obj.luckyName];
-            }
-            if(i==5)
-            {
-                
-                [lable6 setText:obj.luckyName];
-            }
-
-            
-        }
-    [self animationLable];
-        
-    }
-  
-    return data;
-}
-
-- (NSArray *)arrayOfHeader:(iOSTableViewController *)tableView {
-    return nil;
-}
-
-- (NSArray *)arrayOfFooter:(iOSTableViewController *)tableView {
-    return nil;
-    //NSArray *list = [Api activeList];
-    //return list;
-}
 
 @end

@@ -9,7 +9,7 @@
 #import "Api+GameReward.h"
 #import <iOSApi/iOSTableViewController.h>
 
-@interface GamePortal : iOSTableViewController<iOSTableDataDelegate>{
+@interface GamePortal : UIViewController{
     UITextBorderStyle   _borderStyle;
     NSMutableArray     *_items;
     UIFont             *_font;
@@ -18,13 +18,5 @@
     
     int                 _type;
 }
-
-@property (nonatomic, retain) IBOutlet UITableView *tableView;
-@property (nonatomic, retain) IBOutlet UILabel *lable1;
-@property (nonatomic, retain) IBOutlet UILabel *lable2;
-@property (nonatomic, retain) IBOutlet UILabel *lable3;
-@property (nonatomic, retain) IBOutlet UILabel *lable4;
-@property (nonatomic, retain) IBOutlet UILabel *lable5;
-@property (nonatomic, retain) IBOutlet UILabel *lable6;
 
 @end

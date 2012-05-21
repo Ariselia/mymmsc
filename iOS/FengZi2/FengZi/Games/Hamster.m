@@ -168,8 +168,46 @@
 {
     [super viewDidUnload];
     // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
+    [luckyid release];
+    [shopguid release];
+    [btn1 release];
+    [btn2 release];
+    [btn3 release];
+    [btn4 release];
+    [btn5 release];
+    [btn6 release];
+    [btn7 release];
+    [btn8 release];
+    [btn9 release];
+    luckyid=nil;
+    shopguid=nil;
+    btn1=nil;
+    btn2=nil;
+    btn3=nil;
+    btn4=nil;
+    btn5=nil;
+    btn6=nil;
+    btn7=nil;
+    btn8=nil;
+    btn9=nil;
 }
+
+- (void)dealloc {
+    [luckyid release];
+    [shopguid release];
+    [btn1 release];
+    [btn2 release];
+    [btn3 release];
+    [btn4 release];
+    [btn5 release];
+    [btn6 release];
+    [btn7 release];
+    [btn8 release];
+    [btn9 release];
+    
+    [super dealloc];
+}
+
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {

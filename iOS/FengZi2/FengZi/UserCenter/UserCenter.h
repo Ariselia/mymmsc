@@ -14,7 +14,11 @@
     UILabel     *message; // 用户状态信息
     NSMutableArray *items;
     UIButton *_btnRight; // 导航条按钮
+    UIButton *_btnLeft; // 导航条按钮
     UIImage *_curImage;
+    IBOutlet UILabel *pictxt;
+    UIButton *picBtn;
+    IBOutlet UIButton *changePwdBtn;
 }
 
 @property (nonatomic, retain) IBOutlet UITableView *tableView;
@@ -25,5 +29,5 @@
 @property (nonatomic, retain) IBOutlet UIImageView *photo;
 
 - (IBAction)doEditor:(id)sender;
-
+- (IBAction)changePwd:(id)sender;
 @end

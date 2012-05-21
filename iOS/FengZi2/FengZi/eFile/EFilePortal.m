@@ -60,6 +60,52 @@
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
+    
+   
+    _headers=nil; // 表头显示CELL
+    _items=nil;
+    _font=nil;
+    _tableView=nil;
+    group=nil;
+    leftBtn=nil;
+    rightBtn=nil;
+    localBtn=nil;
+    netBtn=nil;
+    noHYK=nil;
+    noDZQ=nil;
+    [_headers release];
+    [_items release];
+    
+    [_font release];
+    [_tableView release];
+    [group release];
+    [leftBtn release];
+    [rightBtn release];
+    [localBtn release];
+    
+    [netBtn release];
+    [noHYK release];
+    [noDZQ release];
+    
+}
+
+
+- (void)dealloc {
+    [_headers release];
+    [_items release];
+    
+    [_font release];
+    [_tableView release];
+    [group release];
+    [leftBtn release];
+    [rightBtn release];
+    [localBtn release];
+    
+    [netBtn release];
+    [noHYK release];
+    [noDZQ release];
+    
+    [super dealloc];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation

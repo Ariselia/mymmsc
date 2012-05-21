@@ -70,6 +70,14 @@
     // e.g. self.myOutlet = nil;
     self.myImg = nil;
     self.myWebView = nil;
+    
+}
+
+- (void)dealloc {
+    [myImg release];
+    [myWebView release];
+ 
+    [super dealloc];
 }
 
 - (void)goBack{
@@ -186,8 +194,11 @@
         
         if([[DataBaseOperate shareData] checkCardExists:cardlistid])
         {
-            [iOSApi toast:@"该会员卡已经下载过，请勿重复下载"];
+             //[iOSApi showCompleted:@"该电子券已经下载过，请勿重复下载"];
+            [iOSApi showCompleted:@"该券已下载"];
         } else {
+            [iOSApi showCompleted:@"正在下载..."];
+
             UIImage *cardlistImg = [CommonUtils getImageFromUrl:cardlistpicurl];
             UIImage *cardinfocodeImg = [CommonUtils getImageFromUrl:cardinfocodepicurl];
             UIImage *cardinfoImg = [CommonUtils getImageFromUrl:cardinfopicurl];
@@ -218,7 +229,7 @@
             
             [[DataBaseOperate shareData] insertCard:cardclassid b:cardclassname c:cardlistid d:cardlistname e:cardlistImgUrl f:cardlistflag g:cardinfocode h:cardinfocodeImgUrl i:cardinfocontent j:cardinfoname k:cardinfodiscount l:cardinfoImgUrl m:cardinfoserialnum n:cardinfousetime o:cardinfousestate p:cardlistarealist q:cardlisttypelist r:cardinfoshoplist s:userid];
             
-            [iOSApi toast:@"下载完毕"];
+            [iOSApi showCompleted:@"下载完毕"];
         }
         return false;
     } 
@@ -227,25 +238,9 @@
     {   
         // NSLog(@"dm");
         NSDictionary *dict = [rurl uriParams];
-        /*
-         NSString *memberID = [dict objectForKey:@"id"];
-         
-         
-         NSArray *urlComps = [rurl componentsSeparatedByString:@"&"];
-         NSString *memberID = [urlComps 
-         
-         EFileMemberInfo *memberInfo = nil;
-         
-         memberInfo= [[Api get_member_info:memberID] retain]; 
-         //将list数据写到本地，文字和图片
-         //[iOSApi showAlert:@"正在下载..."];
-         if(memberInfo!=nil)
-         {
-         
-         }
-         */
-        
-        
+       
+       
+   
         NSString *memberclassid=[dict objectForKey:@"memberclassid"];
         
         NSString *memberclassname=[iOSApi urlDecode:[dict objectForKey:@"memberclassname"]];
@@ -264,10 +259,14 @@
         
         if([[DataBaseOperate shareData] checkMemberExists:memberlistid])
         {
-            [iOSApi toast:@"该会员卡已经下载过，请勿重复下载"];
+           // [iOSApi showCompleted:@"该会员卡已经下载过，请勿重复下载"];
+            [iOSApi showCompleted:@"该卡已下载"];
+           
         }
         else
         {
+           
+            [iOSApi showCompleted:@"正在下载..."];
             UIImage *memberlistImg = [CommonUtils getImageFromUrl:memberlistpicurl];
             UIImage *memberinfocodeImg = [CommonUtils getImageFromUrl:memberinfocodepicurl];
             UIImage *memberinfoImg = [CommonUtils getImageFromUrl:memberinfopicurl];
@@ -289,7 +288,7 @@
             
             [[DataBaseOperate shareData] insertMember:memberclassid b:memberclassname c:memberlistid d:memberlistname e:memberlistImgUrl f:memberinfocodename g:memberinfocodeImgUrl h:memberinfocodecontent i:memberinfocodenum j:memberinfoImgUrl k:memberinfocodeserialnum l:memberinfocodeusetime m:userid];
             
-            [iOSApi toast:@"下载完毕"];
+            [iOSApi showCompleted:@"下载完毕"];
         }
         return false;
     } 

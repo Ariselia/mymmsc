@@ -12,6 +12,7 @@
 #import "UCLogin.h"
 #import "UCRegister.h"
 #import "UCUpdateNikename.h"
+#import "UCUpdatePassword.h"
 
 #define ALERT_TITLE @"个人中心 提示"
 
@@ -44,6 +45,13 @@
     [nextView release];
 }
 
+- (IBAction)changePwd:(id)sender{
+    
+    UCUpdatePassword *nextView = [[UCUpdatePassword alloc] init];
+    [self.navigationController pushViewController:nextView animated:YES];
+    [nextView release];
+
+}
 // 转向编辑个人信息
 - (IBAction)doEditor:(id)sender{
     if (![Api isOnLine]) {
@@ -144,6 +152,9 @@ static int iTimes = -1;
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    
+   
+    
     UIImage *image = [UIImage imageNamed:@"navigation_bg.png"];
     Class ios5Class = (NSClassFromString(@"CIImage"));
     if (nil != ios5Class) {
@@ -209,14 +220,48 @@ static int iTimes = -1;
     [self.navigationController pushViewController:nextView animated:YES];
 }
 
+- (void)exitApplication {   
+    
+    
+    
+    [UIView beginAnimations:@"exitApplication" context:nil];    
+    [UIView setAnimationDuration:3];    
+    [UIView setAnimationDelegate:self];    
+    [UIView setAnimationTransition:UIViewAnimationCurveEaseOut forView:self.view cache:NO];    
+    [UIView setAnimationDidStopSelector:@selector(animationFinished:finished:context:)];
+    [self.navigationController setNavigationBarHidden:YES];
+    self.parentViewController.parentViewController.view.backgroundColor = [UIColor blackColor];
+    self.parentViewController.view.bounds = CGRectMake(0, 0, 0, 0);    
+    [UIView commitAnimations];    
+}  
+- (void)animationFinished:(NSString *)animationID finished:(NSNumber *)finished context:(void *)context {    
+    if ([animationID compare:@"exitApplication"] == 0) {    
+        exit(0);    
+    }  
+} 
+
 - (void)doLogout:(id)sender {
+    //注销后点击图片按钮失效
+    [picBtn removeTarget:self action:@selector(doPhotoSelect) forControlEvents:UIControlEventTouchUpInside];
+    
     [Api setUser:nil];
     [self viewWillAppear:YES];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+     [pictxt setHidden:YES];
+     [changePwdBtn setHidden:YES];
     self.navigationController.navigationBarHidden = NO;
+    _btnLeft = [UIButton buttonWithType:UIButtonTypeCustom];
+    _btnLeft.frame = CGRectMake(0, 0, 60, 32);
+    [_btnLeft setImage:[UIImage imageNamed:@"uc-logout.png"] forState:UIControlStateNormal];
+    [_btnLeft setImage:[UIImage imageNamed:@"uc-logout.png"] forState:UIControlStateHighlighted];
+    [_btnLeft addTarget:self action:@selector(doLogout:) forControlEvents:UIControlEventTouchUpInside];
+   // [_btnLeft addTarget:self action:@selector(exitApplication) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *leftItem = [[UIBarButtonItem alloc] initWithCustomView:_btnLeft];
+    self.navigationItem.leftBarButtonItem = leftItem;
+    [leftItem release];
     if (items != nil) {
         [items removeAllObjects];
     }
@@ -229,15 +274,10 @@ static int iTimes = -1;
         UIBarButtonItem *rightItem = [[UIBarButtonItem alloc] initWithCustomView:_btnRight];
         self.navigationItem.rightBarButtonItem = rightItem;
         [rightItem release];
+        
+        
     } else {
-        _btnRight = [UIButton buttonWithType:UIButtonTypeCustom];
-        _btnRight.frame = CGRectMake(0, 0, 60, 32);
-        [_btnRight setImage:[UIImage imageNamed:@"uc-logout.png"] forState:UIControlStateNormal];
-        [_btnRight setImage:[UIImage imageNamed:@"uc-logout.png"] forState:UIControlStateHighlighted];
-        [_btnRight addTarget:self action:@selector(doLogout:) forControlEvents:UIControlEventTouchUpInside];
-        UIBarButtonItem *rightItem = [[UIBarButtonItem alloc] initWithCustomView:_btnRight];
-        self.navigationItem.rightBarButtonItem = rightItem;
-        [rightItem release];
+        self.navigationItem.rightBarButtonItem =nil;
         
         // 加载照片
         NSString *photoName = [Api uc_photo_name:[Api userId]];
@@ -250,12 +290,15 @@ static int iTimes = -1;
             NSString *filePath = [iOSFile path:[Api filePath:photoName]];
             im = [UIImage imageWithData:[NSData dataWithContentsOfFile:filePath]];
         }
+        [pictxt setHidden:NO];
+        [changePwdBtn setHidden:NO];
         [photo loadImage:im];
         CGRect btnframe = photo.frame;
         UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
         btn.frame = btnframe;
         [btn addTarget:self action:@selector(doPhotoSelect) forControlEvents:UIControlEventTouchUpInside];
         [self.view addSubview:btn];
+        picBtn = btn;
         // 增加统计信息
         ucToal *total = [[Api uc_total_get:[Api userId]] retain];
         if (total.status == API_SUCCESS) {
@@ -269,12 +312,14 @@ static int iTimes = -1;
         iOSAction *action = nil;
         items = [[NSMutableArray alloc] initWithCapacity:0];
         if ([Api isOnLine]) {
+           
             message.text = [NSString stringWithFormat: @"Hi, %@", [Api nikeName]];
             // 1. 修改密码
+            /*
             action = [iOSAction initWithName: @"修改密码" class: @"UCUpdatePassword"];
             [action setIcon: @"bb"];
             [items addObject: action];
-            
+            */
             // 2. 修改密码
             action = [iOSAction initWithName: @"蜂巢留言板" class: @"UCMyComments"];
             [action setIcon: @"usercenter_userinfo_mycoment"];

@@ -50,7 +50,30 @@
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
+    _headers=nil; // 表头显示CELL
+    _items=nil;
+    _tableView=nil;
+    param=nil;
+    _font=nil;
+    [_headers release];
+    [_items release];
+
+    [_tableView release];
+    [param release];
+    [_font release];
+      
 }
+
+- (void)dealloc {
+    [_headers release];
+    [_items release];
+    
+    [_tableView release];
+    [param release];
+    [_font release];
+    [super dealloc];
+}
+
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {

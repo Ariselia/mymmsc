@@ -94,7 +94,28 @@
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
+    luckyid=nil;
+    shopguid=nil;
+    btn1=nil;
+    imgView = nil;
+    
+    [luckyid release];
+    [shopguid release];
+    [btn1 release];
+    [imgView release];
+   
 }
+
+- (void)dealloc {
+    [luckyid release];
+    [shopguid release];
+    [btn1 release];
+    [imgView release];
+
+    
+    [super dealloc];
+}
+
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
