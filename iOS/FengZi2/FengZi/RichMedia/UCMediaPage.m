@@ -155,7 +155,7 @@
         [self downImage:urlMedia];
         return;
     }
-    HttpDownload *hd = [HttpDownload new];
+    HttpDownloader *hd = [HttpDownloader new];
     hd.delegate = self;
     iOSLog(@"下载路径: [%@]", urlMedia);
     NSString *result = [iOSApi urlDecode:urlMedia];
@@ -168,7 +168,7 @@
 }
 
 // 下载异常
-- (BOOL)httpDownload:(HttpDownload *)httpDownload didError:(BOOL)isError {
+- (BOOL)httpDownloader:(HttpDownloader *)downloader didError:(BOOL)isError {
     [iOSApi closeAlert];
     [iOSApi Alert:@"下载提示" message:@"下载失败"];
     state = MS_ERROR;
@@ -177,12 +177,12 @@
 }
 
 // 下载完毕, 保存文件
-- (BOOL)httpDownload:(HttpDownload *)httpDownload didFinished:(NSMutableData *)buffer {
+- (BOOL)httpDownloader:(HttpDownloader *)downloader didFinished:(NSMutableData *)buffer {
     [iOSApi closeAlert];
     // 下载完毕保存到本地
     
     filePath = [Api filePath:info.mediaUrl];
-    filePath = [httpDownload.fileName copy];
+    filePath = [downloader.fileName copy];
     NSLog(@"1: %@", filePath);
     NSFileHandle *fileHandle = [iOSFile create:filePath];
     [fileHandle writeData:buffer];
