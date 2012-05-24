@@ -160,7 +160,6 @@
     [rightItem release];
     
     // bebe13af-287d-424d-b817-be0504a0850b
-    [iOSApi showAlert:@"Loading..."];
     if (maObject == nil) {
         if (urlMedia != nil) {
             NSDictionary *dict = [urlMedia uriParams];
@@ -171,18 +170,19 @@
         [Api kmaSetId:code];
         iOSLog(@"uuid1=[%@]", code);
         iOSLog(@"uuid2=[%@]", [Api kmaId]);
-        
+        [iOSApi showAlert:@"Loading..."];
         if (urlMedia != nil) {
             maObject = [[Api getContent:code] retain];
         } else {
             KmaObject *ko = [[Api kmaContent:code] retain];
             maObject = ko.mediaObj;
         }
+        //[iOSApi showCompleted:@"媒体加载完成"];
+        [iOSApi closeAlert];
     }
     xCount = 0;
     if (maObject.status == 0) {
         xCount = maObject.pageList.count;
-        [iOSApi showCompleted:@"媒体加载完成"];
     } else {
         [iOSApi Alert:@"提示" message:maObject.message];
         //[iOSApi Alert:@"提示" message:@"获取内容正确"];
@@ -211,7 +211,6 @@
         [self.scrollViewX addSubview:page.view];
     }
     [self changePage:0];
-    [iOSApi closeAlert];
 }
 
 

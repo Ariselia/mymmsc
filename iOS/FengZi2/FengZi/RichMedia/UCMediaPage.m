@@ -182,8 +182,12 @@
     [iOSApi closeAlert];
     // 下载完毕保存到本地
     
-    filePath = [Api filePath:info.mediaUrl];
+    //filePath = [Api filePath:info.mediaUrl];
     filePath = [downloader.fileName copy];
+    if (filePath == nil) {
+        NSDictionary *dict = [info.mediaUrl uriParams];
+        filePath = [NSString stringWithFormat:@"%@/%@.%@", API_CACHE_FILEPATH, [dict objectForKey:@"id"], [dict objectForKey:@"type"]];
+    }
     NSLog(@"1: %@", filePath);
     NSFileHandle *fileHandle = [iOSFile create:filePath];
     [fileHandle writeData:buffer];
@@ -268,6 +272,43 @@ static int sButton = 0;
         [self.view addSubview:btnDown];
         [self.view bringSubviewToFront:btnDown];
     }
+    if (maContent.isSend) {
+        NSString *btnTitle = @"富媒体 跳转";
+        // 富媒体跳转
+        NSString *temp = maContent.sendType;
+        int jumpType = -1;
+        if (temp != nil) {
+            jumpType = temp.intValue;
+        }
+        temp = [iOSApi urlDecode:maContent.sendContent];
+        if (jumpType == API_RMJUMP_WWW) {
+            // 网站链接
+            btnTitle = @"网站连接";
+        } else if (jumpType == API_RMJUMP_URL_PRICE) {
+            // 优惠价链接
+            btnTitle = @"优惠价链接";
+        } else if (jumpType == API_RMJUMP_ESHOP_SHOP) {
+            // 数字商城 - 商户
+            btnTitle = @"数字商城商户";
+        } else if (jumpType == API_RMJUMP_ESHOP_PROD) {
+            // 数字商城 - 商品
+            btnTitle = @"数字商城商品";
+        } else if (jumpType == API_RMJUMP_EBUY_SHOP) {
+            // 电子商城 - 商户
+            btnTitle = @"电子商城商户";
+        } else if (jumpType == API_RMJUMP_EBUY_PROD) {
+            // 电子商城 - 商品
+            btnTitle = @"电子商城商品";
+        } else if (jumpType == API_RMJUMP_ACTION) {
+            btnTitle = @"幸运抽奖";
+        } else {
+            // 默认, 怎么处理
+        }
+        btnJump.hidden = NO;
+        [btnJump setTitle:btnTitle forState:UIControlStateNormal];
+        [btnJump setTitle:btnTitle forState:UIControlStateHighlighted];
+    }
+    
 }
 
 -(IBAction)playAudio:(id)sender {
@@ -441,16 +482,17 @@ static int sButton = 0;
 #import "BreakEgg.h" // 砸蛋
 #import "OpenBox.h"  // 开箱子
 
-static NSString *s_luckyId = nil;
+//static NSString *s_luckyId = nil;
 
 - (void)doGame:(int)n luckyId:(NSString *)luckyId{
+    UCRichMedia *xSelf = (UCRichMedia *)idMedia;
     if (n == 0) {
         // 轮盘
         Roulette *theView = [[[Roulette alloc] init] autorelease];
         theView.luckyid = luckyId;
         theView.shopguid = luckyId;
         UINavigationController *nextView = [[UINavigationController alloc] initWithRootViewController:theView];
-        [self presentModalViewController:nextView animated:YES];
+        [xSelf presentModalViewController:nextView animated:YES];
         [nextView release];
     } else if (n == 1) {
         // 打地鼠
@@ -458,7 +500,7 @@ static NSString *s_luckyId = nil;
         theView.luckyid = luckyId;
         theView.shopguid = luckyId;
         UINavigationController *nextView = [[UINavigationController alloc] initWithRootViewController:theView];
-        [self presentModalViewController:nextView animated:YES];
+        [xSelf presentModalViewController:nextView animated:YES];
         [nextView release];
     } else if (n == 2) {
         // 开箱子
@@ -466,7 +508,7 @@ static NSString *s_luckyId = nil;
         theView.luckyid = luckyId;
         theView.shopguid = luckyId;
         UINavigationController *nextView = [[UINavigationController alloc] initWithRootViewController:theView];
-        [self presentModalViewController:nextView animated:YES];
+        [xSelf presentModalViewController:nextView animated:YES];
         [nextView release];
     } else if (n == 3) {
         // 砸蛋
@@ -475,17 +517,19 @@ static NSString *s_luckyId = nil;
         theView.shopguid = luckyId;
         
         UINavigationController *nextView = [[UINavigationController alloc] initWithRootViewController:theView];
-        [self presentModalViewController:nextView animated:YES];
+        [xSelf presentModalViewController:nextView animated:YES];
         [nextView release];
     }
 }
-
+/*
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger) buttonIndex {
     [self doGame:buttonIndex luckyId:s_luckyId];
 }
+*/
 
 // 富媒体跳转
 - (IBAction)doJump:(id)sender{
+    UCRichMedia *xSelf = (UCRichMedia *)idMedia;
     if (maContent.isSend) {
         // 富媒体跳转
         NSString *temp = maContent.sendType;
@@ -509,26 +553,26 @@ static NSString *s_luckyId = nil;
             nextView.person = temp.intValue;
             nextView.page = 1;
             nextView.bPerson = YES;
-            [self.navigationController pushViewController:nextView animated:YES];
+            [xSelf.navigationController pushViewController:nextView animated:YES];
             [nextView release];
         } else if (jumpType == API_RMJUMP_ESHOP_PROD) {
             // 数字商城 - 商品
             UCStoreInfo *nextView = [[UCStoreInfo alloc] init];
             nextView.productId = temp.intValue;
-            [self.navigationController pushViewController:nextView animated:YES];
+            [xSelf.navigationController pushViewController:nextView animated:YES];
             [nextView release];
         } else if (jumpType == API_RMJUMP_EBUY_SHOP) {
             // 电子商城 - 商户
             EBProductList *nextView = [[EBProductList alloc] init];
             nextView.way = 0;
             nextView.typeId = temp;
-            [self.navigationController pushViewController:nextView animated:YES];
+            [xSelf.navigationController pushViewController:nextView animated:YES];
             [nextView release];
         } else if (jumpType == API_RMJUMP_EBUY_PROD) {
             // 电子商城 - 商品
             EBProductDetail *nextView = [[EBProductDetail alloc] init];
             nextView.param = temp;
-            [self.navigationController pushViewController:nextView animated:YES];
+            [xSelf.navigationController pushViewController:nextView animated:YES];
             [nextView release];
         } else if (jumpType == API_RMJUMP_ACTION) {
             // 活动链接, 数据格式:参数1,参数2. 
@@ -536,6 +580,7 @@ static NSString *s_luckyId = nil;
             // 参数2:商户id
             NSArray *params = [temp split:@","];
             if (params.count == 1) {
+                /*
                 IOSAPI_RELEASE(s_luckyId);
                 s_luckyId = [[NSString alloc] initWithString:temp];
                 UIAlertView *alert = [[UIAlertView alloc]
@@ -547,6 +592,11 @@ static NSString *s_luckyId = nil;
                                       nil];
                 [alert show];
                 [alert release];
+                */
+                time_t t;
+                srand((unsigned) time(&t));
+                int n = (rand() % 4);
+                [self doGame:n luckyId:temp];
             } else if (params.count > 0) {
                 int n = [[params objectAtIndex:0] intValue];
                 NSString *shopId = [params objectAtIndex:1];
