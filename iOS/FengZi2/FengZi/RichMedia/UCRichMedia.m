@@ -204,6 +204,7 @@
         
         page.subject.text = maObject.title;
         page.content.text = info.textContent;
+        page.maContent = maObject;
         page.info = info;
         page.idMedia = self;
         [page loadData];

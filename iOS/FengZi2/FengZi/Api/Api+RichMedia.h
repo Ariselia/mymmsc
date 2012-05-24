@@ -58,19 +58,19 @@
     int       picType;
     NSString *tinyPicUrl; //缩略图url
     NSString *mediaUrl; //大视频url
-    
-    BOOL            isSend;      // 富媒体是否跳转
-    NSString       *sendType;    // 跳转类型
-    NSString       *sendContent; // 跳转内容
+//    
+//    BOOL            isSend;      // 富媒体是否跳转
+//    NSString       *sendType;    // 跳转类型
+//    NSString       *sendContent; // 跳转内容
 }
 @property (nonatomic, copy) NSString *textContent;
 @property (nonatomic, copy) NSString *soundUrl;
 @property (nonatomic, assign) int picType;
 @property (nonatomic, copy) NSString *tinyPicUrl;
 @property (nonatomic, copy) NSString *mediaUrl;
-@property (nonatomic, assign) BOOL isSend;
-@property (nonatomic, copy) NSString *sendType;
-@property (nonatomic, copy) NSString *sendContent;
+//@property (nonatomic, assign) BOOL isSend;
+//@property (nonatomic, copy) NSString *sendType;
+//@property (nonatomic, copy) NSString *sendContent;
 @end
 
 @interface MediaContent : ApiResult {

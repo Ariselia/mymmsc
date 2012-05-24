@@ -43,15 +43,15 @@
 
 @implementation MediaObject
 @synthesize textContent, soundUrl, picType, tinyPicUrl, mediaUrl;
-@synthesize isSend, sendType, sendContent;
+//@synthesize isSend, sendType, sendContent;
 
 - (void)dealloc{
     IOSAPI_RELEASE(textContent);
     IOSAPI_RELEASE(soundUrl);
     IOSAPI_RELEASE(tinyPicUrl);
     IOSAPI_RELEASE(mediaUrl);
-    IOSAPI_RELEASE(sendType);
-    IOSAPI_RELEASE(sendContent);
+    //IOSAPI_RELEASE(sendType);
+    //IOSAPI_RELEASE(sendContent);
     
     [super dealloc];
 }

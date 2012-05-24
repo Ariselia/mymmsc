@@ -20,7 +20,7 @@
 @synthesize idMedia;
 @synthesize filePath;
 @synthesize subject, content, pic, bgAudio, btnAudio;
-@synthesize info;
+@synthesize maContent, info;
 @synthesize button;
 @synthesize moviePlayer, state, stText;
 @synthesize btnJump; // 富媒体跳转按钮
@@ -486,14 +486,14 @@ static NSString *s_luckyId = nil;
 
 // 富媒体跳转
 - (IBAction)doJump:(id)sender{
-    if (info.isSend) {
+    if (maContent.isSend) {
         // 富媒体跳转
-        NSString *temp = info.sendType;
+        NSString *temp = maContent.sendType;
         int jumpType = -1;
         if (temp != nil) {
             jumpType = temp.intValue;
         }
-        temp = [iOSApi urlDecode:info.sendContent];
+        temp = [iOSApi urlDecode:maContent.sendContent];
         if (jumpType == API_RMJUMP_WWW || jumpType == API_RMJUMP_URL_PRICE) {
             // 网站链接
             NSString *url = [iOSApi urlDecode:temp];

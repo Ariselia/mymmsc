@@ -20,6 +20,7 @@
 }
 @property (nonatomic, assign) id idMedia;
 @property (nonatomic, copy) NSString *filePath;
+@property (nonatomic, retain) MediaContent *maContent;
 @property (nonatomic, retain) MediaObject *info;
 @property (nonatomic, retain) IBOutlet UILabel *subject, *bgAudio;
 @property (nonatomic, retain) IBOutlet UITextView *content;
