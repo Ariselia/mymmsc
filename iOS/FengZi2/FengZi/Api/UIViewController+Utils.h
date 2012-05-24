@@ -8,6 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
+#define kLoginBackFront (0)
+#define kLoginBackRoot  (1)
+#define kLoginBackModel (2)
+
 @interface UIViewController (Utils)
 
 // 跳转登录页面

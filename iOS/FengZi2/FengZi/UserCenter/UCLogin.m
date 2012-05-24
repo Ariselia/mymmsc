@@ -24,7 +24,7 @@
 
 @synthesize tableView=_tableView;
 @synthesize bDownload;
-@synthesize bModel;
+@synthesize backModel;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -32,6 +32,7 @@
     if (self) {
         // Custom initialization
         bDownload = NO;
+        backModel = -1;
     }
     return self;
 }
@@ -62,7 +63,7 @@
 
 // 返回上一个界面
 - (void)goBack{
-    if (!bModel) {
+    if (!backModel) {
         [self.navigationController popToRootViewControllerAnimated:YES];
     } else {
         [self dismissModalViewControllerAnimated:YES];

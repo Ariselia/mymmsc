@@ -27,10 +27,10 @@
     
     BOOL       bDownload;
 }
-@property (nonatomic, assign) BOOL bModel;
+@property (nonatomic, assign) int backModel;
 @property (nonatomic, retain) IBOutlet UITableView *tableView;
 @property (nonatomic, assign) BOOL bDownload;
 
 - (IBAction)doLogin:(id)sender;
--(IBAction) btnSelectIsSavePasswd:(id)sender;
+- (IBAction)btnSelectIsSavePasswd:(id)sender;
 @end

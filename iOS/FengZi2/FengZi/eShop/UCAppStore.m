@@ -59,7 +59,7 @@
 
 - (void)goLogin{
     UCLogin *theView = [[[UCLogin alloc] init] autorelease];
-    theView.bModel = YES;
+    theView.backModel = kLoginBackModel;
     UINavigationController *nextView = [[UINavigationController alloc] initWithRootViewController:theView];
     [self presentModalViewController:nextView animated:YES];
 }
