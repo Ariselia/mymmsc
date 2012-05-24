@@ -370,6 +370,7 @@ static NSString *s_luckyId = nil;
                     UCRichMedia *nextView = [[UCRichMedia alloc] init];
                     nextView.urlMedia = nil;
                     nextView.code = xcode;
+                    nextView.maObject = media;
                     [self.navigationController pushViewController:nextView animated:YES];
                     [nextView release];
                 }

@@ -271,17 +271,35 @@ static sqlite3 *database;
 
 #define SQL_CREATE_CARD @"create table if not exists `card` (`id` INTEGER PRIMARY KEY  DEFAULT '', `cardclassid` VARCHAR DEFAULT '',`cardclassname` VARCHAR DEFAULT '',`cardlistid` VARCHAR DEFAULT '',`cardlistname` VARCHAR DEFAULT '',`cardlistpicurl` VARCHAR DEFAULT '',`cardlistflag` VARCHAR DEFAULT '',`cardinfocode` VARCHAR DEFAULT '',`cardinfocodepicurl` VARCHAR DEFAULT '',`cardinfocontent` VARCHAR DEFAULT '',`cardinfoname` VARCHAR DEFAULT '',`cardinfodiscount` VARCHAR DEFAULT '',`cardinfopicurl` VARCHAR DEFAULT '',`cardinfoserialnum` VARCHAR DEFAULT '',`cardinfousetime` VARCHAR DEFAULT '',`cardinfousestate` VARCHAR DEFAULT '',`cardlistarealist` VARCHAR DEFAULT '',`cardlisttypelist` VARCHAR DEFAULT '',`cardinfoshoplist` VARCHAR DEFAULT '',`userid` VARCHAR DEFAULT '',`userphone` VARCHAR DEFAULT '')"
 
+#define SQL_MEMBER_HAS_USERPHONE @"select userphone from member"
+#define SQL_CARD_HAS_USERPHONE @"select userphone from card"
+
+- (void)addColumn:(NSString*)table column:(NSString*)column type:(NSString*)type
+{
+    iOSDatabase *db = [[iOSDatabase open:API_DB_NAME] retain];
+     NSString *sql = [NSString stringWithFormat:@"ALTER TABLE %@ ADD COLUMN %@ %@ '';",table,column,type];
+    [db execute2:sql];
+    
+}
 - (void)checkTableMember:(iOSDatabase *)db{
     [db execute2:SQL_CREATE_MEMBER];
+    if (![db execute2:SQL_MEMBER_HAS_USERPHONE]) {
+        [self addColumn:@"member" column:@"userphone" type:@"VARCHAR DEFAULT"];
+    }
 }
 
 - (void)checkTableCard:(iOSDatabase *)db{
     [db execute2:SQL_CREATE_CARD];
+    if (![db execute2:SQL_CARD_HAS_USERPHONE]) {
+        [self addColumn:@"card" column:@"userphone" type:@"VARCHAR DEFAULT"
+         ];
+    }
+
 }
 
 - (BOOL)checkMemberExists:(NSString*)sid
 {
-    iOSDatabase *db = [iOSDatabase open:API_DB_NAME];
+    iOSDatabase *db = [[iOSDatabase open:API_DB_NAME] retain];
     if (db != nil) {
         [self checkTableMember:db];
     }
@@ -306,7 +324,7 @@ static sqlite3 *database;
 
 - (BOOL)checkCardExists:(NSString*)sid
 {
-    iOSDatabase *db = [iOSDatabase open:API_DB_NAME];
+    iOSDatabase *db = [[iOSDatabase open:API_DB_NAME] retain];
     if (db != nil) {
         [self checkTableCard:db];
     }
@@ -329,7 +347,7 @@ static sqlite3 *database;
 
 - (void)insertMember:(NSString*)a b:(NSString*)b c:(NSString*)c d:(NSString*)d e:(NSString*)e f:(NSString*)f g:(NSString*)g h:(NSString*)h i:(NSString*)i j:(NSString*)j k:(NSString*)k l:(NSString*)l m:(NSString*)m{
     
-    iOSDatabase *db = [iOSDatabase open:API_DB_NAME];
+    iOSDatabase *db = [[iOSDatabase open:API_DB_NAME] retain];
     [self checkTableMember:db];
     NSString *sql = @"INSERT INTO member (memberclassid,memberclassname,memberlistid,memberlistname,memberlistpicurl,memberinfocodename,memberinfocodepicurl,memberinfocodecontent,memberinfocodenum,memberinfopicurl,memberinfocodeserialnum,memberinfocodeusetime,userid,userphone) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
     if ([db prepare:sql])
@@ -356,7 +374,7 @@ static sqlite3 *database;
 }
 
 - (void)insertCard:(NSString*)a b:(NSString*)b c:(NSString*)c d:(NSString*)d e:(NSString*)e f:(NSString*)f g:(NSString*)g h:(NSString*)h i:(NSString*)i j:(NSString*)j k:(NSString*)k l:(NSString*)l m:(NSString*)m  n:(NSString*)n o:(NSString*)o p:(NSString*)p q:(NSString*)q r:(NSString*)r s:(NSString*)s{
-    iOSDatabase *db = [iOSDatabase open:API_DB_NAME];
+    iOSDatabase *db = [[iOSDatabase open:API_DB_NAME] retain];
     [self checkTableCard:db];
     /*
      1 cardclassid,2 cardclassname,3 cardlistid,
@@ -399,8 +417,7 @@ static sqlite3 *database;
 
 - (EFileMemberInfo *)loadMemberInfo:(NSString *)sid{
     EFileMemberInfo *obj = nil;
-    iOSDatabase *db = [iOSDatabase open:API_DB_NAME];
-    NSString *sql = @"select memberinfocodename,memberinfocodepicurl,memberinfocodecontent,memberinfocodenum,memberinfopicurl,memberinfocodeserialnum,memberinfocodeusetime,userid FROM member where memberlistid = ? and userphone=?";
+    iOSDatabase *db =[[iOSDatabase open:API_DB_NAME] retain];    NSString *sql = @"select memberinfocodename,memberinfocodepicurl,memberinfocodecontent,memberinfocodenum,memberinfopicurl,memberinfocodeserialnum,memberinfocodeusetime,userid FROM member where memberlistid = ? and userphone=?";
     [self checkTableMember:db];
     if ([db prepare:sql]) {
         [db bind:1 text:sid];
@@ -421,7 +438,7 @@ static sqlite3 *database;
 - (NSMutableArray*)loadCard:(int)pageIndex{
     NSMutableArray *list = nil;
     NSString *sql = @"select cardclassid as sid, cardclassname as name FROM card where  userphone=? group by cardclassid";
-    iOSDatabase *db = [iOSDatabase open:API_DB_NAME];
+    iOSDatabase *db = [[iOSDatabase open:API_DB_NAME] retain];
 	[self checkTableCard:db];
     if ([db prepare:sql]) {
         
@@ -435,7 +452,7 @@ static sqlite3 *database;
 
 - (NSMutableArray *)loadCardList:(int)pageIndex sid:(NSString *)sid{
     NSMutableArray *list = nil;
-    iOSDatabase *db = [iOSDatabase open:API_DB_NAME];
+    iOSDatabase *db = [[iOSDatabase open:API_DB_NAME] retain];
     [self checkTableCard:db];
     NSString *sql = @"select cardlistid as sid,cardlistname as name,cardlistpicurl as picurl,cardlistflag as flag FROM card where cardclassid = ? and userphone=?";
     //const char *sql = "select memberclassid,memberclassname  FROM member";
@@ -451,7 +468,7 @@ static sqlite3 *database;
 
 - (EFileCardInfo *)loadCardInfo:(NSString *)sid{
     EFileCardInfo *obj = nil;
-    iOSDatabase *db = [iOSDatabase open:API_DB_NAME];
+    iOSDatabase *db = [[iOSDatabase open:API_DB_NAME] retain];
     [self checkTableCard:db];
     NSString *sql = @"select cardinfocode,cardinfocodepicurl,cardinfocontent,cardinfoname,cardinfodiscount,cardinfopicurl,cardinfoserialnum,cardinfousetime,cardinfousestate,cardlistarealist,cardlisttypelist,cardinfoshoplist,userid FROM card where cardlistid = ? and userphone=?";
   	if ([db prepare:sql]) {
@@ -469,7 +486,7 @@ static sqlite3 *database;
 
 - (NSMutableArray*)loadMember:(int)pageIndex{
     NSMutableArray *list = nil;
-    iOSDatabase *db = [iOSDatabase open:API_DB_NAME];
+    iOSDatabase *db = [[iOSDatabase open:API_DB_NAME] retain];
     [self checkTableMember:db];
 	NSString *sql = @"select memberclassid as sid,memberclassname as name FROM member where  userphone=? group by memberclassid";
 	if ([db prepare:sql]) {
@@ -484,7 +501,7 @@ static sqlite3 *database;
 
 - (NSMutableArray*)loadMemberList:(int)pageIndex sid:(NSString *)sid{
     NSMutableArray *list = nil;
-    iOSDatabase *db = [iOSDatabase open:API_DB_NAME];
+    iOSDatabase *db = [[iOSDatabase open:API_DB_NAME] retain];
     [self checkTableMember:db];
 	NSString *sql = @"select memberlistid as sid,memberlistname as name,memberlistpicurl as picurl FROM member where memberclassid = ? and userphone = ?";
     if ([db prepare:sql]) {

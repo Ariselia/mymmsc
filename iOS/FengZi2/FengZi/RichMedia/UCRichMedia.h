@@ -6,7 +6,7 @@
 //  Copyright (c) 2012年 iTotemStudio. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "Api+RichMedia.h"
 
 /**
  * 富媒体 显示页面
@@ -26,7 +26,9 @@
 @property (nonatomic, retain) IBOutlet UIImageView *picView4;
 @property (nonatomic, retain) IBOutlet UIImageView *picView5;
 @property (nonatomic, retain) IBOutlet UIImageView *picView6;
-@property (nonatomic, retain) NSString *urlMedia, *code;
 @property (nonatomic, retain) IBOutlet UIScrollView *scrollViewX;
+
+@property (nonatomic, copy) NSString *urlMedia, *code;
+@property (nonatomic, retain) MediaContent *maObject;
 
 @end

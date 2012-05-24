@@ -20,13 +20,13 @@
          shouldBeEnabled = "Yes"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
-         filePath = "FengZi/eBuy/EBuyOrderWap.m"
-         timestampString = "359264759.984268"
+         filePath = "FengZi/Api/UIViewController+Utils.m"
+         timestampString = "359542224.301076"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "188"
-         endingLineNumber = "188"
-         landmarkName = "-alertView:clickedButtonAtIndex:"
+         startingLineNumber = "109"
+         endingLineNumber = "109"
+         landmarkName = "-chooseShowController:"
          landmarkType = "5">
       </FileBreakpoint>
    </FileBreakpoints>

@@ -20,6 +20,7 @@
 @synthesize picView1,picView2,picView3,picView4,picView5,picView6;
 @synthesize curImage=_curImage;
 @synthesize code;
+@synthesize maObject;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -56,6 +57,7 @@
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
+    self.maObject = nil;
 }
 
 - (void)goBack{
@@ -159,42 +161,40 @@
     
     // bebe13af-287d-424d-b817-be0504a0850b
     [iOSApi showAlert:@"Loading..."];
-    
-    if (urlMedia != nil) {
-        NSDictionary *dict = [urlMedia uriParams];
-        code = [dict objectForKey:@"id"];
-
-    }
-    
-    [Api kmaSetId:code];
-    iOSLog(@"uuid1=[%@]", code);
-    iOSLog(@"uuid2=[%@]", [Api kmaId]);
-    
-    // 获取媒体内容
-    MediaContent *mc = nil;
-    if (urlMedia != nil) {
-        mc = [[Api getContent:code] retain];
-    } else {
-        KmaObject *ko = [[Api kmaContent:code] retain];
-        mc = ko.mediaObj;
+    if (maObject == nil) {
+        if (urlMedia != nil) {
+            NSDictionary *dict = [urlMedia uriParams];
+            code = [dict objectForKey:@"id"];
+            
+        }
+        
+        [Api kmaSetId:code];
+        iOSLog(@"uuid1=[%@]", code);
+        iOSLog(@"uuid2=[%@]", [Api kmaId]);
+        
+        if (urlMedia != nil) {
+            maObject = [[Api getContent:code] retain];
+        } else {
+            KmaObject *ko = [[Api kmaContent:code] retain];
+            maObject = ko.mediaObj;
+        }
     }
     xCount = 0;
-    if (mc.status == 0) {
-        xCount = mc.pageList.count;
-        //[iOSApi Alert:@"提示" message:@"获取内容正确"];
+    if (maObject.status == 0) {
+        xCount = maObject.pageList.count;
         [iOSApi showCompleted:@"媒体加载完成"];
     } else {
-        [iOSApi Alert:@"提示" message:mc.message];
+        [iOSApi Alert:@"提示" message:maObject.message];
         //[iOSApi Alert:@"提示" message:@"获取内容正确"];
     }
     if (xCount >= 6) {
         xCount = 6;
     }
     int xHeight = 411;
-    int num = [mc.pageList count];
+    int num = [maObject.pageList count];
     scrollViewX.contentSize = CGSizeMake(320 * num, xHeight);
     for (int i = 0; i < xCount; i++) {
-        MediaObject *info = [mc.pageList objectAtIndex:i];
+        MediaObject *info = [maObject.pageList objectAtIndex:i];
         UCMediaPage *page = [[UCMediaPage alloc] init];
         CGRect frame = page.view.frame;
         frame.origin.x = 320 * i;
@@ -202,7 +202,7 @@
         frame.size.height = 411;
         page.view.frame = frame;
         
-        page.subject.text = mc.title;
+        page.subject.text = maObject.title;
         page.content.text = info.textContent;
         page.info = info;
         page.idMedia = self;
