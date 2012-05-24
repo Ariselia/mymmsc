@@ -25,6 +25,7 @@
     // [self.navigationController popViewControllerAnimated:YES];
     [self dismissModalViewControllerAnimated:YES];
 }
+
 //查看具体中奖信息
 -(void)goReward:(GameReward*)rs{
     
@@ -148,6 +149,8 @@
     
     //调用接口。获得返回值 判断返回值。
     GameReward *rs = [Api get_reward_info:luckyid shopguid:shopguid];
+    rs.status = 0;
+    rs.islucky = 1;
     if (rs.status == 0 && rs.islucky == 1) 
     {
         UIButton *sbtn = (UIButton*)sender;

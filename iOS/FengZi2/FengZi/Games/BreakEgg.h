@@ -6,8 +6,8 @@
 //  Copyright (c) 2012年 ifengzi.cn. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
 #import "Api+GameReward.h"
+
 @interface BreakEgg : UIViewController
 {
     
@@ -27,4 +27,5 @@
 @property (nonatomic, retain)  IBOutlet UIButton *btn9;
 
 - (IBAction)goBreak:(id)sender;
+
 @end

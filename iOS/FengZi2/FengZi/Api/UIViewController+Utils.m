@@ -13,7 +13,15 @@
 
 // 跳转登录页面
 - (void)gotoLogin{
+    [self gotoLogin:kLoginBackDefault];
+}
+
+- (void)gotoLogin:(int)type{
+    if (type < 0 || type > 2) {
+        type = kLoginBackDefault;
+    }
     UCLogin *nextView = [UCLogin new];
+    nextView.backModel = type;
     [self.navigationController pushViewController:nextView animated:YES];
     [nextView release];
 }

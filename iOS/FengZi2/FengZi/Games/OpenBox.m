@@ -28,8 +28,7 @@
 }
 
 //查看具体中奖信息
--(void)goReward:(GameReward*)rs{
-    
+- (void)goReward:(GameReward*)rs{
     EggReward *nextView = [[EggReward alloc] init];
     //nextView.param = obj;
     //模拟传递数据
@@ -43,7 +42,6 @@
 - (void)viewWillAppear:(BOOL)animated {
   
     [super viewWillAppear:animated];
-    
     
     UIImage *image = [UIImage imageNamed:@"navigation_bg.png"];
     Class ios5Class = (NSClassFromString(@"CIImage"));
@@ -70,12 +68,9 @@
     [backbtn addTarget:self action:@selector(goBack) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *backitem = [[UIBarButtonItem alloc] initWithCustomView:backbtn];
     self.navigationItem.leftBarButtonItem = backitem;
-    [backitem release];
-    
-  
+    [backitem release];  
     
 }
-
 
 - (void)viewDidLoad
 {

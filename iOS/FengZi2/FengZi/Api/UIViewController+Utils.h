@@ -8,14 +8,21 @@
 
 #import <UIKit/UIKit.h>
 
-#define kLoginBackFront (0)
-#define kLoginBackRoot  (1)
-#define kLoginBackModel (2)
+/** 默认返回上一页 */
+#define kLoginBackDefault (0)
+/** 返回上一页 */
+#define kLoginBackFront   kLoginBackDefault
+/** 返回导航第一页 */
+#define kLoginBackRoot    (1)
+/** 模式返回, 即关闭下拉的模式视图 */
+#define kLoginBackModel   (2)
 
 @interface UIViewController (Utils)
 
 // 跳转登录页面
 - (void)gotoLogin;
+
+- (void)gotoLogin:(int)type;
 
 - (NSString *)kmaContent;
 - (void)setKmaContent:(NSString *)content;

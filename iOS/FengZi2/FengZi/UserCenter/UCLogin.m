@@ -32,7 +32,7 @@
     if (self) {
         // Custom initialization
         bDownload = NO;
-        backModel = -1;
+        backModel = kLoginBackDefault;
     }
     return self;
 }
@@ -63,10 +63,12 @@
 
 // 返回上一个界面
 - (void)goBack{
-    if (!backModel) {
+    if (backModel == kLoginBackModel) {
+        [self dismissModalViewControllerAnimated:YES];
+    } else if (backModel == kLoginBackRoot) {
         [self.navigationController popToRootViewControllerAnimated:YES];
     } else {
-        [self dismissModalViewControllerAnimated:YES];
+        [self.navigationController popViewControllerAnimated:YES];
     }
     
     //[self.navigationController popViewControllerAnimated:YES];
