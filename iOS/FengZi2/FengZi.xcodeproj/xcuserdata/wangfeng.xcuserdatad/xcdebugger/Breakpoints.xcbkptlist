@@ -20,13 +20,13 @@
          shouldBeEnabled = "Yes"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
-         filePath = "FengZi/Api/UIViewController+Utils.m"
-         timestampString = "359542224.301076"
+         filePath = "FengZi/RichMedia/UCMediaPage.m"
+         timestampString = "359549226.89296"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "109"
-         endingLineNumber = "109"
-         landmarkName = "-chooseShowController:"
+         startingLineNumber = "489"
+         endingLineNumber = "489"
+         landmarkName = "-doJump:"
          landmarkType = "5">
       </FileBreakpoint>
    </FileBreakpoints>

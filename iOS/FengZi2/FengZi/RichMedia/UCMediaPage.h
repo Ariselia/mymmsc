@@ -29,11 +29,17 @@
 @property (nonatomic, assign) int state, stText;
 @property (nonatomic, retain) IBOutlet UIButton *button, *btnAudio;
 
+// 富媒体跳转
+@property (nonatomic, retain) IBOutlet UIButton *btnJump;
+
 - (IBAction)playAudio:(id)sender;
 - (IBAction)playMovie:(id)sender;
 - (void)loadData;
 
 // 富媒体 评论
 - (IBAction)doDiscuss:(id)sender;
+
+// 富媒体跳转
+- (IBAction)doJump:(id)sender;
 
 @end

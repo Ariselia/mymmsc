@@ -2,10 +2,10 @@
 <archive type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="8.00">
 	<data>
 		<int key="IBDocument.SystemTarget">1296</int>
-		<string key="IBDocument.SystemVersion">11D50b</string>
+		<string key="IBDocument.SystemVersion">11E53</string>
 		<string key="IBDocument.InterfaceBuilderVersion">2182</string>
-		<string key="IBDocument.AppKitVersion">1138.32</string>
-		<string key="IBDocument.HIToolboxVersion">568.00</string>
+		<string key="IBDocument.AppKitVersion">1138.47</string>
+		<string key="IBDocument.HIToolboxVersion">569.00</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginVersions">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 			<string key="NS.object.0">1181</string>
@@ -71,10 +71,10 @@
 					<object class="IBUIImageView" id="94252008">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{10, 171}, {301, 174}}</string>
+						<string key="NSFrame">{{10, 168}, {301, 154}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView"/>
+						<reference key="NSNextKeyView" ref="66822380"/>
 						<bool key="IBUIUserInteractionEnabled">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 					</object>
@@ -182,11 +182,11 @@
 							<string key="NSClassName">NSImage</string>
 							<string key="NSResourceName">duomeiti_play.png</string>
 						</object>
-						<object class="IBUIFontDescription" key="IBUIFontDescription">
+						<object class="IBUIFontDescription" key="IBUIFontDescription" id="92248123">
 							<int key="type">2</int>
 							<double key="pointSize">15</double>
 						</object>
-						<object class="NSFont" key="IBUIFont">
+						<object class="NSFont" key="IBUIFont" id="556713135">
 							<string key="NSName">Helvetica-Bold</string>
 							<double key="NSSize">15</double>
 							<int key="NSfFlags">16</int>
@@ -227,6 +227,28 @@
 							<double key="NSSize">18</double>
 							<int key="NSfFlags">16</int>
 						</object>
+					</object>
+					<object class="IBUIButton" id="66822380">
+						<reference key="NSNextResponder" ref="191373211"/>
+						<int key="NSvFlags">292</int>
+						<string key="NSFrame">{{34, 321}, {255, 26}}</string>
+						<reference key="NSSuperview" ref="191373211"/>
+						<reference key="NSWindow"/>
+						<string key="NSReuseIdentifierKey">_NS:9</string>
+						<bool key="IBUIOpaque">NO</bool>
+						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
+						<int key="IBUIContentHorizontalAlignment">0</int>
+						<int key="IBUIContentVerticalAlignment">0</int>
+						<int key="IBUIButtonType">1</int>
+						<string key="IBUINormalTitle">富媒体 跳转</string>
+						<reference key="IBUIHighlightedTitleColor" ref="356082405"/>
+						<object class="NSColor" key="IBUINormalTitleColor">
+							<int key="NSColorSpace">1</int>
+							<bytes key="NSRGB">MC4xOTYwNzg0MzQ2IDAuMzA5ODAzOTMyOSAwLjUyMTU2ODY1NgA</bytes>
+						</object>
+						<reference key="IBUINormalTitleShadowColor" ref="262766955"/>
+						<reference key="IBUIFontDescription" ref="92248123"/>
+						<reference key="IBUIFont" ref="556713135"/>
 					</object>
 				</array>
 				<string key="NSFrame">{{0, 20}, {320, 411}}</string>
@@ -347,6 +369,14 @@ AAgACAAIAAEAAQABAAE</bytes>
 					<int key="connectionID">51</int>
 				</object>
 				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">btnJump</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="66822380"/>
+					</object>
+					<int key="connectionID">56</int>
+				</object>
+				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
 						<string key="label">playAudio:</string>
 						<reference key="source" ref="802231679"/>
@@ -363,6 +393,15 @@ AAgACAAIAAEAAQABAAE</bytes>
 						<int key="IBEventType">7</int>
 					</object>
 					<int key="connectionID">53</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchEventConnection" key="connection">
+						<string key="label">doJump:</string>
+						<reference key="source" ref="66822380"/>
+						<reference key="destination" ref="372490531"/>
+						<int key="IBEventType">7</int>
+					</object>
+					<int key="connectionID">55</int>
 				</object>
 			</array>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -385,6 +424,7 @@ AAgACAAIAAEAAQABAAE</bytes>
 							<reference ref="875084163"/>
 							<reference ref="899270738"/>
 							<reference ref="52154903"/>
+							<reference ref="66822380"/>
 						</array>
 						<reference key="parent" ref="0"/>
 					</object>
@@ -439,6 +479,11 @@ AAgACAAIAAEAAQABAAE</bytes>
 						<reference key="object" ref="52154903"/>
 						<reference key="parent" ref="191373211"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">54</int>
+						<reference key="object" ref="66822380"/>
+						<reference key="parent" ref="191373211"/>
+					</object>
 				</array>
 			</object>
 			<dictionary class="NSMutableDictionary" key="flattenedProperties">
@@ -455,12 +500,13 @@ AAgACAAIAAEAAQABAAE</bytes>
 				<string key="45.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="50.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="52.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+				<string key="54.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 			</dictionary>
 			<dictionary class="NSMutableDictionary" key="unlocalizedProperties"/>
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">53</int>
+			<int key="maxID">56</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -469,12 +515,17 @@ AAgACAAIAAEAAQABAAE</bytes>
 					<string key="superclassName">UIViewController</string>
 					<dictionary class="NSMutableDictionary" key="actions">
 						<string key="doDiscuss:">id</string>
+						<string key="doJump:">id</string>
 						<string key="playAudio:">id</string>
 						<string key="playMovie:">id</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="actionInfosByName">
 						<object class="IBActionInfo" key="doDiscuss:">
 							<string key="name">doDiscuss:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="doJump:">
+							<string key="name">doJump:</string>
 							<string key="candidateClassName">id</string>
 						</object>
 						<object class="IBActionInfo" key="playAudio:">
@@ -489,6 +540,7 @@ AAgACAAIAAEAAQABAAE</bytes>
 					<dictionary class="NSMutableDictionary" key="outlets">
 						<string key="bgAudio">UILabel</string>
 						<string key="btnAudio">UIButton</string>
+						<string key="btnJump">UIButton</string>
 						<string key="button">UIButton</string>
 						<string key="content">UITextView</string>
 						<string key="pic">UIImageView</string>
@@ -501,6 +553,10 @@ AAgACAAIAAEAAQABAAE</bytes>
 						</object>
 						<object class="IBToOneOutletInfo" key="btnAudio">
 							<string key="name">btnAudio</string>
+							<string key="candidateClassName">UIButton</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="btnJump">
+							<string key="name">btnJump</string>
 							<string key="candidateClassName">UIButton</string>
 						</object>
 						<object class="IBToOneOutletInfo" key="button">
