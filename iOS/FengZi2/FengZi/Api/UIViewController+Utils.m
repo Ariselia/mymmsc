@@ -152,7 +152,9 @@ static int iTimes = -1;
         iOSLog(@"uuid=[%@]", xcode);
         // 扫码
         //KmaObject *info = [Api kmaContent:xcode];
+        [iOSApi showAlert:@"Loading"];
         KmaObject *info = [Api kmaContent:url];
+        [iOSApi closeAlert];
         if (info.isKma == 0) {
             // 不是空码, 展示
             if (info.type == 14) {
