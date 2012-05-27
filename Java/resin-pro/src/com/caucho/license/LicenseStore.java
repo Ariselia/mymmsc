@@ -18,10 +18,13 @@ class LicenseStore {
 
 	private static final L10N L = new L10N(LicenseStore.class);
 	private File _licenseDirectory;
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	private ArrayList<LicenseImpl> _licenses = new ArrayList();
 
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	private Collection<LicenseWrapper> _wrappers = new ArrayList();
 
+	@SuppressWarnings("unused")
 	private String _licenseErrors = "";
 	private int _personalCount;
 	private int _professionalCount;
@@ -164,6 +167,7 @@ class LicenseStore {
 		return Collections.unmodifiableCollection(this._wrappers);
 	}
 
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	final Collection<License> getLicenseList() {
 		ArrayList licenseList = new ArrayList();
 
