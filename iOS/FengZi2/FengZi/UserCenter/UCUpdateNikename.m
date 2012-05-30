@@ -8,6 +8,7 @@
 
 #import "UCUpdateNikename.h"
 #import "Api+eShop.h"
+#import "UITableViewCellExt.h"
 
 #define TAG_FIELD_BASE     (200300)
 #define TAG_FIELD_PASSWD   (TAG_FIELD_BASE + 1) // 密码
@@ -20,7 +21,7 @@
 #define TAG_FIELD_IDNUMBER (TAG_FIELD_BASE + 8) // 身份证号码
 #define TAG_FIELD_ADDRESS  (TAG_FIELD_BASE + 9) // 通信地址
 #define TAG_FIELD_POSTCODE (TAG_FIELD_BASE + 10) // 邮编
-#define TAG_FIELD_ISOPEN   (TAG_FIELD_BASE + 11) // 是否公开
+#define TAG_FIELD_ISOPEN   (TAG_FIELD_BASE + 11) // 以下信息是否公开
 #define TAG_FIELD_WEIBO    (TAG_FIELD_BASE + 12) // 微博
 #define TAG_FIELD_QQ       (TAG_FIELD_BASE + 13) // QQ号码
 #define TAG_FIELD_CONTACT  (TAG_FIELD_BASE + 14) // 联系方式
@@ -64,7 +65,7 @@
     NSString *sAddress = [address.text trim];
     NSString *sPostCode = [postCode.text trim];
     NSString *sLikes = [likes.text trim];
-    NSString *sIsopen = (isopen.isOn ? @"0":@"1");
+    NSString *sIsopen = (isOpen ? @"1":@"0");
     NSString *sWeibo = [weibo.text trim];
     NSString *sQQ = [QQ.text trim];
     NSString *sContact = [contact.text trim];
@@ -107,6 +108,10 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    //去掉table的横线
+    [self.tableView setBackgroundColor:[UIColor clearColor]];
+    self.tableView.separatorStyle = NO;
+
     UIImage *image = [UIImage imageNamed:@"navigation_bg.png"];
     Class ios5Class = (NSClassFromString(@"CIImage"));
     if (nil != ios5Class) {
@@ -135,14 +140,14 @@
     UIButton *_btnRight = [UIButton buttonWithType:UIButtonTypeCustom];
     _btnRight.frame = CGRectMake(0, 0, 60, 32);
     [_btnRight setImage:[UIImage imageNamed:@"uc-save.png"] forState:UIControlStateNormal];
-    [_btnRight setImage:[UIImage imageNamed:@"uc-save.png"] forState:UIControlStateHighlighted];
+    [_btnRight setImage:[UIImage imageNamed:@"uc-save－tap.png"] forState:UIControlStateHighlighted];
     [_btnRight addTarget:self action:@selector(doSave) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *rightItem = [[UIBarButtonItem alloc] initWithCustomView:_btnRight];
     self.navigationItem.rightBarButtonItem = rightItem;
     [rightItem release];
     
     // 设定UITableViewCell格式
-    _borderStyle = UITextBorderStyleRoundedRect;
+    //_borderStyle = UITextBorderStyleRoundedRect;
     font = [UIFont systemFontOfSize:13.0];
 }
 
@@ -218,7 +223,9 @@
     [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionBottom animated:YES];
 }
 
+
 - (void)viewWillAppear:(BOOL)animated {
+
     [iOSApi showAlert:@"正在获取用户信息..."];
     int userId = [Api userId];
     BOOL bEdit = YES;
@@ -239,20 +246,39 @@
     }
     if ([items count] == 0) {
         // 预加载项
-        CGRect frame = CGRectMake(90.f, 5.0f, 200, 25);
+        CGRect frame = CGRectMake(90.f, 10.0f, 200, 25);
         iOSInput *input = nil;
         items = [[NSMutableArray alloc] initWithCapacity:0];
-        
+        UIImage *textImg = [UIImage imageNamed:@"uc-text-f.png"];
+        CGRect framel = CGRectMake(0, 0, 7, 25);
+        UIView *view = [[UIView alloc] initWithFrame:framel];
+        UIView *view1 = [[UIView alloc] initWithFrame:framel];
+        UIView *view2 = [[UIView alloc] initWithFrame:framel];
+        UIView *view3 = [[UIView alloc] initWithFrame:framel];
+        UIView *view4 = [[UIView alloc] initWithFrame:framel];
+        UIView *view5 = [[UIView alloc] initWithFrame:framel];
+        UIView *view6 = [[UIView alloc] initWithFrame:framel];
+        UIView *view7 = [[UIView alloc] initWithFrame:framel];
+        UIView *view8 = [[UIView alloc] initWithFrame:framel];
+        UIView *view9 = [[UIView alloc] initWithFrame:framel];
+        UIView *view10 = [[UIView alloc] initWithFrame:framel];
+        UIView *view11 = [[UIView alloc] initWithFrame:framel];
+     
         if (bEdit) {
             // 昵称
             input = [[iOSInput new] autorelease];
             [input setName:@"昵称"];
             [input setTag:TAG_FIELD_NKNAME];
             nikename = [[UITextField alloc] initWithFrame:frame];
+            nikename.leftView = view;
+            nikename.leftViewMode = UITextFieldViewModeAlways;
+
             nikename.text = ucInfo.nicname;
             nikename.tag = input.tag;
             nikename.returnKeyType = UIReturnKeyDone;
-            if(bEdit) nikename.borderStyle = _borderStyle;
+            nikename.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
+            [nikename setBackground:textImg];
+            if(bEdit) nikename.borderStyle = UITextBorderStyleNone;
             nikename.placeholder = @"输入昵称";
             nikename.font = font;
             [nikename setEnabled:bEdit];
@@ -266,32 +292,60 @@
         input = [[iOSInput new] autorelease];
         [input setName:@"账号名"];
         [input setTag:TAG_FIELD_CONTACT];
-        UILabel *ac = [[UILabel alloc] initWithFrame:frame];
+        UITextField *ac = [[UITextField alloc] initWithFrame:frame];
+        ac.leftView = view1;
+        ac.leftViewMode = UITextFieldViewModeAlways;
+        ac.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
         if(bEdit) {
             ac.text = [Api userPhone];
         } else {
             ac.text = ucInfo.contact;
         }
+        ac.borderStyle = UITextBorderStyleNone;
         ac.tag = input.tag;
 		ac.font = font;
-        [ac setEnabled:bEdit];
+        [ac setEnabled:NO];
 		[input setObject: ac];
         [items addObject: input];
         
-        CGRect swFrame = frame;
-        swFrame.origin.y = 3;
+        CGRect swFrame =  CGRectMake(200.f, 10.0f, 200, 25);
+        swFrame.origin.y = 7;
         
+        CGRect isOpenFreame = CGRectMake(260, 10, 40, 40);
+        isOpenFreame.origin.y=3;
         if (bEdit) {
             input = [[iOSInput new] autorelease];
-            [input setName:@"是否公开"];
+            [input setName:@"以下信息是否公开"];
             [input setTag:TAG_FIELD_ISOPEN];
             
+            isOpenBtn = [[UIButton alloc]initWithFrame:isOpenFreame];
+            UIImage *isOpenImg ;
+            isOpen = ucInfo.isopen;
+            if (ucInfo.isopen) {
+                
+            isOpenImg=[UIImage imageNamed:@"check_ok.png"];
+
+                [isOpenBtn setImage:isOpenImg forState:0];
+            }
+            else {
+                isOpenImg=[UIImage imageNamed:@"check_or.png"];
+                
+                [isOpenBtn setImage:isOpenImg forState:0];
+            }
+            
+            // 绑定事件
+            [isOpenBtn addTarget:self action:@selector(checkOpen) forControlEvents:UIControlEventTouchUpInside];
+            /*
             isopen = [[UISwitch alloc] initWithFrame:swFrame];
             isopen.tag = input.tag;
             [isopen setOn:!ucInfo.isopen];
             [isopen setEnabled:bEdit];
             [input setObject: isopen];
+            */
+            
+            [input setObject: isOpenBtn];
             [items addObject: input];
+            [isOpenImg release];
         }
         if (bEdit || ucInfo.isopen == 0) {
             // 姓名
@@ -299,10 +353,14 @@
             [input setName:@"姓名"];
             [input setTag:TAG_FIELD_REALNAME];
             realname = [[UITextField alloc] initWithFrame:frame];
+            realname.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
+            realname.leftView = view2;
+            realname.leftViewMode = UITextFieldViewModeAlways;
             realname.text = ucInfo.realname;
             realname.tag = input.tag;
+            [realname setBackground:textImg];
             realname.returnKeyType = UIReturnKeyDone;
-            realname.borderStyle = _borderStyle;
+            realname.borderStyle = UITextBorderStyleNone;
             if(bEdit) realname.placeholder = @"输入姓名";
             realname.font = font;
             [realname setEnabled:bEdit];
@@ -319,10 +377,14 @@
             [input setName:@"爱好"];
             [input setTag:TAG_FIELD_LIKES];
             likes = [[UITextField alloc] initWithFrame:frame];
+            likes.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
+            likes.leftView = view3;
+            likes.leftViewMode = UITextFieldViewModeAlways;
             likes.text = ucInfo.likes;
             likes.tag = input.tag;
+            [likes setBackground:textImg];
             likes.returnKeyType = UIReturnKeyDone;
-            likes.borderStyle = _borderStyle;
+            likes.borderStyle = UITextBorderStyleNone;
             if(bEdit) likes.placeholder = @"输入爱好";
             likes.font = font;
             [likes setEnabled:bEdit];
@@ -338,8 +400,8 @@
             input = [[iOSInput new] autorelease];
             [input setName:@"性别(男)"];
             [input setTag:TAG_FIELD_SEX];
-            swFrame = frame;
-            swFrame.origin.y = 3;
+            swFrame = CGRectMake(200.f, 10.0f, 200, 25);
+            swFrame.origin.y = 7;
             sex = [[UISwitch alloc] initWithFrame:swFrame];
             sex.tag = input.tag;
             [sex setOn:ucInfo.sex];
@@ -352,11 +414,15 @@
             [input setName:@"出生日期"];
             [input setTag:TAG_FIELD_BIRTHDAY];
             birthday = [[UITextField alloc] initWithFrame:frame];
+            birthday.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
+            birthday.leftView = view4;
+            birthday.leftViewMode = UITextFieldViewModeAlways;
             birthday.text = ucInfo.birthday;
             birthday.tag = input.tag;
+            [birthday setBackground:textImg];
             birthday.keyboardType = UIKeyboardTypeDefault;
             birthday.returnKeyType = UIReturnKeyDone;
-            birthday.borderStyle = _borderStyle;
+            birthday.borderStyle = UITextBorderStyleNone;
             if(bEdit) birthday.placeholder = @"输入年月日";
             birthday.font = font;
             [birthday setEnabled:bEdit];
@@ -373,10 +439,14 @@
             [input setName:@"联系方式"];
             [input setTag:TAG_FIELD_CONTACT];
             contact = [[UITextField alloc] initWithFrame:frame];
+            contact.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
+            contact.leftView = view5;
+            contact.leftViewMode = UITextFieldViewModeAlways;
             contact.text = ucInfo.contact;
             contact.tag = input.tag;
+            [contact setBackground:textImg];
             contact.returnKeyType = UIReturnKeyDone;
-            contact.borderStyle = _borderStyle;
+            contact.borderStyle = UITextBorderStyleNone;
             if(bEdit) contact.placeholder = @"输入联系方式";
             contact.font = font;
             [contact setEnabled:bEdit];
@@ -393,10 +463,16 @@
             [input setName:@"联系地址"];
             [input setTag:TAG_FIELD_ADDRESS];
             address = [[UITextField alloc] initWithFrame:frame];
+            address.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
+            address.leftView = view6;
+            address.leftViewMode = UITextFieldViewModeAlways;
+
             address.text = ucInfo.address;
             address.tag = input.tag;
+            [address setBackground:textImg];
+            
             address.returnKeyType = UIReturnKeyDone;
-            address.borderStyle = _borderStyle;
+            address.borderStyle = UITextBorderStyleNone;
             if(bEdit) address.placeholder = @"输入联系地址";
             address.font = font;
             [address setEnabled:bEdit];
@@ -413,11 +489,16 @@
             [input setName:@"邮政编码"];
             [input setTag:TAG_FIELD_POSTCODE];
             postCode = [[UITextField alloc] initWithFrame:frame];
+            postCode.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
+            postCode.leftView = view7;
+            postCode.leftViewMode = UITextFieldViewModeAlways;
+
             postCode.text = ucInfo.postCode;
             postCode.tag = input.tag;
+            [postCode setBackground:textImg];
             postCode.keyboardType = UIKeyboardTypeNumberPad;
             postCode.returnKeyType = UIReturnKeyDone;
-            postCode.borderStyle = _borderStyle;
+            postCode.borderStyle = UITextBorderStyleNone;
             if(bEdit) postCode.placeholder = @"输入邮政编码";
             postCode.font = font;
             [postCode setEnabled:bEdit];
@@ -434,11 +515,16 @@
             [input setName:@"电子邮箱"];
             [input setTag:TAG_FIELD_EMAIL];
             email = [[UITextField alloc] initWithFrame:frame];
+            email.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
+            email.leftView = view8;
+            email.leftViewMode = UITextFieldViewModeAlways;
+
             email.text = ucInfo.email;
             email.tag = input.tag;
+             [email setBackground:textImg];
             email.returnKeyType = UIReturnKeyDone;
             email.keyboardType = UIKeyboardTypeEmailAddress;
-            email.borderStyle = _borderStyle;
+            email.borderStyle = UITextBorderStyleNone;
             if(bEdit) email.placeholder = @"输入邮箱地址";
             email.font = font;
             [email setEnabled:bEdit];
@@ -455,11 +541,16 @@
             [input setName:@"微博"];
             [input setTag:TAG_FIELD_WEIBO];
             weibo = [[UITextField alloc] initWithFrame:frame];
+            weibo.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
+            weibo.leftView = view9;
+            weibo.leftViewMode = UITextFieldViewModeAlways;
+
             weibo.text = ucInfo.weibo;
             weibo.tag = input.tag;
+             [weibo setBackground:textImg];
             weibo.keyboardType = UIKeyboardTypeURL;
             weibo.returnKeyType = UIReturnKeyDone;
-            weibo.borderStyle = _borderStyle;
+            weibo.borderStyle = UITextBorderStyleNone;
             if(bEdit) weibo.placeholder = @"输入微博地址";
             weibo.font = font;
             [weibo setEnabled:bEdit];
@@ -476,11 +567,16 @@
             [input setName:@"身份证号码"];
             [input setTag:TAG_FIELD_IDNUMBER];
             idNumber = [[UITextField alloc] initWithFrame:frame];
+            idNumber.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
+            idNumber.leftView = view10;
+            idNumber.leftViewMode = UITextFieldViewModeAlways;
+
             idNumber.text = ucInfo.idNumber;
             idNumber.tag = input.tag;
+             [idNumber setBackground:textImg];
             idNumber.keyboardType = UIKeyboardTypeNumberPad;
             idNumber.returnKeyType = UIReturnKeyDone;
-            idNumber.borderStyle = _borderStyle;
+            idNumber.borderStyle = UITextBorderStyleNone;
             if(bEdit) idNumber.placeholder = @"输入身份证号码";
             idNumber.font = font;
             [idNumber setEnabled:bEdit];
@@ -496,11 +592,16 @@
             [input setName:@"QQ号码"];
             [input setTag:TAG_FIELD_QQ];
             QQ = [[UITextField alloc] initWithFrame:frame];
+            QQ.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
+            QQ.leftView = view11;
+            QQ.leftViewMode = UITextFieldViewModeAlways;
+
             QQ.text = [NSString valueOf:ucInfo.QQ];
             QQ.tag = input.tag;
+             [QQ setBackground:textImg];
             QQ.keyboardType = UIKeyboardTypeNumberPad;
             QQ.returnKeyType = UIReturnKeyDone;
-            QQ.borderStyle = _borderStyle;
+            QQ.borderStyle = UITextBorderStyleNone;
             if(bEdit) QQ.placeholder = @"输入QQ号码";
             QQ.font = font;
             [QQ setEnabled:bEdit];
@@ -511,7 +612,19 @@
             [input setObject: QQ];
             [items addObject: input];
         }
-        
+        [view release];
+        [view1 release];
+        [view2 release];
+        [view3 release];
+        [view4 release];
+        [view5 release];
+        [view6 release];
+        [view7 release];
+        [view8 release];
+        [view9 release];
+        [view10 release];
+        [view11 release];
+             
         // 处理所有文本输入框的被键盘挡住问题
         //[super unregisterForKeyboardNotifications];
     }
@@ -535,10 +648,12 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    int xHeight = 36;
+    int xHeight = 44;
+    
     if (idDest > 0 && indexPath.row == 0) {
-        xHeight = 90;
+        xHeight = 60;
     }
+    
 	return xHeight;
 }
 
@@ -555,6 +670,18 @@
     }
     cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier] autorelease];
     // Configure the cell.
+    UIImage *image;
+    if (idDest > 0 && indexPath.row == 0) {
+        
+         image = [[UIImage imageNamed:@"uc-cell.png"]toSize:CGSizeMake(320, 60)];
+    }
+    else {
+        image = [[UIImage imageNamed:@"uc-cell.png"]toSize:CGSizeMake(320, 44)];
+    }
+    
+    //   UIImage *himage = [UIImage imageNamed:@"uc-cell-h.png"];
+    [cell setBackgroundImage:image];
+    
     int pos = [indexPath row];
     //if (pos >= [items count]) {
     if (pos >= [tableView numberOfRowsInSection:0]) {
@@ -576,7 +703,8 @@
         if (![Api fileIsExists:photoName] || data.length == 0) {
             bDown = YES;
         } else {
-            im = [UIImage imageWithData:data];
+            im = [[UIImage imageWithData:data]toSize: CGSizeMake(36, 36)];
+
             if (im == nil) {
                 [iOSFile remove:[Api filePath:photoName]];
                 bDown = YES;
@@ -589,19 +717,19 @@
             [Api uc_photo_down:idDest];
         }
         
-        CGRect frame = CGRectMake(0.00f, 5.00f, 80, 80);
+        CGRect frame = CGRectMake(0.00f, 5.00f, 55, 55);
         cell.imageView.frame = frame;
         if ([Api fileIsExists:photoName]) {
             data = [NSData dataWithContentsOfFile:filePath];
             if (data.length > 0) {
-                im = [UIImage imageWithData:data];
+                im = [[UIImage imageWithData:data]toSize:CGSizeMake(55, 55)];
             } else {
-                im = [UIImage imageNamed:@"usercenter_userinfo_image_default.png"];
+                im = [[UIImage imageNamed:@"uc-unkonw.png"]toSize:CGSizeMake(55, 55)];
             }
         } else {
-            im = [UIImage imageNamed:@"usercenter_userinfo_image_default.png"];
+            im = [[UIImage imageNamed:@"uc-unkonw.png"]toSize:CGSizeMake(55, 55)];
         }
-        [cell.imageView loadImage:im];        
+        [cell.imageView loadImage:im];         
         
         // 增加统计信息
         ucToal *total = [[Api uc_total_get:idDest] retain];
@@ -609,7 +737,7 @@
         cell.detailTextLabel.text = [NSString stringWithFormat:@"个人码：%d\r\n访问数：%d", total.codeCount, total.totalCount];
         [total release];
         UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
-        btn.frame = CGRectMake(250.00f, 5.00f, 40, 40);
+        btn.frame = CGRectMake(250.00f, 1.00f, 52, 52);
         [btn setImage:[UIImage imageNamed:@"nav-edit@2x.png"] forState:UIControlStateNormal];
         [btn setImage:[UIImage imageNamed:@"nav-edit@2x.png"] forState:UIControlStateHighlighted];
         btn.backgroundColor = [UIColor purpleColor];
@@ -659,6 +787,24 @@
             [iRet release];
         }
     }
+}
+
+
+-(void)checkOpen
+{
+    isOpen=(!isOpen);
+    UIImage *isOpenImg;
+    if (isOpen) {
+    
+    isOpenImg=[UIImage imageNamed:@"check_ok.png"];
+    
+    [isOpenBtn setImage:isOpenImg forState:0];
+    }   else {
+    isOpenImg=[UIImage imageNamed:@"check_or.png"];
+    
+    [isOpenBtn setImage:isOpenImg forState:0];
+    }
+    [isOpenImg release];
 }
 
 @end

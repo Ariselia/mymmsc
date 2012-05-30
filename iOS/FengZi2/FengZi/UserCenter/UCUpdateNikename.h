@@ -35,7 +35,8 @@
     UISwitch    *sex;
     UITextField *userid;
     UITextField *weibo;
-    
+    UIButton *isOpenBtn;
+    BOOL isOpen;
     NSString *srvAuthcode; // 服务器返回的验证码
     
     UITextField *content;

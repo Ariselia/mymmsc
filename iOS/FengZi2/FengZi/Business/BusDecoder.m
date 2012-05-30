@@ -84,6 +84,7 @@ static NSString *URL_FLAG = @"://";
     NSPredicate *test = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", regex]; 
     return [test evaluateWithObject:input];
 }
+
 /**
  * 判读是否为url，两个规则：
  * 1 ://存在，且前面全为英文字母，A-Z,a-z
@@ -717,7 +718,7 @@ static NSString *URL_FLAG = @"://";
  * @param channel
  * @return
  */
-+(Card*) decodeCardOnly:(NSString *)input{
++ (Card *)decodeCardOnly:(NSString *)input{
     
     Card *card = [[[Card alloc] init]autorelease];
     

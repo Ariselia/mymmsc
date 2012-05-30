@@ -33,7 +33,8 @@
 
 #import <QRCode/QREncoder.h>
 #import <QRCode/DataMatrix.h>
-
+#import "UCCell.h"
+#import "UITableViewCellExt.h"
 // WangFeng: 增加富媒体生码类
 #import "UCCreateCode.h"
 #import "UCRichMedia.h"
@@ -43,7 +44,7 @@
 
 @implementation UCMyCode
 
-
+@synthesize uiview;
 @synthesize tableView=_tableView;
 
 static int iTimes = -1;
@@ -235,6 +236,54 @@ static int xTimes = -1;
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    
+    /*
+    // Setup the title and image for each button within the side swipe view
+        buttonData = [[NSArray arrayWithObjects:
+                       [NSDictionary dictionaryWithObjectsAndKeys:@"Reply", @"title", @"reply.png", @"image", nil],
+                       [NSDictionary dictionaryWithObjectsAndKeys:@"Retweet", @"title", @"retweet-outline-button-item.png", @"image", nil],
+                       [NSDictionary dictionaryWithObjectsAndKeys:@"Favorite", @"title", @"star-hollow.png", @"image", nil],
+                       [NSDictionary dictionaryWithObjectsAndKeys:@"Profile", @"title", @"person.png", @"image", nil],
+                       [NSDictionary dictionaryWithObjectsAndKeys:@"Links", @"title", @"paperclip.png", @"image", nil],
+                       [NSDictionary dictionaryWithObjectsAndKeys:@"Action", @"title", @"action.png", @"image", nil],
+                       nil] retain];
+    buttons = [[NSMutableArray alloc] initWithCapacity:buttonData.count];
+    
+    sideSwipeView = [[UIView alloc] initWithFrame:CGRectMake(self.tableView.frame.origin.x, self.tableView.frame.origin.y, self.tableView.frame.size.width, self.tableView.rowHeight)];
+    [self setupSideSwipeView];
+     
+    if ([items count] == 0) {
+        // 预加载项
+        items = [[NSMutableArray alloc] initWithCapacity:0];
+        NSArray *list = [Api codeMyList:0 size:100];
+        [list retain];
+        [items addObjectsFromArray:list];
+        [list release];
+        [self.tableView reloadData];
+        //当前没有你的专属码
+    }
+     */
+}
+
+- (void)viewDidUnload
+{
+    [super viewDidUnload];
+    // Release any retained subviews of the main view.
+    // e.g. self.myOutlet = nil;
+}
+
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+{
+    // Return YES for supported orientations
+    return (interfaceOrientation == UIInterfaceOrientationPortrait);
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:YES];
+    //去掉table的横线
+    [_tableView setBackgroundColor:[UIColor clearColor]];
+    _tableView.separatorStyle=UITableViewCellSeparatorStyleNone;
+    
     UIImage *image = [UIImage imageNamed:@"navigation_bg.png"];
     Class ios5Class = (NSClassFromString(@"CIImage"));
     if (nil != ios5Class) {
@@ -259,58 +308,21 @@ static int xTimes = -1;
     UIBarButtonItem *backitem = [[UIBarButtonItem alloc] initWithCustomView:backbtn];
     self.navigationItem.leftBarButtonItem = backitem;
     [backitem release];
-
+    
     // 设定UITableViewCell格式
     _borderStyle = UITextBorderStyleNone;
     font = [UIFont systemFontOfSize:13.0];
-    /*
-    // Setup the title and image for each button within the side swipe view
-        buttonData = [[NSArray arrayWithObjects:
-                       [NSDictionary dictionaryWithObjectsAndKeys:@"Reply", @"title", @"reply.png", @"image", nil],
-                       [NSDictionary dictionaryWithObjectsAndKeys:@"Retweet", @"title", @"retweet-outline-button-item.png", @"image", nil],
-                       [NSDictionary dictionaryWithObjectsAndKeys:@"Favorite", @"title", @"star-hollow.png", @"image", nil],
-                       [NSDictionary dictionaryWithObjectsAndKeys:@"Profile", @"title", @"person.png", @"image", nil],
-                       [NSDictionary dictionaryWithObjectsAndKeys:@"Links", @"title", @"paperclip.png", @"image", nil],
-                       [NSDictionary dictionaryWithObjectsAndKeys:@"Action", @"title", @"action.png", @"image", nil],
-                       nil] retain];
-    buttons = [[NSMutableArray alloc] initWithCapacity:buttonData.count];
-    
-    sideSwipeView = [[UIView alloc] initWithFrame:CGRectMake(self.tableView.frame.origin.x, self.tableView.frame.origin.y, self.tableView.frame.size.width, self.tableView.rowHeight)];
-    [self setupSideSwipeView];
-     */
-    if ([items count] == 0) {
-        // 预加载项
-        items = [[NSMutableArray alloc] initWithCapacity:0];
-        NSArray *list = [Api codeMyList:0 size:100];
-        [list retain];
-        [items addObjectsFromArray:list];
-        [list release];
-        [self.tableView reloadData];
-        //当前没有你的专属码
-    }
-}
-
-- (void)viewDidUnload
-{
-    [super viewDidUnload];
-    // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
-}
-
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
-    // Return YES for supported orientations
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
-}
-
-- (void)viewWillAppear:(BOOL)animated {
+   /*
     if ([items count] == 0) {
         // 预加载项
         items = [[NSMutableArray alloc] initWithCapacity:0];
     }
+    */
 }
 
 - (void) viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:YES];
+     [iOSApi showAlert:@"正在获取用户信息..."];
     if ([items count] == 0) {
         // 预加载项
         items = [[NSMutableArray alloc] initWithCapacity:0];
@@ -321,6 +333,7 @@ static int xTimes = -1;
         [self.tableView reloadData];
         //当前没有你的专属码
     }
+    [iOSApi closeAlert];
 }
 
 #pragma mark -
@@ -341,7 +354,7 @@ static int xTimes = -1;
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    int h = 30;
+    int h = 60;
     if (iRow == indexPath.row) {
         //h += 50;
     }
@@ -350,13 +363,21 @@ static int xTimes = -1;
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
+    tableView.backgroundColor = [UIColor clearColor];
+    
+    
     static NSString *CellIdentifier = @"Cell";
     
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    UCCell *cell = [[UCCell alloc]init];
     if (cell == nil) {
-        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier] autorelease];
+        
+        cell = [[[UCCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
+        
+        
     }
-    // Configure the cell.
+    UIImage *image = [[UIImage imageNamed:@"uc-cell.png"] toSize: CGSizeMake(320, 60)];
+    //   UIImage *himage = [UIImage imageNamed:@"uc-cell-h.png"];
+    [cell setBackgroundImage:image];    // Configure the cell.
     int pos = [indexPath row];
     
     if (pos >= [items count]) {
@@ -369,15 +390,17 @@ static int xTimes = -1;
         cell.textLabel.numberOfLines=5;
     }
     if ([items count] < 1) {
-        cell.textLabel.text = @"当前没有你的专属码";
+       // cell.textLabel.text = @"当前没有你的专属码";
     } else {
         CodeInfo *obj = [items objectAtIndex: pos];
         cell.imageView.image = [DATA_ENV getTableImage:(BusinessType)(obj.type - 1)];
         cell.textLabel.font = font;
         cell.textLabel.text = [NSString stringWithFormat:@"%@  %@%@", [obj title], [obj createTime], iRow == indexPath.row ? @"\n\n\n\n\n" : @""];
+        /*
         cell.selectionStyle = UITableViewCellSelectionStyleGray;
         cell.accessoryType = UITableViewCellAccessoryNone;
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+         */
     }
     
     [cell setBackgroundColor: [UIColor clearColor]];
@@ -387,11 +410,27 @@ static int xTimes = -1;
 
 // 选中进入
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
+    UIImage *himage =[[UIImage imageNamed:@"uc-cell-h.png"] toSize: CGSizeMake(320, 60)];    
+    [cell setBackgroundImage:himage];
+    
+    [uiview setHidden:NO];
+    //添加3个按钮的图层。
+    //320-182= 138
+    CGRect frame = CGRectMake(138, cell.frame.origin.y+8, 182, 36);
+    [uiview setFrame:frame];
+    [uiview setBackgroundColor:[UIColor clearColor]]; 
+    [self.view addSubview:uiview];
+    
     iTimes = 0;
     if ([items count] < 1) {
         return;
     }
+
     xInput = [items objectAtIndex:indexPath.row];
+    
+     /* 
     UIAlertView *alert = [[UIAlertView alloc]
 						  initWithTitle:nil
 						  message:nil
@@ -400,6 +439,7 @@ static int xTimes = -1;
 						  otherButtonTitles:@"重置", nil];
     [alert show];
 	[alert release];
+     */
 }
 
 -(void) alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger) buttonIndex {
@@ -434,4 +474,43 @@ static int xTimes = -1;
         //
 	}
 }
+//继承scrollview，完成下拉隐藏按钮；
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
+{
+    //NSLog(@"start to drag");
+    xInput = nil;
+    [uiview setHidden:YES];
+}
+
+#pragma mark -
+#pragma mark Btn DoSoming
+//阅读，重置，评论；
+-(IBAction)readCode:(id)sender
+{
+     [self chooseShowController:xInput.url];
+}
+-(IBAction)resetCode:(id)sender
+{
+    // 重置
+    // 空码, 可以调到空码赋值页面, 默认为富媒体
+    NSDictionary *dict = [xInput.url uriParams];
+    NSString *xcode = [dict objectForKey:@"id"];
+    [Api kmaSetId:xcode];
+    iOSLog(@"uuid=[%@]", xcode);
+    
+    UCKmaViewController *nextView = [[UCKmaViewController alloc] init];
+    nextView.forceEdit = YES; // 强制赋值
+    nextView.code = xcode;
+    nextView.curImage = [Api generateImageWithInput:xInput.url];
+    [self.navigationController pushViewController:nextView animated:YES];
+    [nextView release];
+    
+}
+-(IBAction)plCode:(id)sender
+{
+    NSLog(@"暂无法评论");
+
+}
+
+
 @end

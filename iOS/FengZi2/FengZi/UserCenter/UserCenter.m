@@ -13,7 +13,8 @@
 #import "UCRegister.h"
 #import "UCUpdateNikename.h"
 #import "UCUpdatePassword.h"
-
+#import "UITableViewCellExt.h"
+#import "UCCell.h"
 #define ALERT_TITLE @"个人中心 提示"
 
 @implementation UserCenter
@@ -171,7 +172,7 @@ static int iTimes = -1;
     label.text= @"个人中心";
     self.navigationItem.titleView = label;
     [label release];
-    
+    /*
     _tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
     _tableView.backgroundColor = [UIColor clearColor];
     _tableView.separatorColor = [UIColor grayColor];
@@ -183,20 +184,8 @@ static int iTimes = -1;
     _tableView.sectionHeaderHeight = 5;
     _tableView.sectionFooterHeight = 0;
     _tableView.rowHeight = 2;
-    
-    if (![Api isOnLine]) {
-        _btnRight = [UIButton buttonWithType:UIButtonTypeCustom];
-        _btnRight.frame = CGRectMake(0, 0, 60, 32);
-        [_btnRight setImage:[UIImage imageNamed:@"uc-reg2.png"] forState:UIControlStateNormal];
-        [_btnRight setImage:[UIImage imageNamed:@"uc-reg2.png"] forState:UIControlStateHighlighted];
-        [_btnRight addTarget:self action:@selector(doReg:) forControlEvents:UIControlEventTouchUpInside];
-        UIBarButtonItem *rightItem = [[UIBarButtonItem alloc] initWithCustomView:_btnRight];
-        self.navigationItem.rightBarButtonItem = rightItem;
-        [rightItem release];
-    } else {
-        //
-    }
-    
+    */
+        
 }
 
 - (void)viewDidUnload
@@ -242,43 +231,107 @@ static int iTimes = -1;
 
 - (void)doLogout:(id)sender {
     //注销后点击图片按钮失效
+    
     [picBtn removeTarget:self action:@selector(doPhotoSelect) forControlEvents:UIControlEventTouchUpInside];
     
     [Api setUser:nil];
     [self viewWillAppear:YES];
 }
-
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-     [pictxt setHidden:YES];
-     [changePwdBtn setHidden:YES];
+    [pictxt setHidden:YES];
+    [changePwdBtn setHidden:YES];
+    //去掉table的横线
+    [self.tableView setBackgroundColor:[UIColor clearColor]];
+    self.tableView.separatorStyle = NO;
+    
     self.navigationController.navigationBarHidden = NO;
-    _btnLeft = [UIButton buttonWithType:UIButtonTypeCustom];
-    _btnLeft.frame = CGRectMake(0, 0, 60, 32);
-    [_btnLeft setImage:[UIImage imageNamed:@"uc-logout.png"] forState:UIControlStateNormal];
-    [_btnLeft setImage:[UIImage imageNamed:@"uc-logout.png"] forState:UIControlStateHighlighted];
-    [_btnLeft addTarget:self action:@selector(doLogout:) forControlEvents:UIControlEventTouchUpInside];
-   // [_btnLeft addTarget:self action:@selector(exitApplication) forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem *leftItem = [[UIBarButtonItem alloc] initWithCustomView:_btnLeft];
-    self.navigationItem.leftBarButtonItem = leftItem;
-    [leftItem release];
     if (items != nil) {
         [items removeAllObjects];
+    }
+    
+    if ([items count] == 0) {
+        // 预加载项
+        iOSAction *action = nil;
+        items = [[NSMutableArray alloc] initWithCapacity:0];
+        // 1. 修改资料
+        
+        action = [iOSAction initWithName: @"帐户信息维护" class: @"UCUpdateNikename"];
+        [action setIcon: @"usercenter_userinfo_detail"];
+        [items addObject: action];
+        
+        //2. 修改密码
+        
+        action = [iOSAction initWithName: @"修改密码" class: @"UCUpdatePassword"];
+        [action setIcon: @"bb"];
+        [items addObject: action];
+        // 3
+        
+        action = [iOSAction initWithName: @"我的码" class: @"UCMyCode"];
+        [action setIcon: @"cc"];
+        //[action setNib: @"MoneyTrans"];
+        [items addObject: action];
+        //[action release];
+        // 4
+        action = [iOSAction initWithName: @"我的回复" class: @"UCMyComments"];
+        [action setIcon: @"usercenter_userinfo_mycoment"];
+        [items addObject: action];
+        
+        
+        
+        //5
+        action = [iOSAction initWithName: @"我的收藏" class: @"FaviroteViewController"];
+        [action setIcon: @"dd"];
+        [items addObject: action];
+        
+        // 6空间二维码
+        action = [iOSAction initWithName: @"空间二维码" class: @"UCMySpace"];
+        [action setIcon: @"usercenter_userinfo_zoneqr"];
+        [items addObject: action];
+        //[action release];
+        [self.tableView reloadData];
     }
     if (![Api isOnLine]) {
         _btnRight = [UIButton buttonWithType:UIButtonTypeCustom];
         _btnRight.frame = CGRectMake(0, 0, 60, 32);
         [_btnRight setImage:[UIImage imageNamed:@"uc-reg2.png"] forState:UIControlStateNormal];
-        [_btnRight setImage:[UIImage imageNamed:@"uc-reg2.png"] forState:UIControlStateHighlighted];
+        [_btnRight setImage:[UIImage imageNamed:@"uc-reg2-h.png"] forState:UIControlStateHighlighted];
         [_btnRight addTarget:self action:@selector(doReg:) forControlEvents:UIControlEventTouchUpInside];
         UIBarButtonItem *rightItem = [[UIBarButtonItem alloc] initWithCustomView:_btnRight];
         self.navigationItem.rightBarButtonItem = rightItem;
         [rightItem release];
+        message.text = @"请点击［此处登录］";
+        UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+        btn.frame = message.frame;
+        btn.backgroundColor = [UIColor clearColor];
+        [btn addTarget:self action:@selector(onLogin:) forControlEvents:UIControlEventTouchUpInside];
+        [self.view addSubview:btn];
         
         
     } else {
-        self.navigationItem.rightBarButtonItem =nil;
+        //
+        message.text = [NSString stringWithFormat: @"Hi, %@", [Api nikeName]];
+        _btnLeft = [UIButton buttonWithType:UIButtonTypeCustom];
+        _btnLeft.frame = CGRectMake(0, 0, 60, 32);
+        [_btnLeft setImage:[UIImage imageNamed:@"uc-logout.png"] forState:UIControlStateNormal];
+        [_btnLeft setImage:[UIImage imageNamed:@"uc-logout-h.png"] forState:UIControlStateHighlighted];
+        [_btnLeft addTarget:self action:@selector(doLogout:) forControlEvents:UIControlEventTouchUpInside];
+        // [_btnLeft addTarget:self action:@selector(exitApplication) forControlEvents:UIControlEventTouchUpInside];
+        UIBarButtonItem *leftItem = [[UIBarButtonItem alloc] initWithCustomView:_btnLeft];
+        self.navigationItem.rightBarButtonItem = leftItem;
+        [leftItem release];
         
+       
+    }
+
+}
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    
+    
+    if (![Api isOnLine]) {
+               
+    } else {
         // 加载照片
         NSString *photoName = [Api uc_photo_name:[Api userId]];
         if (![Api fileIsExists:photoName]) {
@@ -307,51 +360,7 @@ static int iTimes = -1;
         }
         [total release];
     }
-    if ([items count] == 0) {
-        // 预加载项
-        iOSAction *action = nil;
-        items = [[NSMutableArray alloc] initWithCapacity:0];
-        if ([Api isOnLine]) {
-           
-            message.text = [NSString stringWithFormat: @"Hi, %@", [Api nikeName]];
-            // 1. 修改密码
-            /*
-            action = [iOSAction initWithName: @"修改密码" class: @"UCUpdatePassword"];
-            [action setIcon: @"bb"];
-            [items addObject: action];
-            */
-            // 2. 修改密码
-            action = [iOSAction initWithName: @"蜂巢留言板" class: @"UCMyComments"];
-            [action setIcon: @"usercenter_userinfo_mycoment"];
-            [items addObject: action];
-            
-            // 3. 我的回复
-            action = [iOSAction initWithName: @"show出你的二维码" class: @"UCMySpace"];
-            [action setIcon: @"usercenter_userinfo_zoneqr"];
-            [items addObject: action];
-            // 4. 我的空间
-        } else {
-            // 没有登录
-            message.text = @"请点击［此处登录］";
-            UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
-            btn.frame = message.frame;
-            btn.backgroundColor = [UIColor clearColor];
-            [btn addTarget:self action:@selector(onLogin:) forControlEvents:UIControlEventTouchUpInside];
-            [self.view addSubview:btn];
-        }
-        
-        action = [iOSAction initWithName: @"我的码" class: @"UCMyCode"];
-        [action setIcon: @"cc"];
-        //[action setNib: @"MoneyTrans"];
-        [items addObject: action];
-        //[action release];
-        
-        action = [iOSAction initWithName: @"我的收藏" class: @"FaviroteViewController"];
-        [action setIcon: @"dd"];
-        [items addObject: action];
-        //[action release];
-        [self.tableView reloadData];
-    }
+   
 }
 
 #pragma mark -
@@ -371,17 +380,29 @@ static int iTimes = -1;
 {
 	//CGSize size = [@"123" sizeWithFont:fontInfo constrainedToSize:CGSizeMake(labelWidth, 20000) lineBreakMode:UILineBreakModeWordWrap];
 	//return size.height + 10; // 10即消息上下的空间，可自由调整 
-	return 40;
+	return 44;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    // NSLog(@"加载");
+    
+    tableView.backgroundColor = [UIColor clearColor];
+    
+    
     static NSString *CellIdentifier = @"Cell";
     
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    UCCell *cell = [[UCCell alloc]init];
     if (cell == nil) {
-        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier] autorelease];
+        
+        cell = [[[UCCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
+        
+       
     }
-    // Configure the cell.
+    UIImage *image = [UIImage imageNamed:@"uc-cell.png"];
+    //   UIImage *himage = [UIImage imageNamed:@"uc-cell-h.png"];
+    [cell setBackgroundImage:image];
+    
+    // Configure the cell.s
     int pos = [indexPath section];
     if (pos >= [items count]) {
         //[cell release];
@@ -389,15 +410,20 @@ static int iTimes = -1;
     }
     iOSAction *info = [items objectAtIndex: pos];
     // 设定左边图标
-    cell.imageView.image = [[UIImage imageNamed:@"unknown3.png"] toSize:CGSizeMake(36, 36)];
+    //改变cellimgaeView的宽
+    [cell layoutSubviews];
+    //让图片剧中
+   // cell.imageView.contentMode = UIViewContentModeCenter;
+    cell.imageView.image = [[UIImage imageNamed:@"unknown3.png"] toSize:CGSizeMake(32, 24)];
     if ([info icon] != nil) {
-        cell.imageView.image = [[UIImage imageNamed:[info icon]] toSize:CGSizeMake(36, 36)];
+        cell.imageView.image = [[UIImage imageNamed:[info icon]] toSize:CGSizeMake(32, 24)];
     }
+    
     // 设定标题
     cell.textLabel.text = [info title];
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-    
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    /*
     // 突出效果
     UIView *effectView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];
     effectView.backgroundColor = [UIColor whiteColor]; // 把背景設成白色
@@ -414,19 +440,33 @@ static int iTimes = -1;
     effectView.layer.borderWidth = 2.0;
     effectView.layer.borderColor = [[UIColor lightTextColor] CGColor];
     
-    /*CAGradientLayer *gradient = [CAGradientLayer layer];
+    CAGradientLayer *gradient = [CAGradientLayer layer];
     gradient.frame = sampleView.bounds;
     gradient.colors = [NSArray arrayWithObjects:(id)[[UIColor whiteColor] CGColor], (id)[[UIColor grayColor] CGColor], nil]; // 由上到下的漸層顏色
     [effectView.layer insertSublayer:gradient atIndex:0];
-    */
-    [cell setBackgroundView:effectView];
     
+    [cell setBackgroundView:effectView];
+    */
     return cell;
+    [cell release];
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+  
+    
     // Navigation logic may go here. Create and push another view controller.
-    NSLog(@"module goto...");
+    //NSLog(@"module goto...");
+    
+     UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
+    UIImage *himage = [UIImage imageNamed:@"uc-cell-h.png"];
+    [cell setBackgroundImage:himage];
+    
+    if (![Api isOnLine]) {
+        [self gotoLogin];
+        return;
+    }
+
     iOSAction *action = [items objectAtIndex:indexPath.section];
     if ([action.action isSame:@"UCMyCode"]) {
         if (![Api isOnLine]) {

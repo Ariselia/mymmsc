@@ -9,7 +9,8 @@
 #import "UCMyComments.h"
 #import "Api+UserCenter.h"
 #import "UCUpdateNikename.h"
-
+#import "UCCell.h"
+#import "UITableViewCellExt.h"
 @interface UCMyComments ()
 
 @end
@@ -88,12 +89,24 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated {
+    [iOSApi showAlert:@"正在获取留言信息..."];
+
+    [self.tableView setBackgroundColor:[UIColor clearColor]];
+    self.tableView.separatorStyle = NO;
+    
     if ([_items count] == 0) {
         // 预加载项
         _items = [[NSMutableArray alloc] initWithCapacity:0];
     }
-    //[iOSApi showAlert:@"正在获取用户信息..."];
-    //[iOSApi closeAlert];
+    //[iOSApi showAlert:@"正在获取留言信息..."];
+    [iOSApi closeAlert];
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+	//CGSize size = [@"123" sizeWithFont:fontInfo constrainedToSize:CGSizeMake(labelWidth, 20000) lineBreakMode:UILineBreakModeWordWrap];
+	//return size.height + 10; // 10即消息上下的空间，可自由调整 
+	return 60;
 }
 
 - (UITableViewCell *)configure:(UITableViewCell *)cell withObject:(id)object {
@@ -101,12 +114,68 @@
     // 设置字体
     UIFont *textFont = [UIFont systemFontOfSize:15.0];
     UIFont *detailFont = [UIFont systemFontOfSize:10.0];
-    //cell.imageView.image = [[iOSApi imageNamed:[Api typeIcon:obj.type]] scaleToSize:CGSizeMake(36, 36)];
+    
+    // 加载照片
+    UIImage *im = nil;
+    BOOL bDown = NO;
+    // 取得照片文件名
+    NSString *photoName = [Api uc_photo_name:obj.commentUserId];
+    // 组织照片本地文件路径
+    NSString *filePath = [iOSFile path:[Api filePath:photoName]];
+    iOSLog(@"filePath = %@", filePath);
+    NSData *data = [NSData dataWithContentsOfFile:filePath];
+    if (![Api fileIsExists:photoName] || data.length == 0) {
+        bDown = YES;
+    } else {
+        im = [UIImage imageWithData:data];
+        if (im == nil) {
+            [iOSFile remove:[Api filePath:photoName]];
+            bDown = YES;
+        } else {
+            bDown = NO;
+        }
+    }
+    if (bDown) {
+        // 如果照片不存在, 进行下载
+        [Api uc_photo_down:obj.commentUserId];
+    }
+    
+    CGRect frame = CGRectMake(0.00f, 5.00f, 45, 45);
+    cell.imageView.frame = frame;
+    if ([Api fileIsExists:photoName]) {
+        data = [NSData dataWithContentsOfFile:filePath];
+        if (data.length > 0) {
+            im = [[UIImage imageWithData:data]toSize: CGSizeMake(40, 40)];
+        } else {
+            im = [[UIImage imageNamed:@"uc-unkonw.png"]toSize: CGSizeMake(40, 40)];
+        }
+    } else {
+        im = [[UIImage imageNamed:@"uc-unkonw.png"]toSize:CGSizeMake(40, 40)];
+    }
+    [cell.imageView loadImage:im]; 
+    
     //cell.textLabel.text = [NSString stringWithFormat:@"%@ 的评论", obj.username];
+    /*
+    static NSString *CellIdentifier = @"Cell";
+    
+    cell = [[UCCell alloc]init];
+    if (cell == nil) {
+        
+        cell = [[[UCCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
+        
+        
+    }
+     */
+    
+    UIImage *image = [[UIImage imageNamed:@"uc-cell.png"] toSize: CGSizeMake(320, 60)];
+    
+    [cell setBackgroundImage:image];
+    
+   // cell.imageView.image = [[iOSApi imageNamed:[Api typeIcon:obj.type]] scaleToSize:CGSizeMake(36, 36)];
     cell.textLabel.text = obj.commentName;
     cell.textLabel.font = textFont;
     
-    UILabel *dt = [[UILabel alloc] initWithFrame:CGRectMake(170, 0, 105, 20)];
+    UILabel *dt = [[UILabel alloc] initWithFrame:CGRectMake(170, 20, 105, 10)];
     dt.font = detailFont;
     dt.text = obj.commentDate;
     dt.backgroundColor = [UIColor clearColor];
@@ -116,30 +185,7 @@
     cell.detailTextLabel.font = detailFont;
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-    // 突出效果
-    UIView *effectView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];
-    effectView.backgroundColor = [UIColor whiteColor]; // 把背景設成白色
-    //effectView.backgroundColor = [UIColor clearColor]; // 透明背景
-    
-    effectView.layer.cornerRadius = 4.0f; // 圓角的弧度
-    effectView.layer.masksToBounds = NO;
-    
-    effectView.layer.shadowColor = [[UIColor blackColor] CGColor];
-    effectView.layer.shadowOffset = CGSizeMake(1.0f, 1.0f); // [水平偏移, 垂直偏移]
-    effectView.layer.shadowOpacity = 0.5f; // 0.0 ~ 1.0 的值
-    effectView.layer.shadowRadius = 1.0f; // 陰影發散的程度
-    
-    effectView.layer.borderWidth = 2.0;
-    effectView.layer.borderColor = [[UIColor lightTextColor] CGColor];
-    
-    /*CAGradientLayer *gradient = [CAGradientLayer layer];
-     gradient.frame = sampleView.bounds;
-     gradient.colors = [NSArray arrayWithObjects:(id)[[UIColor whiteColor] CGColor], (id)[[UIColor grayColor] CGColor], nil]; // 由上到下的漸層顏色
-     [effectView.layer insertSublayer:gradient atIndex:0];
-     */
-    [cell setBackgroundView:effectView];
-    [effectView release];
-    return cell;
+        return cell;
 }
 
 - (NSArray *)reloadData:(iOSTableViewController *)tableView {
@@ -159,9 +205,31 @@
     return list;
 }
 
-
+/*
 - (void)tableView:(UITableViewCell *)cell onCustomAccessoryTapped:(id)object {
+    
+   // UIImage *himage = [UIImage imageNamed:@"uc-cell-h.png"];
+    //[cell setBackgroundImage:himage];
     ucComment *obj = object;
+    UCUpdateNikename *nextView = [[UCUpdateNikename alloc] init];
+    nextView.idDest = obj.commentUserId;
+    [self.navigationController pushViewController:nextView animated:YES];
+    [nextView release];
+}
+*/
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    
+    
+    // Navigation logic may go here. Create and push another view controller.
+    //NSLog(@"module goto...");
+    
+    UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
+    UIImage *himage = [[UIImage imageNamed:@"uc-cell-h.png"] toSize: CGSizeMake(320, 60)];
+    [cell setBackgroundImage:himage];
+    
+    ucComment *obj = [self objectForIndexPath:indexPath];
+
     UCUpdateNikename *nextView = [[UCUpdateNikename alloc] init];
     nextView.idDest = obj.commentUserId;
     [self.navigationController pushViewController:nextView animated:YES];

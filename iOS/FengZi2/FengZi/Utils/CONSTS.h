@@ -8,7 +8,7 @@
 
 #define REQUEST_DOMAIN @"http://cx.itotemstudio.com/api.php" // default env
 
-#define API_QRCODE_DIMENSION (100) // 二维码尺寸
+#define API_QRCODE_DIMENSION (150) // 二维码尺寸
 #define APPSTORE_URL @"http://itunes.apple.com/us/app//id494490342?l=zh&ls=1&mt=8"//appstore 地址
 #define REQUEST_URL @"http://m.ifengzi.cn/mb"
 #define DEFAULT_SEARCH @"http://www.baidu.com/s?wd=%@"

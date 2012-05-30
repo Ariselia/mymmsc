@@ -48,7 +48,7 @@
 - (IBAction)doRegister:(id)sender {
     NSString *uid = [[userId text] trim];
     NSString *pwd = [[passwd text] trim];
-    NSString *pwd2 = [passwd2.text trim];
+  //  NSString *pwd2 = [passwd2.text trim];
     NSString *acd = [[authcode text] trim];
     NSString *nicname = [nikename.text trim];
     BOOL bRet = [iOSApi regexpMatch:uid withPattern:@"[0-9]{11}"];
@@ -57,11 +57,13 @@
         [userId becomeFirstResponder];
         return;
     }
+    /*
     if (![pwd isEqualToString:pwd2]) {
         [iOSApi Alert:ALERT_TITLE message:@"两次输入密码不相同，请重新输入。"];
         [passwd becomeFirstResponder];
         return;
     }
+     */
     /*
      if (srvAuthcode == nil || srvAuthcode.length == 0) {
         [iOSApi Alert:ALERT_TITLE message:@"验证码无效，请点击 获取验证码。"];
@@ -76,7 +78,7 @@
     }
      */
     // 判断协议
-    if (![confirmProto isOn]) {
+    if (!isCheck) {
         [iOSApi Alert:ALERT_TITLE message:@"注册账号请先确定注册协议。"];
         return;
     }
@@ -100,6 +102,7 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    isCheck = YES;
     UIImage *image = [UIImage imageNamed:@"navigation_bg.png"];
     Class ios5Class = (NSClassFromString(@"CIImage"));
     if (nil != ios5Class) {
@@ -213,17 +216,19 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated {
-    if ([items count] == 0) {
-        // 预加载项
-        CGRect frame = CGRectMake(90.f, 8.0f, 120, 25);
+    isShowPwd = NO;
+        CGRect frame = CGRectMake(0, 0, 5, 25);
+        UIView *view = [[UIView alloc] initWithFrame:frame];
+        UIView *view1 = [[UIView alloc] initWithFrame:frame];
+        UIView *view2 = [[UIView alloc] initWithFrame:frame];
+        UIView *view3 = [[UIView alloc] initWithFrame:frame];
         iOSInput *input = nil;
-        items = [[NSMutableArray alloc] initWithCapacity:0];
-                
         // 手机号
         input = [[iOSInput new] autorelease];
         [input setName:@"手机号"];
         [input setTag:TAG_REG_NAME];
-        userId = [[UITextField alloc] initWithFrame:frame];
+        userId.leftView = view;
+        userId.leftViewMode = UITextFieldViewModeAlways;
         userId.tag = input.tag;
 		userId.returnKeyType = UIReturnKeyNext;
 		userId.borderStyle = _borderStyle;
@@ -233,13 +238,14 @@
 		[userId addTarget:self action:@selector(textRestore:) forControlEvents:UIControlEventEditingDidEndOnExit];
 		[userId addTarget:self action:@selector(textUpdate:) forControlEvents:UIControlEventEditingChanged];
         [input setObject: userId];
-        [items addObject: input];
-        
+               
         // 密码
         input = [[iOSInput new] autorelease];
         [input setName:@"密码"];
         [input setTag:TAG_REG_PASSWD];
-        passwd = [[UITextField alloc] initWithFrame:frame];
+        passwd.leftView = view1;
+        passwd.leftViewMode = UITextFieldViewModeAlways;
+
         [passwd setSecureTextEntry:YES];
         passwd.tag = input.tag;
 		passwd.returnKeyType = UIReturnKeyDone;
@@ -250,8 +256,9 @@
 		[passwd addTarget:self action:@selector(textRestore:) forControlEvents:UIControlEventEditingDidEndOnExit];
 		[passwd addTarget:self action:@selector(textUpdate:) forControlEvents:UIControlEventEditingChanged];
         [input setObject: passwd];
-        [items addObject: input];
         
+        
+        /*
         // 确认密码
         input = [[iOSInput new] autorelease];
         [input setName:@"确认密码"];
@@ -268,11 +275,13 @@
 		[passwd2 addTarget:self action:@selector(textUpdate:) forControlEvents:UIControlEventEditingChanged];
         [input setObject: passwd2];
         [items addObject: input];
-        
+        */
         input = [[iOSInput new] autorelease];
         [input setName:@"短信验证码"];
         [input setTag:TAG_REG_AUTHCODE];
-        authcode = [[UITextField alloc] initWithFrame:frame];
+       
+        authcode.leftView = view2;
+        authcode.leftViewMode = UITextFieldViewModeAlways;
         authcode.tag = input.tag;
 		authcode.returnKeyType = UIReturnKeyDone;
 		authcode.borderStyle = _borderStyle;
@@ -282,13 +291,14 @@
 		[authcode addTarget:self action:@selector(textRestore:) forControlEvents:UIControlEventEditingDidEndOnExit];
 		[authcode addTarget:self action:@selector(textUpdate:) forControlEvents:UIControlEventEditingChanged];
         [input setObject: authcode];
-        [items addObject: input];
+        
         
         // 昵称
         input = [[iOSInput new] autorelease];
         [input setName:@"昵称"];
         [input setTag:TAG_REG_NKNAME];
-        nikename = [[UITextField alloc] initWithFrame:frame];
+        nikename.leftView = view3;
+        nikename.leftViewMode = UITextFieldViewModeAlways;
         nikename.tag = input.tag;
 		nikename.returnKeyType = UIReturnKeyDone;
 		nikename.borderStyle = _borderStyle;
@@ -298,93 +308,33 @@
 		[nikename addTarget:self action:@selector(textRestore:) forControlEvents:UIControlEventEditingDidEndOnExit];
 		[nikename addTarget:self action:@selector(textUpdate:) forControlEvents:UIControlEventEditingChanged];
         [input setObject: nikename];
-        [items addObject: input];
-        
-        // 注册协议
-        input = [[iOSInput new] autorelease];
-        [input setName:@"注册协议"];
-        [input setTag:TAG_REG_PROTO];
-        CGRect swFrame = frame;
-        swFrame.origin.y = 3;
-        confirmProto = [[UISwitch alloc] initWithFrame:swFrame];
-        confirmProto.tag = input.tag;
-		// 绑定事件
-		[confirmProto addTarget:self action:@selector(textRestore:) forControlEvents:UIControlEventEditingDidEndOnExit];
-		[confirmProto addTarget:self action:@selector(textUpdate:) forControlEvents:UIControlEventEditingChanged];
-        
-        [input setObject: confirmProto];
-        [items addObject: input];
-    }
-}
-
-#pragma mark -
-#pragma mark UITableViewDataSource
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 1;
-}
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    //return 2;
-    return [items count];
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-	return 30;
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+       
+        [view release];
+        [view1 release];
+        [view2 release];
+        [view3 release];
     
-    static NSString *CellIdentifier = @"Cell";
-    
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    if (cell == nil) {
-        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier] autorelease];
-    }
-    // Configure the cell.
-    int pos = [indexPath row];
-    if (pos >= [items count]) {
-        //[cell release];
-        return nil;
-    }
-    [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
-    iOSInput *obj = [items objectAtIndex: pos];
-    // 设定标题
-    cell.textLabel.text = [NSString stringWithFormat:@"%-20@", [obj name]];
-    cell.textLabel.font = font;
-    cell.selectionStyle = UITableViewCellSelectionStyleGray;
-    cell.accessoryType = UITableViewCellAccessoryNone;
-    [cell setBackgroundColor: [UIColor clearColor]];
-    // 设定右边按钮
-    CGRect frame = CGRectMake(200.f, 5.0f, 90, 25);
-    if (obj.tag == TAG_REG_AUTHCODE) {
-        // 密码区域, 点击忘记密码
-        UIButton *btn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-        btn.frame = frame;
-        NSString *btnText = @"获取验证码";
-        [btn setTitle:btnText forState:UIControlStateNormal];
-        [btn setTitle:btnText forState:UIControlStateSelected];
-        [btn addTarget:self action:@selector(getCheckCode:event:) forControlEvents:UIControlEventTouchUpInside];
-        [cell.contentView addSubview:btn];
-    } else if(obj.tag == TAG_REG_PROTO) {
-        // 密码区域, 点击忘记密码
-        UIButton *btn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-        btn.frame = frame;
-        NSString *btnText = @"查看协议";
-        [btn setTitle:btnText forState:UIControlStateNormal];
-        [btn setTitle:btnText forState:UIControlStateSelected];
-        [btn addTarget:self action:@selector(readProto:event:) forControlEvents:UIControlEventTouchUpInside];
-        [cell.contentView addSubview:btn];
-    }
-    [cell.contentView addSubview:[obj object]];
-    return cell;
 }
+
 
 static int iTimes = -1;
-
+- (IBAction)showPwd:(id)sender event:(id)event {
+    [passwd resignFirstResponder];
+    isShowPwd = (!isShowPwd);
+    if (isShowPwd) {
+      UIImage *showimg = [UIImage imageNamed:@"uc-hide.png"];
+      [showPwdBtn setImage:showimg forState:UIControlStateNormal];
+        [passwd setSecureTextEntry:NO];
+    }else {
+        UIImage *hideimg = [UIImage imageNamed:@"uc-show.png"];
+        [showPwdBtn setImage:hideimg forState:UIControlStateNormal];
+        [passwd setSecureTextEntry:YES];
+    }
+     
+    
+}
 // 阅读协议
-- (void)readProto:(id)sender event:(id)event {
+- (IBAction)readProto:(id)sender event:(id)event {
     iTimes = 0;
     NSString *filename = @"protocol.txt";
     filename = [[NSBundle mainBundle] pathForResource:@"protocol" ofType:@"txt"];
@@ -410,18 +360,23 @@ static int iTimes = -1;
 			case 1:
 			{
                 // 同意协议
-                [confirmProto setOn:YES];
+                isCheck = YES;
+                UIImage *isOKImg =[UIImage imageNamed:@"check_ok.png"];
+                [isCheckBtn setImage:isOKImg forState:UIControlStateNormal];
 			}
 				break;
 			default:
-                [confirmProto setOn:NO];
+                isCheck= NO;
+                UIImage *isNOImg =[UIImage imageNamed:@"check_or.png"];
+                [isCheckBtn setImage:isNOImg forState:UIControlStateNormal];
+
 				break;
 		}
 	} else if (iTimes == 1) {
         //
 	}
 }
-- (void)getCheckCode:(id)sender event:(id)event {
+- (IBAction)getCheckCode:(id)sender event:(id)event {
     //NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
     NSString *msg = [userId.text trim];
     BOOL bRet = [iOSApi regexpMatch:msg withPattern:@"[0-9]{11}"];
@@ -441,5 +396,16 @@ static int iTimes = -1;
     }
     //[pool release];
 }
-
+- (IBAction)doOK:(id)sender
+{
+    isCheck = (!isCheck);
+    if (isCheck) {
+        UIImage *isOKImg =[UIImage imageNamed:@"check_ok.png"];
+        [isCheckBtn setImage:isOKImg forState:UIControlStateNormal];
+    }
+    else {
+        UIImage *isNOImg =[UIImage imageNamed:@"check_or.png"];
+        [isCheckBtn setImage:isNOImg forState:UIControlStateNormal];
+    }
+}
 @end

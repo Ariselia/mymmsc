@@ -11,7 +11,8 @@
 
 #import "SHK.h"
 #import "ShareView.h"
-
+#import "SHKSina.h"
+#import "SHKTencent.h"
 @interface UCMySpace ()
 
 @end
@@ -42,10 +43,23 @@
     [actionSheet showInView:self.view];
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+
+}
 - (void)viewDidLoad
 {
+    
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    UIImage *qqImage = [UIImage imageNamed:@"uc-btn-lan-x.png"];
+    UIImage *sinaImage = [UIImage imageNamed:@"uc-btn-lan-s.png"];
+    
+    [qqBtn setAlpha:0.5];
+    [sinaBtn setAlpha:0.5];
+    
+    [qqBtn setImage:qqImage forState:UIControlStateHighlighted];
+    [sinaBtn setImage:sinaImage forState:UIControlStateHighlighted];
+    
     UIImage *image = [UIImage imageNamed:@"navigation_bg.png"];
     Class ios5Class = (NSClassFromString(@"CIImage"));
     if (nil != ios5Class) {
@@ -70,7 +84,7 @@
     UIBarButtonItem *backitem = [[UIBarButtonItem alloc] initWithCustomView:backbtn];
     self.navigationItem.leftBarButtonItem = backitem;
     [backitem release];
-    
+    /*
     UIButton *_btnRight = [UIButton buttonWithType:UIButtonTypeCustom];
     _btnRight.frame = CGRectMake(0, 0, 60, 32);
     [_btnRight setImage:[UIImage imageNamed:@"share.png"] forState:UIControlStateNormal];
@@ -79,7 +93,7 @@
     UIBarButtonItem *rightItem = [[UIBarButtonItem alloc] initWithCustomView:_btnRight];
     self.navigationItem.rightBarButtonItem = rightItem;
     [rightItem release];
-    
+    */
     NSString *str = [NSString stringWithFormat:@"%@?userId=%d", API_URL_SHOW, [Api userId]];
     imageView.image = [Api generateImageWithInput:str];
 }
@@ -89,6 +103,9 @@
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
+    sinaBtn=nil;
+    qqBtn=nil;
+    imageView=nil;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -96,4 +113,23 @@
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
+-(IBAction)shareToQQ:(id)sender
+{
+    SHKItem *item = [SHKItem text:@"我制做一个超炫的二维码，大家快来扫扫看！\n来自 @北京蜂侠飞 蜂子客户端"];
+    item.image = imageView.image;
+    item.shareType = SHKShareTypeImage;
+    item.title = @"我制做一个超炫的二维码，大家快来扫扫看！";
+    [SHKTencent shareItem:item];
+   // [self dismissWithClickedButtonIndex:0 animated:YES];
+
+}
+
+-(IBAction)shareToSina:(id)sender
+{
+    SHKItem *item = [SHKItem text:@"我制做一个超炫的二维码，大家快来扫扫看！\n来自 @i蜂子 客户端"];
+    item.image = imageView.image;
+    item.shareType = SHKShareTypeImage;
+    item.title = @"我制做一个超炫的二维码，大家快来扫扫看！";
+    [SHKSina shareItem:item];
+}
 @end

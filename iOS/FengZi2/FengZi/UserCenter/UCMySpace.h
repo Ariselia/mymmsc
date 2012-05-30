@@ -11,8 +11,12 @@
 // 我的空间
 @interface UCMySpace : UIViewController{
     //
+    IBOutlet UIButton *sinaBtn;
+    IBOutlet UIButton *qqBtn;
 }
 
 @property (nonatomic, retain) IBOutlet UIImageView *imageView;
 
+-(IBAction)shareToSina:(id)sender;
+-(IBAction)shareToQQ:(id)sender;
 @end

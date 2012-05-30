@@ -11,7 +11,7 @@
 #import <iOSApi/iOSActivityIndicator.h>
 #import "UCRegister.h"
 #import "UCForget.h"
-
+#import "UCWebView.h"
 #define TAG_LOGIN_BASE   (200000)
 #define TAG_LOGIN_NAME   (TAG_LOGIN_BASE + 1)
 #define TAG_LOGIN_PASSWD (TAG_LOGIN_BASE + 2)
@@ -24,7 +24,7 @@
 
 @synthesize tableView=_tableView;
 @synthesize bDownload;
-@synthesize backModel;
+@synthesize bModel;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -32,7 +32,6 @@
     if (self) {
         // Custom initialization
         bDownload = NO;
-        backModel = kLoginBackDefault;
     }
     return self;
 }
@@ -48,43 +47,115 @@
 #pragma mark - View lifecycle
 
 - (IBAction)btnSelectIsSavePasswd:(id)sender {
+    if (toSave) {
+      
+        [isSaveBtn setImage:[UIImage imageNamed:@"check_or.png"] forState:UIControlStateNormal];   
+    }
+    else {
+      
+        [isSaveBtn setImage:[UIImage imageNamed:@"check_ok.png"] forState:UIControlStateNormal]; 
+    }
+
+    
     toSave = (!toSave);
-    [isSavePasswd setOn:toSave];
+   
     NSString *value = nil;
-    if (isSavePasswd) {
+    if (toSave) {
         value = @"1";
+        
     } else {
         value = @"0";
         [iOSApi cacheSetObject: API_CACHE_USERID value: @""];
-        [iOSApi cacheSetObject: API_CACHE_PASSWD value: @""];
+        //[iOSApi cacheSetObject: API_CACHE_PASSWD value: @""];
     }
+    NSLog(@"%@",value);
     [iOSApi cacheSetObject: API_CACHE_ISSAVE value: value];
 }
 
 // 返回上一个界面
 - (void)goBack{
-    if (backModel == kLoginBackModel) {
-        [self dismissModalViewControllerAnimated:YES];
-    } else if (backModel == kLoginBackRoot) {
+    if (!bModel) {
         [self.navigationController popToRootViewControllerAnimated:YES];
     } else {
-        [self.navigationController popViewControllerAnimated:YES];
+        [self dismissModalViewControllerAnimated:YES];
     }
     
     //[self.navigationController popViewControllerAnimated:YES];
 }
 
 // 转向注册页面
-- (void)doReg:(id)sender{
+- (IBAction)doReg:(id)sender{
+    [regBtn setImage:[UIImage imageNamed:@"uc_reg_h.png"] forState:UIControlStateHighlighted]; 
     UCRegister *nextView = [[UCRegister alloc] init];
     [self.navigationController pushViewController:nextView animated:YES];
     [nextView release];
 }
+//写文本
+- (IBAction)doWriteZH:(id)sender{
+    [passwd resignFirstResponder];
+    [userId becomeFirstResponder];
+    userId.textColor = [UIColor blackColor];
+    if([userId.text isEqualToString:@"账号"])
+    {
+     userId.text = @"";
+    }
+}
+- (IBAction)doWriteMM:(id)sender{
+    [passwd setSecureTextEntry:YES];
+    [userId resignFirstResponder];
+    [passwd becomeFirstResponder];
+    passwd.textColor = [UIColor blackColor];
+    if([passwd.text isEqualToString:@"密码"])
+    {
+        passwd.text = @"";
+    }
+    
+}
+ 
+
+
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.    
+    // Do any additional setup after loading the view from its nib.
+    UIImage *image = [UIImage imageNamed:@"navigation_bg.png"];
+    Class ios5Class = (NSClassFromString(@"CIImage"));
+    if (nil != ios5Class) {
+        [self.navigationController.navigationBar setBackgroundImage:image forBarMetrics:UIBarMetricsDefault];
+    } else {
+        self.navigationController.navigationBar.layer.contents = (id)[UIImage imageNamed:@"navigation_bg.png"].CGImage;
+    }
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(110, 0, 100,44)];
+    label.backgroundColor = [UIColor clearColor];
+    label.textAlignment = UITextAlignmentCenter;
+    label.font = [UIFont fontWithName:@"黑体" size:60];
+    label.textColor = [UIColor blackColor];
+    label.text= @"登录";
+    self.navigationItem.titleView = label;
+    [label release];
+    
+    UIButton *backbtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    backbtn.frame =CGRectMake(0, 0, 60, 32);
+    [backbtn setImage:[UIImage imageNamed:@"back.png"] forState:UIControlStateNormal];
+    [backbtn setImage:[UIImage imageNamed:@"back_tap.png"] forState:UIControlStateHighlighted];
+    [backbtn addTarget:self action:@selector(goBack) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *backitem = [[UIBarButtonItem alloc] initWithCustomView:backbtn];
+    self.navigationItem.leftBarButtonItem = backitem;
+    [backitem release];
+    /*
+    _btnRight = [UIButton buttonWithType:UIButtonTypeCustom];
+    _btnRight.frame = CGRectMake(0, 0, 60, 32);
+    [_btnRight setImage:[UIImage imageNamed:@"uc-reg2.png"] forState:UIControlStateNormal];
+    [_btnRight setImage:[UIImage imageNamed:@"uc-reg2.png"] forState:UIControlStateHighlighted];
+    [_btnRight addTarget:self action:@selector(doReg:) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *rightItem = [[UIBarButtonItem alloc] initWithCustomView:_btnRight];
+    self.navigationItem.rightBarButtonItem = rightItem;
+    [rightItem release];
+    */
+    _borderStyle = UITextBorderStyleNone;
+    font = [UIFont systemFontOfSize:13.0];
+    
 }
 
 - (void)viewDidUnload
@@ -102,13 +173,19 @@
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
-	[textField resignFirstResponder];
+    [passwd setSecureTextEntry:YES];
+    [userId resignFirstResponder];
+    [passwd becomeFirstResponder];
+	
 	return YES;
 }
 
 - (BOOL)switchShouldReturn:(UISwitch *)field
 {
-	//
+	
+    [passwd resignFirstResponder];
+    [userId becomeFirstResponder];
+
 	return YES;
 }
 
@@ -132,30 +209,23 @@
 }
 
 // 文本框变动的时候
-- (void)textUpdate:(id)sender {
-	if ([sender isKindOfClass: [UITextField class]]) {
+- (IBAction)textUpdate:(id)sender {
+     
         UITextField *field = sender;
         
         NSString *msg = [field.text trim];
-        int tag = [field tag];
-        if (tag == TAG_LOGIN_NAME && ![iOSApi regexpMatch:msg withPattern:@"[0-9]+"]) {
-            //
-        }
-        if (tag == TAG_LOGIN_NAME && msg.length >= ISP_PHONE_MAXLENGTH) {
-            if ([iOSApi regexpMatch:msg withPattern:@"[0-9]{11}"]) {
-                [field resignFirstResponder];
-#if UC_AUTHCODE_FROM_USERNAME
-                [NSThread detachNewThreadSelector:@selector(authWaiting:) toTarget:self withObject:field];
-#endif
-            } else {
+
+    if (![iOSApi regexpMatch:msg withPattern:@"[0-9]{11}"]){
+            
                 // 非手机号码
-                [iOSApi Alert:@"手机号码输入提示" message:@"非11位手机号码，请重新输入。"];
-                [userId becomeFirstResponder];
-            }
-        }
+        [iOSApi Alert:@"手机号码输入提示" message:@"非11位手机号码，请重新输入。"];
+        [self switchShouldReturn:sender];
+        
+        
 	} else {
-		[self switchShouldReturn: sender];
+		[self textFieldShouldReturn: sender];
 	}
+    
 }
 
 // 恢复数据到文本框
@@ -188,6 +258,21 @@
 
 // 登录
 - (IBAction)doLogin:(id)sender {
+    
+    /*
+    UCWebView *nextView = [[UCWebView alloc] init];
+    nextView.webtitle = @"标题";
+    nextView.weburl = @"http://baidu.com";
+    [self.navigationController pushViewController:nextView animated:YES];
+    [nextView release];
+    */
+   
+    
+
+    
+     [loginBtn setImage:[UIImage imageNamed:@"uc_login_h.png"] forState:UIControlStateHighlighted];
+    [userId resignFirstResponder];
+    [passwd resignFirstResponder];
     BOOL bTestor = YES;
     NSString *uid = [[userId text] trim];
     NSString *pwd = [[passwd text] trim];
@@ -231,192 +316,80 @@
         [iOSApi showAlert:iRet.message];
         [iOSApi closeAlert];
     }
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated {
-    UIImage *image = [UIImage imageNamed:@"navigation_bg.png"];
-    Class ios5Class = (NSClassFromString(@"CIImage"));
-    if (nil != ios5Class) {
-        [self.navigationController.navigationBar setBackgroundImage:image forBarMetrics:UIBarMetricsDefault];
-    } else {
-        self.navigationController.navigationBar.layer.contents = (id)[UIImage imageNamed:@"navigation_bg.png"].CGImage;
-    }
-    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(110, 0, 100,44)];
-    label.backgroundColor = [UIColor clearColor];
-    label.textAlignment = UITextAlignmentCenter;
-    label.font = [UIFont fontWithName:@"黑体" size:60];
-    label.textColor = [UIColor blackColor];
-    label.text= @"登录";
-    self.navigationItem.titleView = label;
-    [label release];
-    
-    UIButton *backbtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    backbtn.frame =CGRectMake(0, 0, 60, 32);
-    [backbtn setImage:[UIImage imageNamed:@"back.png"] forState:UIControlStateNormal];
-    [backbtn setImage:[UIImage imageNamed:@"back_tap.png"] forState:UIControlStateHighlighted];
-    [backbtn addTarget:self action:@selector(goBack) forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem *backitem = [[UIBarButtonItem alloc] initWithCustomView:backbtn];
-    self.navigationItem.leftBarButtonItem = backitem;
-    [backitem release];
-    
-    _btnRight = [UIButton buttonWithType:UIButtonTypeCustom];
-    _btnRight.frame = CGRectMake(0, 0, 60, 32);
-    [_btnRight setImage:[UIImage imageNamed:@"uc-reg2.png"] forState:UIControlStateNormal];
-    [_btnRight setImage:[UIImage imageNamed:@"uc-reg2.png"] forState:UIControlStateHighlighted];
-    [_btnRight addTarget:self action:@selector(doReg:) forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem *rightItem = [[UIBarButtonItem alloc] initWithCustomView:_btnRight];
-    self.navigationItem.rightBarButtonItem = rightItem;
-    [rightItem release];
-    
-    _borderStyle = UITextBorderStyleNone;
-    font = [UIFont systemFontOfSize:13.0];
-    if ([items count] == 0) {
+        //清除高亮
+     //   [forgetPwdBtn setImage:[UIImage imageNamed:@"forgetpwd.png"] forState:UIControlStateHighlighted];
         toSave = NO;
         NSString *sUserId = [Api userPhone];//[iOSApi objectForCache: API_CACHE_USERID];
         NSString *sPasswd = [Api passwd];//[iOSApi objectForCache: API_CACHE_PASSWD];
         NSString *flag = [iOSApi objectForCache: API_CACHE_ISSAVE];
-        if ([flag isEqualToString: @"1"]) {
-            toSave = YES;
-            [passwd setText: sPasswd];
-        } else {
-            toSave = NO;
-        }
-        //[self btnSelected: toSave isSelected: isSavePasswd];
-        // 预加载项
-        CGRect frame = CGRectMake(90.f, 8.0f, 120, 25);
         iOSInput *input = nil;
-        items = [[NSMutableArray alloc] initWithCapacity:0];
-        
         input = [[iOSInput new] autorelease];
         [input setName:@"用户名"];
         [input setTag:TAG_LOGIN_NAME];
-        userId = [[UITextField alloc] initWithFrame:frame];
+       
         userId.tag = input.tag;
         userId.text = sUserId;
-		userId.returnKeyType = UIReturnKeyNext;
-		userId.borderStyle = _borderStyle;
+        userId.returnKeyType = UIReturnKeyNext;
+        userId.borderStyle = _borderStyle;
         userId.placeholder = @"输入手机号";
         userId.font = font;
-		// 绑定事件
-		[userId addTarget:self action:@selector(textRestore:) forControlEvents:UIControlEventEditingDidEndOnExit];
-		[userId addTarget:self action:@selector(textRestore:) forControlEvents:UIControlEventEditingDidEnd];
-		[userId addTarget:self action:@selector(textUpdate:) forControlEvents:UIControlEventEditingChanged];
         [input setObject: userId];
-        [items addObject: input];
-        
+    
         input = [[iOSInput new] autorelease];
         [input setName:@"密码"];
         [input setTag:TAG_LOGIN_PASSWD];
-        passwd = [[UITextField alloc] initWithFrame:frame];
+   
         [passwd setSecureTextEntry:YES];
         passwd.tag = input.tag;
-        passwd.text = sPasswd;
-		passwd.returnKeyType = UIReturnKeyDone;
-		//userId.delegate = self;
-		passwd.borderStyle = _borderStyle;
+       // passwd.text = sPasswd;
+        passwd.returnKeyType = UIReturnKeyDone;
+    //userId.delegate = self;
+        passwd.borderStyle = _borderStyle;
         passwd.placeholder = @"输入密码";
         passwd.font = font;
-		// 绑定事件
-		[passwd addTarget:self action:@selector(textRestore:) forControlEvents:UIControlEventEditingDidEndOnExit];
-		//[passwd addTarget:self action:@selector(textUpdate:) forControlEvents:UIControlEventEditingChanged];
+    
         [input setObject: passwd];
-        [items addObject: input];
         
-        /*
-        input = [[iOSInput new] autorelease];
-        [input setName:@"验证码"];
-        [input setTag:TAG_LOGIN_VAILED];
-        vailed = [[UITextField alloc] initWithFrame:frame];
-        //[vailed setSecureTextEntry:YES];
-        vailed.tag = input.tag;
-		vailed.returnKeyType = UIReturnKeyDone;
-		//userId.delegate = self;
-        vailed.placeholder = @"输入验证码";
-		vailed.borderStyle = _borderStyle;
-        vailed.font = font;
-		// 绑定事件
-		[vailed addTarget:self action:@selector(textRestore:) forControlEvents:UIControlEventEditingDidEndOnExit];
-		//[vailed addTarget:self action:@selector(textUpdate:) forControlEvents:UIControlEventEditingChanged];
+        if(sUserId != nil && ![sUserId isEqualToString:@""])
+        {
+            [userId setText:sUserId];
+            userId.textColor = [UIColor blackColor];
+        }
+    
+        if ([flag isEqualToString: @"1"]) {
+            toSave = YES;
+            if(sPasswd != nil && ![sPasswd isEqualToString:@""])
+            {
+            [passwd setSecureTextEntry:YES];
+            passwd.textColor = [UIColor blackColor];
+            [passwd setText: sPasswd];
+            }
+        } else {
+            toSave = NO;
+        }
+    
+    
+    
+    if (toSave) {
+      
+    [isSaveBtn setImage:[UIImage imageNamed:@"check_ok.png"] forState:UIControlStateNormal];   
+    } else {
+    [isSaveBtn setImage:[UIImage imageNamed:@"check_or.png"] forState:UIControlStateNormal]; 
+    }
+    
+    //userId.keyboardType = UIKeyboardTypeNumberPad;
+    userId.returnKeyType = UIReturnKeyNext;
+    passwd.returnKeyType = UIReturnKeyDone;
         
-        [input setObject: vailed];
-        [items addObject: input];
-        */
-        input = [[iOSInput new] autorelease];
-        [input setName:@"记住密码"];
-        [input setTag:TAG_LOGIN_SAVE];
-        CGRect swFrame = frame;
-        swFrame.origin.y = 3;
-        isSavePasswd = [[UISwitch alloc] initWithFrame:swFrame];
-        isSavePasswd.tag = input.tag;
-        [isSavePasswd setOn:toSave];
-        [input setObject: isSavePasswd];
-        [items addObject: input];
-    }
 }
 
-#pragma mark -
-#pragma mark UITableViewDataSource
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 1;
-}
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    //return 2;
-    return [items count];
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-	return 36;
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    static NSString *CellIdentifier = @"Cell";
-    
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    if (cell == nil) {
-        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier] autorelease];
-    }
-    // Configure the cell.
-    int pos = [indexPath row];
-    if (pos >= [items count]) {
-        //[cell release];
-        return nil;
-    }
-    [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
-    iOSInput *obj = [items objectAtIndex: pos];
-    // 设定标题
-    cell.textLabel.text = [NSString stringWithFormat:@"%-20@", [obj name]];
-    cell.textLabel.font = font;
-    cell.selectionStyle = UITableViewCellSelectionStyleGray;
-    cell.accessoryType = UITableViewCellAccessoryNone;
-    [cell setBackgroundColor: [UIColor clearColor]];
-    // 设定右边按钮
-    CGRect frame = CGRectMake(220.f, 5.0f, 70, 25);
-    if (obj.tag == TAG_LOGIN_VAILED) {
-        // 验证码
-        lbCode = [[[UILabel alloc] initWithFrame:frame] autorelease];
-        lbCode.text = @"----";
-        [cell.contentView addSubview:lbCode];
-    } else if (obj.tag == TAG_LOGIN_PASSWD) {
-        // 密码区域, 点击忘记密码
-        UIButton *btn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-        btn.frame = frame;
-        NSString *btnText = @"忘记密码";
-        [btn setTitle:btnText forState:UIControlStateNormal];
-        [btn setTitle:btnText forState:UIControlStateSelected];
-        [btn addTarget:self action:@selector(doForget:event:) forControlEvents:UIControlEventTouchUpInside];
-        [cell.contentView addSubview:btn];
-        //[btn release];
-    }
-    
-    [cell.contentView addSubview:[obj object]];
-    return cell;
-}
-
-- (void)doForget:(id)sender event:(id)event {
+- (IBAction)doForget:(id)sender{
+   // [forgetPwdBtn setImage:[UIImage imageNamed:@"forgetpwd.png"] forState:UIControlStateHighlighted];   
     UCForget *nextView = [[UCForget alloc] init];
     [self.navigationController pushViewController:nextView animated:YES];
     [nextView release];

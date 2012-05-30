@@ -39,9 +39,11 @@
 
 // 确认, 提交信息
 - (IBAction)doAction:(id)sender {
+    
+    
     NSString *pwd = [passwd.text trim];
     NSString *npwd = [newpasswd.text trim];
-    NSString *npwd2 = [newpasswd2.text trim];
+    //NSString *npwd2 = [newpasswd2.text trim];
     
     // 密码长度判断
     if (pwd.length < 6 || pwd.length > 18) {
@@ -56,20 +58,20 @@
         [newpasswd becomeFirstResponder];
         return;
     }
-    
+     /*
     // 密码长度判断
     if (npwd2.length < 6 || npwd2.length > 18) {
         [iOSApi Alert:ALERT_TITLE message:@"密码必须是6～18位的数字字母。"];
         [newpasswd2 becomeFirstResponder];
         return;
     }
-    
+   
     if (![npwd isEqualToString:npwd2]) {
         [iOSApi Alert:ALERT_TITLE message:@"两次输入的新密码不一致。"];
         [newpasswd becomeFirstResponder];
         return;
     }
-    
+    */
     [iOSApi showAlert:@"正在提交信息..."];
     ApiResult *iRet = [Api updatePassword:pwd newpasswd:npwd];
     [iOSApi closeAlert];
@@ -93,6 +95,8 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    isShowPwd =NO;
+    
     UIImage *image = [UIImage imageNamed:@"navigation_bg.png"];
     Class ios5Class = (NSClassFromString(@"CIImage"));
     if (nil != ios5Class) {
@@ -170,18 +174,21 @@
     [textField resignFirstResponder];
 }
 
+
 - (void)viewWillAppear:(BOOL)animated {
-    if ([items count] == 0) {
+
         // 预加载项
-        CGRect frame = CGRectMake(90.f, 8.0f, 120, 25);
         iOSInput *input = nil;
-        items = [[NSMutableArray alloc] initWithCapacity:0];
-        
+        CGRect frame = CGRectMake(0, 0, 5, 25);
+        UIView *view = [[UIView alloc] initWithFrame:frame];
+        UIView *view1 = [[UIView alloc] initWithFrame:frame];
         // 密码
         input = [[iOSInput new] autorelease];
         [input setName:@"原密码"];
         [input setTag:TAG_FIELD_PASSWD];
-        passwd = [[UITextField alloc] initWithFrame:frame];
+        
+        passwd.leftView= view;
+        passwd.leftViewMode = UITextFieldViewModeAlways;
         [passwd setSecureTextEntry:YES];
         passwd.tag = input.tag;
 		passwd.returnKeyType = UIReturnKeyDone;
@@ -192,13 +199,14 @@
 		[passwd addTarget:self action:@selector(textRestore:) forControlEvents:UIControlEventEditingDidEndOnExit];
 		[passwd addTarget:self action:@selector(textUpdate:) forControlEvents:UIControlEventEditingChanged];
         [input setObject: passwd];
-        [items addObject: input];
+      
         
         // 新密码
         input = [[iOSInput new] autorelease];
         [input setName:@"新密码"];
         [input setTag:TAG_FIELD_NEWPASSWD];
-        newpasswd = [[UITextField alloc] initWithFrame:frame];
+        newpasswd.leftView= view1;
+        newpasswd.leftViewMode = UITextFieldViewModeAlways;
         [newpasswd setSecureTextEntry:YES];
         newpasswd.tag = input.tag;
 		newpasswd.returnKeyType = UIReturnKeyDone;
@@ -209,68 +217,25 @@
 		[newpasswd addTarget:self action:@selector(textRestore:) forControlEvents:UIControlEventEditingDidEndOnExit];
 		[newpasswd addTarget:self action:@selector(textUpdate:) forControlEvents:UIControlEventEditingChanged];
         [input setObject: newpasswd];
-        [items addObject: input];
         
-        // 新密码2
-        input = [[iOSInput new] autorelease];
-        [input setName:@"新密码"];
-        [input setTag:TAG_FIELD_NEWPASSWD2];
-        newpasswd2 = [[UITextField alloc] initWithFrame:frame];
-        [newpasswd2 setSecureTextEntry:YES];
-        newpasswd2.tag = input.tag;
-		newpasswd2.returnKeyType = UIReturnKeyDone;
-		newpasswd2.borderStyle = _borderStyle;
-		newpasswd2.placeholder = @"再输入一次新密码";
-        newpasswd2.font = font;
-        // 绑定事件
-		[newpasswd2 addTarget:self action:@selector(textRestore:) forControlEvents:UIControlEventEditingDidEndOnExit];
-		[newpasswd2 addTarget:self action:@selector(textUpdate:) forControlEvents:UIControlEventEditingChanged];
-        [input setObject: newpasswd2];
-        [items addObject: input];
+        [view release];
+        [view1 release];
+}
+
+
+- (IBAction)showPwd:(id)sender event:(id)event {
+    [newpasswd resignFirstResponder];
+    isShowPwd = (!isShowPwd);
+    if (isShowPwd) {
+        UIImage *showimg = [UIImage imageNamed:@"uc-hide.png"];
+        [showPwdBtn setImage:showimg forState:UIControlStateNormal];
+        [newpasswd setSecureTextEntry:NO];
+    }else {
+        UIImage *hideimg = [UIImage imageNamed:@"uc-show.png"];
+        [showPwdBtn setImage:hideimg forState:UIControlStateNormal];
+        [newpasswd setSecureTextEntry:YES];
     }
-}
-
-#pragma mark -
-#pragma mark UITableViewDataSource
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 1;
-}
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    //return 2;
-    return [items count];
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-	return 30;
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    static NSString *CellIdentifier = @"Cell";
     
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    if (cell == nil) {
-        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier] autorelease];
-    }
-    // Configure the cell.
-    int pos = [indexPath row];
-    if (pos >= [items count]) {
-        //[cell release];
-        return nil;
-    }
-    [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
-    iOSInput *obj = [items objectAtIndex: pos];
-    // 设定标题
-    cell.textLabel.text = [NSString stringWithFormat:@"%-20@", [obj name]];
-    cell.textLabel.font = font;
-    cell.selectionStyle = UITableViewCellSelectionStyleGray;
-    cell.accessoryType = UITableViewCellAccessoryNone;
-    [cell setBackgroundColor: [UIColor clearColor]];
-    [cell.contentView addSubview:[obj object]];
-    return cell;
 }
-
 @end
