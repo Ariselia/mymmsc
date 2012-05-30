@@ -16,7 +16,8 @@
 #import <ZXing/QRCodeReader.h>
 #import <ZXing/TwoDDecoderResult.h>
 #import "FileUtil.h"
-
+#import "UCCell.h"
+#import "UITableViewCellExt.h"
 #import "UCRichMedia.h"
 @implementation FaviroteViewController
 
@@ -116,6 +117,8 @@
     }
 }
 
+#pragma mark -
+#pragma mark UITableViewDataSource
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     FaviroteObject *object = [_favArray objectAtIndex:indexPath.row];
@@ -128,8 +131,9 @@
         [_editbtn setImage:[UIImage imageNamed:@"edit_btn.png"] forState:UIControlStateNormal];
         [_editbtn setImage:[UIImage imageNamed:@"edit_btn_tap.png"] forState:UIControlStateHighlighted];
         [_tableView setEditing:NO animated:YES];
-        [self.view bringSubviewToFront: _noResultView];
+        //[self.view bringSubviewToFront: _noResultView];
     }
+ 
 }
 
 -(UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -156,13 +160,34 @@
     return [_favArray count];;
 }
 
+
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+	//CGSize size = [@"123" sizeWithFont:fontInfo constrainedToSize:CGSizeMake(labelWidth, 20000) lineBreakMode:UILineBreakModeWordWrap];
+	//return size.height + 10; // 10即消息上下的空间，可自由调整 
+	return 60;
+}
+
+
 -(UITableViewCell*) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    NSString *MyIdentifier = @"MyIdentifierFav";
-	UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:MyIdentifier];
+    tableView.backgroundColor = [UIColor clearColor];
+    
+    
+    static NSString *CellIdentifier = @"Cell";
+    
+    UCCell *cell = [[UCCell alloc]init];
     if (cell == nil) {
-        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:MyIdentifier] autorelease];  
-    }    
+        
+        cell = [[[UCCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
+        
+        
+    }
+    UIImage *image = [[UIImage imageNamed:@"uc-cell.png"] toSize: CGSizeMake(320, 60)];
+    //   UIImage *himage = [UIImage imageNamed:@"uc-cell-h.png"];
+    [cell setBackgroundImage:image];
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     FaviroteObject *object = [_favArray objectAtIndex:indexPath.row];
     cell.textLabel.text = object.content;
     cell.textLabel.font = [UIFont systemFontOfSize:16];
@@ -172,6 +197,11 @@
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    UITableViewCell *cell = [_tableView cellForRowAtIndexPath:indexPath];
+    UIImage *himage = [[UIImage imageNamed:@"uc-cell-h.png"] toSize: CGSizeMake(320, 60)];     
+    [cell setBackgroundImage:himage];
+    
     FaviroteObject *object = [_favArray objectAtIndex:indexPath.row];
     [self decoderWithImage:[UIImage imageWithContentsOfFile:[FileUtil filePathInFavirote:object.image]]];
 }
@@ -215,33 +245,42 @@
 
 - (void)viewDidLoad
 {
-    [super viewDidLoad];
-    UIImage *image = [UIImage imageNamed:@"navigation_bg.png"];
-    Class ios5Class = (NSClassFromString(@"CIImage"));
-    if (nil != ios5Class) {
-        [self.navigationController.navigationBar setBackgroundImage:image forBarMetrics:UIBarMetricsDefault];
-    } else {
-        self.navigationController.navigationBar.layer.contents = (id)[UIImage imageNamed:@"navigation_bg.png"].CGImage;
-    }
-        
+    
+    
+     [super viewDidLoad];
+    [_tableView setBackgroundColor:[UIColor clearColor]];
+    _tableView.separatorStyle=UITableViewCellSeparatorStyleNone;
+     UIImage *image = [UIImage imageNamed:@"navigation_bg.png"];
+     Class ios5Class = (NSClassFromString(@"CIImage"));
+     if (nil != ios5Class) {
+     [self.navigationController.navigationBar setBackgroundImage:image forBarMetrics:UIBarMetricsDefault];
+     } else {
+     self.navigationController.navigationBar.layer.contents = (id)[UIImage imageNamed:@"navigation_bg.png"].CGImage;
+     }
+     
+    UIImage *goBackImage = [UIImage imageNamed:@"back_tap.png"];
+    [_goBackBtn setImage:goBackImage forState:UIControlStateHighlighted];
     _favArray = [[NSMutableArray alloc] initWithCapacity:0];
-        
+    
     _refreshFooterView = [[RefreshTableFooterView alloc] init];
     _refreshFooterView.delegate = self;
     [_tableView addSubview:_refreshFooterView];
-
+    
 }
 
 -(void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
+    [iOSApi showAlert:@"正在获取用户信息..."];
     [_favArray removeAllObjects];
     _startIndex = 0;
     [self reloadTableData];
+    [iOSApi closeAlert];
 }
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     self.navigationController.navigationBarHidden = YES;
+   
 }
 
 -(void)viewWillDisappear:(BOOL)animated{

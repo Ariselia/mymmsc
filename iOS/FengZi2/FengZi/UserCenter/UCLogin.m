@@ -24,7 +24,7 @@
 
 @synthesize tableView=_tableView;
 @synthesize bDownload;
-@synthesize bModel;
+@synthesize backModel;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -32,6 +32,7 @@
     if (self) {
         // Custom initialization
         bDownload = NO;
+        backModel = kLoginBackDefault;
     }
     return self;
 }
@@ -48,21 +49,16 @@
 
 - (IBAction)btnSelectIsSavePasswd:(id)sender {
     if (toSave) {
-      
         [isSaveBtn setImage:[UIImage imageNamed:@"check_or.png"] forState:UIControlStateNormal];   
-    }
-    else {
-      
+    } else {
         [isSaveBtn setImage:[UIImage imageNamed:@"check_ok.png"] forState:UIControlStateNormal]; 
     }
-
     
     toSave = (!toSave);
    
     NSString *value = nil;
     if (toSave) {
-        value = @"1";
-        
+        value = @"1";     
     } else {
         value = @"0";
         [iOSApi cacheSetObject: API_CACHE_USERID value: @""];
@@ -74,13 +70,13 @@
 
 // 返回上一个界面
 - (void)goBack{
-    if (!bModel) {
+    if (backModel == kLoginBackModel) {
+        [self dismissModalViewControllerAnimated:YES];
+    } else if (backModel == kLoginBackRoot) {
         [self.navigationController popToRootViewControllerAnimated:YES];
     } else {
-        [self dismissModalViewControllerAnimated:YES];
+        [self.navigationController popViewControllerAnimated:YES];
     }
-    
-    //[self.navigationController popViewControllerAnimated:YES];
 }
 
 // 转向注册页面
@@ -90,6 +86,7 @@
     [self.navigationController pushViewController:nextView animated:YES];
     [nextView release];
 }
+
 //写文本
 - (IBAction)doWriteZH:(id)sender{
     [passwd resignFirstResponder];
@@ -100,6 +97,7 @@
      userId.text = @"";
     }
 }
+
 - (IBAction)doWriteMM:(id)sender{
     [passwd setSecureTextEntry:YES];
     [userId resignFirstResponder];
@@ -109,12 +107,8 @@
     {
         passwd.text = @"";
     }
-    
 }
  
-
-
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -210,22 +204,15 @@
 
 // 文本框变动的时候
 - (IBAction)textUpdate:(id)sender {
-     
-        UITextField *field = sender;
-        
+        UITextField *field = sender;        
         NSString *msg = [field.text trim];
-
     if (![iOSApi regexpMatch:msg withPattern:@"[0-9]{11}"]){
-            
-                // 非手机号码
+        // 非手机号码
         [iOSApi Alert:@"手机号码输入提示" message:@"非11位手机号码，请重新输入。"];
-        [self switchShouldReturn:sender];
-        
-        
+        [self switchShouldReturn:sender];        
 	} else {
 		[self textFieldShouldReturn: sender];
 	}
-    
 }
 
 // 恢复数据到文本框
@@ -266,11 +253,7 @@
     [self.navigationController pushViewController:nextView animated:YES];
     [nextView release];
     */
-   
-    
-
-    
-     [loginBtn setImage:[UIImage imageNamed:@"uc_login_h.png"] forState:UIControlStateHighlighted];
+    [loginBtn setImage:[UIImage imageNamed:@"uc_login_h.png"] forState:UIControlStateHighlighted];
     [userId resignFirstResponder];
     [passwd resignFirstResponder];
     BOOL bTestor = YES;

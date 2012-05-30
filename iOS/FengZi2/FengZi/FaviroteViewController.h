@@ -19,6 +19,7 @@
     int _startIndex;
     BOOL _reloading;
     IBOutlet UIView *_noResultView;
+    IBOutlet UIButton *_goBackBtn;
 }
 - (void)doneLoadingTableViewData;
 - (IBAction)goBack:(id)sender;
