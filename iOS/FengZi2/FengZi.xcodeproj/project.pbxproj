@@ -92,6 +92,9 @@
 		0A58BDFE155F3EDA004574DB /* EFilePortal.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A58BDEE155F3EDA004574DB /* EFilePortal.xib */; };
 		0A58BDFF155F3EDA004574DB /* UITableViewCellExt.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A58BDF0155F3EDA004574DB /* UITableViewCellExt.m */; };
 		0A58BE02155F3F6F004574DB /* Api+eFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A58BE01155F3F6F004574DB /* Api+eFile.m */; };
+		0A6887CC1576715C00F76EE0 /* UCCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A6887C81576715C00F76EE0 /* UCCell.m */; };
+		0A6887CD1576715C00F76EE0 /* UCWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A6887CA1576715C00F76EE0 /* UCWebView.m */; };
+		0A6887CE1576715C00F76EE0 /* UCWebView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A6887CB1576715C00F76EE0 /* UCWebView.xib */; };
 		0A71F1EF15044A41007714BB /* EBuyPortal.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A71F1ED15044A41007714BB /* EBuyPortal.m */; };
 		0A71F1F015044A41007714BB /* EBuyPortal.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A71F1EE15044A41007714BB /* EBuyPortal.xib */; };
 		0A78E4901546436200232D08 /* EBuyEvaluateCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0A78E48F1546436200232D08 /* EBuyEvaluateCell.xib */; };
@@ -942,6 +945,11 @@
 		0A58BDF0155F3EDA004574DB /* UITableViewCellExt.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UITableViewCellExt.m; sourceTree = "<group>"; };
 		0A58BE00155F3F6E004574DB /* Api+eFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Api+eFile.h"; sourceTree = "<group>"; };
 		0A58BE01155F3F6F004574DB /* Api+eFile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Api+eFile.m"; sourceTree = "<group>"; };
+		0A6887C71576715C00F76EE0 /* UCCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UCCell.h; sourceTree = "<group>"; };
+		0A6887C81576715C00F76EE0 /* UCCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UCCell.m; sourceTree = "<group>"; };
+		0A6887C91576715C00F76EE0 /* UCWebView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UCWebView.h; sourceTree = "<group>"; };
+		0A6887CA1576715C00F76EE0 /* UCWebView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UCWebView.m; sourceTree = "<group>"; };
+		0A6887CB1576715C00F76EE0 /* UCWebView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UCWebView.xib; sourceTree = "<group>"; };
 		0A71F1EC15044A41007714BB /* EBuyPortal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EBuyPortal.h; sourceTree = "<group>"; };
 		0A71F1ED15044A41007714BB /* EBuyPortal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EBuyPortal.m; sourceTree = "<group>"; };
 		0A71F1EE15044A41007714BB /* EBuyPortal.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EBuyPortal.xib; sourceTree = "<group>"; };
@@ -3614,6 +3622,11 @@
 				0AF64ED2152673C10017E298 /* UCMySpace.h */,
 				0AF64ED3152673C10017E298 /* UCMySpace.m */,
 				0AF64ED4152673C10017E298 /* UCMySpace.xib */,
+				0A6887C71576715C00F76EE0 /* UCCell.h */,
+				0A6887C81576715C00F76EE0 /* UCCell.m */,
+				0A6887C91576715C00F76EE0 /* UCWebView.h */,
+				0A6887CA1576715C00F76EE0 /* UCWebView.m */,
+				0A6887CB1576715C00F76EE0 /* UCWebView.xib */,
 			);
 			path = UserCenter;
 			sourceTree = "<group>";
@@ -4272,6 +4285,7 @@
 				0A91BEDC1565C44F00E55EAC /* AlixPayDemoViewController.xib in Resources */,
 				0A91BEDD1565C44F00E55EAC /* AlixPayIPadDemoViewController.xib in Resources */,
 				0A8C52DA15689CA00056F40E /* EBuyOrderWap.xib in Resources */,
+				0A6887CE1576715C00F76EE0 /* UCWebView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4535,6 +4549,8 @@
 				0A91BEE41565C44F00E55EAC /* RSADataSigner.m in Sources */,
 				0A91BEE51565C44F00E55EAC /* RSADataVerifier.m in Sources */,
 				0A8C52D915689CA00056F40E /* EBuyOrderWap.m in Sources */,
+				0A6887CC1576715C00F76EE0 /* UCCell.m in Sources */,
+				0A6887CD1576715C00F76EE0 /* UCWebView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
