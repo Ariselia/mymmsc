@@ -12,7 +12,6 @@
 #import "GTMBase64.h"
 #import "CommonUtils.h"
 
-#define API_SERVER  @"http://220.231.48.34:7000"
 #define API_TIMEOUT (10)
 
 #import <QRCode/QREncoder.h>
@@ -100,6 +99,11 @@
             message = @"提交失败";
         }
     }
+#if 1
+    if (status == 403) {
+        [iOSApi toast:@"您没有权限访问蜂子产品"];
+    }
+#endif
     return body;
 }
 
@@ -364,10 +368,6 @@ static UserInfo *cache_info = nil;
     NSMutableDictionary *ret = nil;
     
     NSString *url = action;
-    if (![action hasPrefix:@"http://"]) {
-        url = [NSString stringWithFormat:@"%@/%@", API_SERVER, action];
-    }
-    
     HttpClient *client = [[HttpClient alloc] initWithURL:url timeout:API_TIMEOUT];
     
     [client formAddFields:params];
@@ -388,14 +388,11 @@ static UserInfo *cache_info = nil;
     return ret;
 }
 
-+ (NSMutableDictionary *)post:(NSString *)action header:(NSDictionary *)heads body:(NSData *)params {
++ (NSMutableDictionary *)post:(NSString *)action
+                       header:(NSDictionary *)heads
+                         body:(NSData *)params {
     NSMutableDictionary *ret = nil;
-    
     NSString *url = action;
-    if (![action hasPrefix:@"http://"]) {
-        url = [NSString stringWithFormat:@"%@/%@", API_SERVER, action];
-    }
-    
     HttpClient *client = [[HttpClient alloc] initWithURL:url timeout:API_TIMEOUT];
     
     NSData *response = [client post:heads body:params];

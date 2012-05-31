@@ -156,7 +156,7 @@
     ApiResult *iRet = [[ApiResult alloc] init];
     NSArray *list = (NSArray *)map;
     NSMutableArray *aRet = [[[NSMutableArray alloc] initWithCapacity:0] autorelease];
-    if (list.count > 0) {
+    if ([list isKindOfClass:NSArray.class] && list.count > 0) {
         // 业务数据处理
         aRet = [list toList:ProductInfo.class];
     }

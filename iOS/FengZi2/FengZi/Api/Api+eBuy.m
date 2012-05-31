@@ -203,13 +203,15 @@ static const char *kPayWay[] = {"支付宝客户端支付", "支付宝wap支付"
             ad.url = [data objectForKey:@"mainadurl"];
             [list addObject:ad];
         }
-        for (int i = 1; i <= (data.count - 2)/2; i++) {
-            EBAd *ad = [[[EBAd alloc] init] autorelease];
-            NSString *kPic = [NSString stringWithFormat:@"adpic%d", i];
-            NSString *kUrl = [NSString stringWithFormat:@"adurl%d", i];
-            ad.pic = [data objectForKey:kPic];
-            ad.url = [data objectForKey:kUrl];
-            [list addObject:ad];
+        if (data.count > 2) {
+            for (int i = 1; i <= (data.count - 2)/2; i++) {
+                EBAd *ad = [[[EBAd alloc] init] autorelease];
+                NSString *kPic = [NSString stringWithFormat:@"adpic%d", i];
+                NSString *kUrl = [NSString stringWithFormat:@"adurl%d", i];
+                ad.pic = [data objectForKey:kPic];
+                ad.url = [data objectForKey:kUrl];
+                [list addObject:ad];
+            }
         }
     }
     
