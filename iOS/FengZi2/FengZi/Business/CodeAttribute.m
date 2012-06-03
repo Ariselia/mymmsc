@@ -120,7 +120,8 @@
     }
     return self;
 }
--(NSString*)codeToString{
+
+- (NSString *)codeToString{
     NSMutableString *buffer = [[[NSMutableString alloc] initWithCapacity:0] autorelease];
     [buffer appendString:@"id="];
     [buffer appendFormat:@"%l",_uuid];
