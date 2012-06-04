@@ -186,9 +186,9 @@ static int iTimes = -1;
     if ([fileext isEqualToString:@"gif"]) {
         fileType = @"image/gif";
     } else if([fileext isEqualToString:@"3gp"]) {
-        fileType = @"vedio/3gpp";
+        fileType = @"video/3gpp";
     } else {
-        fileType = @"vedio/mp4";
+        fileType = @"video/mp4";
     }
     [hc formAddFile:@"content" filename:filename type:fileType data:data];
     [hc formAddField:@"token" value:API_INTERFACE_TONKEN];
