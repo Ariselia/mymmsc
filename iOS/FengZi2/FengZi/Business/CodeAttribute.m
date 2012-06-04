@@ -34,7 +34,8 @@
     }
     return self;
 }
--(id)initWithCode:(NSString*)code{
+
+- (id)initWithCode:(NSString*)code{
     self = [super init];
     if (self) {
         if(code == nil){
