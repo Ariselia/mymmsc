@@ -13,7 +13,7 @@ import brut.androlib.ApkDecoder;
  * @author wangfeng
  *
  */
-public class ApkTool {
+public class ApkTool implements ApkRepackage{
 	@SuppressWarnings("unused")
 	private ApkDecoder decoder = new ApkDecoder();
 	
@@ -42,5 +42,11 @@ public class ApkTool {
 		} catch (AndrolibException e) {
 			e.printStackTrace();
 		}
+	}
+
+	@Override
+	public byte[] pkgForChannel(byte[] input, String appId, String channelId) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
