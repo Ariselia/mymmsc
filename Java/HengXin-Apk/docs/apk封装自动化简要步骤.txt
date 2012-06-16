@@ -1,0 +1,30 @@
+//将要封装的apk进行反编译
+apktool d C:\TestAndroidAPP.apk c:\TestAndroidAPP
+
+//修改具体smali文件，也就是java文件
+修改HengxinMainActivity.smali 文件中的具体参数：
+将{app_id}替换为具体应用号
+将{channel_id}替换为具体渠道号
+将Lcom/hengxin/log/main/包名替换为主配置文件的包名
+将该smali文件保存，然后放入主配置文件中包的路径下
+将Lcom/hengxin/log/main/HengxinLogActivity替换为主配置文件中原有入口的activity name，和完整包名路径
+
+
+在AndroidManifest.xml中的</application>节点后分别加入以下三个权限，（读取手机状态的权限、网络访问权限，广播事件监听权限）,如果原配置文件中有则不添加
+	<uses-permission android:name="android.permission.READ_PHONE_STATE"/> 
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.INTERNET" />
+找到以下两行节点
+
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+该节点说明为主运行入口，将该入口改变为新增的hengxinmain入口
+
+//将反编译apk，进行回编apk
+apktool b c:\TestAndroidAPP
+
+//最后将软件签名 
+F:\fengzizzzzzzzzzzz\hengxin>java -jar signapk.jar testkey.x509.pem testkey.pk8 TestAndroidAPP.apk TestAndroidAPPtest.apk
+
+
+ 
