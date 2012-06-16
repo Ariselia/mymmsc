@@ -2,5 +2,7 @@
 <classpath>
 	<classpathentry excluding="**/.svn**" kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/mymmsc-api"/>
+	<classpathentry exported="true" kind="lib" path="/Users/wangfeng/Downloads/编译与反编译工具/apktool.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
