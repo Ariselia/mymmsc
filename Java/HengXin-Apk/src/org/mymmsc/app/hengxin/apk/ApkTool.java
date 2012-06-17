@@ -34,14 +34,17 @@ public class ApkTool implements ApkRepackage{
 	}
 	
 	public static void pack(String input) {
-		File outFile = new File(input + ".apk");
+		String in = input + "_new.tmp";
+		String out = input + "_new.apk";
+		File outFile = new File(in);
 		Androlib al = new Androlib();
-		try {
-			al.build(new File(input), outFile, true,
-					true);
-		} catch (AndrolibException e) {
-			e.printStackTrace();
-		}
+		//try {
+			//al.build(new File(input), outFile, true, true);
+			SignApk apk = new SignApk();
+			apk.sign(in, out);
+		//} catch (AndrolibException e) {
+		//	e.printStackTrace();
+		//}
 	}
 
 	@Override

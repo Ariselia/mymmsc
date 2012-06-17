@@ -44,7 +44,7 @@ import sun.security.pkcs.SignerInfo;
 import sun.security.x509.AlgorithmId;
 import sun.security.x509.X500Name;
 
-class SignApk {
+public class SignApk {
 	private static X509Certificate readPublicKey(File file) throws IOException,
 			GeneralSecurityException {
 		FileInputStream input = new FileInputStream(file);
@@ -142,7 +142,7 @@ class SignApk {
 		MessageDigest md = MessageDigest.getInstance("SHA1");
 		byte[] buffer = new byte[4096];
 
-		for (Enumeration<?> e = jar.entries(); e.hasMoreElements();) {
+		for (Enumeration e = jar.entries(); e.hasMoreElements();) {
 			JarEntry entry = (JarEntry) e.nextElement();
 			String name = entry.getName();
 			if ((!(entry.isDirectory()))
@@ -165,7 +165,6 @@ class SignApk {
 		return output;
 	}
 
-	@SuppressWarnings("rawtypes")
 	private static void writeSignatureFile(Manifest manifest, OutputStream out)
 			throws IOException, GeneralSecurityException {
 		Manifest sf = new Manifest();
