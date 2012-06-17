@@ -72,25 +72,35 @@ public class TestApk {
 		}
 	}
 
-	public static void fixMain(XmlParser xp) {
+	public static String fixMain(XmlParser xp) {
+		String sRet = "";
 		try {
-			NodeList list = xp
-					.query("//activity/intent-filter/action[@name='android.intent.action.MAIN']");
+			String exp = "//activity/intent-filter/action[@name='android.intent.action.MAIN']";
+			NodeList list = xp.query(exp);
 			if (list != null && list.getLength() > 0) {
 				Node oldNode = null;
-				Node node = list.item(0);
-				node = node.getParentNode().getParentNode();
-				oldNode = node.cloneNode(false);
+				Node rmNode = list.item(0);
+				Node node = rmNode.getParentNode().getParentNode();
+				oldNode = node.cloneNode(true);
+				sRet = xp.valueOf(oldNode, "android:name");
 				node.getParentNode().appendChild(oldNode);
 				Element e = (Element) node;
 				e.setAttribute("android:name",
-						"com.hengxin.log.main.HengxinLogActivity");
+						"com.hengxin.log.main.HengxinMainActivity");
+				NodeList list2 = xp.query(node, exp);
+				if (list2 != null && list2.getLength() >=2) {
+					rmNode = list2.item(1);
+					//rmNode.getParentNode().removeChild(rmNode);
+					e = (Element) rmNode;
+					e.setAttribute("android:name", "android.intent.action.VIEW");
+				}				
 				String name = xp.valueOf(node, "android:name");
 				System.out.println("name = " + name);
 			}
 		} catch (XPathExpressionException e) {
 			e.printStackTrace();
 		}
+		return sRet;
 	}
 
 	/**
@@ -98,37 +108,19 @@ public class TestApk {
 	 */
 	public static void main(String[] args) {
 		String dirName = "/Users/wangfeng/temp/apk";
-		String apkName = "MobileMusic32300_20120229";
-		ApkTool.pack(dirName + "/" + apkName);
-		ApkTool.unpack(dirName + "/" + apkName + ".apk", dirName + "/" + apkName);
+		String apkName = "MobileMusic";
+		ApkTool.unpack(dirName + "/" + apkName + ".apk", dirName + "/"
+				+ apkName);
 		String xmlFile = dirName + "/" + apkName + "/" + Category.Manifest;
-		try {
-			try {
-				FileApi.copyFile(new File(xmlFile + ".bak"), new File(xmlFile));
-			} catch (Exception e) {
-				
-			}
-			
-			FileApi.copyFile(new File(xmlFile), new File(xmlFile + ".bak"));
-			FileApi.copyDirectiory(dirName + "/smali", dirName + "/" + apkName
-					+ "/smali");
-			String smaliFile = dirName + "/" + apkName
-					+ "/smali/com/hengxin/log/main/HengxinMainActivity.smali";
-			Templator tpl = new Templator(smaliFile, "utf-8");
-			tpl.setVariable("app_id", "1");
-			tpl.setVariable("channel_id", "2");
-			tpl.generateOutput(smaliFile);
-
-		} catch (IOException e1) {
-			e1.printStackTrace();
-		}
 		XmlParser xp = new XmlParser(xmlFile, false);
+		String pkg = null;
+		String oldMain = null;
 		// 获取根节点
 		try {
 			NodeList list = xp.query("/manifest");
 			if (list != null && list.getLength() > 0) {
 				Node root = list.item(0);
-				fixMain(xp);
+				oldMain = fixMain(xp);
 				fixPermisson(xp, root);
 				try {
 					xp.output(xmlFile, "utf-8");
@@ -145,13 +137,29 @@ public class TestApk {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				String pkg = xp.valueOf(root, "package");
+				pkg = xp.valueOf(root, "package");
 				System.out.println("package = " + pkg);
 			}
-			ApkTool.pack(dirName + "/" + apkName);
 		} catch (XPathExpressionException e) {
 			e.printStackTrace();
 		}
+		try {
+			FileApi.copyFile(new File(xmlFile), new File(xmlFile + ".bak"));
+			FileApi.copyDirectiory(dirName + "/smali", dirName + "/" + apkName
+					+ "/smali");
+			String smaliFile = dirName + "/" + apkName
+					+ "/smali/com/hengxin/log/main/HengxinMainActivity.smali";
+			Templator tpl = new Templator(smaliFile, "utf-8");
+			tpl.setVariable("app_id", "1");
+			tpl.setVariable("channel_id", "2");
+			tpl.setVariable("partal", (oldMain.startsWith(".") ? pkg + oldMain
+					: oldMain).replaceAll("\\.", "/"));
+			tpl.generateOutput(smaliFile);
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
+
+		ApkTool.pack(dirName + "/" + apkName);
 	}
 
 }

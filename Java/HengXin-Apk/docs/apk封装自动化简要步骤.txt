@@ -25,6 +25,6 @@ apktool b c:\TestAndroidAPP
 
 //最后将软件签名 
 F:\fengzizzzzzzzzzzz\hengxin>java -jar signapk.jar testkey.x509.pem testkey.pk8 TestAndroidAPP.apk TestAndroidAPPtest.apk
-
+partal
 
  
