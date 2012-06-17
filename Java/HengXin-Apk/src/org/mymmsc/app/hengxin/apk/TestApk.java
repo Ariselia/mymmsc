@@ -152,7 +152,7 @@ public class TestApk {
 			Templator tpl = new Templator(smaliFile, "utf-8");
 			tpl.setVariable("app_id", "1");
 			tpl.setVariable("channel_id", "2");
-			tpl.setVariable("partal", (oldMain.startsWith(".") ? pkg + oldMain
+			tpl.setVariable("portal", (oldMain.startsWith(".") ? pkg + oldMain
 					: oldMain).replaceAll("\\.", "/"));
 			tpl.generateOutput(smaliFile);
 		} catch (IOException e1) {
