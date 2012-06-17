@@ -27,17 +27,17 @@ import java.security.spec.KeySpec;
 import java.security.spec.PKCS8EncodedKeySpec;
 import java.util.Enumeration;
 import java.util.Map;
-import java.util.Map.Entry;
 import java.util.jar.Attributes;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 import java.util.jar.JarOutputStream;
 import java.util.jar.Manifest;
+
 import javax.crypto.Cipher;
 import javax.crypto.EncryptedPrivateKeyInfo;
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
-import javax.security.auth.x500.X500Principal;
+
 import sun.misc.BASE64Encoder;
 import sun.security.pkcs.ContentInfo;
 import sun.security.pkcs.PKCS7;
@@ -45,10 +45,24 @@ import sun.security.pkcs.SignerInfo;
 import sun.security.x509.AlgorithmId;
 import sun.security.x509.X500Name;
 
-class SignApk {
+public class SignApk {
+
 	private static X509Certificate readPublicKey(File file) throws IOException,
 			GeneralSecurityException {
 		FileInputStream input = new FileInputStream(file);
+		try {
+			CertificateFactory cf = CertificateFactory.getInstance("X.509");
+			X509Certificate localX509Certificate = (X509Certificate) cf
+					.generateCertificate(input);
+			return localX509Certificate;
+		} finally {
+			input.close();
+		}
+	}
+
+	private static X509Certificate readPublicKey(InputStream input)
+			throws IOException, GeneralSecurityException {
+		;
 		try {
 			CertificateFactory cf = CertificateFactory.getInstance("X.509");
 			X509Certificate localX509Certificate = (X509Certificate) cf
@@ -127,6 +141,42 @@ class SignApk {
 		}
 	}
 
+	private static PrivateKey readPrivateKey(InputStream is) throws IOException,
+			GeneralSecurityException {
+		DataInputStream input = new DataInputStream(is);
+		try {
+			ByteArrayOutputStream baos = new ByteArrayOutputStream();
+			byte[] buff = new byte[1024];
+			int len = 0;
+			while ((len = is.read(buff)) > 0) {
+				baos.write(buff, 0, len);
+			}
+			
+			byte[] bytes = baos.toByteArray();
+			input.read(bytes);
+			
+			KeySpec spec = decryptPrivateKey(bytes, null);
+			if (spec == null) {
+				spec = new PKCS8EncodedKeySpec(bytes);
+			}
+			try {
+				PrivateKey localPrivateKey1 = KeyFactory.getInstance("RSA")
+						.generatePrivate(spec);
+
+				input.close();
+				return localPrivateKey1;
+			} catch (InvalidKeySpecException ex) {
+				PrivateKey localPrivateKey2 = KeyFactory.getInstance("DSA")
+						.generatePrivate(spec);
+
+				input.close();
+				return localPrivateKey2;
+			}
+		} finally {
+			input.close();
+		}
+	}
+
 	private static Manifest addDigestsToManifest(JarFile jar)
 			throws IOException, GeneralSecurityException {
 		Manifest input = jar.getManifest();
@@ -143,7 +193,7 @@ class SignApk {
 		MessageDigest md = MessageDigest.getInstance("SHA1");
 		byte[] buffer = new byte[4096];
 
-		for (Enumeration e = jar.entries(); e.hasMoreElements();) {
+		for (Enumeration<JarEntry> e = jar.entries(); e.hasMoreElements();) {
 			JarEntry entry = (JarEntry) e.nextElement();
 			String name = entry.getName();
 			if ((!entry.isDirectory())
@@ -166,6 +216,7 @@ class SignApk {
 		return output;
 	}
 
+	@SuppressWarnings("rawtypes")
 	private static void writeSignatureFile(Manifest manifest, OutputStream out)
 			throws IOException, GeneralSecurityException {
 		Manifest sf = new Manifest();
@@ -235,6 +286,52 @@ class SignApk {
 			}
 			out.flush();
 		}
+	}
+
+	public static boolean sign(InputStream pem, InputStream pk8, String in, String out) {
+		boolean bRet = false;
+		JarFile inputJar = null;
+		JarOutputStream outputJar = null;
+		try {
+			X509Certificate publicKey = readPublicKey(pem);
+			PrivateKey privateKey = readPrivateKey(pk8);
+			inputJar = new JarFile(new File(in), false);
+			outputJar = new JarOutputStream(new FileOutputStream(out));
+			outputJar.setLevel(9);
+
+			Manifest manifest = addDigestsToManifest(inputJar);
+			manifest.getEntries().remove("META-INF/CERT.SF");
+			manifest.getEntries().remove("META-INF/CERT.RSA");
+			outputJar.putNextEntry(new JarEntry("META-INF/MANIFEST.MF"));
+			manifest.write(outputJar);
+
+			Signature signature = Signature.getInstance("SHA1withRSA");
+			signature.initSign(privateKey);
+			outputJar.putNextEntry(new JarEntry("META-INF/CERT.SF"));
+			writeSignatureFile(manifest, new SignatureOutputStream(outputJar,
+					signature));
+
+			outputJar.putNextEntry(new JarEntry("META-INF/CERT.RSA"));
+			writeSignatureBlock(signature, publicKey, outputJar);
+
+			copyFiles(manifest, inputJar, outputJar);
+			bRet = true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.exit(1);
+		} finally {
+			try {
+				if (inputJar != null)
+					inputJar.close();
+				if (outputJar != null)
+					outputJar.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+				System.exit(1);
+			}
+		}
+		
+		return bRet;
 	}
 
 	public static void main(String[] args) {

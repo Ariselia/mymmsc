@@ -10,6 +10,7 @@ import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;
 import javax.xml.xpath.XPathExpressionException;
 
+import org.mymmsc.api.assembly.Api;
 import org.mymmsc.api.assembly.XmlParser;
 import org.mymmsc.api.context.Templator;
 import org.mymmsc.api.io.FileApi;
@@ -103,12 +104,11 @@ public class TestApk {
 		return sRet;
 	}
 
-	/**
-	 * @param args
-	 */
+	/*
 	public static void main(String[] args) {
 		String dirName = "/Users/wangfeng/temp/apk";
 		String apkName = "MobileMusic";
+		Api.remove(dirName + "/" + apkName);
 		ApkTool.unpack(dirName + "/" + apkName + ".apk", dirName + "/"
 				+ apkName);
 		String xmlFile = dirName + "/" + apkName + "/" + Category.Manifest;
@@ -161,5 +161,16 @@ public class TestApk {
 
 		ApkTool.pack(dirName + "/" + apkName);
 	}
-
+	*/
+	
+	public static void main(String[] args) {
+		String dirName = "/Users/wangfeng/temp/apk";
+		String apkname = dirName + "/" + "Android21_2.5.2.apk";
+		byte[] data = FileApi.read(apkname);
+		if (data != null) {
+			ApkTool at = new ApkTool();
+			at.pkgForChannel(data, "123", "mymmsc");
+		}
+		
+	}
 }
