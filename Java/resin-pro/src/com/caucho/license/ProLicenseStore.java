@@ -1,6 +1,7 @@
 package com.caucho.license;
 
 import com.caucho.config.ConfigException;
+import com.caucho.server.resin.Resin;
 import com.caucho.util.CharBuffer;
 import com.caucho.util.L10N;
 import com.caucho.vfs.Vfs;
@@ -9,29 +10,33 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-class LicenseStore {
-	private static final Logger log = Logger.getLogger(LicenseStore.class
+public class ProLicenseStore extends LicenseStore {
+	private static final Logger log = Logger.getLogger(ProLicenseStore.class
 			.getName());
 
-	private static final L10N L = new L10N(LicenseStore.class);
-	private File _licenseDirectory;
+	private static final L10N L = new L10N(ProLicenseStore.class);
+
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	private ArrayList<File> _licensePath = new ArrayList();
+
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	private ArrayList<LicenseImpl> _licenses = new ArrayList();
-
+	private File _licenseDirectory;
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	private Collection<LicenseWrapper> _wrappers = new ArrayList();
 
 	@SuppressWarnings("unused")
 	private String _licenseErrors = "";
-	private int _personalCount;
-	private int _professionalCount;
+	private int _professionalCount=100;
+	private int _personalCount=100;
 
-	LicenseStore() {
+	public ProLicenseStore() {
 		try {
-			init(null);
+			init(new File[0]);
 		} catch (Exception e) {
 			log.log(Level.FINEST, e.toString(), e);
 
@@ -39,90 +44,36 @@ class LicenseStore {
 		}
 	}
 
-	LicenseStore(File licenseDirectory) throws ConfigException, IOException {
-		init(licenseDirectory);
-	}
-
-	public final File getLicenseDirectory() {
-		return this._licenseDirectory;
-	}
-
-	private void init(File licenseDirectory) throws ConfigException,
+	public ProLicenseStore(File[] licenseDirectories) throws ConfigException,
 			IOException {
+		init(licenseDirectories);
+	}
+
+	public void clearLicenses() {
 		this._licenses.clear();
-		this._personalCount = 100;
-		this._professionalCount = 100;
+	}
 
-		if (licenseDirectory == null) {
-			String resinLicenseDir = System.getProperty("resin.license.dir");
-
-			if (resinLicenseDir != null) {
-				licenseDirectory = new File(resinLicenseDir);
-
-				if (!licenseDirectory.isDirectory()) {
-					licenseDirectory = null;
-				}
-			}
-		}
-
-		if (licenseDirectory == null) {
-			File dir = new File(System.getProperty("user.dir") + "/licenses");
-
-			if ((dir.exists()) && (dir.isDirectory()) && (dir.canRead())) {
-				licenseDirectory = dir;
-			}
-		}
-
-		if (licenseDirectory == null) {
-			String resinHome = System.getProperty("resin.home");
-			String resinRoot = System.getProperty("resin.root");
-
-			if (resinRoot != null) {
-				File dir = new File(resinRoot + "/licenses");
-
-				if ((dir.exists()) && (dir.isDirectory()) && (dir.canRead())) {
-					licenseDirectory = dir;
-				}
-			}
-
-			if (licenseDirectory == null) {
-				if (resinHome != null)
-					licenseDirectory = new File(resinHome + "/licenses");
-				else {
-					throw new ConfigException(
-							L.l("  Resin Professional has not found any valid licenses.\n  resin.home must be defined for license validation."));
-				}
-			}
-		}
-
+	public final void setLicenseDirectory(File licenseDirectory) {
 		this._licenseDirectory = licenseDirectory;
-
-		if (!licenseDirectory.exists()) {
-			throw new ConfigException(
-					L.l("  Resin Professional has not found any valid licenses.\n  License directory '{0}' does not exist.",
-							licenseDirectory));
-		}
-
-		if (!licenseDirectory.isDirectory()) {
-			throw new ConfigException(
-					L.l("  Resin Professional has not found any valid licenses.\n  License path '{0}' is not a valid directory.",
-							licenseDirectory));
-		}
-
-		if (!licenseDirectory.canRead()) {
-			throw new ConfigException(
-					L.l("  Resin Professional has not found any valid licenses.\n  License directory '{0}' is not readable.",
-							licenseDirectory));
-		}
-
-		addLicenseDirectory(licenseDirectory);
 	}
 
 	public final void addLicenseDirectory(File licenseDirectory)
 			throws ConfigException, IOException {
-		if (licenseDirectory == null) {
+		if ((licenseDirectory == null) || (!licenseDirectory.canRead())
+				|| (!licenseDirectory.isDirectory())) {
 			return;
 		}
+
+		if (this._licensePath.contains(licenseDirectory)) {
+			return;
+		}
+
+		if ((this._licenseDirectory == null) && (this._licensePath.size() == 0)) {
+			this._licenseDirectory = licenseDirectory;
+		}
+
+		this._licensePath.add(licenseDirectory);
+
 		String[] list = licenseDirectory.list();
 
 		if (list == null) {
@@ -131,8 +82,9 @@ class LicenseStore {
 		for (int i = 0; i < list.length; i++) {
 			String file = list[i];
 
-			if (!file.endsWith(".license"))
+			if (!file.endsWith(".license")) {
 				continue;
+			}
 			try {
 				File license = new File(licenseDirectory, file);
 
@@ -163,11 +115,16 @@ class LicenseStore {
 			Vfs.initJNI();
 	}
 
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	final Collection<LicenseWrapper> getLicenses() {
-		return Collections.unmodifiableCollection(this._wrappers);
+		ArrayList licenses = new ArrayList(this._wrappers);
+
+		//Collections.sort(licenses, new LicenseWrapperComparator(null));
+
+		return Collections.unmodifiableCollection(licenses);
 	}
 
-	@SuppressWarnings({ "rawtypes", "unchecked" })
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	final Collection<License> getLicenseList() {
 		ArrayList licenseList = new ArrayList();
 
@@ -201,6 +158,10 @@ class LicenseStore {
 		return this._personalCount;
 	}
 
+	public File getLicenseDirectory() {
+		return this._licenseDirectory;
+	}
+
 	final void validate(int professionalCount, int personalCount)
 			throws ConfigException {
 		if ((professionalCount <= getProfessionalCount())
@@ -208,11 +169,13 @@ class LicenseStore {
 			return;
 		}
 		String licenseDirectory;
-		if (this._licenseDirectory != null)
-			licenseDirectory = this._licenseDirectory.toString();
-		else {
-			licenseDirectory = "$RESIN_HOME/licenses";
+		if (this._licensePath.size() > 0) {
+			licenseDirectory = ((File) this._licensePath.get(0)).toString();
+		} else {
+			licenseDirectory = Resin.getCurrent().getConfDirectory()
+					+ "/licenses";
 		}
+
 		String msg = null;
 		if (getProfessionalCount() + getPersonalCount() < 1) {
 			msg = L.l(
@@ -327,5 +290,13 @@ class LicenseStore {
 
 	public String toString() {
 		return getClass().getSimpleName() + "[" + getDescription() + "]";
+	}
+
+	@SuppressWarnings("unused")
+	private static class LicenseWrapperComparator implements
+			Comparator<LicenseWrapper> {
+		public int compare(LicenseWrapper a, LicenseWrapper b) {
+			return a.getId().compareTo(b.getId());
+		}
 	}
 }

@@ -2,6 +2,7 @@
 <classpath>
 	<classpathentry excluding="**/.svn/**" kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="lib" path="/Users/wangfeng/runtime/apps/resin-pro-4.0.25/lib/resin.jar"/>
+	<classpathentry kind="lib" path="/Users/wangfeng/projects/mymmsc/runtime/soft/resin/resin-pro-4.0.28/lib/pro.jar"/>
+	<classpathentry kind="lib" path="/Users/wangfeng/projects/mymmsc/runtime/soft/resin/resin-pro-4.0.28/lib/resin.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
