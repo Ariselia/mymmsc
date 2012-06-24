@@ -3,7 +3,7 @@
 //
 //  Copyright 2010 __MyCompanyName__. All rights reserved.
 //
-
+#import "Api.h"
 #import "ASIBaseDataRequest.h"
 
 @interface SearchMapDataRequest : ASIBaseDataRequest 

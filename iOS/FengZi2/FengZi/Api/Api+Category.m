@@ -377,6 +377,127 @@
 @end
 
 //====================================< 词条 - 接口 >====================================
+#import <objc/runtime.h>
+#import <CommonCrypto/CommonDigest.h> // Need to import for CC_MD5 access
+
+#include <stdlib.h>
+#include <stdio.h>
+#include <time.h> // for time_t
+#include <regex.h>
+
+#define SEPERATOR_PRE @":"
+#define SEPERATOR_POST @";"
+
 @implementation Api (Category)
+
+/**
+ * 将冒号和分号分隔的字符串变成一个map对象
+ */
++ (NSArray *)parse0:(NSString *)input{
+    NSMutableArray *list = nil;
+    if(input != nil){
+        list = [[[NSMutableArray alloc] initWithCapacity:0] autorelease];
+        int preFlagPos = 0;
+        NSMutableString *sb = [[[NSMutableString alloc] initWithCapacity:0] autorelease];
+        for(int i = 0; i < input.length; i ++){
+            NSString *c = [input substringWithRange:NSMakeRange(i, 1)];
+            if(![c isEqualToString:SEPERATOR_PRE]&& ![c isEqualToString:SEPERATOR_POST]){
+                [sb appendString:[NSString stringWithFormat:@"%@",c]];
+            }else{
+                if([c isEqualToString:SEPERATOR_PRE]){
+                    if(i == 0){
+                        continue; //舍弃：
+                    }
+                    if([[input substringWithRange:NSMakeRange(i-1, 1)] isEqualToString:@"\\"]){
+                        [sb deleteCharactersInRange:NSMakeRange(sb.length - 1, 1)];
+                        [sb appendString:[NSString stringWithFormat:@"%@",c]];
+                        //preFlagPos = i - 1;
+                    }else{
+                        [sb appendString:[NSString stringWithFormat:@"%@",c]];
+                        if(preFlagPos != 0){
+                            [sb deleteCharactersInRange:NSMakeRange(0, preFlagPos + 1)];//删掉不对应的：
+                        }
+                        preFlagPos = sb.length - 1; //对应到位置
+                    }					
+                }
+                
+                if([c isEqualToString:SEPERATOR_POST]){
+                    if(i == 0){
+                        continue; //舍弃：
+                    }
+                    if([[input substringWithRange:NSMakeRange(i-1, 1)] isEqualToString:@"\\"]){
+                        [sb deleteCharactersInRange:NSMakeRange(sb.length - 1, 1)];
+                        [sb appendString:[NSString stringWithFormat:@"%@",c]];
+                    }else{
+                        if(preFlagPos != 0){
+                            //[result setObject:[sb substringFromIndex:preFlagPos+1] forKey:key];
+                            [list addObject:[sb substringFromIndex:preFlagPos+1]];
+                        }
+                        
+                        [sb deleteCharactersInRange:NSMakeRange(0, sb.length)];//清掉内容
+                        preFlagPos = 0;
+                    }					
+                }
+            }
+        }
+    }
+    return list;			
+}
+
+// 解码
++ (id)parse:(NSString *)input {
+    //首先判断是不是新的编码规则
+    id oRet = nil;
+    if (input != nil) {
+        if ([input hasSuffix:API_CODE_PREFIX]) {
+            // 是码开头的, 截取字符串, 去掉前缀
+            NSString *str = [input substringFromIndex:[API_CODE_PREFIX length]];
+            if ([str hasPrefix:@"id="]) {
+                // 富媒体, 或者空码, 转换地址
+                NSString *url = [NSString stringWithFormt:@"http://f.ifengzi.cn/apps/getCode.action?%@", str];
+                // 请求服务器
+            } else {
+                // 普通码规则, 前两位是十六进制串
+                const char *s = [[str substringToIndex:2] UTF8String];
+                int type = -1;
+                sscanf(s, "%02X", &type);
+                if (type > 0) {
+                    // 已经取到类型了, 进一步剥离类型, 取的编码串
+                    str = [str substringFromIndex:2];
+                    // 下面的这个数组的内容, 就是从A开始的连续的值
+                    NSArray *list = [self parse0:str];
+                    if (type == 1) {
+                        AppUrl *obj = [[[AppUrl alloc] init] autorelease];
+                        // 开始反射, 遍历类型
+                        unsigned int outCount, i = 0;
+                        objc_property_t *properties = class_copyPropertyList([obj class], &outCount);
+                        for (i = 0; i < outCount; i++) {
+                            NSString *value = [list objectAtIndex:i];
+                            objc_property_t property = properties[i];
+                            NSString *fieldName = [NSString stringWithUTF8String: property_getName(property)];
+                                [iOSApi setObject:obj key:fieldName value:value];
+                        }
+                        free(properties);
+                        properties = NULL;
+                    }
+                }
+            }
+        } else {
+            // 不是, 咋办?
+            if ([input hasPrefix:@"http://"]) {
+                // 网址类型
+                Url *u = [[[Url alloc] init] autorelease];
+                [u setContent:input];
+                oRet = u;
+            } else {
+                // 文本类型
+                Text *t = [[[Text alloc] init] autorelease];
+                [t setContent:input];
+                oRet = t;
+            }
+        }
+    }
+    return oRet;
+}
 
 @end

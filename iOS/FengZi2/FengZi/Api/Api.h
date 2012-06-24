@@ -37,12 +37,17 @@
 //#define API_TEST_AUTHCODE    @"1234"
 #define API_INTERFACE_TONKEN @"uLN9UhI9Uhd-UhGGuh78uQ"
 
+// 码前缀
+#define API_CODE_PREFIX      @"http://ifengzi.cn/show.cgi?"
+// 日志接口地址
+#define API_URL_LOGGER       @"http://localhost:8080/apps"
 // 富媒体接口地址
 #define API_URL_RICHMEDIA    @"http://m.ifengzi.cn/mb"
 // 空码接口地址
 #define API_URL_KMA          @"http://m.ifengzi.cn/mb"
 // 用户中心接口地址
-#define API_URL_USERCENTER   @"http://m.ifengzi.cn"
+//#define API_URL_USERCENTER   @"http://m.ifengzi.cn"
+#define API_URL_USERCENTER   @"http://localhost:8080/apps"
 // 个人空间秀
 #define API_URL_SHOW         @"http://m.ifengzi.cn/uc/m_zoneComment.action"
 // 顺风车 接口地址

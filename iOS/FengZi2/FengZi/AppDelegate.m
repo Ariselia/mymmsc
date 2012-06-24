@@ -74,6 +74,20 @@
     return YES;
 }
 
+#include <sys/socket.h> // Per msqr
+#include <sys/sysctl.h>
+
+- (NSString*) doDevicePlatform
+{
+    size_t size;
+    int nR = sysctlbyname("hw.machine", NULL, &size, NULL, 0);
+    char *machine = (char *)malloc(size);
+    nR = sysctlbyname("hw.machine", machine, &size, NULL, 0);
+    NSString *platform = [NSString stringWithCString:machine encoding:NSUTF8StringEncoding];
+    free(machine);
+    return platform;
+}
+
 - (void)reachabilityChanged:(NSNotification *)note{
 	Reachability* curReach = [note object];
 	if( curReach!=hostReach ){
@@ -83,7 +97,7 @@
 	NetworkStatus status = [curReach currentReachabilityStatus];
 	if (status != NotReachable) {
         DATA_ENV.hasNetWork = YES;
-        if(![USER_DEFAULT boolForKey:@"MobileInfoSended"]){
+        if(1 || ![USER_DEFAULT boolForKey:@"MobileInfoSended"]){
             NSString *netName;
             if ([hostReach isReachableViaWWAN] == kReachableViaWWAN) {
                 netName = @"2G/3G";
@@ -100,12 +114,14 @@
             [buffer appendFormat:@"&s=%.f*%.f",size.height,size.width];// 屏幕大小
             
             [buffer appendFormat:@"&iv=%@",[[UIDevice currentDevice] systemVersion]];// 版本
+            [buffer appendFormat:@"&v=%@",[[UIDevice currentDevice] systemVersion]];// 版本
             
             NSString *system = [[UIDevice currentDevice] systemName];
             [buffer appendFormat:@"&o=%@",system];// 系统
+            [buffer appendFormat:@"&mo=%@",[self doDevicePlatform]];// 网络
             
             [buffer appendFormat:@"&eqn=%@",[[UIDevice currentDevice] uniqueIdentifier]];// 型号
-            
+            [buffer appendFormat:@"&imei=%@",[[UIDevice currentDevice] uniqueIdentifier]];// 型号
             [buffer appendFormat:@"&version=%@",[iOSApi version]];// 版本
             
             [buffer appendFormat:@"&ch=%@",CHANNEL_NUMBER];// 渠道

@@ -141,7 +141,7 @@
             [self.view addSubview:btn];
             
             NSString *tmpUrl = [iOSApi urlDecode:obj.picUrl];
-            //[iOSApi showImage:tmpUrl];
+            //tmpUrl = @"http://f.ifengzi.cn/apps/show.cgi?id=230d63fc-bf0c-42d0-a8da-eb28c78b0b63&type=png";
             UIImage *im = [[[UIImage alloc] initWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:tmpUrl]]] autorelease];
             [view setAutoresizesSubviews:YES];
             [view setImage: [im toSize:view.frame.size]];

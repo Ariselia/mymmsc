@@ -81,7 +81,7 @@
 // 登录
 + (ucLoginResult *)login:(NSString *)username passwd:(NSString *)passwd authcode:(NSString *)authcode{
     ucLoginResult *iRet = [[ucLoginResult alloc] init];
-    static NSString *action = API_URL_USERCENTER "/uc/m_login.action";
+    static NSString *action = API_URL_USERCENTER "/login.action";
     authcode = [Api base64e:username];
     NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
                             username, @"username",
@@ -109,6 +109,9 @@
         }
         //[Api setUser:ui];
     }
+    if (iRet.status == API_SUCCESS) {
+        [Api setUserPhone:username];
+    }
     return [iRet autorelease];
 }
 
@@ -116,7 +119,7 @@
 + (ucAuthCode *)authcodeWithName:(NSString *)username {
     ucAuthCode *iRet = [[ucAuthCode alloc] init];
     
-    static NSString *action = API_URL_USERCENTER "/uc/m_genCheckCode.action";
+    static NSString *action = API_URL_USERCENTER "/genCheckCode.action";
     NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
                             username,@"username",
                             API_INTERFACE_TONKEN, @"token",
@@ -136,7 +139,7 @@
 + (ucAuthCode *)authcode:(NSString *)phone{
     ucAuthCode *iRet = [[ucAuthCode alloc] init];
     
-    static NSString *action = API_URL_USERCENTER "/uc/m_callCheckCode.action";
+    static NSString *action = API_URL_USERCENTER "/genCheckCode.action";
     NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
                             phone, @"username",
                             API_INTERFACE_TONKEN, @"token",
@@ -158,7 +161,7 @@
                  passwd:(NSString *)passwd
                authcode:(NSString *)authcode
                nikename:(NSString *)nikename {
-    static NSString *action = API_URL_USERCENTER "/uc/m_register.action";
+    static NSString *action = API_URL_USERCENTER "/register.action";
     NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
                             API_INTERFACE_TONKEN, @"token",
                             username, @"username",
@@ -182,12 +185,10 @@
                passwd:(NSString *)passwd
             newpasswd:(NSString *)newpasswd
              authcode:(NSString *)authcode {
-    static NSString *action = API_URL_USERCENTER "/uc/m_resetpass.action";
+    static NSString *action = API_URL_USERCENTER "/modPassword.action";
     NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
-                            API_INTERFACE_TONKEN, @"token",
                             username, @"username",
-                            [Api base64e:passwd], @"password",
-                            [Api base64e:newpasswd], @"newpassword",
+                            [Api base64e:newpasswd], @"newpswd",
                             authcode, @"checkcode",
                             nil];
     NSDictionary *map = [Api post:action params:params];
@@ -224,13 +225,11 @@
 // 修改密码
 + (ApiResult *)updatePassword:(NSString *)passwd
                     newpasswd:(NSString *)newpasswd {
-    static NSString *action = API_URL_USERCENTER "/uc/m_modpass.action";
+    static NSString *action = API_URL_USERCENTER "/modPassword.action";
     NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
-                            API_INTERFACE_TONKEN, @"token",
-                            [Api base64e:passwd], @"sessionPassword",
                             [NSString valueOf:[Api userId]], @"userid",
-                            [Api base64e:passwd], @"password",
-                            [Api base64e:newpasswd], @"newpassword",
+                            [Api base64e:passwd], @"oldpswd",
+                            [Api base64e:newpasswd], @"newpswd",
                             nil];
     NSDictionary *map = [Api post:action params:params];
     ApiResult *iRet = [[ApiResult alloc] init];
@@ -272,7 +271,7 @@
 
 // 获取用户个人信息
 + (ucUserInfo *)uc_userinfo_get:(int)userId{
-    static NSString *action = API_URL_USERCENTER "/uc/m_getUserDetailInfo.action";
+    static NSString *action = API_URL_USERCENTER "/getUserInfo.action";
     //static NSString *action = @"http://devp.ifengzi.cn" "/uc/m_getUserDetailInfo.action";
     NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
                             API_INTERFACE_TONKEN, @"token",
@@ -305,7 +304,7 @@
                          weibo:(NSString *)weibo
                             QQ:(NSString *)QQ
                        contact:(NSString *)contact {
-    static NSString *action = API_URL_USERCENTER "/uc/m_modDetailInfo.action";
+    static NSString *action = API_URL_USERCENTER "/modUserInfo.action";
     if (realname == nil) realname = @"";
     if (sex == nil) sex = @"";
     if (email == nil) email = @"";

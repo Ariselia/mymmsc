@@ -188,7 +188,6 @@ static BOOL dLoaded = NO;
             ai = [[[iOSAsyncImageView alloc] initWithFrame:frame] autorelease];
             //ai.tag = tagImage;
             //NSString *tmpUrl;
-            
             NSURL *url = [NSURL URLWithString: tmpUrl];
             [ai loadImageFromURL:url];
         }
