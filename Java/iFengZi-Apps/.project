@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>iFengZi-Apps</name>
+	<name>iFengZi3-Apps</name>
 	<comment></comment>
 	<projects>
-		<project>iFengZi-Core</project>
+		<project>iFengZi3-Core</project>
 		<project>mymmsc-api</project>
 		<project>mymmsc-j2ee</project>
 	</projects>
