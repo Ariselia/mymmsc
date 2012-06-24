@@ -1,0 +1,65 @@
+<!-- @MyMMSC@ WangFeng-20120606 新建数据列表页面JAVA模板 -->
+<html>
+<head>
+<title>${title}</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<script type="text/javascript">// 页面完全加载完毕后调用的函数
+//window.onload = {javascript.onload};
+
+</script>
+
+</head>
+<body bgcolor="#214877">
+  <div align="center">
+    <table bordercolor="#a7c4f7" cellspacing="0" bordercolordark="#ffffff" cellpadding="0" width="95%" bgcolor="#efefef" bordercolorlight="#a7c4f7" border="1">
+      <tbody>
+        <tr bgcolor="#38669e">
+          <td class="font10" align="center" colspan="9" height="50">
+            <font class="font10" color="#ffffff" size="5">
+              <font color="#ffffff">
+                ${CONTENT} -- 基本属性
+              </font>
+            </font>
+            <font color="#ffffff">
+              <b>
+                <font class="font10" size="2"> </font>
+              </b>
+              <font class="font10" size="2">
+                <font color="#ffffff">
+                  （带红色<font color="#ff0000">*</font>的为必填）
+                </font>
+              </font>
+            </font>
+          </td>
+        </tr>
+        <!-- BEGIN list -->
+        <tr>
+          <td align="center" width="20%" bgcolor="#dddddd">
+            <span id="name_${list.field}" name="name_${list.field}">${list.name}</span>
+          </td>
+          <td class="font10" width="80%" colspan="8">
+            <!-- BEGIN input -->
+            <input maxlength="500" size="50" id="${list.input.field}" name="${list.input.field}"
+            value="${list.input.value}">
+            <!-- END input -->
+            <font color="#ff0000">*</font>
+            <span id="span_${list.field}">${list.description}</span>
+          </td>
+        </tr>
+        <!-- END list -->
+        <tr bgcolor="#38669e">
+          <td align="center" colspan="9" height="30">
+            <font color="#ffffff" size="4">地理位置</font>
+          </td>
+        </tr>
+        <tr>
+          <td align="center" bgcolor="#dddddd" height="26">服务接入地</td>
+          <td colspan="8" height="26">北京</td>
+        </tr>
+      </tbody>
+    </table>
+    <br>
+  </div>
+</body>
+</html>
+<!-- ${dispatcher} ${create_timestamp} -->

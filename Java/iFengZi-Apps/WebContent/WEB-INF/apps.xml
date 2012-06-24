@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<apps author="wangfeng@fengxiafei.com" version="3.0.1">
+	<!-- ===================== 用户中心 =========================== -->
+	<usercenter>
+		<sms>
+			<sname>dlbjfxf0</sname>
+			<spwd>87654321</spwd>
+			<sprdid>1012818</sprdid>
+			<smsurl>http://chufa.lmobile.cn/submitdata/service.asmx/g_Submit
+			</smsurl>
+		</sms>
+	</usercenter>
+	<!-- ===================== 富媒体, 空码 =========================== -->
+	<!-- 文件上传下载配置 -->
+	<file>
+		<upload path="/data/files/richmedia" />
+		<download host="http://f.ifengzi.cn" />
+		<content>
+			<!-- 音频, 类型1 -->
+			<type key="audio/mpeg" class="1" ext="mp3" />
+			<type key="audio/3gp" class="1" ext="3gp" />
+			<!-- 图片, 类型2 -->
+			<type key="image/gif" class="2" ext="gif" />
+			<type key="image/jpeg" class="2" ext="jpg" />
+			<type key="image/png" class="2" ext="png" />
+			<!-- FLASH, 类型3 -->
+			<type key="application/x-shockwave-flash" class="3" ext="swf" />
+			<!-- 视频, 类型4 -->
+			<type key="video/3gpp" class="4" ext="3gp" />
+			<type key="video/mp4" class="4" ext="mp4" />
+		</content>
+	</file>
+	<show>
+		<code name="Url" type="1">
+			<field name="content" text="网址" />
+		</code>
+		<code name="BookMark" type="2">
+			<field name="title" text="标题" />
+			<field name="url" text="网址" />
+		</code>
+		<code name="AppUrl" type="3">
+			<field name="title" text="标题" />
+			<field name="url" text="网址" />
+		</code>
+		<code name="Weibo" type="4">
+			<field name="title" text="标题" />
+			<field name="url" text="网址" />
+		</code>
+		<code name="Card" type="5">
+			<field name="name" text="姓名" />
+			<field name="title" text="标题" />
+			<field name="corporation" text="公司" />
+			<field name="department" text="部门" />
+			<field name="cellpone" text="固定电话" />
+			<field name="telephone" text="手机号码" />
+			<field name="fax" text="传真" />
+			<field name="email" text="电子邮箱" />
+			<field name="url" text="网站" />
+			<field name="address" text="通信地址" />
+			<field name="zipCode" text="邮政编码" />
+			<field name="qq" text="QQ号码" />
+			<field name="msn" text="MSN邮件地址" />
+			<field name="weibo" text="微博" />
+		</code>
+		<code name="Phone" type="6">
+			<field name="telephone" text="电话号码" />
+		</code>
+		<code name="Email" type="7">
+			<field name="mail" text="邮箱地址" />
+			<field name="title" text="标题" />
+			<field name="content" text="邮件内容" />
+		</code>
+		<code name="Text" type="8">
+			<field name="content" text="文本内容" />
+		</code>
+		<code name="EncText" type="9">
+			<field name="content" text="文本内容" />
+			<field name="key" text="密钥" />
+		</code>
+		<code name="ShortMessage" type="10">
+			<field name="phone" text="电话号码" />
+			<field name="content" text="文本内容" />
+		</code>
+		<code name="WiFiText" type="11">
+			<field name="name" text="用户名" />
+			<field name="password" text="密码" />
+		</code>
+		<code name="GMap" type="12">
+			<field name="url" text="定位" />
+		</code>
+		<code name="Text" type="13">
+			<field name="date" text="日期" />
+			<field name="title" text="主题" />
+			<field name="content" text="日程内容" />
+		</code>
+	</show>
+</apps>

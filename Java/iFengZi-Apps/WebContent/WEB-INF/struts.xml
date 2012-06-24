@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN" "http://struts.apache.org/dtds/struts-2.1.dtd">
+<struts>
+	<constant name="struts.custom.i18n.resources" value="messageResources" />
+	<constant name="struts.i18n.encoding" value="utf-8" />
+	<!-- Struts2的Action必须放在指定的包空间下定义 -->
+	<package name="default" extends="struts-default">
+		<!-- ===================== 用户中心接口 =========================== -->
+		<!-- 发送验证码 -->
+		<action name="genCheckCode" class="com.fengxiafei.apps.user.GenCheckCode">
+			<!-- 定义处理结果和资源之间映射关系 -->
+			<result name="success">/</result>
+			<result name="failure">/</result>
+			<result name="error">/</result>
+		</action>
+		<!-- 注册 -->
+		<action name="register" class="com.fengxiafei.apps.user.Register">
+			<!-- 定义处理结果和资源之间映射关系 -->
+			<result name="success">/</result>
+			<result name="failure">/</result>
+			<result name="error">/</result>
+		</action>
+		<!-- 登录 -->
+		<action name="login" class="com.fengxiafei.apps.user.SignIn">
+			<!-- 定义处理结果和资源之间映射关系 -->
+			<result name="success">/</result>
+			<result name="failure">/</result>
+			<result name="error">/</result>
+		</action>
+		<!-- 修改密码 -->
+		<action name="modPassword" class="com.fengxiafei.apps.user.ModifyPassword">
+			<!-- 定义处理结果和资源之间映射关系 -->
+			<result name="success">/</result>
+			<result name="failure">/</result>
+			<result name="error">/</result>
+		</action>
+		<!-- 修改昵称 -->
+		<action name="modNikename" class="com.fengxiafei.apps.user.ModifyNikename">
+			<!-- 定义处理结果和资源之间映射关系 -->
+			<result name="success">/</result>
+			<result name="failure">/</result>
+			<result name="error">/</result>
+		</action>
+		<!-- 查看个人信息 -->
+		<action name="getUserInfo" class="com.fengxiafei.apps.user.ViewUserInfo">
+			<!-- 定义处理结果和资源之间映射关系 -->
+			<result name="success">/</result>
+			<result name="failure">/</result>
+			<result name="error">/</result>
+		</action>
+		<!-- 修改个人信息 -->
+		<action name="modUserInfo" class="com.fengxiafei.apps.user.ModifyUserInfo">
+			<!-- 定义处理结果和资源之间映射关系 -->
+			<result name="success">/</result>
+			<result name="failure">/</result>
+			<result name="error">/</result>
+		</action>
+		<!-- 上传个人头像 -->
+		<action name="modAvatar" class="com.fengxiafei.apps.user.ModifyAvatar">
+			<!-- 定义处理结果和资源之间映射关系 -->
+			<result name="success">/</result>
+			<result name="failure">/</result>
+			<result name="error">/</result>
+		</action>
+		<!-- 下载个人头像(被文件路径代替) -->
+		<action name="getAvatar" class="com.fengxiafei.apps.user.ViewAvatar">
+			<!-- 定义处理结果和资源之间映射关系 -->
+			<result name="success">/</result>
+			<result name="failure">/</result>
+			<result name="error">/</result>
+		</action>
+		<!-- 我的码列表 -->
+		<action name="listCode" class="com.fengxiafei.apps.user.CodeList">
+			<!-- 定义处理结果和资源之间映射关系 -->
+			<result name="success">/</result>
+			<result name="failure">/</result>
+			<result name="error">/</result>
+		</action>
+		<!-- 发表个人空间评论 -->
+		<action name="addZoneComment" class="com.fengxiafei.apps.user.NewZoneComment">
+			<!-- 定义处理结果和资源之间映射关系 -->
+			<result name="success">/</result>
+			<result name="failure">/</result>
+			<result name="error">/</result>
+		</action>
+		<!-- 个人空间评论列表 -->
+		<action name="listZoneComment" class="com.fengxiafei.apps.user.ZoneCommentList">
+			<!-- 定义处理结果和资源之间映射关系 -->
+			<result name="success">/</result>
+			<result name="failure">/</result>
+			<result name="error">/</result>
+		</action>
+		<!-- 发表富媒体评论 -->
+		<action name="addCodeComment" class="com.fengxiafei.apps.user.NewCodeComment">
+			<!-- 定义处理结果和资源之间映射关系 -->
+			<result name="success">/</result>
+			<result name="failure">/</result>
+			<result name="error">/</result>
+		</action>
+		<!-- 富媒体评论列表 -->
+		<action name="listCodeComment" class="com.fengxiafei.apps.user.CodeCommentList">
+			<!-- 定义处理结果和资源之间映射关系 -->
+			<result name="success">/</result>
+			<result name="failure">/</result>
+			<result name="error">/</result>
+		</action>
+		<!-- ===================== 富媒体,空码接口 =========================== -->
+		<!-- 文件上传 -->
+		<action name="FileUpload" class="com.fengxiafei.apps.code.FileUpload">
+			<!-- 定义处理结果和资源之间映射关系 -->
+			<result name="success">/</result>
+			<result name="failure">/</result>
+			<result name="error">/</result>
+		</action>
+		<!-- 富媒体,空码保存 -->
+		<action name="MakeCode" class="com.fengxiafei.apps.code.MakeCode">
+			<!-- 定义处理结果和资源之间映射关系 -->
+			<result name="success">/</result>
+			<result name="failure">/</result>
+			<result name="error">/</result>
+		</action>
+		<!-- 获得码内容 -->
+		<action name="getCode" class="com.fengxiafei.apps.code.CodeInfo">
+			<!-- 定义处理结果和资源之间映射关系 -->
+			<result name="success">/</result>
+			<result name="failure">/</result>
+			<result name="error">/</result>
+		</action>
+		<!-- 展示码内容 -->
+		<action name="show" class="com.fengxiafei.apps.code.ShowCode">
+			<!-- 定义处理结果和资源之间映射关系 -->
+			<result name="success">/</result>
+			<result name="failure">/</result>
+			<result name="error">/</result>
+		</action>
+		<!-- ===================== 日志接口 =========================== -->
+		<!-- 向服务器发送手机硬件信息 -->
+		<action name="log/mobInfo" class="com.fengxiafei.apps.log.MobInfoAction"/>
+		<!-- 向服务器发送扫描记录信息 -->
+		<action name="log/scanLog" class="com.fengxiafei.apps.log.ScanLogAction"/>
+		<!-- 向服务器发送短信邮件分享信息 -->
+		<action name="log/shareLog" class="com.fengxiafei.apps.log.ShareLogAction"/>
+		<!-- 向服务器发送短信邮件分享信息 -->
+		<action name="log/makeLog" class="com.fengxiafei.apps.log.MakeLogAction"/>
+		<!-- 向服务器发送微薄授权信息 -->
+		<action name="log/authorizeLog" class="com.fengxiafei.apps.log.AuthorizeLogAction"/>
+		<!-- 向服务器发送微薄分享信息 -->
+		<action name="log/weiboShareLog" class="com.fengxiafei.apps.log.WeiboShareLogAction"/>
+		<!-- ===================== 其它接口 =========================== -->
+		<!-- 码统计 -->
+		<action name="getCodeCount" class="com.fengxiafei.apps.util.GetCodeCountAction"/>
+		<!-- 获取客户端最新版本号 -->
+		<action name="vs/lastVersion" class="com.fengxiafei.apps.util.VersionAction" />
+		<!-- 意见反馈接口定义开始 -->
+		<action name="fb/fb" class="com.fengxiafei.apps.util.FeedBackAction"/>
+		
+	</package>
+</struts>    

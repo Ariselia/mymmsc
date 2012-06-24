@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE project   [
+<!ENTITY common SYSTEM "common.xml">
+]>
+<project name="antdtd" default="makedtd">
+	<target name="makedtd">
+		<antstructure output="ant.dtd" />
+	</target>
+</project>

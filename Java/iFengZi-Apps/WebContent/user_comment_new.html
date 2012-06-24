@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>发表个人空间评论(addZoneComment.action)</title>
+</head>
+<body>
+  <form enctype="multipart/form-data" name="form_operate" action="addZoneComment.action" method="post">
+    <table>
+      <tr>
+        <td>用户ID</td>
+        <td><input type="text" id="userid" name="userid" value="" maxlength="50" size="50"></td>
+      </tr>
+      <tr>
+        <td>评论人id</td>
+        <td><input type="text" id="commentUserId" name="commentUserId" value="" maxlength="50" size="50"></td>
+      </tr>
+      <tr>
+        <td>评论人名</td>
+        <td><input type="text" id="commentName" name="commentName" value="" maxlength="50" size="50"></td>
+      </tr>
+      <tr>
+        <td>内容</td>
+        <td><input type="text" id="commentContent" name="commentContent" value="" maxlength="50" size="50"></td>
+      </tr>
+      <tr>
+        <td><input type="submit" value="发送" name="btnSubmit"></td>
+      </tr>
+    </table>
+  </form>
+</body>
+</html>

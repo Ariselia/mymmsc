@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>我的码列表(codeList.action)</title>
+</head>
+<body>
+
+  <form enctype="multipart/form-data" name="form_operate" action="listCode.action" method="post">
+    <table>
+      <tr>
+        <td>用户ID</td>
+        <td><input type="text" id="userid" name="userid" value="" maxlength="50" size="50"></td>
+      </tr>
+      <tr>
+        <td>页码</td>
+        <td><input type="text" id="pagenum" name="pagenum" value="" maxlength="50" size="50"></td>
+      </tr>
+      <tr>
+        <td>页尺寸</td>
+        <td><input type="text" id="pagesize" name="pagesize" value="" maxlength="50" size="50"></td>
+      </tr>
+      <tr>
+        <td>最新ID(忽略)</td>
+        <td><input type="text" id="firstid" name="firstid" value="" maxlength="50" size="50"></td>
+      </tr>
+      <tr>
+        <td><input type="submit" value="发送" name="btnSubmit"></td>
+      </tr>
+    </table>
+  </form>
+</body>
+</html>

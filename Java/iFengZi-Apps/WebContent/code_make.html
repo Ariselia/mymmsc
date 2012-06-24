@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>生码(MakeCode)</title>
+</head>
+<body>
+
+	<form enctype="multipart/form-data" name="form_operate"
+		action="MakeCode.action" method="post">
+		<table>
+			<tr>
+				<td>用户名</td>
+				<td><input type="text" id="userid" name="userid" value=""
+					maxlength="50" size="50"></td>
+			</tr>
+            <tr>
+                <td>码标题</td>
+                <td><input type="text" id="title" name="title" value=""
+                    maxlength="50" size="50"></td>
+            </tr>
+			<tr>
+				<td>码类型，十进制</td>
+				<td><input type="text" id="type" name="type" value=""
+					maxlength="3" size="3"></td>
+			</tr>
+			<tr>
+				<td>码id，如果是空码，必填</td>
+				<td><input type="text" id="codeid" name="codeid" value=""
+					maxlength="50" size="50"></td>
+			</tr>
+            <tr>
+                <td>空码数量，如果是空码，必填</td>
+                <td><input type="text" id="number" name="number" value=""
+                    maxlength="50" size="50"></td>
+            </tr>
+			<tr>
+				<td>码内容</td>
+				<td><textarea id="content" name="content" cols="100" rows="10"></textarea>
+				</td>
+			</tr>
+			<tr>
+				<td><input class="btn" onClick="submitting(form_operate);"
+					type="submit" value="保存" name="btnSubmit"></td>
+			</tr>
+		</table>
+	</form>
+</body>
+</html>
