@@ -523,8 +523,9 @@ static int xTimes = -1;
 //    NSDictionary *dict = [xInput.url uriParams];
 
     NSString *xcode = [self urlParams:xInput.url];
+    xcode = [xcode replace:@"id=" withString:@""];
     NSLog(@"------%@",xcode);
-
+    [Api setKma:YES];
     [Api kmaSetId:xcode];
     iOSLog(@"uuid=[%@]", xcode);
     
