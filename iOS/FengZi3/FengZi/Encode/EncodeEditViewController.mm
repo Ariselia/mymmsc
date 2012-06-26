@@ -18,7 +18,7 @@
 #import "SHK.h"
 #import "ShareView.h"
 
-//#import "RichMedia.h"
+#import "RichMedia.h"
 
 @implementation EncodeEditViewController
 
@@ -201,6 +201,7 @@
 - (void)getCodeString{
     _logId = [[NotePLogService encodeEnc:_codeAtt] retain];
     switch (DATA_ENV.curBusinessType) {
+            
         case BusinessTypeUrl:{
             Url *obj = _codeObject;
             obj.logId = _logId;
@@ -281,7 +282,7 @@
             BookMark *obj = _codeObject;
             obj.logId = _logId;
             _showInfo = obj.title;
-            _content = [[BusEncoder encodeBookMark:obj] retain];
+            _content = [[BusEncoder encode:obj type:DATA_ENV.curBusinessType]retain];
             break;
         }
         case BusinessTypeSchedule:{
@@ -293,7 +294,7 @@
             break;
         }
         case BusinessTypeWifiText:{
-            WiFiText *obj = _codeObject;
+            WifiText *obj = _codeObject;
             obj.logId = _logId;
             _showInfo = obj.name;
            // _content = [[BusEncoder encodeWifiText:obj] retain];
@@ -301,7 +302,7 @@
             break;
         }
         case BusinessTypeShortMessage:{
-            ShortMessage *obj = _codeObject;
+            Shortmessage *obj = _codeObject;
             obj.logId = _logId;
             _showInfo = obj.contente;
          //   _content = [[BusEncoder encodeShortmessage:obj]retain];

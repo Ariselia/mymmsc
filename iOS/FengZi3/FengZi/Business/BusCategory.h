@@ -13,8 +13,7 @@
 	BOOL bKma;
 	int _channel;
 }
-@property(nonatomic, retain) NSString *type;
-@property(nonatomic, assign) int channel;
+@property(nonatomic, retain)NSString *type;
+@property(nonatomic, assign)int channel;
 @property (nonatomic, assign) BOOL bKma;
-
 @end

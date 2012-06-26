@@ -6,6 +6,7 @@
 //  Copyright (c) 2012年 iTotemStudio. All rights reserved.
 //
 
+#import <UIKit/UIKit.h>
 #import "Api+Ebuy.h"
 
 @interface EBShopInfo : UITableViewCell {

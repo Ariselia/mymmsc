@@ -141,10 +141,11 @@ static int iTimes = -1;
     [iOSApi showAlert:@"正在上传图片"];
     //HttpClient *hc = [[HttpClient alloc] initWithURL:API_URL_RICHMEDIA "/dynamic/m_picUpload.action" timeout:10];
     
-    HttpClient *hc = [[HttpClient alloc] initWithURL:API_APPS_SERVER API_FILE_UPLOAD timeout:10];
+    HttpClient *hc = [[HttpClient alloc] initWithURL:API_URL_Apps API_FILE_UPLOAD timeout:10];
     
     
     [hc formAddImage:@"content" filename:@"image.png" data:fmtBuffer];
+    [hc formAddField:@"token" value:API_INTERFACE_TONKEN];
     NSData *tmpData = [hc post];
     [iOSApi closeAlert];
     if (tmpData == nil) {
@@ -183,7 +184,7 @@ static int iTimes = -1;
     [iOSApi showAlert:@"正在上传视频"];
     //HttpClient *hc = [[HttpClient alloc] initWithURL:API_URL_RICHMEDIA "/dynamic/m_videoUpload.action" timeout:10];
     
-    HttpClient *hc = [[HttpClient alloc] initWithURL:API_APPS_SERVER API_FILE_UPLOAD timeout:10];
+     HttpClient *hc = [[HttpClient alloc] initWithURL:API_URL_Apps API_FILE_UPLOAD timeout:10];
     
     iOSLog(@"file=%@", urlFile);
     NSData *data = [NSData dataWithContentsOfURL:urlFile];
@@ -198,6 +199,7 @@ static int iTimes = -1;
         fileType = @"video/mp4";
     }
     [hc formAddFile:@"content" filename:filename type:fileType data:data];
+    [hc formAddField:@"token" value:API_INTERFACE_TONKEN];
     NSData *tmpData = [hc post];
     if (tmpData == nil) {
         [iOSApi Alert:@"提示" message:@"服务器正忙，请稍候重新上传。"];
@@ -298,7 +300,7 @@ static int iTimes = -1;
          }
          [pool release];
      }
-                              failureBlock:^(NSError *error)
+    failureBlock:^(NSError *error)
      {
          //轮询出错
          //可以先判断是什么错误，比如，用户设置了读取权限等
@@ -375,9 +377,10 @@ static NSMutableArray *urlList = nil;
     NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
     [iOSApi showAlert:@"正在上传背景音乐"];
     //HttpClient *hc = [[HttpClient alloc] initWithURL:API_URL_RICHMEDIA "/dynamic/m_soundUpload.action" timeout:10];
-    HttpClient *hc = [[HttpClient alloc] initWithURL:API_APPS_SERVER API_FILE_UPLOAD timeout:10];
+     HttpClient *hc = [[HttpClient alloc] initWithURL:API_URL_Apps API_FILE_UPLOAD timeout:10];
     
     [hc formAddFile:@"content" filename:@"item.mp3" type:@"audio/mpeg" data:data];
+    [hc formAddField:@"token" value:API_INTERFACE_TONKEN];
     NSData *tmpData = [hc post];
     if (tmpData == nil) {
         [iOSApi Alert:@"提示" message:@"服务器正忙，请稍候重新登录。"];
@@ -517,27 +520,27 @@ static NSMutableArray *urlList = nil;
 // 生码
 - (void)generateCode{
     /*
-     if (info == nil) {
-     [iOSApi Alert:@"提示" message:@"生码前，请先选择媒体文件。"];
-     return;
-     }
-     
-     
-     6.2.2.2 Content字段富媒体(JSONObject)
-     字段名	必选	类型	描述
-     title	是	String	标题
-     content	是	String	内容,500字
-     audio	否	String	默认的背景音乐URL，单页中没有背景音乐时使用
-     pagelist	是	JSONArray	文件URL
-     
-     6.2.2.2.1	pagelist字段里的JSON字段
-     字段名	必选	类型	描述
-     title	否	String	标题, 如果标题为空，可以使用Content字段的title
-     content	是	String	内容,500字
-     audio	否	String	背景音乐URL
-     image	否	String	图片URL
-     video	否	String	视频URL
-     
+    if (info == nil) {
+        [iOSApi Alert:@"提示" message:@"生码前，请先选择媒体文件。"];
+        return;
+    }
+    
+    
+    6.2.2.2 Content字段富媒体(JSONObject)
+    字段名	必选	类型	描述
+    title	是	String	标题
+    content	是	String	内容,500字
+    audio	否	String	默认的背景音乐URL，单页中没有背景音乐时使用
+    pagelist	是	JSONArray	文件URL
+    
+    6.2.2.2.1	pagelist字段里的JSON字段
+    字段名	必选	类型	描述
+    title	否	String	标题, 如果标题为空，可以使用Content字段的title
+    content	是	String	内容,500字
+    audio	否	String	背景音乐URL
+    image	否	String	图片URL
+    video	否	String	视频URL
+    
      */
     // 想服务器上传 json串
     
@@ -545,7 +548,7 @@ static NSMutableArray *urlList = nil;
     
     NSString *title = [subject.text trim];
     NSString *desc = [content.text trim];
-    
+   
     NSString *nameTiny = @"";
     
     if (info != nil && info.tinyName != nil) {
@@ -582,9 +585,9 @@ static NSMutableArray *urlList = nil;
         [editView viewDidLoad];
         [editView loadObject:media];
         //返回首页
-        
-    }
-    // [editView release];
+      
+      }
+   // [editView release];
 }
 
 - (void)goBack{
@@ -653,19 +656,19 @@ static NSMutableArray *urlList = nil;
     self.navigationItem.rightBarButtonItem = rightItem;
     [rightItem release];
     /*
-     if (bKma) {
-     subject.text = @"";
-     subject.placeholder = @"我是空码，输入属于自己的名字";
-     content.text = @"";
-     
-     NSDictionary *dict = [Api parseUrl:code];
-     code = [dict objectForKey:@"id"];
-     [iOSApi Alert:@"空码赋值" message:[NSString stringWithFormat:@"id=%@", code]];
-     } else {
-     subject.text = @"输入标题，少于15字";
-     content.text = @"输入点内容吧，少于500字";
-     }
-     */
+    if (bKma) {
+        subject.text = @"";
+        subject.placeholder = @"我是空码，输入属于自己的名字";
+        content.text = @"";
+        
+        NSDictionary *dict = [Api parseUrl:code];
+        code = [dict objectForKey:@"id"];
+        [iOSApi Alert:@"空码赋值" message:[NSString stringWithFormat:@"id=%@", code]];
+    } else {
+        subject.text = @"输入标题，少于15字";
+        content.text = @"输入点内容吧，少于500字";
+    }
+    */
     // 键盘事件代理
     //content.delegate = self;
     content.editable = YES;

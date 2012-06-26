@@ -51,7 +51,7 @@
         RELEASE_SAFELY(alertView);
         return;
     }
-    ShortMessage *sm = [[[ShortMessage alloc]init]autorelease];
+    Shortmessage *sm = [[[Shortmessage alloc]init]autorelease];
     sm.cellphone = _receiverText.text;
     sm.contente = _contentText.text;
     EncodeEditViewController *editView =[[EncodeEditViewController alloc] initWithNibName:@"EncodeEditViewController" bundle:nil];

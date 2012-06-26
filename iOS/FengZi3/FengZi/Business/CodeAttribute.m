@@ -123,7 +123,7 @@
 -(NSString*)codeToString{
     NSMutableString *buffer = [[[NSMutableString alloc] initWithCapacity:0] autorelease];
     [buffer appendString:@"id="];
-    [buffer appendFormat:@"%l",_uuid];
+    [buffer appendFormat:@"%ld",_uuid];
     [buffer appendString:@"&"];
     
     if(_type != nil && _type.length > 0){

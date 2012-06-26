@@ -1,5 +1,5 @@
 //
-//  main.m
+//  main.mm
 //  FengZi
 //
 //  Copyright (c) 2011 iTotemStudio. All rights reserved.

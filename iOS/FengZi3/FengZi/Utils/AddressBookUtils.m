@@ -70,7 +70,7 @@
     
     CFStringRef name = ABRecordCopyCompositeName(person);
     if (name == NULL){
-        return [NSString stringWithString:@""];
+        return @"";
     }
     
     NSString* ret = [NSString stringWithString:(NSString*)name];

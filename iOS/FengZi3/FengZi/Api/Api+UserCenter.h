@@ -18,12 +18,7 @@
 
 @interface ucLoginResult : ApiResult {
     NSString *userId; // 用户ID, 这个和用户是什么关系，没搞明白
-    NSString *token;
-    NSString *nikeName;
 }
-@property (nonatomic, copy) NSString *userId;
-@property (nonatomic, copy) NSString *token;
-@property (nonatomic, copy) NSString *nikeName;
 
 @end
 
@@ -54,7 +49,7 @@
     NSString *code;
 }
 
-@property (nonatomic, copy) NSString *code;
+@property (nonatomic, retain) NSString *code;
 
 @end
 
@@ -95,7 +90,7 @@
 @interface ucToal : ApiResult{
     //
 }
-@property (nonatomic, assign) int numCode, numScan;
+@property (nonatomic, assign) int totalCount, codeCount;
 
 @end
 
@@ -123,8 +118,7 @@
              authcode:(NSString *)authcode;
 
 // 修改昵称
-+ (ApiResult *)updateNikename:(NSString *)passwd
-                     nikename:(NSString *)nikename;
++ (ApiResult *)updateNikename:(NSString *)nikename;
 
 // 修改密码
 + (ApiResult *)updatePassword:(NSString *)passwd
@@ -160,6 +154,9 @@
 + (void)uc_photo_down:(int)userId;
 
 // 蜂巢留言板
++ (NSMutableArray *)uc_comments_get:(int)number
+                               size:(int)size;
+
 + (ApiResult *)uc_comment_add:(int)userId
                       content:(NSString *)content;
 + (NSMutableArray *)uc_comment_list:(int)number size:(int)size;

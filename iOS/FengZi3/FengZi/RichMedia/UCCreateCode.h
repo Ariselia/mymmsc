@@ -11,6 +11,7 @@
 #import <AVFoundation/AVFoundation.h>
 #import <MediaPlayer/MediaPlayer.h>
 #import <iOSApi/DropDownList.h>
+#import "RichMedia.h"
 #import "Api+RichMedia.h"
 #import <iOSApi/iOSImageView2.h>
 

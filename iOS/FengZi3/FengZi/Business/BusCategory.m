@@ -9,7 +9,6 @@
 #import "BusCategory.h"
 
 @implementation BusCategory
-
 @synthesize channel=_channel;
 @synthesize type=_type;
 @synthesize bKma;
@@ -18,5 +17,4 @@
     [_type release];
     [super dealloc];
 }
-
 @end

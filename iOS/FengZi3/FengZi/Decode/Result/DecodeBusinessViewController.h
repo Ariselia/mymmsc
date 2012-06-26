@@ -34,5 +34,4 @@
 }
 -(id)initWithNibName:(NSString *)nibNameOrNil category:(BusCategory *)cate  result:(NSString *)input image:(UIImage*)img withType:(HistoryType)type withSaveImage:(UIImage*)sImage;
 -(NSString*)getString16:(int)type;
-@property(nonatomic,assign)BOOL returnFlag;
 @end

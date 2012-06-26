@@ -17,9 +17,8 @@
 #import <ZXing/TwoDDecoderResult.h>
 #import "FileUtil.h"
 #import <QuartzCore/QuartzCore.h>
-
+#import "UITableViewCellExt.h"
 #import "UCRichMedia.h"
-#import "UCUpdateNikename.h"
 
 @implementation HistoryViewController
 
@@ -39,6 +38,29 @@
     
     // Release any cached data, images, etc that aren't in use.
 }
+
+/*
+-(void) chooseShowController:(NSString*)input{
+    BusCategory *category = [BusDecoder classify:input];
+    if ([category.type isEqualToString:CATEGORY_CARD]) {
+        DecodeCardViewControlle *cardView = [[DecodeCardViewControlle alloc] initWithNibName:@"DecodeCardViewControlle" category:category result:input withImage:_curImage withType:HistoryTypeHistory withSaveImage:_curImage];
+        [self.navigationController pushViewController:cardView animated:YES];
+        [cardView release];
+    } else if([category.type isEqualToString:CATEGORY_MEDIA]) {
+        // 富媒体业务
+        UCRichMedia *nextView = [[UCRichMedia alloc] init];
+        nextView.urlMedia = input;
+        [self.navigationController pushViewController:nextView animated:YES];
+        [nextView release];
+    } else if([category.type isEqualToString:CATEGORY_KMA]) {
+        // 空码
+    } else{
+        DecodeBusinessViewController *businessView = [[DecodeBusinessViewController alloc] initWithNibName:@"DecodeBusinessViewController" category:category result:input image:_curImage withType:HistoryTypeHistory withSaveImage:_curImage];
+        [self.navigationController pushViewController:businessView animated:YES];
+        [businessView release];
+    }
+}
+*/
 
 -(void)decoderWithImage:(UIImage*)image{
     Decoder *decoder = [[Decoder alloc] init];
@@ -146,10 +168,15 @@
 	return YES;
 }
 
-
 -(NSInteger) numberOfSectionsInTableView:(UITableView *)tableView{
     return 1;
 }
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath;
+{
+    return 70;
+}
+
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     return [_historyArray count];;
@@ -161,16 +188,29 @@
     if (cell == nil) {
         cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:MyIdentifier] autorelease];  
     }    
-    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    cell.accessoryType = UITableViewCellAccessoryNone;
+    cell.selectionStyle =UITableViewCellSelectionStyleNone;
     HistoryObject *object = [_historyArray objectAtIndex:indexPath.row];
     cell.textLabel.text = object.content;
     cell.textLabel.font = [UIFont systemFontOfSize:16];
-    cell.imageView.image = [DATA_ENV getTableImage:object.type];
+    cell.imageView.image = [[DATA_ENV getTableImage:object.type]toSize: CGSizeMake(55, 55)];
+
     cell.detailTextLabel.text = object.date;
+    [cell.textLabel setBackgroundColor:[UIColor clearColor]];
+    [cell.detailTextLabel setBackgroundColor:[UIColor clearColor]];
+    UIImage *image = [[UIImage imageNamed:@"uc-cell.png"] toSize: CGSizeMake(320, 70)];
+    
+    [cell setBackgroundImage:image];
     return cell;
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    UITableViewCell * cell =[tableView cellForRowAtIndexPath:indexPath];
+    
+    UIImage *himage = [[UIImage imageNamed:@"uc-cell-h.png"] toSize: CGSizeMake(320, 70)];     
+    [cell setBackgroundImage:himage];
+    
     HistoryObject *object = [_historyArray objectAtIndex:indexPath.row];
     NSString *path;
     if (_isEncodeModel) {
@@ -179,6 +219,7 @@
         path = [FileUtil filePathInScan:object.image];
     }
     [self decoderWithImage:[UIImage imageWithContentsOfFile:path]];
+    //[self chooseShowController:object.content];
 }
 
 //search Button clicked....  
@@ -199,14 +240,33 @@
 - (BOOL)searchBarShouldBeginEditing:(UISearchBar *)searchBar{
     return YES;
 }
-- (IBAction)CancelSearchClicked:(id)sender {
-    [_searchBar resignFirstResponder]; 
-    if (_isSearch) {
-        _isSearch= NO;
-        [self reloadTableData];
-        _searchBar.text = @"";
+- (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar
+{
+    searchBar.showsCancelButton = YES;
+    for (id cc in [searchBar subviews]) {
+        if ([cc isKindOfClass:[UIButton class]]) {
+            UIButton *button = (UIButton *)cc;
+            [button setTitle:@"取消" forState:UIControlStateNormal];
+        }
     }
+    
 }
+- (void)searchBarCancelButtonClicked:(UISearchBar *) searchBar
+{
+    [searchBar resignFirstResponder];
+    searchBar.showsCancelButton = NO;
+    searchBar.text = @"";
+    
+}
+
+//- (IBAction)CancelSearchClicked:(id)sender {
+//    [_searchBar resignFirstResponder]; 
+//    if (_isSearch) {
+//        _isSearch= NO;
+//        [self reloadTableData];
+//        _searchBar.text = @"";
+//    }
+//}
 
 #pragma mark - UIScrollViewDelegate
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{
@@ -263,8 +323,7 @@
     _scanHistoryBtn.selected=YES;
     
     //修改搜索框背景
-    _searchBar.backgroundColor=[UIColor clearColor];
-    //去掉搜索框背景
+    _searchBar.backgroundColor=[UIColor colorWithPatternImage:[UIImage imageNamed:@"history_searchBG.png"]];    //去掉搜索框背景
     for (UIView *subview in _searchBar.subviews) 
     {
         if ([subview isKindOfClass:NSClassFromString(@"UISearchBarBackground")])
@@ -278,6 +337,12 @@
     size.height+=44;
     _scrollvier.contentSize =  size;
     _scrollvier.contentOffset = CGPointMake(0, 44);
+    
+    //去掉table的横线
+    
+    [_tableView setBackgroundColor:[UIColor clearColor]];
+    _tableView.separatorStyle=UITableViewCellSeparatorStyleNone;
+     
 }
 
 -(void)viewDidAppear:(BOOL)animated{
@@ -319,6 +384,7 @@
     [_historyArray removeAllObjects];
     [self reloadTableData];
 }
+
 - (IBAction)selectEncodeHistory:(id)sender {
     _reloading = NO;
     CGRect rect =  _encodeHistoryBtn.frame;

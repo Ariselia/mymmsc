@@ -36,7 +36,6 @@
 #define API_CODE_PREFIX @"http://ifengzi.cn/show.cgi?"
 #define RICH_URL @"http://f.ifengzi.cn"
 @implementation DecodeBusinessViewController
-@synthesize returnFlag;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -68,14 +67,6 @@
     
     [self.navigationController popViewControllerAnimated:YES];
     return;
-}
--(void)goPhoto{
-     
-    UIImagePickerController * pick  = [[UIImagePickerController alloc]init];
-
-    pick.sourceType = UIImagePickerControllerCameraCaptureModePhoto;
-    [self presentModalViewController:pick animated:NO];
-    [pick release];
 }
 -(void)shareCode{
     [[SHK currentHelper] setRootViewController:self];
@@ -200,7 +191,7 @@
             if ([str hasPrefix:@"id="]) {
                 // 富媒体, 或者空码, 转换地址
                 NSString *iskma = [str substringFromIndex:3];
-                 NSString *url = [NSString stringWithFormat:@"%@/apps/getCode.action?%@",API_APPS_SERVER,str];
+                 NSString *url = [NSString stringWithFormat:@"%@/apps/getCode.action?%@",API_URL_Apps,str];
                 if([iskma rangeOfString:@"-"].length>0)
                 {
                 
@@ -225,6 +216,7 @@
                        // NSLog(@"%@",status);    
                     if ([status isEqualToString:@"404"]) {
                         //跳到空码赋值
+                        
                         UCKmaViewController *nextView = [[UCKmaViewController alloc] init];
                         //nextView.bKma = YES; // 标记为空码赋值富媒体
                         nextView.code = iskma;
@@ -391,7 +383,7 @@
                     }
                     else if(type==10) {
                         _titleLabel.text= @"短信解码";
-                        ShortMessage *object = [[BusDecoder decode:list className:@"Shortmessage"] retain];
+                        Shortmessage *object = [[BusDecoder decode:list className:@"Shortmessage"] retain];
                         [_titleArray addObject:@"接收人"];
                         [_titleArray addObject:@"短信内容"];
                         [_contentArray addObject:object.cellphone];
@@ -406,7 +398,7 @@
                     }
                     else if(type==11) {
                         _titleLabel.text= @"WIFI解码";
-                        WiFiText *object =[[BusDecoder decode:list className:@"WifiText"]retain];
+                        WifiText *object =[[BusDecoder decode:list className:@"WifiText"]retain];
                         [_titleArray addObject:@"名称"];
                         [_titleArray addObject:@"密码"];
                         [_contentArray addObject:object.name];
@@ -543,19 +535,9 @@
     
     UIButton *backbtn = [UIButton buttonWithType:UIButtonTypeCustom];
     backbtn.frame =CGRectMake(0, 0, 60, 32);
-    
-    if (returnFlag == YES) {
-        [backbtn setImage:[UIImage imageNamed:@"decode_camera.png"] forState:UIControlStateNormal];
-        [backbtn setImage:[UIImage imageNamed:@"decode_camera_tap.png"] forState:UIControlStateHighlighted];
-        [backbtn addTarget:self action:@selector(goPhoto) forControlEvents:UIControlEventTouchUpInside];
-        
-    }else{
-        [backbtn setImage:[UIImage imageNamed:@"back.png"] forState:UIControlStateNormal];
-        [backbtn setImage:[UIImage imageNamed:@"back_tap.png"] forState:UIControlStateHighlighted];
-        [backbtn addTarget:self action:@selector(goBack) forControlEvents:UIControlEventTouchUpInside];
-    }
-
-
+    [backbtn setImage:[UIImage imageNamed:@"back.png"] forState:UIControlStateNormal];
+    [backbtn setImage:[UIImage imageNamed:@"back_tap.png"] forState:UIControlStateHighlighted];
+    [backbtn addTarget:self action:@selector(goBack) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *backitem = [[UIBarButtonItem alloc] initWithCustomView:backbtn];
     self.navigationItem.leftBarButtonItem = backitem;
     [backitem release];

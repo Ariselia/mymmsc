@@ -39,7 +39,7 @@
         RELEASE_SAFELY(alertView);
         return;
     }
-    WiFiText *wf =[[[WiFiText alloc]init]autorelease];
+    WifiText *wf =[[[WifiText alloc]init]autorelease];
     wf.name=_titleText.text;
     wf.password=_pwdText.text;
     EncodeEditViewController *editView =[[EncodeEditViewController alloc] initWithNibName:@"EncodeEditViewController" bundle:nil];

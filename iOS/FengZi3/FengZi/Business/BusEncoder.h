@@ -12,7 +12,7 @@
 #import "BusCategory.h"
 #import "Api+Category.h"
 
-//#import "RichMedia.h"
+#import "RichMedia.h"
 
 @interface BusEncoder : NSObject
 
@@ -58,7 +58,7 @@
  * @param card
  * @return
  */
-+(NSString*)encodeShortmessage:(ShortMessage*) shortmessage;
++(NSString*)encodeShortmessage:(Shortmessage*) shortmessage;
 /**
  * 对文本编码
  * @param card
@@ -114,5 +114,5 @@
  * @param card
  * @return
  */
-+(NSString*)encodeWifiText:(WiFiText*) wifiText;
++(NSString*)encodeWifiText:(WifiText*) wifiText;
 @end

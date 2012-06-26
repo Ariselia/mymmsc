@@ -85,11 +85,11 @@
      }
      */
     [iOSApi showAlert:@"正在提交信息..."];
-    //ApiResult *iRet = [Api updateNikename:pwd nikename:nkm];
+    ApiResult *nike = [Api updateNikename:nkm];
     ApiResult *iRet = [Api uc_userinfo_set:sRealName sex:sSex email:sEmail birthday:sBirthday idNumber:sIdNumber address:sAddress postCode:sPostCode likes:sLikes isopen:sIsopen weibo:sWeibo QQ:sQQ contact:sContact];
     [iOSApi closeAlert];
     NSString *msg = nil;
-    if (iRet.status == API_USERCENTET_SUCCESS) {
+    if (iRet.status == API_USERCENTET_SUCCESS && nike.status == API_USERCENTET_SUCCESS) {
         [Api setNikeName:nkm];
         msg = @"修改成功";
     } else {
@@ -734,7 +734,7 @@
         // 增加统计信息
         ucToal *total = [[Api uc_total_get:idDest] retain];
         cell.textLabel.text = ucInfo.nicname;
-        cell.detailTextLabel.text = [NSString stringWithFormat:@"个人码：%d\r\n访问数：%d", total.numCode, total.numScan];
+        cell.detailTextLabel.text = [NSString stringWithFormat:@"个人码：%d\r\n访问数：%d", total.codeCount, total.totalCount];
         [total release];
         UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
         btn.frame = CGRectMake(250.00f, 1.00f, 52, 52);

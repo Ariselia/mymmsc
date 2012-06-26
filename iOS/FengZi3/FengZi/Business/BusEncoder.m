@@ -24,7 +24,6 @@
     }
     return sb;
 }
-
 //普通二维码编码
 static const char * getPropertyType(objc_property_t property) {
     const char *attributes = property_getAttributes(property);
@@ -53,14 +52,13 @@ static const char * getPropertyType(objc_property_t property) {
     }
     return "";
 }
-
 +(NSString*)encode:(id) obj type:(int)type{
     NSMutableString *buffer = [[[NSMutableString alloc] initWithCapacity:0] autorelease];
     //判断是不是服媒体；
     if(type==13)
     {
         RichMedia *richObject= obj;  
-        NSString *codeid= richObject.codeId;
+        NSString *codeid= richObject.url;
        [buffer appendString:[NSString stringWithFormat:@"%@id=%@",FENGZI_URL,codeid]];
     } else {
         
@@ -95,7 +93,9 @@ static const char * getPropertyType(objc_property_t property) {
                 if([propertyType isEqualToString:(@"NSString")])
                 {
                 value=(NSString *)xxx;
-                    
+                    value = [value replace:@":" withString:@"\\:"];
+                    value = [value replace:@";" withString:@"\\;"];
+
                 [buffer appendString:[NSString stringWithFormat:@"%c:%@;",num,value]];      
                 }
             }
@@ -123,7 +123,7 @@ static const char * getPropertyType(objc_property_t property) {
         return buffer;
     }
     [buffer appendString:FENGZI_URL];
-    [buffer appendString:media.codeId];
+    [buffer appendString:media.url];
     return buffer;
 }
 
@@ -440,7 +440,7 @@ static const char * getPropertyType(objc_property_t property) {
  * @param card
  * @return
  */
-+(NSString*)encodeShortmessage:(ShortMessage*) shortmessage{
++(NSString*)encodeShortmessage:(Shortmessage*) shortmessage{
     NSMutableString *buffer = [[[NSMutableString alloc] initWithCapacity:0]autorelease];
     if(shortmessage == nil){
         return buffer;
@@ -818,7 +818,7 @@ static const char * getPropertyType(objc_property_t property) {
  * @param card
  * @return
  */
-+(NSString*)encodeWifiText:(WiFiText*) wifiText{
++(NSString*)encodeWifiText:(WifiText*) wifiText{
     
     NSMutableString *buffer = [[[NSMutableString alloc] initWithCapacity:0] autorelease];
     

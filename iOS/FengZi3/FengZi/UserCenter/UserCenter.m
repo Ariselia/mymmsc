@@ -361,8 +361,8 @@ static int iTimes = -1;
         // 增加统计信息
         ucToal *total = [[Api uc_total_get:[Api userId]] retain];
         if (total.status == API_SUCCESS) {
-            numScan.text = [NSString valueOf:total.numScan];
-            numAccess.text = [NSString valueOf:total.numCode];
+            numScan.text = [NSString valueOf:total.codeCount];
+            numAccess.text = [NSString valueOf:total.totalCount];
         }
         [total release];
     }

@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <ZXing/Decoder.h>
 #import "RefreshTableFooterView.h"
+
 @interface FaviroteViewController : UIViewController<DecoderDelegate,RefreshTableFooterDelegate>{
     RefreshTableFooterView *_refreshFooterView;
     IBOutlet UITableView *_tableView;
@@ -18,6 +19,7 @@
     int _startIndex;
     BOOL _reloading;
     IBOutlet UIView *_noResultView;
+    IBOutlet UIButton *_goBackBtn;
 }
 - (void)doneLoadingTableViewData;
 - (IBAction)goBack:(id)sender;

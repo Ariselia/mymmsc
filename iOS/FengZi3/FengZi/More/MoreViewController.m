@@ -123,8 +123,8 @@
     
     UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
     [cell setBackgroundColor:CELLSELECTIONCOLOR];
-    
-    //    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+
+//    [tableView deselectRowAtIndexPath:indexPath animated:YES];
     switch (indexPath.section) {
         case 0:{
             switch (indexPath.row) {
@@ -181,15 +181,15 @@
                     SettingViewController *feedview = [[SettingViewController alloc] initWithNibName:@"SettingViewController" bundle:nil];
                     [self.navigationController pushViewController:feedview animated:YES];
                     [feedview release];
-                    
+
                     break;
                 }
                 case 1:{
                     HelpViewController *help = [[HelpViewController alloc] initWithNibName:@"HelpViewController" bundle:nil];
                     [self.navigationController pushViewController:help animated:YES];
                     [help release];
-                    //                    HelpView *helpView = (HelpView*)[[[NSBundle mainBundle] loadNibNamed:@"HelpView" owner:self options:nil] objectAtIndex:0];
-                    //                    [helpView startHelp];
+//                    HelpView *helpView = (HelpView*)[[[NSBundle mainBundle] loadNibNamed:@"HelpView" owner:self options:nil] objectAtIndex:0];
+//                    [helpView startHelp];
                     break;
                 }
                 case 2:{

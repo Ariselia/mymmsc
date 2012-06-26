@@ -17,12 +17,13 @@
 
 #import <QRCode/QREncoder.h>
 #import <QRCode/DataMatrix.h>
+#import "CONSTS.h"
 
 //====================================< 用户信息 >====================================
 
 @implementation UserInfo
 
-@synthesize userId, userName, phoneNumber, nikeName, password, token, lastip, lastdate;
+@synthesize userId, userName, phoneNumber, nikeName, password, sessionPassword,token,lastip,lastdate;
 
 - (id)init{
 	if(!(self = [super init])) {
@@ -34,11 +35,12 @@
 }
 
 - (void)dealloc {
+    [token release];
     [userName release];
     [phoneNumber release];
     [nikeName release];
     [password release];
-    [token release];
+    [sessionPassword release];
     
     [super dealloc];
 }
@@ -75,7 +77,7 @@
         if (value != nil) {
             status = ((NSNumber *)value).intValue;
         }
-        value = [map objectForKey:@"message"];
+        value = [map objectForKey:@"msg"];
         if (value != nil) {
             if ([value isKindOfClass:[NSArray class]]) {
                 NSArray *list = value;
@@ -204,19 +206,30 @@ static UserInfo *cache_info = nil;
 + (void) setUserId:(int)userId{
     [self initInfo];
     [cache_info setUserId:userId];
+    [[iOSApi cache] setInteger:cache_info.userId forKey:API_CACHE_USERID];
+    
 }
 
 // 获取用户ID
 + (int)userId{
     [self initInfo];
-    return cache_info.userId;
+    int sRet = cache_info.userId;
+    
+    if (sRet == 0 || sRet==-1) {
+        sRet = [[iOSApi cache] integerForKey:API_CACHE_USERID];
+    }
+    
+    return sRet;
+    
 }
+
+
 
 // 设定用户手机号码
 + (void)setUserPhone:(NSString *)userPhone{
     [self initInfo];
     cache_info.phoneNumber = userPhone;
-    [[iOSApi cache] setObject:cache_info.phoneNumber forKey:API_CACHE_USERID];
+    [[iOSApi cache] setObject:cache_info.phoneNumber forKey:API_CACHE_USERPHONE];
 }
 
 // 获取用户手机号码
@@ -224,7 +237,7 @@ static UserInfo *cache_info = nil;
     [self initInfo];
     NSString *sRet = cache_info.phoneNumber;
     if (sRet == nil) {
-        sRet = [[iOSApi cache] objectForKey:API_CACHE_USERID];
+        sRet = [[iOSApi cache] objectForKey:API_CACHE_USERPHONE];
     }
     if (sRet == nil) {
         //sRet = @"18632523200";
@@ -248,6 +261,92 @@ static UserInfo *cache_info = nil;
     [self initInfo];
     [cache_info setPassword:passwd];
     [[iOSApi cache] setObject:passwd forKey:API_CACHE_PASSWD];
+}
+
++ (NSString *)sessionPassword{
+    [self initInfo];
+    return cache_info.sessionPassword;
+}
+
++ (void)setSessionPassword:(NSString *)passwd {
+    [self initInfo    ];
+    [cache_info setSessionPassword:passwd];
+}
+
++ (NSString *)nikeName{
+    [self initInfo];
+    NSString *sRet = cache_info.nikeName;
+    
+    if (sRet == nil) {
+        sRet = [[iOSApi cache] objectForKey:API_CACHE_NKNAME];
+        
+        
+    }
+    if (sRet == nil) {
+        sRet = @"匿名"; // 默认一个昵称
+    }
+    return sRet;
+}
+
+//api 存数据
++ (void)setNikeName:(NSString *)nikeName {
+    [self initInfo]; 
+    [cache_info setNikeName:nikeName];  
+    [[iOSApi cache] setObject:nikeName forKey:API_CACHE_NKNAME];
+}
+
++ (BOOL)isOnLine{
+    [self initInfo];
+    BOOL bRet = NO;
+    
+    int userID = cache_info.userId;
+    if (userID!=-1&&userID!=0) {
+        bRet=YES;
+    }
+    else {
+        userID = [[iOSApi cache] integerForKey:API_CACHE_USERID];
+        if (userID!=-1&&userID!=0) {
+            bRet=YES;
+        }
+        
+    }
+    return bRet;
+}
+
+
++ (UserInfo *)user{
+    [self initInfo];
+    return cache_info;
+}
+
++ (void)setUser:(UserInfo *)info {
+    [cache_info release];
+    cache_info = info;
+    if (info==nil) {
+        [[iOSApi cache] removeObjectForKey:API_CACHE_USERID];
+        [[iOSApi cache] removeObjectForKey:API_CACHE_LASTDATE];
+        [[iOSApi cache] removeObjectForKey:API_CACHE_TOKEN];
+        [[iOSApi cache] removeObjectForKey:API_CACHE_PASSWD];
+        [[iOSApi cache] removeObjectForKey:API_CACHE_NKNAME];
+        [[iOSApi cache] removeObjectForKey:API_CACHE_LASTIP];
+    }
+}
+
+//--------------
++ (NSString *)filePath:(NSString *)url {
+    NSString *tmpUrl = [iOSApi urlDecode:url];
+    // 获得文件名
+    NSString *filename = [NSString stringWithFormat:@"%@/%@", API_CACHE_FILEPATH, [tmpUrl lastPathComponent]];
+    iOSLog(@"1: %@", filename);
+    //return [iOSFile path:filename];
+    return filename;
+}
+
++ (BOOL)fileIsExists:(NSString *)url {
+    NSString *filepath = [iOSFile path:[self filePath:url]];
+    BOOL bExists = NO;
+    bExists = [[iOSFile manager] fileExistsAtPath:filepath];
+    return bExists;
 }
 
 //设定token值
@@ -287,6 +386,8 @@ static UserInfo *cache_info = nil;
     return sRet;
 }
 
+
+
 // 设定最后一次登录的ip地址
 +(void)setLastip:(NSString *)lastip
 {
@@ -306,60 +407,7 @@ static UserInfo *cache_info = nil;
     return sRet;
 }
 
-+ (NSString *)nikeName{
-    [self initInfo];
-    NSString *sRet = cache_info.nikeName;
-    if (sRet == nil) {
-        sRet = [[iOSApi cache] objectForKey:API_CACHE_NKNAME];
-    }
-    if (sRet == nil) {
-        sRet = @"匿名"; // 默认一个昵称
-    }
-    return sRet;
-}
 
-+ (void)setNikeName:(NSString *)nikeName {
-    [self initInfo];
-    [cache_info setNikeName:nikeName];
-    [[iOSApi cache] setObject:nikeName forKey:API_CACHE_NKNAME];
-}
-
-+ (BOOL)isOnLine{
-    [self initInfo];
-    BOOL bRet = NO;
-    NSString *uid = cache_info.phoneNumber;;
-    if (uid != nil && ![uid isEqualToString:@""]) {
-        bRet = YES;
-    }
-    
-    return bRet;
-}
-
-+ (UserInfo *)user{
-    [self initInfo];
-    return cache_info;
-}
-
-+ (void)setUser:(UserInfo *)info {
-    cache_info = info;
-}
-
-//--------------
-+ (NSString *)filePath:(NSString *)url {
-    NSString *tmpUrl = [iOSApi urlDecode:url];
-    // 获得文件名
-    NSString *filename = [NSString stringWithFormat:@"%@/%@", API_CACHE_FILEPATH, [tmpUrl lastPathComponent]];
-    NSLog(@"1: %@", filename);
-    //return [iOSFile path:filename];
-    return filename;
-}
-
-+ (BOOL)fileIsExists:(NSString *)url {
-    NSString *filepath = [iOSFile path:[self filePath:url]];
-    BOOL bExists = NO;
-    bExists = [[iOSFile manager] fileExistsAtPath:filepath];
-    return bExists;
-}
 
 //--------------------< 业务处理 - 接口 >--------------------
 + (NSString *)fixUrl:(NSString *)url{
@@ -413,18 +461,22 @@ static UserInfo *cache_info = nil;
     if (![action hasPrefix:@"http://"]) {
         url = [NSString stringWithFormat:@"%@/%@", API_SERVER, action];
     }
-        
-    HttpClient *client = [[HttpClient alloc] initWithURL:url timeout:API_TIMEOUT];
     
+    HttpClient *client = [[HttpClient alloc] initWithURL:url timeout:API_TIMEOUT];
+    NSLog(@"useriiiiid=%@",params);
     [client formAddFields:params];
-    NSData *response = [client post];
+    
+    NSData *response = [client post:[NSDictionary dictionaryWithObjectsAndKeys:[Api token], API_CACHE_TOKEN,[UIDevice currentDevice].uniqueIdentifier,@"Mobile-IEMI",@"FengZi/iOS/2.3.2",@"FengZi-Control",nil]];
+    NSLog(@"response...%@",response);
+    
     if (response == nil) {
         //[iOSApi Alert:@"提示" message:@"服务器正忙，请稍候。"];
     } else {
-        iOSLog(@"Date=%@", [client header:@"Date"]);
+        NSLog(@"Date=%@", [client header:@"Date"]);
+        
         // 取得JSON数据的字符串
         NSString *json_string = [[[NSString alloc] initWithData:response encoding:NSUTF8StringEncoding] autorelease];
-        iOSLog(@"json.string = %@", json_string);
+        NSLog(@"json.string－－－－－－ = %@", json_string);
         //json_string = [json_string stringByReplacingOccurrencesOfString:@".00" withString:@".01"];
         // 把JSON转为数组
         ret = [json_string objectFromJSONString];
@@ -448,6 +500,7 @@ static UserInfo *cache_info = nil;
         //[iOSApi Alert:@"提示" message:@"服务器正忙，请稍候。"];
     } else {
         iOSLog(@"Date=%@", [client header:@"Date"]);
+        
         // 取得JSON数据的字符串
         NSString *json_string = [[[NSString alloc] initWithData:response encoding:NSUTF8StringEncoding] autorelease];
         iOSLog(@"json.string = %@", json_string);

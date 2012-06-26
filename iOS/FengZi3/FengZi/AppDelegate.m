@@ -8,6 +8,17 @@
 #import "AppDelegate.h"
 #import "TabBarController.h"
 #import "EncryptTools.h"
+#import <iOSApi/iOSApi.h>
+
+//支付宝加入
+#import "AlixPay.h"
+#import "AlixPayResult.h"
+#import "DataVerifier.h"
+#import <sys/utsname.h>
+#import "EBuyOrderInfo.h"
+
+
+
 @implementation AppDelegate
 
 @synthesize window = _window;
@@ -62,69 +73,54 @@
     [hostReach startNotifier];
     [LastVersionDataRequest silentRequestWithDelegate:self];
     [self setLocationStatus];
-    DATA_ENV.hasNetWork = YES;
     return YES;
 }
 
-#include <sys/socket.h> // Per msqr
-#include <sys/sysctl.h>
-
-- (NSString *) doDevicePlatform
-{
-    size_t size;
-    int nR = sysctlbyname("hw.machine", NULL, &size, NULL, 0);
-    char *machine = (char *)malloc(size);
-    nR = sysctlbyname("hw.machine", machine, &size, NULL, 0);
-    NSString *platform = [NSString stringWithCString:machine encoding:NSUTF8StringEncoding];
-    free(machine);
-    return platform;
-}
-
 - (void)reachabilityChanged:(NSNotification *)note{
-    //	Reachability* curReach = [note object];
-    //	if( curReach!=hostReach  ){
-    //		DATA_ENV.hasNetWork = NO;
-    //        return;
-    //    }
-    //	NetworkStatus status = [curReach currentReachabilityStatus];
-    //	if (status != NotReachable) {
-    //        DATA_ENV.hasNetWork = YES;
-    if(![USER_DEFAULT boolForKey:@"MobileInfoSended"]){
-        NSString *netName;
-        if ([hostReach isReachableViaWWAN] == kReachableViaWWAN) {
-            netName = @"2G/3G";
-        }else{
-            netName = @"WIFI";
-        }
-        
-        CGSize size  = [[UIScreen mainScreen] currentMode].size;
-        NSMutableString *buffer = [[[NSMutableString alloc] initWithCapacity:0] autorelease];
-        
-        [buffer appendFormat:@"r=%.f*%.f",size.height,size.width];// 分辨率
-        size = [[UIScreen mainScreen] bounds].size;
-        
-        [buffer appendFormat:@"&s=%.f*%.f",size.height,size.width];// 屏幕大小
-        
-        [buffer appendFormat:@"&v=%@",[[UIDevice currentDevice] systemVersion]];// 版本
-        
-        NSString *system = [[UIDevice currentDevice] systemName];
-        [buffer appendFormat:@"&o=%@",system];// 系统
-        [buffer appendFormat:@"&mo=%@",[self doDevicePlatform]];// 网络
-        
-        [buffer appendFormat:@"&imei=%@",[[UIDevice currentDevice] uniqueIdentifier]];// 型号
-        [buffer appendFormat:@"&version=%@",[iOSApi version]];// 版本
-        
-        [buffer appendFormat:@"&ch=%@",CHANNEL_NUMBER];// 渠道
-        
-        [buffer appendFormat:@"&simng=%@",netName];// 网络
-        
-        NSString *info = [EncryptTools Base64EncryptString:buffer];
-        [MobileInfoDataRequest silentRequestWithDelegate:self withParameters:[NSDictionary dictionaryWithObjectsAndKeys:info,@"t", nil]];
-        [[NSNotificationCenter defaultCenter] removeObserver:self name:kReachabilityChangedNotification object:nil];
+	Reachability* curReach = [note object];
+	if( curReach!=hostReach ){
+		DATA_ENV.hasNetWork = NO;
+        return;
     }
-    //    }else{
-    //        DATA_ENV.hasNetWork = NO;
-    //    }
+	NetworkStatus status = [curReach currentReachabilityStatus];
+	if (status != NotReachable) {
+        DATA_ENV.hasNetWork = YES;
+        if(![USER_DEFAULT boolForKey:@"MobileInfoSended"]){
+            NSString *netName;
+            if ([hostReach isReachableViaWWAN] == kReachableViaWWAN) {
+                netName = @"2G/3G";
+            }else{
+                netName = @"WIFI";
+            }
+            
+            CGSize size  = [[UIScreen mainScreen] currentMode].size;
+            NSMutableString *buffer = [[[NSMutableString alloc] initWithCapacity:0] autorelease];
+            
+            [buffer appendFormat:@"r=%.f*%.f",size.height,size.width];// 分辨率
+            size = [[UIScreen mainScreen] bounds].size;
+            
+            [buffer appendFormat:@"&s=%.f*%.f",size.height,size.width];// 屏幕大小
+            
+            [buffer appendFormat:@"&iv=%@",[[UIDevice currentDevice] systemVersion]];// 版本
+            
+            NSString *system = [[UIDevice currentDevice] systemName];
+            [buffer appendFormat:@"&o=%@",system];// 系统
+            
+            [buffer appendFormat:@"&eqn=%@",[[UIDevice currentDevice] uniqueIdentifier]];// 型号
+            
+            [buffer appendFormat:@"&version=%@",[iOSApi version]];// 版本
+            
+            [buffer appendFormat:@"&ch=%@",CHANNEL_NUMBER];// 渠道
+            
+            [buffer appendFormat:@"&simng=%@",netName];// 网络
+            
+            NSString *info = [EncryptTools Base64EncryptString:buffer];
+            [MobileInfoDataRequest silentRequestWithDelegate:self withParameters:[NSDictionary dictionaryWithObjectsAndKeys:info,@"t", nil]];
+            [[NSNotificationCenter defaultCenter] removeObserver:self name:kReachabilityChangedNotification object:nil];
+        }
+    }else{
+        DATA_ENV.hasNetWork = NO;
+    }
 }
 
 -(void)requestDidFinishLoad:(ITTBaseDataRequest *)request{
@@ -144,17 +140,17 @@
     }
 }
 
--(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
     if (buttonIndex==0) {
         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:APPSTORE_URL]];
     }
 }
 
--(void)request:(ITTBaseDataRequest *)request didFailLoadWithError:(NSError *)error{
+- (void)request:(ITTBaseDataRequest *)request didFailLoadWithError:(NSError *)error{
     NSLog(@"%@",error);
 }
 
--(void)setLocationStatus{
+- (void)setLocationStatus{
     if ([DATA_ENV getLocationStatus]) {
         if (!_locationManager) {
             _locationManager = [[CLLocationManager alloc] init];//创建位置管理器
@@ -215,6 +211,81 @@
      Save data if appropriate.
      See also applicationDidEnterBackground:.
      */
+}
+
+- (void)parseURL:(NSURL *)url application:(UIApplication *)application {
+	AlixPay *alixpay = [AlixPay shared];
+	AlixPayResult *result = [alixpay handleOpenURL:url];
+	if (result) {
+        iOSLog(@"AliPay result=[%@], message=[%@].", result.resultString, result.statusMessage);
+        NSString *msg = result.statusMessage;
+        
+		//是否支付成功
+		if (9000 == result.statusCode) {
+            if (msg == nil || msg.length < 1) {
+                msg = @"支付成功！";
+            }
+            NSDictionary *params = [result.resultString uriParams];
+            NSString *temp = nil;
+            temp = [params objectForKey:@"out_trade_no"];
+            NSString *orderId = [temp replace:@"\"" withString:@""];
+            temp = [params objectForKey:@"total_fee"];
+            temp = [temp replace:@"\"" withString:@""];
+            float totalFee = [temp floatValue];
+            ApiResult *iRet = [[Api ebuy_order_change:orderId payId:@"----" payWay:0 payStatus:0x11 payAmount:totalFee serviceFee:0.00f] retain];
+            [EBuyOrderInfo changeState:0];
+			// 用公钥验证签名
+            id<DataVerifier> verifier = CreateRSADataVerifier(RSA_ALIPAY_PUBLIC);
+			if ([verifier verifyString:result.resultString withSign:result.signString]) {
+				UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:@"提示" 
+																	 message:iRet.message
+																	delegate:nil 
+														   cancelButtonTitle:@"确定" 
+														   otherButtonTitles:nil];
+				[alertView show];
+				[alertView release];
+			} else { //验签错误
+				UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:@"提示" 
+																	 message:@"签名错误" 
+																	delegate:nil 
+														   cancelButtonTitle:@"确定" 
+														   otherButtonTitles:nil];
+				[alertView show];
+				[alertView release];
+			}
+            [iRet release];
+		} else {
+            [EBuyOrderInfo changeState:1];
+            //如果支付失败,可以通过result.statusCode查询错误码
+			UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:@"提示" 
+																 message:result.statusMessage 
+																delegate:nil 
+													   cancelButtonTitle:@"确定" 
+													   otherButtonTitles:nil];
+			[alertView show];
+			[alertView release];
+		}
+		
+	}	
+}
+
+//支付宝加入
+- (BOOL)isSingleTask{
+	struct utsname name;
+	uname(&name);
+	float version = [[UIDevice currentDevice].systemVersion floatValue];//判定系统版本。
+	if (version < 4.0 || strstr(name.machine, "iPod1,1") != 0 || strstr(name.machine, "iPod2,1") != 0) {
+		return YES;
+	}
+	else {
+		return NO;
+	}
+}
+
+- (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url {
+	
+	[self parseURL:url application:application];
+	return YES;
 }
 
 @end

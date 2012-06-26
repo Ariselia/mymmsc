@@ -146,7 +146,7 @@ static NSString *s_luckyId = nil;
             if ([str hasPrefix:@"id="]) {
                 // 富媒体, 或者空码, 转换地址
                 NSString *iskma = [str substringFromIndex:3];
-                NSString *url = [NSString stringWithFormat:@"%@/apps/getCode.action?%@",API_APPS_SERVER,str];
+                NSString *url = [NSString stringWithFormat:@"%@/apps/getCode.action?%@",API_URL_Apps,str];
                 if([iskma rangeOfString:@"-"].length>0)
                 {
                     
@@ -532,14 +532,7 @@ static NSString *s_luckyId = nil;
         } else { // 默认传统业务 [WangFeng at 2012/05/14 11:31]
             
             DecodeBusinessViewController *businessView = [[DecodeBusinessViewController alloc] initWithNibName:@"DecodeBusinessViewController" category:category result:input image:inputImage withType:HistoryTypeFavAndHistory withSaveImage:saveImage];
-            if ([self isKindOfClass:NSClassFromString(@"DecodeViewController")]) {
-                businessView.returnFlag=YES;
-            }
-            else{
-                businessView.returnFlag=NO;
-            }
             [self.navigationController pushViewController:businessView animated:YES];
-            
             RELEASE_SAFELY(businessView);
             return;
         }
