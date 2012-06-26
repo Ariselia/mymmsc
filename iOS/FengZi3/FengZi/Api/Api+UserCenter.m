@@ -516,13 +516,14 @@
 // 富媒体 评论列表
 + (NSMutableArray *)mb_comments_get:(NSString *)maId
                                page:(int)number
-                               size:(int)size {
+                               size:(int)size 
+                            firstId:(int *)firstId{
     static NSString *action = API_APPS_SERVER "/apps/listCodeComment.action";
     NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
-                            [Api base64e:[Api passwd]], @"sessionPassword",
                             maId, @"codeid",
                             [NSString valueOf:number], @"pagenum",
                             [NSString valueOf:size], @"pagesize",
+                            [NSString valueOf:*firstId], @"firstId",
                             nil];
     NSDictionary *map = [Api post:action params:params];
     ApiResult *iRet = [[ApiResult alloc] init];
@@ -531,12 +532,12 @@
     
     if (iRet.status == API_USERCENTET_SUCCESS && data.count > 0) {
         // 业务数据处理
-       
         // 找到我的码数据区
         for (NSDictionary *dict in data) {
             CodeInfo *obj = [dict toObject:ucComment.class];
             [aRet addObject:obj];
         }
+        *firstId = iRet.firstId;
     }
     [iRet release];
     return aRet;
