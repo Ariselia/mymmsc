@@ -17,6 +17,7 @@
     UITextBorderStyle  _borderStyle;
     int                _page;
     int                _size;
+    int                _firstId;
     
     UITextField *content;
 }
