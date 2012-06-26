@@ -7,6 +7,8 @@
 //
 
 #import <iOSApi/iOSApi.h>
+#import <iOSApi/iOSApi+jSon.h>
+#import <iOSApi/iOSApi+Reflex.h>
 #import <iOSApi/iOSApi+Window.h>
 #import <iOSApi/iOSApi+Crypto.h>
 #import <iOSApi/iOSAction.h>
@@ -33,48 +35,34 @@
 
 // 文件缓冲路径
 #define API_CACHE_FILEPATH   @"cache/files"
-
-//#define API_TEST_AUTHCODE    @"1234"
-#define API_INTERFACE_TONKEN @"uLN9UhI9Uhd-UhGGuh78uQ"
-
+// 码前缀
+#define API_CODE_PREFIX      @"http://ifengzi.cn/show.cgi?"
+// 应用服务器
+#define API_APPS_SERVER      @"http://ifengzi.cn/"
 // 文件服务器
-#define API_FILE_SERVER @"http://f.ifengzi.cn/"
-
-//富媒体应用服务器
-#define API_RICHMEDIA_SERVER @"http://f.ifengzi.cn/"
-
-
-
+#define API_FILE_SERVER      @"http://f.ifengzi.cn/"
 //文件上传
-#define API_FILE_UPLOAD  "apps/FileUpload.action"
+#define API_FILE_UPLOAD      "apps/FileUpload.action"
 //生码分为富媒体个性生码、个人用户空码赋值、企业用户批量生成空码：
-#define API_MAKE_CODE    "apps/MakeCode.action"
+#define API_MAKE_CODE        "apps/MakeCode.action"
 //展示二维码
-#define API_SHOW_CODE    "apps/ShowCode.action"
+#define API_SHOW_CODE        "apps/ShowCode.action"
 
 //获取富媒体内容采用GET方式的URL重定向，参数一定要按照顺序填写。
-#define API_GET_CODE	 "/apps/getCode.action"
+#define API_GET_CODE	     "apps/getCode.action"
 
-// 富媒体接口地址
-#define API_URL_RICHMEDIA    @"http://m.ifengzi.cn/mb"
-// 空码接口地址
-#define API_URL_KMA          @"http://m.ifengzi.cn/mb"
-// 用户中心接口地址
-#define API_URL_USERCENTER   @"http://f.ifengzi.cn"
-
-#define API_URL_Apps         @"http://ifengzi.cn/"
 // 个人空间秀
 #define API_URL_SHOW         @"http://ifengzi.cn/apps/getUserInfo.action"
 // 顺风车 接口地址
 #define API_URL_RIDE         @"http://m.ifengzi.cn/sfc/fx/facade"
 
 // 数字商城
-#define API_URL_ESHOP        @"http://220.231.48.34:38090/eshop"
+#define API_URL_ESHOP        @"http://apps.ifengzi.cn/eshop"
 // 数字商城二维码前缀
 #define API_QRCODE_ESHOP     API_URL_ESHOP "/info.action"
 
 // 电子商城
-#define API_URL_EBUY         @"http://220.231.48.34:38090/ebuy"
+#define API_URL_EBUY         @"http://apps.ifengzi.cn/ebuy"
 
 // 电子蜂夹
 #define API_URL_EFILE        @"http://220.231.48.34:38090/mobile/fx"
@@ -82,7 +70,6 @@
 #define API_URL_LUCKY        @"http://devp.ifengzi.cn:38090/lucky"
 
 //====================================< 用户信息 >====================================
-#define API_CACHE_USERPHONE @"app_userPhone"
 
 #define API_CACHE_USERID @"app_userId"
 #define API_CACHE_NKNAME @"app_nikename"
@@ -92,14 +79,12 @@
 #define API_CACHE_LASTDATE @"app_lastdate"
 #define API_CACHE_LASTIP @"app_lastid"
 
-
 @interface UserInfo : NSObject {
     int       userId;          // 用户Id
     NSString *userName;        // 姓名
     NSString *phoneNumber;     // 用户手机号码
     NSString *nikeName;        // 用户昵称
     NSString *password;        // 用户密码
-    NSString *sessionPassword; // 密码明文进行base64加密的结果
     NSString *token;           // 服务器返回的token值
     NSString *lastdate;        // 最后一次登录的时间
     NSString *lastip;          // 最后一次登录的ip地址
@@ -110,11 +95,9 @@
 @property (nonatomic, copy) NSString *phoneNumber;
 @property (nonatomic, copy) NSString *nikeName;
 @property (nonatomic, copy) NSString *password;
-@property (nonatomic, copy) NSString *sessionPassword;
 @property (nonatomic, copy) NSString *token;
 @property (nonatomic, copy) NSString *lastdate;
 @property (nonatomic, copy) NSString *lastip;
-
 
 @end
 
@@ -186,16 +169,11 @@
 // 设定用户密码
 + (void)setPasswd:(NSString *)passwd;
 
-+ (NSString *)sessionPassword;
-+ (void)setSessionPassword:(NSString *)passwd;
 // 获取昵称
 + (NSString *)nikeName;
 
 // 设定昵称
 + (void)setNikeName:(NSString *)nikeName;
-
-// 判断用户是否在线
-+ (BOOL)isOnLine;
 
 // 设定Token值
 +(void)setToken:(NSString *)token;
@@ -210,6 +188,8 @@
 +(NSString *)lastdate;
 +(NSString *)lastip;
 
+// 判断用户是否在线
++ (BOOL)isOnLine;
 
 //------------
 
