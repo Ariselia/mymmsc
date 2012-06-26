@@ -218,7 +218,7 @@
         if (!useCurrentCache) {
             _usingCacheData = NO;
             [self doRequestWithParams:params];
-            ITTDINFO(@"request %@ is created", [self class]);
+            iOSLog(@"request %@ is created", [self class]);
         }else{
             _usingCacheData = YES;
             [self performSelector:@selector(release) withObject:nil afterDelay:0.1f];
@@ -237,7 +237,7 @@
                                                       object:nil];
     }
     
-    ITTDINFO(@"request %@ is released,time spend on this request:%f seconds", [self class],[[NSDate date] timeIntervalSinceDate:_requestStartTime]);
+    iOSLog(@"request %@ is released,time spend on this request:%f seconds", [self class],[[NSDate date] timeIntervalSinceDate:_requestStartTime]);
     RELEASE_SAFELY(_requestUrl);
     RELEASE_SAFELY(_cacheKey);
     RELEASE_SAFELY(_delegate);
@@ -277,9 +277,9 @@
     _result = [[ITTRequestResult alloc] initWithCode:[resultDic objectForKey:@"code"] 
                                          withMessage:@""];
     if (![_result isSuccess]) {
-        ITTDERROR(@"request[%@] failed with message %@",self,_result.code);
+        iOSLog(@"request[%@] failed with message %@",self,_result.code);
     }else {
-        ITTDINFO(@"request[%@] :%@" ,self ,@"success");
+        iOSLog(@"request[%@] :%@" ,self ,@"success");
     }
 }
 
@@ -312,7 +312,7 @@
     RELEASE_SAFELY(_resultString)
 	_resultString = [trimmedString retain];
 	if (!_resultString || [_resultString length] == 0) {
-		ITTDERROR(@"!empty response error with Request:%@",[self class]);
+		iOSLog(@"!empty response error with Request:%@",[self class]);
 		return NO;
 	}
 	//ITTDINFO(@"raw response:%@",_resultString);
@@ -333,7 +333,7 @@
                                                    code:0
                                                userInfo:nil]];
 		}
-        ITTDERROR(@"http request:%@\n with error:%@\n raw result:%@",[self class],error,_resultString);
+        iOSLog(@"http request:%@\n with error:%@\n raw result:%@",[self class],error,_resultString);
         return NO;
 	}else{
         RELEASE_SAFELY(_resultDic);
@@ -354,7 +354,7 @@
 }
 #pragma mark - hook methods
 - (void)doRequestWithParams:(NSDictionary*)params{
-    ITTDERROR(@"should implement request logic here!");
+    iOSLog(@"should implement request logic here!");
 }
 - (NSStringEncoding)getResponseEncoding{
     return NSUTF8StringEncoding;
