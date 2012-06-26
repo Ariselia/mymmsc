@@ -2,7 +2,7 @@
 //  AppDelegate.m
 //  FengZi
 //
-//  Copyright (c) 2011 iTotemStudio. All rights reserved.
+//  Copyright (c) 2011 fengxiafei.com. All rights reserved.
 //
 
 #import "AppDelegate.h"
