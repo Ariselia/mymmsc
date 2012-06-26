@@ -27,7 +27,7 @@
     if (_delegate && [_delegate respondsToSelector:@selector(requestDidCancelLoad:)]) {
         [_delegate requestDidCancelLoad:self];
     }
-    ITTDINFO(@"cancelling request");
+    iOSLog(@"cancelling request");
 }
 
 - (void)generateRequestWithUrl:(NSString*)url
@@ -106,7 +106,7 @@
     [self generateRequestWithUrl:self.requestUrl withParameters:params];
     
     [_request startAsynchronous];
-    ITTDINFO(@"request %@ is created, URL is: %@", [self class], [_request url]);
+    iOSLog(@"request %@ is created, URL is: %@", [self class], [_request url]);
 }
 
 - (void)dealloc {	
@@ -117,7 +117,7 @@
 
 - (BOOL)onReceivedCacheData:(NSObject*)cacheData{
     // return yes to finish this request, return no to continue request from server
-    ITTDINFO(@"using cache data for request:%@", [self class]);
+    iOSLog(@"using cache data for request:%@", [self class]);
     if (!cacheData) {
         return NO;
     }
@@ -130,7 +130,7 @@
         }
         return YES;
     }else{
-        ITTDINFO(@"request:[%@],cache data should be handled by subclass", [self class]);
+        iOSLog(@"request:[%@],cache data should be handled by subclass", [self class]);
         return NO;
     }
 }
@@ -161,7 +161,7 @@
 
 - (void)requestFailed:(ASIFormDataRequest*)request {
 	[self showIndicator:NO];
-	ITTDERROR(@"http request error:\n request:%@\n error:%@",[request.url absoluteString],request.error);
+	iOSLog(@"http request error:\n request:%@\n error:%@",[request.url absoluteString],request.error);
 	if(_delegate && [_delegate respondsToSelector:@selector(request:didFailLoadWithError:)]){
 		[_delegate request:self didFailLoadWithError:request.error];
 	}
@@ -207,8 +207,8 @@
 				break;
 		}
         if ([request.error code] != ASIRequestCancelledErrorType) {
-            ITTDERROR(@"error detail:%@\n",request.error.userInfo);
-            ITTDERROR(@"error code:%d",[request.error code]);
+            iOSLog(@"error detail:%@\n",request.error.userInfo);
+            iOSLog(@"error code:%d",[request.error code]);
             if (!_useSilentAlert) {
                 UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@""
                                                                 message:errorMsg 
