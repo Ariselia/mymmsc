@@ -21,9 +21,9 @@
         }
         [validPersonArray addObject:[NSDictionary dictionaryWithObjectsAndKeys:[AddressBookUtils getFullName:person],@"name",[AddressBookUtils getFirstCellPhoneNum:person],@"phone",[AddressBookUtils getFirstEmail:person],@"mail",nil]];
         
-        ITTDINFO(@"\nname:%@ number:%@", [AddressBookUtils getFullName:person],[AddressBookUtils getFirstCellPhoneNum:person]);
+        iOSLog(@"\nname:%@ number:%@", [AddressBookUtils getFullName:person],[AddressBookUtils getFirstCellPhoneNum:person]);
         if ([AddressBookUtils hasImageByPerson:person]) {
-            ITTDINFO(@"has image%@", [AddressBookUtils getImageByPerson:person]);
+            iOSLog(@"has image%@", [AddressBookUtils getImageByPerson:person]);
         }
     }
     CFRelease(addressBook);
