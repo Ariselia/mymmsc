@@ -604,7 +604,12 @@
 
 - (void)sharerFinishedSending:(SHKSharer *)sharer{
 	if (!quiet)
+    {
 		[[SHKActivityIndicator currentIndicator] displayCompleted:SHKLocalizedString(@"发送成功!")];
+    }
+    else {
+        //
+    }
 }
 
 - (void)sharer:(SHKSharer *)sharer failedWithError:(NSError *)error shouldRelogin:(BOOL)shouldRelogin
