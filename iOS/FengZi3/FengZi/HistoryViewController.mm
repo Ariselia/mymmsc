@@ -76,7 +76,7 @@
 }
 
 - (void)decoder:(Decoder *)decoder didDecodeImage:(UIImage *)image usingSubset:(UIImage *)subset withResult:(TwoDDecoderResult *)twoDResult {
-    [self chooseShowController:twoDResult.text];
+    [self chooseShowController:twoDResult.text isSave:NO];
     decoder.delegate = nil;
 }
 
