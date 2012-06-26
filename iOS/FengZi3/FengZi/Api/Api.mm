@@ -48,7 +48,7 @@
 //====================================< 接口响应类 >====================================
 @implementation ApiResult
 
-@synthesize status, message, data;
+@synthesize status, message, firstId, data;
 
 - (id)init{
 	if(!(self = [super init])) {
@@ -57,6 +57,7 @@
     status = 1;
 	message = @"系统正忙，请稍候...";
     message = [message trim];
+    firstId = -1;
 	
 	return self;
 }
@@ -74,6 +75,10 @@
         id value = [map objectForKey:@"status"];
         if (value != nil) {
             status = ((NSNumber *)value).intValue;
+        }
+        value = [map objectForKey:@"firstid"];
+        if (value != nil) {
+            firstId = ((NSNumber *)value).intValue;
         }
         value = [map objectForKey:@"message"];
         if (value != nil) {
