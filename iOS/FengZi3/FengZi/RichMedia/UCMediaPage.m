@@ -26,6 +26,7 @@
 #import "OpenBox.h"  // 开箱子
 
 
+
 #define ALERT_TITLE @"富媒体留言板 提示"
 @implementation UCMediaPage
 
@@ -103,6 +104,7 @@
 // 下载图片
 - (void)downImage:(NSString *)url {
     UIImage *im = [[[UIImage alloc] initWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:url]]] autorelease];
+    
     if (im != nil) {
         int xHeight = pic.frame.origin.y;
         //[pic setImage: [im scaleToSize:pic.frame.size]];
@@ -149,6 +151,8 @@
         CGFloat y = xHeight; //(size.height - h) / 2;
         CGRect frame = CGRectMake(x, y, w, h);
         [pic setImage:im];
+       // [pic initWithImage:im];        
+        [pic setDoubleTap:self.view];
         pic.frame = frame;
     }
 }
@@ -543,6 +547,9 @@ static int sButton = 0;
     [self doGame:buttonIndex luckyId:s_luckyId];
 }
 */
+
+
+
 
 // 富媒体跳转
 - (IBAction)doJump:(id)sender{
