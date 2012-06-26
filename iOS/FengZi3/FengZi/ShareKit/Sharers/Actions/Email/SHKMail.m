@@ -192,7 +192,7 @@
                                                               userInfo:[NSDictionary dictionaryWithObjectsAndKeys:@"mail",@"type", nil]];
             break;
 		case MFMailComposeResultSaved:
-			[self sendDidFinish];
+			[self sendDidCancel];
 			break;
 		case MFMailComposeResultCancelled:
 			[self sendDidCancel];
