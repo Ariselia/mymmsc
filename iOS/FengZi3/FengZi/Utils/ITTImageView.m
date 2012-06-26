@@ -49,7 +49,7 @@
 - (void)cancelImageRequest{
     if (_imageDataOperation && ([_imageDataOperation isExecuting] || [_imageDataOperation isReady])) {
         [_imageDataOperation cancel];
-        ITTDINFO(@"image request is canceled,url:%@", _imageUrl);
+        iOSLog(@"image request is canceled,url:%@", _imageUrl);
     }
     [self hideLoading];
 }
