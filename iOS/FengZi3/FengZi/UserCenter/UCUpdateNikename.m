@@ -299,7 +299,7 @@
         if(bEdit) {
             ac.text = [Api userPhone];
         } else {
-            ac.text = ucInfo.contact;
+            ac.text = [Api userPhone];
         }
         ac.borderStyle = UITextBorderStyleNone;
         ac.tag = input.tag;

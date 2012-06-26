@@ -491,7 +491,7 @@ static int xTimes = -1;
 				break;
 			default: 
             {
-                [self chooseShowController:xInput.url];
+                [self chooseShowController:xInput.url isSave:NO];
             }
 				break;
 		}
@@ -540,7 +540,7 @@ static int xTimes = -1;
 -(IBAction)readCode:(id)sender
 {
     iOSLog(@"....%@",xInput.url);
-    [self chooseShowController:xInput.url];
+    [self chooseShowController:xInput.url isSave:NO];
 }
 
 -(IBAction)plCode:(id)sender

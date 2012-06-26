@@ -234,7 +234,6 @@ static int iTimes = -1;
     //注销后点击图片按钮失效
     
     [picBtn removeTarget:self action:@selector(doPhotoSelect) forControlEvents:UIControlEventTouchUpInside];
-    [picBtn setImage:[UIImage imageNamed:@"usercenter_userinfo_image_default.png"] forState:UIControlStateNormal];
     [Api setUser:nil];
     [self viewWillAppear:YES];
 }
@@ -276,7 +275,7 @@ static int iTimes = -1;
         [items addObject: action];
         //[action release];
         // 4
-        action = [iOSAction initWithName: @"我的回复" class: @"UCMyComments"];
+        action = [iOSAction initWithName: @"蜂巢留言板" class: @"UCMyComments"];
         [action setIcon: @"usercenter_userinfo_mycoment"];
         [items addObject: action];
         
