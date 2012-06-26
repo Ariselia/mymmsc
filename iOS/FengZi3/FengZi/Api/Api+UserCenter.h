@@ -167,7 +167,8 @@
 // 富媒体 评论列表
 + (NSMutableArray *)mb_comments_get:(NSString *)maId
                                page:(int)number
-                               size:(int)size;
+                               size:(int)size
+                            firstId:(int *)firstId;
 
 // 富媒体 增加评论
 + (ApiResult *)mb_comment_add:(NSString *)maId
