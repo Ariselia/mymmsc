@@ -151,7 +151,7 @@ static char encodingTable[64] = {
     NSError *error = nil;
 	[fileManager removeItemAtURL:fileUrl error:&error];
     if (error != nil) {
-        ITTDERROR(@"remove file failed: %@", [error description]);
+        iOSLog(@"remove file failed: %@", [error description]);
         return NO;
     }
     return YES;
@@ -260,23 +260,23 @@ static char encodingTable[64] = {
 	NSError *error = nil;
 	for (int i = 0; i<[pathArray count] - 1; i++) {
         if (![fileManager fileExistsAtPath:imagePath]) {
-            ITTDERROR(@"%@ is not exsit", imagePath);
+            iOSLog(@"%@ is not exsit", imagePath);
         }
 		imagePath = [imagePath stringByAppendingFormat:@"/%@",[pathArray objectAtIndex:i]];
 		if (![fileManager fileExistsAtPath:imagePath]) {
 			[fileManager createDirectoryAtPath:imagePath withIntermediateDirectories:NO attributes:nil error:&error];
-            ITTDINFO(@"Create Directory:%@ \nError: %@",imagePath, error);
+            iOSLog(@"Create Directory:%@ \nError: %@",imagePath, error);
 		}
 	}
     
 	imagePath = [imagePath stringByAppendingFormat:@"/%@",[pathArray objectAtIndex:[pathArray count] - 1]];
-	ITTDINFO(@"IMAGE SAVED PATH %@",imagePath);
+	iOSLog(@"IMAGE SAVED PATH %@",imagePath);
 	if (![fileManager fileExistsAtPath:imagePath]) 
 	{
 		BOOL state = [imageData writeToFile:imagePath atomically:YES];
 		if(!state)
 		{
-			ITTDERROR(@"SAVE IMAGE FAILED!");
+			iOSLog(@"SAVE IMAGE FAILED!");
 		}
 	}
 }
@@ -315,7 +315,7 @@ static char encodingTable[64] = {
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
     NSString *imagePath = [paths objectAtIndex:0];
 	imagePath = [imagePath stringByAppendingPathComponent:[NSString stringWithFormat: @"/%@", fileName]];
-    ITTDINFO(@"DELETE:%@",imagePath);
+    iOSLog(@"DELETE:%@",imagePath);
 	NSFileManager *fileManager = [NSFileManager defaultManager];
 	[fileManager removeItemAtPath:imagePath error:nil];
 }
