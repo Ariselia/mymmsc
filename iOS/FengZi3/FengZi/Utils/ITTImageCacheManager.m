@@ -96,7 +96,7 @@ static ITTImageCacheManager *sharedInst = nil;
         if (![manager fileExistsAtPath:path]) {
             NSError *error = nil;
             if (![manager createDirectoryAtPath:path withIntermediateDirectories:YES attributes:nil error:&error]) {
-                ITTDERROR(@"error : %@", error);
+                iOSLog(@"error : %@", error);
                 return NO;
             }
         }
@@ -192,13 +192,13 @@ static ITTImageCacheManager *sharedInst = nil;
         return;
     }
     [_imageQueue setSuspended:YES];
-    ITTDINFO(@"image request queue suspended");
+    iOSLog(@"image request queue suspended");
     RELEASE_SAFELY(_lastSuspendedTime);
     _lastSuspendedTime = [[NSDate date] retain];
 }
 - (void)restoreImageLoading{
     [_imageQueue setSuspended:NO];
     RELEASE_SAFELY(_lastSuspendedTime);
-    ITTDINFO(@"image request queue restored");
+    iOSLog(@"image request queue restored");
 }
 @end
