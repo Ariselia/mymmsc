@@ -64,7 +64,7 @@
 
 #define API_URL_Apps         @"http://ifengzi.cn/"
 // 个人空间秀
-#define API_URL_SHOW         @"http://m.ifengzi.cn/uc/m_zoneComment.action"
+#define API_URL_SHOW         @"http://ifengzi.cn/apps/getUserInfo.action"
 // 顺风车 接口地址
 #define API_URL_RIDE         @"http://m.ifengzi.cn/sfc/fx/facade"
 
