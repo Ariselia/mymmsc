@@ -43,7 +43,7 @@
 
 - (void)decoder:(Decoder *)decoder didDecodeImage:(UIImage *)image usingSubset:(UIImage *)subset withResult:(TwoDDecoderResult *)twoDResult {
     _curImage = image;
-    [self chooseShowController:twoDResult.text];
+    [self chooseShowController:twoDResult.text isSave:YES];
     decoder.delegate = nil;
 }
 
