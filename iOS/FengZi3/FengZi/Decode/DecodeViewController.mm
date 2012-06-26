@@ -260,7 +260,8 @@ static int iTimes = -1;
 - (void)decoder:(Decoder *)decoder didDecodeImage:(UIImage *)image usingSubset:(UIImage *)subset withResult:(TwoDDecoderResult *)twoDResult {
     
     NSLog(@"twoDResult.text======%@",twoDResult.text);
-    [self chooseShowController:twoDResult.text];
+    [self chooseShowController:twoDResult.text isSave:YES];
+
     decoder.delegate = nil;
 }
 
@@ -476,7 +477,8 @@ static int iTimes = -1;
         [self.navigationController popViewControllerAnimated:NO];
         
         _curImage = controller.gimage;
-        [self chooseShowController:result];
+        [self chooseShowController:result isSave:YES];
+
     }
     else {
         self.view.backgroundColor = [UIColor grayColor];
