@@ -971,9 +971,9 @@
 		0A193B981594A11B002E6835 /* EWallView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EWallView.h; sourceTree = "<group>"; };
 		0A193B991594A11B002E6835 /* EWallView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EWallView.m; sourceTree = "<group>"; };
 		0A193B9A1594A11B002E6835 /* EWallView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EWallView.xib; sourceTree = "<group>"; };
-		0A193B9D1594A213002E6835 /* libalixpay.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libalixpay.a; path = ../../../../../runtime/SDK/libalixpay.a; sourceTree = "<group>"; };
-		0A193B9E1594A213002E6835 /* libcrypto.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcrypto.a; path = ../../../../../runtime/SDK/libcrypto.a; sourceTree = "<group>"; };
-		0A193B9F1594A213002E6835 /* libssl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libssl.a; path = ../../../../../runtime/SDK/libssl.a; sourceTree = "<group>"; };
+		0A193B9D1594A213002E6835 /* libalixpay.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libalixpay.a; path = ../../../../runtime/SDK/libalixpay.a; sourceTree = "<group>"; };
+		0A193B9E1594A213002E6835 /* libcrypto.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcrypto.a; path = ../../../../runtime/SDK/libcrypto.a; sourceTree = "<group>"; };
+		0A193B9F1594A213002E6835 /* libssl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libssl.a; path = ../../../../runtime/SDK/libssl.a; sourceTree = "<group>"; };
 		0A193BA51594A52D002E6835 /* btn-msg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn-msg.png"; sourceTree = "<group>"; };
 		0A193BA61594A52D002E6835 /* btn-msg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn-msg@2x.png"; sourceTree = "<group>"; };
 		0A193BB11594A52D002E6835 /* image_resize_frame_tip.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = image_resize_frame_tip.png; sourceTree = "<group>"; };
@@ -1170,7 +1170,7 @@
 		0A1AEE2115475369007BE52E /* RMRideReal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMRideReal.h; sourceTree = "<group>"; };
 		0A1AEE2215475369007BE52E /* RMRideReal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RMRideReal.m; sourceTree = "<group>"; };
 		0A1AEE2315475369007BE52E /* RMRideReal.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RMRideReal.xib; sourceTree = "<group>"; };
-		0A1AEE2C154754A6007BE52E /* ZXing.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ZXing.framework; path = ../../../../../runtime/SDK/ZXing.framework; sourceTree = "<group>"; };
+		0A1AEE2C154754A6007BE52E /* ZXing.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ZXing.framework; path = ../../../../runtime/SDK/ZXing.framework; sourceTree = "<group>"; };
 		0A6DA44C159914480052EC21 /* history_btnBG.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = history_btnBG.png; sourceTree = "<group>"; };
 		0A6DA44D159914480052EC21 /* history_cellBG.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = history_cellBG.png; sourceTree = "<group>"; };
 		0A6DA44E159914480052EC21 /* history_sCellBG.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = history_sCellBG.png; sourceTree = "<group>"; };
@@ -1983,8 +1983,8 @@
 		B8ECE09A14E75375005DF9AF /* uc-logout.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "uc-logout.png"; sourceTree = "<group>"; };
 		B8ECE09F14E7ABA9005DF9AF /* iTunesArtwork */ = {isa = PBXFileReference; lastKnownFileType = file; path = iTunesArtwork; sourceTree = "<group>"; };
 		B8F31B2614E357860081DD59 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
-		C9A14F581520769A00DE519A /* iOSApi.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iOSApi.framework; path = ../../../../../runtime/SDK/iOSApi.framework; sourceTree = "<group>"; };
-		C9A14F5D15207B8B00DE519A /* QRCode.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QRCode.framework; path = ../../../../../runtime/SDK/QRCode.framework; sourceTree = "<group>"; };
+		C9A14F581520769A00DE519A /* iOSApi.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iOSApi.framework; path = ../../../../runtime/SDK/iOSApi.framework; sourceTree = "<group>"; };
+		C9A14F5D15207B8B00DE519A /* QRCode.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QRCode.framework; path = ../../../../runtime/SDK/QRCode.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -3787,6 +3787,7 @@
 				3E11F1231472686800ACC436 /* Sources */,
 				3E11F1241472686800ACC436 /* Frameworks */,
 				3E11F1251472686800ACC436 /* Resources */,
+				0A511F0115994BA100845FE6 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -4421,6 +4422,22 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		0A511F0115994BA100845FE6 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "app_svnver=`svnversion . |awk -F':|M' '{print $2}'`\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $app_svnver\" $PRODUCT_SETTINGS_PATH\n#/usr/libexec/PlistBuddy -c \"Set :CFBundleShortVersionString $app_svnver\" $PRODUCT_SETTINGS_PATH\nexport CODESIGN_ALLOCATE=/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin/codesign_allocate\nif [ \"${PLATFORM_NAME}\" == \"iphoneos\" ] || [ \"${PLATFORM_NAME}\" == \"ipados\" ]; then\n/Applications/Xcode.app/Contents/Developer/iphoneentitlements/gen_entitlements.py \"my.company.${PROJECT_NAME}\" \"${BUILT_PRODUCTS_DIR}/${WRAPPER_NAME}/${PROJECT_NAME}.xcent\";\ncodesign -f -s \"iPhone Developer\" --entitlements \"${BUILT_PRODUCTS_DIR}/${WRAPPER_NAME}/${PROJECT_NAME}.xcent\" \"${BUILT_PRODUCTS_DIR}/${WRAPPER_NAME}/\"\nfi";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		3E11F1231472686800ACC436 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -4690,7 +4707,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Beijing Fengxiafei Technology Co.Ltd";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -4715,7 +4732,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Beijing Fengxiafei Technology Co.Ltd";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				COPY_PHASE_STRIP = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_VERSION = "";
@@ -4737,7 +4754,7 @@
 					"$(ARCHS_STANDARD_32_BIT)",
 					armv6,
 				);
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Jianguo Zhu (JDN4353QDY)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"~/runtime/SDK",
 					"$(inherited)",
@@ -4765,7 +4782,7 @@
 					"$(ARCHS_STANDARD_32_BIT)",
 					armv6,
 				);
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Beijing Fengxiafei Technology Co.Ltd";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"~/runtime/SDK",
 					"$(inherited)",
@@ -4782,7 +4799,6 @@
 				LIBRARY_SEARCH_PATHS = "~/runtime/SDK";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
