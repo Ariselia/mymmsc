@@ -322,6 +322,8 @@
 		0A6DA4C7159930850052EC21 /* dotted-pattern@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A6DA4C6159930840052EC21 /* dotted-pattern@2x.png */; };
 		0A6DA4C9159932510052EC21 /* bg33.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A6DA4C8159932500052EC21 /* bg33.png */; };
 		0A6DA4CB159932750052EC21 /* video_play.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A6DA4CA159932740052EC21 /* video_play.png */; };
+		0A8322FB1599F59700CFF81D /* EnlargeImageDoubleTap.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A8322FA1599F59700CFF81D /* EnlargeImageDoubleTap.m */; };
+		0A8322FE1599F95E00CFF81D /* closeImage.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A8322FD1599F95E00CFF81D /* closeImage.png */; };
 		0ACE8695152AF4940084C32B /* RMComments.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ACE8693152AF4940084C32B /* RMComments.m */; };
 		0ACE8696152AF4940084C32B /* RMComments.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0ACE8694152AF4940084C32B /* RMComments.xib */; };
 		0ACE86B2152AF6360084C32B /* UCForget.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ACE8698152AF6360084C32B /* UCForget.m */; };
@@ -1236,6 +1238,9 @@
 		0A6DA4C6159930840052EC21 /* dotted-pattern@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dotted-pattern@2x.png"; sourceTree = "<group>"; };
 		0A6DA4C8159932500052EC21 /* bg33.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bg33.png; sourceTree = "<group>"; };
 		0A6DA4CA159932740052EC21 /* video_play.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = video_play.png; sourceTree = "<group>"; };
+		0A8322F91599F59700CFF81D /* EnlargeImageDoubleTap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EnlargeImageDoubleTap.h; sourceTree = "<group>"; };
+		0A8322FA1599F59700CFF81D /* EnlargeImageDoubleTap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EnlargeImageDoubleTap.m; sourceTree = "<group>"; };
+		0A8322FD1599F95E00CFF81D /* closeImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = closeImage.png; sourceTree = "<group>"; };
 		0ACE8692152AF4940084C32B /* RMComments.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMComments.h; sourceTree = "<group>"; };
 		0ACE8693152AF4940084C32B /* RMComments.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RMComments.m; sourceTree = "<group>"; };
 		0ACE8694152AF4940084C32B /* RMComments.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RMComments.xib; sourceTree = "<group>"; };
@@ -2145,6 +2150,7 @@
 		0A193BA31594A472002E6835 /* commons */ = {
 			isa = PBXGroup;
 			children = (
+				0A8322FD1599F95E00CFF81D /* closeImage.png */,
 				0A6DA4C6159930840052EC21 /* dotted-pattern@2x.png */,
 				0A6DA4C41599306F0052EC21 /* dotted-pattern.png */,
 				0A193D9815952AED002E6835 /* background.png */,
@@ -3696,6 +3702,8 @@
 				0A193AFE1594947E002E6835 /* Api+Style.m */,
 				0A193AFF1594947E002E6835 /* Api+UserCenter.h */,
 				0A193B001594947E002E6835 /* Api+UserCenter.m */,
+				0A8322F91599F59700CFF81D /* EnlargeImageDoubleTap.h */,
+				0A8322FA1599F59700CFF81D /* EnlargeImageDoubleTap.m */,
 				0A193B011594947E002E6835 /* PaintingWindow.h */,
 				0A193B021594947E002E6835 /* PaintingWindow.m */,
 				0A193B031594947E002E6835 /* UIButton+Utils.h */,
@@ -4425,6 +4433,7 @@
 				0A6DA4CB159932750052EC21 /* video_play.png in Resources */,
 				0A511F0E1599A6BB00845FE6 /* uc_checkBtn_tap.png in Resources */,
 				0A511F0F1599A6BB00845FE6 /* uc_checkBtn.png in Resources */,
+				0A8322FE1599F95E00CFF81D /* closeImage.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4692,6 +4701,7 @@
 				0A193C1E15951758002E6835 /* EBuyEvaluatePage.m in Sources */,
 				0A193C2715951AA2002E6835 /* EBuyOrderWap.m in Sources */,
 				0AFEB29815953812002D9D3C /* Api+Logs.m in Sources */,
+				0A8322FB1599F59700CFF81D /* EnlargeImageDoubleTap.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
