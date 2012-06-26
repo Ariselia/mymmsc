@@ -150,12 +150,37 @@ static NSString *s_luckyId = nil;
                 if([iskma rangeOfString:@"-"].length>0)
                 {
                     
-                    UCRichMedia *nextView = [[UCRichMedia alloc] init];
-                    nextView.urlMedia = url;
-                     nextView.curImage = [Api generateImageWithInput:input];
-                    [self.navigationController pushViewController:nextView animated:YES];
-                    [nextView release];
-                    return;
+                    NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
+                                            [NSString valueOf:[Api userId]], @"userid",
+                                            nil];
+                    NSDictionary *map = [Api post:url params:params];
+                    
+                    
+                    if (map.count > 0) 
+                    {
+                        if([[map objectForKey:@"data"] isKindOfClass:[NSString class]])
+                        {
+                            
+                            //NSLog(@"//普通解码");
+                            
+                            NSString *_content=nil;
+                            _content =  [[NSString stringWithFormat:@"%@%@", API_CODE_PREFIX,[map objectForKey:@"data"]] retain];
+                            [self chooseShowController:_content isSave:isSave];
+                            return;
+                        }
+                        else {
+                            UCRichMedia *nextView = [[UCRichMedia alloc] init];
+                            nextView.urlMedia = url;
+                            nextView.curImage = [Api generateImageWithInput:input];
+                            [self.navigationController pushViewController:nextView animated:YES];
+                            [nextView release];
+                            return;
+                        }
+                        
+                    }
+                    
+                    
+                  
                     
                 } else {
                     
