@@ -129,7 +129,7 @@ static NSString *s_luckyId = nil;
 
 
 // 解码入口
-- (void)chooseShowController:(NSString *)input{
+- (void)chooseShowController:(NSString *)input isSave:(BOOL)isSave{
       
     input = [iOSApi urlDecode:input];
     BusCategory *_category = [BusDecoder classify:input];
@@ -152,6 +152,7 @@ static NSString *s_luckyId = nil;
                     
                     UCRichMedia *nextView = [[UCRichMedia alloc] init];
                     nextView.urlMedia = url;
+                     nextView.curImage = [Api generateImageWithInput:input];
                     [self.navigationController pushViewController:nextView animated:YES];
                     [nextView release];
                     return;
@@ -191,7 +192,7 @@ static NSString *s_luckyId = nil;
                                 
                                 NSString *_content=nil;
                                 _content =  [[NSString stringWithFormat:@"%@%@", API_CODE_PREFIX,[map objectForKey:@"data"]] retain];
-                                [self chooseShowController:_content];
+                                [self chooseShowController:_content isSave:isSave];
                                 
                             }
                             else {
@@ -199,6 +200,7 @@ static NSString *s_luckyId = nil;
                                 //NSLog(@"//服媒体");
                                 UCRichMedia *nextView = [[UCRichMedia alloc] init];
                                 nextView.urlMedia = url;
+                                 nextView.curImage = [Api generateImageWithInput:input];
                                 [self.navigationController pushViewController:nextView animated:YES];
                                 [nextView release];
                                 return;
@@ -222,11 +224,29 @@ static NSString *s_luckyId = nil;
                     //NSArray *list = [BusDecoder parse0:str];
                     
                     if (type == 5) {
-                        DecodeCardViewControlle *cardView = [[DecodeCardViewControlle alloc] initWithNibName:@"DecodeCardViewControlle" category:_category result:str withImage:inputImage withType:HistoryTypeFavAndHistory withSaveImage:saveImage];
-                        [self.navigationController pushViewController:cardView animated:YES];
-                        RELEASE_SAFELY(cardView);
-                        return;
-                    }
+                        
+                        
+                        if (isSave) {
+                            DecodeCardViewControlle *cardView = [[DecodeCardViewControlle alloc] initWithNibName:@"DecodeCardViewControlle" category:_category result:str withImage:inputImage withType:HistoryTypeFavAndHistory withSaveImage:saveImage];
+                            [self.navigationController pushViewController:cardView animated:YES];
+                            RELEASE_SAFELY(cardView);
+                            return;
+
+                            
+                        }
+                        else {
+                            
+                            DecodeCardViewControlle *cardView = [[DecodeCardViewControlle alloc] initWithNibName:@"DecodeCardViewControlle" category:_category result:str withImage:inputImage withType:HistoryTypeNone withSaveImage:saveImage];
+                            [self.navigationController pushViewController:cardView animated:YES];
+                            RELEASE_SAFELY(cardView);
+                            return;
+                            
+                           
+                            
+                        }
+
+                        
+                                           }
                 }
                         
                         
@@ -509,7 +529,7 @@ static NSString *s_luckyId = nil;
                 return;
             } else {
                 iTimes = kCODE_KMA;
-                [self chooseShowController:info.tranditionContent];
+                [self chooseShowController:info.tranditionContent isSave:isSave];
                 return;
             }
         }
@@ -531,10 +551,20 @@ static NSString *s_luckyId = nil;
             return;
         } else { // 默认传统业务 [WangFeng at 2012/05/14 11:31]
             
-            DecodeBusinessViewController *businessView = [[DecodeBusinessViewController alloc] initWithNibName:@"DecodeBusinessViewController" category:category result:input image:inputImage withType:HistoryTypeFavAndHistory withSaveImage:saveImage];
-            [self.navigationController pushViewController:businessView animated:YES];
-            RELEASE_SAFELY(businessView);
-            return;
+            if (isSave) {
+                DecodeBusinessViewController *businessView = [[DecodeBusinessViewController alloc] initWithNibName:@"DecodeBusinessViewController" category:category result:input image:inputImage withType:HistoryTypeFavAndHistory withSaveImage:saveImage];
+                [self.navigationController pushViewController:businessView animated:YES];
+                RELEASE_SAFELY(businessView);
+                return;
+                
+            }
+            else {
+                DecodeBusinessViewController *businessView = [[DecodeBusinessViewController alloc] initWithNibName:@"DecodeBusinessViewController" category:category result:input image:inputImage withType:HistoryTypeNone withSaveImage:saveImage];
+                [self.navigationController pushViewController:businessView animated:YES];
+                RELEASE_SAFELY(businessView);
+                return;
+                
+            }
         }
     }
 }
