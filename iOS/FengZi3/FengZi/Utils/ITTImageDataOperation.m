@@ -36,7 +36,7 @@
 - (void)main{
     UIImage *image = [[ITTImageCacheManager sharedManager] getImageFromCacheWithUrl:_imageUrl];
 	if(!image){
-        ITTDINFO(@"loading image from web:%@",_imageUrl);
+        iOSLog(@"loading image from web:%@",_imageUrl);
 		NSData *imageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:_imageUrl]];
 		if( imageData!=nil){
 			image = [UIImage imageWithData:imageData];
