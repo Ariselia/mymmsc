@@ -105,11 +105,13 @@
 @interface ApiResult : NSObject {
     int       status;
     NSString *message;
+    int       firstId;
     NSString *data;
 }
 
 @property (nonatomic, assign) int status;
 @property (nonatomic, copy) NSString *message;
+@property (nonatomic, assign) int firstId;
 @property (nonatomic, copy) NSString *data;
 
 // 返回DATA区域 数据
