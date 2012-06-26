@@ -1396,7 +1396,6 @@
 		0ADD8FB2154E9F810025DF29 /* ITTBaseDataRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ITTBaseDataRequest.m; sourceTree = "<group>"; };
 		0ADD8FB3154E9F810025DF29 /* ITTDataRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ITTDataRequest.h; sourceTree = "<group>"; };
 		0ADD8FB4154E9F810025DF29 /* ITTDataRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ITTDataRequest.m; sourceTree = "<group>"; };
-		0ADD8FB5154E9F810025DF29 /* ITTDebug.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ITTDebug.h; sourceTree = "<group>"; };
 		0ADD8FB6154E9F810025DF29 /* ITTImageCacheManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ITTImageCacheManager.h; sourceTree = "<group>"; };
 		0ADD8FB7154E9F810025DF29 /* ITTImageCacheManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ITTImageCacheManager.m; sourceTree = "<group>"; };
 		0ADD8FB8154E9F810025DF29 /* ITTImageDataOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ITTImageDataOperation.h; sourceTree = "<group>"; };
@@ -2962,7 +2961,6 @@
 				0ADD8FB2154E9F810025DF29 /* ITTBaseDataRequest.m */,
 				0ADD8FB3154E9F810025DF29 /* ITTDataRequest.h */,
 				0ADD8FB4154E9F810025DF29 /* ITTDataRequest.m */,
-				0ADD8FB5154E9F810025DF29 /* ITTDebug.h */,
 				0ADD8FB6154E9F810025DF29 /* ITTImageCacheManager.h */,
 				0ADD8FB7154E9F810025DF29 /* ITTImageCacheManager.m */,
 				0ADD8FB8154E9F810025DF29 /* ITTImageDataOperation.h */,
