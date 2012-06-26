@@ -28,7 +28,7 @@
         // Custom initialization
         self.proxy = self;
         _page = 1;
-        _size = 16;
+        _size = 5;
     }
     return self;
 }
@@ -44,8 +44,7 @@
         [iOSApi Alert:ALERT_TITLE message:@"请先登陆再留言"];
         [self goLogin];
         return;
-    }
-    else {
+    } else {
     UIAlertView *alert = [[UIAlertView alloc]
 						  initWithTitle: @"说点什么吧"
 						  message:[NSString stringWithFormat:@"\n\n"]
@@ -70,10 +69,8 @@
     [self presentModalViewController:nextView animated:YES];
 }
 
--(void) alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger) buttonIndex{
-    if (buttonIndex == 1) {
-        
-
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger) buttonIndex{
+    if (buttonIndex == 1) {        
         NSString *msg = [content.text trim];
         if (msg.length < 1) {
             [iOSApi Alert:ALERT_TITLE message:@"内容不能为空"];
@@ -82,9 +79,9 @@
             ApiResult *iRet = [[Api mb_comment_add:param content:msg] retain];
             [iOSApi Alert:ALERT_TITLE message:iRet.message];
             [iRet release];
-            [_tableView reloadData];
+            //[self arrayOfHeader:self];
+            [super reloadData];
         }
-        
     }
 }
 
@@ -199,24 +196,28 @@
 }
 
 - (NSArray *)reloadData:(iOSTableViewController *)tableView {
-    
-    NSArray *list = [Api mb_comments_get:param page:_page size:_size];
-    
+    _firstId = 0;
+    NSArray *list = [Api mb_comments_get:param page:1 size:_size firstId:&_firstId];
+    _page = 1;
     return list;
 }
 
 - (NSArray *)arrayOfHeader:(iOSTableViewController *)tableView {
-
-
-//    NSArray *list = [Api mb_comments_get:param page: 1 size:_size];
-//    _page = 1;
-//    return list;
-//    
-    return  nil;
+    int fid = 0;
+    if (_firstId > 0) {
+        fid = _firstId;
+    }
+    NSArray *list = [Api mb_comments_get:param page: 0 size:_size firstId:&fid];
+    if (fid > 0) {
+        _firstId = fid;
+    }
+    _page = 1;
+    return list;
 }
 
 - (NSArray *)arrayOfFooter:(iOSTableViewController *)tableView {
-    NSArray *list = [Api mb_comments_get:param page:_page + 1 size:_size];
+    int fid = 0;
+    NSArray *list = [Api mb_comments_get:param page:_page + 1 size:_size firstId:&fid];
     if (list.count > 0) {
         _page += 1;
     }
