@@ -398,7 +398,7 @@
 // 下载照片
 + (void)uc_photo_down:(int)userId{
     ApiResult *iRet = [ApiResult new];
-    static NSString *action = API_APPS_SERVER "/apps/avatar.cgi";
+    static NSString *action = API_FILE_SERVER "/apps/avatar.cgi";
     [iOSApi showAlert:@"正在下载照片"];
     NSString *url = [NSString stringWithFormat:@"%@?id=%010d",action,userId];
     HttpClient *hc = [[HttpClient alloc] initWithURL:url timeout:10];
