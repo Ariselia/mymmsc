@@ -141,11 +141,10 @@ static int iTimes = -1;
     [iOSApi showAlert:@"正在上传图片"];
     //HttpClient *hc = [[HttpClient alloc] initWithURL:API_URL_RICHMEDIA "/dynamic/m_picUpload.action" timeout:10];
     
-    HttpClient *hc = [[HttpClient alloc] initWithURL:API_URL_Apps API_FILE_UPLOAD timeout:10];
+    HttpClient *hc = [[HttpClient alloc] initWithURL:API_APPS_SERVER API_FILE_UPLOAD timeout:10];
     
     
     [hc formAddImage:@"content" filename:@"image.png" data:fmtBuffer];
-    [hc formAddField:@"token" value:API_INTERFACE_TONKEN];
     NSData *tmpData = [hc post];
     [iOSApi closeAlert];
     if (tmpData == nil) {
@@ -184,7 +183,7 @@ static int iTimes = -1;
     [iOSApi showAlert:@"正在上传视频"];
     //HttpClient *hc = [[HttpClient alloc] initWithURL:API_URL_RICHMEDIA "/dynamic/m_videoUpload.action" timeout:10];
     
-     HttpClient *hc = [[HttpClient alloc] initWithURL:API_URL_Apps API_FILE_UPLOAD timeout:10];
+     HttpClient *hc = [[HttpClient alloc] initWithURL:API_APPS_SERVER API_FILE_UPLOAD timeout:10];
     
     iOSLog(@"file=%@", urlFile);
     NSData *data = [NSData dataWithContentsOfURL:urlFile];
@@ -199,7 +198,6 @@ static int iTimes = -1;
         fileType = @"video/mp4";
     }
     [hc formAddFile:@"content" filename:filename type:fileType data:data];
-    [hc formAddField:@"token" value:API_INTERFACE_TONKEN];
     NSData *tmpData = [hc post];
     if (tmpData == nil) {
         [iOSApi Alert:@"提示" message:@"服务器正忙，请稍候重新上传。"];
@@ -377,10 +375,9 @@ static NSMutableArray *urlList = nil;
     NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
     [iOSApi showAlert:@"正在上传背景音乐"];
     //HttpClient *hc = [[HttpClient alloc] initWithURL:API_URL_RICHMEDIA "/dynamic/m_soundUpload.action" timeout:10];
-     HttpClient *hc = [[HttpClient alloc] initWithURL:API_URL_Apps API_FILE_UPLOAD timeout:10];
+     HttpClient *hc = [[HttpClient alloc] initWithURL:API_APPS_SERVER API_FILE_UPLOAD timeout:10];
     
     [hc formAddFile:@"content" filename:@"item.mp3" type:@"audio/mpeg" data:data];
-    [hc formAddField:@"token" value:API_INTERFACE_TONKEN];
     NSData *tmpData = [hc post];
     if (tmpData == nil) {
         [iOSApi Alert:@"提示" message:@"服务器正忙，请稍候重新登录。"];

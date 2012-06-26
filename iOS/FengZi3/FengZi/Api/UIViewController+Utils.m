@@ -146,7 +146,7 @@ static NSString *s_luckyId = nil;
             if ([str hasPrefix:@"id="]) {
                 // 富媒体, 或者空码, 转换地址
                 NSString *iskma = [str substringFromIndex:3];
-                NSString *url = [NSString stringWithFormat:@"%@/apps/getCode.action?%@",API_URL_Apps,str];
+                NSString *url = [NSString stringWithFormat:@"%@/apps/getCode.action?%@",API_APPS_SERVER,str];
                 if([iskma rangeOfString:@"-"].length>0)
                 {
                     

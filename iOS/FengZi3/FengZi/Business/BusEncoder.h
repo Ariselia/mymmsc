@@ -2,7 +2,6 @@
 //  BusEncoder.h
 //  FengZi
 //
-
 //  Copyright (c) 2011年 iTotemStudio. All rights reserved.
 //
 
@@ -11,8 +10,6 @@
 #import "BusDescKey.h"
 #import "BusCategory.h"
 #import "Api+Category.h"
-
-#import "RichMedia.h"
 
 @interface BusEncoder : NSObject
 
@@ -58,7 +55,7 @@
  * @param card
  * @return
  */
-+(NSString*)encodeShortmessage:(Shortmessage*) shortmessage;
++(NSString*)encodeShortmessage:(ShortMessage*) shortmessage;
 /**
  * 对文本编码
  * @param card
@@ -114,5 +111,5 @@
  * @param card
  * @return
  */
-+(NSString*)encodeWifiText:(WifiText*) wifiText;
++(NSString*)encodeWifiText:(WiFiText*) wifiText;
 @end

@@ -191,7 +191,7 @@
             if ([str hasPrefix:@"id="]) {
                 // 富媒体, 或者空码, 转换地址
                 NSString *iskma = [str substringFromIndex:3];
-                 NSString *url = [NSString stringWithFormat:@"%@/apps/getCode.action?%@",API_URL_Apps,str];
+                 NSString *url = [NSString stringWithFormat:@"%@/apps/getCode.action?%@",API_APPS_SERVER,str];
                 if([iskma rangeOfString:@"-"].length>0)
                 {
                 
@@ -383,7 +383,7 @@
                     }
                     else if(type==10) {
                         _titleLabel.text= @"短信解码";
-                        Shortmessage *object = [[BusDecoder decode:list className:@"Shortmessage"] retain];
+                        ShortMessage *object = [[BusDecoder decode:list className:@"Shortmessage"] retain];
                         [_titleArray addObject:@"接收人"];
                         [_titleArray addObject:@"短信内容"];
                         [_contentArray addObject:object.cellphone];
@@ -398,7 +398,7 @@
                     }
                     else if(type==11) {
                         _titleLabel.text= @"WIFI解码";
-                        WifiText *object =[[BusDecoder decode:list className:@"WifiText"]retain];
+                        WiFiText *object =[[BusDecoder decode:list className:@"WifiText"]retain];
                         [_titleArray addObject:@"名称"];
                         [_titleArray addObject:@"密码"];
                         [_contentArray addObject:object.name];

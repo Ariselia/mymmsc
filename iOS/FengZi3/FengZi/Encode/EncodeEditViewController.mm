@@ -18,8 +18,6 @@
 #import "SHK.h"
 #import "ShareView.h"
 
-#import "RichMedia.h"
-
 @implementation EncodeEditViewController
 
 @synthesize encodeImageView =_encodeImageView;
@@ -294,7 +292,7 @@
             break;
         }
         case BusinessTypeWifiText:{
-            WifiText *obj = _codeObject;
+            WiFiText *obj = _codeObject;
             obj.logId = _logId;
             _showInfo = obj.name;
            // _content = [[BusEncoder encodeWifiText:obj] retain];
@@ -302,7 +300,7 @@
             break;
         }
         case BusinessTypeShortMessage:{
-            Shortmessage *obj = _codeObject;
+            ShortMessage *obj = _codeObject;
             obj.logId = _logId;
             _showInfo = obj.contente;
          //   _content = [[BusEncoder encodeShortmessage:obj]retain];

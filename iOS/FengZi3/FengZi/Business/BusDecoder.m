@@ -999,7 +999,7 @@ static NSString *URL_FLAG = @"://";
  * @return
  * SMSTO:145:神射手
  */
-+(Shortmessage*) parserSMSTO:(NSString *)input{
++(ShortMessage*) parserSMSTO:(NSString *)input{
     
     if(input == nil){
         return nil;
@@ -1022,7 +1022,7 @@ static NSString *URL_FLAG = @"://";
     position = nextPreFlagPos;
     NSString *contente = [input substringFromIndex:position+1];
     
-    Shortmessage *shortM = [[[Shortmessage alloc] init]autorelease];
+    ShortMessage *shortM = [[[ShortMessage alloc] init]autorelease];
     shortM.cellphone=cellPhone?cellPhone:@"";
     shortM.contente=contente?contente:@"";		
     
@@ -1036,9 +1036,9 @@ static NSString *URL_FLAG = @"://";
  * @param channel
  * @return
  */
-+(Shortmessage*) decodeShortmessage:(NSString *)input channel:(int)channele{
++(ShortMessage*) decodeShortmessage:(NSString *)input channel:(int)channele{
     
-    Shortmessage *shortM = [[[Shortmessage alloc] init]autorelease];
+    ShortMessage *shortM = [[[ShortMessage alloc] init]autorelease];
     
     if(channele == SMS_CHANNEL_TO){
         shortM = [BusDecoder parserSMSTO:input];
@@ -1394,9 +1394,9 @@ static NSString *URL_FLAG = @"://";
  * @param input
  * @return
  */
-+(WifiText*) decodeWifiText:(NSString *)input{
++(WiFiText*) decodeWifiText:(NSString *)input{
     
-    WifiText *text = [[[WifiText alloc]init]autorelease];
+    WiFiText *text = [[[WiFiText alloc]init]autorelease];
     
     NSMutableDictionary *content =[BusDecoder parser:input];
     

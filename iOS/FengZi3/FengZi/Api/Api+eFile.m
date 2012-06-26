@@ -64,7 +64,6 @@
     static NSString *method = @"clip";
     NSString *query = [NSString stringWithFormat:@"action=membershipcard&&type=info&userid=%d&&id=%@", [Api userId],sid];
     NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
-                            API_INTERFACE_TONKEN, @"token",
                             [NSString valueOf:[Api userId]], @"userId",
                             nil];
     NSString *action = [NSString stringWithFormat:@"%@/%@?%@", API_URL_EFILE, method, query];
@@ -106,13 +105,11 @@
 
 + (EFileCardInfo *)get_card_info:(NSString*)sid
 {
-    
     EFileCardInfo *iRet = nil;
 
     static NSString *method = @"clip";
     NSString *query = [NSString stringWithFormat:@"action=coupon&type=info&userid=%d&&id=%@", [Api userId],sid];
     NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
-                            API_INTERFACE_TONKEN, @"token",
                             [NSString valueOf:[Api userId]], @"userId",
                             nil];
     NSString *action = [NSString stringWithFormat:@"%@/%@?%@", API_URL_EFILE, method, query];

@@ -440,7 +440,7 @@ static const char * getPropertyType(objc_property_t property) {
  * @param card
  * @return
  */
-+(NSString*)encodeShortmessage:(Shortmessage*) shortmessage{
++(NSString*)encodeShortmessage:(ShortMessage*) shortmessage{
     NSMutableString *buffer = [[[NSMutableString alloc] initWithCapacity:0]autorelease];
     if(shortmessage == nil){
         return buffer;
@@ -818,7 +818,7 @@ static const char * getPropertyType(objc_property_t property) {
  * @param card
  * @return
  */
-+(NSString*)encodeWifiText:(WifiText*) wifiText{
++(NSString*)encodeWifiText:(WiFiText*) wifiText{
     
     NSMutableString *buffer = [[[NSMutableString alloc] initWithCapacity:0] autorelease];
     

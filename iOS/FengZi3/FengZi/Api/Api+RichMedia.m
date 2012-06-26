@@ -136,7 +136,7 @@
     //static NSString *path = @"dynamic/m_picUpload.action";
     //NSString *action = [NSString stringWithFormat:@"%@/%@?userid=%d", API_URL_RICHMEDIA, path, [Api userId]];
     
-      NSString *action = [NSString stringWithFormat:@"%@%s?userid=%d", API_URL_Apps, API_FILE_UPLOAD, [Api userId]];
+      NSString *action = [NSString stringWithFormat:@"%@%s?userid=%d", API_APPS_SERVER, API_FILE_UPLOAD, [Api userId]];
     
     NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
                             API_RICHMEDIA_TOKEN, @"token",
@@ -231,7 +231,7 @@
     
     [jsonDic setObject:pageList forKey:@"pagelist"];
 
-    NSString *serv =API_URL_Apps;
+    NSString *serv =API_APPS_SERVER;
     
     NSString *path = @"apps/MakeCode.action";
     NSString *action;
@@ -260,7 +260,7 @@
         }
         
         if ([Api kma]) {
-            path = API_URL_Apps API_MAKE_CODE;
+            path = API_APPS_SERVER API_MAKE_CODE;
             iRet.url = [NSString stringWithFormat:@"%@?id=%@", path, uuid];
         }
         else {
@@ -276,7 +276,7 @@
 // 获取媒体内容
 + (MediaContent *)getContent:(NSString *)uuid{
 
-    NSString *action = [NSString stringWithFormat:@"%@?id=%@", API_URL_Apps API_GET_CODE, uuid];
+    NSString *action = [NSString stringWithFormat:@"%@?id=%@", API_APPS_SERVER API_GET_CODE, uuid];
     
     NSString *app = [Api base64e:[Api appAttribute:DATA_ENV.curBusinessType]];
     NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
@@ -375,7 +375,7 @@ static NSString *kma_id = nil;
         action = url;
     } else {
         // 如果不是URL, 则认为是空码ID
-        action = [NSString stringWithFormat:@"%@/%@?id=%@", API_URL_KMA, path, url];
+        action = [NSString stringWithFormat:@"%@/%@?id=%@", API_APPS_SERVER, path, url];
        // action = [NSString stringWithFormat:@"%@%@?id=%@", API_RICHMEDIA_SERVER, path, url];
     }
     
@@ -415,7 +415,7 @@ static NSString *kma_id = nil;
                    type:(int)type
                 content:(NSString *)content{
     
-    NSString *action = [NSString stringWithFormat:@"%@", API_URL_Apps API_MAKE_CODE];
+    NSString *action = [NSString stringWithFormat:@"%@", API_APPS_SERVER API_MAKE_CODE];
     
     NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
                             API_RICHMEDIA_TOKEN, @"token",

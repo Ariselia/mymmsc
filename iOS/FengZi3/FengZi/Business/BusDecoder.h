@@ -25,10 +25,10 @@
 +(NSMutableDictionary*) parserMECARD:(NSString *)input;
 +(Card*)decodeMECard:(NSString *)input;
 +(Card*) decodeCardOnly:(NSString *)input;
-+(Shortmessage*) decodeShortmessage:(NSString *)input channel:(int)channele;
++(ShortMessage*) decodeShortmessage:(NSString *)input channel:(int)channele;
 +(Phone*) decodePhone:(NSString *)input channel:(int)channele;
 +(EncText*)decodeEncText:(NSString *)input key:(NSString *)key;
-+(WifiText*) decodeWifiText:(NSString *)input;
++(WiFiText*) decodeWifiText:(NSString *)input;
 +(Email*) decodeEmail:(NSString *)input channel:(int) channele;
 +(Schedule*) decodeSchedule:(NSString *)input;
 +(BookMark*) decodeBookMark:(NSString *)input channel:(int) channele;
