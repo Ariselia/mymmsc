@@ -57,11 +57,11 @@
     [self generateRequestWithUrl:self.requestUrl withParameters:params];
     
     [_request startAsynchronous];
-    ITTDINFO(@"request %@ is created, URL is: %@", [self class], [_request url]);
+    iOSLog(@"request %@ is created, URL is: %@", [self class], [_request url]);
 }
 - (void)processResult{
     self.result = [[[ITTRequestResult alloc] initWithCode:@"0" withMessage:@""]autorelease];
-    ITTDINFO(@"processed result:%@",self.resultDic);
+    iOSLog(@"processed result:%@",self.resultDic);
 }
 @end
 
@@ -72,7 +72,7 @@
 }
 - (void)processResult{
     self.result = [[[ITTRequestResult alloc] initWithCode:@"0" withMessage:@""] autorelease];
-    ITTDINFO(@"processed result:%@",self.resultDic);
+    iOSLog(@"processed result:%@",self.resultDic);
 }
 @end
 
@@ -83,7 +83,7 @@
 }
 - (void)processResult{
     self.result = [[[ITTRequestResult alloc] initWithCode:@"0" withMessage:@""]autorelease];
-    ITTDINFO(@"processed result:%@",self.resultDic);
+    iOSLog(@"processed result:%@",self.resultDic);
 }
 @end
 
@@ -94,7 +94,7 @@
 }
 - (void)processResult{
     self.result = [[[ITTRequestResult alloc] initWithCode:@"0" withMessage:@""]autorelease];
-    ITTDINFO(@"processed result:%@",self.resultDic);
+    iOSLog(@"processed result:%@",self.resultDic);
 }
 @end
 
@@ -105,7 +105,7 @@
 }
 - (void)processResult{
     self.result = [[[ITTRequestResult alloc] initWithCode:@"0" withMessage:@""]autorelease];
-    ITTDINFO(@"processed result:%@",self.resultDic);
+    iOSLog(@"processed result:%@",self.resultDic);
 }
 @end
 
@@ -119,7 +119,7 @@
 }
 - (void)processResult{
     self.result = [[[ITTRequestResult alloc] initWithCode:@"0" withMessage:@""]autorelease];
-    ITTDINFO(@"processed result:%@",self.resultDic);
+    iOSLog(@"processed result:%@",self.resultDic);
 }
 @end
 
@@ -134,7 +134,7 @@
 }
 - (void)processResult{
     self.result = [[[ITTRequestResult alloc] initWithCode:@"0" withMessage:@""]autorelease];
-    ITTDINFO(@"processed result:%@",self.resultDic);
+    iOSLog(@"processed result:%@",self.resultDic);
 }
 @end
 
@@ -145,7 +145,7 @@
 
 - (void)processResult{
     self.result = [[[ITTRequestResult alloc] initWithCode:@"0" withMessage:@""]autorelease];
-    ITTDINFO(@"processed result:%@",self.resultDic);
+    iOSLog(@"processed result:%@",self.resultDic);
 }
 @end
 
@@ -156,6 +156,6 @@
 
 - (void)processResult{
     self.result = [[[ITTRequestResult alloc] initWithCode:@"0" withMessage:@""] autorelease];
-    ITTDINFO(@"processed result:%@",self.resultDic);
+    iOSLog(@"processed result:%@",self.resultDic);
 }
 @end
