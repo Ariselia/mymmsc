@@ -10,6 +10,7 @@
 #import <AddressBook/AddressBook.h>
 #import <AddressBookUI/AddressBookUI.h>
 #import "CardTableViewCell.h"
+
 @interface EncodeCardViewController : UIViewController<ABPeoplePickerNavigationControllerDelegate,CardTableViewCellDelegate>{
     ABPeoplePickerNavigationController *_peoplepicker;
     IBOutlet UITableView *_tableview;
