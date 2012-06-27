@@ -566,14 +566,13 @@
                     if([[input substringWithRange:NSMakeRange(i-1, 1)] isEqualToString:@"\\"]){
                         [sb deleteCharactersInRange:NSMakeRange(sb.length - 1, 1)];
                         [sb appendString:[NSString stringWithFormat:@"%@",c]];
-                    } else {
+                        //preFlagPos = i - 1;
+                    }else{
                         [sb appendString:[NSString stringWithFormat:@"%@",c]];
                         if(preFlagPos != 0){
-                            //删掉不对应的
-                            [sb deleteCharactersInRange:NSMakeRange(0, preFlagPos + 1)];
+                            [sb deleteCharactersInRange:NSMakeRange(0, preFlagPos + 1)];//删掉不对应的：
                         }
-                        //对应到位置
-                        preFlagPos = sb.length - 1;
+                        preFlagPos = sb.length - 1; //对应到位置
                     }					
                 }
                 
@@ -584,8 +583,9 @@
                     if([[input substringWithRange:NSMakeRange(i-1, 1)] isEqualToString:@"\\"]){
                         [sb deleteCharactersInRange:NSMakeRange(sb.length - 1, 1)];
                         [sb appendString:[NSString stringWithFormat:@"%@",c]];
-                    } else {
+                    }else{
                         if(preFlagPos != 0){
+                            //[result setObject:[sb substringFromIndex:preFlagPos+1] forKey:key];
                             [list addObject:[sb substringFromIndex:preFlagPos+1]];
                         }
                         
@@ -597,8 +597,8 @@
         }
     }
     return list;
+    
 }
-
 + (id)decode:(NSArray*)list class:(Class)clazz{
     id obj = [[[clazz alloc] init] autorelease];
     // NSArray *list =[self parse0:content];
