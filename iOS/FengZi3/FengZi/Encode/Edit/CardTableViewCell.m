@@ -13,6 +13,7 @@
 @synthesize nameField = _nameField;
 @synthesize delegate=_delegate;
 @synthesize indexPath=_indexPath;
+
 + (CardTableViewCell*)cellFromNib {
     
     UIViewController *cellController = [[UIViewController alloc] initWithNibName:@"CardTableViewCell" bundle:nil];
@@ -22,11 +23,13 @@
     
     return cell;
 }
+
 - (IBAction)editChanged:(id)sender {
     if (_delegate) {
         [_delegate editEnd:_textField.text key:[NSString stringWithFormat:@"%dfield",_indexPath.row]];
     }
 }
+
 - (IBAction)editBegin:(id)sender {
     if (_delegate) {
         [_delegate editBegin:_indexPath];
