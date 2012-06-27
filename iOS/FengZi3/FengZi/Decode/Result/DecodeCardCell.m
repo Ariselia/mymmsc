@@ -12,6 +12,7 @@
 @synthesize moreButton = _moreButton;
 @synthesize nameLabel=_nameLabel;
 @synthesize delegate = _delegate;
+
 + (DecodeCardCell*)cellFromNib {
     
     UIViewController *cellController = [[UIViewController alloc] initWithNibName:@"DecodeCardCell" bundle:nil];
@@ -21,6 +22,7 @@
     
     return cell;
 }
+
 -(void)addPhoneButton:(UIButton*)btn withFavirote:(UIButton*)favrBtn{
     _nameLabel.hidden = YES;
     _moreButton.hidden = YES;
