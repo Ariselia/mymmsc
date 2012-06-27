@@ -177,8 +177,6 @@
         CFRelease(urls);
     }
     
-    
-    
     ABMultiValueRef addr = (ABMultiValueRef) ABRecordCopyValue(person, kABPersonAddressProperty);
     if (addr) {
         int count = ABMultiValueGetCount(addr);
