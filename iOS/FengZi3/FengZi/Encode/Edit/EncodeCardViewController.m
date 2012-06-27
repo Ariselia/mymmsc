@@ -45,10 +45,12 @@
     
     // Release any cached data, images, etc that aren't in use.
 }
--(void)goBack{
+
+- (void)goBack{
     [self.navigationController popViewControllerAnimated:YES];
 }
--(void)generateCode{
+
+- (void)generateCode{
     if (![dic objectForKey:Name_field]||[[dic objectForKey:Name_field] isEqualToString:@""]) {
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"姓名不能为空！" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles: nil];
         [alertView show];
@@ -133,6 +135,7 @@
     [self hideKeyBoard];
     [self presentModalViewController:_peoplepicker animated:YES];
 }
+
 - (BOOL)peoplePickerNavigationController: (ABPeoplePickerNavigationController *)peoplePicker 
       shouldContinueAfterSelectingPerson:(ABRecordRef)person 
 {
