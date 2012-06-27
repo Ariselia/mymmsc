@@ -36,6 +36,8 @@
 #define API_CODE_PREFIX @"http://ifengzi.cn/show.cgi?"
 #define RICH_URL @"http://f.ifengzi.cn"
 @implementation DecodeBusinessViewController
+@synthesize _showInfo;
+@synthesize _content;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -383,7 +385,7 @@
                     }
                     else if(type==10) {
                         _titleLabel.text= @"短信解码";
-                        ShortMessage *object = [[BusDecoder decode:list className:@"Shortmessage"] retain];
+                        ShortMessage *object = [[BusDecoder decode:list className:@"ShortMessage"] retain];
                         [_titleArray addObject:@"接收人"];
                         [_titleArray addObject:@"短信内容"];
                         [_contentArray addObject:object.cellphone];
@@ -398,7 +400,7 @@
                     }
                     else if(type==11) {
                         _titleLabel.text= @"WIFI解码";
-                        WiFiText *object =[[BusDecoder decode:list className:@"WifiText"]retain];
+                        WiFiText *object =[[BusDecoder decode:list className:@"WiFiText"]retain];
                         [_titleArray addObject:@"名称"];
                         [_titleArray addObject:@"密码"];
                         [_contentArray addObject:object.name];
@@ -553,9 +555,9 @@
     
     _tableView.backgroundColor = [UIColor clearColor];
     
-    if (_historyType==HistoryTypeNone || _historyType==HistoryTypeFav) {
-        _favBtn.hidden=YES;
-    }
+//    if (_historyType==HistoryTypeNone || _historyType==HistoryTypeFav) {
+//        _favBtn.hidden=YES;
+//    }
     
     [self decodeInput];
 }

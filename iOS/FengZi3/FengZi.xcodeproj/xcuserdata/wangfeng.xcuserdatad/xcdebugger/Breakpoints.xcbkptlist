@@ -7,13 +7,26 @@
          shouldBeEnabled = "Yes"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
-         filePath = "FengZi/Api/Api+Category.m"
-         timestampString = "362206179.735184"
+         filePath = "FengZi/Decode/Result/DecodeCardViewControlle.m"
+         timestampString = "362474728.262972"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "641"
-         endingLineNumber = "641"
-         landmarkName = "+decode:"
+         startingLineNumber = "101"
+         endingLineNumber = "101"
+         landmarkName = "-viewDidLoad"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "Yes"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "FengZi/Business/BusDecoder.m"
+         timestampString = "362475588.906737"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "92"
+         endingLineNumber = "92"
+         landmarkName = "+decode:className:"
          landmarkType = "5">
       </FileBreakpoint>
    </FileBreakpoints>

@@ -105,7 +105,7 @@
 					<object class="IBUIButton" id="352534098">
 						<reference key="NSNextResponder" ref="373207527"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{272, 28}, {37, 37}}</string>
+						<string key="NSFrame">{{252, 28}, {37, 37}}</string>
 						<reference key="NSSuperview" ref="373207527"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView"/>
@@ -124,6 +124,14 @@
 						<object class="NSColor" key="IBUINormalTitleShadowColor">
 							<int key="NSColorSpace">3</int>
 							<bytes key="NSWhite">MC41AA</bytes>
+						</object>
+						<object class="NSCustomResource" key="IBUIHighlightedImage">
+							<string key="NSClassName">NSImage</string>
+							<string key="NSResourceName">favirote_tap.png</string>
+						</object>
+						<object class="NSCustomResource" key="IBUINormalImage">
+							<string key="NSClassName">NSImage</string>
+							<string key="NSResourceName">favirote.png</string>
 						</object>
 						<object class="IBUIFontDescription" key="IBUIFontDescription">
 							<int key="type">2</int>
@@ -344,10 +352,11 @@
 		</object>
 		<bool key="IBDocument.PluginDeclaredDependenciesTrackSystemTargetVersion">YES</bool>
 		<int key="IBDocument.defaultPropertyAccessControl">3</int>
-		<object class="NSMutableDictionary" key="IBDocument.LastKnownImageSizes">
-			<string key="NS.key.0">background.png</string>
-			<string key="NS.object.0">{640, 960}</string>
-		</object>
+		<dictionary class="NSMutableDictionary" key="IBDocument.LastKnownImageSizes">
+			<string key="background.png">{640, 960}</string>
+			<string key="favirote.png">{69, 69}</string>
+			<string key="favirote_tap.png">{69, 69}</string>
+		</dictionary>
 		<string key="IBCocoaTouchPluginVersion">1497</string>
 	</data>
 </archive>

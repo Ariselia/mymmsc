@@ -7,6 +7,13 @@
 
 #import "PopButtonsView.h"
 #import "CommonUtils.h"
+#import "Api+Category.h"
+#import "BusDecoder.h"
+#import "FileUtil.h"
+#import "Api+Database.h"
+#import "DecodeBusinessViewController.h"
+
+
 @implementation PopButtonsView
 @synthesize delegate = _delegate;
 - (id)initWithFrame:(CGRect)frame
@@ -105,13 +112,13 @@
             _emailBtn.center = CGPointMake(offsetx, 18);
             break;
         case LinkTypeUrl:
-            width = 120;
+            width = 60;
             offsetx = 30;
             self.frame = CGRectMake(self.superview.width-10-width, 4, width, 36);
             _backImageView.frame = self.bounds;
-            _backImageView.image = [UIImage imageNamed:@"decode_popbtn2_bg.png"];
+            _backImageView.image = [UIImage imageNamed:@"pop_button1_bg.png"];
             _netWorkBtn.center = CGPointMake(offsetx, 18);
-            _favBtn.center = CGPointMake(offsetx*3, 18);
+//            _favBtn.center = CGPointMake(offsetx*3, 18);
             break;
         case LinkTypeWeibo:
             width = 60;
@@ -182,7 +189,7 @@
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:key]];
 }
 - (IBAction)_favClick:(id)sender {
-    
+        
 }
 
 - (void)dealloc {

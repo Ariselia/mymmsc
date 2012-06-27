@@ -12,7 +12,6 @@
 @synthesize moreButton = _moreButton;
 @synthesize nameLabel=_nameLabel;
 @synthesize delegate = _delegate;
-
 + (DecodeCardCell*)cellFromNib {
     
     UIViewController *cellController = [[UIViewController alloc] initWithNibName:@"DecodeCardCell" bundle:nil];
@@ -22,7 +21,6 @@
     
     return cell;
 }
-
 -(void)addPhoneButton:(UIButton*)btn withFavirote:(UIButton*)favrBtn{
     _nameLabel.hidden = YES;
     _moreButton.hidden = YES;
@@ -30,6 +28,9 @@
     btn.frame = CGRectMake(275, 18, 30, 30);
     [self addSubview:btn];
     
+    favrBtn.frame = CGRectMake(225, 18, 30, 30);
+    [self addSubview:favrBtn];
+
     
     _contentLabel.frame=CGRectMake(20, -5, 200, 40);
     _contentLabel.font = [UIFont systemFontOfSize:30];

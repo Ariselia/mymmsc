@@ -88,7 +88,6 @@ static NSString *URL_FLAG = @"://";
 }
 
 +(id)decode:(NSArray*) list className:(NSString *)className{
-    
     id obj = [iOSApi objectFrom:className];
     // NSArray *list =[self parse0:content];
     unsigned int outCount, i = 0;

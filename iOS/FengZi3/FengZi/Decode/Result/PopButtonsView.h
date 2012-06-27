@@ -6,12 +6,14 @@
 //
 
 #import <UIKit/UIKit.h>
+@class BusCategory;
 @protocol PopButtonsViewDelegate <NSObject>
 - (void)showSms;
 - (void)showMail;
 @end
 @interface PopButtonsView : UIView{
     id<PopButtonsViewDelegate> _delegate;
+    BusCategory *_category;
     IBOutlet UIImageView *_backImageView;
     IBOutlet UIButton *_dialBtn;
     IBOutlet UIButton *_emailBtn;
@@ -23,6 +25,8 @@
     IBOutlet UIButton *_favBtn;
     LinkType _type;
     NSString *_content;
+    UIImage *_saveImage;
+    NSString *_showInfo;
     
 }
 @property (retain, nonatomic) id<PopButtonsViewDelegate> delegate;
