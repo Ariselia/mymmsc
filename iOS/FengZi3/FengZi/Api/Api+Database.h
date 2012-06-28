@@ -19,6 +19,7 @@
 }
 + (DataBaseOperate *)shareData;
 
+-(BOOL)checkFaviroteExists:(NSString*)content type:(int)type;
 - (void)insertFavirote:(FaviroteObject*)model;
 - (void)deleteFavirote:(int)objectID;
 - (NSArray*)loadFavirote:(int)pageIndex;
