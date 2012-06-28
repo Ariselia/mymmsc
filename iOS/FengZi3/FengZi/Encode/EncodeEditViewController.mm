@@ -302,7 +302,7 @@
         case BusinessTypeShortMessage:{
             ShortMessage *obj = _codeObject;
             obj.logId = _logId;
-            _showInfo = obj.contente;
+            _showInfo = obj.content;
          //   _content = [[BusEncoder encodeShortmessage:obj]retain];
               _content = [[BusEncoder encode:obj type:DATA_ENV.curBusinessType]retain];
             break;

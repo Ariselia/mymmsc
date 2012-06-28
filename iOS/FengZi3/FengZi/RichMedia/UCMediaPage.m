@@ -160,11 +160,16 @@
 // 下载媒体文件
 - (void)doDownload {
     
+    NSDictionary *dict = [info.video uriParams];
     
-//    if (filePath != nil) {
+    NSString *fileVideo = [NSString stringWithFormat:@"%@/%@.%@", API_CACHE_FILEPATH, [dict objectForKey:@"id"], [dict objectForKey:@"type"]];
+    if ([iOSFile isExists:fileVideo]) {
+        filePath = fileVideo;
+        state = MS_READY;
         [self playVideo];
-//        return ;
-//    }
+        return ;
+    }
+    
     NSString *urlMedia = info.video;
 //    if (urlMedia == nil || urlMedia.length < 10) {
 //        [iOSApi Alert:@"没有影音内容" message:nil];
@@ -184,6 +189,7 @@
     [iOSApi showAlert:@"正在下载"];
     state = MS_DOWNLOADING;
     btnDown.hidden = YES;
+    
 }
 
 // 下载异常
@@ -209,9 +215,13 @@
         filePath = [NSString stringWithFormat:@"%@/%@.%@", API_CACHE_FILEPATH, [dict objectForKey:@"id"], [dict objectForKey:@"type"]];
     }
     NSLog(@"1: %@", filePath);
+    
+ 
     NSFileHandle *fileHandle = [iOSFile create:filePath];
     [fileHandle writeData:buffer];
     [fileHandle closeFile];
+    
+ 
     state = MS_READY;
     //if (info.picType == API_RICHMEDIA_PICTYPE_VIDEO) {
         [NSThread detachNewThreadSelector:@selector(playVideo) toTarget:self withObject:nil];
@@ -343,17 +353,29 @@ static int sButton = 0;
         return;
     }
     if (sFile == nil) {
-        [iOSApi showAlert:@"正在下载音乐文件"];
+        
         NSDictionary *aList = [maContent.audio uriParams];
+        
+        NSString *tFile = [NSString stringWithFormat:@"%@.%@", [aList objectForKey:@"id"], [aList objectForKey:@"type"]];
+        
+        if([iOSFile isExists:tFile])
+        {
+            sFile = [[NSString alloc] initWithString:[iOSFile path:tFile]];
+        }
+        else {
+        
+        [iOSApi showAlert:@"正在下载音乐文件"];
+        
         fileURL = [NSURL URLWithString:maContent.audio];
         NSData *data = [NSData dataWithContentsOfURL:fileURL];
-        NSString *tFile = [NSString stringWithFormat:@"%@.%@", [aList objectForKey:@"id"], [aList objectForKey:@"type"]];
+       
         NSLog(@"1: %@", tFile);
         NSFileHandle *fileHandle = [iOSFile create:tFile];
         [fileHandle writeData:data];
         [fileHandle closeFile];
         sFile = [[NSString alloc] initWithString:[iOSFile path:tFile]];
         [iOSApi closeAlert];
+        }
     }
     fileURL = [NSURL fileURLWithPath:sFile];
     NSError *error = nil;

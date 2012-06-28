@@ -58,7 +58,7 @@
     Email *mail = [[[Email alloc] init]autorelease];
     mail.title = _titleText.text;
     mail.mail = _mailText.text;
-    mail.contente = _contentText.text;
+    mail.content = _contentText.text;
     EncodeEditViewController *editView =[[EncodeEditViewController alloc] initWithNibName:@"EncodeEditViewController" bundle:nil];
     if (![Api kma]) {
         [self.navigationController pushViewController:editView animated:YES];

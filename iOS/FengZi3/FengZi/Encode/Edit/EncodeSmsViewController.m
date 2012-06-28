@@ -52,8 +52,8 @@
         return;
     }
     ShortMessage *sm = [[[ShortMessage alloc]init]autorelease];
-    sm.cellphone = _receiverText.text;
-    sm.contente = _contentText.text;
+    sm.phone = _receiverText.text;
+    sm.content = _contentText.text;
     EncodeEditViewController *editView =[[EncodeEditViewController alloc] initWithNibName:@"EncodeEditViewController" bundle:nil];
     if (![Api kma]) {
         [self.navigationController pushViewController:editView animated:YES];

@@ -117,7 +117,7 @@
 
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
     if (buttonIndex==1) {
-         NSArray *list = [BusDecoder parse0:_content];
+         NSDictionary *list = [BusDecoder parse0:_content];
          EncText *object = [[BusDecoder decode:list className:@"EncText"] retain];
         //EncText *object = [[BusDecoder decode:list key:_passwordField.text] retain];
         
@@ -270,10 +270,8 @@
                     // 已经取到类型了, 进一步剥离类型, 取的编码串
                     str = [str substringFromIndex:2];
                     // 下面的这个数组的内容, 就是从A开始的连续的值
-                    NSArray *list = [BusDecoder parse0:str];
-
-                    if (type == 1) {
-                       
+                    NSDictionary *list = [BusDecoder parse0:str];
+                    if (type == 1) {                       
                         _titleLabel.text= @"网址解码";
                         Url *object = [[BusDecoder decode:list className:@"Url"]retain];
                         [_titleArray addObject:@"网址"];
@@ -282,10 +280,7 @@
                         _showInfo = object.content;
                             logId = object.logId;
                         [object release];
-   
-                    }
-                    else if(type==2)
-                    {
+                    } else if(type==2) {
                         _titleLabel.text= @"书签解码";
                         BookMark *object =[[BusDecoder decode:list className:@"BookMark"]retain];
                         [_titleArray addObject:@"网址名称"];
@@ -297,9 +292,7 @@
                         _showInfo = object.title;
                         logId = object.logId;
                         [object release];
-                        
-                    }
-                    else if(type==3) {
+                    } else if(type==3) {
                         AppUrl *object =[[BusDecoder decode:list className:@"AppUrl"]retain];
                         _titleLabel.text= @"应用程序解码";
                         
@@ -312,8 +305,7 @@
                         _showInfo = object.url;
                         logId = object.logId;
                         [object release];
-                    }
-                    else if(type==4) {
+                    } else if(type==4) {
                         _titleLabel.text= @"微博解码";
                         Weibo *object =[[BusDecoder decode:list className:@"Weibo"]retain];
 
@@ -326,17 +318,12 @@
                         _showInfo = object.title;
                         logId = object.logId;
                         [object release];
-
-                    }
-                    else if(type==5) {
-                        
+                    } else if(type == 5) {
                         DecodeCardViewControlle *cardView = [[DecodeCardViewControlle alloc] initWithNibName:@"DecodeCardViewControlle" category:_category result:str withImage:_image withType:HistoryTypeFavAndHistory withSaveImage:_saveImage];
                             [self.navigationController pushViewController:cardView animated:YES];
                               RELEASE_SAFELY(cardView);
                         
-                    }
-                    else if(type==6) {
-
+                    } else if(type == 6) {
                         _titleLabel.text= @"电话解码";
                         Phone *object = [[BusDecoder decode:list className:@"Phone"]retain];
                         
@@ -346,9 +333,7 @@
                         _showInfo = object.telephone;
                         logId = object.logId;
                         [object release];
-
-                    }
-                    else if(type==7) {
+                    } else if(type==7) {
                         _titleLabel.text= @"电子邮件解码";
                         Email *object = [[BusDecoder decode:list className:@"Email"]retain];
                         [_titleArray addObject:@"标题"];
@@ -356,16 +341,14 @@
                         [_titleArray addObject:@"内容"];
                         [_contentArray addObject:object.title];
                         [_contentArray addObject:object.mail];
-                        [_contentArray addObject:object.contente];
+                        [_contentArray addObject:object.content];
                         [_typeArray addObject:[NSNumber numberWithInt:LinkTypeEmailText]];
                         [_typeArray addObject:[NSNumber numberWithInt:LinkTypeEmailText]];
                         [_typeArray addObject:[NSNumber numberWithInt:LinkTypeEmailText]];
                         _hideContentIndex = 2;
                         _showInfo = object.title;
                         logId = object.logId;
-                        [object release];
-
-                        
+                        [object release];                        
                     }  else if(type==8) {
                         _titleLabel.text= @"文本解码";
                         Text *object =[[BusDecoder decode:list className:@"Text"]retain];
@@ -376,29 +359,23 @@
                         _showInfo = object.content;
                         logId = object.logId;
                         [object release];
-
-                        
-                        
                     }else if(type==9) {
                         _titleLabel.text= @"加密文本解码";
                         [self showAlertView:@"输入密码"];                        
-                    }
-                    else if(type==10) {
+                    } else if(type==10) {
                         _titleLabel.text= @"短信解码";
                         ShortMessage *object = [[BusDecoder decode:list className:@"ShortMessage"] retain];
                         [_titleArray addObject:@"接收人"];
                         [_titleArray addObject:@"短信内容"];
-                        [_contentArray addObject:object.cellphone];
-                        [_contentArray addObject:object.contente];
+                        [_contentArray addObject:object.phone];
+                        [_contentArray addObject:object.content];
                         [_typeArray addObject:[NSNumber numberWithInt:LinkTypePhone]];
                         [_typeArray addObject:[NSNumber numberWithInt:LinkTypeSms]];
                         _hideContentIndex = 1;
-                        _showInfo = object.contente;
+                        _showInfo = object.content;
                         logId = object.logId;
-                        [object release];
-                      
-                    }
-                    else if(type==11) {
+                        [object release];                      
+                    } else if(type == 11) {
                         _titleLabel.text= @"WIFI解码";
                         WiFiText *object =[[BusDecoder decode:list className:@"WiFiText"]retain];
                         [_titleArray addObject:@"名称"];
@@ -410,10 +387,7 @@
                         _showInfo = object.name;
                         logId = object.logId;
                         [object release];
-
-                        
-                    }
-                    else if(type==12) {
+                    } else if(type==12) {
                         _titleLabel.text= @"地图解码";
                         GMap *object = [[BusDecoder decode:list className:@"GMap"]retain];
                         [_titleArray addObject:@"坐标"];
@@ -433,11 +407,7 @@
                         }
                         logId = object.logId;
                         [object release];
-
-                        
-                        
-                    }else if(type==13)
-                    {
+                    } else if(type==13) {
                         _titleLabel.text= @"日程解码";
                         Schedule *object = [[BusDecoder decode:list className:@"Schedule"] retain];
                         [_titleArray addObject:@"时间"];
@@ -453,12 +423,8 @@
                         _showInfo = object.title;
                         logId = object.logId;
                         [object release];
-
                     }
-                   
-
                 }
-                
             }
         } else {
             // 不是, 咋办?

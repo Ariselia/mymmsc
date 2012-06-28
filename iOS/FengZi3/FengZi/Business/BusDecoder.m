@@ -26,9 +26,7 @@ static NSString *URL_FLAG = @"://";
 /**
  * 将冒号和分号分隔的字符串变成一个map对象
  */
-+(NSArray *)parse0:(NSString *)input{
-    
-
++(NSArray *)parseList:(NSString *)input{
     NSMutableArray *list = nil;
     if(input != nil){
         list = [[[NSMutableArray alloc] initWithCapacity:0] autorelease];
@@ -87,44 +85,79 @@ static NSString *URL_FLAG = @"://";
     
 }
 
-+(id)decode:(NSArray*) list className:(NSString *)className{
-    id obj = [iOSApi objectFrom:className];
-    // NSArray *list =[self parse0:content];
-    unsigned int outCount, i = 0;
-    objc_property_t *properties = class_copyPropertyList([obj class], &outCount);
-    int listCount = list.count;
-    if (listCount>=outCount) {
-        for (i = 0; i < outCount; i++) {
-            NSString *value = [list objectAtIndex:i];
-            objc_property_t property = properties[i];
-            NSString *fieldName = [NSString stringWithUTF8String: property_getName(property)];
-            [iOSApi setObject:obj key:fieldName value:value];
-        }
-        
-    }else {
-        for (i = 0; i < listCount; i++) {
-            NSString *value = [list objectAtIndex:i];
-            objc_property_t property = properties[i];
-            NSString *fieldName = [NSString stringWithUTF8String: property_getName(property)];
-            [iOSApi setObject:obj key:fieldName value:value];
++ (NSDictionary *)parse0:(NSString *)input{
+    NSMutableDictionary *list = nil;
+    if(input != nil){
+        list = [[[NSMutableDictionary alloc] initWithCapacity:0] autorelease];
+        int preFlagPos = 0;
+        NSMutableString *sb = [[[NSMutableString alloc] initWithCapacity:0] autorelease];
+        for(int i = 0; i < input.length; i ++){
+            NSString *c = [input substringWithRange:NSMakeRange(i, 1)];
+            NSString *d = nil;
+            if (i + 1 < input.length) {
+                d = [input substringWithRange:NSMakeRange(i + 1, 1)];
+            }
+            if(![c isEqualToString:SEPERATOR_PRE]&& ![c isEqualToString:SEPERATOR_POST]){
+                [sb appendString:[NSString stringWithFormat:@"%@",c]];
+            } else if (d != nil && [c isEqualToString:SEPERATOR_PRE] && [d isEqualToString:SEPERATOR_POST]) {
+                NSString *key = [[sb substringToIndex:preFlagPos] stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceAndNewlineCharacterSet]];
+                [list setObject:@"" forKey:key];
+                preFlagPos = 0;
+            } else {
+                if([c isEqualToString:SEPERATOR_PRE]){
+                    if(i == 0){
+                        continue; //舍弃：
+                    }
+                    if([[input substringWithRange:NSMakeRange(i-1, 1)] isEqualToString:@"\\"]){
+                        [sb deleteCharactersInRange:NSMakeRange(sb.length - 1, 1)];
+                        [sb appendString:[NSString stringWithFormat:@"%@",c]];
+                        //preFlagPos = i - 1;
+                    }else{
+                        [sb appendString:[NSString stringWithFormat:@"%@",c]];
+                        if(preFlagPos != 0){
+                            [sb deleteCharactersInRange:NSMakeRange(0, preFlagPos + 1)];//删掉不对应的：
+                        }
+                        preFlagPos = sb.length - 1; //对应到位置
+                    }					
+                }
+                
+                if([c isEqualToString:SEPERATOR_POST]){
+                    if(i == 0){
+                        continue; //舍弃：
+                    }
+                    if([[input substringWithRange:NSMakeRange(i-1, 1)] isEqualToString:@"\\"]){
+                        [sb deleteCharactersInRange:NSMakeRange(sb.length - 1, 1)];
+                        [sb appendString:[NSString stringWithFormat:@"%@",c]];
+                    }else{
+                        NSString *key = [[sb substringToIndex:preFlagPos] stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceAndNewlineCharacterSet]];
+                        if(preFlagPos != 0){
+                            [list setObject:[sb substringFromIndex:preFlagPos+1] forKey:key];
+                        }
+                        
+                        [sb deleteCharactersInRange:NSMakeRange(0, sb.length)];//清掉内容
+                        preFlagPos = 0;
+                    }
+                }
+            }
         }
     }
-    free(properties);
-    properties = NULL;
+    return list;
     
-    
+}
+
++(id)decode:(NSDictionary *)list className:(NSString *)className{
+    id obj = [iOSApi objectFrom:className];
+    [list fillObject:obj];
     return obj;
 }
 
 
 + (NSMutableDictionary*)parser:(NSString *)input{
-    
     if(input == nil){
         return nil;
     }
     
     NSMutableDictionary *result = [[[NSMutableDictionary alloc] initWithCapacity:0] autorelease];			
-    
     int preFlagPos = 0;
     NSMutableString *sb = [[[NSMutableString alloc] initWithCapacity:0] autorelease];
     for(int i = 0; i < input.length; i ++){
@@ -1022,8 +1055,8 @@ static NSString *URL_FLAG = @"://";
     NSString *contente = [input substringFromIndex:position+1];
     
     ShortMessage *shortM = [[[ShortMessage alloc] init]autorelease];
-    shortM.cellphone=cellPhone?cellPhone:@"";
-    shortM.contente=contente?contente:@"";		
+    shortM.phone=cellPhone?cellPhone:@"";
+    shortM.content=contente?contente:@"";		
     
     return shortM;
 }
@@ -1048,8 +1081,8 @@ static NSString *URL_FLAG = @"://";
         NSString *tcontente = [content objectForKey:SHORTMESS_CONTENT];
         NSString *logId = [content objectForKey:ALL_LOGID];
         
-        shortM.cellphone=cellpone?cellpone:@"";
-        shortM.contente=tcontente?tcontente:@"";
+        shortM.phone=cellpone?cellpone:@"";
+        shortM.content=tcontente?tcontente:@"";
         shortM.logId=logId;
     }		
     
@@ -1099,7 +1132,7 @@ static NSString *URL_FLAG = @"://";
     
     email.mail=mail?mail:@"";
     email.title=title?title:@"";
-    email.contente= contente?contente:@"";   
+    email.content= contente?contente:@"";   
     
     return email;
 }
@@ -1127,7 +1160,7 @@ static NSString *URL_FLAG = @"://";
     
     email.mail=mail?mail:@"";
     email.title=@"";
-    email.contente= @"";   
+    email.content= @"";   
     
     return email;
 }
@@ -1139,9 +1172,7 @@ static NSString *URL_FLAG = @"://";
  * @return
  */
 +(Email*) decodeEmail:(NSString *)input channel:(int) channele{
-    
-    Email *email = [[[Email alloc]init]autorelease];
-    
+    Email *email = [[[Email alloc]init]autorelease];    
     if(channele == MAIL_CHANNEL_TO){
         email = [BusDecoder parserSMTP:input];
     }else if(channele == MAIL_CHANNEL_MAILTO){
@@ -1156,7 +1187,7 @@ static NSString *URL_FLAG = @"://";
         
         email.mail=mail?mail:@"";
         email.title=title?title:@"";
-        email.contente= tcontente?tcontente:@"";
+        email.content= tcontente?tcontente:@"";
         email.logId=logId;
     }		
     

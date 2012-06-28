@@ -173,11 +173,11 @@ typedef enum CodeType{
 @interface Email : BaseModel{
     NSString* _mail;
 	NSString* _title;
-	NSString* _contente;
+	NSString* _content;
 }
 @property (copy, nonatomic) NSString *mail;
 @property (copy, nonatomic) NSString *title;
-@property (copy, nonatomic) NSString *contente;
+@property (copy, nonatomic) NSString *content;
 
 @end
 
@@ -239,11 +239,11 @@ typedef enum CodeType{
 
 //--------------------< 业务类型 - 对象 - 短信 >--------------------
 @interface ShortMessage : BaseModel{
-    NSString* _cellphone;
-	NSString* _contente;	
+    NSString* _phone;
+	NSString* _content;	
 }
-@property (copy, nonatomic) NSString *cellphone;
-@property (copy, nonatomic) NSString *contente;
+@property (copy, nonatomic) NSString *phone;
+@property (copy, nonatomic) NSString *content;
 
 @end
 

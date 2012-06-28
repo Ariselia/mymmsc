@@ -12,7 +12,7 @@
 #define FENGZI_URL @"http://ifengzi.cn/show.cgi?"
 @implementation BusEncoder
 
-+(NSString*) filterQRBusiness:(NSString*)src{
++ (NSString*)filterQRBusiness:(NSString*)src{
     NSMutableString *sb=[[[NSMutableString alloc] initWithCapacity:0] autorelease];
     for (int i = 0; i<src.length; i++) {
         NSString *chars = [src substringWithRange:NSMakeRange(i, 1)];
@@ -24,6 +24,7 @@
     }
     return sb;
 }
+
 //普通二维码编码
 static const char * getPropertyType(objc_property_t property) {
     const char *attributes = property_getAttributes(property);
@@ -52,63 +53,54 @@ static const char * getPropertyType(objc_property_t property) {
     }
     return "";
 }
-+(NSString*)encode:(id) obj type:(int)type{
+
++ (NSString *)encode:(id)obj type:(int)type{
     NSMutableString *buffer = [[[NSMutableString alloc] initWithCapacity:0] autorelease];
     //判断是不是服媒体；
-    if(type==13)
-    {
+    if(type == 13) {
         RichMedia *richObject= obj;  
         NSString *codeid= richObject.url;
-       [buffer appendString:[NSString stringWithFormat:@"%@id=%@",FENGZI_URL,codeid]];
+        [buffer appendString:[NSString stringWithFormat:@"%@id=%@",FENGZI_URL,codeid]];
     } else {
-        
-   
-    
-    type =type+1;
-       if(obj == nil){
-        return buffer;
-    }  
-    [buffer appendString:FENGZI_URL];
-    unsigned char typeUn = (unsigned char)type;
-    NSString *type16 = [NSString stringWithFormat:@"%02X", typeUn];
-    [buffer appendString:type16];
-    
-
-    
-    unsigned int outCount, i = 0;
-    objc_property_t *properties = class_copyPropertyList([obj class], &outCount);
-    char num = 'A';
-    for (i = 0; i < outCount; i++) {
-        objc_property_t property = properties[i];
-       
-        if (property != NULL) {
-            NSString *fieldName = [NSString stringWithUTF8String: property_getName(property)];
-            const char *propType = getPropertyType(property);
-            NSString *propertyType = [NSString stringWithUTF8String:propType];
-            NSString *value;
-            SEL aSel = NSSelectorFromString(fieldName);
-            if ([obj respondsToSelector:aSel]) {
-                IMP func = [obj methodForSelector:aSel];
-                id xxx = func(obj, aSel);
-                if([propertyType isEqualToString:(@"NSString")])
-                {
-                value=(NSString *)xxx;
-                    value = [value replace:@":" withString:@"\\:"];
-                    value = [value replace:@";" withString:@"\\;"];
-
-                [buffer appendString:[NSString stringWithFormat:@"%c:%@;",num,value]];      
+        type = type + 1;
+        if(obj == nil) {
+            return buffer;
+        }
+        [buffer appendString:FENGZI_URL];
+        unsigned char typeUn = (unsigned char)type;
+        NSString *type16 = [NSString stringWithFormat:@"%02X", typeUn];
+        [buffer appendString:type16];
+        unsigned int outCount, i = 0;
+        objc_property_t *properties = class_copyPropertyList([obj class], &outCount);
+        NSString *num = nil;
+        for (i = 0; i < outCount; i++) {
+            objc_property_t property = properties[i];
+            if (property != NULL) {
+                NSString *fieldName = [NSString stringWithUTF8String: property_getName(property)];
+                num = [fieldName uppercaseString];
+                const char *propType = getPropertyType(property);
+                NSString *propertyType = [NSString stringWithUTF8String:propType];
+                NSString *value;
+                SEL aSel = NSSelectorFromString(fieldName);
+                if ([obj respondsToSelector:aSel]) {
+                    IMP func = [obj methodForSelector:aSel];
+                    id xxx = func(obj, aSel);
+                    if([propertyType isEqualToString:(@"NSString")])
+                    {
+                        value=(NSString *)xxx;
+                        value = [value replace:@":" withString:@"\\:"];
+                        value = [value replace:@";" withString:@"\\;"];
+                        
+                        [buffer appendString:[NSString stringWithFormat:@"%@:%@;",num,value]];      
+                    }
                 }
             }
- 
-            
-        }        
-         num++;
-    }
-    free(properties);
-    properties = NULL;
-    //num++;
-    [buffer appendString:[NSString stringWithFormat:@"%c:%d;",num,type]];  
-      }  
+        }
+        free(properties);
+        properties = NULL;
+        //num++;
+        [buffer appendString:[NSString stringWithFormat:@"%c:%d;",num,type]];  
+    }  
     
     return buffer;
 }
@@ -139,7 +131,7 @@ static const char * getPropertyType(objc_property_t property) {
         return buffer;
     }
     
-     [buffer appendString:FENGZI_URL];
+    [buffer appendString:FENGZI_URL];
     [buffer appendString:CATEGORY_CARD];
     [buffer appendString:SEPERATOR_PRE];
     
@@ -294,7 +286,7 @@ static const char * getPropertyType(objc_property_t property) {
     if(email == nil){
         return buffer;
     }
-     [buffer appendString:FENGZI_URL];
+    [buffer appendString:FENGZI_URL];
     [buffer appendString:CATEGORY_EMAIL];
     [buffer appendString:SEPERATOR_PRE];
     
@@ -316,7 +308,7 @@ static const char * getPropertyType(objc_property_t property) {
         [buffer appendString:SEPERATOR_POST];			
     }
     
-    NSString *content = [email.contente stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    NSString *content = [email.content stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceAndNewlineCharacterSet]];
     
     if(content != nil && content.length > 0){
         [buffer appendString:EMAIL_CONTENT];
@@ -350,7 +342,7 @@ static const char * getPropertyType(objc_property_t property) {
     if(phone == nil){
         return buffer;
     }
-     [buffer appendString:FENGZI_URL];
+    [buffer appendString:FENGZI_URL];
     [buffer appendString:CATEGORY_PHONE];
     [buffer appendString:SEPERATOR_PRE];
     
@@ -388,12 +380,12 @@ static const char * getPropertyType(objc_property_t property) {
     if(schedule == nil){
         return buffer;
     }
-     [buffer appendString:FENGZI_URL];
+    [buffer appendString:FENGZI_URL];
     [buffer appendString:CATEGORY_SCHEDULE];
     [buffer appendString:SEPERATOR_PRE];
     
     NSString *date = [schedule.date stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceAndNewlineCharacterSet]];
-
+    
     if(date != nil && date.length > 0){
         [buffer appendString:SCHEDULE_DATE];
         [buffer appendString:SEPERATOR_PRE];
@@ -402,7 +394,7 @@ static const char * getPropertyType(objc_property_t property) {
     }
     
     NSString *title = [schedule.title stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceAndNewlineCharacterSet]];
-
+    
     
     if(title != nil && title.length > 0){
         [buffer appendString:SCHEDULE_TITLE];
@@ -412,7 +404,7 @@ static const char * getPropertyType(objc_property_t property) {
     }
     
     NSString *content = [schedule.content stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceAndNewlineCharacterSet]];
-
+    
     if(content != nil && content.length > 0){
         [buffer appendString:SCHEDULE_CONTENT];
         [buffer appendString:SEPERATOR_PRE];
@@ -445,12 +437,12 @@ static const char * getPropertyType(objc_property_t property) {
     if(shortmessage == nil){
         return buffer;
     }
-     [buffer appendString:FENGZI_URL];
+    [buffer appendString:FENGZI_URL];
     [buffer appendString:CATEGORY_SHORTMESS];
     [buffer appendString:SEPERATOR_PRE];
     
-    NSString *cellphone = [shortmessage.cellphone stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceAndNewlineCharacterSet]];
-
+    NSString *cellphone = [shortmessage.phone stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    
     if(cellphone != nil && cellphone.length > 0){
         [buffer appendString:SHORTMESS_CELLPHONE];
         [buffer appendString:SEPERATOR_PRE];
@@ -458,7 +450,7 @@ static const char * getPropertyType(objc_property_t property) {
         [buffer appendString:SEPERATOR_POST];			
     }
     
-    NSString *content = [shortmessage.contente stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    NSString *content = [shortmessage.content stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceAndNewlineCharacterSet]];
     
     if(content != nil && content.length > 0){
         [buffer appendString:SHORTMESS_CONTENT];
@@ -534,7 +526,7 @@ static const char * getPropertyType(objc_property_t property) {
     if(bookMark == nil){
         return buffer;
     }
-     [buffer appendString:FENGZI_URL];
+    [buffer appendString:FENGZI_URL];
     [buffer appendString:CATEGORY_BOOKMARK];
     [buffer appendString:SEPERATOR_PRE];
     
@@ -583,7 +575,7 @@ static const char * getPropertyType(objc_property_t property) {
     if(weibo == nil){
         return buffer;
     }
-     [buffer appendString:FENGZI_URL];
+    [buffer appendString:FENGZI_URL];
     [buffer appendString:CATEGORY_BOOKMARK];
     [buffer appendString:SEPERATOR_PRE];
     
@@ -609,9 +601,9 @@ static const char * getPropertyType(objc_property_t property) {
     [buffer appendString:ALL_NOTE];
     [buffer appendString:SEPERATOR_PRE];
     
-     [buffer appendString:BOOKMARK_TYPE];
+    [buffer appendString:BOOKMARK_TYPE];
     [buffer appendString:SEPERATOR_PRE];
-     [buffer appendString:[NSString stringWithFormat:@"%d",WEIBO]];
+    [buffer appendString:[NSString stringWithFormat:@"%d",WEIBO]];
     [buffer appendString:SEPERATOR_POST];
     
     [buffer appendString:ALL_LOGID];
@@ -637,7 +629,7 @@ static const char * getPropertyType(objc_property_t property) {
     if(url == nil){
         return buffer;
     }
-     [buffer appendString:FENGZI_URL];
+    [buffer appendString:FENGZI_URL];
     [buffer appendString:CATEGORY_BOOKMARK];
     [buffer appendString:SEPERATOR_PRE];
     
@@ -677,7 +669,7 @@ static const char * getPropertyType(objc_property_t property) {
     if(gmap == nil){
         return buffer;
     }
-     [buffer appendString:FENGZI_URL];
+    [buffer appendString:FENGZI_URL];
     [buffer appendString:CATEGORY_BOOKMARK];
     [buffer appendString:SEPERATOR_PRE];
     
@@ -723,7 +715,7 @@ static const char * getPropertyType(objc_property_t property) {
     if(appUrl == nil){
         return buffer;
     }
-     [buffer appendString:FENGZI_URL];
+    [buffer appendString:FENGZI_URL];
     [buffer appendString:CATEGORY_BOOKMARK];
     [buffer appendString:SEPERATOR_PRE];
     
@@ -778,7 +770,7 @@ static const char * getPropertyType(objc_property_t property) {
     if(encText == nil){
         return buffer;
     }
-     [buffer appendString:FENGZI_URL];
+    [buffer appendString:FENGZI_URL];
     [buffer appendString:CATEGORY_ENCTEXT];
     [buffer appendString:SEPERATOR_PRE];
     
@@ -825,7 +817,7 @@ static const char * getPropertyType(objc_property_t property) {
     if(wifiText == nil){
         return buffer;
     }
-     [buffer appendString:FENGZI_URL];
+    [buffer appendString:FENGZI_URL];
     [buffer appendString:CATEGORY_WIFI];
     [buffer appendString:SEPERATOR_PRE];
     

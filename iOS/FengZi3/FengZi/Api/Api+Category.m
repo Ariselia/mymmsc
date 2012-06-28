@@ -360,11 +360,11 @@
 @implementation Email
 @synthesize mail=_mail;
 @synthesize title=_title;
-@synthesize contente=_contente;
+@synthesize content=_content;
 
 - (void)dealloc {
     RELEASE_SAFELY(_mail);
-    RELEASE_SAFELY(_contente);
+    RELEASE_SAFELY(_content);
     RELEASE_SAFELY(_title);
     [super dealloc];
 }
@@ -448,12 +448,12 @@
 
 //--------------------< 业务类型 - 对象 - 短信 >--------------------
 @implementation ShortMessage
-@synthesize contente=_contente;
-@synthesize cellphone=_cellphone;
+@synthesize content=_content;
+@synthesize phone=_phone;
 
 - (void)dealloc {
-    RELEASE_SAFELY(_cellphone);
-    RELEASE_SAFELY(_contente);
+    RELEASE_SAFELY(_phone);
+    RELEASE_SAFELY(_content);
     
     [super dealloc];
 }

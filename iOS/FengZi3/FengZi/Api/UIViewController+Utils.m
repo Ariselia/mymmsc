@@ -130,7 +130,7 @@ static NSString *s_luckyId = nil;
 
 // 解码入口
 - (void)chooseShowController:(NSString *)input isSave:(BOOL)isSave{
-      
+    iOSLog(@"input = [%@]", input);
     input = [iOSApi urlDecode:input];
     BusCategory *_category = [BusDecoder classify:input];
     UIImage *saveImage = [Api generateImageWithInput:input];
@@ -147,28 +147,21 @@ static NSString *s_luckyId = nil;
                 // 富媒体, 或者空码, 转换地址
                 NSString *iskma = [str substringFromIndex:3];
                 NSString *url = [NSString stringWithFormat:@"%@/apps/getCode.action?%@",API_APPS_SERVER,str];
-                if([iskma rangeOfString:@"-"].length>0)
-                {
-                    
+                if([iskma rangeOfString:@"-"].length>0) {
                     NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
                                             [NSString valueOf:[Api userId]], @"userid",
                                             nil];
                     NSDictionary *map = [Api post:url params:params];
-                    
-                    
-                    if (map.count > 0) 
-                    {
+                    if (map.count > 0) {
                         if([[map objectForKey:@"data"] isKindOfClass:[NSString class]])
                         {
                             
                             //NSLog(@"//普通解码");
-                            
                             NSString *_content=nil;
                             _content =  [[NSString stringWithFormat:@"%@%@", API_CODE_PREFIX,[map objectForKey:@"data"]] retain];
                             [self chooseShowController:_content isSave:isSave];
                             return;
-                        }
-                        else {
+                        } else {
                             UCRichMedia *nextView = [[UCRichMedia alloc] init];
                             nextView.urlMedia = url;
                             nextView.curImage = [Api generateImageWithInput:input];
@@ -178,26 +171,16 @@ static NSString *s_luckyId = nil;
                         }
                         
                     }
-                    
-                    
-                  
-                    
                 } else {
-                    
                     NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
                                             [NSString valueOf:[Api userId]], @"userid",
                                             nil];
-                    NSDictionary *map = [Api post:url params:params];
-                    
-                    
-                    if (map.count > 0) 
-                    {
-                        
+                    NSDictionary *map = [Api post:url params:params];                    
+                    if (map.count > 0) {
                         NSString *status =[NSString stringWithFormat:@"%d", [Api getInt:[map objectForKey:@"status"]]];
                         // NSLog(@"%@",status);    
                         if ([status isEqualToString:@"404"]) {
                             //跳到空码赋值
-                            
                             UCKmaViewController *nextView = [[UCKmaViewController alloc] init];
                             //nextView.bKma = YES; // 标记为空码赋值富媒体
                             nextView.code = iskma;
@@ -205,39 +188,28 @@ static NSString *s_luckyId = nil;
                             [self.navigationController pushViewController:nextView animated:YES];
                             [nextView release];
                             return;
-                            
                         }  else  {
-                            //进行解码    
-                            
-                            
+                            //进行解码
                             if([[map objectForKey:@"data"] isKindOfClass:[NSString class]])
-                            {
-                                
-                                //NSLog(@"//普通解码");
-                                
+                            {                                
+                                //NSLog(@"//普通解码");                               
                                 NSString *_content=nil;
                                 _content =  [[NSString stringWithFormat:@"%@%@", API_CODE_PREFIX,[map objectForKey:@"data"]] retain];
                                 [self chooseShowController:_content isSave:isSave];
-                                
-                            }
-                            else {
-                                
+                                return;
+                            } else {
                                 //NSLog(@"//服媒体");
                                 UCRichMedia *nextView = [[UCRichMedia alloc] init];
                                 nextView.urlMedia = url;
                                  nextView.curImage = [Api generateImageWithInput:input];
                                 [self.navigationController pushViewController:nextView animated:YES];
                                 [nextView release];
-                                return;
-                                
+                                return;                                
                             }
-                            
-                            
                         }
-                        
                     }
                 }
-            }else {
+            } else {
                 // 普通码规则, 前两位是十六进制串
                 const char *s = [[str substringToIndex:2] UTF8String];
                 int type = -1;
@@ -247,36 +219,21 @@ static NSString *s_luckyId = nil;
                     str = [str substringFromIndex:2];
                     // 下面的这个数组的内容, 就是从A开始的连续的值
                     //NSArray *list = [BusDecoder parse0:str];
-                    
                     if (type == 5) {
-                        
-                        
                         if (isSave) {
                             DecodeCardViewControlle *cardView = [[DecodeCardViewControlle alloc] initWithNibName:@"DecodeCardViewControlle" category:_category result:str withImage:inputImage withType:HistoryTypeFavAndHistory withSaveImage:saveImage];
                             [self.navigationController pushViewController:cardView animated:YES];
                             RELEASE_SAFELY(cardView);
-                            return;
-
-                            
-                        }
-                        else {
-                            
+                            return;                            
+                        } else {                            
                             DecodeCardViewControlle *cardView = [[DecodeCardViewControlle alloc] initWithNibName:@"DecodeCardViewControlle" category:_category result:str withImage:inputImage withType:HistoryTypeNone withSaveImage:saveImage];
                             [self.navigationController pushViewController:cardView animated:YES];
                             RELEASE_SAFELY(cardView);
                             return;
-                            
-                           
-                            
                         }
-
-                        
-                                           }
+                    }
                 }
-                        
-                        
-            }          
-                        
+            }
         }
     }
               
