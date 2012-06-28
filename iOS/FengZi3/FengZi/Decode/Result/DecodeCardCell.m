@@ -30,8 +30,7 @@
     
     favrBtn.frame = CGRectMake(225, 18, 30, 30);
     [self addSubview:favrBtn];
-
-    
+        
     _contentLabel.frame=CGRectMake(20, -5, 200, 40);
     _contentLabel.font = [UIFont systemFontOfSize:30];
     _contentLabel.textAlignment = UITextAlignmentLeft;
