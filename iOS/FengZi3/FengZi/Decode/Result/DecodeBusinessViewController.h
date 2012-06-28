@@ -29,7 +29,7 @@
     UITextField *_passwordField;
     NSString *_showInfo;
     HistoryType _historyType;// 是否扫码 排除从收藏和历史记录
-    
+    int _type;
     int _hideContentIndex;
 }
 -(id)initWithNibName:(NSString *)nibNameOrNil category:(BusCategory *)cate  result:(NSString *)input image:(UIImage*)img withType:(HistoryType)type withSaveImage:(UIImage*)sImage;
