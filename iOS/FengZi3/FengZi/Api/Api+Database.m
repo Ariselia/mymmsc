@@ -13,7 +13,13 @@
 //--------------------< 本地数据库 - 接口 - eFile >--------------------
 #import "Api+eFile.h"
 #import <iOSApi/iOSDatabase.h>
+#define API_DB_NAME @"ifengzi.db"
 
+#define SQL_CREATE_MEMBER  @"create table if not exists `member` (`id` INTEGER PRIMARY KEY  DEFAULT '', `memberclassid` VARCHAR DEFAULT '',`memberclassname` VARCHAR DEFAULT '',`memberlistid` VARCHAR DEFAULT '',`memberlistname` VARCHAR DEFAULT '',`memberlistpicurl` VARCHAR DEFAULT '',`memberinfocodename` VARCHAR DEFAULT '',`memberinfocodepicurl` VARCHAR DEFAULT '',`memberinfocodecontent` VARCHAR DEFAULT '',`memberinfocodenum` VARCHAR DEFAULT '',`memberinfopicurl` VARCHAR DEFAULT '',`memberinfocodeserialnum` VARCHAR DEFAULT '',`memberinfocodeusetime` VARCHAR DEFAULT '',`userid` VARCHAR DEFAULT '',`userphone` VARCHAR DEFAULT '')"
+
+#define SQL_CREATE_CARD @"create table if not exists `card` (`id` INTEGER PRIMARY KEY  DEFAULT '', `cardclassid` VARCHAR DEFAULT '',`cardclassname` VARCHAR DEFAULT '',`cardlistid` VARCHAR DEFAULT '',`cardlistname` VARCHAR DEFAULT '',`cardlistpicurl` VARCHAR DEFAULT '',`cardlistflag` VARCHAR DEFAULT '',`cardinfocode` VARCHAR DEFAULT '',`cardinfocodepicurl` VARCHAR DEFAULT '',`cardinfocontent` VARCHAR DEFAULT '',`cardinfoname` VARCHAR DEFAULT '',`cardinfodiscount` VARCHAR DEFAULT '',`cardinfopicurl` VARCHAR DEFAULT '',`cardinfoserialnum` VARCHAR DEFAULT '',`cardinfousetime` VARCHAR DEFAULT '',`cardinfousestate` VARCHAR DEFAULT '',`cardlistarealist` VARCHAR DEFAULT '',`cardlisttypelist` VARCHAR DEFAULT '',`cardinfoshoplist` VARCHAR DEFAULT '',`userid` VARCHAR DEFAULT '',`userphone` VARCHAR DEFAULT '')"
+#define SQL_MEMBER_HAS_USERPHONE @"select userphone from member"
+#define SQL_CARD_HAS_USERPHONE @"select userphone from card"
 
 @implementation DataBaseOperate
 static DataBaseOperate *shareData = nil;
@@ -77,6 +83,29 @@ static sqlite3 *database;
 		}
 	}
 	return shareData;
+}
+
+-(BOOL)checkFaviroteExists:(NSString *)content type:(int)type
+{
+    sqlite3_stmt* statement = NULL;
+    
+    BOOL _isExists= NO;
+    const char* sql = "select content from favirote where content = ?";
+    if (sqlite3_prepare_v2(database, sql, -1, &statement, NULL) == SQLITE_OK) {
+        sqlite3_bind_text(statement, 1, [content UTF8String], -1, SQLITE_TRANSIENT);
+        sqlite3_bind_int(statement, 2, type);
+        int i = 0;
+        while (sqlite3_step(statement) == SQLITE_ROW)
+        {
+            i++;
+        }
+        if (i>0) {
+            _isExists = YES;
+        }
+    }
+    return _isExists;
+
+    
 }
 
 //插入
@@ -265,13 +294,7 @@ static sqlite3 *database;
 	return result;
 }
 
-#define API_DB_NAME @"ifengzi.db"
 
-#define SQL_CREATE_MEMBER  @"create table if not exists `member` (`id` INTEGER PRIMARY KEY  DEFAULT '', `memberclassid` VARCHAR DEFAULT '',`memberclassname` VARCHAR DEFAULT '',`memberlistid` VARCHAR DEFAULT '',`memberlistname` VARCHAR DEFAULT '',`memberlistpicurl` VARCHAR DEFAULT '',`memberinfocodename` VARCHAR DEFAULT '',`memberinfocodepicurl` VARCHAR DEFAULT '',`memberinfocodecontent` VARCHAR DEFAULT '',`memberinfocodenum` VARCHAR DEFAULT '',`memberinfopicurl` VARCHAR DEFAULT '',`memberinfocodeserialnum` VARCHAR DEFAULT '',`memberinfocodeusetime` VARCHAR DEFAULT '',`userid` VARCHAR DEFAULT '',`userphone` VARCHAR DEFAULT '')"
-
-#define SQL_CREATE_CARD @"create table if not exists `card` (`id` INTEGER PRIMARY KEY  DEFAULT '', `cardclassid` VARCHAR DEFAULT '',`cardclassname` VARCHAR DEFAULT '',`cardlistid` VARCHAR DEFAULT '',`cardlistname` VARCHAR DEFAULT '',`cardlistpicurl` VARCHAR DEFAULT '',`cardlistflag` VARCHAR DEFAULT '',`cardinfocode` VARCHAR DEFAULT '',`cardinfocodepicurl` VARCHAR DEFAULT '',`cardinfocontent` VARCHAR DEFAULT '',`cardinfoname` VARCHAR DEFAULT '',`cardinfodiscount` VARCHAR DEFAULT '',`cardinfopicurl` VARCHAR DEFAULT '',`cardinfoserialnum` VARCHAR DEFAULT '',`cardinfousetime` VARCHAR DEFAULT '',`cardinfousestate` VARCHAR DEFAULT '',`cardlistarealist` VARCHAR DEFAULT '',`cardlisttypelist` VARCHAR DEFAULT '',`cardinfoshoplist` VARCHAR DEFAULT '',`userid` VARCHAR DEFAULT '',`userphone` VARCHAR DEFAULT '')"
-#define SQL_MEMBER_HAS_USERPHONE @"select userphone from member"
-#define SQL_CARD_HAS_USERPHONE @"select userphone from card"
 - (void)addColumn:(NSString*)table column:(NSString*)column type:(NSString*)type
 {
     iOSDatabase *db = [[iOSDatabase open:API_DB_NAME] retain];
