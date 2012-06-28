@@ -45,14 +45,6 @@
 -(void)goBack{
     [self.navigationController popViewControllerAnimated:YES];
 }
--(void)goPhoto{
-    
-    UIImagePickerController * pick  = [[UIImagePickerController alloc]init];
-    
-    pick.sourceType = UIImagePickerControllerCameraCaptureModePhoto;
-    [self presentModalViewController:pick animated:NO];
-    [pick release];
-}
 
 -(void)shareCode{
     [[SHK currentHelper] setRootViewController:self];
@@ -98,7 +90,7 @@
     self.navigationItem.rightBarButtonItem = item;
     [item release];
     // 下面的这个数组的内容, 就是从A开始的连续的值
-    NSDictionary *list = [BusDecoder parse0:_content];
+    NSArray *list = [BusDecoder parse0:_content];
     _card = [[BusDecoder decode:list className:@"Card"] retain];
     
     if (_historyType == HistoryTypeFavAndHistory) {
@@ -249,11 +241,24 @@
     object.content = _card.name;
     object.image= [NSString stringWithFormat:@"%@.png",[CommonUtils createUUID]];
     [FileUtil writeImage:_saveImage toFileAtPath:[FileUtil filePathInFavirote:object.image]];
-    [[DataBaseOperate shareData] insertFavirote:object];
-    [object release];
-    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"添加收藏成功！" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles: nil];
-    [alertView show];
-    RELEASE_SAFELY(alertView);
+    if( [[DataBaseOperate shareData] checkFaviroteExists:object.content type:BusinessTypeCard])
+    {
+        [object release];
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"已收藏过！" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles: nil];
+        [alertView show];
+        RELEASE_SAFELY(alertView);
+        
+    }
+    else {
+        [[DataBaseOperate shareData] insertFavirote:object];
+        [object release];
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"添加收藏成功！" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles: nil];
+        [alertView show];
+        RELEASE_SAFELY(alertView);
+    }
+    
+    
+    
     _favBtn.enabled = NO;
     [_favBtn setImage:[UIImage imageNamed:@"faviroted.png"] forState:UIControlStateNormal];
 }
@@ -271,73 +276,6 @@
     return 14;
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath_OLD:(NSIndexPath *)indexPath{
-    static NSString *cellIdentifier = @"DecodeCardCell";    
-    DecodeCardCell *cell = (DecodeCardCell*)[tableView dequeueReusableCellWithIdentifier:cellIdentifier];
-    if (cell == nil) {
-        cell = [DecodeCardCell cellFromNib]; 
-        cell.delegate=self;
-    }    
-    switch (indexPath.row) {
-        case 0:{
-            _phoneBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-            [_phoneBtn addTarget:self action:@selector(selectPhone) forControlEvents:UIControlEventTouchUpInside];
-            [_phoneBtn setImage:[UIImage imageNamed:@"add_address.png"] forState:UIControlStateNormal];
-            [_phoneBtn setImage:[UIImage imageNamed:@"add_address_tap.png"] forState:UIControlStateHighlighted];
-            _favBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-            [_favBtn addTarget:self action:@selector(addFavirote) forControlEvents:UIControlEventTouchUpInside];
-            [_favBtn setImage:[UIImage imageNamed:@"favirote.png"] forState:UIControlStateNormal];
-            [_favBtn setImage:[UIImage imageNamed:@"favirote_tap.png"] forState:UIControlStateHighlighted];
-            [cell addPhoneButton:_phoneBtn withFavirote:_favBtn];
-            [cell initDataWithTitile: @"姓名" withName:_card.name withType:LinkTypeNone];
-            break;
-        }
-        case 1:
-            [cell initDataWithTitile:@"公司" withName:_card.corporation  withType:LinkTypeCompany];
-            break;
-        case 2:
-            [cell initDataWithTitile:@"职位名称" withName:_card.title withType:LinkTypeNone];
-            break;
-        case 3:
-            [cell initDataWithTitile: @"公司部门" withName:_card.department withType:LinkTypeNone];
-            break;
-        case 4:
-            [cell initDataWithTitile: @"固定电话" withName:_card.telephone withType:LinkTypePhone];
-            break;
-        case 5:
-            [cell initDataWithTitile: @"公司网址" withName:_card.url withType:LinkTypeUrl];
-            break;
-        case 6:
-            [cell initDataWithTitile: @"公司传真" withName:_card.fax withType:LinkTypePhone];
-            break;
-        case 7:
-            [cell initDataWithTitile: @"移动电话" withName:_card.cellphone withType:LinkTypeCardPhone];
-            break;
-        case 8:
-            [cell initDataWithTitile: @"公司地址" withName:_card.address withType:LinkTypeMap];
-            break;
-        case 9:
-            [cell initDataWithTitile: @"电子邮箱" withName:_card.email withType:LinkTypeEmail];
-            break;
-        case 10:
-            [cell initDataWithTitile: @"邮政编码" withName:_card.zipCode withType:LinkTypeNone];
-            break;
-        case 11:
-            [cell initDataWithTitile: @"QQ" withName:_card.qq withType:LinkTypeNone];
-            break;
-        case 12:
-            [cell initDataWithTitile: @"MSN" withName:_card.msn withType:LinkTypeNone];
-            break;
-        case 13:
-            [cell initDataWithTitile: @"个人微博" withName:_card.weibo withType:LinkTypeWeibo];
-            break;
-            
-        default:
-            break;
-    }
-    return cell;
-}
-
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     static NSString *cellIdentifier = @"DecodeCardCell";    
     DecodeCardCell *cell = (DecodeCardCell*)[tableView dequeueReusableCellWithIdentifier:cellIdentifier];
@@ -351,10 +289,12 @@
             [_phoneBtn addTarget:self action:@selector(selectPhone) forControlEvents:UIControlEventTouchUpInside];
             [_phoneBtn setImage:[UIImage imageNamed:@"add_address.png"] forState:UIControlStateNormal];
             [_phoneBtn setImage:[UIImage imageNamed:@"add_address_tap.png"] forState:UIControlStateHighlighted];
+            
             _favBtn = [UIButton buttonWithType:UIButtonTypeCustom];
             [_favBtn addTarget:self action:@selector(addFavirote) forControlEvents:UIControlEventTouchUpInside];
             [_favBtn setImage:[UIImage imageNamed:@"favirote.png"] forState:UIControlStateNormal];
             [_favBtn setImage:[UIImage imageNamed:@"favirote_tap.png"] forState:UIControlStateHighlighted];
+            
             [cell addPhoneButton:_phoneBtn withFavirote:_favBtn];
             [cell initDataWithTitile: @"姓名" withName:_card.name withType:LinkTypeNone];
             break;
