@@ -350,6 +350,7 @@
 		0A83232E159A246500CFF81D /* decode_sms.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A832316159A246500CFF81D /* decode_sms.png */; };
 		0A8F708F159B179800AE7E79 /* more_set_off.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A8F708D159B179800AE7E79 /* more_set_off.png */; };
 		0A8F7090159B179800AE7E79 /* more_set_on.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A8F708E159B179800AE7E79 /* more_set_on.png */; };
+		0AC33FE6159C44ED00770855 /* uc-pl.png in Resources */ = {isa = PBXBuildFile; fileRef = 0AC33FE5159C44ED00770855 /* uc-pl.png */; };
 		0ACE8695152AF4940084C32B /* RMComments.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ACE8693152AF4940084C32B /* RMComments.m */; };
 		0ACE8696152AF4940084C32B /* RMComments.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0ACE8694152AF4940084C32B /* RMComments.xib */; };
 		0ACE86B2152AF6360084C32B /* UCForget.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ACE8698152AF6360084C32B /* UCForget.m */; };
@@ -1293,6 +1294,7 @@
 		0A832316159A246500CFF81D /* decode_sms.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = decode_sms.png; sourceTree = "<group>"; };
 		0A8F708D159B179800AE7E79 /* more_set_off.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = more_set_off.png; sourceTree = "<group>"; };
 		0A8F708E159B179800AE7E79 /* more_set_on.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = more_set_on.png; sourceTree = "<group>"; };
+		0AC33FE5159C44ED00770855 /* uc-pl.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "uc-pl.png"; sourceTree = "<group>"; };
 		0ACE8692152AF4940084C32B /* RMComments.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMComments.h; sourceTree = "<group>"; };
 		0ACE8693152AF4940084C32B /* RMComments.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RMComments.m; sourceTree = "<group>"; };
 		0ACE8694152AF4940084C32B /* RMComments.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RMComments.xib; sourceTree = "<group>"; };
@@ -3690,6 +3692,7 @@
 		B8D49DF914E4B0CE0057203A /* usercenter */ = {
 			isa = PBXGroup;
 			children = (
+				0AC33FE5159C44ED00770855 /* uc-pl.png */,
 				0A511F0A1599A6BB00845FE6 /* uc_checkBtn_tap.png */,
 				0A511F0B1599A6BB00845FE6 /* uc_checkBtn.png */,
 				0A193C70159522B2002E6835 /* back_tap.png */,
@@ -4536,6 +4539,7 @@
 				0A83232E159A246500CFF81D /* decode_sms.png in Resources */,
 				0A8F708F159B179800AE7E79 /* more_set_off.png in Resources */,
 				0A8F7090159B179800AE7E79 /* more_set_on.png in Resources */,
+				0AC33FE6159C44ED00770855 /* uc-pl.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
