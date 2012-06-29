@@ -126,8 +126,6 @@ static NSString *s_luckyId = nil;
     }
 }
 
-
-
 // 解码入口
 - (void)chooseShowController:(NSString *)input isSave:(BOOL)isSave{
     iOSLog(@"input = [%@]", input);
