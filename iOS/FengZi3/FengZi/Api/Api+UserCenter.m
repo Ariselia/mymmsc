@@ -406,7 +406,7 @@
     NSData *response = [hc post];
     [iOSApi closeAlert];
     if (response == nil) {
-        [iOSApi showCompleted:@"服务器正忙，请稍候重新下载。"];
+        //[iOSApi showCompleted:@"服务器正忙，请稍候重新下载。"];
     } else {
           UIImage *p = [UIImage imageWithData:response];
           if (p) {

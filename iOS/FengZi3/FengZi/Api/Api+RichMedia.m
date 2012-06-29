@@ -7,6 +7,8 @@
 //
 
 #import "Api+RichMedia.h"
+#import "BusDecoder.h"
+
 //====================================< 富媒体 - 接口 >====================================
 
 #define API_RICHMEDIA_TOKEN @"uLN9UhI9Uhd-UhGGuh78uQ"
@@ -248,6 +250,7 @@
                             uuid, @"codeid",
                             [Api base64e:[Api passwd]], @"sessionPassword",
                             jsonStr, @"content",
+                            title,@"title",
                             nil];
     
     NSDictionary *map = [Api post:action params:params];
@@ -416,7 +419,100 @@ static NSString *kma_id = nil;
                 content:(NSString *)content{
     
     NSString *action = [NSString stringWithFormat:@"%@", API_APPS_SERVER API_MAKE_CODE];
-    
+    NSString *str = [content substringFromIndex:2];
+    NSDictionary *list = [BusDecoder parse0:str];
+     const char *s = [content UTF8String];
+    int types = -1;
+    sscanf(s, "%02X", &types);
+    NSString *title;
+    if (types == 1) {
+        
+        Url *object = [[BusDecoder decode:list className:@"Url"]retain];
+        title = object.content;
+        [object release];
+        
+    }
+    else if(types==2)
+    {
+        BookMark *object =[[BusDecoder decode:list className:@"BookMark"]retain];
+        title = object.title;
+        [object release];
+        
+    }
+    else if(types==3) {
+        AppUrl *object =[[BusDecoder decode:list className:@"AppUrl"]retain];
+        title = object.url;
+        [object release];
+    }
+    else if(types==4) {
+        Weibo *object =[[BusDecoder decode:list className:@"Weibo"]retain];
+        title = object.title;
+        [object release];
+        
+    }
+    else if(types==5) {
+        
+        title = @"名片解码";
+
+        
+    }
+    else if(types==6) {
+        
+        Phone *object = [[BusDecoder decode:list className:@"Phone"]retain];
+        title = object.telephone;
+        [object release];
+        
+    }
+    else if(types==7) {
+        Email *object = [[BusDecoder decode:list className:@"Email"]retain];
+        title = object.title;
+        [object release];
+        
+        
+    }  else if(types==8) {
+        Text *object =[[BusDecoder decode:list className:@"Text"]retain];
+        title = object.content;
+        [object release];
+        
+        
+        
+    }else if(types==9) {
+        title = @"加密文本解码";
+    }
+    else if(types==10) {
+        ShortMessage *object = [[BusDecoder decode:list className:@"ShortMessage"] retain];
+        title = object.content;
+        [object release];
+        
+    }
+    else if(types==11) {
+        WiFiText *object =[[BusDecoder decode:list className:@"WiFiText"]retain];
+        title = object.name;
+        [object release];
+        
+        
+    }
+    else if(types==12) {
+        
+        GMap *object = [[BusDecoder decode:list className:@"GMap"]retain];
+   
+        title = object.url;
+      
+        [object release];
+        
+        
+        
+    }else if(types==13)
+    {
+       
+        Schedule *object = [[BusDecoder decode:list className:@"Schedule"] retain];
+       
+        title = object.title;
+        
+        [object release];
+    }
+
+    //title = @"asdasd";
     NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
                             API_RICHMEDIA_TOKEN, @"token",
                             [NSString valueOf:[Api userId]], @"userid",
@@ -425,6 +521,7 @@ static NSString *kma_id = nil;
                             pid, @"codeid",
                             [NSString valueOf:type+17], @"type",
                             content, @"content",
+                            title,@"title",
                             nil];
     
     NSDictionary *map = [Api post:action params:params];
