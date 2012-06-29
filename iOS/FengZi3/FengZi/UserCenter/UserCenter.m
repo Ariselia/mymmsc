@@ -234,6 +234,8 @@ static int iTimes = -1;
     //注销后点击图片按钮失效
     
     [picBtn removeTarget:self action:@selector(doPhotoSelect) forControlEvents:UIControlEventTouchUpInside];
+    photo.frame = CGRectMake(14, 8, 70, 71);
+    photo.image=[UIImage imageNamed:@"usercenter_userinfo_image_default.png"];
     [Api setUser:nil];
     [self viewWillAppear:YES];
 }
