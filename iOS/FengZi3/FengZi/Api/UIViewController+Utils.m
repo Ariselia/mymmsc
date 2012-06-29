@@ -531,16 +531,14 @@ static NSString *s_luckyId = nil;
             [self.navigationController pushViewController:nextView animated:YES];
             [nextView release];
             return;
-        } else { // 默认传统业务 [WangFeng at 2012/05/14 11:31]
-            
+        } else {
+            // 默认传统业务 [WangFeng at 2012/05/14 11:31]
             if (isSave) {
                 DecodeBusinessViewController *businessView = [[DecodeBusinessViewController alloc] initWithNibName:@"DecodeBusinessViewController" category:category result:input image:inputImage withType:HistoryTypeFavAndHistory withSaveImage:saveImage];
                 [self.navigationController pushViewController:businessView animated:YES];
                 RELEASE_SAFELY(businessView);
                 return;
-                
-            }
-            else {
+            } else {
                 DecodeBusinessViewController *businessView = [[DecodeBusinessViewController alloc] initWithNibName:@"DecodeBusinessViewController" category:category result:input image:inputImage withType:HistoryTypeNone withSaveImage:saveImage];
                 [self.navigationController pushViewController:businessView animated:YES];
                 RELEASE_SAFELY(businessView);
