@@ -18,7 +18,7 @@
     if(!(self = [super init])) {
 		return self;
 	}
-    if (typeId == 0) {
+    if (typeId <= 0) {
         Class clazz = [self class];
         if (clazz == Url.class) {
             typeId = kModelUrl;
@@ -137,21 +137,23 @@
 
 @implementation ITTBaseModelObject
 
--(id)initWithDataDic:(NSDictionary*)data{
+- (id)initWithDataDic:(NSDictionary*)data{
 	if (self = [super init]) {
 		[self setAttributes:data];
 	}
 	return self;
 }
--(NSDictionary*)attributeMapDictionary{
+
+- (NSDictionary*)attributeMapDictionary{
 	return nil;
 }
 
--(SEL)getSetterSelWithAttibuteName:(NSString*)attributeName{
+- (SEL)getSetterSelWithAttibuteName:(NSString*)attributeName{
 	NSString *capital = [[attributeName substringToIndex:1] uppercaseString];
 	NSString *setterSelStr = [NSString stringWithFormat:@"set%@%@:",capital,[attributeName substringFromIndex:1]];
 	return NSSelectorFromString(setterSelStr);
 }
+
 - (NSString *)customDescription{
 	return nil;
 }
@@ -194,6 +196,7 @@
 	
 	return desc;
 }
+
 -(void)setAttributes:(NSDictionary*)dataDic{
 	NSDictionary *attrMapDic = [self attributeMapDictionary];
 	if (attrMapDic == nil) {
@@ -211,6 +214,7 @@
 		}
 	}
 }
+
 - (id)initWithCoder:(NSCoder *)decoder{
 	if( self = [super init] ){
 		NSDictionary *attrMapDic = [self attributeMapDictionary];
@@ -231,6 +235,7 @@
 	}
 	return self;
 }
+
 - (void)encodeWithCoder:(NSCoder *)encoder{
 	NSDictionary *attrMapDic = [self attributeMapDictionary];
 	if (attrMapDic == nil) {
