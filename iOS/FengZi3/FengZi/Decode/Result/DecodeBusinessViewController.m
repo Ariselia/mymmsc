@@ -2,7 +2,6 @@
 //  DecodeBusinessViewController.m
 //  FengZi
 //
-
 //  Copyright (c) 2011年 iTotemStudio. All rights reserved.
 //
 
@@ -35,6 +34,7 @@
 #define SEPERATOR_POST @";"
 #define API_CODE_PREFIX @"http://ifengzi.cn/show.cgi?"
 #define RICH_URL @"http://f.ifengzi.cn"
+
 @implementation DecodeBusinessViewController
 @synthesize _showInfo;
 @synthesize _content;
@@ -46,6 +46,7 @@
     }
     return self;
 }
+
 -(id)initWithNibName:(NSString *)nibNameOrNil category:(BusCategory *)cate  result:(NSString *)input image:(UIImage*)img withType:(HistoryType)type withSaveImage:(UIImage*)sImage{
     self = [super initWithNibName:nibNameOrNil bundle:nil];
     if (self) {
@@ -58,6 +59,7 @@
     }
     return self;
 }
+
 - (void)didReceiveMemoryWarning
 {
     // Releases the view if it doesn't have a superview.
@@ -65,11 +67,13 @@
     
     // Release any cached data, images, etc that aren't in use.
 }
+
 -(void)goBack{
     
     [self.navigationController popViewControllerAnimated:YES];
     return;
 }
+
 -(void)shareCode{
     [[SHK currentHelper] setRootViewController:self];
     SHKItem *item = [SHKItem text:@"快来扫码，即有惊喜！\n来自蜂子客户端"];
@@ -78,9 +82,9 @@
     item.title = @"快来扫码，即有惊喜！";
     SHKActionSheet *actionSheet = [SHKActionSheet actionSheetForItem:item];
     [actionSheet showInView:self.view];
-//    ShareView *actionSheet = [[ShareView alloc] initWithItem:item];
-//    [actionSheet showInView:self.view];
-//    [actionSheet release];
+    //    ShareView *actionSheet = [[ShareView alloc] initWithItem:item];
+    //    [actionSheet showInView:self.view];
+    //    [actionSheet release];
 }
 
 -(void)sendMessage:(NSString*)logId{
@@ -99,6 +103,7 @@
     [[DataBaseOperate shareData] insertHistory:historyobject];
     [historyobject release];
 }
+
 -(void)showAlertView:(NSString*)title{
     UIAlertView *passwordAlert = [[UIAlertView alloc] initWithTitle:title message:@"/n/n/n"
                                                            delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];  
@@ -117,8 +122,8 @@
 
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
     if (buttonIndex==1) {
-         NSArray *list = [BusDecoder parse0:_content];
-         EncText *object = [[BusDecoder decode:list className:@"EncText"] retain];
+        NSDictionary *list = [BusDecoder parse0:_content];
+        EncText *object = [[BusDecoder decode:list className:@"EncText"] retain];
         //EncText *object = [[BusDecoder decode:list key:_passwordField.text] retain];
         
         if (![object.key isEqualToString:_passwordField.text]) {
@@ -135,9 +140,9 @@
         [_tableView reloadData];
         _showInfo = [object.content retain];
         if (_historyType == HistoryTypeFavAndHistory) {
-//            if (object.logId) {
-//                [self sendMessage:object.logId];
-//            }
+            //            if (object.logId) {
+            //                [self sendMessage:object.logId];
+            //            }
             [self saveHistory];
         }
         [object release];
@@ -169,15 +174,14 @@
 {
     NSRange range = [content rangeOfString: param];
     if (range.length > 0) {
-    return YES;
+        return YES;
     }else {
-    return NO;
+        return NO;
     }
 }
 
 
 -(void)decodeInput{
-    
     _titleArray = [[NSMutableArray alloc] initWithCapacity:0];
     _contentArray = [[NSMutableArray alloc] initWithCapacity:0];
     _typeArray = [[NSMutableArray alloc] initWithCapacity:0];
@@ -194,43 +198,43 @@
                 _type = BusinessTypeRichMedia;
                 // 富媒体, 或者空码, 转换地址
                 NSString *iskma = [str substringFromIndex:3];
-                 NSString *url = [NSString stringWithFormat:@"%@/apps/getCode.action?%@",API_APPS_SERVER,str];
+                NSString *url = [NSString stringWithFormat:@"%@/apps/getCode.action?%@",API_APPS_SERVER,str];
                 if([iskma rangeOfString:@"-"].length>0)
                 {
-                
-                UCRichMedia *nextView = [[UCRichMedia alloc] init];
-                nextView.urlMedia = url;
-                [self.navigationController pushViewController:nextView animated:YES];
-                [nextView release];
+                    
+                    UCRichMedia *nextView = [[UCRichMedia alloc] init];
+                    nextView.urlMedia = url;
+                    [self.navigationController pushViewController:nextView animated:YES];
+                    [nextView release];
                     //return;
                     
                 } else {
-                
-                NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
+                    
+                    NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
                                             [NSString valueOf:[Api userId]], @"userid",
                                             nil];
-                NSDictionary *map = [Api post:url params:params];
-               
-               
-                if (map.count > 0) 
-                    {
+                    NSDictionary *map = [Api post:url params:params];
                     
-                    NSString *status =[NSString stringWithFormat:@"%d", [Api getInt:[map objectForKey:@"status"]]];
-                       // NSLog(@"%@",status);    
-                    if ([status isEqualToString:@"404"]) {
-                        //跳到空码赋值
+                    
+                    if (map.count > 0) 
+                    {
                         
-                        UCKmaViewController *nextView = [[UCKmaViewController alloc] init];
-                        //nextView.bKma = YES; // 标记为空码赋值富媒体
-                        nextView.code = iskma;
-                        nextView.curImage = [Api generateImageWithInput:input];
-                        [self.navigationController pushViewController:nextView animated:YES];
-                        [nextView release];
-                        //return;
-                        
+                        NSString *status =[NSString stringWithFormat:@"%d", [Api getInt:[map objectForKey:@"status"]]];
+                        // NSLog(@"%@",status);    
+                        if ([status isEqualToString:@"404"]) {
+                            //跳到空码赋值
+                            
+                            UCKmaViewController *nextView = [[UCKmaViewController alloc] init];
+                            //nextView.bKma = YES; // 标记为空码赋值富媒体
+                            nextView.code = iskma;
+                            nextView.curImage = [Api generateImageWithInput:input];
+                            [self.navigationController pushViewController:nextView animated:YES];
+                            [nextView release];
+                            //return;
+                            
                         }  else  {
-                        //进行解码    
-                         
+                            //进行解码    
+                            
                             
                             if([[map objectForKey:@"data"] isKindOfClass:[NSString class]])
                             {
@@ -249,7 +253,7 @@
                                 nextView.urlMedia = url;
                                 [self.navigationController pushViewController:nextView animated:YES];
                                 [nextView release];
-                               // return;
+                                // return;
                                 
                             }
                             
@@ -257,7 +261,7 @@
                         }
                         
                     }
-
+                    
                     
                 }
                 
@@ -271,22 +275,22 @@
                     // 已经取到类型了, 进一步剥离类型, 取的编码串
                     str = [str substringFromIndex:2];
                     // 下面的这个数组的内容, 就是从A开始的连续的值
-                    NSArray *list = [BusDecoder parse0:str];
+                    NSDictionary *list = [BusDecoder parse0:str];
                     
                     
                     _type = type-1;
                     
                     if (type == 1) {
-                       
+                        
                         _titleLabel.text= @"网址解码";
                         Url *object = [[BusDecoder decode:list className:@"Url"]retain];
                         [_titleArray addObject:@"网址"];
                         [_contentArray addObject:object.content];
                         [_typeArray addObject:[NSNumber numberWithInt:LinkTypeUrl]];
                         _showInfo = object.content;
-                            logId = object.logId;
+                        logId = object.logId;
                         [object release];
-   
+                        
                     }
                     else if(type==2)
                     {
@@ -320,7 +324,7 @@
                     else if(type==4) {
                         _titleLabel.text= @"微博解码";
                         Weibo *object =[[BusDecoder decode:list className:@"Weibo"]retain];
-
+                        
                         [_titleArray addObject:@"博主"];
                         [_titleArray addObject:@"微博地址"];
                         [_contentArray addObject:object.title];
@@ -330,17 +334,17 @@
                         _showInfo = object.title;
                         logId = object.logId;
                         [object release];
-
+                        
                     }
                     else if(type==5) {
                         
                         DecodeCardViewControlle *cardView = [[DecodeCardViewControlle alloc] initWithNibName:@"DecodeCardViewControlle" category:_category result:str withImage:_image withType:HistoryTypeFavAndHistory withSaveImage:_saveImage];
-                            [self.navigationController pushViewController:cardView animated:YES];
-                              RELEASE_SAFELY(cardView);
+                        [self.navigationController pushViewController:cardView animated:YES];
+                        RELEASE_SAFELY(cardView);
                         
                     }
                     else if(type==6) {
-
+                        
                         _titleLabel.text= @"电话解码";
                         Phone *object = [[BusDecoder decode:list className:@"Phone"]retain];
                         
@@ -350,7 +354,7 @@
                         _showInfo = object.telephone;
                         logId = object.logId;
                         [object release];
-
+                        
                     }
                     else if(type==7) {
                         _titleLabel.text= @"电子邮件解码";
@@ -360,7 +364,7 @@
                         [_titleArray addObject:@"内容"];
                         [_contentArray addObject:object.title];
                         [_contentArray addObject:object.mail];
-                        [_contentArray addObject:object.contente];
+                        [_contentArray addObject:object.content];
                         [_typeArray addObject:[NSNumber numberWithInt:LinkTypeEmailText]];
                         [_typeArray addObject:[NSNumber numberWithInt:LinkTypeEmailText]];
                         [_typeArray addObject:[NSNumber numberWithInt:LinkTypeEmailText]];
@@ -368,7 +372,7 @@
                         _showInfo = object.title;
                         logId = object.logId;
                         [object release];
-
+                        
                         
                     }  else if(type==8) {
                         _titleLabel.text= @"文本解码";
@@ -380,7 +384,7 @@
                         _showInfo = object.content;
                         logId = object.logId;
                         [object release];
-
+                        
                         
                         
                     }else if(type==9) {
@@ -392,15 +396,15 @@
                         ShortMessage *object = [[BusDecoder decode:list className:@"ShortMessage"] retain];
                         [_titleArray addObject:@"接收人"];
                         [_titleArray addObject:@"短信内容"];
-                        [_contentArray addObject:object.cellphone];
-                        [_contentArray addObject:object.contente];
+                        [_contentArray addObject:object.phone];
+                        [_contentArray addObject:object.content];
                         [_typeArray addObject:[NSNumber numberWithInt:LinkTypePhone]];
                         [_typeArray addObject:[NSNumber numberWithInt:LinkTypeSms]];
                         _hideContentIndex = 1;
-                        _showInfo = object.contente;
+                        _showInfo = object.content;
                         logId = object.logId;
                         [object release];
-                      
+                        
                     }
                     else if(type==11) {
                         _titleLabel.text= @"WIFI解码";
@@ -414,7 +418,7 @@
                         _showInfo = object.name;
                         logId = object.logId;
                         [object release];
-
+                        
                         
                     }
                     else if(type==12) {
@@ -437,7 +441,7 @@
                         }
                         logId = object.logId;
                         [object release];
-
+                        
                         
                         
                     }else if(type==13)
@@ -457,12 +461,8 @@
                         _showInfo = object.title;
                         logId = object.logId;
                         [object release];
-
                     }
-                   
-
                 }
-                
             }
         } else {
             // 不是, 咋办?
@@ -472,7 +472,7 @@
                 [object setContent:input];
                 
                 _titleLabel.text= @"网址解码";
-               
+                
                 [_titleArray addObject:@"网址"];
                 [_contentArray addObject:object.content];
                 [_typeArray addObject:[NSNumber numberWithInt:LinkTypeUrl]];
@@ -486,7 +486,7 @@
                 [object setContent:input];
                 //oRet = t;
                 _titleLabel.text= @"文本解码";
-               
+                
                 [_titleArray addObject:@"文本内容"];
                 [_contentArray addObject:object.content];
                 [_typeArray addObject:[NSNumber numberWithInt:LinkTypeText]];
@@ -497,15 +497,16 @@
             }
         }
     }
-  
+    
     [_tableView reloadData];
     if (_historyType == HistoryTypeFavAndHistory) {
-//       if (logId) {
-//            [self sendMessage:logId];
-//        }
+        //       if (logId) {
+        //            [self sendMessage:logId];
+        //        }
         [self saveHistory];
     }
 }
+
 -(void)requestDidFinishLoad:(ITTBaseDataRequest *)request{
     if ([request isKindOfClass:[ScanLogDataRequest class]]) {
     }
@@ -514,8 +515,9 @@
 -(void)request:(ITTBaseDataRequest *)request didFailLoadWithError:(NSError *)error{
     NSLog(@"%@",error);
 }
-#pragma mark - View lifecycle
 
+
+#pragma mark - View lifecycle
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -550,9 +552,9 @@
     
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
     btn.frame =CGRectMake(0, 0, 60, 32);
-//    [btn setImage:[UIImage imageNamed:@"share.png"] forState:UIControlStateNormal];
-//    [btn setImage:[UIImage imageNamed:@"share_tap.png"] forState:UIControlStateHighlighted];
-//    [btn addTarget:self action:@selector(shareCode) forControlEvents:UIControlEventTouchUpInside];
+    //    [btn setImage:[UIImage imageNamed:@"share.png"] forState:UIControlStateNormal];
+    //    [btn setImage:[UIImage imageNamed:@"share_tap.png"] forState:UIControlStateHighlighted];
+    //    [btn addTarget:self action:@selector(shareCode) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithCustomView:btn];
     self.navigationItem.rightBarButtonItem = item;
     [item release];
@@ -569,8 +571,8 @@
 - (int)getHeight:(NSString*)text
 {
 	CGSize LabelSize = [text sizeWithFont:[UIFont systemFontOfSize:17] 
-						   constrainedToSize:CGSizeMake(280, 40000)
-							   lineBreakMode:UILineBreakModeWordWrap];
+                        constrainedToSize:CGSizeMake(280, 40000)
+                            lineBreakMode:UILineBreakModeWordWrap];
 	return LabelSize.height;
 }
 
@@ -578,15 +580,15 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     int height = 44;
-//    if (indexPath.row==_hideContentIndex) {
-//        height = [self getHeight:[_contentArray objectAtIndex:indexPath.row]];
-//        if (height>37) {
-//            height = height+8;
-//        }else{
-//            height = 44;
-//        }
-//        height+=44;
-//    }
+    //    if (indexPath.row==_hideContentIndex) {
+    //        height = [self getHeight:[_contentArray objectAtIndex:indexPath.row]];
+    //        if (height>37) {
+    //            height = height+8;
+    //        }else{
+    //            height = 44;
+    //        }
+    //        height+=44;
+    //    }
     return height;
 }
 
@@ -672,7 +674,7 @@
     } else {
         [self launchSmsAppOnDevice];
     }
-
+    
 }
 
 -(void)showMail{
