@@ -10,9 +10,7 @@
 #import "BusDecoder.h"
 
 //====================================< 富媒体 - 接口 >====================================
-
-#define API_RICHMEDIA_TOKEN @"uLN9UhI9Uhd-UhGGuh78uQ"
-#define API_CODE_PREFIX @"http://ifengzi.cn/show.cgi?"
+//#define API_CODE_PREFIX @"http://ifengzi.cn/show.cgi?"
 //--------------------< 富媒体 - 对象 - 媒体信息类 >--------------------
 @implementation MediaInfo
 
@@ -141,7 +139,6 @@
       NSString *action = [NSString stringWithFormat:@"%@%s?userid=%d", API_APPS_SERVER, API_FILE_UPLOAD, [Api userId]];
     
     NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
-                            API_RICHMEDIA_TOKEN, @"token",
                             buffer, @"mediaContent",
                             nil];
     
@@ -246,9 +243,7 @@
     NSString *jsonStr = [jsonDic JSONString];
     
     NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
-                            API_RICHMEDIA_TOKEN, @"token",
                             uuid, @"codeid",
-                            [Api base64e:[Api passwd]], @"sessionPassword",
                             jsonStr, @"content",
                             title,@"title",
                             nil];
@@ -283,7 +278,6 @@
     
     NSString *app = [Api base64e:[Api appAttribute:DATA_ENV.curBusinessType]];
     NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
-                            API_RICHMEDIA_TOKEN, @"token",
                             uuid, @"codeid",
                             app, @"a",
                             nil];
@@ -383,7 +377,6 @@ static NSString *kma_id = nil;
     }
     
     NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
-                            API_RICHMEDIA_TOKEN, @"token",
                             [NSString valueOf:[Api userId]], @"userid",
                             app, @"a",
                             nil];
@@ -514,10 +507,7 @@ static NSString *kma_id = nil;
 
     //title = @"asdasd";
     NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
-                            API_RICHMEDIA_TOKEN, @"token",
                             [NSString valueOf:[Api userId]], @"userid",
-                            [Api base64e:[Api passwd]], @"sessionPassword",
-                            [Api base64e:[Api passwd]], @"password",
                             pid, @"codeid",
                             [NSString valueOf:type+17], @"type",
                             content, @"content",
