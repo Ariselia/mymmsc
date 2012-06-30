@@ -3,7 +3,7 @@
 //  FengZi
 //
 
-//  Copyright (c) 2011年 ifengzi.cn. All rights reserved.
+//  Copyright (c) 2011年 fengxiafei.com. All rights reserved.
 //
 
 #import "BusCategory.h"
