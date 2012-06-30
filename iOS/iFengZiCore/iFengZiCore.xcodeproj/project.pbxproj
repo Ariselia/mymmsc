@@ -355,6 +355,7 @@
 				GCC_PREFIX_HEADER = "iFengZiCore/iFengZiCore-Prefix.pch";
 				GCC_THUMB_SUPPORT = NO;
 				INFOPLIST_FILE = "iFengZiCore/iFengZiCore-Info.plist";
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				WRAPPER_EXTENSION = framework;
@@ -379,6 +380,7 @@
 				GCC_PREFIX_HEADER = "iFengZiCore/iFengZiCore-Prefix.pch";
 				GCC_THUMB_SUPPORT = NO;
 				INFOPLIST_FILE = "iFengZiCore/iFengZiCore-Info.plist";
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				WRAPPER_EXTENSION = framework;
