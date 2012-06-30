@@ -22,7 +22,7 @@
     
     NSString *source = [codeAttr codeToString];
     
-    return [PseudoBase64 Base64EncryptString:source];
+    return [PseudoBase64 encode:source];
 } 
 
 /**
@@ -53,7 +53,7 @@
     
     NSString *encSource = [codeSource substringWithRange:NSMakeRange(prePositon+2, postPosition-prePositon-2)];
     
-    NSString *souce = [PseudoBase64 Base64DecryptString:encSource];
+    NSString *souce = [PseudoBase64 decode:encSource];
     
     return [[[CodeAttribute alloc] initWithCode:souce type:type] autorelease];
 }
@@ -118,7 +118,7 @@
     
     NSString *encSource = [codeSource substringWithRange:NSMakeRange(prePositon+2, postPosition-prePositon-2)];
     
-    return [PseudoBase64 Base64DecryptString:encSource];
+    return [PseudoBase64 decode:encSource];
 } 
 
 /**
