@@ -2,7 +2,7 @@
 //  BusEncoder.h
 //  FengZi
 //
-//  Copyright (c) 2011年 iTotemStudio. All rights reserved.
+//  Copyright (c) 2011年 fengxiafei.com. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
@@ -14,6 +14,7 @@
 @interface BusEncoder : NSObject
 
 +(NSString*) filterQRBusiness:(NSString*)src;
+
 //普通二维码编码
 +(NSString*)encode:(id) obj type:(int)type;
 /**
@@ -91,6 +92,7 @@
  * @return
  */
 +(NSString*)encodeGMap:(GMap*) gmap;
+
 /**
  * 对应用程序编码
  * @param card

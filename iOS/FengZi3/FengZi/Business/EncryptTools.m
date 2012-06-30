@@ -2,7 +2,7 @@
 //  EncryptTools.m
 //  FengZi
 //
-//  Copyright (c) 2011年 iTotemStudio. All rights reserved.
+//  Copyright (c) 2011年 fengxiafei.com. All rights reserved.
 //
 
 #import "EncryptTools.h"
@@ -10,6 +10,7 @@
 #import "GTMBase64.h"
 
 @implementation EncryptTools
+
 + (NSString*)Base64EncryptString:(NSString*)string{
     NSData *data = [string dataUsingEncoding:NSUTF8StringEncoding];
     data = [GTMBase64 encodeData:data];

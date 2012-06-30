@@ -2,8 +2,7 @@
 //  CodeAttribute.m
 //  FengZi
 //
-
-//  Copyright (c) 2011年 iTotemStudio. All rights reserved.
+//  Copyright (c) 2011年 fengxiafei.com. All rights reserved.
 //
 
 #import "CodeAttribute.h"

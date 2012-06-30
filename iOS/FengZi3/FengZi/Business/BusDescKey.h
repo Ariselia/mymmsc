@@ -2,7 +2,7 @@
 //  BusDescKey.h
 //  FengZi
 //
-//  Copyright (c) 2011年 iTotemStudio. All rights reserved.
+//  Copyright (c) 2011年 fengxiafei.com. All rights reserved.
 //
 
 // 空码
@@ -60,7 +60,6 @@
 #define CARD_QQ @"QQ"
 #define CARD_MSN @"MSN"
 #define CARD_WEIBO @"WEIBO"
-
 
 // 电话号码业务
 #define PHONE_TELEPHONE @"TEL"
