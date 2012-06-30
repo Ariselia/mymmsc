@@ -9,10 +9,12 @@
 
 @interface BusCategory : NSObject{
     NSString *_type;	
-	BOOL bKma;
-	int _channel;
+	BOOL      bKma;
+	int       _channel;
 }
+
 @property(nonatomic, copy)NSString *type;
 @property(nonatomic, assign)int channel;
 @property (nonatomic, assign) BOOL bKma;
+
 @end
