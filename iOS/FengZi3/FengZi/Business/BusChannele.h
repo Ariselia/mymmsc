@@ -3,7 +3,7 @@
 //  FengZi
 //
 
-//  Copyright (c) 2011年 iTotemStudio. All rights reserved.
+//  Copyright (c) 2011年 fengxiafei.com. All rights reserved.
 //
 
 #define CARD_CHANNEL_FXF 0 //默认值-蜂侠飞标准
