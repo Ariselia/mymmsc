@@ -1401,7 +1401,7 @@ static NSString *URL_FLAG = @"://";
     }
     NSString *strMi = @"";
     if (tcontente != nil) {
-        strMi = [PseudoBase64 Base64DecryptString:tcontente];
+        strMi = [PseudoBase64 decode:tcontente];
         if (strMi != nil && ![strMi isEqualToString:@""]) {
             content =[BusDecoder parser:strMi];
             if (![key isEqualToString:[content objectForKey:ENC_KEY]]) {
