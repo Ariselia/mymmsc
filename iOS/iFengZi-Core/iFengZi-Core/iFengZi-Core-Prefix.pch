@@ -1,7 +1,0 @@
-//
-// Prefix header for all source files of the 'iFengZi-Core' target in the 'iFengZi-Core' project
-//
-
-#ifdef __OBJC__
-    #import <Foundation/Foundation.h>
-#endif
