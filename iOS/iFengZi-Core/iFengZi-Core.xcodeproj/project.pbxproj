@@ -12,7 +12,6 @@
 		0A0F9B97159F40C8006B49E6 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A0F9B96159F40C8006B49E6 /* SenTestingKit.framework */; };
 		0A0F9B9A159F40C8006B49E6 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A0F9B87159F40C8006B49E6 /* Foundation.framework */; };
 		0A0F9B9F159F40C8006B49E6 /* iFengZi-Core.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A0F9B84159F40C8006B49E6 /* iFengZi-Core.framework */; };
-		0A0F9BA0159F40C8006B49E6 /* iFengZi-Core.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A0F9B84159F40C8006B49E6 /* iFengZi-Core.framework */; };
 		0A0F9BA6159F40C8006B49E6 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0A0F9BA4159F40C8006B49E6 /* InfoPlist.strings */; };
 		0A0F9BA9159F40C8006B49E6 /* iFengZi_CoreTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A0F9BA8159F40C8006B49E6 /* iFengZi_CoreTests.m */; };
 		0A0F9BB4159F4167006B49E6 /* Api.h in Headers */ = {isa = PBXBuildFile; fileRef = 0A0F9BB2159F4167006B49E6 /* Api.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -112,7 +111,6 @@
 				0A0F9B97159F40C8006B49E6 /* SenTestingKit.framework in Frameworks */,
 				0A0F9B9A159F40C8006B49E6 /* Foundation.framework in Frameworks */,
 				0A0F9B9F159F40C8006B49E6 /* iFengZi-Core.framework in Frameworks */,
-				0A0F9BA0159F40C8006B49E6 /* iFengZi-Core.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -490,6 +488,7 @@
 				FRAMEWORK_VERSION = A;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "iFengZi-Core/iFengZi-Core-Prefix.pch";
+				GCC_THUMB_SUPPORT = NO;
 				INFOPLIST_FILE = "iFengZi-Core/iFengZi-Core-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -513,6 +512,7 @@
 				FRAMEWORK_VERSION = A;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "iFengZi-Core/iFengZi-Core-Prefix.pch";
+				GCC_THUMB_SUPPORT = NO;
 				INFOPLIST_FILE = "iFengZi-Core/iFengZi-Core-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
