@@ -122,11 +122,17 @@
 
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
     if (buttonIndex==1) {
-        NSDictionary *list = [BusDecoder parse0:_content];
+        
+         NSString *str = [_content substringFromIndex:[API_CODE_PREFIX length]];
+        str = [str substringFromIndex:2];
+        // 下面的这个数组的内容, 就是从A开始的连续的值
+        NSDictionary *list = [BusDecoder parse0:str];
+        
         EncText *object = [[BusDecoder decode:list className:@"EncText"] retain];
         //EncText *object = [[BusDecoder decode:list key:_passwordField.text] retain];
-        
-        if (![object.key isEqualToString:_passwordField.text]) {
+        NSString *strKey = object.key;
+        NSString *strText = _passwordField.text;
+        if (![strKey isEqualToString:strText]) {
             [self showAlertView:@"密码不正确，请重新输入！"];
             return;
         }

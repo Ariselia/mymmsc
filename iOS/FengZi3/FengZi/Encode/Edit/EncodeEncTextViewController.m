@@ -9,6 +9,7 @@
 #import "EncodeEncTextViewController.h"
 #import "EncodeEditViewController.h"
 #import "Api+Category.h"
+#import "EncryptTools.h"
 
 @implementation EncodeEncTextViewController
 
@@ -51,6 +52,10 @@
         return;
     }
     EncText *et = [[[EncText alloc] init]autorelease];
+    
+    
+//    et.content = [EncryptTools Base64EncryptString:[_contentText.text stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceAndNewlineCharacterSet]]];
+//    et.key =   [EncryptTools Base64EncryptString:[_keyText.text stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceAndNewlineCharacterSet]]];
     et.content = _contentText.text;
     et.key = _keyText.text;
     EncodeEditViewController *editView =[[EncodeEditViewController alloc] initWithNibName:@"EncodeEditViewController" bundle:nil];
