@@ -1508,7 +1508,7 @@
 		0ADD90A2154EA52F0025DF29 /* scan_tip.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = scan_tip.mp3; path = Resources/scan_tip.mp3; sourceTree = "<group>"; };
 		0ADD90A5154EA57A0025DF29 /* BusCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BusCategory.h; sourceTree = "<group>"; };
 		0ADD90A6154EA57A0025DF29 /* BusCategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BusCategory.m; sourceTree = "<group>"; };
-		0ADD90A7154EA57A0025DF29 /* BusChannele.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BusChannele.h; sourceTree = "<group>"; };
+		0ADD90A7154EA57A0025DF29 /* BusChannel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BusChannel.h; sourceTree = "<group>"; };
 		0ADD90A8154EA57A0025DF29 /* BusDecoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BusDecoder.h; sourceTree = "<group>"; };
 		0ADD90A9154EA57A0025DF29 /* BusDecoder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BusDecoder.m; sourceTree = "<group>"; };
 		0ADD90AA154EA57A0025DF29 /* BusDescKey.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BusDescKey.h; sourceTree = "<group>"; };
@@ -3670,7 +3670,7 @@
 			children = (
 				0ADD90A5154EA57A0025DF29 /* BusCategory.h */,
 				0ADD90A6154EA57A0025DF29 /* BusCategory.m */,
-				0ADD90A7154EA57A0025DF29 /* BusChannele.h */,
+				0ADD90A7154EA57A0025DF29 /* BusChannel.h */,
 				0ADD90A8154EA57A0025DF29 /* BusDecoder.h */,
 				0ADD90A9154EA57A0025DF29 /* BusDecoder.m */,
 				0ADD90AA154EA57A0025DF29 /* BusDescKey.h */,
