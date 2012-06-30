@@ -39,8 +39,8 @@ typedef enum CodeType{
 	kModelSchedule,
 	/** 富媒体 */
 	kModelRichMedia,
-	/** 空码 */
-	kModelKMA = kModelBASE,
+	/** 顺风车 */
+	kModelRide,
 	/** 未知类型文本 */
 	kModelUNKNOWN_TEXT = kModelText,
 	/** 未知类型连接地址 */
@@ -48,7 +48,7 @@ typedef enum CodeType{
 	/** 错误基数 */
 	kModelERROR_BASE = (0X80),
 	/** 空码请求异常时的码类型 */
-	kModelERROR_KMA = (kModelERROR_BASE | kModelKMA),
+	kModelERROR_KMA = (kModelERROR_BASE | kModelBASE),
 	/** 富媒体请求异常时的码类型 */
 	kModelERROR_RICHMEDIA = (kModelERROR_BASE | kModelRichMedia)
 }CodeType;
@@ -87,11 +87,11 @@ typedef enum CodeType{
     BusinessType _type;
 }
 
-@property (nonatomic,retain) NSString *image;
-@property (nonatomic,retain) NSString *date;
-@property (nonatomic,retain) NSString *content;
-@property (nonatomic,assign) int uuid;
-@property (nonatomic,assign) BusinessType type;
+@property (nonatomic, copy) NSString *image;
+@property (nonatomic, copy) NSString *date;
+@property (nonatomic, copy) NSString *content;
+@property (nonatomic, assign) int uuid;
+@property (nonatomic, assign) BusinessType type;
 @end
 
 //--------------------< 业务类型 - 对象 - 历史记录 >--------------------
@@ -104,12 +104,12 @@ typedef enum CodeType{
     BOOL _isEncode;
 }
 
-@property (nonatomic,retain) NSString *image;
-@property (nonatomic,retain) NSString *date;
-@property (nonatomic,retain) NSString *content;
-@property (nonatomic,assign) int uuid;
-@property (nonatomic,assign) BusinessType type;
-@property (nonatomic,assign) BOOL isEncode;
+@property (nonatomic, copy) NSString *image;
+@property (nonatomic, copy) NSString *date;
+@property (nonatomic, copy) NSString *content;
+@property (nonatomic, assign) int uuid;
+@property (nonatomic, assign) BusinessType type;
+@property (nonatomic, assign) BOOL isEncode;
 @end
 
 //--------------------< 业务类型 - 对象 - 应用程序 >--------------------
