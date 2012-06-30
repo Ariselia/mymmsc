@@ -6,7 +6,7 @@
 //
 
 #import "BusDecoder.h"
-#import "EncryptTools.h"
+#import "PseudoBase64.h"
 #import <objc/runtime.h>
 #import "Api.h"
 #define FENGZI_URL @"http://ifengzi.cn/show.cgi?"
@@ -1401,7 +1401,7 @@ static NSString *URL_FLAG = @"://";
     }
     NSString *strMi = @"";
     if (tcontente != nil) {
-        strMi = [EncryptTools Base64DecryptString:tcontente];
+        strMi = [PseudoBase64 Base64DecryptString:tcontente];
         if (strMi != nil && ![strMi isEqualToString:@""]) {
             content =[BusDecoder parser:strMi];
             if (![key isEqualToString:[content objectForKey:ENC_KEY]]) {
