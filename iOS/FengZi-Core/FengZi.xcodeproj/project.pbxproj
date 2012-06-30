@@ -16,7 +16,7 @@
 		0A700374159FA2A900C7F975 /* BusCategory.h in Headers */ = {isa = PBXBuildFile; fileRef = 0A70035F159FA2A900C7F975 /* BusCategory.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0A700375159FA2A900C7F975 /* BusCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A700360159FA2A900C7F975 /* BusCategory.m */; };
 		0A700376159FA2A900C7F975 /* BusChannel.h in Headers */ = {isa = PBXBuildFile; fileRef = 0A700361159FA2A900C7F975 /* BusChannel.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		0A700377159FA2A900C7F975 /* BusDecoder.h in Headers */ = {isa = PBXBuildFile; fileRef = 0A700362159FA2A900C7F975 /* BusDecoder.h */; };
+		0A700377159FA2A900C7F975 /* BusDecoder.h in Headers */ = {isa = PBXBuildFile; fileRef = 0A700362159FA2A900C7F975 /* BusDecoder.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0A700378159FA2A900C7F975 /* BusDecoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A700363159FA2A900C7F975 /* BusDecoder.m */; };
 		0A700379159FA2A900C7F975 /* BusDescKey.h in Headers */ = {isa = PBXBuildFile; fileRef = 0A700364159FA2A900C7F975 /* BusDescKey.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0A70037A159FA2A900C7F975 /* BusEncoder.h in Headers */ = {isa = PBXBuildFile; fileRef = 0A700365159FA2A900C7F975 /* BusEncoder.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -354,6 +354,7 @@
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "FengZi/FengZi-Prefix.pch";
+				GCC_THUMB_SUPPORT = NO;
 				GCC_VERSION = "";
 				INFOPLIST_FILE = "FengZi/FengZi-Info.plist";
 				OTHER_LDFLAGS = "-ObjC";
@@ -380,6 +381,7 @@
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "FengZi/FengZi-Prefix.pch";
+				GCC_THUMB_SUPPORT = NO;
 				GCC_VERSION = "";
 				INFOPLIST_FILE = "FengZi/FengZi-Info.plist";
 				OTHER_LDFLAGS = "-ObjC";
@@ -408,6 +410,7 @@
 				0A700350159FA18700C7F975 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
