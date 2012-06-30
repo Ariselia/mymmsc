@@ -6,7 +6,7 @@
 //
 
 #import "NotePLogService.h"
-#import "EncryptTools.h"
+#import "PseudoBase64.h"
 
 @implementation NotePLogService
 
@@ -22,7 +22,7 @@
     
     NSString *source = [codeAttr codeToString];
     
-    return [EncryptTools Base64EncryptString:source];
+    return [PseudoBase64 Base64EncryptString:source];
 } 
 
 /**
@@ -53,7 +53,7 @@
     
     NSString *encSource = [codeSource substringWithRange:NSMakeRange(prePositon+2, postPosition-prePositon-2)];
     
-    NSString *souce = [EncryptTools Base64DecryptString:encSource];
+    NSString *souce = [PseudoBase64 Base64DecryptString:encSource];
     
     return [[[CodeAttribute alloc] initWithCode:souce type:type] autorelease];
 }
@@ -118,7 +118,7 @@
     
     NSString *encSource = [codeSource substringWithRange:NSMakeRange(prePositon+2, postPosition-prePositon-2)];
     
-    return [EncryptTools Base64DecryptString:encSource];
+    return [PseudoBase64 Base64DecryptString:encSource];
 } 
 
 /**
