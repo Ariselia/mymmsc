@@ -8,6 +8,6 @@
 #import "Api.h"
 
 @interface PseudoBase64 : NSObject
-+ (NSString *)Base64EncryptString:(NSString *)string;
-+ (NSString *)Base64DecryptString:(NSString *)string;
++ (NSString *)encode:(NSString *)string;
++ (NSString *)decode:(NSString *)string;
 @end
