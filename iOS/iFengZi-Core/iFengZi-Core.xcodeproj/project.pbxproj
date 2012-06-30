@@ -28,8 +28,8 @@
 		0A0F9BD3159F9381006B49E6 /* BusEncoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A0F9BC0159F9381006B49E6 /* BusEncoder.m */; };
 		0A0F9BD4159F9381006B49E6 /* CodeAttribute.h in Headers */ = {isa = PBXBuildFile; fileRef = 0A0F9BC1159F9381006B49E6 /* CodeAttribute.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0A0F9BD5159F9381006B49E6 /* CodeAttribute.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A0F9BC2159F9381006B49E6 /* CodeAttribute.m */; };
-		0A0F9BD6159F9381006B49E6 /* EncryptTools.h in Headers */ = {isa = PBXBuildFile; fileRef = 0A0F9BC3159F9381006B49E6 /* EncryptTools.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		0A0F9BD7159F9381006B49E6 /* EncryptTools.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A0F9BC4159F9381006B49E6 /* EncryptTools.m */; };
+		0A0F9BD6159F9381006B49E6 /* PseudoBase64.h in Headers */ = {isa = PBXBuildFile; fileRef = 0A0F9BC3159F9381006B49E6 /* PseudoBase64.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		0A0F9BD7159F9381006B49E6 /* PseudoBase64.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A0F9BC4159F9381006B49E6 /* PseudoBase64.m */; };
 		0A0F9BD8159F9381006B49E6 /* GTMBase64.h in Headers */ = {isa = PBXBuildFile; fileRef = 0A0F9BC5159F9381006B49E6 /* GTMBase64.h */; };
 		0A0F9BD9159F9381006B49E6 /* GTMBase64.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A0F9BC6159F9381006B49E6 /* GTMBase64.m */; };
 		0A0F9BDA159F9381006B49E6 /* GTMDefines.h in Headers */ = {isa = PBXBuildFile; fileRef = 0A0F9BC7159F9381006B49E6 /* GTMDefines.h */; };
@@ -82,8 +82,8 @@
 		0A0F9BC0159F9381006B49E6 /* BusEncoder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BusEncoder.m; sourceTree = "<group>"; };
 		0A0F9BC1159F9381006B49E6 /* CodeAttribute.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CodeAttribute.h; sourceTree = "<group>"; };
 		0A0F9BC2159F9381006B49E6 /* CodeAttribute.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CodeAttribute.m; sourceTree = "<group>"; };
-		0A0F9BC3159F9381006B49E6 /* EncryptTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EncryptTools.h; sourceTree = "<group>"; };
-		0A0F9BC4159F9381006B49E6 /* EncryptTools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EncryptTools.m; sourceTree = "<group>"; };
+		0A0F9BC3159F9381006B49E6 /* PseudoBase64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PseudoBase64.h; sourceTree = "<group>"; };
+		0A0F9BC4159F9381006B49E6 /* PseudoBase64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PseudoBase64.m; sourceTree = "<group>"; };
 		0A0F9BC5159F9381006B49E6 /* GTMBase64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMBase64.h; sourceTree = "<group>"; };
 		0A0F9BC6159F9381006B49E6 /* GTMBase64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTMBase64.m; sourceTree = "<group>"; };
 		0A0F9BC7159F9381006B49E6 /* GTMDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMDefines.h; sourceTree = "<group>"; };
@@ -166,8 +166,8 @@
 				0A0F9BC0159F9381006B49E6 /* BusEncoder.m */,
 				0A0F9BC1159F9381006B49E6 /* CodeAttribute.h */,
 				0A0F9BC2159F9381006B49E6 /* CodeAttribute.m */,
-				0A0F9BC3159F9381006B49E6 /* EncryptTools.h */,
-				0A0F9BC4159F9381006B49E6 /* EncryptTools.m */,
+				0A0F9BC3159F9381006B49E6 /* PseudoBase64.h */,
+				0A0F9BC4159F9381006B49E6 /* PseudoBase64.m */,
 				0A0F9BC5159F9381006B49E6 /* GTMBase64.h */,
 				0A0F9BC6159F9381006B49E6 /* GTMBase64.m */,
 				0A0F9BC7159F9381006B49E6 /* GTMDefines.h */,
@@ -222,7 +222,7 @@
 				0A0F9BD1159F9381006B49E6 /* BusDescKey.h in Headers */,
 				0A0F9BD2159F9381006B49E6 /* BusEncoder.h in Headers */,
 				0A0F9BD4159F9381006B49E6 /* CodeAttribute.h in Headers */,
-				0A0F9BD6159F9381006B49E6 /* EncryptTools.h in Headers */,
+				0A0F9BD6159F9381006B49E6 /* PseudoBase64.h in Headers */,
 				0A0F9BD8159F9381006B49E6 /* GTMBase64.h in Headers */,
 				0A0F9BDA159F9381006B49E6 /* GTMDefines.h in Headers */,
 				0A0F9BDB159F9381006B49E6 /* NotePLogService.h in Headers */,
@@ -384,7 +384,7 @@
 				0A0F9BD0159F9381006B49E6 /* BusDecoder.m in Sources */,
 				0A0F9BD3159F9381006B49E6 /* BusEncoder.m in Sources */,
 				0A0F9BD5159F9381006B49E6 /* CodeAttribute.m in Sources */,
-				0A0F9BD7159F9381006B49E6 /* EncryptTools.m in Sources */,
+				0A0F9BD7159F9381006B49E6 /* PseudoBase64.m in Sources */,
 				0A0F9BD9159F9381006B49E6 /* GTMBase64.m in Sources */,
 				0A0F9BDC159F9381006B49E6 /* NotePLogService.m in Sources */,
 				0A0F9BE0159F959E006B49E6 /* Api.mm in Sources */,
@@ -569,6 +569,7 @@
 				0A0F9BAE159F40C8006B49E6 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		0A0F9BAF159F40C8006B49E6 /* Build configuration list for PBXNativeTarget "iFengZi-CoreTests" */ = {
 			isa = XCConfigurationList;
@@ -577,6 +578,7 @@
 				0A0F9BB1159F40C8006B49E6 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
