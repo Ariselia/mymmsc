@@ -781,7 +781,7 @@ static const char * getPropertyType(objc_property_t property) {
         return buffer;
     }
     
-    NSString *strMi = [PseudoBase64 Base64EncryptString:[NSString stringWithFormat:@"%@:%@;%@:%@;",ENC_CONTENT,content,ENC_KEY,key]];
+    NSString *strMi = [PseudoBase64 encode:[NSString stringWithFormat:@"%@:%@;%@:%@;",ENC_CONTENT,content,ENC_KEY,key]];
     
     if(strMi != nil){
         [buffer appendString:TEXT_CONTENT];
