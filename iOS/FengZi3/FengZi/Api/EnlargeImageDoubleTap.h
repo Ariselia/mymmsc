@@ -11,12 +11,12 @@
 
 @interface EnlargeImageDoubleTap : UIImageView
 {
-    UIView *parentview;         //父窗口，即用将UIImageEx所加到的UIView
-    UIImageView *imageBackground;  //放大图片后的背景
-    UIView* imageBackView;         //单独查看时的背景
+    UIView      *parentview;       // 父窗口，即用将UIImageEx所加到的UIView
+    UIImageView *imageBackground;  // 放大图片后的背景
+    UIView      *imageBackView;    // 单独查看时的背景
     
-    UIView* maskView;              //遮罩层
-    CGRect frameRect;
+    UIView      *maskView;         // 遮罩层
+    CGRect       frameRect;
 }
 
 @property (nonatomic,retain) UIView *parentview;
