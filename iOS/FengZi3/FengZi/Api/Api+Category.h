@@ -259,8 +259,6 @@ typedef enum CodeType{
 @interface WiFiText : BaseModel{	
 	NSString* _name;
     NSString* _password;
-    //标示身份的id，用作记录传递
-    //NSString* _logId;	
 }
 @property (copy, nonatomic) NSString *name;
 @property (copy, nonatomic) NSString *password;
