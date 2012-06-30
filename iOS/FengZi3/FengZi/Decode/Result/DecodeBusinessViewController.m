@@ -140,9 +140,9 @@
         [_tableView reloadData];
         _showInfo = [object.content retain];
         if (_historyType == HistoryTypeFavAndHistory) {
-            //            if (object.logId) {
-            //                [self sendMessage:object.logId];
-            //            }
+//                        if (object.logId) {
+//                            [self sendMessage:object.logId];
+//                        }
             [self saveHistory];
         }
         [object release];
@@ -465,7 +465,6 @@
                 }
             }
         } else {
-            // 不是, 咋办?
             if ([input hasPrefix:@"http://"]) {
                 // 网址类型
                 Url *object = [[[Url alloc] init] retain];
@@ -571,24 +570,30 @@
 - (int)getHeight:(NSString*)text
 {
 	CGSize LabelSize = [text sizeWithFont:[UIFont systemFontOfSize:17] 
-                        constrainedToSize:CGSizeMake(280, 40000)
+                        constrainedToSize:CGSizeMake(280-24, 40000)
                             lineBreakMode:UILineBreakModeWordWrap];
 	return LabelSize.height;
+}
+- (int)getWidth:(NSString*)text
+{
+	CGSize LabelSize = [text sizeWithFont:[UIFont systemFontOfSize:17]
+                        constrainedToSize:CGSizeMake(40000, 40000)
+                            lineBreakMode:UILineBreakModeWordWrap];
+	return LabelSize.width;
 }
 
 #pragma mark - UITableViewDataSource method
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    int height = 44;
-    //    if (indexPath.row==_hideContentIndex) {
-    //        height = [self getHeight:[_contentArray objectAtIndex:indexPath.row]];
-    //        if (height>37) {
-    //            height = height+8;
-    //        }else{
-    //            height = 44;
-    //        }
-    //        height+=44;
-    //    }
+    int height = 41;
+    if (indexPath.row==_hideContentIndex) {
+        int width = [self getWidth:[_contentArray objectAtIndex:indexPath.row]];
+        if (width > 173) {
+            height = [self getHeight:[_contentArray objectAtIndex:indexPath.row]];
+            height = height+20+41;
+        }
+    }
+    NSLog(@"wqwq%d",height);
     return height;
 }
 
@@ -606,11 +611,19 @@
     
     UIImage * cell_img =[[UIImage imageNamed:@"decode_cell.png"]toSize:CGSizeMake(300, 50)];
     [cell setBackgroundImage:cell_img];
-    
     [cell initDataWithTitile:[_titleArray objectAtIndex:indexPath.row] withText:[_contentArray objectAtIndex:indexPath.row] withType:[[_typeArray objectAtIndex:indexPath.row] intValue]];
+    NSLog(@"%@",NSStringFromCGRect(cell.nameLabel.frame));
     if (indexPath.row == _hideContentIndex) {
         cell.contentLabel.numberOfLines=0;
+        int width = [self getWidth:[_contentArray objectAtIndex:indexPath.row]];
+        if (width > 173) {
+            int height = [self getHeight:[_contentArray objectAtIndex:indexPath.row]];
+            cell.contentLabel.frame = CGRectMake(12, 41, 280-24, height);
+            UIImage * cell_img =[[UIImage imageNamed:@"decode_cell.png"]toSize:CGSizeMake(300, height+41+20)];
+            [cell setBackgroundImage:cell_img];
+        }
     }
+
     return cell;
 }
 
