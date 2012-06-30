@@ -185,11 +185,9 @@ typedef enum CodeType{
 @interface EncText : BaseModel{
     NSString* _key;
     NSString* _content;
-	//NSString* _encContent;
 }
 @property (copy, nonatomic) NSString *key;
 @property (copy, nonatomic) NSString *content;
-//@property (retain, nonatomic) NSString *encContent;
 
 @end
 
