@@ -378,10 +378,8 @@
 
 @synthesize key=_key;
 @synthesize content=_content;
-//@synthesize encContent=_encContent;
 
 - (void)dealloc {
-    //RELEASE_SAFELY(_encContent);
     RELEASE_SAFELY(_key);
     RELEASE_SAFELY(_content);
 
