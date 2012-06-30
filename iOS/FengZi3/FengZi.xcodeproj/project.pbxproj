@@ -7,8 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0A193B091594947E002E6835 /* Api.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0A193AEC1594947E002E6835 /* Api.mm */; };
-		0A193B0A1594947E002E6835 /* Api+Category.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A193AEE1594947E002E6835 /* Api+Category.m */; };
 		0A193B0B1594947E002E6835 /* Api+Database.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A193AF01594947E002E6835 /* Api+Database.m */; };
 		0A193B0C1594947E002E6835 /* Api+eBuy.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A193AF21594947E002E6835 /* Api+eBuy.m */; };
 		0A193B0D1594947E002E6835 /* Api+eFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A193AF41594947E002E6835 /* Api+eFile.m */; };
@@ -485,13 +483,6 @@
 		0ADD90A0154EA3BD0025DF29 /* UIViewAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ADD9096154EA3BC0025DF29 /* UIViewAdditions.m */; };
 		0ADD90A3154EA52F0025DF29 /* RefreshTable.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 0ADD90A1154EA52F0025DF29 /* RefreshTable.bundle */; };
 		0ADD90A4154EA52F0025DF29 /* scan_tip.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 0ADD90A2154EA52F0025DF29 /* scan_tip.mp3 */; };
-		0ADD90B6154EA57A0025DF29 /* BusCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ADD90A6154EA57A0025DF29 /* BusCategory.m */; };
-		0ADD90B7154EA57A0025DF29 /* BusDecoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ADD90A9154EA57A0025DF29 /* BusDecoder.m */; };
-		0ADD90B8154EA57A0025DF29 /* BusEncoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ADD90AC154EA57A0025DF29 /* BusEncoder.m */; };
-		0ADD90B9154EA57A0025DF29 /* CodeAttribute.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ADD90AE154EA57A0025DF29 /* CodeAttribute.m */; };
-		0ADD90BA154EA57A0025DF29 /* EncryptTools.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ADD90B0154EA57A0025DF29 /* EncryptTools.m */; };
-		0ADD90BB154EA57A0025DF29 /* GTMBase64.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ADD90B2154EA57A0025DF29 /* GTMBase64.m */; };
-		0ADD90BC154EA57A0025DF29 /* NotePLogService.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ADD90B5154EA57A0025DF29 /* NotePLogService.m */; };
 		0ADD90D7154EA5F30025DF29 /* eShopProducerInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ADD90BF154EA5F30025DF29 /* eShopProducerInfo.m */; };
 		0ADD90D8154EA5F30025DF29 /* eShopProducerInfo.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0ADD90C0154EA5F30025DF29 /* eShopProducerInfo.xib */; };
 		0ADD90DA154EA5F30025DF29 /* UCAppStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ADD90C3154EA5F30025DF29 /* UCAppStore.m */; };
@@ -898,10 +889,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		0A193AEB1594947E002E6835 /* Api.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Api.h; sourceTree = "<group>"; };
-		0A193AEC1594947E002E6835 /* Api.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Api.mm; sourceTree = "<group>"; };
-		0A193AED1594947E002E6835 /* Api+Category.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Api+Category.h"; sourceTree = "<group>"; };
-		0A193AEE1594947E002E6835 /* Api+Category.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Api+Category.m"; sourceTree = "<group>"; };
 		0A193AEF1594947E002E6835 /* Api+Database.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Api+Database.h"; sourceTree = "<group>"; };
 		0A193AF01594947E002E6835 /* Api+Database.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Api+Database.m"; sourceTree = "<group>"; };
 		0A193AF11594947E002E6835 /* Api+eBuy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Api+eBuy.h"; sourceTree = "<group>"; };
@@ -1508,23 +1495,6 @@
 		0ADD9096154EA3BC0025DF29 /* UIViewAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIViewAdditions.m; sourceTree = "<group>"; };
 		0ADD90A1154EA52F0025DF29 /* RefreshTable.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = RefreshTable.bundle; path = Resources/RefreshTable.bundle; sourceTree = "<group>"; };
 		0ADD90A2154EA52F0025DF29 /* scan_tip.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = scan_tip.mp3; path = Resources/scan_tip.mp3; sourceTree = "<group>"; };
-		0ADD90A5154EA57A0025DF29 /* BusCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BusCategory.h; sourceTree = "<group>"; };
-		0ADD90A6154EA57A0025DF29 /* BusCategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BusCategory.m; sourceTree = "<group>"; };
-		0ADD90A7154EA57A0025DF29 /* BusChannel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BusChannel.h; sourceTree = "<group>"; };
-		0ADD90A8154EA57A0025DF29 /* BusDecoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BusDecoder.h; sourceTree = "<group>"; };
-		0ADD90A9154EA57A0025DF29 /* BusDecoder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BusDecoder.m; sourceTree = "<group>"; };
-		0ADD90AA154EA57A0025DF29 /* BusDescKey.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BusDescKey.h; sourceTree = "<group>"; };
-		0ADD90AB154EA57A0025DF29 /* BusEncoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BusEncoder.h; sourceTree = "<group>"; };
-		0ADD90AC154EA57A0025DF29 /* BusEncoder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BusEncoder.m; sourceTree = "<group>"; };
-		0ADD90AD154EA57A0025DF29 /* CodeAttribute.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CodeAttribute.h; sourceTree = "<group>"; };
-		0ADD90AE154EA57A0025DF29 /* CodeAttribute.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CodeAttribute.m; sourceTree = "<group>"; };
-		0ADD90AF154EA57A0025DF29 /* EncryptTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EncryptTools.h; sourceTree = "<group>"; };
-		0ADD90B0154EA57A0025DF29 /* EncryptTools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EncryptTools.m; sourceTree = "<group>"; };
-		0ADD90B1154EA57A0025DF29 /* GTMBase64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMBase64.h; sourceTree = "<group>"; };
-		0ADD90B2154EA57A0025DF29 /* GTMBase64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTMBase64.m; sourceTree = "<group>"; };
-		0ADD90B3154EA57A0025DF29 /* GTMDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMDefines.h; sourceTree = "<group>"; };
-		0ADD90B4154EA57A0025DF29 /* NotePLogService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotePLogService.h; sourceTree = "<group>"; };
-		0ADD90B5154EA57A0025DF29 /* NotePLogService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NotePLogService.m; sourceTree = "<group>"; };
 		0ADD90BE154EA5F30025DF29 /* eShopProducerInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = eShopProducerInfo.h; sourceTree = "<group>"; };
 		0ADD90BF154EA5F30025DF29 /* eShopProducerInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = eShopProducerInfo.m; sourceTree = "<group>"; };
 		0ADD90C0154EA5F30025DF29 /* eShopProducerInfo.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = eShopProducerInfo.xib; sourceTree = "<group>"; };
@@ -2939,7 +2909,6 @@
 				0ADD90BD154EA5BD0025DF29 /* eShop */,
 				0A193B971594A0F5002E6835 /* eWall */,
 				B8D4A71214E51DA00057203A /* RichMedia */,
-				71CFC9D91485F8B500709F77 /* Business */,
 				3E11F20E14726C6D00ACC436 /* Views */,
 				3E11F1A914726BB800ACC436 /* Support */,
 				3E11F18614726B8300ACC436 /* Utils */,
@@ -3669,30 +3638,6 @@
 			path = FontLabel;
 			sourceTree = "<group>";
 		};
-		71CFC9D91485F8B500709F77 /* Business */ = {
-			isa = PBXGroup;
-			children = (
-				0ADD90A5154EA57A0025DF29 /* BusCategory.h */,
-				0ADD90A6154EA57A0025DF29 /* BusCategory.m */,
-				0ADD90A7154EA57A0025DF29 /* BusChannel.h */,
-				0ADD90A8154EA57A0025DF29 /* BusDecoder.h */,
-				0ADD90A9154EA57A0025DF29 /* BusDecoder.m */,
-				0ADD90AA154EA57A0025DF29 /* BusDescKey.h */,
-				0ADD90AB154EA57A0025DF29 /* BusEncoder.h */,
-				0ADD90AC154EA57A0025DF29 /* BusEncoder.m */,
-				0ADD90AD154EA57A0025DF29 /* CodeAttribute.h */,
-				0ADD90AE154EA57A0025DF29 /* CodeAttribute.m */,
-				0ADD90AF154EA57A0025DF29 /* EncryptTools.h */,
-				0ADD90B0154EA57A0025DF29 /* EncryptTools.m */,
-				0ADD90B1154EA57A0025DF29 /* GTMBase64.h */,
-				0ADD90B2154EA57A0025DF29 /* GTMBase64.m */,
-				0ADD90B3154EA57A0025DF29 /* GTMDefines.h */,
-				0ADD90B4154EA57A0025DF29 /* NotePLogService.h */,
-				0ADD90B5154EA57A0025DF29 /* NotePLogService.m */,
-			);
-			path = Business;
-			sourceTree = "<group>";
-		};
 		B8D49DF914E4B0CE0057203A /* usercenter */ = {
 			isa = PBXGroup;
 			children = (
@@ -3763,10 +3708,6 @@
 		B8D49E2814E4B2230057203A /* Api */ = {
 			isa = PBXGroup;
 			children = (
-				0A193AEB1594947E002E6835 /* Api.h */,
-				0A193AEC1594947E002E6835 /* Api.mm */,
-				0A193AED1594947E002E6835 /* Api+Category.h */,
-				0A193AEE1594947E002E6835 /* Api+Category.m */,
 				0A193AEF1594947E002E6835 /* Api+Database.h */,
 				0A193AF01594947E002E6835 /* Api+Database.m */,
 				0A193AF11594947E002E6835 /* Api+eBuy.h */,
@@ -4726,13 +4667,6 @@
 				0ADD909E154EA3BD0025DF29 /* UIFontAdditions.m in Sources */,
 				0ADD909F154EA3BD0025DF29 /* UIKitAddition.m in Sources */,
 				0ADD90A0154EA3BD0025DF29 /* UIViewAdditions.m in Sources */,
-				0ADD90B6154EA57A0025DF29 /* BusCategory.m in Sources */,
-				0ADD90B7154EA57A0025DF29 /* BusDecoder.m in Sources */,
-				0ADD90B8154EA57A0025DF29 /* BusEncoder.m in Sources */,
-				0ADD90B9154EA57A0025DF29 /* CodeAttribute.m in Sources */,
-				0ADD90BA154EA57A0025DF29 /* EncryptTools.m in Sources */,
-				0ADD90BB154EA57A0025DF29 /* GTMBase64.m in Sources */,
-				0ADD90BC154EA57A0025DF29 /* NotePLogService.m in Sources */,
 				0ADD90D7154EA5F30025DF29 /* eShopProducerInfo.m in Sources */,
 				0ADD90DA154EA5F30025DF29 /* UCAppStore.m in Sources */,
 				0ADD90DC154EA5F30025DF29 /* UCBookReader.m in Sources */,
@@ -4765,8 +4699,6 @@
 				0ADD915B154EA7040025DF29 /* EBuyPortal.m in Sources */,
 				0ADD915D154EA7040025DF29 /* EBuyRecommend.m in Sources */,
 				0ADD915F154EA7040025DF29 /* EBuyTypes.m in Sources */,
-				0A193B091594947E002E6835 /* Api.mm in Sources */,
-				0A193B0A1594947E002E6835 /* Api+Category.m in Sources */,
 				0A193B0B1594947E002E6835 /* Api+Database.m in Sources */,
 				0A193B0C1594947E002E6835 /* Api+eBuy.m in Sources */,
 				0A193B0D1594947E002E6835 /* Api+eFile.m in Sources */,
