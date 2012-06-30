@@ -117,8 +117,8 @@
 			// 0E-富媒体
 			clazz = RichMedia.class;
 			break;
-		case kModelKMA:
-			// 0F-空码
+		case kModelRide:
+			// 0F-顺风车
 			//clazz = KMA.class;
 			break;
 		default:
@@ -176,12 +176,10 @@
 			[invocation invoke];
 			[invocation getReturnValue:&valueObj];
 			if (valueObj) {
-				[attrsDesc appendFormat:@" [%@=%@] ",attributeName,valueObj];		
-				//[valueObj release];			
+				[attrsDesc appendFormat:@" [%@=%@] ",attributeName,valueObj];
 			}else {
-				[attrsDesc appendFormat:@" [%@=nil] ",attributeName];		
+				[attrsDesc appendFormat:@" [%@=nil] ",attributeName];
 			}
-			
 		}
 	}
 	
