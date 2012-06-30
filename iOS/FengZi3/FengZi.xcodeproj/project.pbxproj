@@ -261,6 +261,7 @@
 		0A1AEE2D154754A8007BE52E /* ZXing.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A1AEE2C154754A6007BE52E /* ZXing.framework */; };
 		0A511F0E1599A6BB00845FE6 /* uc_checkBtn_tap.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A511F0A1599A6BB00845FE6 /* uc_checkBtn_tap.png */; };
 		0A511F0F1599A6BB00845FE6 /* uc_checkBtn.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A511F0B1599A6BB00845FE6 /* uc_checkBtn.png */; };
+		0A55D674159FA705001BEC23 /* FengZi.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A55D673159FA705001BEC23 /* FengZi.framework */; };
 		0A6DA450159914480052EC21 /* history_btnBG.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A6DA44C159914480052EC21 /* history_btnBG.png */; };
 		0A6DA451159914480052EC21 /* history_cellBG.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A6DA44D159914480052EC21 /* history_cellBG.png */; };
 		0A6DA452159914480052EC21 /* history_sCellBG.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A6DA44E159914480052EC21 /* history_sCellBG.png */; };
@@ -1204,6 +1205,7 @@
 		0A1AEE2C154754A6007BE52E /* ZXing.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ZXing.framework; path = ../../../../runtime/SDK/ZXing.framework; sourceTree = "<group>"; };
 		0A511F0A1599A6BB00845FE6 /* uc_checkBtn_tap.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = uc_checkBtn_tap.png; sourceTree = "<group>"; };
 		0A511F0B1599A6BB00845FE6 /* uc_checkBtn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = uc_checkBtn.png; sourceTree = "<group>"; };
+		0A55D673159FA705001BEC23 /* FengZi.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FengZi.framework; path = ../../../../runtime/SDK/FengZi.framework; sourceTree = "<group>"; };
 		0A6DA44C159914480052EC21 /* history_btnBG.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = history_btnBG.png; sourceTree = "<group>"; };
 		0A6DA44D159914480052EC21 /* history_cellBG.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = history_cellBG.png; sourceTree = "<group>"; };
 		0A6DA44E159914480052EC21 /* history_sCellBG.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = history_sCellBG.png; sourceTree = "<group>"; };
@@ -2054,6 +2056,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0A55D674159FA705001BEC23 /* FengZi.framework in Frameworks */,
 				0A193BA01594A213002E6835 /* libalixpay.a in Frameworks */,
 				0A193BA11594A213002E6835 /* libcrypto.a in Frameworks */,
 				0A193BA21594A213002E6835 /* libssl.a in Frameworks */,
@@ -2867,6 +2870,7 @@
 		3E11F12A1472686800ACC436 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				0A55D673159FA705001BEC23 /* FengZi.framework */,
 				0A1AEE2C154754A6007BE52E /* ZXing.framework */,
 				C9A14F581520769A00DE519A /* iOSApi.framework */,
 				C9A14F5D15207B8B00DE519A /* QRCode.framework */,
