@@ -6,7 +6,7 @@
 //
 
 #import "BusEncoder.h"
-#import "EncryptTools.h"
+#import "PseudoBase64.h"
 #import <objc/runtime.h>
 #define FENGZI_URL @"http://ifengzi.cn/show.cgi?"
 
@@ -781,7 +781,7 @@ static const char * getPropertyType(objc_property_t property) {
         return buffer;
     }
     
-    NSString *strMi = [EncryptTools Base64EncryptString:[NSString stringWithFormat:@"%@:%@;%@:%@;",ENC_CONTENT,content,ENC_KEY,key]];
+    NSString *strMi = [PseudoBase64 Base64EncryptString:[NSString stringWithFormat:@"%@:%@;%@:%@;",ENC_CONTENT,content,ENC_KEY,key]];
     
     if(strMi != nil){
         [buffer appendString:TEXT_CONTENT];
