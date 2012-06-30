@@ -1,0 +1,7 @@
+//
+// Prefix header for all source files of the 'FengZi' target in the 'FengZi' project
+//
+
+#ifdef __OBJC__
+    #import <Foundation/Foundation.h>
+#endif
