@@ -600,6 +600,7 @@
     return list;
     
 }
+
 + (id)decode:(NSArray*)list class:(Class)clazz{
     id obj = [[[clazz alloc] init] autorelease];
     // NSArray *list =[self parse0:content];
