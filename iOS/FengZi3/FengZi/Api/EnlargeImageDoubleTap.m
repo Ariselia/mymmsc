@@ -40,13 +40,13 @@
     
 }
 
-
 #pragma UIGestureRecognizer Handles
+
 /*
  * handleDoubleTap 双击图片弹出单独浏览图片层
  * recognizer 双击手势
  */
--(void) handleDoubleTap:(UITapGestureRecognizer *)recognizer
+- (void) handleDoubleTap:(UITapGestureRecognizer *)recognizer
 {   
                 if (imageBackView==nil) {
                     if( [[UIDevice currentDevice] orientation]==UIDeviceOrientationLandscapeLeft||[[UIDevice currentDevice] orientation]==UIDeviceOrientationLandscapeRight)
