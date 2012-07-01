@@ -10,13 +10,14 @@
 #import <QRCode/QREncoder.h>
 #import <QRCode/DataMatrix.h>
 #import "UIUtil.h"
-#import "NotePLogService.h"
-#import "BusEncoder.h"
+#import <FengZi/NotePLogService.h>
+#import <FengZi/BusEncoder.h>
 #import "Api+Database.h"
 #import "FileUtil.h"
-#import "EncryptTools.h"
+#import <FengZi/PseudoBase64.h>
 #import "SHK.h"
 #import "ShareView.h"
+#import "CommonUtils.h"
 
 @implementation EncodeEditViewController
 
@@ -61,7 +62,7 @@
 
 -(void)sendMessage:(UIImage*)image withSave:(BOOL)isSave{
     NSString *appAtt = [NSString stringWithFormat:@"eqn=%@&type=%@&stype=%d&loc=%@",[[UIDevice currentDevice] uniqueIdentifier],[DATA_ENV getEncodeCodeType:DATA_ENV.curBusinessType],DATA_ENV.curScanType,DATA_ENV.curLocation];
-    appAtt = [EncryptTools Base64EncryptString:appAtt];
+    appAtt = [PseudoBase64 encode:appAtt];
     
     [MakeLogDataRequest silentRequestWithDelegate:self withParameters:[NSDictionary dictionaryWithObjectsAndKeys:_logId,@"c",appAtt,@"a", nil]];
     if (isSave) {
@@ -169,7 +170,7 @@
 - (void)image: (UIImage *) image didFinishSavingWithError:(NSError *) error contextInfo:(void *) contextInfo;{
     UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"保存图片" message:@"保存到相册成功！" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles: nil];
     [alertView show];
-    RELEASE_SAFELY(alertView);
+    IOSAPI_RELEASE(alertView);
     _saveBtn.enabled = YES;
 }
 
@@ -199,8 +200,7 @@
 - (void)getCodeString{
     _logId = [[NotePLogService encodeEnc:_codeAtt] retain];
     switch (DATA_ENV.curBusinessType) {
-            
-        case BusinessTypeUrl:{
+        case kModelUrl:{
             Url *obj = _codeObject;
             obj.logId = _logId;
             _showInfo = obj.content;
@@ -209,7 +209,7 @@
 
             break;
         }
-        case BusinessTypeCard:{
+        case kModelCard:{
             Card *obj = _codeObject;
             obj.logId = _logId;
             _showInfo = obj.name;
@@ -217,7 +217,7 @@
               _content = [[BusEncoder encode:obj type:DATA_ENV.curBusinessType]retain];
             break;
         }
-        case BusinessTypeGmap:{
+        case kModelGMap:{
             GMap *obj = _codeObject;
             obj.logId = _logId;
             _showInfo = [[[obj.url componentsSeparatedByString:@"="] objectAtIndex:1] retain];
@@ -225,7 +225,7 @@
            // _content = [[BusEncoder encodeGMap:obj] retain];
               _content = [[BusEncoder encode:obj type:DATA_ENV.curBusinessType]retain];
             break;
-        }case BusinessTypeText:{
+        }case kModelText:{
             Text *obj = _codeObject;
             obj.logId = _logId;
             _showInfo = obj.content;
@@ -236,7 +236,7 @@
               _content = [[BusEncoder encode:obj type:DATA_ENV.curBusinessType]retain];
             break;
         }
-        case BusinessTypeEmail:{
+        case kModelEmail:{
             Email *obj = _codeObject;
             obj.logId = _logId;
             _showInfo = obj.title;
@@ -244,7 +244,7 @@
               _content = [[BusEncoder encode:obj type:DATA_ENV.curBusinessType]retain];
             break;
         }
-        case BusinessTypePhone:{
+        case kModelPhone:{
             Phone *obj = _codeObject;
             obj.logId = _logId;
             _showInfo = obj.telephone;
@@ -252,7 +252,7 @@
               _content = [[BusEncoder encode:obj type:DATA_ENV.curBusinessType]retain];
             break;
         }
-        case BusinessTypeWeibo:{
+        case kModelWeibo:{
             Weibo *obj = _codeObject;
             obj.logId = _logId;
             _showInfo = obj.title;
@@ -260,7 +260,7 @@
               _content = [[BusEncoder encode:obj type:DATA_ENV.curBusinessType]retain];
             break;
         }
-        case BusinessTypeAppUrl:{
+        case kModelAppUrl:{
             AppUrl *obj = _codeObject;
             obj.logId = _logId;
             _showInfo = obj.title;
@@ -268,7 +268,7 @@
               _content = [[BusEncoder encode:obj type:DATA_ENV.curBusinessType]retain];
             break;
         }
-        case BusinessTypeEncText:{
+        case kModelEncText:{
             EncText *obj = _codeObject;
             obj.logId = _logId;
             _showInfo = obj.content;
@@ -276,14 +276,14 @@
               _content = [[BusEncoder encode:obj type:DATA_ENV.curBusinessType]retain];
             break;
         }
-        case BusinessTypeBookMark:{
+        case kModelBookMark:{
             BookMark *obj = _codeObject;
             obj.logId = _logId;
             _showInfo = obj.title;
             _content = [[BusEncoder encode:obj type:DATA_ENV.curBusinessType]retain];
             break;
         }
-        case BusinessTypeSchedule:{
+        case kModelSchedule:{
             Schedule *obj = _codeObject;
             obj.logId = _logId;
             _showInfo = obj.title;
@@ -291,7 +291,7 @@
               _content = [[BusEncoder encode:obj type:DATA_ENV.curBusinessType]retain];
             break;
         }
-        case BusinessTypeWifiText:{
+        case kModelWiFiText:{
             WiFiText *obj = _codeObject;
             obj.logId = _logId;
             _showInfo = obj.name;
@@ -299,7 +299,7 @@
               _content = [[BusEncoder encode:obj type:DATA_ENV.curBusinessType]retain];
             break;
         }
-        case BusinessTypeShortMessage:{
+        case kModelShortMessage:{
             ShortMessage *obj = _codeObject;
             obj.logId = _logId;
             _showInfo = obj.content;
@@ -307,7 +307,7 @@
               _content = [[BusEncoder encode:obj type:DATA_ENV.curBusinessType]retain];
             break;
         }
-        case BusinessTypeRichMedia:{
+        case kModelRichMedia:{
             RichMedia *obj = _codeObject;
             obj.logId = _logId;
             _showInfo = obj.title;
@@ -521,7 +521,7 @@
     [self tapOnSaveBtn:nil];
     
     NSString *info= [NSString stringWithFormat:@"eqn=%@&version=%@",[[UIDevice currentDevice] uniqueIdentifier],[iOSApi version]];
-    info = [EncryptTools Base64EncryptString:info];
+    info = [PseudoBase64 encode:info];
     NSString *type = [notification.userInfo objectForKey:@"type"];
     if ([type isEqualToString:@"sina"]) {
         [WeiboShareLogDataRequest silentRequestWithDelegate:self withParameters:[NSDictionary dictionaryWithObjectsAndKeys:@"0",@"t",info,@"a", nil]];
@@ -534,7 +534,7 @@
 
 -(void)finishShareAuth:(NSNotification*)notification{
     NSString *info= [NSString stringWithFormat:@"eqn=%@&version=%@",[[UIDevice currentDevice] uniqueIdentifier],[iOSApi version]];
-    info = [EncryptTools Base64EncryptString:info];
+    info = [PseudoBase64 encode:info];
     NSString *type = [notification.userInfo objectForKey:@"type"];
     if ([type isEqualToString:@"sina"]) {
         [AuthorizeLogDataRequest silentRequestWithDelegate:self withParameters:[NSDictionary dictionaryWithObjectsAndKeys:@"0",@"t",info,@"a", nil]];
