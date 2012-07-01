@@ -94,9 +94,9 @@
     self.navigationItem.rightBarButtonItem = item;
     [item release];
     // 下面的这个数组的内容, 就是从A开始的连续的值
-    NSDictionary *list = [BusDecoder parse0:_content];
-    _card = [[BusDecoder decode:list className:@"Card"] retain];
-    
+    //NSDictionary *list = [BusDecoder parse0:_content];
+    //_card = [[BusDecoder decode:list className:@"Card"] retain];
+    _card = [[Api parse:_content timeout:30] retain];
     if (_historyType == HistoryTypeFavAndHistory) {
         if (_card.logId) {
             NSString *appAtt = [NSString stringWithFormat:@"eqn=%@&type=%@&stype=%d&loc=%@",[[UIDevice currentDevice] uniqueIdentifier],[DATA_ENV getDecodeType:_category.type],DATA_ENV.curScanType,DATA_ENV.curLocation];
