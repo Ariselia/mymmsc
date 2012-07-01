@@ -34,7 +34,7 @@
         _content = [input retain];
         _curImage = [image retain];
         _saveImage = [sImage retain];
-        _historyType=type;
+        _historyType = type;
     }
     return self;
 }
@@ -119,12 +119,14 @@
 
 -(void)requestDidFinishLoad:(ITTBaseDataRequest *)request{
     if ([request isKindOfClass:[ScanLogDataRequest class]]) {
+        //
     }
 }
 
 -(void)request:(ITTBaseDataRequest *)request didFailLoadWithError:(NSError *)error{
     NSLog(@"%@",error);
 }
+
 -(void)selectPhone{
     CFErrorRef error =NULL;
     
@@ -252,16 +254,13 @@
         [alertView show];
         IOSAPI_RELEASE(alertView);
         
-    }
-    else {
+    } else {
         [[DataBaseOperate shareData] insertFavirote:object];
         [object release];
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"添加收藏成功！" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles: nil];
         [alertView show];
         IOSAPI_RELEASE(alertView);
-    }
-    
-    
+    }    
     
     _favBtn.enabled = NO;
     [_favBtn setImage:[UIImage imageNamed:@"faviroted.png"] forState:UIControlStateNormal];
@@ -349,15 +348,15 @@
     return cell;
 }
 
--(void)hidePopButton{
-    for (int i =0; i<14; i++) {
+- (void)hidePopButton{
+    for (int i = 0; i < 14; i++) {
         NSIndexPath *indexPath = [NSIndexPath indexPathForRow:i inSection:0];
         DecodeCardCell *curCell = (DecodeCardCell*)[_tableView cellForRowAtIndexPath:indexPath];
         [curCell removePopButton]; 
     }
 }
 
--(void)finishShare:(NSNotification*)notification{    
+- (void)finishShare:(NSNotification*)notification{    
     NSString *info= [NSString stringWithFormat:@"eqn=%@&version=%@",[[UIDevice currentDevice] uniqueIdentifier],[iOSApi version]];
     info = [PseudoBase64 encode:info];
     NSString *type = [notification.userInfo objectForKey:@"type"];
@@ -370,7 +369,7 @@
     }
 }
 
--(void)finishShareAuth:(NSNotification*)notification{
+- (void)finishShareAuth:(NSNotification*)notification{
     NSString *info= [NSString stringWithFormat:@"eqn=%@&version=%@",[[UIDevice currentDevice] uniqueIdentifier],[iOSApi version]];
     info = [PseudoBase64 encode:info];
     NSString *type = [notification.userInfo objectForKey:@"type"];
@@ -381,13 +380,13 @@
     }
 }
 
--(void)viewWillAppear:(BOOL)animated{
+- (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(finishShare:) name:SHARE_FINISH object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(finishShareAuth:) name:SHARE_AUTH_FINISH object:nil];
 }
 
--(void)viewWillDisappear:(BOOL)animated{
+- (void)viewWillDisappear:(BOOL)animated{
     [[NSNotificationCenter defaultCenter] removeObserver:self name:SHARE_FINISH object:nil];
 }
 
