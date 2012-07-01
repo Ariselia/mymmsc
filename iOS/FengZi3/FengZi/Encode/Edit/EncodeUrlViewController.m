@@ -8,8 +8,9 @@
 
 #import "EncodeUrlViewController.h"
 #import "EncodeEditViewController.h"
-#import "Api+Category.h"
-#import "BusDecoder.h"
+#import <FengZi/Api+Category.h>
+#import <FengZi/BusDecoder.h>
+
 @implementation EncodeUrlViewController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -37,13 +38,13 @@
     if ([_webText.text isEqualToString:@""]) {
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"网址不能为空！" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles: nil];
         [alertView show];
-        RELEASE_SAFELY(alertView);
+        IOSAPI_RELEASE(alertView);
         return;
     }
     if (![BusDecoder isUrl:_webText.text]) {
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"网址格式不正确！" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles: nil];
         [alertView show];
-        RELEASE_SAFELY(alertView);
+        IOSAPI_RELEASE(alertView);
         return;
     }
     Url *u = [[[Url alloc]init]autorelease];
