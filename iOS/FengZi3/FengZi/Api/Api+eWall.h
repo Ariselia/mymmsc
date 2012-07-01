@@ -6,16 +6,18 @@
 //  Copyright (c) 2012年 ifengzi.cn. All rights reserved.
 //
 
-#import "Api+Category.h"
-#import "BusCategory.h"
+#import <FengZi/Api+Category.h>
+#import <FengZi/BusCategory.h>
 
 @interface EWall : NSObject{
     //
 }
+
 @property (nonatomic, copy) NSString *num;
 @property (nonatomic, copy) NSString *doorid;
 @property (nonatomic, copy) NSString *factoryid;
 @property (nonatomic, copy) NSString *ischeck;
+
 @end
 
 @interface Api (eWall)
