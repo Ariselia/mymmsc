@@ -124,10 +124,9 @@
         NSString *str = [_content substringFromIndex:[API_CODE_PREFIX length]];
         str = [str substringFromIndex:2];
         // 下面的这个数组的内容, 就是从A开始的连续的值
-        NSDictionary *list = [BusDecoder parse0:str];
-        
-        EncText *object = [[BusDecoder decode:list className:@"EncText"] retain];
-        //EncText *object = [[BusDecoder decode:list key:_passwordField.text] retain];
+        //NSDictionary *list = [BusDecoder parse0:str];
+        //EncText *object = [[BusDecoder decode:list className:@"EncText"] retain];
+        EncText *object = [Api parse:_content timeout:30];
         NSString *strKey = object.key;
         NSString *strText = _passwordField.text;
         if (![strKey isEqualToString:strText]) {
@@ -164,9 +163,8 @@
     return  dateStr;
 }
 
-- (NSString*)getString16:(int)type
-{  
-    type=type+1;
+- (NSString *)getString16:(int)type {  
+    type = type + 1;
     unsigned char typeUn = (unsigned char)type;
     NSString *type16 = [NSString stringWithFormat:@"%02X", typeUn];
     return type16;
@@ -184,271 +182,173 @@
     }
 }
 
-
 - (void)decodeInput{
     _titleArray = [[NSMutableArray alloc] initWithCapacity:0];
     _contentArray = [[NSMutableArray alloc] initWithCapacity:0];
     _typeArray = [[NSMutableArray alloc] initWithCapacity:0];
-    NSString *logId=@"";
-    
-    //首先判断是不是新的编码规则
-    //id oRet = nil;
-    NSString *input = [iOSApi urlDecode:_content];
-    if (input != nil) {
-        if ([input hasPrefix:API_CODE_PREFIX]) {
-            // 是码开头的, 截取字符串, 去掉前缀
-            NSString *str = [input substringFromIndex:[API_CODE_PREFIX length]];
-            if ([str hasPrefix:@"id="]) {
-                _type = kModelRichMedia;
-                // 富媒体, 或者空码, 转换地址
-                NSString *iskma = [str substringFromIndex:3];
-                NSString *url = [NSString stringWithFormat:@"%@/apps/getCode.action?%@",API_APPS_SERVER,str];
-                if([iskma rangeOfString:@"-"].length>0) {
-                    UCRichMedia *nextView = [[UCRichMedia alloc] init];
-                    nextView.urlMedia = url;
-                    [self.navigationController pushViewController:nextView animated:YES];
-                    [nextView release];
-                    //return;                    
-                } else {                    
-                    NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
-                                            [NSString valueOf:[Api userId]], @"userid",
-                                            nil];
-                    NSDictionary *map = [Api post:url params:params];                    
-                    if (map.count > 0) {
-                        NSString *status =[NSString stringWithFormat:@"%d", [Api getInt:[map objectForKey:@"status"]]];
-                        // NSLog(@"%@",status);    
-                        if ([status isEqualToString:@"404"]) {
-                            //跳到空码赋值
-                            UCKmaViewController *nextView = [[UCKmaViewController alloc] init];
-                            //nextView.bKma = YES; // 标记为空码赋值富媒体
-                            nextView.code = iskma;
-                            nextView.curImage = [Api generateImageWithInput:input];
-                            [self.navigationController pushViewController:nextView animated:YES];
-                            [nextView release];
-                            //return;                            
-                        } else {
-                            //进行解码
-                            if([[map objectForKey:@"data"] isKindOfClass:[NSString class]])
-                            {                                
-                                //NSLog(@"//普通解码");
-                                [_content release];
-                                _content=nil;
-                                _content =  [[NSString stringWithFormat:@"%@%@", API_CODE_PREFIX,[map objectForKey:@"data"]] retain];
-                                [self decodeInput];
-                            } else {
-                                //NSLog(@"//服媒体");
-                                UCRichMedia *nextView = [[UCRichMedia alloc] init];
-                                nextView.urlMedia = url;
-                                [self.navigationController pushViewController:nextView animated:YES];
-                                [nextView release];
-                                // return;
-                            }
-                        }
-                    }
-                }
-                // 请求服务器
-            } else {
-                // 普通码规则, 前两位是十六进制串
-                const char *s = [[str substringToIndex:2] UTF8String];
-                int type = -1;
-                sscanf(s, "%02X", &type);
-                if (type > 0) {
-                    // 已经取到类型了, 进一步剥离类型, 取的编码串
-                    str = [str substringFromIndex:2];
-                    // 下面的这个数组的内容, 就是从A开始的连续的值
-                    NSDictionary *list = [BusDecoder parse0:str];
-                    _type = type - 1;
-                    if (type == kModelUrl) {
-                        _titleLabel.text= @"网址解码";
-                        Url *object = [[BusDecoder decode:list className:@"Url"]retain];
-                        [_titleArray addObject:@"网址"];
-                        [_contentArray addObject:object.content];
-                        [_typeArray addObject:[NSNumber numberWithInt:LinkTypeUrl]];
-                        _showInfo = object.content;
-                        logId = object.logId;
-                        [object release];
-                    } else if(type == kModelBookMark) {
-                        _titleLabel.text= @"书签解码";
-                        BookMark *object =[[BusDecoder decode:list className:@"BookMark"]retain];
-                        [_titleArray addObject:@"网址名称"];
-                        [_titleArray addObject:@"网址"];
-                        [_contentArray addObject:object.title];
-                        [_contentArray addObject:object.url];
-                        [_typeArray addObject:[NSNumber numberWithInt:LinkTypeTitle]];
-                        [_typeArray addObject:[NSNumber numberWithInt:LinkTypeUrl]];
-                        _showInfo = object.title;
-                        logId = object.logId;
-                        [object release];
-                    } else if(type == kModelAppUrl) {
-                        AppUrl *object = [[BusDecoder decode:list className:@"AppUrl"]retain];
-                        _titleLabel.text= @"应用程序解码";
-                        
-                        [_titleArray addObject:@"应用名称"];
-                        [_titleArray addObject:@"下载地址"];
-                        [_contentArray addObject:object.title];
-                        [_contentArray addObject:object.url];
-                        [_typeArray addObject:[NSNumber numberWithInt:LinkTypeTitle]];
-                        [_typeArray addObject:[NSNumber numberWithInt:LinkTypeAppUrl]];
-                        _showInfo = object.url;
-                        logId = object.logId;
-                        [object release];
-                    } else if(type == kModelWeibo) {
-                        _titleLabel.text= @"微博解码";
-                        Weibo *object =[[BusDecoder decode:list className:@"Weibo"]retain];
-                        [_titleArray addObject:@"博主"];
-                        [_titleArray addObject:@"微博地址"];
-                        [_contentArray addObject:object.title];
-                        [_contentArray addObject:object.url];
-                        [_typeArray addObject:[NSNumber numberWithInt:LinkTypeTitle]];
-                        [_typeArray addObject:[NSNumber numberWithInt:LinkTypeUrl]];
-                        _showInfo = object.title;
-                        logId = object.logId;
-                        [object release];                        
-                    } else if(type == kModelCard) {
-                        DecodeCardViewControlle *cardView = [[DecodeCardViewControlle alloc] initWithNibName:@"DecodeCardViewControlle" category:_category result:str withImage:_image withType:HistoryTypeFavAndHistory withSaveImage:_saveImage];
-                        [self.navigationController pushViewController:cardView animated:YES];
-                        RELEASE_SAFELY(cardView);                        
-                    } else if(type == kModelPhone) {                        
-                        _titleLabel.text= @"电话解码";
-                        Phone *object = [[BusDecoder decode:list className:@"Phone"]retain];
-                        [_titleArray addObject:@"电话号码"];
-                        [_contentArray addObject:object.telephone];
-                        [_typeArray addObject:[NSNumber numberWithInt:LinkTypeCardPhone]];
-                        _showInfo = object.telephone;
-                        logId = object.logId;
-                        [object release];                        
-                    } else if(type == kModelEmail) {
-                        _titleLabel.text= @"电子邮件解码";
-                        Email *object = [[BusDecoder decode:list className:@"Email"]retain];
-                        [_titleArray addObject:@"标题"];
-                        [_titleArray addObject:@"E-Mail"];
-                        [_titleArray addObject:@"内容"];
-                        [_contentArray addObject:object.title];
-                        [_contentArray addObject:object.mail];
-                        [_contentArray addObject:object.content];
-                        [_typeArray addObject:[NSNumber numberWithInt:LinkTypeEmailText]];
-                        [_typeArray addObject:[NSNumber numberWithInt:LinkTypeEmailText]];
-                        [_typeArray addObject:[NSNumber numberWithInt:LinkTypeEmailText]];
-                        _hideContentIndex = 2;
-                        _showInfo = object.title;
-                        logId = object.logId;
-                        [object release];
-                    }  else if(type == kModelText) {
-                        _titleLabel.text= @"文本解码";
-                        Text *object =[[BusDecoder decode:list className:@"Text"]retain];
-                        [_titleArray addObject:@"文本内容"];
-                        [_contentArray addObject:object.content];
-                        [_typeArray addObject:[NSNumber numberWithInt:LinkTypeText]];
-                        _hideContentIndex = 0;
-                        _showInfo = object.content;
-                        logId = object.logId;
-                        [object release];                        
-                    } else if(type == kModelEncText) {
-                        _titleLabel.text= @"加密文本解码";
-                        [self showAlertView:@"输入密码"];                        
-                    } else if(type == kModelShortMessage) {
-                        _titleLabel.text= @"短信解码";
-                        ShortMessage *object = [[BusDecoder decode:list className:@"ShortMessage"] retain];
-                        [_titleArray addObject:@"接收人"];
-                        [_titleArray addObject:@"短信内容"];
-                        [_contentArray addObject:object.phone];
-                        [_contentArray addObject:object.content];
-                        [_typeArray addObject:[NSNumber numberWithInt:LinkTypePhone]];
-                        [_typeArray addObject:[NSNumber numberWithInt:LinkTypeSms]];
-                        _hideContentIndex = 1;
-                        _showInfo = object.content;
-                        logId = object.logId;
-                        [object release];                        
-                    } else if(type == kModelWiFiText) {
-                        _titleLabel.text= @"WIFI解码";
-                        WiFiText *object =[[BusDecoder decode:list className:@"WiFiText"]retain];
-                        [_titleArray addObject:@"名称"];
-                        [_titleArray addObject:@"密码"];
-                        [_contentArray addObject:object.name];
-                        [_contentArray addObject:object.password];
-                        [_typeArray addObject:[NSNumber numberWithInt:LinkTypeTitle]];
-                        [_typeArray addObject:[NSNumber numberWithInt:LinkTypeTitle]];
-                        _showInfo = object.name;
-                        logId = object.logId;
-                        [object release];
-                    } else if(type == kModelGMap) {
-                        _titleLabel.text= @"地图解码";
-                        GMap *object = [[BusDecoder decode:list className:@"GMap"]retain];
-                        [_titleArray addObject:@"坐标"];
-                        [_contentArray addObject:object.url];
-                        [_typeArray addObject:[NSNumber numberWithInt:LinkTypeMap]];
-                        NSArray *arr = [object.url componentsSeparatedByString:@"="];
-                        if ([arr count] > 0) {
-                            _showInfo = [[arr objectAtIndex:1] retain];
-                            arr = [_showInfo componentsSeparatedByString:@"&"];
-                            if (arr) {
-                                _showInfo = [[arr objectAtIndex:0] retain];
-                            } else {
-                                _showInfo = object.url;
-                            }
-                        } else {
-                            _showInfo = object.url;
-                        }
-                        logId = object.logId;
-                        [object release];
-                    } else if(type == kModelSchedule) {
-                        _titleLabel.text= @"日程解码";
-                        Schedule *object = [[BusDecoder decode:list className:@"Schedule"] retain];
-                        [_titleArray addObject:@"时间"];
-                        [_titleArray addObject:@"标题"];
-                        [_titleArray addObject:@"内容"];
-                        [_contentArray addObject:object.date];
-                        [_contentArray addObject:object.title];
-                        [_contentArray addObject:object.content];
-                        [_typeArray addObject:[NSNumber numberWithInt:LinkTypeText]];
-                        [_typeArray addObject:[NSNumber numberWithInt:LinkTypeText]];
-                        [_typeArray addObject:[NSNumber numberWithInt:LinkTypeText]];
-                        _hideContentIndex = 2;
-                        _showInfo = object.title;
-                        logId = object.logId;
-                        [object release];
-                    }
-                }
+    NSString *logId = @"";
+    BaseModel *bm = [[Api parse:_content timeout:30] retain];
+    if (bm.typeId == kModelPhone) {
+        _titleLabel.text= @"电话解码";
+        Phone *object = (Phone *)bm;
+        [_titleArray addObject:@"电话号码"];
+        [_contentArray addObject:object.telephone];
+        [_typeArray addObject:[NSNumber numberWithInt:LinkTypeCardPhone]];
+        _showInfo = object.telephone;
+        logId = object.logId;
+        [object release];
+    } else if(bm.typeId == kModelShortMessage){
+        _titleLabel.text= @"短信解码";
+        ShortMessage *object = (ShortMessage *)bm;
+        [_titleArray addObject:@"接收人"];
+        [_titleArray addObject:@"短信内容"];
+        [_contentArray addObject:object.phone];
+        [_contentArray addObject:object.content];
+        [_typeArray addObject:[NSNumber numberWithInt:LinkTypePhone]];
+        [_typeArray addObject:[NSNumber numberWithInt:LinkTypeSms]];
+        _hideContentIndex = 1;
+        _showInfo = object.content;
+        logId = object.logId;
+        [object release];
+    }else if(bm.typeId == kModelEmail){
+        _titleLabel.text= @"电子邮件解码";
+        Email *object = (Email *)bm;
+        [_titleArray addObject:@"标题"];
+        [_titleArray addObject:@"E-Mail"];
+        [_titleArray addObject:@"内容"];
+        [_contentArray addObject:object.title];
+        [_contentArray addObject:object.mail];
+        [_contentArray addObject:object.content];
+        [_typeArray addObject:[NSNumber numberWithInt:LinkTypeEmailText]];
+        [_typeArray addObject:[NSNumber numberWithInt:LinkTypeEmailText]];
+        [_typeArray addObject:[NSNumber numberWithInt:LinkTypeEmailText]];
+        _hideContentIndex = 2;
+        _showInfo = object.title;
+        logId = object.logId;
+        [object release];
+    }else if(bm.typeId == kModelBookMark){
+        _titleLabel.text= @"书签解码";
+        BookMark *object = (BookMark *)bm;
+        [_titleArray addObject:@"网址名称"];
+        [_titleArray addObject:@"网址"];
+        [_contentArray addObject:object.title];
+        [_contentArray addObject:object.url];
+        [_typeArray addObject:[NSNumber numberWithInt:LinkTypeTitle]];
+        [_typeArray addObject:[NSNumber numberWithInt:LinkTypeUrl]];
+        _showInfo = object.title;
+        logId = object.logId;
+        [object release];
+    }else if(bm.typeId == kModelSchedule){
+        _titleLabel.text= @"日程解码";
+        Schedule *object = (Schedule *)bm;
+        [_titleArray addObject:@"时间"];
+        [_titleArray addObject:@"标题"];
+        [_titleArray addObject:@"内容"];
+        [_contentArray addObject:[self getStringFromString:object.date]];
+        [_contentArray addObject:object.title];
+        [_contentArray addObject:object.content];
+        [_typeArray addObject:[NSNumber numberWithInt:LinkTypeText]];
+        [_typeArray addObject:[NSNumber numberWithInt:LinkTypeText]];
+        [_typeArray addObject:[NSNumber numberWithInt:LinkTypeText]];
+        _hideContentIndex = 2;
+        _showInfo = object.title;
+        logId = object.logId;
+        [object release];
+    }else if(bm.typeId == kModelText){
+        _titleLabel.text= @"文本解码";
+        Text *object = (Text *)bm;
+        [_titleArray addObject:@"文本内容"];
+        [_contentArray addObject:object.content];
+        [_typeArray addObject:[NSNumber numberWithInt:LinkTypeText]];
+        _hideContentIndex = 0;
+        _showInfo = object.content;
+        logId = object.logId;
+        [object release];
+    }else if(bm.typeId == kModelEncText){
+        _titleLabel.text= @"加密文本解码";
+        [self showAlertView:@"输入密码"];
+    }else if(bm.typeId == kModelWiFiText){
+        _titleLabel.text= @"WIFI解码";
+        WiFiText *object = (WiFiText *)bm;;
+        [_titleArray addObject:@"名称"];
+        [_titleArray addObject:@"密码"];
+        [_contentArray addObject:object.name];
+        [_contentArray addObject:object.password];
+        [_typeArray addObject:[NSNumber numberWithInt:LinkTypeTitle]];
+        [_typeArray addObject:[NSNumber numberWithInt:LinkTypeTitle]];
+        _showInfo = object.name;
+        logId = object.logId;
+        [object release];
+    }else if(bm.typeId == kModelUrl){
+        _titleLabel.text= @"网址解码";
+        Url *object = (Url *)bm;;
+        [_titleArray addObject:@"网址"];
+        [_contentArray addObject:object.content];
+        [_typeArray addObject:[NSNumber numberWithInt:LinkTypeUrl]];
+        _showInfo = object.content;
+        logId = object.logId;
+        [object release];
+    }else if(bm.typeId == kModelWeibo){
+        _titleLabel.text= @"微博解码";
+        Weibo *object = (Weibo *)bm;;
+        [_titleArray addObject:@"博主"];
+        [_titleArray addObject:@"微博地址"];
+        [_contentArray addObject:object.title];
+        [_contentArray addObject:object.url];
+        [_typeArray addObject:[NSNumber numberWithInt:LinkTypeTitle]];
+        [_typeArray addObject:[NSNumber numberWithInt:LinkTypeUrl]];
+        _showInfo = object.title;
+        logId = object.logId;
+        [object release];
+    }else if(bm.typeId == kModelGMap){
+        _titleLabel.text= @"地图解码";
+        GMap *object = (GMap *)bm;;
+        [_titleArray addObject:@"坐标"];
+        [_contentArray addObject:object.url];
+        [_typeArray addObject:[NSNumber numberWithInt:LinkTypeMap]];
+        NSArray *arr = [object.url componentsSeparatedByString:@"="];
+        if ([arr count]>0) {
+            _showInfo = [[arr objectAtIndex:1] retain];
+            arr = [_showInfo componentsSeparatedByString:@"&"];
+            if (arr) {
+                _showInfo = [[arr objectAtIndex:0] retain];
+            }else{
+                _showInfo = object.url;
             }
-        } else {
-            if ([input hasPrefix:@"http://"]) {
-                // 网址类型
-                Url *object = [[[Url alloc] init] retain];
-                [object setContent:input];
-                _titleLabel.text= @"网址解码";
-                [_titleArray addObject:@"网址"];
-                [_contentArray addObject:object.content];
-                [_typeArray addObject:[NSNumber numberWithInt:LinkTypeUrl]];
-                _showInfo = object.content;
-                logId = object.logId;
-                [object release];
-                // oRet = u;
-            } else {
-                // 文本类型
-                Text *object = [[[Text alloc] init] retain];
-                [object setContent:input];
-                //oRet = t;
-                _titleLabel.text= @"文本解码";
-                
-                [_titleArray addObject:@"文本内容"];
-                [_contentArray addObject:object.content];
-                [_typeArray addObject:[NSNumber numberWithInt:LinkTypeText]];
-                _hideContentIndex = 0;
-                _showInfo = object.content;
-                logId = object.logId;
-                [object release];
-            }
+        }else{
+            _showInfo = object.url;
         }
+        logId = object.logId;
+        [object release];
+    }else if(bm.typeId == kModelAppUrl){
+        _titleLabel.text= @"应用程序解码";
+        AppUrl *object = (AppUrl *)bm;;
+        [_titleArray addObject:@"应用名称"];
+        [_titleArray addObject:@"下载地址"];
+        [_contentArray addObject:object.title];
+        [_contentArray addObject:object.url];
+        [_typeArray addObject:[NSNumber numberWithInt:LinkTypeTitle]];
+        [_typeArray addObject:[NSNumber numberWithInt:LinkTypeAppUrl]];
+        _showInfo = object.url;
+        logId = object.logId;
+        [object release];
+    } else {
+        _titleLabel.text= @"文本解码";
+        [_titleArray addObject:@"文本"];
+        [_contentArray addObject:_content];
+        [_typeArray addObject:[NSNumber numberWithInt:LinkTypeText]];
+        _hideContentIndex = 0;
+        _showInfo = _content;
     }
-    
     [_tableView reloadData];
     if (_historyType == HistoryTypeFavAndHistory) {
-        //       if (logId) {
-        //            [self sendMessage:logId];
-        //        }
+        if (logId) {
+            [self sendMessage:logId];
+        }
         [self saveHistory];
     }
 }
+
 
 -(void)requestDidFinishLoad:(ITTBaseDataRequest *)request{
     if ([request isKindOfClass:[ScanLogDataRequest class]]) {
