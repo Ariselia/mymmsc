@@ -266,7 +266,6 @@ static NSString *URL_FLAG = @"://";
     return [[subFlag uppercaseString] isEqualToString:busTag];
 }
 
-
 + (BusCategory *)classify:(NSString *)input{
     if(input == nil){
         return nil;
