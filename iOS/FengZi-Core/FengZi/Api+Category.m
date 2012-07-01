@@ -57,7 +57,7 @@
 	return self;
 }
 
-+ (Class)getType:(CodeType)codeType{
++ (Class)getType:(BusinessType)codeType{
     Class clazz = nil;
     switch (codeType) {
 		case kModelUrl:
@@ -118,7 +118,7 @@
 			break;
 		case kModelRide:
 			// 0F-顺风车
-			//clazz = KMA.class;
+			clazz = Ride.class;
 			break;
 		default:
 			// 默认
@@ -527,6 +527,12 @@
 - (Class)pageListClass{
     return MediaPage.class;
 }
+
+@end
+
+//--------------------< 业务类型 - 对象 - 顺风车 >--------------------
+
+@implementation Ride
 
 @end
 
