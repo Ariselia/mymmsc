@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "BusCategory.h"
+#import <FengZi/BusCategory.h>
 #import <MessageUI/MessageUI.h>
 #import "DecodeBusinessCell.h"
 #import "ITTDataRequest.h"
