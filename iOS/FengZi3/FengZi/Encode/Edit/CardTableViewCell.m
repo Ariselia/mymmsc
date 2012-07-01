@@ -49,13 +49,14 @@
         [_delegate editEnd:_textField.text key:[NSString stringWithFormat:@"%dfield",_indexPath.row]];
     }
 }
--(void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event{
+
+- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event{
     if (_delegate && [_delegate respondsToSelector:@selector(hideKeyBoard)]) {
         [_delegate hideKeyBoard];
     }
 }
 
--(void)addPhoneButton:(UIButton*)btn{
+- (void)addPhoneButton:(UIButton*)btn{
     btn.frame = CGRectMake(275, 21, 30, 30);
     CGRect rect = _textField.frame;
     rect.size = CGSizeMake(rect.size.width-50, rect.size.height);
@@ -74,6 +75,7 @@
     }
     return YES;
 }
+
 /*
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.
