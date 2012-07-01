@@ -355,7 +355,7 @@ static NSString *URL_FLAG = @"://";
         category.type = CATEGORY_CARD;
         if(logIDPos != NSNotFound){				
             category.channel=CARD_CHANNEL_FXF;
-        }else{
+        } else {
             category.channel=CARD_CHANNEL_CMC;
         }
         
@@ -363,30 +363,21 @@ static NSString *URL_FLAG = @"://";
     }
     
     if([BusDecoder isThisBus:flage bugTag:@"BEGIN"]){
-        
-        category.type=CATEGORY_CARD;			
-        category.channel=CARD_CHANNEL_VCARD;
-        
+        category.type = CATEGORY_CARD;
+        category.channel = CARD_CHANNEL_VCARD;
         return category;
-    }
-    
+    }    
     if([BusDecoder isThisBus:flage bugTag:@"MECARD"]){
-        
-        category.type=CATEGORY_CARD;			
-        category.channel=CARD_CHANNEL_MECARD;
-        
+        category.type = CATEGORY_CARD;
+        category.channel = CARD_CHANNEL_MECARD;
         return category;
-    }
-    
+    }    
     //书签，微薄，url，地图
     if([BusDecoder isThisBus:flage bugTag:CATEGORY_BOOKMARK]){
-        
         NSMutableDictionary *content = [BusDecoder parser:input];
-                
-        NSString *type = [content objectForKey:@"T"];
-        
+        NSString *type = [content objectForKey:@"T"];        
         if(type != nil && [type intValue] == WEIBO){
-            category.type = CATEGORY_WEIBO;			
+            category.type = CATEGORY_WEIBO;
             category.channel = WEIBO_CHANNEL_FXF;
             return category;
         }
@@ -403,43 +394,36 @@ static NSString *URL_FLAG = @"://";
             return category;
         }
         
-        
-        if([content objectForKey:@"SUB"] != nil){ //书签、微薄类				
-            
+        if([content objectForKey:@"SUB"] != nil){
+            //书签、微薄类
             category.type =  CATEGORY_BOOKMARK;	
             if([content objectForKey:@"P"]!= nil){
                 category.channel=BM_CHANNEL_FXF;
-            }else{
+            } else {
                 category.channel=BM_CHANNEL_CMC;
             }
-            
             return category;
-        }else{//url中分地图/应用和普通url
-            
+        }else{
+            //url中分地图/应用和普通url
             category.type = CATEGORY_URL;	
-            category.channel=URL_CHANNEL_FXF;
-            
+            category.channel = URL_CHANNEL_FXF;
             return category;
         }
     }
     
     if([BusDecoder isThisBus:flage bugTag:@"MEBKM"]){
-        
-        category.type=CATEGORY_BOOKMARK;			
-        category.channel=BM_CHANNEL_TO;
-        
+        category.type = CATEGORY_BOOKMARK;
+        category.channel = BM_CHANNEL_TO;
         return category;
     }
     
     //文本业务
     if([BusDecoder isThisBus:flage bugTag:CATEGORY_TEXT]){
-        
-        category.type=CATEGORY_TEXT;
-        
-        if(logIDPos != NSNotFound){				
-            category.channel=DTXT_CHANNEL_FXF;
-        }else{
-            category.channel=DTXT_CHANNEL_CMC;
+        category.type=CATEGORY_TEXT;        
+        if(logIDPos != NSNotFound){
+            category.channel = DTXT_CHANNEL_FXF;
+        } else {
+            category.channel = DTXT_CHANNEL_CMC;
         }
         
         return category;
@@ -447,99 +431,75 @@ static NSString *URL_FLAG = @"://";
     
     //加密文本业务
     if([BusDecoder isThisBus:flage bugTag:CATEGORY_ENCTEXT]){
-        
-        category.type=CATEGORY_ENCTEXT;			
-        category.channel=ENCTEXT_CHANNEL_FXF;
-        
+        category.type = CATEGORY_ENCTEXT;
+        category.channel = ENCTEXT_CHANNEL_FXF;
         return category;
     }
     
     //wifi业务
     if([BusDecoder isThisBus:flage bugTag:CATEGORY_WIFI]){
-        
-        category.type=CATEGORY_WIFI;			
-        category.channel=WIFI_CHANNEL_FXF;
-        
+        category.type = CATEGORY_WIFI;
+        category.channel = WIFI_CHANNEL_FXF;
         return category;
     }
     
     //电话号码
     if([BusDecoder isThisBus:flage bugTag:CATEGORY_PHONE]){
-        
-        category.type=CATEGORY_PHONE;
-        
-        if(logIDPos != NSNotFound){				
-            category.channel=PHONE_CHANNEL_FXF;
-        }else{
-            category.channel=PHONE_CHANNEL_CMC;
+        category.type = CATEGORY_PHONE;
+        if(logIDPos != NSNotFound){
+            category.channel = PHONE_CHANNEL_FXF;
+        } else {
+            category.channel = PHONE_CHANNEL_CMC;
         }
-        
         return category;
     }
-    
     if([BusDecoder isThisBus:flage bugTag:@"TEL"]){
-        
-        category.type=CATEGORY_PHONE;			
-        category.channel=PHONE_CHANNEL_TEL;
-        
+        category.type = CATEGORY_PHONE;
+        category.channel = PHONE_CHANNEL_TEL;
         return category;
-    }
-    
+    }    
     //短信业务
     if([BusDecoder isThisBus:flage bugTag:CATEGORY_SHORTMESS]){
-        
-        category.type=CATEGORY_SHORTMESS;
-        
-        if(logIDPos != NSNotFound){				
-            category.channel=SMS_CHANNEL_FXF;
-        }else{
-            category.channel=SMS_CHANNEL_CMC;
-        }
-        
+        category.type = CATEGORY_SHORTMESS;
+        if(logIDPos != NSNotFound){
+            category.channel = SMS_CHANNEL_FXF;
+        } else {
+            category.channel = SMS_CHANNEL_CMC;
+        }        
         return category;
     }
     
     if([BusDecoder isThisBus:flage bugTag:@"SMSTO"]){
-        
-        category.type=CATEGORY_SHORTMESS;			
-        category.channel=SMS_CHANNEL_TO;
-        
+        category.type = CATEGORY_SHORTMESS;
+        category.channel = SMS_CHANNEL_TO;
         return category;
     }
     
     //电子邮件业务
     if([BusDecoder isThisBus:flage bugTag:CATEGORY_EMAIL]){
-        
-        category.type=CATEGORY_EMAIL;
-        
-        if(logIDPos != NSNotFound){				
-            category.channel=MAIL_CHANNEL_FXF;
-        }else{
-            category.channel=MAIL_CHANNEL_CMC;
+        category.type = CATEGORY_EMAIL;        
+        if(logIDPos != NSNotFound){
+            category.channel = MAIL_CHANNEL_FXF;
+        } else {
+            category.channel = MAIL_CHANNEL_CMC;
         }
-        
         return category;
     }
     
     if([BusDecoder isThisBus:flage bugTag:@"SMTP"]){
-        
-        category.type=CATEGORY_EMAIL;			
-        category.channel=MAIL_CHANNEL_TO;
-        
+        category.type = CATEGORY_EMAIL;
+        category.channel = MAIL_CHANNEL_TO;
         return category;
-    }		
+    }
     if([BusDecoder isThisBus:flage bugTag:@"MAILTO"]){
-        
-        category.type=CATEGORY_EMAIL;			
-        category.channel=MAIL_CHANNEL_MAILTO;
-        
+        category.type = CATEGORY_EMAIL;
+        category.channel = MAIL_CHANNEL_MAILTO;
         return category;
-    }	
+    }
     //日程
     if([BusDecoder isThisBus:flage bugTag:CATEGORY_SCHEDULE]){
-        
-        category.type=CATEGORY_SCHEDULE;			
-        category.channel=SCH_CHANNEL_FXF;
+        category.type = CATEGORY_SCHEDULE;
+        category.channel = SCH_CHANNEL_FXF;
         return category;
     }
     
