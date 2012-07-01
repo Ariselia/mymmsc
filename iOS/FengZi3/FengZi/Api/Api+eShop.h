@@ -6,7 +6,7 @@
 //  Copyright (c) 2012年 mymmsc.org. All rights reserved.
 //
 
-#import "Api.h"
+#import <FengZi/Api.h>
 #import <iOSApi/iOSApi+Crypto.h>
 #import <iOSApi/iOSFile.h>
 //====================================< 数字商城 - 接口 >====================================
