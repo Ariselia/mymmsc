@@ -9,7 +9,6 @@
 #import "Api+Database.h"
 //====================================< 本地数据库 - 接口 >====================================
 #import "FileUtil.h"
-#import "Api.h"
 //--------------------< 本地数据库 - 接口 - eFile >--------------------
 #import "Api+eFile.h"
 #import <iOSApi/iOSDatabase.h>
