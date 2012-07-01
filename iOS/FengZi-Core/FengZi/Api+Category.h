@@ -8,7 +8,10 @@
 
 #import "Api.h"
 
-typedef enum CodeType{
+#ifdef __cplusplus
+extern "C" {
+#endif
+typedef enum BusinessType{
     // 基础类型
 	kModelBASE = 0x00,
 	// URL
@@ -51,7 +54,7 @@ typedef enum CodeType{
 	kModelERROR_KMA = (kModelERROR_BASE | kModelBASE),
 	/** 富媒体请求异常时的码类型 */
 	kModelERROR_RICHMEDIA = (kModelERROR_BASE | kModelRichMedia)
-}CodeType;
+}BusinessType;
 
 typedef enum{
     BOOKMARK = 0,
@@ -59,6 +62,10 @@ typedef enum{
     GMAP,
     APP
 } UrlType;
+
+#ifdef __cplusplus
+}
+#endif
 
 //--------------------< 业务类型 - 对象 - 基础业务模型 >--------------------
 @interface BaseModel : NSObject{
@@ -70,7 +77,7 @@ typedef enum{
 @property (nonatomic, assign) Byte typeId;
 @property (nonatomic, copy) NSString *logId;
 
-+ (Class)getType:(CodeType)codeType;
++ (Class)getType:(BusinessType)codeType;
 
 @end
 
@@ -91,14 +98,14 @@ typedef enum{
     NSString *_content;
     NSString *_image;
     NSString *_date;
-    CodeType _type;
+    BusinessType _type;
 }
 
 @property (nonatomic, copy) NSString *image;
 @property (nonatomic, copy) NSString *date;
 @property (nonatomic, copy) NSString *content;
 @property (nonatomic, assign) int uuid;
-@property (nonatomic, assign) CodeType type;
+@property (nonatomic, assign) BusinessType type;
 @end
 
 //--------------------< 业务类型 - 对象 - 历史记录 >--------------------
@@ -107,7 +114,7 @@ typedef enum{
     NSString *_content;
     NSString *_image;
     NSString *_date;
-    CodeType _type;
+    BusinessType _type;
     BOOL _isEncode;
 }
 
@@ -115,7 +122,7 @@ typedef enum{
 @property (nonatomic, copy) NSString *date;
 @property (nonatomic, copy) NSString *content;
 @property (nonatomic, assign) int uuid;
-@property (nonatomic, assign) CodeType type;
+@property (nonatomic, assign) BusinessType type;
 @property (nonatomic, assign) BOOL isEncode;
 @end
 
@@ -319,6 +326,14 @@ typedef enum{
 
 // 媒体页数据类型
 - (Class)pageListClass;
+
+@end
+
+//--------------------< 业务类型 - 对象 - 顺风车 >--------------------
+
+@interface Ride : BaseModel {
+    //
+}
 
 @end
 
