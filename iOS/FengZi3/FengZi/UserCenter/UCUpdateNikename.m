@@ -321,15 +321,11 @@
             isOpenBtn = [[UIButton alloc]initWithFrame:isOpenFreame];
             UIImage *isOpenImg ;
             isOpen = ucInfo.isopen;
-            if (ucInfo.isopen) {
-                
-            isOpenImg=[UIImage imageNamed:@"check_ok.png"];
-
+            if (ucInfo.isopen == 0) {
+                isOpenImg = [UIImage imageNamed:@"check_ok.png"];
                 [isOpenBtn setImage:isOpenImg forState:0];
-            }
-            else {
-                isOpenImg=[UIImage imageNamed:@"check_or.png"];
-                
+            } else {
+                isOpenImg = [UIImage imageNamed:@"check_or.png"];
                 [isOpenBtn setImage:isOpenImg forState:0];
             }
             
@@ -343,8 +339,8 @@
             [input setObject: isopen];
             */
             
-            [input setObject: isOpenBtn];
-            [items addObject: input];
+            [input setObject:isOpenBtn];
+            [items addObject:input];
             [isOpenImg release];
         }
         if (bEdit || ucInfo.isopen == 0) {
@@ -649,18 +645,14 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     int xHeight = 44;
-    
     if (idDest > 0 && indexPath.row == 0) {
         xHeight = 60;
     }
-    
-	return xHeight;
+ 	return xHeight;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    
     static NSString *CellIdentifier = @"Cell";
-    
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
         cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier] autorelease];
@@ -674,8 +666,7 @@
     if (idDest > 0 && indexPath.row == 0) {
         
          image = [[UIImage imageNamed:@"uc-cell.png"]toSize:CGSizeMake(320, 60)];
-    }
-    else {
+    } else {
         image = [[UIImage imageNamed:@"uc-cell.png"]toSize:CGSizeMake(320, 44)];
     }
     
@@ -775,7 +766,7 @@
 	[alert release];
 }
 
--(void) alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger) buttonIndex{
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger) buttonIndex{
     if (buttonIndex == 1) {
         NSString *msg = [content.text trim];
         if (msg.length < 1) {
@@ -790,19 +781,16 @@
 }
 
 
--(void)checkOpen
+- (void)checkOpen
 {
-    isOpen=(!isOpen);
+    isOpen = (!isOpen);
     UIImage *isOpenImg;
-    if (isOpen) {
-    
-    isOpenImg=[UIImage imageNamed:@"check_ok.png"];
-    
-    [isOpenBtn setImage:isOpenImg forState:0];
-    }   else {
-    isOpenImg=[UIImage imageNamed:@"check_or.png"];
-    
-    [isOpenBtn setImage:isOpenImg forState:0];
+    if (isOpen == 0) {
+        isOpenImg =[UIImage imageNamed:@"check_ok.png"];
+        [isOpenBtn setImage:isOpenImg forState:0];
+    } else {
+        isOpenImg = [UIImage imageNamed:@"check_or.png"];
+        [isOpenBtn setImage:isOpenImg forState:0];
     }
     [isOpenImg release];
 }
