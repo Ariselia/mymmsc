@@ -6,13 +6,12 @@
 //
 
 #import "DecodeBusinessViewController.h"
-#import "BusDecoder.h"
-#import "Api+Category.h"
+#import <FengZi/BusDecoder.h>
+#import <FengZi/Api+Category.h>
 #import "FileUtil.h"
 #import "Api+Database.h"
-#import "Api+Category.h"
 #import "CommonUtils.h"
-#import "EncryptTools.h"
+#import <FengZi/PSeudoBase64.h>
 #import "SHK.h"
 #import "SHKMail.h"
 #import "ShareView.h"
@@ -22,7 +21,6 @@
 #import "UCKmaViewController.h"
 #import <objc/runtime.h>
 #import <CommonCrypto/CommonDigest.h> // Need to import for CC_MD5 access
-#import "Api.h"
 #import "UITableViewCellExt.h"
 
 #include <stdlib.h>
@@ -89,7 +87,7 @@
 
 -(void)sendMessage:(NSString*)logId{
     NSString *appAtt = [NSString stringWithFormat:@"eqn=%@&type=%@&stype=%d&loc=%@",[[UIDevice currentDevice] uniqueIdentifier],[DATA_ENV getDecodeType:_category.type],DATA_ENV.curScanType,DATA_ENV.curLocation];
-    appAtt = [EncryptTools Base64EncryptString:appAtt];
+    appAtt = [PseudoBase64 encode:appAtt];
     [ScanLogDataRequest silentRequestWithDelegate:self withParameters:[NSDictionary dictionaryWithObjectsAndKeys:logId,@"c",appAtt,@"a", nil]];
 }
 
@@ -201,7 +199,7 @@
             // 是码开头的, 截取字符串, 去掉前缀
             NSString *str = [input substringFromIndex:[API_CODE_PREFIX length]];
             if ([str hasPrefix:@"id="]) {
-                _type = BusinessTypeRichMedia;
+                _type = kModelRichMedia;
                 // 富媒体, 或者空码, 转换地址
                 NSString *iskma = [str substringFromIndex:3];
                 NSString *url = [NSString stringWithFormat:@"%@/apps/getCode.action?%@",API_APPS_SERVER,str];
@@ -734,7 +732,7 @@
 
 -(void)finishShare:(NSNotification*)notification{
     NSString *info= [NSString stringWithFormat:@"eqn=%@&version=%@",[[UIDevice currentDevice] uniqueIdentifier],[iOSApi version]];
-    info = [EncryptTools Base64EncryptString:info];
+    info = [PseudoBase64 encode:info];
     NSString *type = [notification.userInfo objectForKey:@"type"];
     if ([type isEqualToString:@"sina"]) {
         [WeiboShareLogDataRequest silentRequestWithDelegate:self withParameters:[NSDictionary dictionaryWithObjectsAndKeys:@"0",@"t",info,@"a", nil]];
@@ -747,7 +745,7 @@
 
 -(void)finishShareAuth:(NSNotification*)notification{
     NSString *info= [NSString stringWithFormat:@"eqn=%@&version=%@",[[UIDevice currentDevice] uniqueIdentifier],[iOSApi version]];
-    info = [EncryptTools Base64EncryptString:info];
+    info = [PseudoBase64 encode:info];
     NSString *type = [notification.userInfo objectForKey:@"type"];
     if ([type isEqualToString:@"sina"]) {
         [AuthorizeLogDataRequest silentRequestWithDelegate:self withParameters:[NSDictionary dictionaryWithObjectsAndKeys:@"0",@"t",info,@"a", nil]];
