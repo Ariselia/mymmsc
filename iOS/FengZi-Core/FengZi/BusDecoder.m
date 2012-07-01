@@ -329,10 +329,12 @@ static NSString *URL_FLAG = @"://";
         if([BusDecoder isUrl:input]){
             category.type = CATEGORY_URL;
             category.channel = URL_CHANNEL_HTTP;
+            category.codeType = kModelUrl;
         } else {
             category.type = CATEGORY_TEXT;
             category.channel = DTXT_CHANNEL_DEDAULT;
-        }
+            category.codeType = kModelText;
+        }        
         return category;
     }
     
@@ -347,6 +349,7 @@ static NSString *URL_FLAG = @"://";
         } else {
             category.channel = CARD_CHANNEL_CMC;
         }
+        category.codeType = kModelRichMedia;
         return category;
     }
     
@@ -357,18 +360,21 @@ static NSString *URL_FLAG = @"://";
             category.channel = CARD_CHANNEL_FXF;
         } else {
             category.channel = CARD_CHANNEL_CMC;
-        }        
+        }
+        category.codeType = kModelCard;
         return category;
     }
     
     if([BusDecoder isThisBus:flage bugTag:@"BEGIN"]){
         category.type = CATEGORY_CARD;
         category.channel = CARD_CHANNEL_VCARD;
+        category.codeType = kModelCard;
         return category;
     }    
     if([BusDecoder isThisBus:flage bugTag:@"MECARD"]){
         category.type = CATEGORY_CARD;
         category.channel = CARD_CHANNEL_MECARD;
+        category.codeType = kModelCard;
         return category;
     }    
     //书签，微薄，url，地图
@@ -378,18 +384,21 @@ static NSString *URL_FLAG = @"://";
         if(type != nil && [type intValue] == WEIBO){
             category.type = CATEGORY_WEIBO;
             category.channel = WEIBO_CHANNEL_FXF;
+            category.codeType = kModelWeibo;
             return category;
         }
         
         if(type != nil && [type intValue] == GMAP){
-            category.type=CATEGORY_GMAP;			
-            category.channel=GMAP_CHANNEL_FXF;
+            category.type = CATEGORY_GMAP;			
+            category.channel = GMAP_CHANNEL_FXF;
+            category.codeType = kModelGMap;
             return category;
         }
         
         if(type != nil && [type intValue] == APP){
-            category.type=CATEGORY_APP;			
-            category.channel=APP_CHANNEL_FXF;
+            category.type = CATEGORY_APP;			
+            category.channel = APP_CHANNEL_FXF;
+            category.codeType = kModelAppUrl;
             return category;
         }
         
@@ -401,11 +410,13 @@ static NSString *URL_FLAG = @"://";
             } else {
                 category.channel=BM_CHANNEL_CMC;
             }
+            category.codeType = kModelBookMark;
             return category;
-        }else{
+        } else {
             //url中分地图/应用和普通url
             category.type = CATEGORY_URL;	
             category.channel = URL_CHANNEL_FXF;
+            category.codeType = kModelUrl;
             return category;
         }
     }
@@ -413,6 +424,7 @@ static NSString *URL_FLAG = @"://";
     if([BusDecoder isThisBus:flage bugTag:@"MEBKM"]){
         category.type = CATEGORY_BOOKMARK;
         category.channel = BM_CHANNEL_TO;
+        category.codeType = kModelBookMark;
         return category;
     }
     
@@ -424,7 +436,7 @@ static NSString *URL_FLAG = @"://";
         } else {
             category.channel = DTXT_CHANNEL_CMC;
         }
-        
+        category.codeType = kModelText;
         return category;
     }
     
@@ -432,6 +444,7 @@ static NSString *URL_FLAG = @"://";
     if([BusDecoder isThisBus:flage bugTag:CATEGORY_ENCTEXT]){
         category.type = CATEGORY_ENCTEXT;
         category.channel = ENCTEXT_CHANNEL_FXF;
+        category.codeType = kModelEncText;
         return category;
     }
     
@@ -439,6 +452,7 @@ static NSString *URL_FLAG = @"://";
     if([BusDecoder isThisBus:flage bugTag:CATEGORY_WIFI]){
         category.type = CATEGORY_WIFI;
         category.channel = WIFI_CHANNEL_FXF;
+        category.codeType = kModelWiFiText;
         return category;
     }
     
@@ -450,13 +464,15 @@ static NSString *URL_FLAG = @"://";
         } else {
             category.channel = PHONE_CHANNEL_CMC;
         }
+        category.codeType = kModelPhone;
         return category;
     }
     if([BusDecoder isThisBus:flage bugTag:@"TEL"]){
         category.type = CATEGORY_PHONE;
         category.channel = PHONE_CHANNEL_TEL;
+        category.codeType = kModelPhone;
         return category;
-    }    
+    }
     //短信业务
     if([BusDecoder isThisBus:flage bugTag:CATEGORY_SHORTMESS]){
         category.type = CATEGORY_SHORTMESS;
@@ -464,13 +480,15 @@ static NSString *URL_FLAG = @"://";
             category.channel = SMS_CHANNEL_FXF;
         } else {
             category.channel = SMS_CHANNEL_CMC;
-        }        
+        }
+        category.codeType = kModelShortMessage;
         return category;
     }
     
     if([BusDecoder isThisBus:flage bugTag:@"SMSTO"]){
         category.type = CATEGORY_SHORTMESS;
         category.channel = SMS_CHANNEL_TO;
+        category.codeType = kModelShortMessage;
         return category;
     }
     
@@ -482,23 +500,27 @@ static NSString *URL_FLAG = @"://";
         } else {
             category.channel = MAIL_CHANNEL_CMC;
         }
+        category.codeType = kModelEmail;
         return category;
     }
     
     if([BusDecoder isThisBus:flage bugTag:@"SMTP"]){
         category.type = CATEGORY_EMAIL;
         category.channel = MAIL_CHANNEL_TO;
+        category.codeType = kModelEmail;
         return category;
     }
     if([BusDecoder isThisBus:flage bugTag:@"MAILTO"]){
         category.type = CATEGORY_EMAIL;
         category.channel = MAIL_CHANNEL_MAILTO;
+        category.codeType = kModelEmail;
         return category;
     }
     //日程
     if([BusDecoder isThisBus:flage bugTag:CATEGORY_SCHEDULE]){
         category.type = CATEGORY_SCHEDULE;
         category.channel = SCH_CHANNEL_FXF;
+        category.codeType = kModelSchedule;
         return category;
     }
     
@@ -523,22 +545,26 @@ static NSString *URL_FLAG = @"://";
             // 富媒体业务
             category.type = CATEGORY_MEDIA;
             category.channel = URL_CHANNEL_HTTP;
+            category.codeType = kModelRichMedia;
             return category;
         } else if([input rangeOfString:kFLAG_KMA].length > 0) {
             // 空码业务
             category.type = CATEGORY_KMA;
             category.channel = URL_CHANNEL_HTTP;
+            category.codeType = kModelRichMedia;
             category.bKma = YES;
             return category;
         } else {
             // 视为传统业务
-            category.type=CATEGORY_URL;
-            category.channel=URL_CHANNEL_HTTP;
+            category.type = CATEGORY_URL;
+            category.channel = URL_CHANNEL_HTTP;
+            category.codeType = kModelUrl;
         }
     } else {
         // 默认为文本业务
-        category.type=CATEGORY_TEXT;
-        category.channel=DTXT_CHANNEL_DEDAULT;
+        category.type = CATEGORY_TEXT;
+        category.channel = DTXT_CHANNEL_DEDAULT;
+        category.codeType = kModelText;
     }
     return category;
 }	
