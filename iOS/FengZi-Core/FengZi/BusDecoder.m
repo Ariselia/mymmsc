@@ -25,7 +25,7 @@ static NSString *URL_FLAG = @"://";
 /**
  * 将冒号和分号分隔的字符串变成一个map对象
  */
-+(NSArray *)parseList:(NSString *)input{
++ (NSArray *)parseList:(NSString *)input{
     NSMutableArray *list = nil;
     if(input != nil){
         list = [[[NSMutableArray alloc] initWithCapacity:0] autorelease];
