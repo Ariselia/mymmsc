@@ -30,14 +30,11 @@
 #import "UCUpdateNikename.h" // 个人空间
 #import "RMRide.h" // 顺风车
 
-
 #import "UCStoreTable.h" // 数字商城
 #import "EBuyPortal.h"   // 电子商城
 #import "EFileMain.h"    // 蜂夹
 #import "GamePortal.h"   // 蜂幸运
 #import "UCLogin.h"
-
-
 
 #define AniInterval 0.3f
 
@@ -56,12 +53,11 @@ static int iTimes = -1;
     [self.navigationController pushViewController:nextView animated:YES];
     [nextView release];
 }
+
 //拉动幕布
 - (IBAction)doCurtain:(id)sender {
    //加载拉动动画和mark显示；
-    
-    if (_isHideCurtain) {
-        
+    if (_isHideCurtain) {        
         frameRect = CGRectMake(0, 0, 320, 480);
         maskView = [[UIView alloc]initWithFrame:frameRect];
         maskView.backgroundColor = [UIColor grayColor];
@@ -82,11 +78,8 @@ static int iTimes = -1;
         [_curtainView setFrame:viewFrame];        
         //完成动画，必须写，不要忘了  
         [UIView commitAnimations];
-
         _isHideCurtain = NO;
-    }
-    else {
-        
+    } else {        
         //加载动画
         [UIView beginAnimations:@"hide" context:nil]; 
         //设置动画移动的时间为slider.value滑块的值  
@@ -99,12 +92,9 @@ static int iTimes = -1;
         [_curtainBtn setFrame:btnFrame];
         [_curtainView setFrame:viewFrame];        
         //完成动画，必须写，不要忘了  
-        [UIView commitAnimations];
-
-        
-        
+        [UIView commitAnimations];        
         [maskView removeFromSuperview];
-        maskView=nil;
+        maskView = nil;
         _isHideCurtain = YES;
         
     }
@@ -239,13 +229,12 @@ static int iTimes = -1;
 
 -(void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
-    
     if(!_isHideNavi){
         self.navigationController.navigationBarHidden = NO;
     }
 }
 
--(void)decoderWithImage:(UIImage*)image{
+- (void)decoderWithImage:(UIImage *)image{
     Decoder *decoder = [[[Decoder alloc] init] autorelease];
     QRCodeReader* qrcodeReader = [[QRCodeReader alloc] init];
     NSSet *readers = [[NSSet alloc ] initWithObjects:qrcodeReader,nil];
@@ -259,13 +248,12 @@ static int iTimes = -1;
 
 - (void)decoder:(Decoder *)decoder didDecodeImage:(UIImage *)image usingSubset:(UIImage *)subset withResult:(TwoDDecoderResult *)twoDResult {
     
-    NSLog(@"twoDResult.text======%@",twoDResult.text);
     [self chooseShowController:twoDResult.text isSave:YES];
 
     decoder.delegate = nil;
 }
 
--(void)decoder:(Decoder *)decoder failedToDecodeImage:(UIImage *)image usingSubset:(UIImage *)subset reason:(NSString *)reason{
+- (void)decoder:(Decoder *)decoder failedToDecodeImage:(UIImage *)image usingSubset:(UIImage *)subset reason:(NSString *)reason{
     ImageDecodeViewController *imageViewController = [[ImageDecodeViewController alloc] initWithNibName:@"ImageDecodeViewController" bundle:nil];
     imageViewController.curImage = image;
     [self.navigationController pushViewController:imageViewController animated:YES];
@@ -327,7 +315,7 @@ static int iTimes = -1;
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
--(void)imageAnimationEnd:(NSTimer *) timer{
+- (void)imageAnimationEnd:(NSTimer *)timer{
     if ([UIImagePickerController availableMediaTypesForSourceType:UIImagePickerControllerSourceTypePhotoLibrary]) {
         
         UIImagePickerController *imagePickerController = [[UIImagePickerController alloc] init];
@@ -363,7 +351,7 @@ static int iTimes = -1;
     }
 }
 
--(void)cameraAnimationEnd:(NSTimer *) timer{
+- (void)cameraAnimationEnd:(NSTimer *) timer{
     ZXingWidgetController *widController = [[ZXingWidgetController alloc] initWithDelegate:self showCancel:YES OneDMode:NO];
     QRCodeReader* qrcodeReader = [[QRCodeReader alloc] init];
     MultiFormatOneDReader *oneDReader = [[MultiFormatOneDReader alloc] init];
@@ -421,7 +409,7 @@ static int iTimes = -1;
     [qrcodeReader release];
 }
 
--(void)webSiteAnimationEnd:(NSTimer *) timer{
+- (void)webSiteAnimationEnd:(NSTimer *) timer{
     WebScanViewController *scanView = [[WebScanViewController alloc] initWithNibName:@"WebScanViewController" bundle:nil];
     [TabBarController hide:YES animated:NO];
     [self.navigationController pushViewController:scanView animated:YES];
