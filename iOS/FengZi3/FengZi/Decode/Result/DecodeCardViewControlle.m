@@ -6,12 +6,12 @@
 //
 
 #import "DecodeCardViewControlle.h"
-#import <FengZi/BusDecoder.h>
 #import "FileUtil.h"
 #import "Api+Database.h"
+#import <FengZi/BusDecoder.h>
 #import <FengZi/Api+Category.h>
-#import "CommonUtils.h"
 #import <FengZi/PseudoBase64.h>
+#import "CommonUtils.h"
 #import "SHK.h"
 #import "ShareView.h"
 #import "CONSTS.h"
@@ -250,7 +250,7 @@
         [object release];
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"已收藏过！" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles: nil];
         [alertView show];
-        RELEASE_SAFELY(alertView);
+        IOSAPI_RELEASE(alertView);
         
     }
     else {
@@ -258,7 +258,7 @@
         [object release];
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"添加收藏成功！" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles: nil];
         [alertView show];
-        RELEASE_SAFELY(alertView);
+        IOSAPI_RELEASE(alertView);
     }
     
     
