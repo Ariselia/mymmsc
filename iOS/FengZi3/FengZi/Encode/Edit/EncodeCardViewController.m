@@ -8,9 +8,10 @@
 
 #import "EncodeCardViewController.h"
 #import "EncodeEditViewController.h"
-#import "Api+Category.h"
+#import <FengZi/Api+Category.h>
 #import "AddressBookUtils.h"
-#import "BusDecoder.h"
+#import <FengZi/BusDecoder.h>
+#import "CommonUtils.h"
 
 #define Name_field @"0field"
 #define Address_field @"8field"
@@ -54,35 +55,35 @@
     if (![dic objectForKey:Name_field]||[[dic objectForKey:Name_field] isEqualToString:@""]) {
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"姓名不能为空！" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles: nil];
         [alertView show];
-        RELEASE_SAFELY(alertView);
+        IOSAPI_RELEASE(alertView);
         return;
     }
     NSString *text = [dic objectForKey:Url_field];
     if (text && ![text isEqualToString:@""] && ![BusDecoder isUrl:text]) {
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"公司网址格式不正确！" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles: nil];
         [alertView show];
-        RELEASE_SAFELY(alertView);
+        IOSAPI_RELEASE(alertView);
         return;
     }
     text = [dic objectForKey:Telephone_field];
     if (text && ![text isEqualToString:@""] && ![CommonUtils validateCellPhone:text]) {
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"固定电话话格式不正确！" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles: nil];
         [alertView show];
-        RELEASE_SAFELY(alertView);
+        IOSAPI_RELEASE(alertView);
         return;
     }
     text = [dic objectForKey:Cellphone_field];
     if (text && ![text isEqualToString:@""] && ![CommonUtils validateCellPhone:text]) {
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"移动电话格式不正确！" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles: nil];
         [alertView show];
-        RELEASE_SAFELY(alertView);
+        IOSAPI_RELEASE(alertView);
         return;
     }
     text = [dic objectForKey:Email_field];
     if (text && ![text isEqualToString:@""] && ![CommonUtils validateEmail:text]) {
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"电子邮箱格式不正确！" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles: nil];
         [alertView show];
-        RELEASE_SAFELY(alertView);
+        IOSAPI_RELEASE(alertView);
         return;
     }
     Card *card = [[[Card alloc] init] autorelease];
