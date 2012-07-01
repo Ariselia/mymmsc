@@ -335,8 +335,7 @@ static NSString *URL_FLAG = @"://";
         return category;
     }
     
-    NSString *flage = [input substringToIndex:position];
-    
+    NSString *flage = [input substringToIndex:position];    
     int logIDPos = [input rangeOfString:[NSString stringWithFormat:@"%@%@",ALL_LOGID,SEPERATOR_PRE]].location;
     
     // 富媒体业务
