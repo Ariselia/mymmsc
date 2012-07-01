@@ -174,7 +174,7 @@
     _saveBtn.enabled = YES;
 }
 
--(void)generateCode{
+- (void)generateCode{
     NSArray *arr = [UIUtil changeUIColorToRGB:_curColor];
     int red = [[arr objectAtIndex:0] intValue];
     int green = [[arr objectAtIndex:1] intValue];
