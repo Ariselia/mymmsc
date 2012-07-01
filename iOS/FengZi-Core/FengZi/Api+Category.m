@@ -538,6 +538,7 @@
 
 //====================================< 词条 - 接口 >====================================
 #import <iOSApi/iOSApi+Reflex.h>
+#import "BusDecoder.h"
 
 @implementation Api (Category)
 
@@ -636,34 +637,90 @@
 
 + (id)parseV2Common:(NSString *)string{
     id oRet = nil;
+    BusCategory *bc = [BusDecoder classify:string];
+    if (bc != nil) {
+        BusinessType codeType = bc.codeType;
+        switch (codeType) {
+            case kModelUrl:
+                // 01-URL
+                oRet = [BusDecoder decodeUrl:string channel:bc.channel];
+                break;
+            case kModelBookMark:
+                // 02-书签
+                oRet = [BusDecoder decodeBookMark:string channel:bc.channel];
+                break;
+            case kModelAppUrl:
+                // 03-应用程序链接地址
+                oRet = [BusDecoder decodeAppUrl:string];
+                break;
+            case kModelWeibo:
+                // 04-微博
+                oRet = [BusDecoder decodeWeibo:string];
+                break;
+            case kModelCard:
+                // 05-名片
+                oRet = [BusDecoder decodeCard:string channel:bc.channel];
+                break;
+            case kModelPhone:
+                // 06-电话号码
+                oRet = [BusDecoder decodePhone:string channel:bc.channel];
+                break;
+            case kModelEmail:
+                // 07-电子邮件
+                oRet = [BusDecoder decodeEmail:string channel:bc.channel];
+                break;
+            case kModelText:
+                // 08-文本
+                oRet = [BusDecoder decodeText:string channel:bc.channel];
+                break;
+            case kModelEncText:
+                // 09-名片
+                oRet = [BusDecoder decodeEncText:string key:@""];
+                break;
+            case kModelShortMessage:
+                // 0A-短信
+                oRet = [BusDecoder decodeShortmessage:string channel:bc.channel];
+                break;
+            case kModelWiFiText:
+                // 0B-WIFI
+                oRet = [BusDecoder decodeWifiText:string];
+                break;
+            case kModelGMap:
+                // 0C-地图
+                oRet = [BusDecoder decodeGMap:string];
+                break;
+            case kModelSchedule:
+                // 0D-日程
+                oRet = [BusDecoder decodeSchedule:string];
+                break;
+            case kModelRichMedia:
+                // 0E-富媒体
+                break;
+            case kModelRide:
+                // 0F-顺风车
+                break;
+            default:
+                // 默认
+                break;
+        }
+    }
     return oRet;
 }
 
 + (id)parseV2Kma:(NSString *)string timeout:(int)timeout {
     id oRet = nil;
-    if ([string hasPrefix:V2CODE_PREFIX]) {
-        // 是码开头的, 截取字符串, 去掉前缀
-        NSString *str = [string substringFromIndex:[V2CODE_PREFIX length]];
-        if ([str hasPrefix:@"id="]) {
-            // 富媒体, 或者空码, 转换地址
-            NSString *iskma = [str substringFromIndex:3];
-            NSString *url = [NSString stringWithFormat:@"%@/apps/getCode.action?%@", API_APPS_SERVER, str];
-            if([iskma rangeOfString:@"-"].length>0) {
-                NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
-                                        [NSString valueOf:[Api userId]], @"userid",
-                                        nil];
-                NSDictionary *map = [Api post:url params:params];
-                if (map.count > 0) {
-                    NSDictionary *data = [map objectForKey:@"data"];
-                    if([data isKindOfClass:[NSString class]]) {
-                        oRet = [self parseV3Common:str];
-                    } else {
-                        oRet = [data toObject:RichMedia.class];
-                    }
-                }
+    if ([string hasPrefix:V2CODE_PREFIX] || [string hasPrefix:V2KMA_PREFIX]) {
+        NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
+                                [NSString valueOf:[Api userId]], @"userid",
+                                nil];
+        NSDictionary *map = [Api post:string params:params];
+        if (map.count > 0) {
+            NSDictionary *data = [map objectForKey:@"data"];
+            if([data isKindOfClass:[NSString class]]) {
+                oRet = [self parseV3Common:(NSString *)data];
+            } else {
+                oRet = [data toObject:RichMedia.class];
             }
-        } else {
-            // 普通业务, 略过
         }
     }
     return oRet;

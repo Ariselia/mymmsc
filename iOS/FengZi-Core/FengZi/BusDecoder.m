@@ -277,7 +277,7 @@ static NSString *URL_FLAG = @"://";
         const char *s = [[str substringToIndex:2] UTF8String];
         int type = -1;
         sscanf(s, "%02X", &type);
-        category.codeType = type & 0x0F;
+        category.codeType = type;
         if(type == kModelUrl) {
             category.type = CATEGORY_URL;	
             category.channel = URL_CHANNEL_FXF;
