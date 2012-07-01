@@ -57,12 +57,11 @@ static const char * getPropertyType(objc_property_t property) {
 + (NSString *)encode:(id)obj type:(int)type{
     NSMutableString *buffer = [[[NSMutableString alloc] initWithCapacity:0] autorelease];
     //判断是不是服媒体；
-    if(type == 13) {
+    if(type >= kModelRichMedia) {
         RichMedia *richObject= obj;  
         NSString *codeid= richObject.url;
         [buffer appendString:[NSString stringWithFormat:@"%@id=%@",FENGZI_URL,codeid]];
     } else {
-        type = type + 1;
         if(obj == nil) {
             return buffer;
         }
@@ -124,8 +123,7 @@ static const char * getPropertyType(objc_property_t property) {
  * @param card
  * @return
  */
-+(NSString*)encodeCard:(Card*) card{
-    
++ (NSString *)encodeCard:(Card *) card{
     NSMutableString *buffer = [[[NSMutableString alloc] initWithCapacity:0] autorelease];
     if(card == nil){
         return buffer;
