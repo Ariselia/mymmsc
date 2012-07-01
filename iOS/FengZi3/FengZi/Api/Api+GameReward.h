@@ -6,7 +6,7 @@
 //  Copyright (c) 2012年 ifengzi.cn. All rights reserved.
 //
 
-#import "Api.h"
+#import <FengZi/Api.h>
 
 //====================================< 蜂幸运 - 对象 >====================================
 
