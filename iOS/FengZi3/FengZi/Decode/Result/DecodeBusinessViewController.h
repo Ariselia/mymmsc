@@ -36,7 +36,7 @@
 - (NSString *)getString16:(int)type;
 - (IBAction)addFavirote:(id)sender;
 
-@property(nonatomic,retain)NSString *_showInfo;
-@property(nonatomic,retain)NSString *_content;
+@property(nonatomic, retain)NSString *_showInfo;
+@property(nonatomic, retain)NSString *_content;
 
 @end
