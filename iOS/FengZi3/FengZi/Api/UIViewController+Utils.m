@@ -153,7 +153,6 @@ static NSString *s_luckyId = nil;
                     if (map.count > 0) {
                         if([[map objectForKey:@"data"] isKindOfClass:[NSString class]])
                         {
-                            
                             //NSLog(@"//普通解码");
                             NSString *_content=nil;
                             _content =  [[NSString stringWithFormat:@"%@%@", API_CODE_PREFIX,[map objectForKey:@"data"]] retain];
