@@ -10,8 +10,8 @@
 #import <QuartzCore/QuartzCore.h>
 #import "Api+Database.h"
 #import "DecodeCardViewControlle.h"
-#import "BusDecoder.h"
-#import "BusCategory.h"
+#import <FengZi/BusDecoder.h>
+#import <FengZi/BusCategory.h>
 #import "DecodeBusinessViewController.h"
 #import <ZXing/QRCodeReader.h>
 #import <ZXing/TwoDDecoderResult.h>
@@ -191,8 +191,6 @@
     FaviroteObject *object = [_favArray objectAtIndex:indexPath.row];
     cell.textLabel.text = object.content;
     cell.textLabel.font = [UIFont systemFontOfSize:16];
-    
-    
     cell.imageView.image = [DATA_ENV getTableImage:object.type];
     
     cell.detailTextLabel.text = object.date;
