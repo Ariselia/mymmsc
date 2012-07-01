@@ -84,6 +84,7 @@ typedef enum{
 @property (nonatomic, assign) Byte typeId;
 @property (nonatomic, copy) NSString *logId;
 
+- (NSString *)typeName;
 + (Class)getType:(BusinessType)codeType;
 
 @end
