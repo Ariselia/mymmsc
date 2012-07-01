@@ -152,7 +152,7 @@
 - (void)gotoEditController:(BusinessType)type{
     DATA_ENV.curBusinessType = type;
     UIViewController *viewController;
-    switch (type + 1) {
+    switch (type) {
         case kModelAppUrl:
             viewController = [[EncodeAppUrlViewController alloc] initWithNibName:@"EncodeAppUrlViewController" bundle:nil];
             break;
