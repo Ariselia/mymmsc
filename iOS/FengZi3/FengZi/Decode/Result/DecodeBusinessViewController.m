@@ -172,12 +172,12 @@
 }
 
 
-- (BOOL)isHaveString:(NSString*)content param:(NSString*)param
+- (BOOL)isHaveString:(NSString *)content param:(NSString *)param
 {
     NSRange range = [content rangeOfString: param];
     if (range.length > 0) {
         return YES;
-    }else {
+    } else {
         return NO;
     }
 }
