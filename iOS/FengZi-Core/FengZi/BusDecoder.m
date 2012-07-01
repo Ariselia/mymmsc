@@ -326,12 +326,12 @@ static NSString *URL_FLAG = @"://";
     if(position == NSNotFound || range.length == 0){
         //不存在：，可能是http链接，或者文本
         if([BusDecoder isUrl:input]){
-            category.type=CATEGORY_URL;
-            category.channel=URL_CHANNEL_HTTP;
+            category.type = CATEGORY_URL;
+            category.channel = URL_CHANNEL_HTTP;
         } else {
-            category.type=CATEGORY_TEXT;
-            category.channel=DTXT_CHANNEL_DEDAULT;
-        }        
+            category.type = CATEGORY_TEXT;
+            category.channel = DTXT_CHANNEL_DEDAULT;
+        }
         return category;
     }
     
