@@ -20,7 +20,7 @@
     return self;
 }
 
-- (NSArray*)getParamsWithArray:(NSArray *)arr{
+- (NSArray *)getParamsWithArray:(NSArray *)arr{
     CGPoint startPoint = CGPointFromString([arr objectAtIndex:0]);
     CGPoint endPoint = CGPointFromString([arr objectAtIndex:1]);
     CGPoint midPoint = CGPointFromString([arr objectAtIndex:2]);
@@ -40,50 +40,51 @@
 
 - (void)awakeFromNib{
     [super awakeFromNib];
-    _offsetWidth = 320.0/5;
+    _offsetWidth = 320.0 / 5;
     _offsetHeight = 50;
     _curSelectedIndex = BUSINESS_NUM/2;
     _lastSelectedIndex = _curSelectedIndex;
     _scrollView.contentSize = CGSizeMake(4000, _scrollView.bounds.size.height);
     CGFloat contentWidth = [_scrollView contentSize].width;
     _offsetX = (contentWidth - [_scrollView bounds].size.width) / 2.0;
-    CGFloat leftOffsetX= _offsetX-_offsetWidth*(_curSelectedIndex-3);
+    CGFloat leftOffsetX = _offsetX - _offsetWidth * (_curSelectedIndex - 3);
     
-    CGPoint startPoint = CGPointMake(_offsetWidth*(_curSelectedIndex-3)+_offsetWidth/2+leftOffsetX-5,90);
-    CGPoint endPoint = CGPointMake(_offsetWidth*(_curSelectedIndex+1)+_offsetWidth/2+leftOffsetX+5,90);
-    CGPoint midPoint = CGPointMake(_offsetWidth*(_curSelectedIndex-1)+_offsetWidth/2+leftOffsetX, 24);
+    CGPoint startPoint = CGPointMake(_offsetWidth * (_curSelectedIndex - 3) + _offsetWidth / 2 +leftOffsetX - 5, 90);
+    CGPoint endPoint = CGPointMake(_offsetWidth * (_curSelectedIndex + 1) + _offsetWidth / 2 +leftOffsetX + 5, 90);
+    CGPoint midPoint = CGPointMake(_offsetWidth * (_curSelectedIndex - 1) + _offsetWidth / 2 +leftOffsetX, 24);
     NSArray *parr = [self getParamsWithArray:[[[NSArray alloc] initWithObjects:NSStringFromCGPoint(startPoint),NSStringFromCGPoint(endPoint),NSStringFromCGPoint(midPoint), nil] autorelease]];
     _paramA = [[parr objectAtIndex:0] floatValue];
     _paramB = [[parr objectAtIndex:1] floatValue];
     _paramC = [[parr objectAtIndex:2] floatValue];
     _startIndex = 0;
     _startIndex2 = 0;
+    int span = 1;
     for (int i = 0; i < BUSINESS_NUM; i++) {
-        float offsetX = i*_offsetWidth+_offsetWidth/2+leftOffsetX;
-        float offsetY = _paramA*offsetX*offsetX + _paramB*offsetX + _paramC;
+        float offsetX = i * _offsetWidth + _offsetWidth / 2 + leftOffsetX;
+        float offsetY = _paramA * offsetX * offsetX + _paramB * offsetX + _paramC;
         
         UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
-        btn.frame=CGRectMake(0, 0, _offsetWidth-4, _offsetHeight);
+        btn.frame = CGRectMake(0, 0, _offsetWidth - 4, _offsetHeight);
         btn.center = CGPointMake(offsetX, fabsf(offsetY));
-        btn.tag = 2000+i;
+        btn.tag = 2000 + i;
         [btn addTarget:self action:@selector(thumbDidClick:) forControlEvents:UIControlEventTouchUpInside];
-        [btn setImage:[DATA_ENV getBusinessImage:i select:NO]  forState:UIControlStateNormal];
-        [btn setImage:[DATA_ENV getBusinessImage:i select:NO]  forState:UIControlStateHighlighted];
-        [btn setImage:[DATA_ENV getBusinessImage:i select:YES]  forState:UIControlStateSelected];
+        [btn setImage:[DATA_ENV getBusinessImage:i + span select:NO]  forState:UIControlStateNormal];
+        [btn setImage:[DATA_ENV getBusinessImage:i + span select:NO]  forState:UIControlStateHighlighted];
+        [btn setImage:[DATA_ENV getBusinessImage:i + span select:YES]  forState:UIControlStateSelected];
         [_scrollView addSubview:btn];
-        btn.selected = i == _lastSelectedIndex-1;
+        btn.selected = i == _lastSelectedIndex - 1;
     }
-    _scrollView.contentOffset=CGPointMake(_offsetX, 0);
+    _scrollView.contentOffset = CGPointMake(_offsetX, 0);
     _goBtn.enabled = YES;
 }
 
--(void)endAnimation{
+- (void)endAnimation{
     _goBtn.enabled = YES;
 }
 
--(void)resetScrollContent:(BOOL)animation{
+- (void)resetScrollContent:(BOOL)animation{
     _startIndex = _startIndex2;
-    CGFloat leftOffsetX= _offsetX - _offsetWidth *(BUSINESS_NUM / 2 - 3);
+    CGFloat leftOffsetX = _offsetX - _offsetWidth * (BUSINESS_NUM / 2 - 3);
     if (animation) {
         NSTimeInterval animationDuration = 0.3;
         [UIView beginAnimations:@"pull" context:nil];
@@ -92,21 +93,21 @@
         [UIView setAnimationDelegate:self];
         if (_lastSelectedIndex != _curSelectedIndex) {
             [UIView setAnimationDidStopSelector:@selector(goNextAnimation)];
-        }else{
+        } else {
             [UIView setAnimationDidStopSelector:@selector(endAnimation)];
         }
     }
-    for (int i = 0; i<BUSINESS_NUM; i++) {
+    for (int i = 0; i < BUSINESS_NUM; i++) {
         int offsetTmp = 0;
-        if(i==BUSINESS_NUM/2-2){
+        if(i == BUSINESS_NUM / 2 -2){
             offsetTmp = -10;
-        }else if(i==BUSINESS_NUM/2){
+        } else if(i == BUSINESS_NUM / 2){
             offsetTmp = 10;
         }
         float offsetX = i*_offsetWidth+_offsetWidth/2+leftOffsetX+offsetTmp;
         float offsetY = _paramA*offsetX*offsetX + _paramB*offsetX + _paramC;
-        int temp = _startIndex2+i;
-        if (temp>=BUSINESS_NUM) {
+        int temp = _startIndex2 + i;
+        if (temp >= BUSINESS_NUM) {
             temp = temp - BUSINESS_NUM;
         }
         int tag = 2000+temp;
@@ -216,8 +217,8 @@
 }
 
 - (IBAction)gotoEdit:(id)sender {
-    if (_delegate&&[_delegate respondsToSelector:@selector(gotoEditController:)]) {
-        [_delegate gotoEditController:_curSelectedIndex];
+    if (_delegate && [_delegate respondsToSelector:@selector(gotoEditController:)]) {
+        [_delegate gotoEditController:_curSelectedIndex + 1];
     }
 }
 
