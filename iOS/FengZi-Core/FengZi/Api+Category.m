@@ -628,7 +628,7 @@
                 }
             }
         } else {
-            // 普通业务略过
+            // 普通业务, 略过
         }
     }
     return oRet;
@@ -641,6 +641,31 @@
 
 + (id)parseV2Kma:(NSString *)string timeout:(int)timeout {
     id oRet = nil;
+    if ([string hasPrefix:V2CODE_PREFIX]) {
+        // 是码开头的, 截取字符串, 去掉前缀
+        NSString *str = [string substringFromIndex:[V2CODE_PREFIX length]];
+        if ([str hasPrefix:@"id="]) {
+            // 富媒体, 或者空码, 转换地址
+            NSString *iskma = [str substringFromIndex:3];
+            NSString *url = [NSString stringWithFormat:@"%@/apps/getCode.action?%@", API_APPS_SERVER, str];
+            if([iskma rangeOfString:@"-"].length>0) {
+                NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
+                                        [NSString valueOf:[Api userId]], @"userid",
+                                        nil];
+                NSDictionary *map = [Api post:url params:params];
+                if (map.count > 0) {
+                    NSDictionary *data = [map objectForKey:@"data"];
+                    if([data isKindOfClass:[NSString class]]) {
+                        oRet = [self parseV3Common:str];
+                    } else {
+                        oRet = [data toObject:RichMedia.class];
+                    }
+                }
+            }
+        } else {
+            // 普通业务, 略过
+        }
+    }
     return oRet;
 }
 
