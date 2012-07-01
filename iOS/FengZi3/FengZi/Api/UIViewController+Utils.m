@@ -127,7 +127,7 @@ static NSString *s_luckyId = nil;
 }
 
 // 解码入口
-- (void)chooseShowController:(NSString *)input isSave:(BOOL)isSave{
+- (void)chooseShowController_OLD:(NSString *)input isSave:(BOOL)isSave{
     iOSLog(@"input = [%@]", input);
     input = [iOSApi urlDecode:input];
     BusCategory *_category = [BusDecoder classify:input];
@@ -501,6 +501,267 @@ static NSString *s_luckyId = nil;
                 }
                 return;
             } else if (info.type == 15) {
+                // 顺风车业务
+                RMRide *nextView = [[RMRide alloc] init];
+                nextView.maId = xcode;
+                nextView.maUrl = url;
+                [self.navigationController pushViewController:nextView animated:YES];
+                [nextView release];
+                return;
+            } else {
+                iTimes = kCODE_KMA;
+                [self chooseShowController:info.tranditionContent isSave:isSave];
+                return;
+            }
+        }
+        UCKmaViewController *nextView = [[UCKmaViewController alloc] init];
+        //nextView.bKma = YES; // 标记为空码赋值富媒体
+        nextView.code = xcode;
+        nextView.curImage = [Api generateImageWithInput:input];
+        [self.navigationController pushViewController:nextView animated:YES];
+        [nextView release];
+        return;
+    } else {
+        // 墙贴条件判断判断 [WangFeng at 2012/05/14 11:31]
+        EWall *param = [Api getWall:category content:input];
+        if (param != nil) {
+            EWallView *nextView = [[EWallView alloc] init];
+            nextView.param = param;
+            [self.navigationController pushViewController:nextView animated:YES];
+            [nextView release];
+            return;
+        } else {
+            // 默认传统业务 [WangFeng at 2012/05/14 11:31]
+            if (isSave) {
+                DecodeBusinessViewController *businessView = [[DecodeBusinessViewController alloc] initWithNibName:@"DecodeBusinessViewController" category:category result:input image:inputImage withType:HistoryTypeFavAndHistory withSaveImage:saveImage];
+                [self.navigationController pushViewController:businessView animated:YES];
+                RELEASE_SAFELY(businessView);
+                return;
+            } else {
+                DecodeBusinessViewController *businessView = [[DecodeBusinessViewController alloc] initWithNibName:@"DecodeBusinessViewController" category:category result:input image:inputImage withType:HistoryTypeNone withSaveImage:saveImage];
+                [self.navigationController pushViewController:businessView animated:YES];
+                RELEASE_SAFELY(businessView);
+                return;
+                
+            }
+        }
+    }
+}
+
+
+// 个人中心, 商城跳转
+- (BOOL)jumpDigital:(NSString *)url{
+    BOOL bRet = NO;
+    if (url != nil && [url hasPrefix:API_URL_SHOW]) {
+        NSDictionary *dict = [url uriParams];
+        NSString *userId = [dict objectForKey:@"userId"];
+        UCUpdateNikename *nextView = [[UCUpdateNikename alloc] init];
+        nextView.idDest = [userId intValue];
+        [self.navigationController pushViewController:nextView animated:YES];
+        [nextView release];
+        bRet = YES;
+    } else if (url != nil && [url hasPrefix:API_QRCODE_ESHOP]) {
+        // 数字商城
+        NSDictionary *dict = [url uriParams];
+        NSString *maId = [dict objectForKey:@"id"];
+        if ([iOSApi regexpMatch:maId withPattern:@"[0-9]+"]) {
+            UCStoreInfo *nextView = [[UCStoreInfo alloc] init];
+            nextView.productId = [maId intValue];
+            [self.navigationController pushViewController:nextView animated:YES];
+            [nextView release];
+            bRet = YES;
+        }
+    }
+    ApiCode *code = [[ApiCode codeWithUrl:url] retain];
+    if (code != nil) {
+        BOOL bGoto = NO;
+        // eshop:数字商城, ebuy:电商; Ctype->shanghu:商户,shangpin:商品;Id->用户id或者商品id
+        // 数字商城
+        if ([code.shopType isSame:@"eshop"]) {
+            UCStoreInfo *nextView = [[UCStoreInfo alloc] init];
+            nextView.productId = code.id.intValue;
+            [self.navigationController pushViewController:nextView animated:YES];
+            [nextView release];
+            bGoto = YES;
+        } else if ([code.shopType isSame:@"ebuy"]) {
+            // 电子商城
+            if ([code.cType isSame:@"shanghu"]) {
+                // 商户
+                EBProductList *nextView = [[EBProductList alloc] init];
+                nextView.way = 0;
+                nextView.typeId = code.id;
+                [self.navigationController pushViewController:nextView animated:YES];
+                [nextView release];
+            } else {
+                // 商品
+                EBProductDetail *nextView = [[EBProductDetail alloc] init];
+                nextView.param = code.id;
+                [self.navigationController pushViewController:nextView animated:YES];
+                [nextView release];
+            }
+            bGoto = YES;
+        }
+        [code release];
+        // 如果跳转了, 返回, 否则按照其它业务规则继续处理
+        if (bGoto) {
+            bRet = YES;
+        }
+    }
+    
+    return bRet;
+}
+
+// 富媒体跳转
+- (BOOL)jumpRichMedia:(int)jumpType content:(NSString *)content{
+    BOOL bRet = YES;
+    if (jumpType == API_RMJUMP_WWW || jumpType == API_RMJUMP_URL_PRICE) {
+        // 网站链接
+        NSString *content = [iOSApi urlDecode:content];
+        if (![content hasPrefix:@"http"]) {
+            content = [NSString stringWithFormat:@"http://%@", content];
+        }
+        [iOSApi openUrl:content];
+    } else if (jumpType == API_RMJUMP_URL_PRICE) {
+        // 优惠价链接
+    } else if (jumpType == API_RMJUMP_ESHOP_SHOP) {
+        // 数字商城 - 商户
+        UCStoreTable *nextView = [[UCStoreTable alloc] init];
+        nextView.person = content.intValue;
+        nextView.page = 1;
+        nextView.bPerson = YES;
+        [self.navigationController pushViewController:nextView animated:YES];
+        [nextView release];
+    } else if (jumpType == API_RMJUMP_ESHOP_PROD) {
+        // 数字商城 - 商品
+        UCStoreInfo *nextView = [[UCStoreInfo alloc] init];
+        nextView.productId = content.intValue;
+        [self.navigationController pushViewController:nextView animated:YES];
+        [nextView release];
+    } else if (jumpType == API_RMJUMP_EBUY_SHOP) {
+        // 电子商城 - 商户
+        EBProductList *nextView = [[EBProductList alloc] init];
+        nextView.way = 0;
+        nextView.typeId = content;
+        [self.navigationController pushViewController:nextView animated:YES];
+        [nextView release];
+    } else if (jumpType == API_RMJUMP_EBUY_PROD) {
+        // 电子商城 - 商品
+        EBProductDetail *nextView = [[EBProductDetail alloc] init];
+        nextView.param = content;
+        [self.navigationController pushViewController:nextView animated:YES];
+        [nextView release];
+    } else if (jumpType == API_RMJUMP_ACTION) {
+        // 活动链接, 数据格式:参数1,参数2. 
+        // 参数1:为游戏 1-轮盘,2-打地鼠,3-开箱子,4-砸蛋
+        // 参数2:商户id
+        NSArray *params = [content split:@","];
+        if (params.count == 1) {
+            IOSAPI_RELEASE(s_luckyId);
+            s_luckyId = [[NSString alloc] initWithString:content];
+            UIAlertView *alert = [[UIAlertView alloc]
+                                  initWithTitle:nil
+                                  message:nil
+                                  delegate:self
+                                  cancelButtonTitle:@"轮盘"
+                                  otherButtonTitles:@"打地鼠",@"开箱子",@"砸金蛋",
+                                  nil];
+            [alert show];
+            [alert release];
+        } else if (params.count > 0) {
+            int n = [[params objectAtIndex:0] intValue];
+            NSString *shopId = [params objectAtIndex:1];
+            [self doGame:n - 1 luckyId:shopId];
+        } else {
+            // 格式不对
+            bRet = NO;
+        }
+    } else {
+        // 默认, 怎么处理
+        bRet = NO;
+    }
+    return bRet;
+}
+
+// 解码入口
+- (void)chooseShowController:(NSString *)input isSave:(BOOL)isSave{
+    iOSLog(@"QRCode-String = [%@]", input);
+    input = [iOSApi urlDecode:input];
+    UIImage *saveImage = [Api generateImageWithInput:input];
+    UIImage *inputImage = saveImage;
+    if (iTimes == kCODE_KMA) {
+        inputImage = saveImage;
+    }
+    
+    if (input == nil) {
+        input = @"";
+    }
+    NSString *url = [Api fixUrl:input];
+    if (url == nil) {
+        url = @"";
+    }
+    BusCategory *category = [BusDecoder classify:input];
+    BusCategory *category_url = [BusDecoder classify:url];
+    [TabBarController hide:NO animated:NO];
+    if ([category.type isEqualToString:CATEGORY_CARD]) {
+        DecodeCardViewControlle *cardView = [[DecodeCardViewControlle alloc] initWithNibName:@"DecodeCardViewControlle" category:category result:input withImage:inputImage withType:HistoryTypeFavAndHistory withSaveImage:saveImage];
+        [self.navigationController pushViewController:cardView animated:YES];
+        RELEASE_SAFELY(cardView);
+    } else if([category.type isEqualToString:CATEGORY_MEDIA] || [category_url.type isEqualToString:CATEGORY_MEDIA] ) {
+        BOOL bJump = NO;
+        NSDictionary *dict = [url uriParams];
+        NSString *isJump = [dict objectForKey:@"issend"];
+        if ([isJump isEqual:@"1"]) {
+            // 富媒体跳转
+            NSString *temp = [dict objectForKey:@"sendtype"];
+            int jumpType = -1;
+            if (temp != nil) {
+                jumpType = temp.intValue;
+            }
+            temp = [dict objectForKey:@"sendcontent"];
+            bJump = [self jumpRichMedia:jumpType content:temp];
+        }
+        if (!bJump) {
+            // 富媒体业务
+            NSLog(@"富媒体业务");
+            UCRichMedia *nextView = [[UCRichMedia alloc] init];
+            nextView.urlMedia = url;
+            [self.navigationController pushViewController:nextView animated:YES];
+            [nextView release];
+        }
+    } else if([category.type isEqualToString:CATEGORY_KMA] || [category_url.type isEqualToString:CATEGORY_KMA] ) {
+        // 空码, 可以调到空码赋值页面, 默认为富媒体
+        NSDictionary *dict = [url uriParams];
+        NSString *xcode = [dict objectForKey:@"id"];
+        [Api kmaSetId:xcode];
+        iOSLog(@"uuid=[%@]", xcode);
+        // 扫码
+        KmaObject *info = [Api kmaContent:url];
+        if (info.isKma == 0) {
+            // 不是空码, 展示
+            if (info.type == kModelRichMedia) {
+                BOOL bJump = NO;
+                MediaContent *media = info.mediaObj;
+                if (media.isSend) {
+                    // 富媒体跳转
+                    NSString *temp = media.sendType;
+                    int jumpType = -1;
+                    if (temp != nil) {
+                        jumpType = temp.intValue;
+                    }
+                    temp = [iOSApi urlDecode:media.sendContent];
+                    bJump = [self jumpRichMedia:jumpType content:temp];
+                }
+                if (!bJump) {
+                    // 富媒体业务
+                    UCRichMedia *nextView = [[UCRichMedia alloc] init];
+                    nextView.urlMedia = nil;
+                    nextView.code = xcode;
+                    [self.navigationController pushViewController:nextView animated:YES];
+                    [nextView release];
+                    return;
+                }
+                return;
+            } else if (info.type == kModelRide) {
                 // 顺风车业务
                 RMRide *nextView = [[RMRide alloc] init];
                 nextView.maId = xcode;
