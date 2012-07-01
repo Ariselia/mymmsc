@@ -2,7 +2,7 @@
 //  DecodeCardCell.m
 //  FengZi
 //
-//  Copyright (c) 2011年 iTotemStudio. All rights reserved.
+//  Copyright (c) 2011年 fengxiafei.com. All rights reserved.
 //
 
 #import "DecodeCardCell.h"
@@ -12,6 +12,7 @@
 @synthesize moreButton = _moreButton;
 @synthesize nameLabel=_nameLabel;
 @synthesize delegate = _delegate;
+
 + (DecodeCardCell*)cellFromNib {
     
     UIViewController *cellController = [[UIViewController alloc] initWithNibName:@"DecodeCardCell" bundle:nil];
@@ -21,6 +22,7 @@
     
     return cell;
 }
+
 -(void)addPhoneButton:(UIButton*)btn withFavirote:(UIButton*)favrBtn{
     _nameLabel.hidden = YES;
     _moreButton.hidden = YES;
@@ -37,6 +39,7 @@
     _contentLabel.backgroundColor=[UIColor clearColor];
 
 }
+
 -(void)initDataWithTitile:(NSString*)title withName:(NSString*)name withType:(LinkType)type{
     _nameLabel.text = title;
     _contentLabel.text = name;
