@@ -343,9 +343,9 @@ static NSString *URL_FLAG = @"://";
     if([[flage uppercaseString] rangeOfString:CATEGORY_MEDIA].location != NSNotFound){
         category.type = CATEGORY_MEDIA;
         if(logIDPos != NSNotFound){				
-            category.channel=CARD_CHANNEL_FXF;
-        }else{
-            category.channel=CARD_CHANNEL_CMC;
+            category.channel = CARD_CHANNEL_FXF;
+        } else {
+            category.channel = CARD_CHANNEL_CMC;
         }
         return category;
     }
@@ -354,11 +354,10 @@ static NSString *URL_FLAG = @"://";
     if([BusDecoder isThisBus:flage bugTag:CATEGORY_CARD]){
         category.type = CATEGORY_CARD;
         if(logIDPos != NSNotFound){				
-            category.channel=CARD_CHANNEL_FXF;
+            category.channel = CARD_CHANNEL_FXF;
         } else {
-            category.channel=CARD_CHANNEL_CMC;
-        }
-        
+            category.channel = CARD_CHANNEL_CMC;
+        }        
         return category;
     }
     
