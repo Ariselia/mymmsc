@@ -8,8 +8,8 @@
 
 #import "EncodeEncTextViewController.h"
 #import "EncodeEditViewController.h"
-#import "Api+Category.h"
-#import "EncryptTools.h"
+#import <FengZi/Api+Category.h>
+#import <FengZi/PseudoBase64.h>
 
 @implementation EncodeEncTextViewController
 
