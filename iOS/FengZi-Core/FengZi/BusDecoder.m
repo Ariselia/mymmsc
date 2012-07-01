@@ -144,14 +144,14 @@ static NSString *URL_FLAG = @"://";
     
 }
 
-+(id)decode:(NSDictionary *)list className:(NSString *)className{
++ (id)decode:(NSDictionary *)list className:(NSString *)className{
     id obj = [iOSApi objectFrom:className];
     [list fillObject:obj];
     return obj;
 }
 
 
-+ (NSMutableDictionary*)parser:(NSString *)input{
++ (NSMutableDictionary *)parser:(NSString *)input{
     if(input == nil){
         return nil;
     }
@@ -165,7 +165,7 @@ static NSString *URL_FLAG = @"://";
         
         if(![c isEqualToString:SEPERATOR_PRE]&& ![c isEqualToString:SEPERATOR_POST]){
             [sb appendString:[NSString stringWithFormat:@"%@",c]];
-        }else{
+        } else {
             if([c isEqualToString:SEPERATOR_PRE]){
                 if(i == 0){
                     continue; //舍弃：
@@ -174,12 +174,11 @@ static NSString *URL_FLAG = @"://";
                     [sb deleteCharactersInRange:NSMakeRange(sb.length - 1, 1)];
                     [sb appendString:[NSString stringWithFormat:@"%@",c]];
                     //preFlagPos = i - 1;
-                }else{
+                } else {
                     [sb appendString:[NSString stringWithFormat:@"%@",c]];
                     if(preFlagPos != 0){
                         [sb deleteCharactersInRange:NSMakeRange(0, preFlagPos + 1)];//删掉不对应的：
                     }
-                    
                     preFlagPos = sb.length - 1; //对应到位置
                 }					
             }
@@ -193,7 +192,7 @@ static NSString *URL_FLAG = @"://";
                     [sb deleteCharactersInRange:NSMakeRange(sb.length - 1, 1)];
                     [sb appendString:[NSString stringWithFormat:@"%@",c]];
                     //preFlagPos = i - 1;
-                }else{
+                } else {
                     NSString *key = [[sb substringToIndex:preFlagPos] stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceAndNewlineCharacterSet]];
                     if(preFlagPos != 0 && ![result objectForKey:key]){
                         [result setObject:[sb substringFromIndex:preFlagPos+1] forKey:key];
@@ -209,7 +208,7 @@ static NSString *URL_FLAG = @"://";
     return result;			
 }
 
-+(BOOL)isAllEnglish:(NSString*)input{
++ (BOOL)isAllEnglish:(NSString* )input{
     if(input == nil || input.length == 0){
         return NO;
     }
@@ -217,6 +216,7 @@ static NSString *URL_FLAG = @"://";
     NSPredicate *test = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", regex]; 
     return [test evaluateWithObject:input];
 }
+
 /**
  * 判读是否为url，两个规则：
  * 1 ://存在，且前面全为英文字母，A-Z,a-z
@@ -224,7 +224,7 @@ static NSString *URL_FLAG = @"://";
  * @param input
  * @return
  */
-+(BOOL)isUrl:(NSString*)input{
++ (BOOL)isUrl:(NSString*)input{
     if(input == nil || input.length == 0){
         return false;
     }
@@ -246,7 +246,7 @@ static NSString *URL_FLAG = @"://";
     return false;		
 }
 
-+(BOOL)isThisBus:(NSString*)flag bugTag:(NSString*)busTag{
++ (BOOL)isThisBus:(NSString *)flag bugTag:(NSString *)busTag{
     int position = -1;
     for(int i = 0; i < flag.length; i ++){
         char notViewChar = [flag characterAtIndex:i];
@@ -267,117 +267,71 @@ static NSString *URL_FLAG = @"://";
 }
 
 
-+(BusCategory*)classify:(NSString*)input{
-    
++ (BusCategory *)classify:(NSString *)input{
     if(input == nil){
         return nil;
-    }
+    }    
     
-    
-    BusCategory *category = [[[BusCategory alloc] init] autorelease];
-    
-    
-  
+    BusCategory *category = [[[BusCategory alloc] init] autorelease];  
     if ([input hasPrefix:API_CODE_PREFIX]) {
         NSString *str = [input substringFromIndex:[API_CODE_PREFIX length]];
-        
         const char *s = [[str substringToIndex:2] UTF8String];
         int type = -1;
-        sscanf(s, "%02X", &type);
-        
-        
-//        BusinessTypeUrl=0,
-//        BusinessTypeBookMark,
-//        BusinessTypeAppUrl,
-//        BusinessTypeWeibo,
-//        BusinessTypeCard,
-//        BusinessTypePhone,
-//        BusinessTypeEmail,
-//        BusinessTypeText,
-//        BusinessTypeEncText,
-//        BusinessTypeShortMessage,
-//        BusinessTypeWifiText,
-//        BusinessTypeGmap,
-//        BusinessTypeSchedule,
-//        BusinessTypeRichMedia//=14 // 富媒体为14
-        
-        if(type==1)
-        {
+        sscanf(s, "%02X", &type);        
+        if(type == kModelUrl) {
             category.type = CATEGORY_URL;	
-            category.channel=URL_CHANNEL_FXF;
-            
-        }
-        else if(type==2) {
-            
+            category.channel = URL_CHANNEL_FXF;
+        } else if(type == kModelBookMark) {
             category.type = CATEGORY_BOOKMARK;			
             category.channel = WEIBO_CHANNEL_FXF;
-        }
-        else if(type==3) {
-            category.type=CATEGORY_APP;			
-            category.channel=APP_CHANNEL_FXF;
-        }
-        else if(type==4) {
+        } else if(type == kModelAppUrl) {
+            category.type= CATEGORY_APP;			
+            category.channel = APP_CHANNEL_FXF;
+        } else if(type == kModelWeibo) {
             category.type = CATEGORY_WEIBO;			
             category.channel = WEIBO_CHANNEL_FXF;
+        } else if(type == kModelCard) {
+            category.type = CATEGORY_CARD;			
+            category.channel = CARD_CHANNEL_VCARD;
+        } else if(type == kModelPhone) {
+            category.type = CATEGORY_PHONE;
+            category.channel = PHONE_CHANNEL_FXF;
+        } else if(type == kModelEmail) {
+            category.type = CATEGORY_EMAIL;
+             category.channel = MAIL_CHANNEL_FXF;
+        } else if(type == kModelText) {
+            category.type = CATEGORY_TEXT;
+            category.channel = DTXT_CHANNEL_FXF;
+        } else if(type == kModelEncText) {
+            category.type = CATEGORY_ENCTEXT;			
+            category.channel = ENCTEXT_CHANNEL_FXF;
+        } else if(type == kModelShortMessage) {
+            category.type = CATEGORY_SHORTMESS;
+            category.channel = SMS_CHANNEL_FXF;
+        } else if(type == kModelWiFiText) {
+            category.type = CATEGORY_WIFI;			
+            category.channel = WIFI_CHANNEL_FXF; 
+        } else if(type == kModelGMap) {
+            category.type = CATEGORY_GMAP;			
+            category.channel = GMAP_CHANNEL_FXF;
+        } else if(type == kModelSchedule) {
+            category.type = CATEGORY_SCHEDULE;			
+            category.channel = SCH_CHANNEL_FXF;
         }
-        else if(type==5) {
-            category.type=CATEGORY_CARD;			
-            category.channel=CARD_CHANNEL_VCARD;
-        }
-        else if(type==6) {
-            category.type=CATEGORY_PHONE;
-            category.channel=PHONE_CHANNEL_FXF;
-        }
-        else if(type==7) {
-            category.type=CATEGORY_EMAIL;
-             category.channel=MAIL_CHANNEL_FXF;
-        }
-        else if(type==8) {
-            category.type=CATEGORY_TEXT;
-            category.channel=DTXT_CHANNEL_FXF;
-        }
-        else if(type==9) {
-            category.type=CATEGORY_ENCTEXT;			
-            category.channel=ENCTEXT_CHANNEL_FXF;
-
-        }
-        else if(type==10) {
-            category.type=CATEGORY_SHORTMESS;
-            category.channel=SMS_CHANNEL_FXF;
-        }
-        else if(type==11) {
-            category.type=CATEGORY_WIFI;			
-            category.channel=WIFI_CHANNEL_FXF; 
-        }
-        else if(type==12) {
-            category.type=CATEGORY_GMAP;			
-            category.channel=GMAP_CHANNEL_FXF;
-        }
-        else if(type==13) {
-            category.type=CATEGORY_SCHEDULE;			
-            category.channel=SCH_CHANNEL_FXF;
-           
-
-        }
-       return category;
+        return category;
     }
-
-    
-    
     
     NSRange range = [input rangeOfString:SEPERATOR_PRE];
     int position = range.location;
-    
-    if(position == NSNotFound || range.length == 0){//不存在：，可能是http链接，或者文本
-        
+    if(position == NSNotFound || range.length == 0){
+        //不存在：，可能是http链接，或者文本
         if([BusDecoder isUrl:input]){
             category.type=CATEGORY_URL;
             category.channel=URL_CHANNEL_HTTP;
-        }else{
+        } else {
             category.type=CATEGORY_TEXT;
             category.channel=DTXT_CHANNEL_DEDAULT;
-        }
-        
+        }        
         return category;
     }
     
@@ -636,13 +590,12 @@ static NSString *URL_FLAG = @"://";
  * @param channel
  * @return
  */
-+(Card*) decodeCard:(NSString*)input channel:(int)channele{
-    
++ (Card *)decodeCard:(NSString *)input channel:(int)channele{
     if(channele == CARD_CHANNEL_VCARD){
         return [BusDecoder decodeVCARD:input];
-    }else if(channele == CARD_CHANNEL_MECARD){
+    } else if(channele == CARD_CHANNEL_MECARD){
         return [BusDecoder decodeMECard:input];
-    }else{
+    } else {
         return [BusDecoder decodeCardOnly:input];
     }
 }
