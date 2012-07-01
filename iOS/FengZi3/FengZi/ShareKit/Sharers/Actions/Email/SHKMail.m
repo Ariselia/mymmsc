@@ -26,7 +26,7 @@
 //
 
 #import "SHKMail.h"
-#import "EncryptTools.h"
+
 @implementation MFMailComposeViewController (SHK)
 
 - (void)viewDidDisappear:(BOOL)animated

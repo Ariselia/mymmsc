@@ -5,7 +5,6 @@
 //  Copyright 2011-2012 ifengzi.cn. All rights reserved.
 //
 
-
 #define REQUEST_DOMAIN @"http://cx.itotemstudio.com/api.php" // default env
 
 #define APPSTORE_URL @"http://itunes.apple.com/us/app//id494490342?l=zh&ls=1&mt=8"//appstore 地址
@@ -108,30 +107,6 @@ public static final int QROBJTYPE_MAP=12;//地图
 public static final int QROBJTYPE_DATE=13;// 日程
 public static final int QROBJTYPE_DYNAMIC=14;// 富媒体和空码赋值
 */
-
-typedef enum{
-    BusinessTypeUrl=0,
-    BusinessTypeBookMark,
-    BusinessTypeAppUrl,
-    BusinessTypeWeibo,
-    BusinessTypeCard,
-    BusinessTypePhone,
-    BusinessTypeEmail,
-    BusinessTypeText,
-    BusinessTypeEncText,
-    BusinessTypeShortMessage,
-    BusinessTypeWifiText,
-    BusinessTypeGmap,
-    BusinessTypeSchedule,
-    BusinessTypeRichMedia//=14 // 富媒体为14
-}BusinessType;
-
-typedef enum{
-    BOOKMARK = 0,
-    WEIBO,
-    GMAP,
-    APP
-} UrlType;
 
 typedef enum{
     LinkTypeNone = 0,

@@ -10,7 +10,7 @@
 
 #import "EncodeMapViewController.h"
 #import "EncodeEditViewController.h"
-#import "Api+Category.h"
+#import <FengZi/Api+Category.h>
 
 #define ARC4RANDOM_MAX      0x100000000
 #define ZoomLevel @"12"

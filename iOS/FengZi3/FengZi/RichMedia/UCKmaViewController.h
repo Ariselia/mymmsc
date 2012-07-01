@@ -19,7 +19,7 @@
     NSString *code;
 }
 @property (nonatomic, retain) UIImage *curImage;
-@property (nonatomic, retain) NSString *code;
+@property (nonatomic, copy) NSString *code;
 @property (nonatomic, assign) BOOL forceEdit;
 
 @end

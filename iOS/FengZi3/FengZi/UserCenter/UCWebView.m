@@ -7,8 +7,10 @@
 //
 
 #import "UCWebView.h"
-#import "Api.h"
+#import <FengZi/Api.h>
+
 #define kTagActivity (10000 + 1)
+
 @interface UCWebView ()
 
 @end

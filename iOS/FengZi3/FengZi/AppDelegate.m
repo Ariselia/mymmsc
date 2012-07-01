@@ -7,7 +7,8 @@
 
 #import "AppDelegate.h"
 #import "TabBarController.h"
-#import "EncryptTools.h"
+#import <FengZi/PseudoBase64.h>
+
 @implementation AppDelegate
 
 @synthesize window = _window;
@@ -118,7 +119,7 @@
 
         [buffer appendFormat:@"&simng=%@",netName];// 网络
 
-        NSString *info = [EncryptTools Base64EncryptString:buffer];
+        NSString *info = [PseudoBase64 encode:buffer];
         [MobileInfoDataRequest silentRequestWithDelegate:self withParameters:[NSDictionary dictionaryWithObjectsAndKeys:info,@"t", nil]];
         [[NSNotificationCenter defaultCenter] removeObserver:self name:kReachabilityChangedNotification object:nil];
     }

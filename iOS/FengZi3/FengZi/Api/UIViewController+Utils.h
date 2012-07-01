@@ -6,8 +6,7 @@
 //  Copyright (c) 2012年 iTotemStudio. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
-#import "Api.h"
+#import <FengZi/Api.h>
 
 @interface UIViewController (Utils)
 

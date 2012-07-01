@@ -7,7 +7,7 @@
 //
 
 #import "SHKTencent.h"
-#import "EncryptTools.h"
+
 @implementation NSURL (QAdditions)
 
 #pragma mark -

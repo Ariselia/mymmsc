@@ -1,11 +1,11 @@
 //
 //  DataEnvironment.h
 //
-//  Copyright 2010 itotem. All rights reserved.
+//  Copyright 2010 fengxiafei.com. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
 #import "CONSTS.h"
+#import <FengZi/Api+Category.h>
 
 @interface DataEnvironment : NSObject {
     NSString *_urlRequestHost;
@@ -16,12 +16,12 @@
     BOOL _hasNetWork;
 }
 
-@property (nonatomic,retain) NSString *urlRequestHost;
-@property (nonatomic,retain) NSString *curLocation;
-@property (nonatomic,assign) EncodeImageType encodeImageType;
-@property (nonatomic,assign) ScanCodeType curScanType;
-@property (nonatomic,assign) BusinessType curBusinessType;
-@property (nonatomic,assign) BOOL hasNetWork;
+@property (nonatomic, copy) NSString *urlRequestHost;
+@property (nonatomic, copy) NSString *curLocation;
+@property (nonatomic, assign) EncodeImageType encodeImageType;
+@property (nonatomic, assign) ScanCodeType curScanType;
+@property (nonatomic, assign) BusinessType curBusinessType;
+@property (nonatomic, assign) BOOL hasNetWork;
 
 + (DataEnvironment *)sharedDataEnvironment;
 
@@ -36,7 +36,7 @@
 - (NSString*)getSkinUrlWithIndex:(int)index;
 - (NSArray*)getIconImage;
 - (UIImage*)getTableImage:(BusinessType)index;
-- (NSString*)getDecodeType:(NSString*)type;
+- (NSString*)getDecodeType:(NSString *)type;
 - (int)getCodeType:(NSString*)type;
 - (NSString*)getEncodeCodeType:(BusinessType)type;
 

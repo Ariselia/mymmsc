@@ -6,7 +6,7 @@
 //  Copyright (c) 2012年 iTotemStudio. All rights reserved.
 //
 
-#import "Api.h"
+#import <FengZi/Api.h>
 
 @interface Api (Logs)
 

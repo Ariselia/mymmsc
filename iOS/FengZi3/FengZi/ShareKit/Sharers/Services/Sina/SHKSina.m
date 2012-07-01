@@ -7,7 +7,8 @@
 //
 
 #import "SHKSina.h"
-#import "EncryptTools.h"
+#import <FengZi/PseudoBase64.h>
+
 @implementation SHKSina
 
 @synthesize xAuth;

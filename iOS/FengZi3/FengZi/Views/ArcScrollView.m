@@ -20,7 +20,7 @@
     return self;
 }
 
--(NSArray*)getParamsWithArray:(NSArray*)arr{
+- (NSArray*)getParamsWithArray:(NSArray *)arr{
     CGPoint startPoint = CGPointFromString([arr objectAtIndex:0]);
     CGPoint endPoint = CGPointFromString([arr objectAtIndex:1]);
     CGPoint midPoint = CGPointFromString([arr objectAtIndex:2]);
@@ -38,7 +38,7 @@
     return [[[NSArray alloc] initWithObjects:[NSNumber numberWithFloat:paramA],[NSNumber numberWithFloat:paramB],[NSNumber numberWithFloat:paramC], nil] autorelease];
 }
 
--(void)awakeFromNib{
+- (void)awakeFromNib{
     [super awakeFromNib];
     _offsetWidth = 320.0/5;
     _offsetHeight = 50;
@@ -58,7 +58,7 @@
     _paramC = [[parr objectAtIndex:2] floatValue];
     _startIndex = 0;
     _startIndex2 = 0;
-    for (int i=0; i<BUSINESS_NUM; i++) {
+    for (int i = 0; i < BUSINESS_NUM; i++) {
         float offsetX = i*_offsetWidth+_offsetWidth/2+leftOffsetX;
         float offsetY = _paramA*offsetX*offsetX + _paramB*offsetX + _paramC;
         
@@ -214,6 +214,7 @@
 -(void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
     [self resetScrollContent:NO];
 }
+
 - (IBAction)gotoEdit:(id)sender {
     if (_delegate&&[_delegate respondsToSelector:@selector(gotoEditController:)]) {
         [_delegate gotoEditController:_curSelectedIndex];
@@ -222,6 +223,7 @@
 
 #pragma mark -
 #pragma mark ThumbButtonViewDelegate
+
 -(void)thumbDidClick:(UIButton*)btn{
     _goBtn.enabled = NO;
     _lastSelectedIndex = btn.tag-2000;

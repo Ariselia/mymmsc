@@ -5,7 +5,7 @@
 //  Copyright (c) 2011年 iTotemStudio. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import <FengZi/Api+Category.h>
 #import "CONSTS.h"
 
 @protocol ArcScrollViewDelegate <NSObject>
@@ -29,6 +29,8 @@
     id<ArcScrollViewDelegate> _delegate;
     IBOutlet UIButton *_goBtn;
 }
+
 @property (assign, nonatomic) id<ArcScrollViewDelegate> delegate;
--(void)resetScrollContent:(BOOL)animation;
+- (void)resetScrollContent:(BOOL)animation;
+
 @end

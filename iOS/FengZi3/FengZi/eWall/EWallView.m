@@ -7,7 +7,8 @@
 //
 
 #import "EWallView.h"
-#import "Api.h"
+#import <FengZi/Api.h>
+
 @interface EWallView ()
 
 @end

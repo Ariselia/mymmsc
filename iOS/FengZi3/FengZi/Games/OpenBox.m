@@ -7,7 +7,7 @@
 //
 
 #import "OpenBox.h"
-#import "Api.h"
+#import <FengZi/Api.h>
 #import "EggReward.h"
 
 @implementation OpenBox

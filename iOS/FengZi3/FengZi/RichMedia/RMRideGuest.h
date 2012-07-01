@@ -6,8 +6,7 @@
 //  Copyright (c) 2012年 ifengzi.cn. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
-#import "Api.h"
+#import <FengZi/Api.h>
 
 // 顺风车 - 客人
 @interface RMRideGuest : UITableViewCell{

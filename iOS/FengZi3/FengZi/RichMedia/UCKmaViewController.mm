@@ -25,8 +25,8 @@
 #import "UCCreateCode.h"
 #import "UCRichMedia.h"
 #import "DecodeCardViewControlle.h"
-#import "BusDecoder.h"
-#import "BusCategory.h"
+#import <FengZi/BusDecoder.h>
+#import <FengZi/BusCategory.h>
 #import "DecodeBusinessViewController.h"
 #import <QRCode/QREncoder.h>
 #import <QRCode/DataMatrix.h>
@@ -116,46 +116,46 @@
     DATA_ENV.curBusinessType = type;
     UIViewController *viewController;
     switch (type) {
-        case BusinessTypeAppUrl:
+        case kModelAppUrl:
             viewController = [[EncodeAppUrlViewController alloc] initWithNibName:@"EncodeAppUrlViewController" bundle:nil];
             break;
-        case BusinessTypeGmap:
+        case kModelGMap:
             viewController = [[EncodeMapViewController alloc] initWithNibName:@"EncodeMapViewController" bundle:nil];
             break;
-        case BusinessTypeShortMessage:
+        case kModelShortMessage:
             viewController = [[EncodeSmsViewController alloc] initWithNibName:@"EncodeSmsViewController" bundle:nil];
             break;
-        case BusinessTypeCard:
+        case kModelCard:
             viewController = [[EncodeCardViewController alloc] initWithNibName:@"EncodeCardViewController" bundle:nil];
             break;
-        case BusinessTypeEmail:
+        case kModelEmail:
             viewController = [[EncodeEmailViewController alloc] initWithNibName:@"EncodeEmailViewController" bundle:nil];
             break;
-        case BusinessTypeText:
+        case kModelText:
             viewController = [[EncodeTextViewController alloc] initWithNibName:@"EncodeTextViewController" bundle:nil];
             break;
-        case BusinessTypeWifiText:
+        case kModelWiFiText:
             viewController = [[EncodeWifiViewController alloc] initWithNibName:@"EncodeWifiViewController" bundle:nil];
             break;
-        case BusinessTypeEncText:
+        case kModelEncText:
             viewController = [[EncodeEncTextViewController alloc] initWithNibName:@"EncodeEncTextViewController" bundle:nil];
             break;
-        case BusinessTypeWeibo:
+        case kModelWeibo:
             viewController = [[EncodeWeiboViewController alloc] initWithNibName:@"EncodeWeiboViewController" bundle:nil];
             break;
-        case BusinessTypeBookMark:
+        case kModelBookMark:
             viewController = [[EncodeBookMarkViewController alloc] initWithNibName:@"EncodeBookMarkViewController" bundle:nil];
             break;
-        case BusinessTypePhone:
+        case kModelPhone:
             viewController = [[EncodePhoneViewController alloc] initWithNibName:@"EncodePhoneViewController" bundle:nil];
             break;
-        case BusinessTypeUrl:
+        case kModelUrl:
             viewController = [[EncodeUrlViewController alloc] initWithNibName:@"EncodeUrlViewController" bundle:nil];
             break;
-        case BusinessTypeSchedule:
+        case kModelSchedule:
             viewController = [[EncodeScheduleViewController alloc] initWithNibName:@"EncodeScheduleViewController" bundle:nil];
             break;
-        case BusinessTypeRichMedia: // WangFeng: 增加生码类
+        case kModelRichMedia: // WangFeng: 增加生码类
             viewController = [[UCCreateCode alloc] initWithNibName:@"UCCreateCode" bundle:nil];
             break;
         default:

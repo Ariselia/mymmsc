@@ -8,8 +8,8 @@
 
 #import "UIViewController+Utils.h"
 #import "UCLogin.h"
-#import "BusDecoder.h"
-#import "BusCategory.h"
+#import <FengZi/BusDecoder.h>
+#import <FengZi/BusCategory.h>
 #import "DecodeViewController.h"
 #import "DecodeCardViewControlle.h"
 #import "TabBarController.h"

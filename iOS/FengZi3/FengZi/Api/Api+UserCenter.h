@@ -6,7 +6,7 @@
 //  Copyright (c) 2012年 mymmsc.org. All rights reserved.
 //
 
-#import "Api.h"
+#import <FengZi/Api.h>
 //====================================< 用户中心 - 开关 >====================================
 // 用户中心接口调用正确的状态码
 #define API_USERCENTET_SUCCESS (0)

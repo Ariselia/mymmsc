@@ -8,8 +8,7 @@
 
 #import "DataEnvironment.h"
 #import "DataCacheManager.h"
-//#import "ITTNetworkTrafficManager.h"
-#import "BusDescKey.h"
+#import <FengZi/BusDescKey.h>
 
 @interface DataEnvironment()
 - (void)restore;
@@ -62,46 +61,46 @@ static DataEnvironment *sharedInst = nil;
     }
     NSString *path;
     switch (type) {
-        case BusinessTypePhone:
+        case kModelPhone:
             path = @"address_rainbow";
             break;
-        case BusinessTypeAppUrl:
+        case kModelAppUrl:
             path = @"app_rainbow";
             break;
-        case BusinessTypeCard:
+        case kModelCard:
             path = @"card_rainbow";
             break;
-        case BusinessTypeEncText:
+        case kModelEncText:
             path = @"jiami_rainbow";
             break;
-        case BusinessTypeGmap:
+        case kModelGMap:
             path = @"map_rainbow";
             break;
-        case BusinessTypeShortMessage:
+        case kModelShortMessage:
             path = @"sms_rainbow";
             break;
-        case BusinessTypeEmail:
+        case kModelEmail:
             path = @"mail_rainbow";
             break;
-        case BusinessTypeText:
+        case kModelText:
             path = @"text_rainbow";
             break;
-        case BusinessTypeWifiText:
+        case kModelWiFiText:
             path = @"wifi_rainbow";
             break;
-        case BusinessTypeWeibo:
+        case kModelWeibo:
             path = @"weibo_rainbow";
             break;
-        case BusinessTypeBookMark:
+        case kModelBookMark:
             path = @"webtag_rainbow";
             break;
-        case BusinessTypeUrl:
+        case kModelUrl:
             path = @"website_rainbow";
             break;
-        case BusinessTypeSchedule:
+        case kModelSchedule:
             path = @"schedule_rainbow";
             break;
-        case BusinessTypeRichMedia:
+        case kModelRichMedia:
             path = @"richmedia_rainbow";
             break;
         default:
@@ -216,7 +215,7 @@ static DataEnvironment *sharedInst = nil;
             return @"";
     }
 }
-- (NSArray*)getIconImage{
+- (NSArray *)getIconImage{
     NSMutableArray *arr = [NSMutableArray array];
     UIImage *imgage = [UIImage imageNamed:@"icon_0.png"];
     int i = 0;
@@ -228,49 +227,48 @@ static DataEnvironment *sharedInst = nil;
     return arr;
 }
 
-- (UIImage*)getTableImage:(BusinessType)index{
-    
+- (UIImage *)getTableImage:(BusinessType)index{
     switch (index) {
-        case BusinessTypeAppUrl:
+        case kModelAppUrl:
             return [UIImage imageNamed:@"table_app.png"];
             break;
-        case BusinessTypeCard:
+        case kModelCard:
             return [UIImage imageNamed:@"table_card.png"];
             break;
-        case BusinessTypeBookMark:
+        case kModelBookMark:
             return [UIImage imageNamed:@"table_mark.png"];
             break;
-        case BusinessTypeEncText:
+        case kModelEncText:
             return [UIImage imageNamed:@"table_enc.png"];
             break;
-        case BusinessTypeEmail:
+        case kModelEmail:
             return [UIImage imageNamed:@"table_email.png"];
             break;
-        case BusinessTypeGmap:
+        case kModelGMap:
             return [UIImage imageNamed:@"table_map.png"];
             break;
-        case BusinessTypePhone:
+        case kModelPhone:
             return [UIImage imageNamed:@"table_phone.png"];
             break;
-        case BusinessTypeSchedule:
+        case kModelSchedule:
             return [UIImage imageNamed:@"table_schedule.png"];
             break;
-        case BusinessTypeShortMessage:
+        case kModelShortMessage:
             return [UIImage imageNamed:@"table_sms.png"];
             break;
-        case BusinessTypeText:
+        case kModelText:
             return [UIImage imageNamed:@"table_text.png"];
             break;
-        case BusinessTypeWifiText:
+        case kModelWiFiText:
             return [UIImage imageNamed:@"table_wifi.png"];
             break;
-        case BusinessTypeWeibo:
+        case kModelWeibo:
             return [UIImage imageNamed:@"table_weibo.png"];
             break;
-        case BusinessTypeUrl:
+        case kModelUrl:
             return [UIImage imageNamed:@"table_website.png"];
             break;
-        case BusinessTypeRichMedia:
+        case kModelRichMedia:
             return [UIImage imageNamed:@"table_richmedia.png"];
             break;
         default:
@@ -315,33 +313,33 @@ static DataEnvironment *sharedInst = nil;
 
 - (NSString*)getEncodeCodeType:(BusinessType)type{
     switch (type) {
-        case BusinessTypeAppUrl:
+        case kModelAppUrl:
             return @"appUrl";
-        case BusinessTypeCard:
+        case kModelCard:
             return @"card";
-        case BusinessTypeBookMark:
+        case kModelBookMark:
             return @"bookMark";
-        case BusinessTypeEncText:
+        case kModelEncText:
             return @"encText";
-        case BusinessTypeEmail:
+        case kModelEmail:
             return @"email";
-        case BusinessTypeGmap:
+        case kModelGMap:
              return @"gmap";
-        case BusinessTypePhone:
+        case kModelPhone:
             return @"phone";
-        case BusinessTypeSchedule:
+        case kModelSchedule:
             return @"schedule";
-        case BusinessTypeShortMessage:
+        case kModelShortMessage:
             return @"shortMessage";
-        case BusinessTypeText:
+        case kModelText:
             return @"text";
-        case BusinessTypeWifiText:
+        case kModelWiFiText:
             return @"wifiText";
-        case BusinessTypeWeibo:
+        case kModelWeibo:
             return @"weibo";
-        case BusinessTypeUrl:
+        case kModelUrl:
             return @"url";
-        case BusinessTypeRichMedia:
+        case kModelRichMedia:
             return @"richMedia";
         default:
             return @"text";
@@ -349,36 +347,36 @@ static DataEnvironment *sharedInst = nil;
 }
 - (int)getCodeType:(NSString*)type{
     if ([type isEqualToString:CATEGORY_PHONE]) {
-        return BusinessTypePhone;
+        return kModelPhone;
     }else if([type isEqualToString:CATEGORY_SHORTMESS]){
-        return BusinessTypeShortMessage;
+        return kModelShortMessage;
     }else if([type isEqualToString:CATEGORY_EMAIL]){
-        return BusinessTypeEmail;
+        return kModelEmail;
     }else if([type isEqualToString:CATEGORY_BOOKMARK]){
-        return BusinessTypeBookMark;
+        return kModelBookMark;
     }else if([type isEqualToString:CATEGORY_SCHEDULE]){
-        return BusinessTypeSchedule;
+        return kModelSchedule;
     }else if([type isEqualToString:CATEGORY_TEXT]){
-        return BusinessTypeText;
+        return kModelText;
     }else if([type isEqualToString:CATEGORY_ENCTEXT]){
-        return BusinessTypeEncText;
+        return kModelEncText;
     }else if([type isEqualToString:CATEGORY_WIFI]){
-        return BusinessTypeWifiText;
+        return kModelWiFiText;
     }else if([type isEqualToString:CATEGORY_URL]){
-        return BusinessTypeUrl;
+        return kModelUrl;
     }else if([type isEqualToString:CATEGORY_WEIBO]){
-        return BusinessTypeWeibo;
+        return kModelWeibo;
     }else if([type isEqualToString:CATEGORY_GMAP]){
-        return BusinessTypeGmap;
+        return kModelGMap;
     }else if([type isEqualToString:CATEGORY_APP]){
-        return BusinessTypeAppUrl;
+        return kModelAppUrl;
     } else if([type isEqualToString:CATEGORY_CARD]){
-        return BusinessTypeCard;
+        return kModelCard;
     } else if([type isEqualToString:CATEGORY_MEDIA]) {
-        return BusinessTypeRichMedia;
+        return kModelRichMedia;
     } else {
-        //return BusinessTypeText;
-         return BusinessTypeRichMedia;
+        //return kModelText;
+         return kModelRichMedia;
     }
 
 }
