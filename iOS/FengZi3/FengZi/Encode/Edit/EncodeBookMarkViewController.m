@@ -8,8 +8,9 @@
 
 #import "EncodeBookMarkViewController.h"
 #import "EncodeEditViewController.h"
-#import "Api+Category.h"
-#import "BusDecoder.h"
+#import <FengZi/Api+Category.h>
+#import <FengZi/BusDecoder.h>
+
 @implementation EncodeBookMarkViewController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil

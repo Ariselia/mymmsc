@@ -8,9 +8,9 @@
 
 #import "EncodeAppUrlViewController.h"
 #import "EncodeEditViewController.h"
-#import "Api+Category.h"
+#import <FengZi/Api+Category.h>
 #import "CommonUtils.h"
-#import "BusDecoder.h"
+#import <FengZi/BusDecoder.h>
 @implementation EncodeAppUrlViewController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -37,19 +37,19 @@
     if ([_titleField.text isEqualToString:@""]) {
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"应用名称不能为空！" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles: nil];
         [alertView show];
-        RELEASE_SAFELY(alertView);
+        IOSAPI_RELEASE(alertView);
         return;
     }
     if ([_textField.text isEqualToString:@""]) {
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"应用地址不能为空！" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles: nil];
         [alertView show];
-        RELEASE_SAFELY(alertView);
+        IOSAPI_RELEASE(alertView);
         return;
     }
     if (![BusDecoder isUrl:_textField.text]) {
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"应用地址格式不正确！" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles: nil];
         [alertView show];
-        RELEASE_SAFELY(alertView);
+        IOSAPI_RELEASE(alertView);
         return;
     }
     
