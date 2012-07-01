@@ -2,16 +2,15 @@
 //  DecodeBusinessViewController.h
 //  FengZi
 //
-
 //  Copyright (c) 2011年 iTotemStudio. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
 #import <FengZi/BusCategory.h>
 #import <MessageUI/MessageUI.h>
 #import "DecodeBusinessCell.h"
 #import "ITTDataRequest.h"
 #import "ITTImageView.h"
+
 @interface DecodeBusinessViewController : UIViewController<UIAlertViewDelegate,DecodeBusinessCellDelegate,MFMessageComposeViewControllerDelegate,DataRequestDelegate>{
     IBOutlet UIView *_headerView;
     
