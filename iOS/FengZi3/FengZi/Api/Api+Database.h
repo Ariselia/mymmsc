@@ -6,10 +6,9 @@
 //  Copyright (c) 2012年 mymmsc.org. All rights reserved.
 //
 
-#import "Api.h"
 //====================================< 本地数据库 - 接口 >====================================
 #import "sqlite3.h"
-#import "Api+Category.h"
+#import <FengZi/Api+Category.h>
 
 @class EFileCardInfo;
 @class EFileMemberInfo;
