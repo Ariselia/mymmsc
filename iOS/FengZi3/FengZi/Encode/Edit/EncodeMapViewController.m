@@ -8,7 +8,7 @@
 
 #import "EncodeMapViewController.h"
 #import "EncodeEditViewController.h"
-#import "Api+Category.h"
+#import <FengZi/Api+Category.h>
 
 #define ARC4RANDOM_MAX      0x100000000
 #define ZoomLevel @"12"
@@ -204,7 +204,7 @@
     
     
     
-    RELEASE_SAFELY(_geoCoder);
+    IOSAPI_RELEASE(_geoCoder);
     if(lat1==0.000000)
     {
         _geoCoder= [[MKReverseGeocoder alloc] initWithCoordinate:newLocation.coordinate];
