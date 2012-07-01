@@ -8,7 +8,7 @@
 
 #import "EncodeScheduleViewController.h"
 #import "EncodeEditViewController.h"
-#import "Api+Category.h"
+#import <FengZi/Api+Category.h>
 
 @implementation EncodeScheduleViewController
 
@@ -46,14 +46,14 @@
     if (_contentText.text.length>110) {
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"内容不能大于110字！" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles: nil];
         [alertView show];
-        RELEASE_SAFELY(alertView);
+        IOSAPI_RELEASE(alertView);
         return;
     }
     
     if ([_dateText.text isEqualToString:@""]) {
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"时间不能为空！" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles: nil];
         [alertView show];
-        RELEASE_SAFELY(alertView);
+        IOSAPI_RELEASE(alertView);
         return;
     }
     if ([_titleText.text isEqualToString:@""]) {
