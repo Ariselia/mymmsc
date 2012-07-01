@@ -11,6 +11,7 @@
 @synthesize channel = _channel;
 @synthesize type = _type;
 @synthesize bKma;
+@synthesize codeType = _codeType;
 
 -(void)dealloc{
     [_type release];

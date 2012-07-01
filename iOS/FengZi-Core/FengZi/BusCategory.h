@@ -8,13 +8,15 @@
 #import "Api+Category.h"
 
 @interface BusCategory : NSObject{
-    NSString *_type;	
-	BOOL      bKma;
-	int       _channel;
+    NSString     *_type;	
+	int           _channel;
+    BusinessType  _codeType;
+    BOOL          bKma;
 }
 
-@property(nonatomic, copy)NSString *type;
-@property(nonatomic, assign)int channel;
+@property (nonatomic, copy) NSString *type;
+@property (nonatomic, assign) int channel;
+@property (nonatomic, assign) BusinessType codeType;
 @property (nonatomic, assign) BOOL bKma;
 
 @end
