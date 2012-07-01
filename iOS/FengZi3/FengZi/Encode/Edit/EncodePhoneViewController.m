@@ -8,8 +8,9 @@
 
 #import "EncodePhoneViewController.h"
 #import "EncodeEditViewController.h"
-#import "Api+Category.h"
+#import <FengZi/Api+Category.h>
 #import "AddressBookUtils.h"
+
 @implementation EncodePhoneViewController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
