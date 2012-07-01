@@ -60,7 +60,7 @@ static DataEnvironment *sharedInst = nil;
         subffix = @"_tap.png";
     }
     NSString *path;
-    switch (type + 1) {
+    switch (type) {
         case kModelPhone:
             path = @"address_rainbow";
             break;
