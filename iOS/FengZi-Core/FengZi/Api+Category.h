@@ -340,7 +340,13 @@ typedef enum{
 //====================================< 词条 - 接口 >====================================
 @interface Api (Category)
 
-// 解码
-+ (id)decode:(NSString *)string;
+/**
+ * 二维码解码
+ * 
+ * @param string
+ * @param timeout 超时
+ * @return BaseModel
+ */
++ (id)parse:(NSString *)string timeout:(int)timeout;
 
 @end

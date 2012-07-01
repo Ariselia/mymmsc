@@ -546,97 +546,39 @@
 
 /**
  * 将冒号和分号分隔的字符串变成一个数组对象
+ * @param string 去掉关键标识的字符串
  */
-+ (NSArray *)parseCode:(NSString *)input{
-    NSMutableArray *list = nil;
-    if(input != nil){
-        list = [[[NSMutableArray alloc] initWithCapacity:0] autorelease];
-        int preFlagPos = 0;
-        NSMutableString *sb = [[[NSMutableString alloc] initWithCapacity:0] autorelease];
-        for(int i = 0; i < input.length; i ++){
-            NSString *c = [input substringWithRange:NSMakeRange(i, 1)];
-            NSString *d = nil;
-            if (i + 1 < input.length) {
-                d = [input substringWithRange:NSMakeRange(i + 1, 1)];
-            }
-            if(![c isEqualToString:SEPERATOR_PRE]&& ![c isEqualToString:SEPERATOR_POST]){
-                [sb appendString:[NSString stringWithFormat:@"%@",c]];
-            } else if (d != nil && [c isEqualToString:SEPERATOR_PRE] && [d isEqualToString:SEPERATOR_POST]) {
-                [list addObject:@""];
-                preFlagPos = 0;
-            } else {
-                if([c isEqualToString:SEPERATOR_PRE]){
-                    if(i == 0){
-                        continue; //舍弃：
-                    }
-                    if([[input substringWithRange:NSMakeRange(i-1, 1)] isEqualToString:@"\\"]){
-                        [sb deleteCharactersInRange:NSMakeRange(sb.length - 1, 1)];
-                        [sb appendString:[NSString stringWithFormat:@"%@",c]];
-                        //preFlagPos = i - 1;
-                    }else{
-                        [sb appendString:[NSString stringWithFormat:@"%@",c]];
-                        if(preFlagPos != 0){
-                            [sb deleteCharactersInRange:NSMakeRange(0, preFlagPos + 1)];//删掉不对应的：
-                        }
-                        preFlagPos = sb.length - 1; //对应到位置
-                    }					
-                }
-                
-                if([c isEqualToString:SEPERATOR_POST]){
-                    if(i == 0){
-                        continue; //舍弃：
-                    }
-                    if([[input substringWithRange:NSMakeRange(i-1, 1)] isEqualToString:@"\\"]){
-                        [sb deleteCharactersInRange:NSMakeRange(sb.length - 1, 1)];
-                        [sb appendString:[NSString stringWithFormat:@"%@",c]];
-                    }else{
-                        if(preFlagPos != 0){
-                            //[result setObject:[sb substringFromIndex:preFlagPos+1] forKey:key];
-                            [list addObject:[sb substringFromIndex:preFlagPos+1]];
-                        }
-                        
-                        [sb deleteCharactersInRange:NSMakeRange(0, sb.length)];//清掉内容
-                        preFlagPos = 0;
-                    }					
-                }
-            }
-        }
-    }
-    return list;
++ (NSDictionary *)parse:(NSString *)string{
+    NSMutableDictionary *oRet = nil;
+    NSString *regExStr = @"(([^:]+):(([^;]*)([^a-zA-Z:]*));)";
+    NSError *error = NULL;
+    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:regExStr
+                                                                           options:NSRegularExpressionCaseInsensitive
+                                                                             error:&error];
     
+    
+    oRet = [[[NSMutableDictionary alloc] initWithCapacity:0] autorelease];
+    [regex enumerateMatchesInString:string options:0 range:NSMakeRange(0, [string length]) usingBlock:^(NSTextCheckingResult *result, NSMatchingFlags flags, BOOL *stop) {
+        NSString *key = [string substringWithRange:[result rangeAtIndex:2]];
+        NSString *value = [string substringWithRange:[result rangeAtIndex:3]];
+        value = [value replace:@"\\;" withString:@";"];
+        value = [value replace:@"\\:" withString:@":"];
+        [oRet setObject:value forKey:key];
+    }];
+    return oRet;
 }
 
-+ (id)decode:(NSArray*)list class:(Class)clazz{
-    id obj = [[[clazz alloc] init] autorelease];
-    // NSArray *list =[self parse0:content];
-    unsigned int outCount, i = 0;
-    objc_property_t *properties = class_copyPropertyList([obj class], &outCount);
-    int listCount = list.count;
-    if (listCount >= outCount) {
-        for (i = 0; i < outCount; i++) {
-            NSString *value = [list objectAtIndex:i];
-            objc_property_t property = properties[i];
-            NSString *fieldName = [NSString stringWithUTF8String: property_getName(property)];
-            [iOSApi setObject:obj key:fieldName value:value];
-        }
-    } else {
-        for (i = 0; i < listCount; i++) {
-            NSString *value = [list objectAtIndex:i];
-            objc_property_t property = properties[i];
-            NSString *fieldName = [NSString stringWithUTF8String: property_getName(property)];
-            [iOSApi setObject:obj key:fieldName value:value];
-        }
-    }
-    free(properties);
-    properties = NULL;    
-    
-    return obj;
-}
-
-
-// 解码
-+ (id)decode:(NSString *)string {
-    id ret = nil;
+/**
+ * 编码规则V3版本解析空码, 富媒体业务
+ * 
+ * @param string
+ * @param timeout
+ *            超时
+ * @return Object 业务实体
+ * @remark string必须不为null
+ */
++ (id)parseV3Common:(NSString *)string {
+    id oRet = nil;
     if ([string hasPrefix:API_CODE_PREFIX]) {
         // 新的码规则, 取出码的正是内容
         NSString *code = [string substringFromIndex:API_CODE_PREFIX.length];
@@ -648,16 +590,74 @@
             Byte type = kModelBASE;
             sscanf(s, "%02X", &type);
             Class clazz = [BaseModel getType:type];
-            // 普通业务
-            NSArray *array = [self parseCode:[code substringFromIndex:2]];
-            if (array != nil) {
-                ret = [self decode:array class:clazz];
-                //NSString *xc = [self encode:ret];
-                //iOSLog(@"%02X = %@", type, xc);
+            if (clazz != nil) {
+                // 普通业务
+                NSDictionary *ko = [[self parse:[code substringFromIndex:2]] retain];
+                if (ko != nil) {
+                    oRet = [ko toObject:clazz];
+                }
             }
         }
     }
-    return ret;
+    return oRet;
+}
+
++ (id)parseV3Kma:(NSString *)string timeout:(int)timeout {
+    id oRet = nil;
+    return oRet;
+}
+
++ (id)parseV2Common:(NSString *)string{
+    id oRet = nil;
+    return oRet;
+}
+
++ (id)parseV2Kma:(NSString *)string timeout:(int)timeout {
+    id oRet = nil;
+    return oRet;
+}
+
+/**
+ * 二维码解码
+ * 
+ * @param string
+ * @param timeout 超时
+ * @return BaseModel
+ */
++ (id)parse:(NSString *)string timeout:(int)timeout {
+    id obj = nil;
+    NSString *str = string;
+    if (str != nil && str.length > 0) {
+        str = [str trim];
+        // 进行V3版本的富媒体, 空码解码
+        obj = [self parseV3Kma:str timeout:timeout];
+        // 如果不是V3版本的富媒体和空码, 进行V2版本的富媒体解码
+        if (obj == nil) {
+            obj = [self parseV2Kma:str timeout:timeout];
+        }
+        // 如果不是富媒体或者空码, 进行V3版本的一般性解码
+        if (obj == nil) {
+            obj = [self parseV3Common:str];
+        }
+        // 如果不是V3版本的一般性解码, 进行V2版本的一版行解码
+        if (obj == nil) {
+            obj = [self parseV2Common:str];
+        }
+        if (obj == nil) {
+            // 实在没有办法解码了, 不是我们的业务, 按照URL的格式来泛解析
+            NSString *exp = @"^([0-9A-F]+://)";
+            if ([iOSApi regexpMatch:string withPattern:exp]) {
+                Url *url = [[[Url alloc] init] autorelease];
+                url.content = string;
+                obj = url;
+            } else {
+                Text *text = [[[Text alloc] init] autorelease];
+                text.content = string;
+                obj = text;
+            }
+        }
+    }
+    return obj;
 }
 
 + (NSString *)encode:(id)obj{
