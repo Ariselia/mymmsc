@@ -214,6 +214,9 @@
 + (float)getFloat:(id)value;
 + (NSString *)getString:(id)value;
 
+// 判断字符串是否为空
++ (BOOL)isEmpty:(NSString *)string;
+
 + (NSMutableDictionary *)post:(NSString *)action params:(NSDictionary *)param;
 + (NSMutableDictionary *)post:(NSString *)action header:(NSDictionary *)heads body:(NSData *)params ;
 

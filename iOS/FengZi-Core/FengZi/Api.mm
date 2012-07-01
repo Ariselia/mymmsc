@@ -411,6 +411,18 @@ static UserInfo *cache_info = nil;
     return sRet;
 }
 
+// 判断字符串是否为空
++ (BOOL)isEmpty:(NSString *)string{
+    BOOL bRet = YES;
+    if (string != nil) {
+        NSString *str = [string trim];
+        if (str.length > 0) {
+            bRet = NO;
+        }
+    }
+    return bRet;
+}
+
 + (NSMutableDictionary *)post:(NSString *)action params:(NSDictionary *)params {
     NSMutableDictionary *ret = nil;
     
