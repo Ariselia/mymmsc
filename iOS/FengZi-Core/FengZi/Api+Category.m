@@ -579,23 +579,25 @@
  */
 + (id)parseV3Common:(NSString *)string {
     id oRet = nil;
-    if ([string hasPrefix:API_CODE_PREFIX]) {
+    NSString *input = nil;
+    if ([input hasPrefix:API_CODE_PREFIX]) {
         // 新的码规则, 取出码的正是内容
-        NSString *code = [string substringFromIndex:API_CODE_PREFIX.length];
-        if ([code hasPrefix:@"id="]) {
-            // 富媒体, 空码
-        } else if (code.length >= 4) {
-            // 取出码类型
-            const char *s = [[code substringToIndex:2] UTF8String];
-            Byte type = kModelBASE;
-            sscanf(s, "%02X", &type);
-            Class clazz = [BaseModel getType:type];
-            if (clazz != nil) {
-                // 普通业务
-                NSDictionary *ko = [[self parse:[code substringFromIndex:2]] retain];
-                if (ko != nil) {
-                    oRet = [ko toObject:clazz];
-                }
+        NSString *code = [input substringFromIndex:API_CODE_PREFIX.length];
+        if (![code hasPrefix:@"id="]) {
+            input = code;
+        }
+    }
+    if (input.length >= 4) {
+        // 取出码类型
+        const char *s = [[input substringToIndex:2] UTF8String];
+        Byte type = kModelBASE;
+        sscanf(s, "%02X", &type);
+        Class clazz = [BaseModel getType:type];
+        if (clazz != nil) {
+            // 普通业务
+            NSDictionary *ko = [[self parse:[input substringFromIndex:2]] retain];
+            if (ko != nil) {
+                oRet = [ko toObject:clazz];
             }
         }
     }
@@ -604,6 +606,31 @@
 
 + (id)parseV3Kma:(NSString *)string timeout:(int)timeout {
     id oRet = nil;
+    if ([string hasPrefix:API_CODE_PREFIX]) {
+        // 是码开头的, 截取字符串, 去掉前缀
+        NSString *str = [string substringFromIndex:[API_CODE_PREFIX length]];
+        if ([str hasPrefix:@"id="]) {
+            // 富媒体, 或者空码, 转换地址
+            NSString *iskma = [str substringFromIndex:3];
+            NSString *url = [NSString stringWithFormat:@"%@/apps/getCode.action?%@", API_APPS_SERVER, str];
+            if([iskma rangeOfString:@"-"].length>0) {
+                NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
+                                        [NSString valueOf:[Api userId]], @"userid",
+                                        nil];
+                NSDictionary *map = [Api post:url params:params];
+                if (map.count > 0) {
+                    NSDictionary *data = [map objectForKey:@"data"];
+                    if([data isKindOfClass:[NSString class]]) {
+                        oRet = [self parseV3Common:str];
+                    } else {
+                        oRet = [data toObject:RichMedia.class];
+                    }
+                }
+            }
+        } else {
+            // 普通业务略过
+        }
+    }
     return oRet;
 }
 
