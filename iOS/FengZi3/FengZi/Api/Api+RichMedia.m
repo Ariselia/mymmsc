@@ -413,98 +413,62 @@ static NSString *kma_id = nil;
     
     NSString *action = [NSString stringWithFormat:@"%@", API_APPS_SERVER API_MAKE_CODE];
     NSString *str = [content substringFromIndex:2];
-    NSDictionary *list = [BusDecoder parse0:str];
-     const char *s = [content UTF8String];
-    int types = -1;
-    sscanf(s, "%02X", &types);
-    NSString *title;
+    BaseModel *bus = [Api parse:content timeout:30];
+    int types = bus.typeId;
+    NSString *title = @"";
+    /*
     if (types == 1) {
-        
         Url *object = [[BusDecoder decode:list className:@"Url"]retain];
         title = object.content;
         [object release];
         
-    }
-    else if(types==2)
-    {
+    } else if(types == 2) {
         BookMark *object =[[BusDecoder decode:list className:@"BookMark"]retain];
         title = object.title;
         [object release];
-        
-    }
-    else if(types==3) {
+    } else if(types==3) {
         AppUrl *object =[[BusDecoder decode:list className:@"AppUrl"]retain];
         title = object.url;
         [object release];
-    }
-    else if(types==4) {
+    } else if(types==4) {
         Weibo *object =[[BusDecoder decode:list className:@"Weibo"]retain];
         title = object.title;
         [object release];
-        
-    }
-    else if(types==5) {
-        
+    } else if(types==5) {
         title = @"名片解码";
-
-        
-    }
-    else if(types==6) {
-        
+    } else if(types==6) {
         Phone *object = [[BusDecoder decode:list className:@"Phone"]retain];
         title = object.telephone;
         [object release];
-        
-    }
-    else if(types==7) {
+    } else if(types==7) {
         Email *object = [[BusDecoder decode:list className:@"Email"]retain];
         title = object.title;
         [object release];
-        
-        
     }  else if(types==8) {
         Text *object =[[BusDecoder decode:list className:@"Text"]retain];
         title = object.content;
         [object release];
-        
-        
-        
-    }else if(types==9) {
+    } else if(types==9) {
         title = @"加密文本解码";
-    }
-    else if(types==10) {
+    } else if(types==10) {
         ShortMessage *object = [[BusDecoder decode:list className:@"ShortMessage"] retain];
         title = object.content;
         [object release];
         
-    }
-    else if(types==11) {
+    } else if(types==11) {
         WiFiText *object =[[BusDecoder decode:list className:@"WiFiText"]retain];
         title = object.name;
         [object release];
-        
-        
-    }
-    else if(types==12) {
-        
+    } else if(types==12) {
         GMap *object = [[BusDecoder decode:list className:@"GMap"]retain];
-   
         title = object.url;
-      
         [object release];
-        
-        
-        
-    }else if(types==13)
-    {
-       
+    } else if(types == 13) {
         Schedule *object = [[BusDecoder decode:list className:@"Schedule"] retain];
-       
         title = object.title;
-        
         [object release];
     }
-
+*/
     //title = @"asdasd";
     NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
                             [NSString valueOf:[Api userId]], @"userid",
