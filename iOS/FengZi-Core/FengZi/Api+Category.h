@@ -8,6 +8,11 @@
 
 #import "Api.h"
 
+/** 二期码 - 富媒体 - 前缀 */
+#define V2CODE_PREFIX @"http://m.ifengzi.cn/mb/dynamic/getContent.action";
+/** 二期码 - 空码 - 前缀 */
+#define V2KMA_PREFIX = "http://m.ifengzi.cn/mb/kma/getContent.action";
+
 #ifdef __cplusplus
 extern "C" {
 #endif
