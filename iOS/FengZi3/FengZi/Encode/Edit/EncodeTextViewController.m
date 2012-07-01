@@ -29,10 +29,11 @@
     // Release any cached data, images, etc that aren't in use.
 }
 
--(void)goBack{
+- (void)goBack{
     [self.navigationController popViewControllerAnimated:YES];
 }
--(void)generateCode{
+
+- (void)generateCode{
     if (_contentText.text.length>110) {
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"文本不能大于110字！" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles: nil];
         [alertView show];
