@@ -5,7 +5,7 @@
 //  Copyright (c) 2011年 fengxiafei.com. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+#import "Api+Category.h"
 
 @interface BusCategory : NSObject{
     NSString *_type;	
