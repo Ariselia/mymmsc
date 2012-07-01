@@ -24,6 +24,7 @@
     UIButton *_favBtn;
     HistoryType _historyType;
 }
+
 - (id)initWithNibName:(NSString *)nibNameOrNil
              category:(BusCategory *)cate
                result:(NSString *)input

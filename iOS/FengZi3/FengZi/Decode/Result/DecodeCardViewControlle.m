@@ -27,7 +27,7 @@
     return self;
 }
 
--(id)initWithNibName:(NSString *)nibNameOrNil category:(BusCategory *)cate result:(NSString *)input withImage:(UIImage *)image withType:(HistoryType)type withSaveImage:(UIImage*)sImage{
+- (id)initWithNibName:(NSString *)nibNameOrNil category:(BusCategory *)cate result:(NSString *)input withImage:(UIImage *)image withType:(HistoryType)type withSaveImage:(UIImage*)sImage{
     self = [super initWithNibName:nibNameOrNil bundle:nil];
     if (self) {
         _category = [cate retain];
@@ -38,6 +38,7 @@
     }
     return self;
 }
+
 - (void)didReceiveMemoryWarning
 {
     // Releases the view if it doesn't have a superview.
@@ -46,11 +47,11 @@
     // Release any cached data, images, etc that aren't in use.
 }
 
--(void)goBack{
+- (void)goBack{
     [self.navigationController popViewControllerAnimated:YES];
 }
 
--(void)shareCode{
+- (void)shareCode{
     [[SHK currentHelper] setRootViewController:self];
     SHKItem *item = [SHKItem text:@"快来扫码，即有惊喜！\n来自蜂子客户端"];
     item.image = _curImage;
@@ -62,6 +63,7 @@
 //    [actionSheet showInView:self.view];
 //    [actionSheet release];
 }
+
 #pragma mark - View lifecycle
 
 - (void)viewDidLoad
@@ -87,15 +89,13 @@
     
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
     btn.frame =CGRectMake(0, 0, 60, 32);
-//    [btn setImage:[UIImage imageNamed:@"share.png"] forState:UIControlStateNormal];
-//    [btn setImage:[UIImage imageNamed:@"share_tap.png"] forState:UIControlStateHighlighted];
-//    [btn addTarget:self action:@selector(shareCode) forControlEvents:UIControlEventTouchUpInside];
+    //[btn setImage:[UIImage imageNamed:@"share.png"] forState:UIControlStateNormal];
+    //[btn setImage:[UIImage imageNamed:@"share_tap.png"] forState:UIControlStateHighlighted];
+    //[btn addTarget:self action:@selector(shareCode) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithCustomView:btn];
     self.navigationItem.rightBarButtonItem = item;
     [item release];
-    // 下面的这个数组的内容, 就是从A开始的连续的值
-    //NSDictionary *list = [BusDecoder parse0:_content];
-    //_card = [[BusDecoder decode:list className:@"Card"] retain];
+    
     _card = [[Api parse:_content timeout:30] retain];
     if (_historyType == HistoryTypeFavAndHistory) {
         if (_card.logId) {
