@@ -95,10 +95,8 @@ static int iTimes = -1;
         [UIView commitAnimations];        
         [maskView removeFromSuperview];
         maskView = nil;
-        _isHideCurtain = YES;
-        
-    }
-       
+        _isHideCurtain = YES;        
+    }       
 }
 
 - (IBAction)gotoStoreTable:(id)sender {
