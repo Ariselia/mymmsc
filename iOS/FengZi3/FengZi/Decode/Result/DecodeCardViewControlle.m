@@ -6,15 +6,18 @@
 //
 
 #import "DecodeCardViewControlle.h"
-#import "BusDecoder.h"
+#import <FengZi/BusDecoder.h>
 #import "FileUtil.h"
 #import "Api+Database.h"
-#import "Api+Category.h"
+#import <FengZi/Api+Category.h>
 #import "CommonUtils.h"
-#import "EncryptTools.h"
+#import <FengZi/PseudoBase64.h>
 #import "SHK.h"
 #import "ShareView.h"
+#import "CONSTS.h"
+
 @implementation DecodeCardViewControlle
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -23,6 +26,7 @@
     }
     return self;
 }
+
 -(id)initWithNibName:(NSString *)nibNameOrNil category:(BusCategory *)cate  result:(NSString *)input withImage:(UIImage *)image withType:(HistoryType)type withSaveImage:(UIImage*)sImage{
     self = [super initWithNibName:nibNameOrNil bundle:nil];
     if (self) {
@@ -96,7 +100,7 @@
     if (_historyType == HistoryTypeFavAndHistory) {
         if (_card.logId) {
             NSString *appAtt = [NSString stringWithFormat:@"eqn=%@&type=%@&stype=%d&loc=%@",[[UIDevice currentDevice] uniqueIdentifier],[DATA_ENV getDecodeType:_category.type],DATA_ENV.curScanType,DATA_ENV.curLocation];
-            appAtt = [EncryptTools Base64EncryptString:appAtt];
+            appAtt = [PseudoBase64 encode:appAtt];
             [ScanLogDataRequest silentRequestWithDelegate:self withParameters:[NSDictionary dictionaryWithObjectsAndKeys:_card.logId,@"c",appAtt,@"a", nil]];
         }
         HistoryObject *historyobject = [[HistoryObject alloc] init];
@@ -230,18 +234,18 @@
     
     UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"添加名片到通讯录成功！" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles: nil];
     [alertView show];
-    RELEASE_SAFELY(alertView);
+    IOSAPI_RELEASE(alertView);
     _phoneBtn.enabled = NO;
 }
 
 
 -(void)addFavirote{
     FaviroteObject *object = [[FaviroteObject alloc] init];
-    object.type = BusinessTypeCard;
+    object.type = kModelCard;
     object.content = _card.name;
     object.image= [NSString stringWithFormat:@"%@.png",[CommonUtils createUUID]];
     [FileUtil writeImage:_saveImage toFileAtPath:[FileUtil filePathInFavirote:object.image]];
-    if( [[DataBaseOperate shareData] checkFaviroteExists:object.content type:BusinessTypeCard])
+    if( [[DataBaseOperate shareData] checkFaviroteExists:object.content type:kModelCard])
     {
         [object release];
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"已收藏过！" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles: nil];
@@ -355,7 +359,7 @@
 
 -(void)finishShare:(NSNotification*)notification{    
     NSString *info= [NSString stringWithFormat:@"eqn=%@&version=%@",[[UIDevice currentDevice] uniqueIdentifier],[iOSApi version]];
-    info = [EncryptTools Base64EncryptString:info];
+    info = [PseudoBase64 encode:info];
     NSString *type = [notification.userInfo objectForKey:@"type"];
     if ([type isEqualToString:@"sina"]) {
         [WeiboShareLogDataRequest silentRequestWithDelegate:self withParameters:[NSDictionary dictionaryWithObjectsAndKeys:@"0",@"t",info,@"a", nil]];
@@ -368,7 +372,7 @@
 
 -(void)finishShareAuth:(NSNotification*)notification{
     NSString *info= [NSString stringWithFormat:@"eqn=%@&version=%@",[[UIDevice currentDevice] uniqueIdentifier],[iOSApi version]];
-    info = [EncryptTools Base64EncryptString:info];
+    info = [PseudoBase64 encode:info];
     NSString *type = [notification.userInfo objectForKey:@"type"];
     if ([type isEqualToString:@"sina"]) {
         [AuthorizeLogDataRequest silentRequestWithDelegate:self withParameters:[NSDictionary dictionaryWithObjectsAndKeys:@"0",@"t",info,@"a", nil]];
