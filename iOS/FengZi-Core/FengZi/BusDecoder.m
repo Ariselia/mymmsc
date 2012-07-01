@@ -323,7 +323,8 @@ static NSString *URL_FLAG = @"://";
     
     NSRange range = [input rangeOfString:SEPERATOR_PRE];
     int position = range.location;
-    if(position == NSNotFound || range.length == 0){
+    /*
+     if(position == NSNotFound || range.length == 0){
         //不存在：，可能是http链接，或者文本
         if([BusDecoder isUrl:input]){
             category.type = CATEGORY_URL;
@@ -336,7 +337,7 @@ static NSString *URL_FLAG = @"://";
         }        
         return category;
     }
-    
+    */
     NSString *flage = [input substringToIndex:position];    
     int logIDPos = [input rangeOfString:[NSString stringWithFormat:@"%@%@",ALL_LOGID,SEPERATOR_PRE]].location;
     
@@ -1176,7 +1177,7 @@ static NSString *URL_FLAG = @"://";
  * @param input
  * @return
  */
-+(BookMark*) decodeBookMark:(NSString *)input channel:(int) channele{
++ (BookMark *) decodeBookMark:(NSString *)input channel:(int) channele{
     
     BookMark *bookmark = [[[BookMark alloc]init]autorelease];
     
