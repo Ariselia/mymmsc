@@ -7,7 +7,7 @@
 //
 
 #import "Api+RichMedia.h"
-#import "BusDecoder.h"
+#import <FengZi/BusDecoder.h>
 
 //====================================< 富媒体 - 接口 >====================================
 //#define API_CODE_PREFIX @"http://ifengzi.cn/show.cgi?"
