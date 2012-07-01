@@ -127,6 +127,47 @@
     return clazz;
 }
 
+- (NSString *)typeName {
+    NSString *sRet = @"未知码类型";
+    if (typeId >= 0) {
+        Class clazz = [self class];
+        if (clazz == Url.class) {
+            sRet = @"网站链接";
+        } else if (clazz == BookMark.class) {
+            sRet = @"书签";
+        } else if (clazz == AppUrl.class) {
+            sRet = @"应用程序下载地址";
+        } else if (clazz == Weibo.class) {
+            sRet = @"微博";
+        } else if (clazz == Card.class) {
+            sRet = @"名片";
+        } else if (clazz == Email.class) {
+            sRet = @"电子邮件";
+        } else if (clazz == Phone.class) {
+            sRet = @"电话号码";
+        } else if (clazz == Text.class) {
+            sRet = @"文本";
+        } else if (clazz == EncText.class) {
+            sRet = @"加密文本";
+        } else if (clazz == ShortMessage.class) {
+            sRet = @"短信";
+        } else if (clazz == WiFiText.class) {
+            sRet = @"WiFi";
+        } else if (clazz == GMap.class) {
+            sRet = @"地图信息";;
+        } else if (clazz == Schedule.class) {
+            sRet = @"日程";
+        } else if (clazz == RichMedia.class) {
+            sRet = @"富媒体";
+        } else if (clazz == Ride.class) {
+            sRet = @"顺风车";
+        } else {
+            sRet = @"文本";
+        }
+    }
+    return sRet;
+}
+
 - (void)dealloc{
     IOSAPI_RELEASE(logId);
     [super dealloc];
@@ -176,7 +217,7 @@
 			[invocation getReturnValue:&valueObj];
 			if (valueObj) {
 				[attrsDesc appendFormat:@" [%@=%@] ",attributeName,valueObj];
-			}else {
+			} else {
 				[attrsDesc appendFormat:@" [%@=nil] ",attributeName];
 			}
 		}
@@ -580,7 +621,7 @@
  */
 + (id)parseV3Common:(NSString *)string {
     id oRet = nil;
-    NSString *input = nil;
+    NSString *input = string;
     if ([input hasPrefix:API_CODE_PREFIX]) {
         // 新的码规则, 取出码的正是内容
         NSString *code = [input substringFromIndex:API_CODE_PREFIX.length];
