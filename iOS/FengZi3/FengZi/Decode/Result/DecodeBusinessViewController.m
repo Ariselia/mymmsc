@@ -46,7 +46,7 @@
     return self;
 }
 
--(id)initWithNibName:(NSString *)nibNameOrNil category:(BusCategory *)cate  result:(NSString *)input image:(UIImage*)img withType:(HistoryType)type withSaveImage:(UIImage*)sImage{
+- (id)initWithNibName:(NSString *)nibNameOrNil category:(BusCategory *)cate  result:(NSString *)input image:(UIImage*)img withType:(HistoryType)type withSaveImage:(UIImage*)sImage{
     self = [super initWithNibName:nibNameOrNil bundle:nil];
     if (self) {
         _hideContentIndex = -1;
