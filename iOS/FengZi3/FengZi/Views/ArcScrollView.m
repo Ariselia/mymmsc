@@ -83,7 +83,7 @@
 
 -(void)resetScrollContent:(BOOL)animation{
     _startIndex = _startIndex2;
-    CGFloat leftOffsetX= _offsetX-_offsetWidth*(BUSINESS_NUM/2-3);
+    CGFloat leftOffsetX= _offsetX - _offsetWidth *(BUSINESS_NUM / 2 - 3);
     if (animation) {
         NSTimeInterval animationDuration = 0.3;
         [UIView beginAnimations:@"pull" context:nil];
@@ -129,12 +129,12 @@
     }
 }
 
--(void)goNextAnimation{
+- (void)goNextAnimation{
     _goBtn.enabled = NO;
     _curSelectedIndex = _lastSelectedIndex;
-    _startIndex2 = _curSelectedIndex -BUSINESS_NUM/2+1;
-    if (_startIndex2<0) {
-        _startIndex2 = BUSINESS_NUM+_startIndex2;
+    _startIndex2 = _curSelectedIndex - BUSINESS_NUM / 2 + 1;
+    if (_startIndex2 < 0) {
+        _startIndex2 = BUSINESS_NUM + _startIndex2;
     }
     [self resetScrollContent:YES];
 }
@@ -143,22 +143,22 @@
     _goBtn.enabled = NO;
     CGPoint currentOffset = [_scrollView contentOffset];
     CGFloat distanceFromCenter = fabs(currentOffset.x - _offsetX);
-    CGFloat leftOffsetX= _offsetX-_offsetWidth*(BUSINESS_NUM/2-3);
-    CGFloat sub= scrollView.contentOffset.x - _offsetX;
+    CGFloat leftOffsetX= _offsetX - _offsetWidth * (BUSINESS_NUM / 2 - 3);
+    CGFloat sub = scrollView.contentOffset.x - _offsetX;
     int j = 0;
-    j = _startIndex2-_startIndex;
-    if (sub<0) {
-        j = j>0?j-BUSINESS_NUM:j;
-    }else if(sub>0){
-        j = j<0?BUSINESS_NUM +j:j;
+    j = _startIndex2 - _startIndex;
+    if (sub < 0) {
+        j = j > 0 ? j - BUSINESS_NUM : j;
+    } else if(sub > 0){
+        j = j < 0 ? BUSINESS_NUM + j : j;
     }
-    if (distanceFromCenter > 3*_offsetWidth) {
-        int moveNum = fabsf(sub)/_offsetWidth;
-        if (sub>0) {
-            _scrollView.contentOffset = CGPointMake(scrollView.contentOffset.x-moveNum*_offsetWidth, 0);
-            sub = sub - moveNum*_offsetWidth;
-        }else{
-             _scrollView.contentOffset = CGPointMake(scrollView.contentOffset.x+moveNum*_offsetWidth, 0);
+    if (distanceFromCenter > 3 * _offsetWidth) {
+        int moveNum = fabsf(sub) / _offsetWidth;
+        if (sub > 0) {
+            _scrollView.contentOffset = CGPointMake(scrollView.contentOffset.x - moveNum * _offsetWidth, 0);
+            sub = sub - moveNum * _offsetWidth;
+        } else {
+             _scrollView.contentOffset = CGPointMake(scrollView.contentOffset.x + moveNum *_offsetWidth, 0);
             sub = sub + moveNum*_offsetWidth;
         }
     }
@@ -169,28 +169,28 @@
     float paramA = [[parr objectAtIndex:0] floatValue];
     float paramB = [[parr objectAtIndex:1] floatValue];
     float paramC = [[parr objectAtIndex:2] floatValue];
-    float pointY=1000000;
-    for (int i = j;i<BUSINESS_NUM+j; i++) {
+    float pointY = 1000000;
+    for (int i = j;i < BUSINESS_NUM + j; i++) {
         int offsetTmp = 0;
-        if(i==BUSINESS_NUM/2-2){
+        if(i == BUSINESS_NUM / 2 - 2){
             offsetTmp = -10;
-        }else if(i==BUSINESS_NUM/2){
+        } else if(i == BUSINESS_NUM / 2){
             offsetTmp = 10;
         }
         int k = i;
-        if (i<0) {
-            k= BUSINESS_NUM+i;
-        }else if(i>=BUSINESS_NUM){
-            k = i-BUSINESS_NUM;
+        if (i < 0) {
+            k= BUSINESS_NUM + i;
+        }else if(i >= BUSINESS_NUM){
+            k = i - BUSINESS_NUM;
         }
-        int temp = _startIndex+k;
-        if (temp>=BUSINESS_NUM) {
+        int temp = _startIndex + k;
+        if (temp >= BUSINESS_NUM) {
             temp = temp - BUSINESS_NUM;
         }
-        int tag = 2000+temp;
-        UIButton *btn = (UIButton*)[self viewWithTag:tag];
-        float offsetX = i*_offsetWidth+_offsetWidth/2 - sub+leftOffsetX + offsetTmp;
-        float offsetY = paramA*offsetX*offsetX + paramB*offsetX + paramC;
+        int tag = 2000 + temp;
+        UIButton *btn = (UIButton *)[self viewWithTag:tag];
+        float offsetX = i * _offsetWidth + _offsetWidth / 2 - sub + leftOffsetX + offsetTmp;
+        float offsetY = paramA * offsetX * offsetX + paramB * offsetX + paramC;
         if (offsetY < pointY) {
             pointY = offsetY;
             _curSelectedIndex = temp;
@@ -198,13 +198,13 @@
         btn.center = CGPointMake(offsetX, fabsf(offsetY));
         btn.selected = NO;
     }
-    _startIndex2 = _curSelectedIndex-BUSINESS_NUM/2+1;
-    if (_startIndex2<0) {
-        _startIndex2 = BUSINESS_NUM+_startIndex2;
+    _startIndex2 = _curSelectedIndex - BUSINESS_NUM / 2 + 1;
+    if (_startIndex2 < 0) {
+        _startIndex2 = BUSINESS_NUM + _startIndex2;
     }
-    UIButton *selectBtn = (UIButton*)[self viewWithTag:2000+_curSelectedIndex];
+    UIButton *selectBtn = (UIButton *)[self viewWithTag:2000 + _curSelectedIndex];
     selectBtn.selected = YES;
-    selectBtn.userInteractionEnabled=NO;
+    selectBtn.userInteractionEnabled = NO;
 }
 
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{
@@ -226,36 +226,36 @@
 
 -(void)thumbDidClick:(UIButton*)btn{
     _goBtn.enabled = NO;
-    _lastSelectedIndex = btn.tag-2000;
-    int tmp = _lastSelectedIndex-_curSelectedIndex;
+    _lastSelectedIndex = btn.tag - 2000;
+    int tmp = _lastSelectedIndex - _curSelectedIndex;
     if (abs(tmp) < 2) {
         _curSelectedIndex = _lastSelectedIndex;
-    }else{
-        if(tmp>0){
-            if (tmp>2) {
-                if (_curSelectedIndex==0) {
-                    _curSelectedIndex = BUSINESS_NUM-1;
-                }else{
+    } else {
+        if(tmp > 0){
+            if (tmp > 2) {
+                if (_curSelectedIndex == 0) {
+                    _curSelectedIndex = BUSINESS_NUM - 1;
+                } else {
                     _curSelectedIndex--;
                 }
-            }else{
+            } else {
                 _curSelectedIndex++;
             }
-        }else{
-            if (tmp<-2) {
-                if (_curSelectedIndex == BUSINESS_NUM-1) {
-                    _curSelectedIndex=0;
-                }else{
+        } else {
+            if (tmp < -2) {
+                if (_curSelectedIndex == BUSINESS_NUM - 1) {
+                    _curSelectedIndex = 0;
+                } else {
                     _curSelectedIndex++;
                 }
-            }else{
+            } else {
                 _curSelectedIndex--;
             }
         }
     }
-    _startIndex2 = _curSelectedIndex -BUSINESS_NUM/2+1;
-    if (_startIndex2<0) {
-        _startIndex2 = BUSINESS_NUM+_startIndex2;
+    _startIndex2 = _curSelectedIndex - BUSINESS_NUM / 2 + 1;
+    if (_startIndex2 < 0) {
+        _startIndex2 = BUSINESS_NUM + _startIndex2;
     }
     [self resetScrollContent:YES];
 }
