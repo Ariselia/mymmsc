@@ -210,18 +210,12 @@
 
 // 文本框变动的时候
 - (IBAction)textUpdate:(id)sender {
-     
-        UITextField *field = sender;
-        
-        NSString *msg = [field.text trim];
-
+    UITextField *field = sender;        
+    NSString *msg = [field.text trim];
     if (![iOSApi regexpMatch:msg withPattern:@"[0-9]{11}"]){
-            
-                // 非手机号码
+        // 非手机号码
         [iOSApi Alert:@"手机号码输入提示" message:@"非11位手机号码，请重新输入。"];
         [self switchShouldReturn:sender];
-        
-        
 	} else {
 		[self textFieldShouldReturn: sender];
 	}
