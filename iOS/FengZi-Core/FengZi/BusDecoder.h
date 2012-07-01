@@ -11,7 +11,7 @@
 #import "Api+Category.h"
 
 @interface BusDecoder : NSObject
-+ (NSDictionary *)parse0:(NSString *)input;
+//+ (NSDictionary *)parse0:(NSString *)input;
 + (id)decode:(NSDictionary *)list className:(NSString *)className;
 + (BOOL)isUrl:(NSString *)input;
 + (NSString *)transCode:(NSString *)input;
