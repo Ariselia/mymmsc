@@ -8,8 +8,8 @@
 #import "BusCategory.h"
 
 @implementation BusCategory
-@synthesize channel=_channel;
-@synthesize type=_type;
+@synthesize channel = _channel;
+@synthesize type = _type;
 @synthesize bKma;
 
 -(void)dealloc{
