@@ -8,7 +8,9 @@
 
 #import "EncodeEmailViewController.h"
 #import "EncodeEditViewController.h"
-#import "Api+Category.h"
+#import <FengZi/Api+Category.h>
+#import "CommonUtils.h"
+
 @implementation EncodeEmailViewController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -30,29 +32,30 @@
 -(void)goBack{
     [self.navigationController popViewControllerAnimated:YES];
 }
+
 -(void)generateCode{
     if (_contentText.text.length>500) {
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"内容不能大于110字！" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles: nil];
         [alertView show];
-        RELEASE_SAFELY(alertView);
+        IOSAPI_RELEASE(alertView);
         return;
     }
     if ([_titleText.text isEqualToString:@""]) {
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"标题不能为空！" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles: nil];
         [alertView show];
-        RELEASE_SAFELY(alertView);
+        IOSAPI_RELEASE(alertView);
         return;
     }
     if ([_mailText.text isEqualToString:@""]) {
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"邮箱不能为空！" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles: nil];
         [alertView show];
-        RELEASE_SAFELY(alertView);
+        IOSAPI_RELEASE(alertView);
         return;
     }
     if (![CommonUtils validateEmail:_mailText.text]) {
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"电子邮箱格式不正确！" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles: nil];
         [alertView show];
-        RELEASE_SAFELY(alertView);
+        IOSAPI_RELEASE(alertView);
         return;
     }
     Email *mail = [[[Email alloc] init]autorelease];
