@@ -149,10 +149,10 @@
     DATA_ENV.encodeImageType = EncodeImageTypeIcon;
 }
 
--(void)gotoEditController:(BusinessType)type{
+- (void)gotoEditController:(BusinessType)type{
     DATA_ENV.curBusinessType = type;
     UIViewController *viewController;
-    switch (type) {
+    switch (type + 1) {
         case kModelAppUrl:
             viewController = [[EncodeAppUrlViewController alloc] initWithNibName:@"EncodeAppUrlViewController" bundle:nil];
             break;
