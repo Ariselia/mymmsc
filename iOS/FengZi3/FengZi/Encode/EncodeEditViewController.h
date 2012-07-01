@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "DecorateView.h"
 #import "EditImageView.h"
-#import "CodeAttribute.h"
+#import <FengZi/CodeAttribute.h>
 #import "ITTDataRequest.h"
 #import "ITTImageView.h"
 #import "Api+RichMedia.h"
