@@ -199,12 +199,12 @@
 
 - (void)getCodeString{
     _logId = [[NotePLogService encodeEnc:_codeAtt] retain];
+    // 调整类型数
     switch (DATA_ENV.curBusinessType) {
         case kModelUrl:{
             Url *obj = _codeObject;
             obj.logId = _logId;
             _showInfo = obj.content;
-            //_content = [[BusEncoder encodeUrl:obj] retain];
             _content = [[BusEncoder encode:obj type:DATA_ENV.curBusinessType]retain];
 
             break;
