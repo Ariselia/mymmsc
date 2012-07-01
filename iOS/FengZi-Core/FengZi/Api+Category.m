@@ -194,7 +194,7 @@
 	return desc;
 }
 
--(void)setAttributes:(NSDictionary*)dataDic{
+- (void)setAttributes:(NSDictionary *)dataDic{
 	NSDictionary *attrMapDic = [self attributeMapDictionary];
 	if (attrMapDic == nil) {
 		return;
