@@ -301,9 +301,11 @@ static NSString *s_luckyId = nil;
     BusCategory *category = [BusDecoder classify:input];
     BusCategory *category_url = [BusDecoder classify:url];
     [TabBarController hide:NO animated:NO];
-   //      NSString *strCard =[NSString stringWithFormat:@"%@%@",FENGZI_URL,[self getString16:BusinessTypeCard]];
-   // if ([self isHaveString:input param:strCard]) {
-    if([category.type isEqualToString:CATEGORY_MEDIA] || [category_url.type isEqualToString:CATEGORY_MEDIA] ) {
+    if ([category.type isEqualToString:CATEGORY_CARD]) {
+        DecodeCardViewControlle *cardView = [[DecodeCardViewControlle alloc] initWithNibName:@"DecodeCardViewControlle" category:category result:input withImage:inputImage withType:HistoryTypeFavAndHistory withSaveImage:saveImage];
+        [self.navigationController pushViewController:cardView animated:YES];
+        RELEASE_SAFELY(cardView);
+    } else if([category.type isEqualToString:CATEGORY_MEDIA] || [category_url.type isEqualToString:CATEGORY_MEDIA] ) {
         NSDictionary *dict = [url uriParams];
         NSString *isJump = [dict objectForKey:@"issend"];
         if ([isJump isEqual:@"1"]) {
