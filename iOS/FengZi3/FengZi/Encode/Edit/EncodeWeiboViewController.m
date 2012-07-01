@@ -8,8 +8,8 @@
 
 #import "EncodeWeiboViewController.h"
 #import "EncodeEditViewController.h"
-#import "Api+Category.h"
-#import "BusDecoder.h"
+#import <FengZi/Api+Category.h>
+#import <FengZi/BusDecoder.h>
 
 @implementation EncodeWeiboViewController
 
