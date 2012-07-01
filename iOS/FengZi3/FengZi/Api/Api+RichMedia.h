@@ -6,8 +6,7 @@
 //  Copyright (c) 2012年 mymmsc.org. All rights reserved.
 //
 
-#import "Api.h"
-#import "Api+Category.h"
+#import <FengZi/Api+Category.h>
 //====================================< 富媒体 - 接口 >====================================
 
 #define API_KMA_INVAILD             (-1)
