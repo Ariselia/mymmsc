@@ -7,8 +7,8 @@
 //
 
 #import "Api+eWall.h"
-#import "BusDescKey.h"
-#import "BusDecoder.h"
+#import <FengZi/BusDescKey.h>
+#import <FengZi/BusDecoder.h>
 
 @implementation EWall
 
