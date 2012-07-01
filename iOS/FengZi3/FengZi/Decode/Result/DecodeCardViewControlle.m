@@ -27,7 +27,7 @@
     return self;
 }
 
--(id)initWithNibName:(NSString *)nibNameOrNil category:(BusCategory *)cate  result:(NSString *)input withImage:(UIImage *)image withType:(HistoryType)type withSaveImage:(UIImage*)sImage{
+-(id)initWithNibName:(NSString *)nibNameOrNil category:(BusCategory *)cate result:(NSString *)input withImage:(UIImage *)image withType:(HistoryType)type withSaveImage:(UIImage*)sImage{
     self = [super initWithNibName:nibNameOrNil bundle:nil];
     if (self) {
         _category = [cate retain];
