@@ -8,10 +8,10 @@
 
 #import "HistoryViewController.h"
 #import "Api+Database.h"
-#import "Api+Category.h"
+#import <FengZi/Api+Category.h>
 #import "DecodeCardViewControlle.h"
-#import "BusDecoder.h"
-#import "BusCategory.h"
+#import <FengZi/BusDecoder.h>
+#import <FengZi/BusCategory.h>
 #import "DecodeBusinessViewController.h"
 #import <ZXing/QRCodeReader.h>
 #import <ZXing/TwoDDecoderResult.h>
