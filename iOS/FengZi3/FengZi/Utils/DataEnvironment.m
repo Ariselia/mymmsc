@@ -19,9 +19,9 @@
 static DataEnvironment *sharedInst = nil;
 
 @synthesize urlRequestHost = _urlRequestHost;
-@synthesize encodeImageType=_encodeImageType;
-@synthesize curScanType=_curScanType;
-@synthesize curLocation=_curLocation;
+@synthesize encodeImageType = _encodeImageType;
+@synthesize curScanType = _curScanType;
+@synthesize curLocation = _curLocation;
 @synthesize curBusinessType = _curBusinessType;
 @synthesize hasNetWork = _hasNetWork;
 
@@ -40,8 +40,8 @@ static DataEnvironment *sharedInst = nil;
 - (id)init{
     self = [super init];
 	if ( sharedInst != nil ) {
-		
-	}else if (self) {
+		//
+	} else if (self) {
 		sharedInst = self;
 		[self restore];
 		
@@ -49,18 +49,18 @@ static DataEnvironment *sharedInst = nil;
 	return sharedInst;
 }
 
--(void)clearNetworkData{
+- (void)clearNetworkData{
     [[DataCacheManager sharedManager] clearAllCache];
 }
 
 
-- (UIImage*)getBusinessImage:(BusinessType)type select:(BOOL)isSelected{
+- (UIImage *)getBusinessImage:(BusinessType)type select:(BOOL)isSelected{
     NSString *subffix = @".png";
     if (isSelected) {
         subffix = @"_tap.png";
     }
     NSString *path;
-    switch (type) {
+    switch (type + 1) {
         case kModelPhone:
             path = @"address_rainbow";
             break;
@@ -110,7 +110,7 @@ static DataEnvironment *sharedInst = nil;
 }
 
 
-- (UIColor*)getColorWithIndex:(int)index{
+- (UIColor *)getColorWithIndex:(int)index{
     switch (index) {
         case 0:// 黑
             return [UIColor colorWithRed:0 green:0 blue:0 alpha:1];
@@ -183,7 +183,7 @@ static DataEnvironment *sharedInst = nil;
     return [UIImage imageNamed:[NSString stringWithFormat:@"skin_%d.png",index]];
 }
 
-- (NSString*)getSkinUrlWithIndex:(int)index{
+- (NSString *)getSkinUrlWithIndex:(int)index{
     switch (index) {
         case 0:
             return @"";
@@ -215,6 +215,7 @@ static DataEnvironment *sharedInst = nil;
             return @"";
     }
 }
+
 - (NSArray *)getIconImage{
     NSMutableArray *arr = [NSMutableArray array];
     UIImage *imgage = [UIImage imageNamed:@"icon_0.png"];
@@ -277,32 +278,32 @@ static DataEnvironment *sharedInst = nil;
     }
 }
 
-- (NSString*)getDecodeType:(NSString*)type{
+- (NSString *)getDecodeType:(NSString*)type{
     if ([type isEqualToString:CATEGORY_PHONE]) {
         return @"phone";
-    }else if([type isEqualToString:CATEGORY_SHORTMESS]){
+    } else if([type isEqualToString:CATEGORY_SHORTMESS]) {
         return @"shortMessage";
-    }else if([type isEqualToString:CATEGORY_EMAIL]){
+    } else if([type isEqualToString:CATEGORY_EMAIL]) {
         return @"email";
-    }else if([type isEqualToString:CATEGORY_BOOKMARK]){
+    } else if([type isEqualToString:CATEGORY_BOOKMARK]) {
        return @"bookMark";
-    }else if([type isEqualToString:CATEGORY_SCHEDULE]){
+    } else if([type isEqualToString:CATEGORY_SCHEDULE]) {
        return @"schedule";
-    }else if([type isEqualToString:CATEGORY_TEXT]){
+    } else if([type isEqualToString:CATEGORY_TEXT]) {
         return @"text";
-    }else if([type isEqualToString:CATEGORY_ENCTEXT]){
+    } else if([type isEqualToString:CATEGORY_ENCTEXT]) {
         return @"encText";
-    }else if([type isEqualToString:CATEGORY_WIFI]){
+    } else if([type isEqualToString:CATEGORY_WIFI]) {
         return @"wifiText";
-    }else if([type isEqualToString:CATEGORY_URL]){
+    } else if([type isEqualToString:CATEGORY_URL]) {
         return @"url";
-    }else if([type isEqualToString:CATEGORY_WEIBO]){
+    } else if([type isEqualToString:CATEGORY_WEIBO]) {
         return @"weibo";
-    }else if([type isEqualToString:CATEGORY_GMAP]){
+    } else if([type isEqualToString:CATEGORY_GMAP]) {
         return @"gmap";
-    }else if([type isEqualToString:CATEGORY_APP]){
+    } else if([type isEqualToString:CATEGORY_APP]) {
         return @"appUrl";
-    } else if([type isEqualToString:CATEGORY_CARD]){
+    } else if([type isEqualToString:CATEGORY_CARD]) {
         return @"card";
     } else if([type isEqualToString:CATEGORY_MEDIA]) {
         return @"richMedia";
@@ -311,7 +312,7 @@ static DataEnvironment *sharedInst = nil;
     }
 }
 
-- (NSString*)getEncodeCodeType:(BusinessType)type{
+- (NSString *)getEncodeCodeType:(BusinessType)type{
     switch (type) {
         case kModelAppUrl:
             return @"appUrl";
@@ -345,7 +346,7 @@ static DataEnvironment *sharedInst = nil;
             return @"text";
     }
 }
-- (int)getCodeType:(NSString*)type{
+- (int)getCodeType:(NSString *)type{
     if ([type isEqualToString:CATEGORY_PHONE]) {
         return kModelPhone;
     }else if([type isEqualToString:CATEGORY_SHORTMESS]){
@@ -381,22 +382,27 @@ static DataEnvironment *sharedInst = nil;
 
 }
 
--(BOOL)getFlashLightStatus{
+- (BOOL)getFlashLightStatus{
     return [USER_DEFAULT boolForKey:FlashLightStatus];
 }
--(void)setFlashLightStatus:(BOOL)status{
+
+- (void)setFlashLightStatus:(BOOL)status{
     [USER_DEFAULT setBool:status forKey:FlashLightStatus];
 }
--(BOOL)getDecodeMusicStatus{
+
+- (BOOL)getDecodeMusicStatus{
     return ![USER_DEFAULT boolForKey:DecodeMusicStatus];
 }
--(void)setDecodeMusicStatus:(BOOL)status{
+
+- (void)setDecodeMusicStatus:(BOOL)status{
     [USER_DEFAULT setBool:!status forKey:DecodeMusicStatus];
 }
--(BOOL)getLocationStatus{
+
+- (BOOL)getLocationStatus{
     return ![USER_DEFAULT boolForKey:LocationStatus];
 }
--(void)setLocationStatus:(BOOL)status{
+
+- (void)setLocationStatus:(BOOL)status{
     [USER_DEFAULT setBool:!status forKey:LocationStatus];
 }
 
@@ -419,10 +425,10 @@ static DataEnvironment *sharedInst = nil;
     _urlRequestHost = [REQUEST_DOMAIN retain];
     _curLocation = @"";
 }
+
 - (void)dealloc{
     RELEASE_SAFELY(_urlRequestHost);
 	[super dealloc];
 }
-
 
 @end
