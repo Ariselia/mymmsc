@@ -62,7 +62,7 @@
 }
 */
 
--(void)decoderWithImage:(UIImage*)image{
+- (void)decoderWithImage:(UIImage *)image{
     Decoder *decoder = [[Decoder alloc] init];
     QRCodeReader* qrcodeReader = [[QRCodeReader alloc] init];
     NSSet *readers = [[NSSet alloc ] initWithObjects:qrcodeReader,nil];
