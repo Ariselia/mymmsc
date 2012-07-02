@@ -13,18 +13,18 @@
 #import "Api+RichMedia.h"
 //大图添加
 #import "EnlargeImageDoubleTap.h"
+
 @interface UCMediaPage : UIViewController<HttpDownloaderDelegate> {
-    MediaObject *info;
-    NSString *filePath;
-    UIButton *btnDown;
+    NSString      *filePath;
+    UIButton      *btnDown;
     AVAudioPlayer *audioPlayer;
-    MediaContent *maContent;
-   
+    RichMedia     *richMedia;
+    MediaPage     *info;
 }
 @property (nonatomic, assign) id idMedia;
-@property (nonatomic, copy) NSString *filePath;
-@property (nonatomic, retain) MediaContent *maContent;
-@property (nonatomic, retain) MediaObject *info;
+@property (nonatomic, copy)   NSString *filePath;
+@property (nonatomic, retain) RichMedia *richMedia;
+@property (nonatomic, retain) MediaPage *info;
 @property (nonatomic, retain) IBOutlet UILabel *subject, *bgAudio;
 @property (nonatomic, retain) IBOutlet UITextView *content;
 @property (nonatomic, retain) IBOutlet EnlargeImageDoubleTap *pic;
