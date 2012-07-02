@@ -2,15 +2,18 @@
 //  PopButtonsView.h
 //  FengZi
 //
-//  Copyright (c) 2011年 iTotemStudio. All rights reserved.
+//  Copyright (c) 2011年 fengxiafei.com. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
+#import "CONSTS.h"
+
 @class BusCategory;
 @protocol PopButtonsViewDelegate <NSObject>
 - (void)showSms;
 - (void)showMail;
 @end
+
 @interface PopButtonsView : UIView{
     id<PopButtonsViewDelegate> _delegate;
     BusCategory *_category;

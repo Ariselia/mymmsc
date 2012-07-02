@@ -358,16 +358,32 @@ static NSString *s_luckyId = nil;
         return;
     }
     // 解码, 暂时不用
-    BaseModel *bm = [[Api parse:input timeout:30] retain];
-    if (bm != nil && bm.typeId == kModelRichMedia) {
-        // 跳转富媒体
-        UCRichMedia *nextVIew = [[UCRichMedia alloc] init];
-        nextVIew.richMedia = (RichMedia *)bm;
-        [self.navigationController pushViewController:nextVIew animated:YES];
-        [nextVIew release];
-        return;
-    } else if (bm != nil && bm.typeId == kModelRide) {
-        // 顺风车
+    BaseModel *bm = [Api parse:input timeout:30];
+    if (bm != nil) {
+        iOSLog(@"扫码结果: [%@]", [bm typeName]);
+        if (bm.typeId == kModelRichMedia) {
+            // 跳转富媒体
+            UCRichMedia *nextVIew = [[UCRichMedia alloc] init];
+            nextVIew.richMedia = (RichMedia *)bm;
+            [self.navigationController pushViewController:nextVIew animated:YES];
+            [nextVIew release];
+        } else if (bm.typeId == kModelRide) {
+            // 顺风车
+            
+        } else if (bm.typeId == kModelCard) {
+            DecodeCardViewControlle *nextView = [[DecodeCardViewControlle alloc] initWithNibName:@"DecodeCardViewControlle" card:(Card *)bm withImage:inputImage withType:HistoryTypeFavAndHistory withSaveImage:saveImage];
+            [self.navigationController pushViewController:nextView animated:YES];
+            IOSAPI_RELEASE(nextView);
+        } else {
+            // 默认传统业务 [WangFeng at 2012/05/14 11:31]
+            HistoryType hType = HistoryTypeNone;
+            if (isSave) {
+                hType = HistoryTypeFavAndHistory;
+            }
+            DecodeBusinessViewController *businessView = [[DecodeBusinessViewController alloc] initWithNibName:@"DecodeBusinessViewController" result:bm image:inputImage withType:hType withSaveImage:saveImage];
+            [self.navigationController pushViewController:businessView animated:YES];
+            RELEASE_SAFELY(businessView);
+        }
         return;
     }
     BusCategory *category = [BusDecoder classify:input];

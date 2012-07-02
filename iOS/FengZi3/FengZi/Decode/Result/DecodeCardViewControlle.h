@@ -14,15 +14,15 @@
 
 
 @interface DecodeCardViewControlle : UIViewController<DecodeCardCellDelegate, DataRequestDelegate> {
-    Card *_card;
-    BusCategory *_category;
-    NSString *_content;
+    Card                 *_card;
+    BusCategory          *_category;
+    NSString             *_content;
     IBOutlet UITableView *_tableView;
-    UIImage *_curImage;
-    UIImage *_saveImage;
-    UIButton *_phoneBtn;
-    UIButton *_favBtn;
-    HistoryType _historyType;
+    UIImage              *_curImage;
+    UIImage              *_saveImage;
+    UIButton             *_phoneBtn;
+    UIButton             *_favBtn;
+    HistoryType          _historyType;
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil
@@ -32,4 +32,9 @@
              withType:(HistoryType)type
         withSaveImage:(UIImage*)sImage;
 
+- (id)initWithNibName:(NSString *)nibNameOrNil
+                 card:(Card *)card
+            withImage:(UIImage *)image
+             withType:(HistoryType)type
+        withSaveImage:(UIImage*)sImage;
 @end

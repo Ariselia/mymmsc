@@ -5,11 +5,12 @@
 //  Copyright (c) 2011年 iTotemStudio. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
 #import "PopButtonsView.h"
+
 @protocol DecodeCardCellDelegate <NSObject>
 - (void)hidePopButton;
 @end
+
 @interface DecodeCardCell : UITableViewCell{
     id<DecodeCardCellDelegate> _delegate;
     UILabel *_nameLabel;

@@ -108,23 +108,6 @@
 //--------------------< 富媒体 - 接口 - 应用程序相关 >--------------------
 @implementation Api (RichMedia)
 
-/*
- //获得要发送的扫描信息的AppAttribute
- public String getAppAttribute(){
- PhotoUtil phoneutil = new PhotoUtil(this);
- 
- StringBuffer appAttribute = new StringBuffer();
- //		appAttribute.append("imei=");
- appAttribute.append(phoneutil.getImei());
- appAttribute.append("&type=");
- appAttribute.append(Globals.TYPE); 
- appAttribute.append("&loc=");
- appAttribute.append(new SharedPreferencesUtil(this).getGeoPoint());//存放当前位置坐标
- 
- return appAttribute.toString();
- }
-*/
-
 // 获得app属性信息串
 + (NSString *)appAttribute:(int)type{
    NSString *sRet = [NSString stringWithFormat:@"imei=%@&type=%d&loc=%@", @"", type, DATA_ENV.curLocation];
@@ -260,12 +243,9 @@
         if ([Api kma]) {
             path = API_APPS_SERVER API_MAKE_CODE;
             iRet.url = [NSString stringWithFormat:@"%@?id=%@", path, uuid];
-        }
-        else {
+        } else {
              iRet.url = [data objectForKey:@"codeid"];
         }
-       
-        
     }
  
     return [iRet autorelease];

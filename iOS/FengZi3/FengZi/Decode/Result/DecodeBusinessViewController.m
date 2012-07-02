@@ -59,6 +59,20 @@
     return self;
 }
 
+- (id)initWithNibName:(NSString *)nibNameOrNil result:(BaseModel *)object image:(UIImage*)img withType:(HistoryType)type withSaveImage:(UIImage *)sImage{
+    self = [super initWithNibName:nibNameOrNil bundle:nil];
+    if (self) {
+        _hideContentIndex = -1;
+        _category = nil;
+        _content = nil;
+        _object = [object retain];
+        _image = [img retain];
+        _saveImage = [sImage retain];
+        _historyType = type;
+    }
+    return self;
+}
+
 - (void)didReceiveMemoryWarning
 {
     // Releases the view if it doesn't have a superview.
@@ -94,7 +108,8 @@
 
 - (void)saveHistory{
     HistoryObject *historyobject = [[HistoryObject alloc] init];
-    historyobject.type = [DATA_ENV getCodeType:_category.type];
+    //historyobject.type = [DATA_ENV getCodeType:_category.type];
+    historyobject.type = _object.typeId;
     historyobject.content = _showInfo;
     historyobject.isEncode=NO;
     historyobject.image= [NSString stringWithFormat:@"%@.png",[CommonUtils createUUID]];
@@ -126,7 +141,7 @@
         // 下面的这个数组的内容, 就是从A开始的连续的值
         //NSDictionary *list = [BusDecoder parse0:str];
         //EncText *object = [[BusDecoder decode:list className:@"EncText"] retain];
-        EncText *object = [Api parse:_content timeout:30];
+        EncText *object = (EncText *)_object;
         NSString *strKey = object.key;
         NSString *strText = _passwordField.text;
         if (![strKey isEqualToString:strText]) {
@@ -167,8 +182,7 @@
     type = type + 1;
     unsigned char typeUn = (unsigned char)type;
     NSString *type16 = [NSString stringWithFormat:@"%02X", typeUn];
-    return type16;
-    
+    return type16;    
 }
 
 
@@ -187,7 +201,7 @@
     _contentArray = [[NSMutableArray alloc] initWithCapacity:0];
     _typeArray = [[NSMutableArray alloc] initWithCapacity:0];
     NSString *logId = @"";
-    BaseModel *bm = [[Api parse:_content timeout:30] retain];
+    BaseModel *bm = _object;
     if (bm.typeId == kModelPhone) {
         _titleLabel.text= @"电话解码";
         Phone *object = (Phone *)bm;
@@ -437,7 +451,6 @@
             height = height+20+41;
         }
     }
-    NSLog(@"wqwq%d",height);
     return height;
 }
 
@@ -456,7 +469,6 @@
     UIImage * cell_img =[[UIImage imageNamed:@"decode_cell.png"]toSize:CGSizeMake(300, 50)];
     [cell setBackgroundImage:cell_img];
     [cell initDataWithTitile:[_titleArray objectAtIndex:indexPath.row] withText:[_contentArray objectAtIndex:indexPath.row] withType:[[_typeArray objectAtIndex:indexPath.row] intValue]];
-    NSLog(@"%@",NSStringFromCGRect(cell.nameLabel.frame));
     if (indexPath.row == _hideContentIndex) {
         cell.contentLabel.numberOfLines=0;
         int width = [self getWidth:[_contentArray objectAtIndex:indexPath.row]];
@@ -478,11 +490,12 @@
         [curCell removePopButton]; 
     }
 }
+
 -(void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event{
     [self hidePopButton];
 }
 
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [_tableView deselectRowAtIndexPath:indexPath animated:YES];
     [self hidePopButton];
 }
@@ -490,7 +503,7 @@
 #pragma mark -
 #pragma mark SMS
 
--(void)launchSmsAppOnDevice
+- (void)launchSmsAppOnDevice
 {
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"该设备不支持发送短信！" delegate:nil cancelButtonTitle:@"好的" otherButtonTitles:nil];
     [alert show];
@@ -501,18 +514,18 @@
 
 #pragma mark Componse sms
 
--(void)displaySMSComposerSheet{
+- (void)displaySMSComposerSheet{
     MFMessageComposeViewController *picker = [[MFMessageComposeViewController alloc] init];
     if ([_category.type isEqualToString:CATEGORY_SHORTMESS]) {
         picker.body = [_contentArray objectAtIndex:1];
         picker.recipients = [NSArray arrayWithObjects:[_contentArray objectAtIndex:0], nil];
-    }else if ([_category.type isEqualToString:CATEGORY_PHONE]) {
+    } else if ([_category.type isEqualToString:CATEGORY_PHONE]) {
         picker.recipients = [NSArray arrayWithObjects:[_contentArray objectAtIndex:0], nil];
-    }else if ([_category.type isEqualToString:CATEGORY_SCHEDULE]) {
+    } else if ([_category.type isEqualToString:CATEGORY_SCHEDULE]) {
         picker.body = [_contentArray objectAtIndex:2];
-    }else if ([_category.type isEqualToString:CATEGORY_TEXT]) {
+    } else if ([_category.type isEqualToString:CATEGORY_TEXT]) {
         picker.body = [_contentArray objectAtIndex:0];
-    }else if ([_category.type isEqualToString:CATEGORY_ENCTEXT]) {
+    } else if ([_category.type isEqualToString:CATEGORY_ENCTEXT]) {
         picker.body = [_contentArray objectAtIndex:1];
     }
     picker.messageComposeDelegate = self;
@@ -520,7 +533,7 @@
     [picker release];
 }
 
--(void)showSms{
+- (void)showSms{
     Class smsClass = NSClassFromString(@"MFMessageComposeViewController");
     if (smsClass != nil) {
         if ([smsClass canSendText]){
@@ -534,7 +547,7 @@
     
 }
 
--(void)showMail{
+- (void)showMail{
     SHKItem *item = [SHKItem text:@""];
     item.shareType = SHKShareTypeText;
     if ([_category.type isEqualToString:CATEGORY_EMAIL]) {
@@ -551,10 +564,12 @@
     }
     [SHKMail shareItem:item];
 }
+
 #pragma mark Componse sms
 - (void)messageComposeViewController:(MFMessageComposeViewController *)controller didFinishWithResult:(MessageComposeResult)result{
     [self dismissModalViewControllerAnimated:YES];
 }
+
 - (IBAction)addFavirote:(id)sender {
     FaviroteObject *object = [[FaviroteObject alloc] init];
     object.type = [DATA_ENV getCodeType:_category.type];
@@ -594,7 +609,7 @@
     }
 }
 
--(void)viewWillAppear:(BOOL)animated{
+- (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(finishShare:) name:SHARE_FINISH object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(finishShareAuth:) name:SHARE_AUTH_FINISH object:nil];
@@ -633,6 +648,7 @@
     [_tableView release];
     [_favBtn release];
     [_headerView release];
+    IOSAPI_RELEASE(_object);
     [super dealloc];
 }
 @end

@@ -54,7 +54,7 @@
     return;
 }
 
--(void)createImageWithWeb{
+- (void)createImageWithWeb{
     UIGraphicsBeginImageContext(self.view.frame.size);
     [self.view.layer renderInContext:UIGraphicsGetCurrentContext()];
     UIImage *resultImg = UIGraphicsGetImageFromCurrentImageContext();
@@ -90,6 +90,7 @@
         piece.center = locationInSuperview;
     }
 }
+
 #pragma mark -
 #pragma mark === Touch handling  ===
 #pragma mark

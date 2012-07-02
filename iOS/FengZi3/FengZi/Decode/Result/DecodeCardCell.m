@@ -14,7 +14,6 @@
 @synthesize delegate = _delegate;
 
 + (DecodeCardCell*)cellFromNib {
-    
     UIViewController *cellController = [[UIViewController alloc] initWithNibName:@"DecodeCardCell" bundle:nil];
     DecodeCardCell *cell = (DecodeCardCell *)cellController.view;
     cell.selectionStyle = UITableViewCellSelectionStyleNone;

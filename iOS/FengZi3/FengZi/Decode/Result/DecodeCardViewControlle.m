@@ -39,12 +39,26 @@
     return self;
 }
 
+- (id)initWithNibName:(NSString *)nibNameOrNil
+                 card:(Card *)card
+            withImage:(UIImage *)image
+             withType:(HistoryType)type
+        withSaveImage:(UIImage *)sImage {
+    if (self) {
+        _category = nil;
+        _content = nil;
+        _card = [card retain];
+        _curImage = [image retain];
+        _saveImage = [sImage retain];
+        _historyType = type;
+    }
+    return self;
+}
+
 - (void)didReceiveMemoryWarning
 {
     // Releases the view if it doesn't have a superview.
     [super didReceiveMemoryWarning];
-    
-    // Release any cached data, images, etc that aren't in use.
 }
 
 - (void)goBack{
@@ -59,9 +73,6 @@
     item.title = @"快来扫码，即有惊喜！";
     SHKActionSheet *actionSheet = [SHKActionSheet actionSheetForItem:item];
     [actionSheet showInView:self.view];
-//    ShareView *actionSheet = [[ShareView alloc] initWithItem:item];
-//    [actionSheet showInView:self.view];
-//    [actionSheet release];
 }
 
 #pragma mark - View lifecycle
@@ -89,14 +100,11 @@
     
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
     btn.frame =CGRectMake(0, 0, 60, 32);
-    //[btn setImage:[UIImage imageNamed:@"share.png"] forState:UIControlStateNormal];
-    //[btn setImage:[UIImage imageNamed:@"share_tap.png"] forState:UIControlStateHighlighted];
-    //[btn addTarget:self action:@selector(shareCode) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithCustomView:btn];
     self.navigationItem.rightBarButtonItem = item;
     [item release];
     
-    _card = [[Api parse:_content timeout:30] retain];
+    //_card = [[Api parse:_content timeout:30] retain];
     if (_historyType == HistoryTypeFavAndHistory) {
         if (_card.logId) {
             NSString *appAtt = [NSString stringWithFormat:@"eqn=%@&type=%@&stype=%d&loc=%@",[[UIDevice currentDevice] uniqueIdentifier],[DATA_ENV getDecodeType:_category.type],DATA_ENV.curScanType,DATA_ENV.curLocation];
@@ -112,7 +120,7 @@
         [[DataBaseOperate shareData] insertHistory:historyobject];
         [historyobject release];
     }
-    if (_historyType==HistoryTypeNone || _historyType==HistoryTypeFav) {
+    if (_historyType == HistoryTypeNone || _historyType == HistoryTypeFav) {
         _favBtn.hidden=YES;
     }
 }
@@ -303,7 +311,7 @@
             break;
         }
         case 1:
-            [cell initDataWithTitile:@"公司" withName:_card.corporation  withType:LinkTypeCompany];
+            [cell initDataWithTitile:@"公司" withName:_card.corporation withType:LinkTypeCompany];
             break;
         case 2:
             [cell initDataWithTitile:@"职位名称" withName:_card.title withType:LinkTypeNone];
