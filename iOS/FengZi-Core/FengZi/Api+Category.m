@@ -632,7 +632,8 @@
             input = code;
         }
     }
-    if ([input match:@"^0[1-9A-F]"]) {
+    iOSLog(@"input = %@", input);
+    if ([input match:@"^[0][1-9A-F](.*)"]) {
         // 取出码类型
         const char *s = [[input substringToIndex:2] UTF8String];
         Byte type = kModelBASE;
