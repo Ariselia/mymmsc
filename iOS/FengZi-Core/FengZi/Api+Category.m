@@ -758,7 +758,7 @@
         if (map.count > 0) {
             NSDictionary *data = [map objectForKey:@"data"];
             if([data isKindOfClass:[NSString class]]) {
-                oRet = [self parseV3Common:(NSString *)data];
+                oRet = [self parseV2Common:(NSString *)data];
             } else {
                 oRet = [data toObject:RichMedia.class];
             }
