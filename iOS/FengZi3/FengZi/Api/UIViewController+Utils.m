@@ -358,7 +358,7 @@ static NSString *s_luckyId = nil;
         return;
     }
     // 解码, 暂时不用
-    BaseModel *bm = [Api parse:input timeout:30];
+    BaseModel *bm = [[Api parse:input timeout:30] retain];
     if (bm != nil) {
         iOSLog(@"扫码结果: [%@]", [bm typeName]);
         if (bm.typeId == kModelRichMedia) {
@@ -384,6 +384,7 @@ static NSString *s_luckyId = nil;
             [self.navigationController pushViewController:businessView animated:YES];
             RELEASE_SAFELY(businessView);
         }
+        [bm release];
         return;
     }
     BusCategory *category = [BusDecoder classify:input];
