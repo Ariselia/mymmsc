@@ -324,6 +324,7 @@ static NSString *URL_FLAG = @"://";
     NSRange range = [input rangeOfString:SEPERATOR_PRE];
     int position = range.location;
     if(position == NSNotFound || range.length == 0){
+        /*
         //不存在：，可能是http链接，或者文本
         if([BusDecoder isUrl:input]){
             category.type = CATEGORY_URL;
@@ -335,235 +336,161 @@ static NSString *URL_FLAG = @"://";
             category.codeType = kModelText;
         }        
         return category;
-    }
-    NSString *flage = [input substringToIndex:position];    
-    int logIDPos = [input rangeOfString:[NSString stringWithFormat:@"%@%@",ALL_LOGID,SEPERATOR_PRE]].location;
-    
-    // 富媒体业务
-    if([[flage uppercaseString] rangeOfString:CATEGORY_MEDIA].location != NSNotFound){
-        category.type = CATEGORY_MEDIA;
-        if(logIDPos != NSNotFound){				
-            category.channel = CARD_CHANNEL_FXF;
-        } else {
-            category.channel = CARD_CHANNEL_CMC;
-        }
-        category.codeType = kModelRichMedia;
-        return category;
-    }
-    
-    //名片业务
-    if([BusDecoder isThisBus:flage bugTag:CATEGORY_CARD]){
-        category.type = CATEGORY_CARD;
-        if(logIDPos != NSNotFound){				
-            category.channel = CARD_CHANNEL_FXF;
-        } else {
-            category.channel = CARD_CHANNEL_CMC;
-        }
-        category.codeType = kModelCard;
-        return category;
-    }
-    
-    if([BusDecoder isThisBus:flage bugTag:@"BEGIN"]){
-        category.type = CATEGORY_CARD;
-        category.channel = CARD_CHANNEL_VCARD;
-        category.codeType = kModelCard;
-        return category;
-    }    
-    if([BusDecoder isThisBus:flage bugTag:@"MECARD"]){
-        category.type = CATEGORY_CARD;
-        category.channel = CARD_CHANNEL_MECARD;
-        category.codeType = kModelCard;
-        return category;
-    }    
-    //书签，微薄，url，地图
-    if([BusDecoder isThisBus:flage bugTag:CATEGORY_BOOKMARK]){
-        NSMutableDictionary *content = [BusDecoder parser:input];
-        NSString *type = [content objectForKey:@"T"];        
-        if(type != nil && [type intValue] == WEIBO){
-            category.type = CATEGORY_WEIBO;
-            category.channel = WEIBO_CHANNEL_FXF;
-            category.codeType = kModelWeibo;
-            return category;
-        }
+        */
+    } else {
+        NSString *flage = [input substringToIndex:position];    
+        int logIDPos = [input rangeOfString:[NSString stringWithFormat:@"%@%@",ALL_LOGID,SEPERATOR_PRE]].location;
         
-        if(type != nil && [type intValue] == GMAP){
-            category.type = CATEGORY_GMAP;			
-            category.channel = GMAP_CHANNEL_FXF;
-            category.codeType = kModelGMap;
-            return category;
-        }
-        
-        if(type != nil && [type intValue] == APP){
-            category.type = CATEGORY_APP;			
-            category.channel = APP_CHANNEL_FXF;
-            category.codeType = kModelAppUrl;
-            return category;
-        }
-        
-        if([content objectForKey:@"SUB"] != nil){
-            //书签、微薄类
-            category.type =  CATEGORY_BOOKMARK;	
-            if([content objectForKey:@"P"]!= nil){
-                category.channel=BM_CHANNEL_FXF;
-            } else {
-                category.channel=BM_CHANNEL_CMC;
-            }
-            category.codeType = kModelBookMark;
-            return category;
-        } else {
-            //url中分地图/应用和普通url
-            category.type = CATEGORY_URL;	
-            category.channel = URL_CHANNEL_FXF;
-            category.codeType = kModelUrl;
-            return category;
-        }
-    }
-    
-    if([BusDecoder isThisBus:flage bugTag:@"MEBKM"]){
-        category.type = CATEGORY_BOOKMARK;
-        category.channel = BM_CHANNEL_TO;
-        category.codeType = kModelBookMark;
-        return category;
-    }
-    
-    //文本业务
-    if([BusDecoder isThisBus:flage bugTag:CATEGORY_TEXT]){
-        category.type=CATEGORY_TEXT;        
-        if(logIDPos != NSNotFound){
-            category.channel = DTXT_CHANNEL_FXF;
-        } else {
-            category.channel = DTXT_CHANNEL_CMC;
-        }
-        category.codeType = kModelText;
-        return category;
-    }
-    
-    //加密文本业务
-    if([BusDecoder isThisBus:flage bugTag:CATEGORY_ENCTEXT]){
-        category.type = CATEGORY_ENCTEXT;
-        category.channel = ENCTEXT_CHANNEL_FXF;
-        category.codeType = kModelEncText;
-        return category;
-    }
-    
-    //wifi业务
-    if([BusDecoder isThisBus:flage bugTag:CATEGORY_WIFI]){
-        category.type = CATEGORY_WIFI;
-        category.channel = WIFI_CHANNEL_FXF;
-        category.codeType = kModelWiFiText;
-        return category;
-    }
-    
-    //电话号码
-    if([BusDecoder isThisBus:flage bugTag:CATEGORY_PHONE]){
-        category.type = CATEGORY_PHONE;
-        if(logIDPos != NSNotFound){
-            category.channel = PHONE_CHANNEL_FXF;
-        } else {
-            category.channel = PHONE_CHANNEL_CMC;
-        }
-        category.codeType = kModelPhone;
-        return category;
-    }
-    if([BusDecoder isThisBus:flage bugTag:@"TEL"]){
-        category.type = CATEGORY_PHONE;
-        category.channel = PHONE_CHANNEL_TEL;
-        category.codeType = kModelPhone;
-        return category;
-    }
-    //短信业务
-    if([BusDecoder isThisBus:flage bugTag:CATEGORY_SHORTMESS]){
-        category.type = CATEGORY_SHORTMESS;
-        if(logIDPos != NSNotFound){
-            category.channel = SMS_CHANNEL_FXF;
-        } else {
-            category.channel = SMS_CHANNEL_CMC;
-        }
-        category.codeType = kModelShortMessage;
-        return category;
-    }
-    
-    if([BusDecoder isThisBus:flage bugTag:@"SMSTO"]){
-        category.type = CATEGORY_SHORTMESS;
-        category.channel = SMS_CHANNEL_TO;
-        category.codeType = kModelShortMessage;
-        return category;
-    }
-    
-    //电子邮件业务
-    if([BusDecoder isThisBus:flage bugTag:CATEGORY_EMAIL]){
-        category.type = CATEGORY_EMAIL;        
-        if(logIDPos != NSNotFound){
-            category.channel = MAIL_CHANNEL_FXF;
-        } else {
-            category.channel = MAIL_CHANNEL_CMC;
-        }
-        category.codeType = kModelEmail;
-        return category;
-    }
-    
-    if([BusDecoder isThisBus:flage bugTag:@"SMTP"]){
-        category.type = CATEGORY_EMAIL;
-        category.channel = MAIL_CHANNEL_TO;
-        category.codeType = kModelEmail;
-        return category;
-    }
-    if([BusDecoder isThisBus:flage bugTag:@"MAILTO"]){
-        category.type = CATEGORY_EMAIL;
-        category.channel = MAIL_CHANNEL_MAILTO;
-        category.codeType = kModelEmail;
-        return category;
-    }
-    //日程
-    if([BusDecoder isThisBus:flage bugTag:CATEGORY_SCHEDULE]){
-        category.type = CATEGORY_SCHEDULE;
-        category.channel = SCH_CHANNEL_FXF;
-        category.codeType = kModelSchedule;
-        return category;
-    }
-    
-    /*
-    //有冒号，但也有可能是url，或者文本
-    if([BusDecoder isUrl:input]){
-        category.type=CATEGORY_URL;
-        category.channel=URL_CHANNEL_HTTP;
-    }else{
-        category.type=CATEGORY_TEXT;
-        category.channel=DTXT_CHANNEL_DEDAULT;
-    }
-    */
-    
-    //有冒号，但也有可能是url，或者文本
-    if([BusDecoder isUrl:input]){
-        // 如果URL, 首先判断是否富媒体
-        static NSString *kFLAG_RICHMEDIA = @"mb/dynamic/getContent.action";
-        static NSString *kFLAG_KMA = @"mb/kma/getContent.action";
-        NSRange range = [input rangeOfString:kFLAG_RICHMEDIA];
-        if (range.length > 0) {
+        if([[flage uppercaseString] rangeOfString:CATEGORY_MEDIA].location != NSNotFound){
             // 富媒体业务
             category.type = CATEGORY_MEDIA;
-            category.channel = URL_CHANNEL_HTTP;
+            if(logIDPos != NSNotFound){				
+                category.channel = CARD_CHANNEL_FXF;
+            } else {
+                category.channel = CARD_CHANNEL_CMC;
+            }
             category.codeType = kModelRichMedia;
-            return category;
-        } else if([input rangeOfString:kFLAG_KMA].length > 0) {
-            // 空码业务
-            category.type = CATEGORY_KMA;
-            category.channel = URL_CHANNEL_HTTP;
-            category.codeType = kModelRichMedia;
-            category.bKma = YES;
-            return category;
-        } else {
-            // 视为传统业务
-            category.type = CATEGORY_URL;
-            category.channel = URL_CHANNEL_HTTP;
-            category.codeType = kModelUrl;
+        } else if([BusDecoder isThisBus:flage bugTag:CATEGORY_CARD]){
+            //名片业务
+            category.type = CATEGORY_CARD;
+            if(logIDPos != NSNotFound){				
+                category.channel = CARD_CHANNEL_FXF;
+            } else {
+                category.channel = CARD_CHANNEL_CMC;
+            }
+            category.codeType = kModelCard;
+        } else if([BusDecoder isThisBus:flage bugTag:@"BEGIN"]){
+            category.type = CATEGORY_CARD;
+            category.channel = CARD_CHANNEL_VCARD;
+            category.codeType = kModelCard;
+        } else if([BusDecoder isThisBus:flage bugTag:@"MECARD"]){
+            category.type = CATEGORY_CARD;
+            category.channel = CARD_CHANNEL_MECARD;
+            category.codeType = kModelCard;
+        } else if([BusDecoder isThisBus:flage bugTag:CATEGORY_BOOKMARK]){
+            //书签，微薄，url，地图
+            NSMutableDictionary *content = [BusDecoder parser:input];
+            NSString *type = [content objectForKey:@"T"];        
+            if(type != nil && [type intValue] == WEIBO){
+                category.type = CATEGORY_WEIBO;
+                category.channel = WEIBO_CHANNEL_FXF;
+                category.codeType = kModelWeibo;
+            } else if(type != nil && [type intValue] == GMAP){
+                category.type = CATEGORY_GMAP;			
+                category.channel = GMAP_CHANNEL_FXF;
+                category.codeType = kModelGMap;
+            } else if(type != nil && [type intValue] == APP){
+                category.type = CATEGORY_APP;			
+                category.channel = APP_CHANNEL_FXF;
+                category.codeType = kModelAppUrl;
+            } else if([content objectForKey:@"SUB"] != nil){
+                //书签、微薄类
+                category.type =  CATEGORY_BOOKMARK;	
+                if([content objectForKey:@"P"]!= nil){
+                    category.channel=BM_CHANNEL_FXF;
+                } else {
+                    category.channel=BM_CHANNEL_CMC;
+                }
+                category.codeType = kModelBookMark;
+            } else {
+                //url中分地图/应用和普通url
+                category.type = CATEGORY_URL;	
+                category.channel = URL_CHANNEL_FXF;
+                category.codeType = kModelUrl;
+            }
+        } else if([BusDecoder isThisBus:flage bugTag:@"MEBKM"]){
+            category.type = CATEGORY_BOOKMARK;
+            category.channel = BM_CHANNEL_TO;
+            category.codeType = kModelBookMark;
+        } else if([BusDecoder isThisBus:flage bugTag:CATEGORY_TEXT]){
+            //文本业务
+            category.type = CATEGORY_TEXT;        
+            if(logIDPos != NSNotFound){
+                category.channel = DTXT_CHANNEL_FXF;
+            } else {
+                category.channel = DTXT_CHANNEL_CMC;
+            }
+            category.codeType = kModelText;
+        } else if([BusDecoder isThisBus:flage bugTag:CATEGORY_ENCTEXT]){
+            //加密文本业务
+            category.type = CATEGORY_ENCTEXT;
+            category.channel = ENCTEXT_CHANNEL_FXF;
+            category.codeType = kModelEncText;
+        } else if([BusDecoder isThisBus:flage bugTag:CATEGORY_WIFI]){
+            //wifi业务
+            category.type = CATEGORY_WIFI;
+            category.channel = WIFI_CHANNEL_FXF;
+            category.codeType = kModelWiFiText;
+        } else if([BusDecoder isThisBus:flage bugTag:CATEGORY_PHONE]){
+            //电话号码
+            category.type = CATEGORY_PHONE;
+            if(logIDPos != NSNotFound){
+                category.channel = PHONE_CHANNEL_FXF;
+            } else {
+                category.channel = PHONE_CHANNEL_CMC;
+            }
+            category.codeType = kModelPhone;
+        } else if([BusDecoder isThisBus:flage bugTag:@"TEL"]){
+            category.type = CATEGORY_PHONE;
+            category.channel = PHONE_CHANNEL_TEL;
+            category.codeType = kModelPhone;
+        } else if([BusDecoder isThisBus:flage bugTag:CATEGORY_SHORTMESS]){
+            //短信业务
+            category.type = CATEGORY_SHORTMESS;
+            if(logIDPos != NSNotFound){
+                category.channel = SMS_CHANNEL_FXF;
+            } else {
+                category.channel = SMS_CHANNEL_CMC;
+            }
+            category.codeType = kModelShortMessage;
+        } else if([BusDecoder isThisBus:flage bugTag:@"SMSTO"]){
+            category.type = CATEGORY_SHORTMESS;
+            category.channel = SMS_CHANNEL_TO;
+            category.codeType = kModelShortMessage;
+        } else if([BusDecoder isThisBus:flage bugTag:CATEGORY_EMAIL]){
+            //电子邮件业务
+            category.type = CATEGORY_EMAIL;        
+            if(logIDPos != NSNotFound){
+                category.channel = MAIL_CHANNEL_FXF;
+            } else {
+                category.channel = MAIL_CHANNEL_CMC;
+            }
+            category.codeType = kModelEmail;
+        } else if([BusDecoder isThisBus:flage bugTag:@"SMTP"]){
+            category.type = CATEGORY_EMAIL;
+            category.channel = MAIL_CHANNEL_TO;
+            category.codeType = kModelEmail;
+        } else if([BusDecoder isThisBus:flage bugTag:@"MAILTO"]){
+            category.type = CATEGORY_EMAIL;
+            category.channel = MAIL_CHANNEL_MAILTO;
+            category.codeType = kModelEmail;
+        } else if([BusDecoder isThisBus:flage bugTag:CATEGORY_SCHEDULE]){
+            //日程
+            category.type = CATEGORY_SCHEDULE;
+            category.channel = SCH_CHANNEL_FXF;
+            category.codeType = kModelSchedule;
         }
-    } else {
-        // 默认为文本业务
-        category.type = CATEGORY_TEXT;
-        category.channel = DTXT_CHANNEL_DEDAULT;
-        category.codeType = kModelText;
+        //有冒号，但也有可能是url，或者文本
+        if([BusDecoder isUrl:input]){
+            // 如果URL, 首先判断是否富媒体
+            static NSString *kFLAG_RICHMEDIA = @"mb/dynamic/getContent.action";
+            static NSString *kFLAG_KMA = @"mb/kma/getContent.action";
+            NSRange range = [input rangeOfString:kFLAG_RICHMEDIA];
+            if (range.length > 0) {
+                // 富媒体业务
+                category.type = CATEGORY_MEDIA;
+                category.channel = URL_CHANNEL_HTTP;
+                category.codeType = kModelRichMedia;
+            } else if([input rangeOfString:kFLAG_KMA].length > 0) {
+                // 空码业务
+                category.type = CATEGORY_KMA;
+                category.channel = URL_CHANNEL_HTTP;
+                category.codeType = kModelRichMedia;
+                category.bKma = YES;
+            }
+        }
     }
+    
     return category;
 }	
 
@@ -607,89 +534,65 @@ static NSString *URL_FLAG = @"://";
  * @param channel
  * @return
  */
-+(Card*) decodeVCARD:(NSString*) input{
-    
++ (Card *)decodeVCARD:(NSString*) input{    
     Card *card = [[[Card alloc] init]autorelease];
-    
     NSMutableDictionary *content = [BusDecoder parserVCARD:input];
-    
-    NSString *tmpName = [content objectForKey:@"N"];
-    
+    NSString *tmpName = [content objectForKey:@"N"];    
     if(tmpName != nil){
         NSArray *nameArr = [tmpName componentsSeparatedByString:@";"];
         NSString *name = [nameArr count] == 2 ? [NSString stringWithFormat:@"%@%@",[nameArr objectAtIndex:1],[nameArr objectAtIndex:0]] : [nameArr objectAtIndex:0];
-        
         card.name = name;
-    }
-    
+    }    
     
     NSString *cellPhone = [content objectForKey:@"TEL;CELL"]; //优先填充移动电话
-    
     if(cellPhone != nil){
-        card.cellphone=cellPhone;
-    }
-    
+        card.cellphone = cellPhone;
+    }    
     
     NSString *telePhone = [content objectForKey:@"TEL;HOME"]; //
-    
     if(telePhone != nil){
-        card.telephone=telePhone;
-    }
-    
+        card.telephone = telePhone;
+    }    
     NSString *fax = [content objectForKey:@"TEL;HOME;FAX"]; //
-    
     if(fax != nil){
-        card.fax=fax;
+        card.fax = fax;
     }
     
     NSString *addresss = [content objectForKey:@"ADR;HOME"];
     if(addresss != nil){
         NSArray *addressArr = [addresss componentsSeparatedByString:@";"];
-        
         if([addressArr count] == 7){
             card.address = [addressArr objectAtIndex:2];
             card.zipCode=[addressArr objectAtIndex:5];
-        }
-        
+        }        
         if([addressArr count] == 5){
             card.address = [addressArr objectAtIndex:0];
             card.zipCode = [addressArr objectAtIndex:3];
-        }			
+        }
     }
     
     NSString *org = [content objectForKey:@"ORG"];
-    
     if(org != nil){
-        
         NSArray *orgArr = [org componentsSeparatedByString:@";"];
-        
         if([orgArr count] == 2 ){
             card.department= [orgArr objectAtIndex:1];
         }
-        
         card.corporation = [orgArr objectAtIndex:0];
     }
-    
-    NSString *title = [content objectForKey:@"TITLE"]; 
-    
+    NSString *title = [content objectForKey:@"TITLE"];
     if(title != nil){
         card.title=title;
-    }
-    
-    NSString *email = [content objectForKey:@"EMAIL"]; 
-    
+    }    
+    NSString *email = [content objectForKey:@"EMAIL"];
     if(email != nil){
-        card.email =email;
+        card.email = email;
     }
-    
-    NSString *url = [content objectForKey:@"URL"]; 
-    
+    NSString *url = [content objectForKey:@"URL"];
     if(url != nil){
-        card.url=url;
+        card.url = url;
     }
     
-    NSString *qq = [content objectForKey:@"EMAIL;IM"]; 
-    
+    NSString *qq = [content objectForKey:@"EMAIL;IM"];
     if(qq != nil){
         card.qq = qq;
     }
@@ -703,42 +606,29 @@ static NSString *URL_FLAG = @"://";
  * 3 再取第一个：，进行key value分隔
  * 4 返回map
  */
-+(NSMutableDictionary*) parserVCARD:(NSString *)input{
-    
++ (NSMutableDictionary *)parserVCARD:(NSString *)input{
     if(input == nil){
         return nil;
-    }
-    
+    }    
     NSMutableDictionary *result = [[[NSMutableDictionary alloc] initWithCapacity:0] autorelease];
-    
     NSArray *tmpContent = [input componentsSeparatedByString:@"\r"];
-    
-    int position = 0;
-    
+    int position = 0;    
     for(int i = 0; i < [tmpContent count]; i ++){
-        
         NSString *keyStr = [tmpContent objectAtIndex:i];
-        
         if(keyStr == nil || keyStr.length == 0){
             continue;
-        }
-        
+        }        
         if([[keyStr uppercaseString] isEqualToString:@"BEGIN:VCARD"] ||
            [[keyStr uppercaseString] isEqualToString:@"END:VCARD"]){
             continue;
-        }
-        
+        }        
         position =  [keyStr rangeOfString:SEPERATOR_PRE].location;
-        
         if(position != NSNotFound){
             [result setObject:[keyStr substringFromIndex:position + 1] forKey:[keyStr substringToIndex:position]];
         }
-    }		
-    
+    }    
     return result;			
 }
-
-
 
 /**
  * 将冒号和分号分隔的字符串变成一个map对象
@@ -747,14 +637,11 @@ static NSString *URL_FLAG = @"://";
  * 3 再取第一个：，进行key value分隔
  * 4 返回map
  */
-+(NSMutableDictionary*) parserMECARD:(NSString *)input{
-    
++ (NSMutableDictionary *)parserMECARD:(NSString *)input{
     if(input == nil){
         return nil;
-    }
-    
+    }    
     return [BusDecoder parser:input];
-    
     /*String contenteStr = input.substring(7, input.length() - 1);//去除mecard和最后一个分号去掉
      
      NSArray tmpContent = contenteStr.split("" + [SEPERATOR_POST UTF8String][0]);
@@ -794,79 +681,69 @@ static NSString *URL_FLAG = @"://";
  * @param channel
  * @return
  */
-+(Card*)decodeMECard:(NSString *)input{
-    
++ (Card *)decodeMECard:(NSString *)input{
     Card *card = [[[Card alloc] init]autorelease];
-    
     NSMutableDictionary* content = [BusDecoder parserMECARD:input];
-    
     NSString *tmpName = [content objectForKey:@"N"];
-    
     if(tmpName != nil){
         NSArray *nameArr = [tmpName componentsSeparatedByString:@","];
         NSString *name = [nameArr count] == 2 ? [NSString stringWithFormat:@"%@%@",[nameArr objectAtIndex:1],[nameArr objectAtIndex:0]]: [nameArr objectAtIndex:0];
-        
         card.name = name;
     }
     
     NSString *telePhone = [content objectForKey:@"TEL"]; //
-    
     if(telePhone != nil){
-        card.telephone =telePhone;
-    }
+        card.telephone = telePhone;
+    }    
     
     NSString *cellPhone = [content objectForKey:@"TEL-AV"]; //优先填充移动电话
-    
     if(cellPhone != nil){
-        card.cellphone=cellPhone;
-    }
+        card.cellphone = cellPhone;
+    }    
     
     NSString *org = [content objectForKey:@"ORG"]; //公司
-    
     if(org != nil){
-        card.corporation=org;
+        card.corporation = org;
     }
+    
     NSString *title = [content objectForKey:@"TIL"]; //公司
-    
     if(title != nil){
-        card.title=title;
+        card.title = title;
     }
-    NSString *email = [content objectForKey:@"EMAIL"]; 
     
+    NSString *email = [content objectForKey:@"EMAIL"]; 
     if(email != nil){
-        card.email=email;
+        card.email = email;
     }
     
     NSString *url = [content objectForKey:@"URL"]; 
-    
     if(url != nil){
-        card.url=url;
+        card.url = url;
     }
+    
     NSString *qq = [content objectForKey:@"QQ"]; 
-    
     if(qq != nil){
-        card.qq=qq;
+        card.qq = qq;
     }
-    NSString *div = [content objectForKey:@"DIV"]; 
     
+    NSString *div = [content objectForKey:@"DIV"];
     if(div != nil){
-        card.weibo=div;
+        card.weibo = div;
     }
+    
     NSString *addresss = [content objectForKey:@"ADR"];
     if(addresss != nil){
         NSArray *addressArr = [addresss componentsSeparatedByString:@","];
-        
         if([addressArr count] == 7){
             card.address = [addressArr objectAtIndex:2];
             card.zipCode = [addressArr objectAtIndex:5];
-        }else if([addressArr count] == 5){
+        } else if([addressArr count] == 5){
             card.address = [addressArr objectAtIndex:0];
             card.zipCode = [addressArr objectAtIndex:3];
-        }else {
+        } else {
             card.address = [addressArr objectAtIndex:0];
         }
     }
-    
     return card;
 }
 
@@ -877,10 +754,8 @@ static NSString *URL_FLAG = @"://";
  * @param channel
  * @return
  */
-+(Card*) decodeCardOnly:(NSString *)input{
-    
++ (Card *)decodeCardOnly:(NSString *)input{
     Card *card = [[[Card alloc] init]autorelease];
-    
     NSMutableDictionary *content = [BusDecoder parser:input];
     
     NSString *name = [content objectForKey:CARD_NAME];		
@@ -899,22 +774,22 @@ static NSString *URL_FLAG = @"://";
     NSString *weibo = [content objectForKey:CARD_WEIBO];		
     NSString *logId = [content objectForKey:ALL_LOGID];
     
-    card.address=address;
-    card.cellphone=cellpone;
-    card.corporation=corporation;
-    card.department=department;
-    card.email=email;
-    card.fax=fax;
-    card.msn=msn;
-    card.name=name;
-    card.qq=qq;
-    card.telephone=telephone;
-    card.title=title;
-    card.url=url;
-    card.weibo=weibo;
-    card.zipCode=zipCode;
+    card.address = address;
+    card.cellphone = cellpone;
+    card.corporation = corporation;
+    card.department = department;
+    card.email = email;
+    card.fax = fax;
+    card.msn = msn;
+    card.name = name;
+    card.qq = qq;
+    card.telephone = telephone;
+    card.title = title;
+    card.url = url;
+    card.weibo = weibo;
+    card.zipCode = zipCode;
     
-    card.logId=logId;
+    card.logId = logId;
     
     return card;
 }
@@ -925,40 +800,29 @@ static NSString *URL_FLAG = @"://";
  * @param channel
  * @return
  */
-+(Phone*) decodePhone:(NSString *)input channel:(int)channele{
-    
-    Phone *phone = [[[Phone alloc] init]autorelease];
-    
-    if(channele == PHONE_CHANNEL_TEL){
-        
++ (Phone *)decodePhone:(NSString *)input channel:(int)channele{
+    Phone *phone = [[[Phone alloc] init]autorelease];    
+    if(channele == PHONE_CHANNEL_TEL){        
         int position = [input rangeOfString:SEPERATOR_PRE].location;
-        
         if(position == NSNotFound){
             return nil;
-        }
-        
-        phone.telephone = [input substringFromIndex:position+1];
-        
-    }else{
-        
+        }        
+        phone.telephone = [input substringFromIndex:position + 1];
+    } else {        
         NSMutableDictionary *content = [BusDecoder parser:input];
-        
         NSString *cellpone = [content objectForKey:PHONE_TELEPHONE];
         NSString *mphone = [content objectForKey:PHONE_MPHONE];
         NSString *logId = [content objectForKey:ALL_LOGID];
         
         if(mphone == nil){
-            phone.telephone=cellpone?cellpone:@"";
-        }else{
-            phone.telephone=mphone;
-        }			
-        
-        phone.logId=logId;
-    }		
-    
+            phone.telephone = cellpone ? cellpone : @"";
+        } else {
+            phone.telephone = mphone;
+        }
+        phone.logId = logId;
+    }    
     return phone;		
 }
-
 
 /**
  * 解析smtp格式的电子邮件，进行编码转换
@@ -966,20 +830,18 @@ static NSString *URL_FLAG = @"://";
  * @return
  * SMSTO:145:神射手
  */
-+(ShortMessage*) parserSMSTO:(NSString *)input{
++ (ShortMessage *)parserSMSTO:(NSString *)input{
     
     if(input == nil){
         return nil;
     }
     
     int position = [input rangeOfString:SEPERATOR_PRE].location;
-    
     if(position == NSNotFound){
         return nil;
     }
     
     int nextPreFlagPos = [input rangeOfString:SEPERATOR_PRE options:NSCaseInsensitiveSearch range:NSMakeRange(position+1, input.length-position-1)].location;
-    
     if(nextPreFlagPos == NSNotFound){
         return nil;
     }
@@ -991,7 +853,7 @@ static NSString *URL_FLAG = @"://";
     
     ShortMessage *shortM = [[[ShortMessage alloc] init]autorelease];
     shortM.phone=cellPhone?cellPhone:@"";
-    shortM.content=contente?contente:@"";		
+    shortM.content=contente?contente:@"";
     
     return shortM;
 }
@@ -1003,24 +865,20 @@ static NSString *URL_FLAG = @"://";
  * @param channel
  * @return
  */
-+(ShortMessage*) decodeShortmessage:(NSString *)input channel:(int)channele{
-    
-    ShortMessage *shortM = [[[ShortMessage alloc] init]autorelease];
-    
++ (ShortMessage *)decodeShortmessage:(NSString *)input channel:(int)channele{
+    ShortMessage *shortM = [[[ShortMessage alloc] init]autorelease];    
     if(channele == SMS_CHANNEL_TO){
         shortM = [BusDecoder parserSMSTO:input];
-    }else{
-        NSMutableDictionary *content =[BusDecoder parser:input];
-        
+    } else {
+        NSMutableDictionary *content = [BusDecoder parser:input];        
         NSString *cellpone = [content objectForKey:SHORTMESS_CELLPHONE];
         NSString *tcontente = [content objectForKey:SHORTMESS_CONTENT];
         NSString *logId = [content objectForKey:ALL_LOGID];
         
-        shortM.phone=cellpone?cellpone:@"";
-        shortM.content=tcontente?tcontente:@"";
-        shortM.logId=logId;
-    }		
-    
+        shortM.phone = cellpone?cellpone:@"";
+        shortM.content = tcontente?tcontente:@"";
+        shortM.logId = logId;
+    }    
     return shortM;		
 }	
 
@@ -1030,27 +888,21 @@ static NSString *URL_FLAG = @"://";
  * @return
  * SMTP:zhangsan@baidu.com:你好:你好啊
  */
-+(Email*) parserSMTP:(NSString *)input{
-    
++ (Email *)parserSMTP:(NSString *)input{
     if(input == nil){
         return nil;
     }
     
     int position = [input rangeOfString:SEPERATOR_PRE].location;
-    
     if(position == NSNotFound){
         return nil;
-    }
-    
+    }    
     int nextPreFlagPos = [input rangeOfString:SEPERATOR_PRE options:NSCaseInsensitiveSearch range:NSMakeRange(position+1, input.length-position-1)].location;
-
-    
     if(nextPreFlagPos == NSNotFound){
         return nil;
     }
     
     NSString *mail = [input substringWithRange:NSMakeRange(position+1, nextPreFlagPos-position-1)];
-    
     position = nextPreFlagPos;
     nextPreFlagPos = [input rangeOfString:SEPERATOR_PRE options:NSCaseInsensitiveSearch range:NSMakeRange(position+1, input.length-position-1)].location;
     
@@ -1064,38 +916,32 @@ static NSString *URL_FLAG = @"://";
     NSString *contente = [input substringFromIndex:position+1];
     
     Email *email = [[[Email alloc] init]autorelease];
-    
     email.mail=mail?mail:@"";
     email.title=title?title:@"";
     email.content= contente?contente:@"";   
     
     return email;
 }
+
 /**
  * 解析smtp格式的电子邮件，进行编码转换
  * @param input
  * @return
  * SMTP:zhangsan@baidu.com:你好:你好啊
  */
-+(Email*) parserMAILTO:(NSString *)input{
-    
++ (Email*)parserMAILTO:(NSString *)input{
     if(input == nil){
         return nil;
     }
-    
     int position = [input rangeOfString:SEPERATOR_PRE].location;
-    
     if(position == NSNotFound){
         return nil;
     }
-    
     NSString *mail = [input substringFromIndex:position+1];
-    
     Email *email = [[[Email alloc] init]autorelease];
-    
     email.mail=mail?mail:@"";
     email.title=@"";
-    email.content= @"";   
+    email.content= @"";
     
     return email;
 }
@@ -1106,52 +952,44 @@ static NSString *URL_FLAG = @"://";
  * @param channel
  * @return
  */
-+(Email*) decodeEmail:(NSString *)input channel:(int) channele{
++ (Email *)decodeEmail:(NSString *)input channel:(int) channele{
     Email *email = [[[Email alloc]init]autorelease];    
     if(channele == MAIL_CHANNEL_TO){
         email = [BusDecoder parserSMTP:input];
-    }else if(channele == MAIL_CHANNEL_MAILTO){
+    } else if(channele == MAIL_CHANNEL_MAILTO){
         email = [BusDecoder parserMAILTO:input];
-    }else{
+    } else {
         NSMutableDictionary *content =[BusDecoder parser:input];
-        
         NSString *mail = [content objectForKey:EMAIL_MAIL];
         NSString *title = [content objectForKey:EMAIL_TITLE];
         NSString *tcontente = [content objectForKey:EMAIL_CONTENT];
         NSString *logId = [content objectForKey:ALL_LOGID];
         
-        email.mail=mail?mail:@"";
-        email.title=title?title:@"";
-        email.content= tcontente?tcontente:@"";
-        email.logId=logId;
-    }		
+        email.mail = mail?mail:@"";
+        email.title = title?title:@"";
+        email.content = tcontente?tcontente:@"";
+        email.logId = logId;
+    }
     
     return email;		
-}	
-
-
+}
 
 /**
  * 识别日程串，解析成对象
  * @param input
  * @return
  */
-+(Schedule*) decodeSchedule:(NSString *)input{
-    
++ (Schedule*) decodeSchedule:(NSString *)input{
     Schedule *schedule = [[[Schedule alloc]init]autorelease];
-    
     NSMutableDictionary *content =[BusDecoder parser:input];
-    
     NSString *date = [content objectForKey:SCHEDULE_DATE];
     NSString *title = [content objectForKey:SCHEDULE_TITLE];
     NSString *scontente = [content objectForKey:SCHEDULE_CONTENT];
-    
     NSString *logId = [content objectForKey:ALL_LOGID];
-    
-    schedule.date=date?date:@"";
-    schedule.title=title?title:@"";
-    schedule.content=scontente?scontente:@"";
-    schedule.logId=logId;
+    schedule.date = date?date:@"";
+    schedule.title = title?title:@"";
+    schedule.content = scontente?scontente:@"";
+    schedule.logId = logId;
     
     return schedule;		
 }
@@ -1163,7 +1001,7 @@ static NSString *URL_FLAG = @"://";
  * @param toCode
  * @return
  */
-+(NSString*)transCode:(NSString *)input{
++ (NSString *)transCode:(NSString *)input{
     if (input == nil)
         return nil;
     NSStringEncoding enc = CFStringConvertEncodingToNSStringEncoding(kCFStringEncodingGB_18030_2000);
@@ -1175,21 +1013,16 @@ static NSString *URL_FLAG = @"://";
  * @param input
  * @return
  */
-+ (BookMark *) decodeBookMark:(NSString *)input channel:(int) channele{
-    
-    BookMark *bookmark = [[[BookMark alloc]init]autorelease];
-    
-    if(channele == BM_CHANNEL_TO){
-        
++ (BookMark *)decodeBookMark:(NSString *)input channel:(int) channele{    
+    BookMark *bookmark = [[[BookMark alloc]init]autorelease];    
+    if(channele == BM_CHANNEL_TO){        
         NSMutableDictionary *content =[BusDecoder parser:input];
-        
         NSString *title = [content objectForKey:@"TITLE"];//需要进行转码
         NSString *tcontente = [content objectForKey:@"URL"];
         
         bookmark.title = title?title:@"";
         bookmark.url = tcontente?tcontente:@"";
-        
-    }else{
+    } else {
         NSMutableDictionary *content =[BusDecoder parser:input];
         
         NSString *title = [content objectForKey:BOOKMARK_TITLE];
@@ -1199,8 +1032,7 @@ static NSString *URL_FLAG = @"://";
         bookmark.title=title?title:@"";
         bookmark.url=tcontente?tcontente:@"";
         bookmark.logId=logId;
-    }		
-    
+    }    
     return bookmark;		
 }
 
@@ -1209,33 +1041,29 @@ static NSString *URL_FLAG = @"://";
  * @param input
  * @return
  */
-+(Url*) decodeUrl:(NSString *)input channel:(int) channele{
++ (Url *)decodeUrl:(NSString *)input channel:(int)channel{
     
     Url *url = [[[Url alloc]init]autorelease];
-    
-    if(channele == URL_CHANNEL_HTTP){
-        url.content=input;
-    }else{
+    if(channel == URL_CHANNEL_HTTP){
+        url.content = input;
+    } else {
         NSMutableDictionary *content =[BusDecoder parser:input];
-        
         NSString *tcontente = [content objectForKey:BOOKMARK_URL];
         NSString *logId = [content objectForKey:ALL_LOGID];
-        
+      
         url.content=tcontente?tcontente:@"";
         url.logId=logId;
-    }		
+    }	
     
     return url;		
 }
-
 
 /**
  * 识别微薄串，解析成对象
  * @param input
  * @return
  */
-+(Weibo*) decodeWeibo:(NSString *)input{
-    
++ (Weibo *)decodeWeibo:(NSString *)input{
     Weibo *weibo = [[[Weibo alloc]init]autorelease];
     
     NSMutableDictionary *content =[BusDecoder parser:input];
@@ -1256,12 +1084,9 @@ static NSString *URL_FLAG = @"://";
  * @param input
  * @return
  */
-+(GMap*) decodeGMap:(NSString *)input{
-    
++ (GMap *)decodeGMap:(NSString *)input{
     GMap *gmap = [[[GMap alloc]init]autorelease];
-    
     NSMutableDictionary *content =[BusDecoder parser:input];
-    
     NSString *url = [content objectForKey:BOOKMARK_URL];
     NSString *logId = [content objectForKey:ALL_LOGID];
     
@@ -1276,12 +1101,9 @@ static NSString *URL_FLAG = @"://";
  * @param input
  * @return
  */
-+(AppUrl*) decodeAppUrl:(NSString *)input{
-    
++ (AppUrl*) decodeAppUrl:(NSString *)input{
     AppUrl *appUrl = [[[AppUrl alloc]init]autorelease];
-    
     NSMutableDictionary *content =[BusDecoder parser:input];
-    
     NSString *url = [content objectForKey:BOOKMARK_URL];
     NSString *logId = [content objectForKey:ALL_LOGID];
     NSString *title = [content objectForKey:BOOKMARK_TITLE];
@@ -1298,16 +1120,13 @@ static NSString *URL_FLAG = @"://";
  * @param input
  * @return
  */
-+(Text*) decodeText:(NSString *)input channel:(int) channele{
-    
++ (Text *)decodeText:(NSString *)input channel:(int) channele{
     Text *text = [[[Text alloc] init] autorelease];
     
     if(channele == DTXT_CHANNEL_DEDAULT){
         text.content = input;
-    }else{
-		
+    } else {
         NSMutableDictionary *content =[BusDecoder parser:input];
-		
         NSString *tcontente = [content objectForKey:TEXT_CONTENT];
         NSString *logId = [content objectForKey:ALL_LOGID];
 		
@@ -1315,7 +1134,7 @@ static NSString *URL_FLAG = @"://";
         text.logId=logId;
     }
     
-    return text;		
+    return text;
 }
 
 /**
@@ -1323,12 +1142,9 @@ static NSString *URL_FLAG = @"://";
  * @param input
  * @return
  */
-+ (EncText*) decodeEncText:(NSString *)input key:(NSString *)key{
-    
++ (EncText *)decodeEncText:(NSString *)input key:(NSString *)key{
     EncText *encText = [[[EncText alloc]init] autorelease];
-    
     NSMutableDictionary *content =[BusDecoder parser:input];
-    
     NSString *tcontente = [content objectForKey:TEXT_CONTENT];
     NSString *logId = [content objectForKey:ALL_LOGID];
 	
@@ -1359,10 +1175,8 @@ static NSString *URL_FLAG = @"://";
  * @param input
  * @return
  */
-+(WiFiText*) decodeWifiText:(NSString *)input{
-    
++ (WiFiText *)decodeWifiText:(NSString *)input{
     WiFiText *text = [[[WiFiText alloc]init]autorelease];
-    
     NSMutableDictionary *content =[BusDecoder parser:input];
     
     NSString *tcontente = [content objectForKey:WIFI_NAME];
@@ -1375,4 +1189,5 @@ static NSString *URL_FLAG = @"://";
     
     return text;		
 }
+
 @end
