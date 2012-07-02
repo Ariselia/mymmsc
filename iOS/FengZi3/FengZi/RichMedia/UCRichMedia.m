@@ -20,7 +20,8 @@
 @synthesize picView1,picView2,picView3,picView4,picView5,picView6;
 @synthesize curImage=_curImage;
 @synthesize code;
-@synthesize maObject;
+//@synthesize maObject;
+@synthesize richMedia;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -58,7 +59,7 @@
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
-    self.maObject = nil;
+    self.richMedia = nil;
 }
 
 - (void)goBack{
@@ -162,61 +163,59 @@
     [rightItem release];
     if (isInit == NO)
     {
-    // bebe13af-287d-424d-b817-be0504a0850b
-    if (maObject == nil) {
-        if (urlMedia != nil) {
-            NSDictionary *dict = [urlMedia uriParams];
-            code = [dict objectForKey:@"id"];
+        /*
+        // bebe13af-287d-424d-b817-be0504a0850b
+        if (maObject == nil) {
+            if (urlMedia != nil) {
+                NSDictionary *dict = [urlMedia uriParams];
+                code = [dict objectForKey:@"id"];
+                
+            }
             
+            [Api kmaSetId:code];
+            iOSLog(@"uuid1=[%@]", code);
+            iOSLog(@"uuid2=[%@]", [Api kmaId]);
+            [iOSApi showAlert:@"Loading..."];
+            if (urlMedia != nil) {
+                maObject = [[Api getContent:code] retain];
+            } else {
+                KmaObject *ko = [[Api kmaContent:code] retain];
+                maObject = ko.mediaObj;
+            }
+            //[iOSApi showCompleted:@"媒体加载完成"];
+            [iOSApi closeAlert];
+            isInit = YES;
         }
-        
-        [Api kmaSetId:code];
-        iOSLog(@"uuid1=[%@]", code);
-        iOSLog(@"uuid2=[%@]", [Api kmaId]);
-        [iOSApi showAlert:@"Loading..."];
-        if (urlMedia != nil) {
-            maObject = [[Api getContent:code] retain];
-        } else {
-            KmaObject *ko = [[Api kmaContent:code] retain];
-            maObject = ko.mediaObj;
+         */
+        xCount = 0;
+        if (richMedia != nil && richMedia.pageList != nil) {
+            xCount = richMedia.pageList.count;
         }
-        //[iOSApi showCompleted:@"媒体加载完成"];
-        [iOSApi closeAlert];
-        isInit = YES;
-    }
-    xCount = 0;
-    if (maObject.status == 0) {
-        xCount = maObject.pagelist.count;
-    } else {
-        [iOSApi Alert:@"提示" message:maObject.message];
-        //[iOSApi Alert:@"提示" message:@"获取内容正确"];
-    }
-    if (xCount >= 6) {
-        xCount = 6;
-    }
-    int xHeight = 411;
-    int num = [maObject.pagelist count];
-    scrollViewX.contentSize = CGSizeMake(320 * num, xHeight);
-    for (int i = 0; i < xCount; i++) {
-        MediaObject *info = [maObject.pagelist objectAtIndex:i];
-        UCMediaPage *page = [[UCMediaPage alloc] init];
-        CGRect frame = page.view.frame;
-        frame.origin.x = 320 * i;
-        frame.origin.y = 0;
-        frame.size.height = 411;
-        page.view.frame = frame;
-        
-        page.subject.text = maObject.title;
-        page.content.text = info.content;
-        page.maContent = maObject;
-        page.info = info;
-        page.idMedia = self;
-        [page loadData];
-        [self.scrollViewX addSubview:page.view];
-    }
-        
-    [self changePage:0];
-        
+        if (xCount >= 6) {
+            xCount = 6;
+        }
+        int xHeight = 411;
+        int num = [richMedia.pageList count];
+        scrollViewX.contentSize = CGSizeMake(320 * num, xHeight);
+        for (int i = 0; i < xCount; i++) {
+            MediaPage *info = [richMedia.pageList objectAtIndex:i];
+            UCMediaPage *page = [[UCMediaPage alloc] init];
+            CGRect frame = page.view.frame;
+            frame.origin.x = 320 * i;
+            frame.origin.y = 0;
+            frame.size.height = 411;
+            page.view.frame = frame;
+            
+            page.subject.text = richMedia.title;
+            page.content.text = info.content;
+            page.richMedia = richMedia;
+            page.info = info;
+            page.idMedia = self;
+            [page loadData];
+            [self.scrollViewX addSubview:page.view];
+        }
+            
+        [self changePage:0];
     }
 }
 
