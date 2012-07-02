@@ -348,6 +348,11 @@ typedef enum{
 //====================================< 词条 - 接口 >====================================
 @interface Api (Category)
 
++ (id)parseV3Common:(NSString *)string;
++ (id)parseV3Kma:(NSString *)string timeout:(int)timeout;
++ (id)parseV2Common:(NSString *)string;
++ (id)parseV2Kma:(NSString *)string timeout:(int)timeout;
+
 /**
  * 二维码解码
  * 
