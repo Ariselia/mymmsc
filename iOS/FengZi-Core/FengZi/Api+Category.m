@@ -608,6 +608,7 @@
         NSString *value = [string substringWithRange:[result rangeAtIndex:3]];
         value = [value replace:@"\\;" withString:@";"];
         value = [value replace:@"\\:" withString:@":"];
+        iOSLog(@"key = [%@], value = [%@]", key, value);
         [oRet setObject:value forKey:key];
     }];
     return oRet;
@@ -641,9 +642,12 @@
         Class clazz = [BaseModel getType:type];
         if (clazz != nil) {
             // 普通业务
-            NSDictionary *ko = [[self parse:[input substringFromIndex:2]] retain];
+            input = [input substringFromIndex:2];
+            iOSLog(@"input = %@", input);
+            NSDictionary *ko = [[self parse:input] retain];
             if (ko != nil) {
                 oRet = [ko toObject:clazz];
+                [ko release];
             }
         }
     }
