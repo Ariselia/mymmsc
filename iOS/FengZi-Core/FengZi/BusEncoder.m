@@ -69,36 +69,42 @@ static const char * getPropertyType(objc_property_t property) {
         unsigned char typeUn = (unsigned char)type;
         NSString *type16 = [NSString stringWithFormat:@"%02X", typeUn];
         [buffer appendString:type16];
-        unsigned int outCount, i = 0;
-        objc_property_t *properties = class_copyPropertyList([obj class], &outCount);
-        NSString *num = nil;
-        for (i = 0; i < outCount; i++) {
-            objc_property_t property = properties[i];
-            if (property != NULL) {
-                NSString *fieldName = [NSString stringWithUTF8String: property_getName(property)];
-                num = [fieldName uppercaseString];
-                const char *propType = getPropertyType(property);
-                NSString *propertyType = [NSString stringWithUTF8String:propType];
-                NSString *value;
-                SEL aSel = NSSelectorFromString(fieldName);
-                if ([obj respondsToSelector:aSel]) {
-                    IMP func = [obj methodForSelector:aSel];
-                    id xxx = func(obj, aSel);
-                    if([propertyType isEqualToString:(@"NSString")])
-                    {
-                        value=(NSString *)xxx;
-                        value = [value replace:@":" withString:@"\\:"];
-                        value = [value replace:@";" withString:@"\\;"];
-                        
-                        [buffer appendString:[NSString stringWithFormat:@"%@:%@;",num,value]];      
+        
+        Class clazz = [obj class];
+        //while (clazz != [NSObject class]) {
+            unsigned int outCount, i = 0;
+            objc_property_t *properties = class_copyPropertyList(clazz, &outCount);
+            NSString *num = nil;
+            for (i = 0; i < outCount; i++) {
+                objc_property_t property = properties[i];
+                if (property != NULL) {
+                    NSString *fieldName = [NSString stringWithUTF8String: property_getName(property)];
+                    num = [fieldName uppercaseString];
+                    const char *propType = getPropertyType(property);
+                    NSString *propertyType = [NSString stringWithUTF8String:propType];
+                    NSString *value;
+                    SEL aSel = NSSelectorFromString(fieldName);
+                    if ([obj respondsToSelector:aSel]) {
+                        IMP func = [obj methodForSelector:aSel];
+                        id xxx = func(obj, aSel);
+                        if([propertyType isEqualToString:(@"NSString")])
+                        {
+                            if (xxx == nil || [xxx isKindOfClass: NSNull.class]) {
+                                xxx = @"";
+                            }
+                            value = (NSString *)xxx;
+                            value = [value replace:@":" withString:@"\\:"];
+                            value = [value replace:@";" withString:@"\\;"];
+                            
+                            [buffer appendString:[NSString stringWithFormat:@"%@:%@;",num,value]];      
+                        }
                     }
                 }
             }
-        }
-        free(properties);
-        properties = NULL;
-        //num++;
-        [buffer appendString:[NSString stringWithFormat:@"%c:%d;",num,type]];  
+            free(properties);
+            properties = NULL;
+            //clazz = [clazz superclass];
+        //}
     }  
     
     return buffer;
