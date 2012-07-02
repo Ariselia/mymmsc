@@ -188,8 +188,8 @@ public class ApkTool implements ApkRepackage {
 					FileApi.copyDirectiory(RootPath + "/smali", apkDir + "/smali");
 					String smaliFile = apkDir + "/smali/com/hengxin/log/main/HengxinMainActivity.smali";
 					Templator tpl = new Templator(smaliFile, "utf-8");
-					tpl.setVariable("app_id", "1");
-					tpl.setVariable("channel_id", "2");
+					tpl.setVariable("app_id", appId);
+					tpl.setVariable("channel_id", channelId);
 					tpl.setVariable("portal", (portal.startsWith(".") ? pkg
 							+ portal : portal).replaceAll("\\.", "/"));
 					tpl.generateOutput(smaliFile);
