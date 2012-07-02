@@ -27,7 +27,7 @@
 #import <QuartzCore/QuartzCore.h>
 
 #define API_SUCCESS (0)
-#define API_QRCODE_DIMENSION (100) // 二维码尺寸
+#define API_QRCODE_DIMENSION (168) // 二维码尺寸
 #define kCellIconHeight 24.0f
 
 #define API_INTERFACE_TEST (1)
