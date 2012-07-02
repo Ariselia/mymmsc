@@ -543,8 +543,7 @@
         }
     } else {
         [self launchSmsAppOnDevice];
-    }
-    
+    }    
 }
 
 - (void)showMail{
