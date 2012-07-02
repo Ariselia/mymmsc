@@ -12,10 +12,8 @@
  * 富媒体 显示页面
  */
 @interface UCRichMedia : UIViewController {
-    NSString *urlMedia;
     UIButton *_btnRight; // 导航条按钮
     UIImage *_curImage;
-    NSString *code;
     int      xCount;
     BOOL   isInit;
 }
@@ -30,6 +28,6 @@
 @property (nonatomic, retain) IBOutlet UIScrollView *scrollViewX;
 
 @property (nonatomic, copy) NSString *urlMedia, *code;
-@property (nonatomic, retain) MediaContent *maObject;
+@property (nonatomic, retain) RichMedia *richMedia;
 
 @end
