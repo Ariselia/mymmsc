@@ -47,9 +47,9 @@
             typeId = kModelSchedule;
         } else if (clazz == RichMedia.class) {
             typeId = kModelRichMedia;
-        } /*else if (clazz == KMA.class) {
-            typeId = kModelKMA;
-        }*/ else {
+        } else if (clazz == Ride.class) {
+            typeId = kModelRide;
+        } else {
             typeId = kModelText;
         }
     }
