@@ -452,9 +452,10 @@
 
 //--------------------< 业务类型 - 对象 - 日程 >--------------------
 @implementation Schedule
-@synthesize content=_content;
-@synthesize date=_date;
-@synthesize title=_title;
+
+@synthesize content = _content;
+@synthesize date = _date;
+@synthesize title = _title;
 
 - (void)dealloc {
     IOSAPI_RELEASE(_title);
@@ -462,6 +463,7 @@
     IOSAPI_RELEASE(_content);
     [super dealloc];
 }
+
 @end
 
 //--------------------< 业务类型 - 对象 - 文本 >--------------------
