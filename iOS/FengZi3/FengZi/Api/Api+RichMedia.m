@@ -364,8 +364,6 @@ static NSString *kma_id = nil;
 + (KmaObject *)kmaContent:(NSString *)url {
     static NSString *path = @"kma/getContent.action";
     
-    //static NSString *path = @"apps/MakeCode.action";
-    
     NSString *app = [Api base64e:[Api appAttribute:DATA_ENV.curBusinessType]];
     NSString *action = nil;
     if ([url hasPrefix:@"http://"]) {
@@ -410,66 +408,50 @@ static NSString *kma_id = nil;
 + (ApiResult *)kmaUpload:(NSString *)pid
                    type:(int)type
                 content:(NSString *)content{
-    
     NSString *action = [NSString stringWithFormat:@"%@", API_APPS_SERVER API_MAKE_CODE];
-    NSString *str = [content substringFromIndex:2];
-    BaseModel *bus = [Api parse:content timeout:30];
-    int types = bus.typeId;
+    BaseModel *bm = [[Api parse:content timeout:30] retain];
+    int types = bm.typeId;
     NSString *title = @"";
-    /*
-    if (types == 1) {
-        Url *object = [[BusDecoder decode:list className:@"Url"]retain];
-        title = object.content;
-        [object release];
-        
-    } else if(types == 2) {
-        BookMark *object =[[BusDecoder decode:list className:@"BookMark"]retain];
+    if (types == kModelUrl) {
+        Url *object = (Url *)bm;
+        title = object.content;        
+    } else if(types == kModelBookMark) {
+        BookMark *object = (BookMark *)bm;
         title = object.title;
-        [object release];
-    } else if(types==3) {
-        AppUrl *object =[[BusDecoder decode:list className:@"AppUrl"]retain];
-        title = object.url;
-        [object release];
-    } else if(types==4) {
-        Weibo *object =[[BusDecoder decode:list className:@"Weibo"]retain];
+    } else if(types == kModelAppUrl) {
+        AppUrl *object = (AppUrl *)bm;
         title = object.title;
-        [object release];
-    } else if(types==5) {
-        title = @"名片解码";
-    } else if(types==6) {
-        Phone *object = [[BusDecoder decode:list className:@"Phone"]retain];
-        title = object.telephone;
-        [object release];
-    } else if(types==7) {
-        Email *object = [[BusDecoder decode:list className:@"Email"]retain];
+    } else if(types == kModelWeibo) {
+        Weibo *object = (Weibo *)bm;
         title = object.title;
-        [object release];
-    }  else if(types==8) {
-        Text *object =[[BusDecoder decode:list className:@"Text"]retain];
-        title = object.content;
-        [object release];
-    } else if(types==9) {
-        title = @"加密文本解码";
-    } else if(types==10) {
-        ShortMessage *object = [[BusDecoder decode:list className:@"ShortMessage"] retain];
-        title = object.content;
-        [object release];
-        
-    } else if(types==11) {
-        WiFiText *object =[[BusDecoder decode:list className:@"WiFiText"]retain];
+    } else if(types == kModelCard) {
+        Card *object = (Card *)bm;
         title = object.name;
-        [object release];
-    } else if(types==12) {
-        GMap *object = [[BusDecoder decode:list className:@"GMap"]retain];
-        title = object.url;
-        [object release];
-    } else if(types == 13) {
-        Schedule *object = [[BusDecoder decode:list className:@"Schedule"] retain];
+    } else if(types == kModelPhone) {
+        Phone *object = (Phone *)bm;
+        title = object.telephone;
+    } else if(types == kModelEmail) {
+        Email *object = (Email *)bm;
         title = object.title;
-        [object release];
+    }  else if(types == kModelText) {
+        Text *object = (Text *)bm;
+        title = object.content;
+    } else if(types == kModelEncText) {
+        //EncText *object = (EncText *)bm;
+        title = @"加密文本";
+    } else if(types == kModelShortMessage) {
+        ShortMessage *object = (ShortMessage *)bm;
+        title = object.content;        
+    } else if(types == kModelWiFiText) {
+        WiFiText *object = (WiFiText *)bm;
+        title = object.name;
+    } else if(types == kModelGMap) {
+        GMap *object = (GMap *)bm;
+        title = object.url;
+    } else if(types == kModelSchedule) {
+        Schedule *object = (Schedule *)bm;
+        title = object.title;
     }
-*/
-    //title = @"asdasd";
     NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
                             [NSString valueOf:[Api userId]], @"userid",
                             pid, @"codeid",
@@ -484,16 +466,14 @@ static NSString *kma_id = nil;
     if (data.count > 0) {
         // 业务数据处理
     }
+    [bm release];
     return [iRet autorelease];
 }
 
-+ (void)uploadKma:(NSString *)_content{
++ (void)uploadKma:(NSString *)content{
     // 视图加载完毕, 上传业务信息
-    [iOSApi showAlert:@"正在上传赋值信息..."];
-    
-    
-    NSString *str = [_content substringFromIndex:[API_CODE_PREFIX length]];
-    
+    [iOSApi showAlert:@"正在上传赋值信息..."];    
+    NSString *str = [content substringFromIndex:[API_CODE_PREFIX length]];
     NSString *msg = str;
     ApiResult *iRet = [Api kmaUpload:[Api kmaId] type:DATA_ENV.curBusinessType content:msg];
     if (iRet.status == 0) {
@@ -506,6 +486,7 @@ static NSString *kma_id = nil;
 }
 
 //--------------------< 空码 - 接口 - 顺风车 >--------------------
+
 + (RideInfo *)sfc_info:(NSString *)id{
     RideInfo *oRet = [[RideInfo alloc] init];
     static NSString *method = @"info";

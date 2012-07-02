@@ -115,7 +115,6 @@ static NSString *s_luckyId = nil;
     
 }
 
-
 -(BOOL)isHaveString:(NSString*)content param:(NSString*)param
 {
     NSRange range = [content rangeOfString: param];
@@ -572,6 +571,7 @@ static NSString *s_luckyId = nil;
             bRet = YES;
         }
     }
+    // 网页标签跳转
     ApiCode *code = [[ApiCode codeWithUrl:url] retain];
     if (code != nil) {
         BOOL bGoto = NO;
@@ -682,6 +682,83 @@ static NSString *s_luckyId = nil;
     return bRet;
 }
 
+- (BOOL)parseV3:(NSString *)input isSave:(BOOL)isSave{
+    BOOL bRet = NO;
+    if (input != nil) {
+        if ([input hasPrefix:API_CODE_PREFIX]) {
+            // 是码开头的, 截取字符串, 去掉前缀
+            NSString *str = [input substringFromIndex:[API_CODE_PREFIX length]];
+            if ([str hasPrefix:@"id="]) {
+                // 富媒体, 或者空码, 转换地址
+                NSString *iskma = [str substringFromIndex:3];
+                NSString *url = [NSString stringWithFormat:@"%@/apps/getCode.action?%@",API_APPS_SERVER,str];
+                if([iskma rangeOfString:@"-"].length>0) {
+                    NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
+                                            [NSString valueOf:[Api userId]], @"userid",
+                                            nil];
+                    NSDictionary *map = [Api post:url params:params];
+                    if (map.count > 0) {
+                        if([[map objectForKey:@"data"] isKindOfClass:[NSString class]])
+                        {
+                            //NSLog(@"//普通解码");
+                            NSString *_content=nil;
+                            _content =  [[NSString stringWithFormat:@"%@%@", API_CODE_PREFIX,[map objectForKey:@"data"]] retain];
+                            [self chooseShowController:_content isSave:isSave];
+                            bRet = YES;
+                        } else {
+                            UCRichMedia *nextView = [[UCRichMedia alloc] init];
+                            nextView.urlMedia = url;
+                            nextView.curImage = [Api generateImageWithInput:input];
+                            [self.navigationController pushViewController:nextView animated:YES];
+                            [nextView release];
+                            bRet = YES;
+                        }                        
+                    }
+                } else {
+                    NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
+                                            [NSString valueOf:[Api userId]], @"userid",
+                                            nil];
+                    NSDictionary *map = [Api post:url params:params];                    
+                    if (map.count > 0) {
+                        NSString *status =[NSString stringWithFormat:@"%d", [Api getInt:[map objectForKey:@"status"]]];
+                        // NSLog(@"%@",status);    
+                        if ([status isEqualToString:@"404"]) {
+                            //跳到空码赋值
+                            UCKmaViewController *nextView = [[UCKmaViewController alloc] init];
+                            //nextView.bKma = YES; // 标记为空码赋值富媒体
+                            nextView.code = iskma;
+                            nextView.curImage = [Api generateImageWithInput:input];
+                            [self.navigationController pushViewController:nextView animated:YES];
+                            [nextView release];
+                            bRet = YES;
+                        }  else  {
+                            //进行解码
+                            if([[map objectForKey:@"data"] isKindOfClass:[NSString class]])
+                            {                                
+                                //NSLog(@"//普通解码");                               
+                                NSString *_content=nil;
+                                _content =  [[NSString stringWithFormat:@"%@%@", API_CODE_PREFIX,[map objectForKey:@"data"]] retain];
+                                [self chooseShowController:_content isSave:isSave];
+                                bRet = YES;
+                            } else {
+                                //NSLog(@"//服媒体");
+                                UCRichMedia *nextView = [[UCRichMedia alloc] init];
+                                nextView.urlMedia = url;
+                                nextView.curImage = [Api generateImageWithInput:input];
+                                [self.navigationController pushViewController:nextView animated:YES];
+                                [nextView release];
+                                bRet = YES;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    return bRet;
+}
+
 // 解码入口
 - (void)chooseShowController:(NSString *)input isSave:(BOOL)isSave{
     iOSLog(@"QRCode-String = [%@]", input);
@@ -699,9 +776,20 @@ static NSString *s_luckyId = nil;
     if (url == nil) {
         url = @"";
     }
+    // 个人中心, 商城类跳转
+    if ([self jumpDigital:url] ) {
+        return;
+    }
+    // 解码, 暂时不用
+    //BaseModel *bm = [Api parse:input timeout:30];
+    if ([self parseV3:input isSave:isSave]) {
+        return;
+    }
+    
     BusCategory *category = [BusDecoder classify:input];
     BusCategory *category_url = [BusDecoder classify:url];
     [TabBarController hide:NO animated:NO];
+    
     if ([category.type isEqualToString:CATEGORY_CARD]) {
         DecodeCardViewControlle *cardView = [[DecodeCardViewControlle alloc] initWithNibName:@"DecodeCardViewControlle" category:category result:input withImage:inputImage withType:HistoryTypeFavAndHistory withSaveImage:saveImage];
         [self.navigationController pushViewController:cardView animated:YES];
@@ -793,18 +881,14 @@ static NSString *s_luckyId = nil;
             return;
         } else {
             // 默认传统业务 [WangFeng at 2012/05/14 11:31]
+            HistoryType hType = HistoryTypeNone;
             if (isSave) {
-                DecodeBusinessViewController *businessView = [[DecodeBusinessViewController alloc] initWithNibName:@"DecodeBusinessViewController" category:category result:input image:inputImage withType:HistoryTypeFavAndHistory withSaveImage:saveImage];
-                [self.navigationController pushViewController:businessView animated:YES];
-                RELEASE_SAFELY(businessView);
-                return;
-            } else {
-                DecodeBusinessViewController *businessView = [[DecodeBusinessViewController alloc] initWithNibName:@"DecodeBusinessViewController" category:category result:input image:inputImage withType:HistoryTypeNone withSaveImage:saveImage];
-                [self.navigationController pushViewController:businessView animated:YES];
-                RELEASE_SAFELY(businessView);
-                return;
-                
+                hType = HistoryTypeFavAndHistory;
             }
+            DecodeBusinessViewController *businessView = [[DecodeBusinessViewController alloc] initWithNibName:@"DecodeBusinessViewController" category:category result:input image:inputImage withType:hType withSaveImage:saveImage];
+            [self.navigationController pushViewController:businessView animated:YES];
+            RELEASE_SAFELY(businessView);
+            return;
         }
     }
 }
