@@ -359,11 +359,6 @@ static NSString *s_luckyId = nil;
     }
     // 解码, 暂时不用
     BaseModel *bm = [[Api parse:input timeout:30] retain];
-    /*
-    if ([self parseV3:input isSave:isSave]) {
-        return;
-    }
-    */
     if (bm != nil && bm.typeId == kModelRichMedia) {
         // 跳转富媒体
         UCRichMedia *nextVIew = [[UCRichMedia alloc] init];
