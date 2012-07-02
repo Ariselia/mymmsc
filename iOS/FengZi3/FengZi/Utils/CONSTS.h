@@ -91,23 +91,6 @@ typedef enum{
     EncodeImageTypeIcon
 } EncodeImageType;
 
-/*
-public static final int QROBJTYPE_HTTP=1;//网址
-public static final int QROBJTYPE_WEBCARD=2;// 网页书签
-public static final int QROBJTYPE_APK=3;//  应用程序
-public static final int QROBJTYPE_WEIBO=4;//微博
-public static final int QROBJTYPE_CARD=5;//名片
-public static final int QROBJTYPE_TEL=6;//电话号
-public static final int QROBJTYPE_EMAIL=7;//邮件
-public static final int QROBJTYPE_TXE=8;//文本
-public static final int QROBJTYPE_UNTXT=9;//加密文本
-public static final int QROBJTYPE_SM=10;//短信
-public static final int QROBJTYPE_WIFI=11;//wifi
-public static final int QROBJTYPE_MAP=12;//地图
-public static final int QROBJTYPE_DATE=13;// 日程
-public static final int QROBJTYPE_DYNAMIC=14;// 富媒体和空码赋值
-*/
-
 typedef enum{
     LinkTypeNone = 0,
     LinkTypeUrl,
