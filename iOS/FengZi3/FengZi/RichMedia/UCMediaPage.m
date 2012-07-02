@@ -33,7 +33,7 @@
 @synthesize idMedia;
 @synthesize filePath;
 @synthesize subject, content, pic, bgAudio, btnAudio;
-@synthesize maContent, info;
+@synthesize richMedia, info;
 @synthesize button;
 @synthesize moviePlayer, state, stText;
 @synthesize btnJump; // 富媒体跳转按钮
@@ -277,7 +277,7 @@ static int sButton = 0;
     // Do any additional setup after loading the view from its nib.
     bgAudio.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"bg33.png"]];
     // 没有背景音乐, 隐藏音乐背景条
-    if (maContent.audio == nil || maContent.audio.length < 5) {
+    if (richMedia.audio == nil || richMedia.audio.length < 5) {
         //bgAudio.hidden = YES;
         btnAudio.hidden = YES;
     }
@@ -302,15 +302,10 @@ static int sButton = 0;
         [self.view addSubview:btnDown];
         [self.view bringSubviewToFront:btnDown];
     }
-    if (maContent.isSend) {
+    if (richMedia.isSend) {
         NSString *btnTitle = @"富媒体 跳转";
         // 富媒体跳转
-        NSString *temp = maContent.sendType;
-        int jumpType = -1;
-        if (temp != nil) {
-            jumpType = temp.intValue;
-        }
-        temp = [iOSApi urlDecode:maContent.sendContent];
+        int jumpType = richMedia.sendType;
         if (jumpType == API_RMJUMP_WWW) {
             // 网站链接
             btnTitle = @"网站连接";
@@ -354,7 +349,7 @@ static int sButton = 0;
     }
     if (sFile == nil) {
         
-        NSDictionary *aList = [maContent.audio uriParams];
+        NSDictionary *aList = [richMedia.audio uriParams];
         
         NSString *tFile = [NSString stringWithFormat:@"%@.%@", [aList objectForKey:@"id"], [aList objectForKey:@"type"]];
         
@@ -366,7 +361,7 @@ static int sButton = 0;
         
         [iOSApi showAlert:@"正在下载音乐文件"];
         
-        fileURL = [NSURL URLWithString:maContent.audio];
+        fileURL = [NSURL URLWithString:richMedia.audio];
         NSData *data = [NSData dataWithContentsOfURL:fileURL];
        
         NSLog(@"1: %@", tFile);
@@ -576,14 +571,10 @@ static int sButton = 0;
 // 富媒体跳转
 - (IBAction)doJump:(id)sender{
     UCRichMedia *xSelf = (UCRichMedia *)idMedia;
-    if (maContent.isSend) {
+    if (richMedia.isSend) {
         // 富媒体跳转
-        NSString *temp = maContent.sendType;
-        int jumpType = -1;
-        if (temp != nil) {
-            jumpType = temp.intValue;
-        }
-        temp = [iOSApi urlDecode:maContent.sendContent];
+        int jumpType = richMedia.sendType;
+        NSString * temp = [iOSApi urlDecode:richMedia.sendContent];
         if (jumpType == API_RMJUMP_WWW || jumpType == API_RMJUMP_URL_PRICE) {
             // 网站链接
             NSString *url = [iOSApi urlDecode:temp];
