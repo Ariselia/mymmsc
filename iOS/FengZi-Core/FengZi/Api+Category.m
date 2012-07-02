@@ -632,7 +632,7 @@
             input = code;
         }
     }
-    if (input.length >= 4) {
+    if ([input match:@"^0[1-9A-F]"]) {
         // 取出码类型
         const char *s = [[input substringToIndex:2] UTF8String];
         Byte type = kModelBASE;
