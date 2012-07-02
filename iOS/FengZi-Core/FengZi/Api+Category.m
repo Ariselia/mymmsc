@@ -579,6 +579,7 @@
 
 //====================================< 词条 - 接口 >====================================
 #import <iOSApi/iOSApi+Reflex.h>
+#import <iOSApi/iOSApi+Json.h>
 #import "BusDecoder.h"
 
 @implementation Api (Category)
@@ -665,7 +666,7 @@
                     if([data isKindOfClass:[NSString class]]) {
                         oRet = [self parseV3Common:str];
                     } else {
-                        oRet = [data toObject:RichMedia.class];
+                        oRet = [iOSApi assignObject:data class:RichMedia.class];
                     }
                 }
             }
