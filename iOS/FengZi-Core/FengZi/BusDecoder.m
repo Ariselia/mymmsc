@@ -156,13 +156,11 @@ static NSString *URL_FLAG = @"://";
         return nil;
     }
     
-    NSMutableDictionary *result = [[[NSMutableDictionary alloc] initWithCapacity:0] autorelease];			
+    NSMutableDictionary *result = [[[NSMutableDictionary alloc] initWithCapacity:0] autorelease];
     int preFlagPos = 0;
     NSMutableString *sb = [[[NSMutableString alloc] initWithCapacity:0] autorelease];
-    for(int i = 0; i < input.length; i ++){
-        
+    for(int i = 0; i < input.length; i ++){        
         NSString *c = [input substringWithRange:NSMakeRange(i, 1)];
-        
         if(![c isEqualToString:SEPERATOR_PRE]&& ![c isEqualToString:SEPERATOR_POST]){
             [sb appendString:[NSString stringWithFormat:@"%@",c]];
         } else {
@@ -929,7 +927,7 @@ static NSString *URL_FLAG = @"://";
  * @return
  * SMTP:zhangsan@baidu.com:你好:你好啊
  */
-+ (Email*)parserMAILTO:(NSString *)input{
++ (Email *)parserMAILTO:(NSString *)input{
     if(input == nil){
         return nil;
     }
@@ -1101,7 +1099,7 @@ static NSString *URL_FLAG = @"://";
  * @param input
  * @return
  */
-+ (AppUrl*) decodeAppUrl:(NSString *)input{
++ (AppUrl *) decodeAppUrl:(NSString *)input{
     AppUrl *appUrl = [[[AppUrl alloc]init]autorelease];
     NSMutableDictionary *content =[BusDecoder parser:input];
     NSString *url = [content objectForKey:BOOKMARK_URL];
