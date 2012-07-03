@@ -584,7 +584,7 @@
     [_favBtn setImage:[UIImage imageNamed:@"faviroted.png"] forState:UIControlStateNormal];
 }
 
--(void)finishShare:(NSNotification*)notification{
+- (void)finishShare:(NSNotification*)notification{
     NSString *info= [NSString stringWithFormat:@"eqn=%@&version=%@",[[UIDevice currentDevice] uniqueIdentifier],[iOSApi version]];
     info = [PseudoBase64 encode:info];
     NSString *type = [notification.userInfo objectForKey:@"type"];
@@ -597,7 +597,7 @@
     }
 }
 
--(void)finishShareAuth:(NSNotification*)notification{
+- (void)finishShareAuth:(NSNotification*)notification{
     NSString *info= [NSString stringWithFormat:@"eqn=%@&version=%@",[[UIDevice currentDevice] uniqueIdentifier],[iOSApi version]];
     info = [PseudoBase64 encode:info];
     NSString *type = [notification.userInfo objectForKey:@"type"];
@@ -614,7 +614,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(finishShareAuth:) name:SHARE_AUTH_FINISH object:nil];
 }
 
--(void)viewWillDisappear:(BOOL)animated{
+- (void)viewWillDisappear:(BOOL)animated{
     [[NSNotificationCenter defaultCenter] removeObserver:self name:SHARE_FINISH object:nil];
 }
 
@@ -647,7 +647,8 @@
     [_tableView release];
     [_favBtn release];
     [_headerView release];
-    IOSAPI_RELEASE(_object);
+    //IOSAPI_RELEASE(_object);
+    //[_object release];
     [super dealloc];
 }
 @end
