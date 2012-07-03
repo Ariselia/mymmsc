@@ -622,7 +622,11 @@
         value = [value replace:@"\\;" withString:@";"];
         value = [value replace:@"\\:" withString:@":"];
         iOSLog(@"key = [%@], value = [%@]", key, value);
-        [oRet setObject:value forKey:key];
+        if (![iOSApi isEmpty:key]) {
+            key = [key trim];
+            [oRet setObject:value forKey:key];
+        }
+        
     }];
     return oRet;
 }
