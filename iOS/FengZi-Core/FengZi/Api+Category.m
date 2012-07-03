@@ -638,7 +638,7 @@
  */
 + (id)parseV3Common:(NSString *)string {
     id oRet = nil;
-    NSString *input = [[[NSString alloc] initWithString:string] autorelease];
+    NSString *input = [string trim];
     if ([input hasPrefix:API_CODE_PREFIX]) {
         // 新的码规则, 取出码的正是内容
         NSString *code = [input substringFromIndex:API_CODE_PREFIX.length];
