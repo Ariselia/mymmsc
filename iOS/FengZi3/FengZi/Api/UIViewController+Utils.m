@@ -369,12 +369,14 @@ static NSString *s_luckyId = nil;
             [nextVIew release];
         } else if (bm.typeId == kModelRide) {
             // 顺风车
-            
         } else if (bm.typeId == kModelCard) {
             DecodeCardViewControlle *nextView = [[DecodeCardViewControlle alloc] initWithNibName:@"DecodeCardViewControlle" card:(Card *)bm withImage:inputImage withType:HistoryTypeFavAndHistory withSaveImage:saveImage];
             [self.navigationController pushViewController:nextView animated:YES];
             IOSAPI_RELEASE(nextView);
         } else {
+            if (bm.typeId == kModelText) {
+                iOSLog(@"text = [%@]", ((Text *)bm).content);
+            }
             // 默认传统业务 [WangFeng at 2012/05/14 11:31]
             HistoryType hType = HistoryTypeNone;
             if (isSave) {

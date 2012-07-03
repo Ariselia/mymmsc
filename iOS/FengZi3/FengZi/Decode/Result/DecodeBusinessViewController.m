@@ -210,7 +210,6 @@
         [_typeArray addObject:[NSNumber numberWithInt:LinkTypeCardPhone]];
         _showInfo = object.telephone;
         logId = object.logId;
-        [object release];
     } else if(bm.typeId == kModelShortMessage){
         _titleLabel.text= @"短信解码";
         ShortMessage *object = (ShortMessage *)bm;
@@ -223,7 +222,6 @@
         _hideContentIndex = 1;
         _showInfo = object.content;
         logId = object.logId;
-        [object release];
     }else if(bm.typeId == kModelEmail){
         _titleLabel.text= @"电子邮件解码";
         Email *object = (Email *)bm;
@@ -239,7 +237,6 @@
         _hideContentIndex = 2;
         _showInfo = object.title;
         logId = object.logId;
-        [object release];
     }else if(bm.typeId == kModelBookMark){
         _titleLabel.text= @"书签解码";
         BookMark *object = (BookMark *)bm;
@@ -251,7 +248,6 @@
         [_typeArray addObject:[NSNumber numberWithInt:LinkTypeUrl]];
         _showInfo = object.title;
         logId = object.logId;
-        [object release];
     }else if(bm.typeId == kModelSchedule){
         _titleLabel.text= @"日程解码";
         Schedule *object = (Schedule *)bm;
@@ -267,17 +263,16 @@
         _hideContentIndex = 2;
         _showInfo = object.title;
         logId = object.logId;
-        [object release];
     }else if(bm.typeId == kModelText){
         _titleLabel.text= @"文本解码";
         Text *object = (Text *)bm;
         [_titleArray addObject:@"文本内容"];
+        iOSLog(@"Text.content = [%@]", object.content);
         [_contentArray addObject:object.content];
         [_typeArray addObject:[NSNumber numberWithInt:LinkTypeText]];
         _hideContentIndex = 0;
         _showInfo = object.content;
         logId = object.logId;
-        [object release];
     }else if(bm.typeId == kModelEncText){
         _titleLabel.text= @"加密文本解码";
         [self showAlertView:@"输入密码"];
@@ -292,7 +287,6 @@
         [_typeArray addObject:[NSNumber numberWithInt:LinkTypeTitle]];
         _showInfo = object.name;
         logId = object.logId;
-        [object release];
     }else if(bm.typeId == kModelUrl){
         _titleLabel.text= @"网址解码";
         Url *object = (Url *)bm;;
@@ -301,7 +295,6 @@
         [_typeArray addObject:[NSNumber numberWithInt:LinkTypeUrl]];
         _showInfo = object.content;
         logId = object.logId;
-        [object release];
     }else if(bm.typeId == kModelWeibo){
         _titleLabel.text= @"微博解码";
         Weibo *object = (Weibo *)bm;;
@@ -313,7 +306,6 @@
         [_typeArray addObject:[NSNumber numberWithInt:LinkTypeUrl]];
         _showInfo = object.title;
         logId = object.logId;
-        [object release];
     }else if(bm.typeId == kModelGMap){
         _titleLabel.text= @"地图解码";
         GMap *object = (GMap *)bm;;
@@ -326,14 +318,13 @@
             arr = [_showInfo componentsSeparatedByString:@"&"];
             if (arr) {
                 _showInfo = [[arr objectAtIndex:0] retain];
-            }else{
+            } else {
                 _showInfo = object.url;
             }
-        }else{
+        } else {
             _showInfo = object.url;
         }
         logId = object.logId;
-        [object release];
     }else if(bm.typeId == kModelAppUrl){
         _titleLabel.text= @"应用程序解码";
         AppUrl *object = (AppUrl *)bm;;
@@ -345,7 +336,6 @@
         [_typeArray addObject:[NSNumber numberWithInt:LinkTypeAppUrl]];
         _showInfo = object.url;
         logId = object.logId;
-        [object release];
     } else {
         _titleLabel.text= @"文本解码";
         [_titleArray addObject:@"文本"];
@@ -409,9 +399,6 @@
     
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
     btn.frame =CGRectMake(0, 0, 60, 32);
-    //    [btn setImage:[UIImage imageNamed:@"share.png"] forState:UIControlStateNormal];
-    //    [btn setImage:[UIImage imageNamed:@"share_tap.png"] forState:UIControlStateHighlighted];
-    //    [btn addTarget:self action:@selector(shareCode) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithCustomView:btn];
     self.navigationItem.rightBarButtonItem = item;
     [item release];
@@ -483,7 +470,7 @@
     return cell;
 }
 
--(void)hidePopButton{
+- (void)hidePopButton{
     for (int i =0; i<[_titleArray count]; i++) {
         NSIndexPath *indexPath = [NSIndexPath indexPathForRow:i inSection:0];
         DecodeBusinessCell *curCell = (DecodeBusinessCell*)[_tableView cellForRowAtIndexPath:indexPath];
@@ -491,7 +478,7 @@
     }
 }
 
--(void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event{
+- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event{
     [self hidePopButton];
 }
 
@@ -647,7 +634,7 @@
     [_tableView release];
     [_favBtn release];
     [_headerView release];
-    //IOSAPI_RELEASE(_object);
+    IOSAPI_RELEASE(_object);
     //[_object release];
     [super dealloc];
 }
