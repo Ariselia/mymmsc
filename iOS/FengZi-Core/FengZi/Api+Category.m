@@ -468,7 +468,7 @@
 
 //--------------------< 业务类型 - 对象 - 文本 >--------------------
 @implementation Text
-@synthesize content=_content;
+@synthesize content = _content;
 
 - (void)dealloc {
     IOSAPI_RELEASE(_content);
@@ -634,7 +634,7 @@
         }
     }
     iOSLog(@"input = %@", input);
-    if ([input match:@"^[0][1-9A-F](.*)"]) {
+    if ([input match:@"^[0][1-9a-fA-F](.*)"]) {
         // 取出码类型
         const char *s = [[input substringToIndex:2] UTF8String];
         Byte type = kModelBASE;
