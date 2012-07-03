@@ -16,7 +16,7 @@
 + (BOOL)isUrl:(NSString *)input;
 + (NSString *)transCode:(NSString *)input;
 + (NSMutableDictionary *)parser:(NSString *)input;
-+ (BusCategory*)classify:(NSString *)input;
++ (BusCategory *)classify:(NSString *)input;
 + (Card *)decodeCard:(NSString *)input channel:(int)channele;
 + (Card *)decodeVCARD:(NSString *) input;
 + (NSMutableDictionary *)parserVCARD:(NSString *)input;

@@ -16,8 +16,6 @@
 @implementation BusDecoder
 static NSString *URL_FLAG = @"://"; 
 
-//  需要对输入的：和；进行特殊转码
-
 /**
  * 将冒号和分号分隔的字符串变成一个map对象
  */
@@ -25,65 +23,6 @@ static NSString *URL_FLAG = @"://";
 /**
  * 将冒号和分号分隔的字符串变成一个map对象
  */
-+ (NSArray *)parseList:(NSString *)input{
-    NSMutableArray *list = nil;
-    if(input != nil){
-        list = [[[NSMutableArray alloc] initWithCapacity:0] autorelease];
-        int preFlagPos = 0;
-        NSMutableString *sb = [[[NSMutableString alloc] initWithCapacity:0] autorelease];
-        for(int i = 0; i < input.length; i ++){
-            NSString *c = [input substringWithRange:NSMakeRange(i, 1)];
-            NSString *d = nil;
-            if (i + 1 < input.length) {
-                d = [input substringWithRange:NSMakeRange(i + 1, 1)];
-            }
-            if(![c isEqualToString:SEPERATOR_PRE]&& ![c isEqualToString:SEPERATOR_POST]){
-                [sb appendString:[NSString stringWithFormat:@"%@",c]];
-            } else if (d != nil && [c isEqualToString:SEPERATOR_PRE] && [d isEqualToString:SEPERATOR_POST]) {
-                [list addObject:@""];
-                preFlagPos = 0;
-            } else {
-                if([c isEqualToString:SEPERATOR_PRE]){
-                    if(i == 0){
-                        continue; //舍弃：
-                    }
-                    if([[input substringWithRange:NSMakeRange(i-1, 1)] isEqualToString:@"\\"]){
-                        [sb deleteCharactersInRange:NSMakeRange(sb.length - 1, 1)];
-                        [sb appendString:[NSString stringWithFormat:@"%@",c]];
-                        //preFlagPos = i - 1;
-                    }else{
-                        [sb appendString:[NSString stringWithFormat:@"%@",c]];
-                        if(preFlagPos != 0){
-                            [sb deleteCharactersInRange:NSMakeRange(0, preFlagPos + 1)];//删掉不对应的：
-                        }
-                        preFlagPos = sb.length - 1; //对应到位置
-                    }					
-                }
-                
-                if([c isEqualToString:SEPERATOR_POST]){
-                    if(i == 0){
-                        continue; //舍弃：
-                    }
-                    if([[input substringWithRange:NSMakeRange(i-1, 1)] isEqualToString:@"\\"]){
-                        [sb deleteCharactersInRange:NSMakeRange(sb.length - 1, 1)];
-                        [sb appendString:[NSString stringWithFormat:@"%@",c]];
-                    }else{
-                        if(preFlagPos != 0){
-                            //[result setObject:[sb substringFromIndex:preFlagPos+1] forKey:key];
-                            [list addObject:[sb substringFromIndex:preFlagPos+1]];
-                        }
-                        
-                        [sb deleteCharactersInRange:NSMakeRange(0, sb.length)];//清掉内容
-                        preFlagPos = 0;
-                    }					
-                }
-            }
-        }
-    }
-    return list;
-    
-}
-
 + (NSDictionary *)parse0:(NSString *)input{
     NSMutableDictionary *list = nil;
     if(input != nil){

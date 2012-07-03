@@ -648,6 +648,9 @@
             if (ko != nil) {
                 oRet = [ko toObject:clazz];
                 [ko release];
+                if (((BaseModel *)oRet).typeId == kModelText) {
+                    iOSLog(@"text = [%@]", ((Text *)oRet).content);
+                }
             }
         }
     }
