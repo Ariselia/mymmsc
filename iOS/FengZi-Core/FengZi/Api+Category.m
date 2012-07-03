@@ -638,7 +638,7 @@
  */
 + (id)parseV3Common:(NSString *)string {
     id oRet = nil;
-    NSString *input = string;
+    NSString *input = [[[NSString alloc] initWithString:string] autorelease];
     if ([input hasPrefix:API_CODE_PREFIX]) {
         // 新的码规则, 取出码的正是内容
         NSString *code = [input substringFromIndex:API_CODE_PREFIX.length];
@@ -820,7 +820,7 @@
  */
 + (id)parse:(NSString *)string timeout:(int)timeout {
     id obj = nil;
-    NSString *str = string;
+    NSString *str = [[[NSString alloc] initWithString:string] autorelease];
     if (str != nil && str.length > 0) {
         str = [str trim];
         // 进行V3版本的富媒体, 空码解码
