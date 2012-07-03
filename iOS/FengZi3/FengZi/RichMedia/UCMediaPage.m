@@ -348,28 +348,20 @@ static int sButton = 0;
         return;
     }
     if (sFile == nil) {
-        
         NSDictionary *aList = [richMedia.audio uriParams];
-        
         NSString *tFile = [NSString stringWithFormat:@"%@.%@", [aList objectForKey:@"id"], [aList objectForKey:@"type"]];
-        
-        if([iOSFile isExists:tFile])
-        {
+        if([iOSFile isExists:tFile]) {
             sFile = [[NSString alloc] initWithString:[iOSFile path:tFile]];
-        }
-        else {
-        
-        [iOSApi showAlert:@"正在下载音乐文件"];
-        
-        fileURL = [NSURL URLWithString:richMedia.audio];
-        NSData *data = [NSData dataWithContentsOfURL:fileURL];
-       
-        NSLog(@"1: %@", tFile);
-        NSFileHandle *fileHandle = [iOSFile create:tFile];
-        [fileHandle writeData:data];
-        [fileHandle closeFile];
-        sFile = [[NSString alloc] initWithString:[iOSFile path:tFile]];
-        [iOSApi closeAlert];
+        } else {
+            [iOSApi showAlert:@"正在下载音乐文件"];
+            fileURL = [NSURL URLWithString:richMedia.audio];
+            NSData *data = [NSData dataWithContentsOfURL:fileURL];
+            NSLog(@"1: %@", tFile);
+            NSFileHandle *fileHandle = [iOSFile create:tFile];
+            [fileHandle writeData:data];
+            [fileHandle closeFile];
+            sFile = [[NSString alloc] initWithString:[iOSFile path:tFile]];
+            [iOSApi closeAlert];
         }
     }
     fileURL = [NSURL fileURLWithPath:sFile];
@@ -503,22 +495,18 @@ static int sButton = 0;
     [self presentModalViewController:nextView animated:YES];
     return;
 }
-- (IBAction)doDiscuss:(id)sender {
-           
-        UCRichMedia *xSelf = (UCRichMedia *)idMedia;
-        if (xSelf == nil) {
-            return;
-        }
-        RMComments *nextView = [RMComments new];
-        nextView.param = xSelf.code;
-    iOSLog(@"sssseeeee%@",xSelf.code);
-        [xSelf.navigationController pushViewController:nextView animated:YES];
-        [nextView release];
-        
-    
-   
-}
 
+- (IBAction)doDiscuss:(id)sender {
+    UCRichMedia *xSelf = (UCRichMedia *)idMedia;
+    if (xSelf == nil) {
+        return;
+    }
+    RMComments *nextView = [RMComments new];
+    nextView.param = xSelf.code;
+    iOSLog(@"sssseeeee%@", xSelf.code);
+    [xSelf.navigationController pushViewController:nextView animated:YES];
+    [nextView release];
+}
 
 //static NSString *s_luckyId = nil;
 
@@ -564,9 +552,6 @@ static int sButton = 0;
     [self doGame:buttonIndex luckyId:s_luckyId];
 }
 */
-
-
-
 
 // 富媒体跳转
 - (IBAction)doJump:(id)sender{
