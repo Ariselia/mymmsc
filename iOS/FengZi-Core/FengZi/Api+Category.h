@@ -51,6 +51,8 @@ typedef enum BusinessType{
 	kModelRichMedia,
 	/** 顺风车 */
 	kModelRide,
+    /** 空码 */
+    kModelKma = kModelBASE,
 	/** 未知类型文本 */
 	kModelUNKNOWN_TEXT = kModelText,
 	/** 未知类型连接地址 */
@@ -342,6 +344,16 @@ typedef enum{
 @interface Ride : BaseModel {
     //
 }
+
+@end
+
+//--------------------< 业务类型 - 对象 - 空码 >--------------------
+
+@interface RichKma : BaseModel{
+    // 空码ID
+    NSString *uuid;
+}
+@property (nonatomic, copy) NSString *uuid;
 
 @end
 

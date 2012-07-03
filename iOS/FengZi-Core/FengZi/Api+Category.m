@@ -579,6 +579,18 @@
 
 @end
 
+//--------------------< 业务类型 - 对象 - 空码 >--------------------
+@implementation RichKma
+
+@synthesize uuid;
+
+- (void)dealloc {
+    IOSAPI_RELEASE(uuid);
+    [super dealloc];
+}
+
+@end
+
 //====================================< 词条 - 接口 >====================================
 #import <iOSApi/iOSApi+Reflex.h>
 #import <iOSApi/iOSApi+Json.h>
@@ -662,20 +674,18 @@
         NSString *str = [string substringFromIndex:[API_CODE_PREFIX length]];
         if ([str hasPrefix:@"id="]) {
             // 富媒体, 或者空码, 转换地址
-            NSString *iskma = [str substringFromIndex:3];
+            //NSString *iskma = [str substringFromIndex:3];
             NSString *url = [NSString stringWithFormat:@"%@/apps/getCode.action?%@", API_APPS_SERVER, str];
-            if([iskma rangeOfString:@"-"].length>0) {
-                NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
-                                        [NSString valueOf:[Api userId]], @"userid",
-                                        nil];
-                NSDictionary *map = [Api post:url params:params];
-                if (map.count > 0) {
-                    NSDictionary *data = [map objectForKey:@"data"];
-                    if([data isKindOfClass:[NSString class]]) {
-                        oRet = [self parseV3Common:str];
-                    } else {
-                        oRet = [iOSApi assignObject:data class:RichMedia.class];
-                    }
+            NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
+                                    [NSString valueOf:[Api userId]], @"userid",
+                                    nil];
+            NSDictionary *map = [Api post:url params:params];
+            if (map.count > 0) {
+                NSDictionary *data = [map objectForKey:@"data"];
+                if([data isKindOfClass:[NSString class]]) {
+                    oRet = [self parseV3Common:str];
+                } else {
+                    oRet = [iOSApi assignObject:data class:RichMedia.class];
                 }
             }
         } else {
@@ -776,7 +786,20 @@
             if([data isKindOfClass:[NSString class]]) {
                 oRet = [self parseV2Common:(NSString *)data];
             } else {
-                oRet = [data toObject:RichMedia.class];
+                NSString *codeIsKma = [data objectForKey:@"isKma"];
+                int isKma = 0;
+                if ([codeIsKma isKindOfClass:NSNumber.class] ) {
+                    isKma = codeIsKma.intValue;
+                }
+                if (isKma > 0) {
+                    // 空码
+                    RichKma *rk = [[[RichKma alloc] init] autorelease];
+                    NSDictionary *dict = [string uriParams];
+                    NSString *xcode = [dict objectForKey:@"id"];
+                    rk.uuid = xcode;
+                } else {
+                    oRet = [data toObject:RichMedia.class];
+                }
             }
         }
     }
@@ -811,8 +834,8 @@
         }
         if (obj == nil) {
             // 实在没有办法解码了, 不是我们的业务, 按照URL的格式来泛解析
-            NSString *exp = @"[a-zA-Z]+://(.*)";
-            if ([str match:exp]) {
+            NSString *exp = @"http://";
+            if ([[str lowercaseString] hasPrefix:exp]) {
                 Url *url = [[[Url alloc] init] autorelease];
                 url.content = string;
                 obj = url;
