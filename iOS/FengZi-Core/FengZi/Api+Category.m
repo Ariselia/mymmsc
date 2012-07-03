@@ -639,25 +639,28 @@
 + (id)parseV3Common:(NSString *)string {
     id oRet = nil;
     NSString *input = [string trim];
+    NSString *str = nil;
     if ([input hasPrefix:API_CODE_PREFIX]) {
         // 新的码规则, 取出码的正是内容
         NSString *code = [input substringFromIndex:API_CODE_PREFIX.length];
         if (![code hasPrefix:@"id="]) {
-            input = code;
+            str = code;
         }
+    } else {
+        str = input;
     }
-    iOSLog(@"input = %@", input);
+    iOSLog(@"input = %@", str);
     if ([input match:@"^[0][1-9a-fA-F](.*)"]) {
         // 取出码类型
-        const char *s = [[input substringToIndex:2] UTF8String];
+        const char *s = [[str substringToIndex:2] UTF8String];
         Byte type = kModelBASE;
         sscanf(s, "%02X", &type);
         Class clazz = [BaseModel getType:type];
         if (clazz != nil) {
             // 普通业务
-            input = [input substringFromIndex:2];
-            iOSLog(@"input = %@", input);
-            NSDictionary *ko = [self parse:input];
+            NSString *value = [str substringFromIndex:2];
+            iOSLog(@"input = %@", value);
+            NSDictionary *ko = [self parse:value];
             if (ko != nil) {
                 oRet = [ko toObject:clazz];
             }
