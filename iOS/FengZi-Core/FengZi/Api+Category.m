@@ -702,68 +702,69 @@
 
 + (id)parseV2Common:(NSString *)string{
     id oRet = nil;
-    if ([string hasPrefix:API_CODE_PREFIX]) {
+    NSString *input = [string trim];
+    if ([input hasPrefix:API_CODE_PREFIX]) {
         // 新的码规则, 取出码的正是内容
-        NSString *code = [string substringFromIndex:API_CODE_PREFIX.length];
+        NSString *code = [input substringFromIndex:API_CODE_PREFIX.length];
         if (![code hasPrefix:@"id="]) {
-            string = code;
+            input = code;
         }
     }
-    BusCategory *bc = [BusDecoder classify:string];
+    BusCategory *bc = [BusDecoder classify:input];
     if (bc != nil) {
         BusinessType codeType = bc.codeType;
         switch (codeType) {
             case kModelUrl:
                 // 01-URL
-                oRet = [BusDecoder decodeUrl:string channel:bc.channel];
+                oRet = [BusDecoder decodeUrl:input channel:bc.channel];
                 break;
             case kModelBookMark:
                 // 02-书签
-                oRet = [BusDecoder decodeBookMark:string channel:bc.channel];
+                oRet = [BusDecoder decodeBookMark:input channel:bc.channel];
                 break;
             case kModelAppUrl:
                 // 03-应用程序链接地址
-                oRet = [BusDecoder decodeAppUrl:string];
+                oRet = [BusDecoder decodeAppUrl:input];
                 break;
             case kModelWeibo:
                 // 04-微博
-                oRet = [BusDecoder decodeWeibo:string];
+                oRet = [BusDecoder decodeWeibo:input];
                 break;
             case kModelCard:
                 // 05-名片
-                oRet = [BusDecoder decodeCard:string channel:bc.channel];
+                oRet = [BusDecoder decodeCard:input channel:bc.channel];
                 break;
             case kModelPhone:
                 // 06-电话号码
-                oRet = [BusDecoder decodePhone:string channel:bc.channel];
+                oRet = [BusDecoder decodePhone:input channel:bc.channel];
                 break;
             case kModelEmail:
                 // 07-电子邮件
-                oRet = [BusDecoder decodeEmail:string channel:bc.channel];
+                oRet = [BusDecoder decodeEmail:input channel:bc.channel];
                 break;
             case kModelText:
                 // 08-文本
-                oRet = [BusDecoder decodeText:string channel:bc.channel];
+                oRet = [BusDecoder decodeText:input channel:bc.channel];
                 break;
             case kModelEncText:
                 // 09-名片
-                oRet = [BusDecoder decodeEncText:string key:@""];
+                oRet = [BusDecoder decodeEncText:input key:@""];
                 break;
             case kModelShortMessage:
                 // 0A-短信
-                oRet = [BusDecoder decodeShortmessage:string channel:bc.channel];
+                oRet = [BusDecoder decodeShortmessage:input channel:bc.channel];
                 break;
             case kModelWiFiText:
                 // 0B-WIFI
-                oRet = [BusDecoder decodeWifiText:string];
+                oRet = [BusDecoder decodeWifiText:input];
                 break;
             case kModelGMap:
                 // 0C-地图
-                oRet = [BusDecoder decodeGMap:string];
+                oRet = [BusDecoder decodeGMap:input];
                 break;
             case kModelSchedule:
                 // 0D-日程
-                oRet = [BusDecoder decodeSchedule:string];
+                oRet = [BusDecoder decodeSchedule:input];
                 break;
             case kModelRichMedia:
                 // 0E-富媒体
@@ -820,9 +821,8 @@
  */
 + (id)parse:(NSString *)string timeout:(int)timeout {
     id obj = nil;
-    NSString *str = [[[NSString alloc] initWithString:string] autorelease];
-    if (str != nil && str.length > 0) {
-        str = [str trim];
+    if (![iOSApi isEmpty:string]) {
+        NSString *str = [string trim];
         // 进行V3版本的富媒体, 空码解码
         obj = [self parseV3Kma:str timeout:timeout];
         // 如果不是V3版本的富媒体和空码, 进行V2版本的富媒体解码
