@@ -488,6 +488,7 @@ static int sButton = 0;
     // 播放状态, 显示停止
     state = MS_STOPPED;
 }
+
 - (void)goLogin{
     UCLogin *theView = [[[UCLogin alloc] init] autorelease];
     theView.bModel = YES;
