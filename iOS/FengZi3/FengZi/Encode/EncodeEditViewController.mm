@@ -187,6 +187,8 @@
     if (DATA_ENV.encodeImageType == EncodeImageTypeIcon) {
         qr_level = QR_ECLEVEL_H;
     }
+    // XXXXXXXX [wangfeng at 2012-05-03 18:51:50]
+    qr_level = QR_ECLEVEL_L;
     DataMatrix* qrMatrix = [QREncoder encodeWithECLevel:qr_level version:QR_VERSION_AUTO string:aVeryLongURL];
     //then render the matrix
     UIImage* qrcodeImage = [QREncoder renderDataMatrix:qrMatrix imageDimension:qrcodeImageDimension colorRed:red colorGreen:green colorBlue:blue];
