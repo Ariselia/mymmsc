@@ -687,6 +687,13 @@
 
 + (id)parseV2Common:(NSString *)string{
     id oRet = nil;
+    if ([string hasPrefix:API_CODE_PREFIX]) {
+        // 新的码规则, 取出码的正是内容
+        NSString *code = [string substringFromIndex:API_CODE_PREFIX.length];
+        if (![code hasPrefix:@"id="]) {
+            string = code;
+        }
+    }
     BusCategory *bc = [BusDecoder classify:string];
     if (bc != nil) {
         BusinessType codeType = bc.codeType;
@@ -804,7 +811,7 @@
         }
         if (obj == nil) {
             // 实在没有办法解码了, 不是我们的业务, 按照URL的格式来泛解析
-            NSString *exp = @"[a-zA-z]+://[^\\s]";
+            NSString *exp = @"[a-zA-Z]+://[^\\s]";
             if ([str match:exp]) {
                 Url *url = [[[Url alloc] init] autorelease];
                 url.content = string;
