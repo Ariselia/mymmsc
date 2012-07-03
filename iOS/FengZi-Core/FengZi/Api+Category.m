@@ -649,17 +649,17 @@
     } else {
         str = input;
     }
-    iOSLog(@"input = %@", str);
-    if ([input match:@"^[0][1-9a-fA-F](.*)"]) {
+    //iOSLog(@"input = %@", str);
+    if ([str match:@"^[0][1-9a-fA-F](.*)"]) {
         // 取出码类型
         const char *s = [[str substringToIndex:2] UTF8String];
-        Byte type = kModelBASE;
+        int type = kModelBASE;
         sscanf(s, "%02X", &type);
         Class clazz = [BaseModel getType:type];
         if (clazz != nil) {
             // 普通业务
             NSString *value = [str substringFromIndex:2];
-            iOSLog(@"input = %@", value);
+            //iOSLog(@"input = %@", value);
             NSDictionary *ko = [self parse:value];
             if (ko != nil) {
                 oRet = [ko toObject:clazz];
@@ -689,7 +689,7 @@
             if (map.count > 0) {
                 NSDictionary *data = [map objectForKey:@"data"];
                 if([data isKindOfClass:[NSString class]]) {
-                    oRet = [self parseV3Common:str];
+                    oRet = [self parseV3Common:(NSString *)data];
                 } else {
                     RichMedia *rm = [iOSApi assignObject:data class:RichMedia.class];
                     rm.codeId = uuid;
