@@ -4,6 +4,7 @@
 package org.mymmsc.app.hengxin.apk;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -170,7 +171,8 @@ public class ApkTool implements ApkRepackage {
 			result = unpack(apkFile, apkDir);
 			if (result) {
 				String xmlFile = apkDir + "/" + Category.Manifest;
-				XmlParser xp = new XmlParser(xmlFile, false);
+				InputStream is = new FileInputStream(xmlFile);
+				XmlParser xp = new XmlParser(is);
 				String pkg = null;
 				String portal = null;
 				// 获取根节点
