@@ -673,7 +673,11 @@
         NSString *str = [string substringFromIndex:[API_CODE_PREFIX length]];
         if ([str hasPrefix:@"id="]) {
             // 富媒体, 或者空码, 转换地址
-            //NSString *iskma = [str substringFromIndex:3];
+            NSString *uuid = nil;
+            NSDictionary *dict = [str uriParams];
+            if (dict != nil) {
+                uuid = [dict objectForKey:@"id"];
+            }
             NSString *url = [NSString stringWithFormat:@"%@/apps/getCode.action?%@", API_APPS_SERVER, str];
             NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
                                     [NSString valueOf:[Api userId]], @"userid",
@@ -684,7 +688,9 @@
                 if([data isKindOfClass:[NSString class]]) {
                     oRet = [self parseV3Common:str];
                 } else {
-                    oRet = [iOSApi assignObject:data class:RichMedia.class];
+                    RichMedia *rm = [iOSApi assignObject:data class:RichMedia.class];
+                    rm.codeId = uuid;
+                    oRet = rm;
                 }
             }
         } else {
