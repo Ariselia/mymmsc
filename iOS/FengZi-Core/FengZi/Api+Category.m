@@ -602,7 +602,8 @@
                                                                              error:&error];
     
     
-    oRet = [[[NSMutableDictionary alloc] initWithCapacity:0] autorelease];
+    //oRet = [[[NSMutableDictionary alloc] initWithCapacity:0] autorelease];
+    oRet = [NSMutableDictionary dictionary];
     [regex enumerateMatchesInString:string options:0 range:NSMakeRange(0, [string length]) usingBlock:^(NSTextCheckingResult *result, NSMatchingFlags flags, BOOL *stop) {
         NSString *key = [string substringWithRange:[result rangeAtIndex:2]];
         NSString *value = [string substringWithRange:[result rangeAtIndex:3]];
@@ -646,10 +647,8 @@
             iOSLog(@"input = %@", input);
             NSDictionary *ko = [self parse:input];
             if (ko != nil) {
-                oRet = [ko toObject:clazz];
-                if (((BaseModel *)oRet).typeId == kModelText) {
-                    iOSLog(@"text = [%@]", ((Text *)oRet).content);
-                }
+                oRet = [[[clazz alloc] init] autorelease];
+                [ko fillObject:oRet];
             }
         }
     }
