@@ -240,6 +240,7 @@
 - (BOOL)searchBarShouldBeginEditing:(UISearchBar *)searchBar{
     return YES;
 }
+
 - (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar
 {
     searchBar.showsCancelButton = YES;
