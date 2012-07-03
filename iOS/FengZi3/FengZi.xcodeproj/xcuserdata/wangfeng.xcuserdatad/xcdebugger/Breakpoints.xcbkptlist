@@ -46,13 +46,13 @@
          shouldBeEnabled = "Yes"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
-         filePath = "FengZi/Api/UIViewController+Utils.m"
-         timestampString = "362980595.809682"
+         filePath = "FengZi/HistoryViewController.mm"
+         timestampString = "363042043.896499"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "439"
-         endingLineNumber = "439"
-         landmarkName = "-chooseShowController:isSave:"
+         startingLineNumber = "221"
+         endingLineNumber = "221"
+         landmarkName = "-tableView:didSelectRowAtIndexPath:"
          landmarkType = "5">
       </FileBreakpoint>
    </FileBreakpoints>

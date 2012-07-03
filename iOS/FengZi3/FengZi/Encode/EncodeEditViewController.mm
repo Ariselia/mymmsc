@@ -47,11 +47,11 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
--(UIImage*)getResultImage{
+- (UIImage *)getResultImage{
     UIImage *image;
     if (_isDefaultSkin) {
         image = _encodeImageView.image;
-    }else {
+    } else {
         UIGraphicsBeginImageContext(_backgroundView.bounds.size);
         [_backgroundView.layer renderInContext:UIGraphicsGetCurrentContext()];
         image = UIGraphicsGetImageFromCurrentImageContext();
@@ -60,7 +60,7 @@
     return image;
 }
 
--(void)sendMessage:(UIImage*)image withSave:(BOOL)isSave{
+- (void)sendMessage:(UIImage*)image withSave:(BOOL)isSave{
     NSString *appAtt = [NSString stringWithFormat:@"eqn=%@&type=%@&stype=%d&loc=%@",[[UIDevice currentDevice] uniqueIdentifier],[DATA_ENV getEncodeCodeType:DATA_ENV.curBusinessType],DATA_ENV.curScanType,DATA_ENV.curLocation];
     appAtt = [PseudoBase64 encode:appAtt];
     
@@ -78,7 +78,7 @@
     }
 }
 
--(void)shareCode{
+- (void)shareCode{
     [[SHK currentHelper] setRootViewController:self];
     SHKItem *item = [SHKItem text:@"我制做一个超炫的二维码，大家快来扫扫看！\n来自蜂子客户端"];
     item.image = [self getResultImage];
@@ -91,12 +91,12 @@
 //    [actionSheet release];
 }
 
--(void)requestDidFinishLoad:(ITTBaseDataRequest *)request{
+- (void)requestDidFinishLoad:(ITTBaseDataRequest *)request{
     if ([request isKindOfClass:[MakeLogDataRequest class]]) {
     }
 }
 
--(void)request:(ITTBaseDataRequest *)request didFailLoadWithError:(NSError *)error{
+- (void)request:(ITTBaseDataRequest *)request didFailLoadWithError:(NSError *)error{
     NSLog(@"%@",error);
 }
 
@@ -208,14 +208,12 @@
             obj.logId = _logId;
             _showInfo = obj.content;
             _content = [[BusEncoder encode:obj type:DATA_ENV.curBusinessType]retain];
-
             break;
         }
         case kModelCard:{
             Card *obj = _codeObject;
             obj.logId = _logId;
             _showInfo = obj.name;
-           // _content = [[BusEncoder encodeCard:obj] retain];
               _content = [[BusEncoder encode:obj type:DATA_ENV.curBusinessType]retain];
             break;
         }
@@ -224,17 +222,12 @@
             obj.logId = _logId;
             _showInfo = [[[obj.url componentsSeparatedByString:@"="] objectAtIndex:1] retain];
             _showInfo = [[[_showInfo componentsSeparatedByString:@"&"] objectAtIndex:0] retain];
-           // _content = [[BusEncoder encodeGMap:obj] retain];
               _content = [[BusEncoder encode:obj type:DATA_ENV.curBusinessType]retain];
             break;
         }case kModelText:{
             Text *obj = _codeObject;
             obj.logId = _logId;
             _showInfo = obj.content;
-            
-            
-            //_content = [[BusEncoder encodeText:obj] retain];
-            //_content = [[BusEncoder encode:obj type:BusinessTypeText]retain];
               _content = [[BusEncoder encode:obj type:DATA_ENV.curBusinessType]retain];
             break;
         }
@@ -242,7 +235,6 @@
             Email *obj = _codeObject;
             obj.logId = _logId;
             _showInfo = obj.title;
-            //_content = [[BusEncoder encodeEmail:obj] retain];
               _content = [[BusEncoder encode:obj type:DATA_ENV.curBusinessType]retain];
             break;
         }
@@ -250,7 +242,6 @@
             Phone *obj = _codeObject;
             obj.logId = _logId;
             _showInfo = obj.telephone;
-            //_content = [[BusEncoder encodePhone:obj] retain];
               _content = [[BusEncoder encode:obj type:DATA_ENV.curBusinessType]retain];
             break;
         }
@@ -258,7 +249,6 @@
             Weibo *obj = _codeObject;
             obj.logId = _logId;
             _showInfo = obj.title;
-          //  _content = [[BusEncoder encodeWeibo:obj] retain];
               _content = [[BusEncoder encode:obj type:DATA_ENV.curBusinessType]retain];
             break;
         }
@@ -266,7 +256,6 @@
             AppUrl *obj = _codeObject;
             obj.logId = _logId;
             _showInfo = obj.title;
-           // _content = [[BusEncoder encodeAppUrl:obj] retain];
               _content = [[BusEncoder encode:obj type:DATA_ENV.curBusinessType]retain];
             break;
         }
@@ -274,7 +263,6 @@
             EncText *obj = _codeObject;
             obj.logId = _logId;
             _showInfo = obj.content;
-           // _content = [[BusEncoder encodeEncText:obj] retain];
               _content = [[BusEncoder encode:obj type:DATA_ENV.curBusinessType]retain];
             break;
         }
@@ -289,7 +277,6 @@
             Schedule *obj = _codeObject;
             obj.logId = _logId;
             _showInfo = obj.title;
-           // _content = [[BusEncoder encodeSchedule:obj] retain];
               _content = [[BusEncoder encode:obj type:DATA_ENV.curBusinessType]retain];
             break;
         }
@@ -297,7 +284,6 @@
             WiFiText *obj = _codeObject;
             obj.logId = _logId;
             _showInfo = obj.name;
-           // _content = [[BusEncoder encodeWifiText:obj] retain];
               _content = [[BusEncoder encode:obj type:DATA_ENV.curBusinessType]retain];
             break;
         }
@@ -305,7 +291,6 @@
             ShortMessage *obj = _codeObject;
             obj.logId = _logId;
             _showInfo = obj.content;
-         //   _content = [[BusEncoder encodeShortmessage:obj]retain];
               _content = [[BusEncoder encode:obj type:DATA_ENV.curBusinessType]retain];
             break;
         }
@@ -313,7 +298,6 @@
             RichMedia *obj = _codeObject;
             obj.logId = _logId;
             _showInfo = obj.title;
-           // _content = [[BusEncoder encodeRichMedia:obj] retain];
               _content = [[BusEncoder encode:obj type:DATA_ENV.curBusinessType]retain];
             break;
         }

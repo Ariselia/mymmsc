@@ -259,7 +259,6 @@
 		0A1AEE2D154754A8007BE52E /* ZXing.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A1AEE2C154754A6007BE52E /* ZXing.framework */; };
 		0A511F0E1599A6BB00845FE6 /* uc_checkBtn_tap.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A511F0A1599A6BB00845FE6 /* uc_checkBtn_tap.png */; };
 		0A511F0F1599A6BB00845FE6 /* uc_checkBtn.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A511F0B1599A6BB00845FE6 /* uc_checkBtn.png */; };
-		0A55D674159FA705001BEC23 /* FengZi.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A55D673159FA705001BEC23 /* FengZi.framework */; };
 		0A6DA450159914480052EC21 /* history_btnBG.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A6DA44C159914480052EC21 /* history_btnBG.png */; };
 		0A6DA451159914480052EC21 /* history_cellBG.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A6DA44D159914480052EC21 /* history_cellBG.png */; };
 		0A6DA452159914480052EC21 /* history_sCellBG.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A6DA44E159914480052EC21 /* history_sCellBG.png */; };
@@ -378,6 +377,15 @@
 		0ACE86D1152AF6E10084C32B /* usercenter_userinfo_image.png in Resources */ = {isa = PBXBuildFile; fileRef = 0ACE86C9152AF6E10084C32B /* usercenter_userinfo_image.png */; };
 		0ACE86D2152AF6E10084C32B /* usercenter_userinfo_mycoment.png in Resources */ = {isa = PBXBuildFile; fileRef = 0ACE86CA152AF6E10084C32B /* usercenter_userinfo_mycoment.png */; };
 		0ACE86D3152AF6E10084C32B /* usercenter_userinfo_zoneqr.png in Resources */ = {isa = PBXBuildFile; fileRef = 0ACE86CB152AF6E10084C32B /* usercenter_userinfo_zoneqr.png */; };
+		0AD69D5A15A3A45800CC5F01 /* Api.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0AD69D4615A3A45400CC5F01 /* Api.mm */; };
+		0AD69D5B15A3A45800CC5F01 /* Api+Category.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AD69D4815A3A45400CC5F01 /* Api+Category.m */; };
+		0AD69D5C15A3A45800CC5F01 /* BusCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AD69D4A15A3A45400CC5F01 /* BusCategory.m */; };
+		0AD69D5D15A3A45800CC5F01 /* BusDecoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AD69D4D15A3A45500CC5F01 /* BusDecoder.m */; };
+		0AD69D5E15A3A45800CC5F01 /* BusEncoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AD69D5015A3A45500CC5F01 /* BusEncoder.m */; };
+		0AD69D5F15A3A45800CC5F01 /* CodeAttribute.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AD69D5215A3A45600CC5F01 /* CodeAttribute.m */; };
+		0AD69D6015A3A45800CC5F01 /* GTMBase64.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AD69D5415A3A45600CC5F01 /* GTMBase64.m */; };
+		0AD69D6115A3A45800CC5F01 /* NotePLogService.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AD69D5715A3A45600CC5F01 /* NotePLogService.m */; };
+		0AD69D6215A3A45800CC5F01 /* PseudoBase64.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AD69D5915A3A45600CC5F01 /* PseudoBase64.m */; };
 		0ADD8F80154E9EA10025DF29 /* CardTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ADD8F51154E9EA10025DF29 /* CardTableViewCell.m */; };
 		0ADD8F81154E9EA10025DF29 /* CardTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0ADD8F52154E9EA10025DF29 /* CardTableViewCell.xib */; };
 		0ADD8F82154E9EA10025DF29 /* EncodeAppUrlViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ADD8F54154E9EA10025DF29 /* EncodeAppUrlViewController.m */; };
@@ -1192,7 +1200,6 @@
 		0A1AEE2C154754A6007BE52E /* ZXing.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ZXing.framework; path = ../../../../runtime/SDK/ZXing.framework; sourceTree = "<group>"; };
 		0A511F0A1599A6BB00845FE6 /* uc_checkBtn_tap.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = uc_checkBtn_tap.png; sourceTree = "<group>"; };
 		0A511F0B1599A6BB00845FE6 /* uc_checkBtn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = uc_checkBtn.png; sourceTree = "<group>"; };
-		0A55D673159FA705001BEC23 /* FengZi.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FengZi.framework; path = ../../../../runtime/SDK/FengZi.framework; sourceTree = "<group>"; };
 		0A6DA44C159914480052EC21 /* history_btnBG.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = history_btnBG.png; sourceTree = "<group>"; };
 		0A6DA44D159914480052EC21 /* history_cellBG.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = history_cellBG.png; sourceTree = "<group>"; };
 		0A6DA44E159914480052EC21 /* history_sCellBG.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = history_sCellBG.png; sourceTree = "<group>"; };
@@ -1322,6 +1329,27 @@
 		0ACE86C9152AF6E10084C32B /* usercenter_userinfo_image.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = usercenter_userinfo_image.png; sourceTree = "<group>"; };
 		0ACE86CA152AF6E10084C32B /* usercenter_userinfo_mycoment.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = usercenter_userinfo_mycoment.png; sourceTree = "<group>"; };
 		0ACE86CB152AF6E10084C32B /* usercenter_userinfo_zoneqr.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = usercenter_userinfo_zoneqr.png; sourceTree = "<group>"; };
+		0AD69D4515A3A45400CC5F01 /* Api.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Api.h; sourceTree = "<group>"; };
+		0AD69D4615A3A45400CC5F01 /* Api.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Api.mm; sourceTree = "<group>"; };
+		0AD69D4715A3A45400CC5F01 /* Api+Category.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Api+Category.h"; sourceTree = "<group>"; };
+		0AD69D4815A3A45400CC5F01 /* Api+Category.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Api+Category.m"; sourceTree = "<group>"; };
+		0AD69D4915A3A45400CC5F01 /* BusCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BusCategory.h; sourceTree = "<group>"; };
+		0AD69D4A15A3A45400CC5F01 /* BusCategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BusCategory.m; sourceTree = "<group>"; };
+		0AD69D4B15A3A45400CC5F01 /* BusChannel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BusChannel.h; sourceTree = "<group>"; };
+		0AD69D4C15A3A45500CC5F01 /* BusDecoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BusDecoder.h; sourceTree = "<group>"; };
+		0AD69D4D15A3A45500CC5F01 /* BusDecoder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BusDecoder.m; sourceTree = "<group>"; };
+		0AD69D4E15A3A45500CC5F01 /* BusDescKey.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BusDescKey.h; sourceTree = "<group>"; };
+		0AD69D4F15A3A45500CC5F01 /* BusEncoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BusEncoder.h; sourceTree = "<group>"; };
+		0AD69D5015A3A45500CC5F01 /* BusEncoder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BusEncoder.m; sourceTree = "<group>"; };
+		0AD69D5115A3A45600CC5F01 /* CodeAttribute.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CodeAttribute.h; sourceTree = "<group>"; };
+		0AD69D5215A3A45600CC5F01 /* CodeAttribute.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CodeAttribute.m; sourceTree = "<group>"; };
+		0AD69D5315A3A45600CC5F01 /* GTMBase64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMBase64.h; sourceTree = "<group>"; };
+		0AD69D5415A3A45600CC5F01 /* GTMBase64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTMBase64.m; sourceTree = "<group>"; };
+		0AD69D5515A3A45600CC5F01 /* GTMDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMDefines.h; sourceTree = "<group>"; };
+		0AD69D5615A3A45600CC5F01 /* NotePLogService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotePLogService.h; sourceTree = "<group>"; };
+		0AD69D5715A3A45600CC5F01 /* NotePLogService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NotePLogService.m; sourceTree = "<group>"; };
+		0AD69D5815A3A45600CC5F01 /* PseudoBase64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PseudoBase64.h; sourceTree = "<group>"; };
+		0AD69D5915A3A45600CC5F01 /* PseudoBase64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PseudoBase64.m; sourceTree = "<group>"; };
 		0ADD8F50154E9EA10025DF29 /* CardTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CardTableViewCell.h; sourceTree = "<group>"; };
 		0ADD8F51154E9EA10025DF29 /* CardTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CardTableViewCell.m; sourceTree = "<group>"; };
 		0ADD8F52154E9EA10025DF29 /* CardTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CardTableViewCell.xib; sourceTree = "<group>"; };
@@ -2026,7 +2054,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0A55D674159FA705001BEC23 /* FengZi.framework in Frameworks */,
 				0A193BA01594A213002E6835 /* libalixpay.a in Frameworks */,
 				0A193BA11594A213002E6835 /* libcrypto.a in Frameworks */,
 				0A193BA21594A213002E6835 /* libssl.a in Frameworks */,
@@ -2840,7 +2867,6 @@
 		3E11F12A1472686800ACC436 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				0A55D673159FA705001BEC23 /* FengZi.framework */,
 				0A1AEE2C154754A6007BE52E /* ZXing.framework */,
 				C9A14F581520769A00DE519A /* iOSApi.framework */,
 				C9A14F5D15207B8B00DE519A /* QRCode.framework */,
@@ -3708,8 +3734,29 @@
 		B8D49E2814E4B2230057203A /* Api */ = {
 			isa = PBXGroup;
 			children = (
+				0AD69D4515A3A45400CC5F01 /* Api.h */,
+				0AD69D4615A3A45400CC5F01 /* Api.mm */,
+				0AD69D4715A3A45400CC5F01 /* Api+Category.h */,
+				0AD69D4815A3A45400CC5F01 /* Api+Category.m */,
 				0A193AEF1594947E002E6835 /* Api+Database.h */,
 				0A193AF01594947E002E6835 /* Api+Database.m */,
+				0AD69D4915A3A45400CC5F01 /* BusCategory.h */,
+				0AD69D4A15A3A45400CC5F01 /* BusCategory.m */,
+				0AD69D4B15A3A45400CC5F01 /* BusChannel.h */,
+				0AD69D4C15A3A45500CC5F01 /* BusDecoder.h */,
+				0AD69D4D15A3A45500CC5F01 /* BusDecoder.m */,
+				0AD69D4E15A3A45500CC5F01 /* BusDescKey.h */,
+				0AD69D4F15A3A45500CC5F01 /* BusEncoder.h */,
+				0AD69D5015A3A45500CC5F01 /* BusEncoder.m */,
+				0AD69D5115A3A45600CC5F01 /* CodeAttribute.h */,
+				0AD69D5215A3A45600CC5F01 /* CodeAttribute.m */,
+				0AD69D5315A3A45600CC5F01 /* GTMBase64.h */,
+				0AD69D5415A3A45600CC5F01 /* GTMBase64.m */,
+				0AD69D5515A3A45600CC5F01 /* GTMDefines.h */,
+				0AD69D5615A3A45600CC5F01 /* NotePLogService.h */,
+				0AD69D5715A3A45600CC5F01 /* NotePLogService.m */,
+				0AD69D5815A3A45600CC5F01 /* PseudoBase64.h */,
+				0AD69D5915A3A45600CC5F01 /* PseudoBase64.m */,
 				0A193AF11594947E002E6835 /* Api+eBuy.h */,
 				0A193AF21594947E002E6835 /* Api+eBuy.m */,
 				0A193AF31594947E002E6835 /* Api+eFile.h */,
@@ -4744,6 +4791,15 @@
 				0A193C2715951AA2002E6835 /* EBuyOrderWap.m in Sources */,
 				0AFEB29815953812002D9D3C /* Api+Logs.m in Sources */,
 				0A8322FB1599F59700CFF81D /* EnlargeImageDoubleTap.m in Sources */,
+				0AD69D5A15A3A45800CC5F01 /* Api.mm in Sources */,
+				0AD69D5B15A3A45800CC5F01 /* Api+Category.m in Sources */,
+				0AD69D5C15A3A45800CC5F01 /* BusCategory.m in Sources */,
+				0AD69D5D15A3A45800CC5F01 /* BusDecoder.m in Sources */,
+				0AD69D5E15A3A45800CC5F01 /* BusEncoder.m in Sources */,
+				0AD69D5F15A3A45800CC5F01 /* CodeAttribute.m in Sources */,
+				0AD69D6015A3A45800CC5F01 /* GTMBase64.m in Sources */,
+				0AD69D6115A3A45800CC5F01 /* NotePLogService.m in Sources */,
+				0AD69D6215A3A45800CC5F01 /* PseudoBase64.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
