@@ -644,10 +644,9 @@
             // 普通业务
             input = [input substringFromIndex:2];
             iOSLog(@"input = %@", input);
-            NSDictionary *ko = [[self parse:input] retain];
+            NSDictionary *ko = [self parse:input];
             if (ko != nil) {
                 oRet = [ko toObject:clazz];
-                [ko release];
                 if (((BaseModel *)oRet).typeId == kModelText) {
                     iOSLog(@"text = [%@]", ((Text *)oRet).content);
                 }
