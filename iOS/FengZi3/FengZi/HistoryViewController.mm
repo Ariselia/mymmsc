@@ -80,14 +80,14 @@
     decoder.delegate = nil;
 }
 
--(void)decoder:(Decoder *)decoder failedToDecodeImage:(UIImage *)image usingSubset:(UIImage *)subset reason:(NSString *)reason{
+- (void)decoder:(Decoder *)decoder failedToDecodeImage:(UIImage *)image usingSubset:(UIImage *)subset reason:(NSString *)reason{
     UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:DECODE_FAIL delegate:nil cancelButtonTitle:@"确定" otherButtonTitles: nil];
     [alertView show];
     RELEASE_SAFELY(alertView);
     return;
 }
 
--(void)reloadTableData{
+- (void)reloadTableData{
     NSArray *result;
     if (_isSearch) {
         result = [[DataBaseOperate shareData] searchHistory:_startIndex withKey:_key withType:_isEncodeModel];
