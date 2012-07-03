@@ -222,7 +222,7 @@
         _hideContentIndex = 1;
         _showInfo = object.content;
         logId = object.logId;
-    }else if(bm.typeId == kModelEmail){
+    } else if(bm.typeId == kModelEmail){
         _titleLabel.text= @"电子邮件解码";
         Email *object = (Email *)bm;
         [_titleArray addObject:@"标题"];
@@ -237,7 +237,7 @@
         _hideContentIndex = 2;
         _showInfo = object.title;
         logId = object.logId;
-    }else if(bm.typeId == kModelBookMark){
+    } else if(bm.typeId == kModelBookMark){
         _titleLabel.text= @"书签解码";
         BookMark *object = (BookMark *)bm;
         [_titleArray addObject:@"网址名称"];
@@ -248,7 +248,7 @@
         [_typeArray addObject:[NSNumber numberWithInt:LinkTypeUrl]];
         _showInfo = object.title;
         logId = object.logId;
-    }else if(bm.typeId == kModelSchedule){
+    } else if(bm.typeId == kModelSchedule){
         _titleLabel.text= @"日程解码";
         Schedule *object = (Schedule *)bm;
         [_titleArray addObject:@"时间"];
@@ -263,7 +263,7 @@
         _hideContentIndex = 2;
         _showInfo = object.title;
         logId = object.logId;
-    }else if(bm.typeId == kModelText){
+    } else if(bm.typeId == kModelText){
         _titleLabel.text= @"文本解码";
         Text *object = (Text *)bm;
         [_titleArray addObject:@"文本内容"];
@@ -273,10 +273,10 @@
         _hideContentIndex = 0;
         _showInfo = object.content;
         logId = object.logId;
-    }else if(bm.typeId == kModelEncText){
+    } else if(bm.typeId == kModelEncText){
         _titleLabel.text= @"加密文本解码";
         [self showAlertView:@"输入密码"];
-    }else if(bm.typeId == kModelWiFiText){
+    } else if(bm.typeId == kModelWiFiText){
         _titleLabel.text= @"WIFI解码";
         WiFiText *object = (WiFiText *)bm;;
         [_titleArray addObject:@"名称"];
@@ -287,7 +287,7 @@
         [_typeArray addObject:[NSNumber numberWithInt:LinkTypeTitle]];
         _showInfo = object.name;
         logId = object.logId;
-    }else if(bm.typeId == kModelUrl){
+    } else if(bm.typeId == kModelUrl){
         _titleLabel.text= @"网址解码";
         Url *object = (Url *)bm;;
         [_titleArray addObject:@"网址"];
@@ -295,7 +295,7 @@
         [_typeArray addObject:[NSNumber numberWithInt:LinkTypeUrl]];
         _showInfo = object.content;
         logId = object.logId;
-    }else if(bm.typeId == kModelWeibo){
+    } else if(bm.typeId == kModelWeibo){
         _titleLabel.text= @"微博解码";
         Weibo *object = (Weibo *)bm;;
         [_titleArray addObject:@"博主"];
@@ -306,7 +306,7 @@
         [_typeArray addObject:[NSNumber numberWithInt:LinkTypeUrl]];
         _showInfo = object.title;
         logId = object.logId;
-    }else if(bm.typeId == kModelGMap){
+    } else if(bm.typeId == kModelGMap){
         _titleLabel.text= @"地图解码";
         GMap *object = (GMap *)bm;;
         [_titleArray addObject:@"坐标"];
@@ -325,7 +325,7 @@
             _showInfo = object.url;
         }
         logId = object.logId;
-    }else if(bm.typeId == kModelAppUrl){
+    } else if(bm.typeId == kModelAppUrl){
         _titleLabel.text= @"应用程序解码";
         AppUrl *object = (AppUrl *)bm;;
         [_titleArray addObject:@"应用名称"];
@@ -634,7 +634,7 @@
     [_tableView release];
     [_favBtn release];
     [_headerView release];
-    IOSAPI_RELEASE(_object);
+    //IOSAPI_RELEASE(_object);
     //[_object release];
     [super dealloc];
 }

@@ -357,47 +357,11 @@ static NSString *s_luckyId = nil;
     if ([self jumpDigital:url] ) {
         return;
     }
-    // 解码, 暂时不用
-    BaseModel *bm = [[Api parse:input timeout:30] retain];
-    if (bm != nil) {
-        iOSLog(@"扫码结果: [%@]", [bm typeName]);
-        if (bm.typeId == kModelRichMedia) {
-            // 跳转富媒体
-            UCRichMedia *nextVIew = [[UCRichMedia alloc] init];
-            nextVIew.richMedia = (RichMedia *)bm;
-            [self.navigationController pushViewController:nextVIew animated:YES];
-            [nextVIew release];
-        } else if (bm.typeId == kModelRide) {
-            // 顺风车
-        } else if (bm.typeId == kModelCard) {
-            DecodeCardViewControlle *nextView = [[DecodeCardViewControlle alloc] initWithNibName:@"DecodeCardViewControlle" card:(Card *)bm withImage:inputImage withType:HistoryTypeFavAndHistory withSaveImage:saveImage];
-            [self.navigationController pushViewController:nextView animated:YES];
-            IOSAPI_RELEASE(nextView);
-        } else {
-            if (bm.typeId == kModelText) {
-                iOSLog(@"text = [%@]", ((Text *)bm).content);
-            }
-            // 默认传统业务 [WangFeng at 2012/05/14 11:31]
-            HistoryType hType = HistoryTypeNone;
-            if (isSave) {
-                hType = HistoryTypeFavAndHistory;
-            }
-            DecodeBusinessViewController *businessView = [[DecodeBusinessViewController alloc] initWithNibName:@"DecodeBusinessViewController" result:bm image:inputImage withType:hType withSaveImage:saveImage];
-            [self.navigationController pushViewController:businessView animated:YES];
-            RELEASE_SAFELY(businessView);
-        }
-        [bm release];
-        return;
-    }
     BusCategory *category = [BusDecoder classify:input];
     BusCategory *category_url = [BusDecoder classify:url];
     [TabBarController hide:NO animated:NO];
     
-    if ([category.type isEqualToString:CATEGORY_CARD]) {
-        DecodeCardViewControlle *cardView = [[DecodeCardViewControlle alloc] initWithNibName:@"DecodeCardViewControlle" category:category result:input withImage:inputImage withType:HistoryTypeFavAndHistory withSaveImage:saveImage];
-        [self.navigationController pushViewController:cardView animated:YES];
-        IOSAPI_RELEASE(cardView);
-    } else if([category.type isEqualToString:CATEGORY_MEDIA] || [category_url.type isEqualToString:CATEGORY_MEDIA] ) {
+    if([category.type isEqualToString:CATEGORY_MEDIA] || [category_url.type isEqualToString:CATEGORY_MEDIA] ) {
         BOOL bJump = NO;
         NSDictionary *dict = [url uriParams];
         NSString *isJump = [dict objectForKey:@"issend"];
@@ -411,13 +375,8 @@ static NSString *s_luckyId = nil;
             temp = [dict objectForKey:@"sendcontent"];
             bJump = [self jumpRichMedia:jumpType content:temp];
         }
-        if (!bJump) {
-            // 富媒体业务
-            NSLog(@"富媒体业务");
-            UCRichMedia *nextView = [[UCRichMedia alloc] init];
-            nextView.urlMedia = url;
-            [self.navigationController pushViewController:nextView animated:YES];
-            [nextView release];
+        if (bJump) {
+            return;
         }
     } else if([category.type isEqualToString:CATEGORY_KMA] || [category_url.type isEqualToString:CATEGORY_KMA] ) {
         // 空码, 可以调到空码赋值页面, 默认为富媒体
@@ -442,16 +401,9 @@ static NSString *s_luckyId = nil;
                     temp = [iOSApi urlDecode:media.sendContent];
                     bJump = [self jumpRichMedia:jumpType content:temp];
                 }
-                if (!bJump) {
-                    // 富媒体业务
-                    UCRichMedia *nextView = [[UCRichMedia alloc] init];
-                    nextView.urlMedia = nil;
-                    nextView.code = xcode;
-                    [self.navigationController pushViewController:nextView animated:YES];
-                    [nextView release];
+                if (bJump) {
                     return;
                 }
-                return;
             } else if (info.type == kModelRide) {
                 // 顺风车业务
                 RMRide *nextView = [[RMRide alloc] init];
@@ -482,17 +434,35 @@ static NSString *s_luckyId = nil;
             [self.navigationController pushViewController:nextView animated:YES];
             [nextView release];
             return;
+        }
+    }
+    BaseModel *bm = [[Api parse:input timeout:30] retain];
+    if (bm != nil) {
+        iOSLog(@"扫码结果: [%@]", [bm typeName]);
+        if (bm.typeId == kModelRichMedia) {
+            // 跳转富媒体
+            UCRichMedia *nextVIew = [[UCRichMedia alloc] init];
+            nextVIew.richMedia = (RichMedia *)bm;
+            [self.navigationController pushViewController:nextVIew animated:YES];
+            [nextVIew release];
+        } else if (bm.typeId == kModelRide) {
+            // 顺风车
+        } else if (bm.typeId == kModelCard) {
+            DecodeCardViewControlle *nextView = [[DecodeCardViewControlle alloc] initWithNibName:@"DecodeCardViewControlle" card:(Card *)bm withImage:inputImage withType:HistoryTypeFavAndHistory withSaveImage:saveImage];
+            [self.navigationController pushViewController:nextView animated:YES];
+            IOSAPI_RELEASE(nextView);
         } else {
             // 默认传统业务 [WangFeng at 2012/05/14 11:31]
             HistoryType hType = HistoryTypeNone;
             if (isSave) {
                 hType = HistoryTypeFavAndHistory;
             }
-            DecodeBusinessViewController *businessView = [[DecodeBusinessViewController alloc] initWithNibName:@"DecodeBusinessViewController" category:category result:input image:inputImage withType:hType withSaveImage:saveImage];
+            DecodeBusinessViewController *businessView = [[DecodeBusinessViewController alloc] initWithNibName:@"DecodeBusinessViewController" result:bm image:inputImage withType:hType withSaveImage:saveImage];
             [self.navigationController pushViewController:businessView animated:YES];
             RELEASE_SAFELY(businessView);
-            return;
         }
+        //[bm release];
+        return;
     }
 }
 

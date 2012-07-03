@@ -327,23 +327,19 @@ static int xTimes = -1;
 
 - (void) viewDidAppear:(BOOL)animated {
     [super viewDidAppear:YES];
-    
     if (isInit == NO) {
-        
-  
-     [iOSApi showAlert:@"正在获取用户信息..."];
-    if ([items count] == 0) {
-        // 预加载项
-        items = [[NSMutableArray alloc] initWithCapacity:0];
-        NSArray *list = [Api codeMyList:0 size:100];
-        [list retain];
-        [items addObjectsFromArray:list];
-        [list release];
-        [self.tableView reloadData];
-        //当前没有你的专属码
-        
-    }
-    [iOSApi closeAlert];
+        [iOSApi showAlert:@"正在获取用户信息..."];
+        if ([items count] == 0) {
+            // 预加载项
+            items = [[NSMutableArray alloc] initWithCapacity:0];
+            NSArray *list = [Api codeMyList:0 size:100];
+            [list retain];
+            [items addObjectsFromArray:list];
+            [list release];
+            [self.tableView reloadData];
+            //当前没有你的专属码            
+        }
+        [iOSApi closeAlert];
         isInit = YES;
     }
 }
@@ -357,7 +353,6 @@ static int xTimes = -1;
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     //return 2;
-    
     int nCount = [items count];
     /*
     if (nCount < 1) {
@@ -376,19 +371,12 @@ static int xTimes = -1;
 	return h;
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    tableView.backgroundColor = [UIColor clearColor];
-    
-    
-    static NSString *CellIdentifier = @"Cell";
-    
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {    
+    tableView.backgroundColor = [UIColor clearColor];    
+    static NSString *CellIdentifier = @"Cell";    
     UCCell *cell = [[UCCell alloc]init];
-    if (cell == nil) {
-        
-        cell = [[[UCCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
-        
-        
+    if (cell == nil) {        
+        cell = [[[UCCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];        
     }
     UIImage *image = [[UIImage imageNamed:@"uc-cell.png"] toSize: CGSizeMake(320, 70)];
     //   UIImage *himage = [UIImage imageNamed:@"uc-cell-h.png"];
@@ -454,21 +442,9 @@ static int xTimes = -1;
     }
 
     xInput = [items objectAtIndex:indexPath.row];
-    
-     /* 
-    UIAlertView *alert = [[UIAlertView alloc]
-						  initWithTitle:nil
-						  message:nil
-						  delegate:self
-						  cancelButtonTitle:@"查看"
-						  otherButtonTitles:@"重置", nil];
-    [alert show];
-	[alert release];
-     */
 }
 
 -(void) alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger) buttonIndex {
-    //BusCategory *category = [BusDecoder classify:input];
     xTimes = kCODE_NONE;
 	if (iTimes == 0) {
 		switch (buttonIndex) {
@@ -499,6 +475,7 @@ static int xTimes = -1;
         //
 	}
 }
+
 //继承scrollview，完成下拉隐藏按钮；
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
 {
@@ -511,12 +488,13 @@ static int xTimes = -1;
 #pragma mark Btn DoSoming
 //阅读，重置，评论；
 
--(NSString *)urlParams:(NSString *)url
+- (NSString *)urlParams:(NSString *)url
 {
     NSArray *urlParams = [url componentsSeparatedByString:@"?"];
     return [urlParams objectAtIndex:1];
 }
--(IBAction)resetCode:(id)sender
+
+- (IBAction)resetCode:(id)sender
 {
     // 重置
     // 空码, 可以调到空码赋值页面, 默认为富媒体
@@ -538,13 +516,13 @@ static int xTimes = -1;
     
 }
 
--(IBAction)readCode:(id)sender
+- (IBAction)readCode:(id)sender
 {
     iOSLog(@"....%@",xInput.url);
     [self chooseShowController:xInput.url isSave:NO];
 }
 
--(IBAction)plCode:(id)sender
+- (IBAction)plCode:(id)sender
 {
     NSLog(@"暂无法评论");
 //    [self doDiscuss];

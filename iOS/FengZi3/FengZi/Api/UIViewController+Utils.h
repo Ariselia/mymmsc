@@ -18,6 +18,6 @@
 
 
 // 通用解码业务页面跳转
--(void) chooseShowController:(NSString*)input isSave:(BOOL)isSave;
+- (void)chooseShowController:(NSString*)input isSave:(BOOL)isSave;
 
 @end
