@@ -803,8 +803,8 @@
         }
         if (obj == nil) {
             // 实在没有办法解码了, 不是我们的业务, 按照URL的格式来泛解析
-            NSString *exp = @"^([0-9A-F]+://)";
-            if ([iOSApi regexpMatch:string withPattern:exp]) {
+            NSString *exp = @"[a-zA-z]+://[^\\s]";
+            if ([str match:exp]) {
                 Url *url = [[[Url alloc] init] autorelease];
                 url.content = string;
                 obj = url;
