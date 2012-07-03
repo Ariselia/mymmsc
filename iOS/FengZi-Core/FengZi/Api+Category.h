@@ -104,11 +104,11 @@ typedef enum{
 
 //--------------------< 业务类型 - 对象 - 收藏 >--------------------
 @interface FaviroteObject : NSObject{
-    int       _uuid;
-    NSString *_content;
-    NSString *_image;
-    NSString *_date;
-    BusinessType _type;
+    int           _uuid;
+    NSString     *_content;
+    NSString     *_image;
+    NSString     *_date;
+    BusinessType  _type;
 }
 
 @property (nonatomic, copy) NSString *image;
@@ -120,12 +120,12 @@ typedef enum{
 
 //--------------------< 业务类型 - 对象 - 历史记录 >--------------------
 @interface HistoryObject : NSObject{
-    int _uuid;
-    NSString *_content;
-    NSString *_image;
-    NSString *_date;
+    int          _uuid;
+    NSString    *_content;
+    NSString    *_image;
+    NSString    *_date;
     BusinessType _type;
-    BOOL _isEncode;
+    BOOL         _isEncode;
 }
 
 @property (nonatomic, copy) NSString *image;
