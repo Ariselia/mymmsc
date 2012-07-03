@@ -381,7 +381,7 @@ static int sButton = 0;
     }
 }
 
--(IBAction)playMovie2:(id)sender {
+- (IBAction)playMovie2:(id)sender {
     if (state == MS_INITED) {
         // 开始下载
         [self doDownload];
@@ -430,7 +430,7 @@ static int sButton = 0;
     }
 }
 
--(IBAction)playMovie:(id)sender {
+- (IBAction)playMovie:(id)sender {
     if (state == MS_INITED) {
         // 开始下载
         [self doDownload];
