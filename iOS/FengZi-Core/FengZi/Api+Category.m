@@ -621,9 +621,9 @@
         NSString *value = [string substringWithRange:[result rangeAtIndex:3]];
         value = [value replace:@"\\;" withString:@";"];
         value = [value replace:@"\\:" withString:@":"];
-        iOSLog(@"key = [%@], value = [%@]", key, value);
         if (![iOSApi isEmpty:key]) {
             key = [key trim];
+            iOSLog(@"key = [%@], value = [%@]", key, value);
             [oRet setObject:value forKey:key];
         }
         
