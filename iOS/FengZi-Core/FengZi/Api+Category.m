@@ -659,8 +659,7 @@
             iOSLog(@"input = %@", input);
             NSDictionary *ko = [self parse:input];
             if (ko != nil) {
-                oRet = [[[clazz alloc] init] autorelease];
-                [ko fillObject:oRet];
+                oRet = [ko toObject:clazz];
             }
         }
     }
