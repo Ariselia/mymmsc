@@ -694,7 +694,8 @@
                                     [NSString valueOf:[Api userId]], @"userid",
                                     nil];
             NSDictionary *map = [Api post:url params:params];
-            ApiResult *iRet = [map toObject:ApiResult.class];
+            ApiResult *iRet = [[ApiResult alloc] init];
+            NSDictionary *data = [iRet parse:map];
             if (iRet.status == 404) {
                 // 空码
                 RichKma *rk = [[[RichKma alloc] init] autorelease];
@@ -702,8 +703,7 @@
                 oRet = rk;
             } else if (iRet.status != 0) {
                 //
-            } else if (iRet.status == 0 && map != nil) {
-                NSDictionary *data = [map objectForKey:@"data"];
+            } else if (iRet.status == 0 && data != nil) {
                 if([data isKindOfClass:[NSString class]]) {
                     oRet = [self parseV3Common:(NSString *)data];
                 } else {
@@ -712,6 +712,7 @@
                     oRet = rm;
                 }
             }
+            IOSAPI_RELEASE(iRet);
         } else {
             // 普通业务, 略过
         }
