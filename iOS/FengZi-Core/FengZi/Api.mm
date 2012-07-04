@@ -445,7 +445,12 @@ static UserInfo *cache_info = nil;
         iOSLog(@"json.string = %@", json_string);
         //json_string = [json_string stringByReplacingOccurrencesOfString:@".00" withString:@".01"];
         // 把JSON转为数组
-        ret = [json_string objectFromJSONString];
+        //ret = [json_string objectFromJSONString];
+        NSError *error = nil;
+        ret = [json_string objectFromJSONStringWithParseOptions:JKParseOptionValidFlags error:&error];
+        if (error != nil) {
+            iOSLog(@"JSON解析 异常: [%d]%@", [error code], [error localizedDescription]);
+        }
     }
     [client release];
     return ret;
@@ -471,7 +476,12 @@ static UserInfo *cache_info = nil;
         iOSLog(@"json.string = %@", json_string);
         //json_string = [json_string stringByReplacingOccurrencesOfString:@".00" withString:@".01"];
         // 把JSON转为数组
-        ret = [json_string objectFromJSONString];
+        //ret = [json_string objectFromJSONString];
+        NSError *error = nil;
+        ret = [json_string objectFromJSONStringWithParseOptions:JKParseOptionValidFlags error:&error];
+        if (error != nil) {
+            iOSLog(@"JSON解析 异常: [%d]%@", [error code], [error localizedDescription]);
+        }
     }
     [client release];
     return ret;
