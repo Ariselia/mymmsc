@@ -284,9 +284,7 @@ static int sButton = 0;
     if (info.image != nil&&![info.image isEqualToString:@""]) {
         [self downImage:info.image];
     }
-    if (info.video!=nil&&![info.video isEqualToString:@""]) {
-        
-    
+    if (info.video!=nil&&![info.video isEqualToString:@""]) {    
         // 视频, 增加下载按钮
         CGRect frame = pic.frame;
         frame.origin.x += frame.size.width / 2 - 60;

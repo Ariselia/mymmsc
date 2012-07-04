@@ -167,11 +167,15 @@
     }
 }
 
-- (NSString*)getStringFromString:(NSString*)dateString{
+- (NSString *)getStringFromString:(NSString*)dateString{
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     //设定时间格式,这里可以设置成自己需要的格式
     [dateFormatter setDateFormat:@"yyyyMMdd"];
     NSDate *date = [dateFormatter dateFromString:dateString];
+    if (date == nil) {
+        [dateFormatter setDateFormat:@"yyyy-MM-dd"];
+        date = [dateFormatter dateFromString:dateString];
+    }
     [dateFormatter setDateFormat:@"yyyy-MM-dd"];
     NSString *dateStr = [dateFormatter stringFromDate:date];
     [dateFormatter release];
