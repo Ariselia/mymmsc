@@ -325,11 +325,11 @@ static NSString *s_luckyId = nil;
                     bJump = [self jumpRichMedia:jumpType content:temp];
                 } else {
                     NSDictionary *map = (NSDictionary *) info.mediaContent;
-                    
                     if (map.count > 0) {
+                        RichMedia *rm = [iOSApi assignObject:map class:RichMedia.class];
                         NSDictionary *data = [map objectForKey:@"data"];
                         if ([data isKindOfClass:NSDictionary.class] && data.count > 0) {
-                            RichMedia *rm = [iOSApi assignObject:data class:RichMedia.class];
+                            rm = [iOSApi assignObject:data class:RichMedia.class];
                             rm.codeId = xcode;
                             UCRichMedia *nextVIew = [[UCRichMedia alloc] init];
                             nextVIew.richMedia = rm;
@@ -342,8 +342,10 @@ static NSString *s_luckyId = nil;
                             NSString *tmp = (NSString *)data;
                             if ([tmp isKindOfClass:NSString.class]) {
                                 tmp = [iOSApi urlDecode:tmp];
-                            }
-                            [self chooseShowController:tmp isSave:isSave];
+                                [self chooseShowController:tmp isSave:isSave];
+                            } else {
+                                // 其它, 忽略
+                            }                            
                         }
                     }
                 }
@@ -374,13 +376,15 @@ static NSString *s_luckyId = nil;
                 return;
             }
         }
-        UCKmaViewController *nextView = [[UCKmaViewController alloc] init];
-        //nextView.bKma = YES; // 标记为空码赋值富媒体
-        nextView.code = xcode;
-        nextView.curImage = [Api generateImageWithInput:input];
-        [self.navigationController pushViewController:nextView animated:YES];
-        [nextView release];
-        return;
+        if(info.isKma == 1) {
+            UCKmaViewController *nextView = [[UCKmaViewController alloc] init];
+            //nextView.bKma = YES; // 标记为空码赋值富媒体
+            nextView.code = xcode;
+            nextView.curImage = [Api generateImageWithInput:input];
+            [self.navigationController pushViewController:nextView animated:YES];
+            [nextView release];
+            return;
+        }
     } else {
         // 墙贴条件判断判断 [WangFeng at 2012/05/14 11:31]
         EWall *param = [Api getWall:category content:input];
