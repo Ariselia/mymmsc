@@ -125,19 +125,6 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "FengZi/Api/UIViewController+Utils.m"
-         timestampString = "363078577.78057"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "364"
-         endingLineNumber = "364"
-         landmarkName = "-chooseShowController:isSave:"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "Yes"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         filePath = "FengZi/Api/UIViewController+Utils.m"
          timestampString = "363060366.833699"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
@@ -242,13 +229,26 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "FengZi/Api/UIViewController+Utils.m"
-         timestampString = "363078973.097593"
+         timestampString = "363083731.715379"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "399"
-         endingLineNumber = "399"
-         landmarkName = "@implementation UIViewController(Utils)"
-         landmarkType = "3">
+         startingLineNumber = "401"
+         endingLineNumber = "401"
+         landmarkName = "-chooseShowController:isSave:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "Yes"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "FengZi/Api/UIViewController+Utils.m"
+         timestampString = "363083467.315258"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "193"
+         endingLineNumber = "193"
+         landmarkName = "-jumpRichMedia:content:"
+         landmarkType = "5">
       </FileBreakpoint>
    </FileBreakpoints>
 </Bucket>

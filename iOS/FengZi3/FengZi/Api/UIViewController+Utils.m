@@ -193,11 +193,11 @@ static NSString *s_luckyId = nil;
     BOOL bRet = YES;
     if (jumpType == API_RMJUMP_WWW || jumpType == API_RMJUMP_URL_PRICE) {
         // 网站链接
-        NSString *content = [iOSApi urlDecode:content];
-        if (![content hasPrefix:@"http"]) {
-            content = [NSString stringWithFormat:@"http://%@", content];
+        NSString *url = [iOSApi urlDecode:content];
+        if (![url hasPrefix:@"http"]) {
+            url = [NSString stringWithFormat:@"http://%@", url];
         }
-        [iOSApi openUrl:content];
+        [iOSApi openUrl:url];
     } else if (jumpType == API_RMJUMP_URL_PRICE) {
         // 优惠价链接
     } else if (jumpType == API_RMJUMP_ESHOP_SHOP) {
@@ -321,8 +321,10 @@ static NSString *s_luckyId = nil;
                     if (temp != nil) {
                         jumpType = temp.intValue;
                     }
-                    temp = [iOSApi urlDecode:media.sendContent];
-                    bJump = [self jumpRichMedia:jumpType content:temp];
+                    if (0) {
+                        temp = [iOSApi urlDecode:media.sendContent];
+                        bJump = [self jumpRichMedia:jumpType content:temp];
+                    }                    
                 } else {
                     NSDictionary *map = (NSDictionary *) info.mediaContent;
                     if (map.count > 0) {
