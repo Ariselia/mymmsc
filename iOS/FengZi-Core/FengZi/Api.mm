@@ -108,6 +108,19 @@
     return body;
 }
 
+// 返回DATA区域 数据
+- (NSDictionary *)parse_old:(NSDictionary *)map{
+    NSDictionary *body = nil;
+    if (map.count > 0) {
+        [map fillObject:self];
+        body = [map objectForKey:@"data"];
+    } else {
+        status = 1;
+        message = @"服务器正忙，请稍候...";
+    }
+    return body;
+}
+
 @end
 
 //--------------------< 接口 - 业务类型 - 码 >--------------------
