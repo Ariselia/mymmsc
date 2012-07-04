@@ -93,7 +93,7 @@ static const char * getPropertyType(objc_property_t property) {
                                 xxx = @"";
                             }
                             value = (NSString *)xxx;
-                            value = [iOSApi urlEncode:value];
+                            //value = [iOSApi urlEncode:value];
                             value = [value replace:@":" withString:@"\\:"];
                             value = [value replace:@";" withString:@"\\;"];
                             
@@ -108,7 +108,7 @@ static const char * getPropertyType(objc_property_t property) {
         //}
     }  
     
-    return buffer;
+    return [iOSApi urlEncode:buffer];
 }
 
 /**

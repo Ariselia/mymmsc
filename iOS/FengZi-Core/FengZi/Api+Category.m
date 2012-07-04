@@ -666,7 +666,7 @@
         Class clazz = [BaseModel getType:type];
         if (clazz != nil) {
             // 普通业务
-            NSString *value = [str substringFromIndex:2];
+            NSString *value = [iOSApi urlDecode:[str substringFromIndex:2]];
             //iOSLog(@"input = %@", value);
             NSDictionary *ko = [self parse:value];
             if (ko != nil) {
@@ -694,16 +694,20 @@
                                     [NSString valueOf:[Api userId]], @"userid",
                                     nil];
             NSDictionary *map = [Api post:url params:params];
-            ApiResult *iRet = [[ApiResult alloc] init];
-            NSDictionary *data = [iRet parse:map];
-            if (iRet.status == 404) {
+            NSNumber *tmp = [map objectForKey:@"status"];
+            NSDictionary *data = [map objectForKey:@"data"];
+            int status = 900;
+            if ([tmp isKindOfClass:NSNumber.class]) {
+                status = [tmp intValue];
+            }
+            if (status == 404) {
                 // 空码
                 RichKma *rk = [[[RichKma alloc] init] autorelease];
                 rk.uuid = uuid;
                 oRet = rk;
-            } else if (iRet.status != 0) {
+            } else if (status != 0) {
                 //
-            } else if (iRet.status == 0 && data != nil) {
+            } else if (status == 0 && data != nil) {
                 if([data isKindOfClass:[NSString class]]) {
                     oRet = [self parseV3Common:(NSString *)data];
                 } else {
@@ -712,7 +716,6 @@
                     oRet = rm;
                 }
             }
-            IOSAPI_RELEASE(iRet);
         } else {
             // 普通业务, 略过
         }
@@ -722,7 +725,7 @@
 
 + (id)parseV2Common:(NSString *)string{
     id oRet = nil;
-    NSString *input = [string trim];
+    NSString *input = [iOSApi urlDecode:[string trim]];
     if ([input hasPrefix:API_CODE_PREFIX]) {
         // 新的码规则, 取出码的正是内容
         NSString *code = [input substringFromIndex:API_CODE_PREFIX.length];
