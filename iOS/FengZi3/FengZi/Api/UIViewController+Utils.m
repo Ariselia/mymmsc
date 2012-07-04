@@ -323,6 +323,29 @@ static NSString *s_luckyId = nil;
                     }
                     temp = [iOSApi urlDecode:media.sendContent];
                     bJump = [self jumpRichMedia:jumpType content:temp];
+                } else {
+                    NSDictionary *map = (NSDictionary *) info.mediaContent;
+                    
+                    if (map.count > 0) {
+                        NSDictionary *data = [map objectForKey:@"data"];
+                        if ([data isKindOfClass:NSDictionary.class] && data.count > 0) {
+                            RichMedia *rm = [iOSApi assignObject:data class:RichMedia.class];
+                            rm.codeId = xcode;
+                            UCRichMedia *nextVIew = [[UCRichMedia alloc] init];
+                            nextVIew.richMedia = rm;
+                            nextVIew.code = xcode;
+                            [self.navigationController pushViewController:nextVIew animated:YES];
+                            [nextVIew release];
+                            bJump = YES;
+                        } else {
+                            iTimes = kCODE_KMA;
+                            NSString *tmp = (NSString *)data;
+                            if ([tmp isKindOfClass:NSString.class]) {
+                                tmp = [iOSApi urlDecode:tmp];
+                            }
+                            [self chooseShowController:tmp isSave:isSave];
+                        }
+                    }
                 }
                 if (bJump) {
                     return;
