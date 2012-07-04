@@ -63,6 +63,7 @@
 */
 
 - (void)decoderWithImage:(UIImage *)image{
+    iOSLog(@"image hegiht=%.2f, width=%.2f", image.size.height, image.size.width);
     Decoder *decoder = [[Decoder alloc] init];
     QRCodeReader* qrcodeReader = [[QRCodeReader alloc] init];
     NSSet *readers = [[NSSet alloc ] initWithObjects:qrcodeReader,nil];

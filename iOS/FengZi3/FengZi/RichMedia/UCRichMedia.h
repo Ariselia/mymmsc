@@ -13,9 +13,11 @@
  */
 @interface UCRichMedia : UIViewController {
     UIButton *_btnRight; // 导航条按钮
-    UIImage *_curImage;
-    int      xCount;
-    BOOL   isInit;
+    UIImage  *_curImage;
+    int       xCount;
+    BOOL      isInit;
+    NSString *code;
+    RichMedia *richMedia;
 }
 
 @property (nonatomic, retain) UIImage *curImage;
@@ -27,7 +29,7 @@
 @property (nonatomic, retain) IBOutlet UIImageView *picView6;
 @property (nonatomic, retain) IBOutlet UIScrollView *scrollViewX;
 
-@property (nonatomic, copy) NSString *urlMedia, *code;
+@property (nonatomic, copy) NSString *code;
 @property (nonatomic, retain) RichMedia *richMedia;
 
 @end

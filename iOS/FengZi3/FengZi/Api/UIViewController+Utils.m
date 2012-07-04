@@ -259,83 +259,6 @@ static NSString *s_luckyId = nil;
     return bRet;
 }
 
-- (BOOL)parseV3:(NSString *)input isSave:(BOOL)isSave{
-    BOOL bRet = NO;
-    if (input != nil) {
-        if ([input hasPrefix:API_CODE_PREFIX]) {
-            // 是码开头的, 截取字符串, 去掉前缀
-            NSString *str = [input substringFromIndex:[API_CODE_PREFIX length]];
-            if ([str hasPrefix:@"id="]) {
-                // 富媒体, 或者空码, 转换地址
-                NSString *iskma = [str substringFromIndex:3];
-                NSString *url = [NSString stringWithFormat:@"%@/apps/getCode.action?%@",API_APPS_SERVER,str];
-                if([iskma rangeOfString:@"-"].length>0) {
-                    NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
-                                            [NSString valueOf:[Api userId]], @"userid",
-                                            nil];
-                    NSDictionary *map = [Api post:url params:params];
-                    if (map.count > 0) {
-                        if([[map objectForKey:@"data"] isKindOfClass:[NSString class]])
-                        {
-                            //NSLog(@"//普通解码");
-                            NSString *_content=nil;
-                            _content =  [[NSString stringWithFormat:@"%@%@", API_CODE_PREFIX,[map objectForKey:@"data"]] retain];
-                            [self chooseShowController:_content isSave:isSave];
-                            bRet = YES;
-                        } else {
-                            UCRichMedia *nextView = [[UCRichMedia alloc] init];
-                            nextView.urlMedia = url;
-                            nextView.curImage = [Api generateImageWithInput:input];
-                            [self.navigationController pushViewController:nextView animated:YES];
-                            [nextView release];
-                            bRet = YES;
-                        }                        
-                    }
-                } else {
-                    NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
-                                            [NSString valueOf:[Api userId]], @"userid",
-                                            nil];
-                    NSDictionary *map = [Api post:url params:params];                    
-                    if (map.count > 0) {
-                        NSString *status =[NSString stringWithFormat:@"%d", [Api getInt:[map objectForKey:@"status"]]];
-                        // NSLog(@"%@",status);    
-                        if ([status isEqualToString:@"404"]) {
-                            //跳到空码赋值
-                            UCKmaViewController *nextView = [[UCKmaViewController alloc] init];
-                            //nextView.bKma = YES; // 标记为空码赋值富媒体
-                            nextView.code = iskma;
-                            nextView.curImage = [Api generateImageWithInput:input];
-                            [self.navigationController pushViewController:nextView animated:YES];
-                            [nextView release];
-                            bRet = YES;
-                        }  else  {
-                            //进行解码
-                            if([[map objectForKey:@"data"] isKindOfClass:[NSString class]])
-                            {                                
-                                //NSLog(@"//普通解码");                               
-                                NSString *_content=nil;
-                                _content =  [[NSString stringWithFormat:@"%@%@", API_CODE_PREFIX,[map objectForKey:@"data"]] retain];
-                                [self chooseShowController:_content isSave:isSave];
-                                bRet = YES;
-                            } else {
-                                //NSLog(@"//服媒体");
-                                UCRichMedia *nextView = [[UCRichMedia alloc] init];
-                                nextView.urlMedia = url;
-                                nextView.curImage = [Api generateImageWithInput:input];
-                                [self.navigationController pushViewController:nextView animated:YES];
-                                [nextView release];
-                                bRet = YES;
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
-    
-    return bRet;
-}
-
 // 解码入口
 - (void)chooseShowController:(NSString *)input isSave:(BOOL)isSave{
     iOSLog(@"QRCode-String = [%@]", input);
@@ -441,8 +364,10 @@ static NSString *s_luckyId = nil;
         iOSLog(@"扫码结果: [%@]", [bm typeName]);
         if (bm.typeId == kModelRichMedia) {
             // 跳转富媒体
+            RichMedia *rm = (RichMedia *)bm;
             UCRichMedia *nextVIew = [[UCRichMedia alloc] init];
-            nextVIew.richMedia = (RichMedia *)bm;
+            nextVIew.richMedia = rm;
+            nextVIew.code = rm.codeId;
             [self.navigationController pushViewController:nextVIew animated:YES];
             [nextVIew release];
         } else if (bm.typeId == kModelRide) {
@@ -461,7 +386,7 @@ static NSString *s_luckyId = nil;
             [self.navigationController pushViewController:businessView animated:YES];
             RELEASE_SAFELY(businessView);
         }
-        //[bm release];
+        [bm release];
         return;
     }
 }

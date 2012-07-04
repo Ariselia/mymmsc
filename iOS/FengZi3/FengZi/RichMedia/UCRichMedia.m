@@ -16,7 +16,7 @@
 #import "ShareView.h"
 
 @implementation UCRichMedia
-@synthesize urlMedia, scrollViewX;
+@synthesize scrollViewX;
 @synthesize picView1,picView2,picView3,picView4,picView5,picView6;
 @synthesize curImage=_curImage;
 @synthesize code;
