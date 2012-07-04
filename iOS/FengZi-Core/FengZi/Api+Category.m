@@ -700,6 +700,8 @@
                 RichKma *rk = [[[RichKma alloc] init] autorelease];
                 rk.uuid = uuid;
                 oRet = rk;
+            } else if (iRet.status != 0) {
+                //
             } else if (iRet.status == 0 && map.count > 0) {
                 NSDictionary *data = [map objectForKey:@"data"];
                 if([data isKindOfClass:[NSString class]]) {
