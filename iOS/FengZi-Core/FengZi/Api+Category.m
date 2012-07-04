@@ -702,7 +702,7 @@
                 oRet = rk;
             } else if (iRet.status != 0) {
                 //
-            } else if (iRet.status == 0 && map.count > 0) {
+            } else if (iRet.status == 0 && map != nil) {
                 NSDictionary *data = [map objectForKey:@"data"];
                 if([data isKindOfClass:[NSString class]]) {
                     oRet = [self parseV3Common:(NSString *)data];
