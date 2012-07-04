@@ -130,7 +130,7 @@ static const char * getPropertyType(objc_property_t property) {
  * @param card
  * @return
  */
-+ (NSString *)encodeCard:(Card *) card{
++ (NSString *)encodeCard:(Card *)card{
     NSMutableString *buffer = [[[NSMutableString alloc] initWithCapacity:0] autorelease];
     if(card == nil){
         return buffer;
