@@ -49,6 +49,8 @@
             typeId = kModelRichMedia;
         } else if (clazz == Ride.class) {
             typeId = kModelRide;
+        } else if (clazz == RichKma.class) {
+            typeId = kModelKma;
         } else {
             typeId = kModelText;
         }
@@ -120,6 +122,8 @@
 			// 0F-顺风车
 			clazz = Ride.class;
 			break;
+        case kModelKma:
+            clazz = RichKma.class;
 		default:
 			// 默认
 			break;
@@ -161,8 +165,8 @@
             sRet = @"富媒体";
         } else if (clazz == Ride.class) {
             sRet = @"顺风车";
-        } else {
-            sRet = @"文本";
+        } else if (clazz == RichKma.class) {
+            sRet = @"空码";
         }
     }
     return sRet;
@@ -690,7 +694,13 @@
                                     [NSString valueOf:[Api userId]], @"userid",
                                     nil];
             NSDictionary *map = [Api post:url params:params];
-            if (map.count > 0) {
+            ApiResult *iRet = [map toObject:ApiResult.class];
+            if (iRet.status == 404) {
+                // 空码
+                RichKma *rk = [[[RichKma alloc] init] autorelease];
+                rk.uuid = uuid;
+                oRet = rk;
+            } else if (iRet.status == 0 && map.count > 0) {
                 NSDictionary *data = [map objectForKey:@"data"];
                 if([data isKindOfClass:[NSString class]]) {
                     oRet = [self parseV3Common:(NSString *)data];
