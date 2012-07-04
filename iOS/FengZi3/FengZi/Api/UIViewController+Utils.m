@@ -337,7 +337,17 @@ static NSString *s_luckyId = nil;
                 return;
             } else {
                 iTimes = kCODE_KMA;
-                [self chooseShowController:info.tranditionContent isSave:isSave];
+                NSString *data = info.tranditionContent;
+                {
+                    NSDictionary *map = [data objectFromJSONString];
+                    if (map != nil && map.count > 0) {
+                        NSString *tmp = [map objectForKey:@"data"];
+                        if ([tmp isKindOfClass:NSString.class]) {
+                            data = [iOSApi urlDecode:tmp];
+                        }
+                    }
+                }
+                [self chooseShowController:data isSave:isSave];
                 return;
             }
         }
@@ -370,6 +380,14 @@ static NSString *s_luckyId = nil;
             nextVIew.code = rm.codeId;
             [self.navigationController pushViewController:nextVIew animated:YES];
             [nextVIew release];
+        } else if (bm.typeId == kModelKma) {
+            RichKma *rk = (RichKma *)bm;
+            UCKmaViewController *nextView = [[UCKmaViewController alloc] init];
+            //nextView.bKma = YES; // 标记为空码赋值富媒体
+            nextView.code = rk.uuid;
+            nextView.curImage = [Api generateImageWithInput:input];
+            [self.navigationController pushViewController:nextView animated:YES];
+            [nextView release];
         } else if (bm.typeId == kModelRide) {
             // 顺风车
         } else if (bm.typeId == kModelCard) {
