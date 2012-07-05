@@ -5,9 +5,9 @@
 //  Copyright (c) 2011年 iTotemStudio. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
-#import <FengZi/Api+Category.h>
-#import <FengZi/BusCategory.h>
+#import "Api+Category.h"
+#import "BusCategory.h"
+
 #import "DecodeCardCell.h"
 #import "AddressBookUtils.h"
 #import "ITTDataRequest.h"
