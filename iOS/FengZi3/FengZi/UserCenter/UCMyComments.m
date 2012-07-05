@@ -225,18 +225,12 @@
 }
 */
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    
-    
     // Navigation logic may go here. Create and push another view controller.
     //NSLog(@"module goto...");
-    
     UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
     UIImage *himage = [[UIImage imageNamed:@"uc-cell-h.png"] toSize: CGSizeMake(320, 60)];
     [cell setBackgroundImage:himage];
-    
     ucComment *obj = [self objectForIndexPath:indexPath];
-
     UCUpdateNikename *nextView = [[UCUpdateNikename alloc] init];
     nextView.idDest = obj.commentUserId;
     [self.navigationController pushViewController:nextView animated:YES];
