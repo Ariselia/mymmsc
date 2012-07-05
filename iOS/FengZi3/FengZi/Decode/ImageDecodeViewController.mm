@@ -10,8 +10,8 @@
 #import <ZXing/QRCodeReader.h>
 #import <ZXing/TwoDDecoderResult.h>
 #import "DecodeCardViewControlle.h"
-#import <FengZi/BusDecoder.h>
-#import <FengZi/BusCategory.h>
+#import "BusDecoder.h"
+#import "BusCategory.h"
 #import "DecodeBusinessViewController.h"
 #import <QuartzCore/QuartzCore.h>
 
