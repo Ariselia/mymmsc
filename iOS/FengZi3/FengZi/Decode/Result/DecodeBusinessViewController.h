@@ -5,7 +5,8 @@
 //  Copyright (c) 2011年 iTotemStudio. All rights reserved.
 //
 
-#import <FengZi/BusCategory.h>
+#import "BusCategory.h"
+
 #import <MessageUI/MessageUI.h>
 #import "DecodeBusinessCell.h"
 #import "ITTDataRequest.h"
