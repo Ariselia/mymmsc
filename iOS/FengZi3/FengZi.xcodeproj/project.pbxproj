@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0A0F00BC15A64E7B00CF9BED /* table_kma.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A0F00BA15A64E7B00CF9BED /* table_kma.png */; };
+		0A0F00BD15A64E7B00CF9BED /* table_richmedia.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A0F00BB15A64E7B00CF9BED /* table_richmedia.png */; };
 		0A193B0B1594947E002E6835 /* Api+Database.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A193AF01594947E002E6835 /* Api+Database.m */; };
 		0A193B0C1594947E002E6835 /* Api+eBuy.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A193AF21594947E002E6835 /* Api+eBuy.m */; };
 		0A193B0D1594947E002E6835 /* Api+eFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A193AF41594947E002E6835 /* Api+eFile.m */; };
@@ -889,6 +891,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0A0F00BA15A64E7B00CF9BED /* table_kma.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = table_kma.png; sourceTree = "<group>"; };
+		0A0F00BB15A64E7B00CF9BED /* table_richmedia.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = table_richmedia.png; sourceTree = "<group>"; };
 		0A193AEF1594947E002E6835 /* Api+Database.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Api+Database.h"; sourceTree = "<group>"; };
 		0A193AF01594947E002E6835 /* Api+Database.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Api+Database.m"; sourceTree = "<group>"; };
 		0A193AF11594947E002E6835 /* Api+eBuy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Api+eBuy.h"; sourceTree = "<group>"; };
@@ -2339,6 +2343,8 @@
 		0A193D7B15952A79002E6835 /* favirote */ = {
 			isa = PBXGroup;
 			children = (
+				0A0F00BA15A64E7B00CF9BED /* table_kma.png */,
+				0A0F00BB15A64E7B00CF9BED /* table_richmedia.png */,
 				0A193D9615952AC5002E6835 /* faviroted.png */,
 				0A193D7C15952A9D002E6835 /* table_app.png */,
 				0A193D7D15952A9D002E6835 /* table_card.png */,
@@ -4485,6 +4491,8 @@
 				0A8F708F159B179800AE7E79 /* more_set_off.png in Resources */,
 				0A8F7090159B179800AE7E79 /* more_set_on.png in Resources */,
 				0AC33FE6159C44ED00770855 /* uc-pl.png in Resources */,
+				0A0F00BC15A64E7B00CF9BED /* table_kma.png in Resources */,
+				0A0F00BD15A64E7B00CF9BED /* table_richmedia.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4769,7 +4777,7 @@
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				COPY_PHASE_STRIP = NO;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -4794,7 +4802,7 @@
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				COPY_PHASE_STRIP = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_VERSION = "";
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
