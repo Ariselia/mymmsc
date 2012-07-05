@@ -8,9 +8,10 @@
 
 #import "EncodeAppUrlViewController.h"
 #import "EncodeEditViewController.h"
-#import <FengZi/Api+Category.h>
+#import "Api+Category.h"
 #import "CommonUtils.h"
-#import <FengZi/BusDecoder.h>
+#import "BusDecoder.h"
+
 @implementation EncodeAppUrlViewController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
