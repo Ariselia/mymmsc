@@ -8,9 +8,9 @@
 #import "DecodeCardViewControlle.h"
 #import "FileUtil.h"
 #import "Api+Database.h"
-#import <FengZi/BusDecoder.h>
-#import <FengZi/Api+Category.h>
-#import <FengZi/PseudoBase64.h>
+#import "BusDecoder.h"
+#import "Api+Category.h"
+#import "PseudoBase64.h"
 #import "CommonUtils.h"
 #import "SHK.h"
 #import "ShareView.h"
