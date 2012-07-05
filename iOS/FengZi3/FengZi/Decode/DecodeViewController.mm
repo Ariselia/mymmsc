@@ -208,7 +208,7 @@ static int iTimes = -1;
     // Release any cached data, images, etc that aren't in use.
 }
 
--(void)viewWillAppear:(BOOL)animated{
+- (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
 //    _imageScanImageVew.image = [UIImage imageNamed:@"image_scan1.png"];
 //    _camecaScanImagevView.image = [UIImage imageNamed:@"camera_scan1.png"];
@@ -225,7 +225,7 @@ static int iTimes = -1;
     
 }
 
--(void)viewWillDisappear:(BOOL)animated{
+- (void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
     if(!_isHideNavi){
         self.navigationController.navigationBarHidden = NO;
