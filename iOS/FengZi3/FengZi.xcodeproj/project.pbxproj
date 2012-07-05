@@ -9,6 +9,15 @@
 /* Begin PBXBuildFile section */
 		0A0F00BC15A64E7B00CF9BED /* table_kma.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A0F00BA15A64E7B00CF9BED /* table_kma.png */; };
 		0A0F00BD15A64E7B00CF9BED /* table_richmedia.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A0F00BB15A64E7B00CF9BED /* table_richmedia.png */; };
+		0A0F00D415A6534200CF9BED /* Api.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0A0F00C015A6534200CF9BED /* Api.mm */; };
+		0A0F00D515A6534200CF9BED /* Api+Category.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A0F00C215A6534200CF9BED /* Api+Category.m */; };
+		0A0F00D615A6534200CF9BED /* BusCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A0F00C415A6534200CF9BED /* BusCategory.m */; };
+		0A0F00D715A6534200CF9BED /* BusDecoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A0F00C715A6534200CF9BED /* BusDecoder.m */; };
+		0A0F00D815A6534200CF9BED /* BusEncoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A0F00CA15A6534200CF9BED /* BusEncoder.m */; };
+		0A0F00D915A6534200CF9BED /* CodeAttribute.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A0F00CC15A6534200CF9BED /* CodeAttribute.m */; };
+		0A0F00DA15A6534200CF9BED /* GTMBase64.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A0F00CE15A6534200CF9BED /* GTMBase64.m */; };
+		0A0F00DB15A6534200CF9BED /* NotePLogService.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A0F00D115A6534200CF9BED /* NotePLogService.m */; };
+		0A0F00DC15A6534200CF9BED /* PseudoBase64.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A0F00D315A6534200CF9BED /* PseudoBase64.m */; };
 		0A193B0B1594947E002E6835 /* Api+Database.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A193AF01594947E002E6835 /* Api+Database.m */; };
 		0A193B0C1594947E002E6835 /* Api+eBuy.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A193AF21594947E002E6835 /* Api+eBuy.m */; };
 		0A193B0D1594947E002E6835 /* Api+eFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A193AF41594947E002E6835 /* Api+eFile.m */; };
@@ -379,7 +388,6 @@
 		0ACE86D1152AF6E10084C32B /* usercenter_userinfo_image.png in Resources */ = {isa = PBXBuildFile; fileRef = 0ACE86C9152AF6E10084C32B /* usercenter_userinfo_image.png */; };
 		0ACE86D2152AF6E10084C32B /* usercenter_userinfo_mycoment.png in Resources */ = {isa = PBXBuildFile; fileRef = 0ACE86CA152AF6E10084C32B /* usercenter_userinfo_mycoment.png */; };
 		0ACE86D3152AF6E10084C32B /* usercenter_userinfo_zoneqr.png in Resources */ = {isa = PBXBuildFile; fileRef = 0ACE86CB152AF6E10084C32B /* usercenter_userinfo_zoneqr.png */; };
-		0AD69D6415A3A60E00CC5F01 /* FengZi.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0AD69D6315A3A60E00CC5F01 /* FengZi.framework */; };
 		0ADD8F80154E9EA10025DF29 /* CardTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ADD8F51154E9EA10025DF29 /* CardTableViewCell.m */; };
 		0ADD8F81154E9EA10025DF29 /* CardTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0ADD8F52154E9EA10025DF29 /* CardTableViewCell.xib */; };
 		0ADD8F82154E9EA10025DF29 /* EncodeAppUrlViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ADD8F54154E9EA10025DF29 /* EncodeAppUrlViewController.m */; };
@@ -893,6 +901,27 @@
 /* Begin PBXFileReference section */
 		0A0F00BA15A64E7B00CF9BED /* table_kma.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = table_kma.png; sourceTree = "<group>"; };
 		0A0F00BB15A64E7B00CF9BED /* table_richmedia.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = table_richmedia.png; sourceTree = "<group>"; };
+		0A0F00BF15A6534200CF9BED /* Api.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Api.h; sourceTree = "<group>"; };
+		0A0F00C015A6534200CF9BED /* Api.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Api.mm; sourceTree = "<group>"; };
+		0A0F00C115A6534200CF9BED /* Api+Category.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Api+Category.h"; sourceTree = "<group>"; };
+		0A0F00C215A6534200CF9BED /* Api+Category.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Api+Category.m"; sourceTree = "<group>"; };
+		0A0F00C315A6534200CF9BED /* BusCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BusCategory.h; sourceTree = "<group>"; };
+		0A0F00C415A6534200CF9BED /* BusCategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BusCategory.m; sourceTree = "<group>"; };
+		0A0F00C515A6534200CF9BED /* BusChannel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BusChannel.h; sourceTree = "<group>"; };
+		0A0F00C615A6534200CF9BED /* BusDecoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BusDecoder.h; sourceTree = "<group>"; };
+		0A0F00C715A6534200CF9BED /* BusDecoder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BusDecoder.m; sourceTree = "<group>"; };
+		0A0F00C815A6534200CF9BED /* BusDescKey.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BusDescKey.h; sourceTree = "<group>"; };
+		0A0F00C915A6534200CF9BED /* BusEncoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BusEncoder.h; sourceTree = "<group>"; };
+		0A0F00CA15A6534200CF9BED /* BusEncoder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BusEncoder.m; sourceTree = "<group>"; };
+		0A0F00CB15A6534200CF9BED /* CodeAttribute.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CodeAttribute.h; sourceTree = "<group>"; };
+		0A0F00CC15A6534200CF9BED /* CodeAttribute.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CodeAttribute.m; sourceTree = "<group>"; };
+		0A0F00CD15A6534200CF9BED /* GTMBase64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMBase64.h; sourceTree = "<group>"; };
+		0A0F00CE15A6534200CF9BED /* GTMBase64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTMBase64.m; sourceTree = "<group>"; };
+		0A0F00CF15A6534200CF9BED /* GTMDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMDefines.h; sourceTree = "<group>"; };
+		0A0F00D015A6534200CF9BED /* NotePLogService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotePLogService.h; sourceTree = "<group>"; };
+		0A0F00D115A6534200CF9BED /* NotePLogService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NotePLogService.m; sourceTree = "<group>"; };
+		0A0F00D215A6534200CF9BED /* PseudoBase64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PseudoBase64.h; sourceTree = "<group>"; };
+		0A0F00D315A6534200CF9BED /* PseudoBase64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PseudoBase64.m; sourceTree = "<group>"; };
 		0A193AEF1594947E002E6835 /* Api+Database.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Api+Database.h"; sourceTree = "<group>"; };
 		0A193AF01594947E002E6835 /* Api+Database.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Api+Database.m"; sourceTree = "<group>"; };
 		0A193AF11594947E002E6835 /* Api+eBuy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Api+eBuy.h"; sourceTree = "<group>"; };
@@ -1325,7 +1354,6 @@
 		0ACE86C9152AF6E10084C32B /* usercenter_userinfo_image.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = usercenter_userinfo_image.png; sourceTree = "<group>"; };
 		0ACE86CA152AF6E10084C32B /* usercenter_userinfo_mycoment.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = usercenter_userinfo_mycoment.png; sourceTree = "<group>"; };
 		0ACE86CB152AF6E10084C32B /* usercenter_userinfo_zoneqr.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = usercenter_userinfo_zoneqr.png; sourceTree = "<group>"; };
-		0AD69D6315A3A60E00CC5F01 /* FengZi.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FengZi.framework; path = ../../../../runtime/SDK/FengZi.framework; sourceTree = "<group>"; };
 		0ADD8F50154E9EA10025DF29 /* CardTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CardTableViewCell.h; sourceTree = "<group>"; };
 		0ADD8F51154E9EA10025DF29 /* CardTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CardTableViewCell.m; sourceTree = "<group>"; };
 		0ADD8F52154E9EA10025DF29 /* CardTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CardTableViewCell.xib; sourceTree = "<group>"; };
@@ -2030,7 +2058,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0AD69D6415A3A60E00CC5F01 /* FengZi.framework in Frameworks */,
 				0A193BA01594A213002E6835 /* libalixpay.a in Frameworks */,
 				0A193BA11594A213002E6835 /* libcrypto.a in Frameworks */,
 				0A193BA21594A213002E6835 /* libssl.a in Frameworks */,
@@ -2846,7 +2873,6 @@
 		3E11F12A1472686800ACC436 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				0AD69D6315A3A60E00CC5F01 /* FengZi.framework */,
 				0A1AEE2C154754A6007BE52E /* ZXing.framework */,
 				C9A14F581520769A00DE519A /* iOSApi.framework */,
 				C9A14F5D15207B8B00DE519A /* QRCode.framework */,
@@ -3714,8 +3740,29 @@
 		B8D49E2814E4B2230057203A /* Api */ = {
 			isa = PBXGroup;
 			children = (
+				0A0F00BF15A6534200CF9BED /* Api.h */,
+				0A0F00C015A6534200CF9BED /* Api.mm */,
 				0A193AEF1594947E002E6835 /* Api+Database.h */,
 				0A193AF01594947E002E6835 /* Api+Database.m */,
+				0A0F00C115A6534200CF9BED /* Api+Category.h */,
+				0A0F00C215A6534200CF9BED /* Api+Category.m */,
+				0A0F00C315A6534200CF9BED /* BusCategory.h */,
+				0A0F00C415A6534200CF9BED /* BusCategory.m */,
+				0A0F00C515A6534200CF9BED /* BusChannel.h */,
+				0A0F00C615A6534200CF9BED /* BusDecoder.h */,
+				0A0F00C715A6534200CF9BED /* BusDecoder.m */,
+				0A0F00C815A6534200CF9BED /* BusDescKey.h */,
+				0A0F00C915A6534200CF9BED /* BusEncoder.h */,
+				0A0F00CA15A6534200CF9BED /* BusEncoder.m */,
+				0A0F00CB15A6534200CF9BED /* CodeAttribute.h */,
+				0A0F00CC15A6534200CF9BED /* CodeAttribute.m */,
+				0A0F00CD15A6534200CF9BED /* GTMBase64.h */,
+				0A0F00CE15A6534200CF9BED /* GTMBase64.m */,
+				0A0F00CF15A6534200CF9BED /* GTMDefines.h */,
+				0A0F00D015A6534200CF9BED /* NotePLogService.h */,
+				0A0F00D115A6534200CF9BED /* NotePLogService.m */,
+				0A0F00D215A6534200CF9BED /* PseudoBase64.h */,
+				0A0F00D315A6534200CF9BED /* PseudoBase64.m */,
 				0A193AF11594947E002E6835 /* Api+eBuy.h */,
 				0A193AF21594947E002E6835 /* Api+eBuy.m */,
 				0A193AF31594947E002E6835 /* Api+eFile.h */,
@@ -4752,6 +4799,15 @@
 				0A193C2715951AA2002E6835 /* EBuyOrderWap.m in Sources */,
 				0AFEB29815953812002D9D3C /* Api+Logs.m in Sources */,
 				0A8322FB1599F59700CFF81D /* EnlargeImageDoubleTap.m in Sources */,
+				0A0F00D415A6534200CF9BED /* Api.mm in Sources */,
+				0A0F00D515A6534200CF9BED /* Api+Category.m in Sources */,
+				0A0F00D615A6534200CF9BED /* BusCategory.m in Sources */,
+				0A0F00D715A6534200CF9BED /* BusDecoder.m in Sources */,
+				0A0F00D815A6534200CF9BED /* BusEncoder.m in Sources */,
+				0A0F00D915A6534200CF9BED /* CodeAttribute.m in Sources */,
+				0A0F00DA15A6534200CF9BED /* GTMBase64.m in Sources */,
+				0A0F00DB15A6534200CF9BED /* NotePLogService.m in Sources */,
+				0A0F00DC15A6534200CF9BED /* PseudoBase64.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
