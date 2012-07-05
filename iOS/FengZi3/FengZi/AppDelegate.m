@@ -24,7 +24,7 @@
     [super dealloc];
 }
 
--(void)loadAnimationEnd:(NSTimer *) timer{
+- (void)loadAnimationEnd:(NSTimer *) timer{
     [_acivityIndicatorView stopAnimating];
     [_acivityIndicatorView removeFromSuperview];
     [_defaultImageView removeFromSuperview];
