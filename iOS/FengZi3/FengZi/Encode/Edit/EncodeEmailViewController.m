@@ -8,7 +8,7 @@
 
 #import "EncodeEmailViewController.h"
 #import "EncodeEditViewController.h"
-#import <FengZi/Api+Category.h>
+#import "Api+Category.h"
 #import "CommonUtils.h"
 
 @implementation EncodeEmailViewController
