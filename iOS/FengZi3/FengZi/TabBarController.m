@@ -13,7 +13,7 @@
 
 #import "UserCenter.h"
 
-#import <FengZi/Api.h>
+#import "Api.h"
 
 #define TAB_CONTROLLER_TAB_HIDDEN_Y 480.0f
 #define TAB_CONTROLLER_TAB_VISIBLE_Y 426.0f
