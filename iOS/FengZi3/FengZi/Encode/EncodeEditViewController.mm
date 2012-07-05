@@ -10,11 +10,11 @@
 #import <QRCode/QREncoder.h>
 #import <QRCode/DataMatrix.h>
 #import "UIUtil.h"
-#import <FengZi/NotePLogService.h>
-#import <FengZi/BusEncoder.h>
+#import "NotePLogService.h"
+#import "BusEncoder.h"
 #import "Api+Database.h"
 #import "FileUtil.h"
-#import <FengZi/PseudoBase64.h>
+#import "PseudoBase64.h"
 #import "SHK.h"
 #import "ShareView.h"
 #import "CommonUtils.h"

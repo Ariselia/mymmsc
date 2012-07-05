@@ -9,9 +9,10 @@
 #import <UIKit/UIKit.h>
 #import "DecorateView.h"
 #import "EditImageView.h"
-#import <FengZi/CodeAttribute.h>
 #import "ITTDataRequest.h"
 #import "ITTImageView.h"
+
+#import "CodeAttribute.h"
 #import "Api+RichMedia.h"
 
 @interface EncodeEditViewController : UIViewController<DecorateViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,EditImageViewDelegate,DataRequestDelegate>{
