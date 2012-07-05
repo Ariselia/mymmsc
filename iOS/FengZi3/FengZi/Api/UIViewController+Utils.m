@@ -107,14 +107,6 @@ static NSString *s_luckyId = nil;
     [self doGame:buttonIndex luckyId:s_luckyId];
 }
 
--(NSString*)getString16:(int)type
-{
-    unsigned char typeUn = (unsigned char)type;
-    NSString *type16 = [NSString stringWithFormat:@"%02X", typeUn];
-    return type16;
-    
-}
-
 -(BOOL)isHaveString:(NSString*)content param:(NSString*)param
 {
     NSRange range = [content rangeOfString: param];

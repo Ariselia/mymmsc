@@ -39,9 +39,6 @@
 // 新的解析入口
 - (id)initWithNibName:(NSString *)nibNameOrNil result:(BaseModel *)object image:(UIImage*)img withType:(HistoryType)type withSaveImage:(UIImage *)sImage;
 
-- (NSString *)getString16:(int)type;
-
-
 - (IBAction)addFavirote:(id)sender;
 
 @property(nonatomic, retain)NSString *_showInfo;

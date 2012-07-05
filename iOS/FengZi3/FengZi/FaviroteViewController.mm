@@ -19,6 +19,7 @@
 #import "UCCell.h"
 #import "UITableViewCellExt.h"
 #import "UCRichMedia.h"
+
 @implementation FaviroteViewController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil

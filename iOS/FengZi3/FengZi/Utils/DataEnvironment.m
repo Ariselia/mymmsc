@@ -229,15 +229,27 @@ static DataEnvironment *sharedInst = nil;
 }
 
 - (UIImage *)getTableImage:(BusinessType)index{
-    switch (index) {
+    switch (index % 16) {
+        case kModelUrl:
+            return [UIImage imageNamed:@"table_website.png"];
+            break;
+        case kModelBookMark:
+            return [UIImage imageNamed:@"table_mark.png"];
+            break;
         case kModelAppUrl:
             return [UIImage imageNamed:@"table_app.png"];
+            break;
+        case kModelWeibo:
+            return [UIImage imageNamed:@"table_weibo.png"];
             break;
         case kModelCard:
             return [UIImage imageNamed:@"table_card.png"];
             break;
-        case kModelBookMark:
-            return [UIImage imageNamed:@"table_mark.png"];
+        case kModelPhone:
+            return [UIImage imageNamed:@"table_phone.png"];
+            break;
+        case kModelText:
+            return [UIImage imageNamed:@"table_text.png"];
             break;
         case kModelEncText:
             return [UIImage imageNamed:@"table_enc.png"];
@@ -248,29 +260,20 @@ static DataEnvironment *sharedInst = nil;
         case kModelGMap:
             return [UIImage imageNamed:@"table_map.png"];
             break;
-        case kModelPhone:
-            return [UIImage imageNamed:@"table_phone.png"];
-            break;
-        case kModelSchedule:
-            return [UIImage imageNamed:@"table_schedule.png"];
-            break;
         case kModelShortMessage:
             return [UIImage imageNamed:@"table_sms.png"];
-            break;
-        case kModelText:
-            return [UIImage imageNamed:@"table_text.png"];
             break;
         case kModelWiFiText:
             return [UIImage imageNamed:@"table_wifi.png"];
             break;
-        case kModelWeibo:
-            return [UIImage imageNamed:@"table_weibo.png"];
-            break;
-        case kModelUrl:
-            return [UIImage imageNamed:@"table_website.png"];
+        case kModelSchedule:
+            return [UIImage imageNamed:@"table_schedule.png"];
             break;
         case kModelRichMedia:
             return [UIImage imageNamed:@"table_richmedia.png"];
+            break;
+        case kModelKma:
+            return [UIImage imageNamed:@"table_kma.png"];
             break;
         default:
             return nil;

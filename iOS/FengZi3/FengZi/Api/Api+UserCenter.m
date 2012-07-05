@@ -202,8 +202,6 @@
                 [Api setToken:value];
             } 
         }
-        
-        
     }
     return [iRet autorelease];}
 
@@ -249,8 +247,6 @@
                 [Api setToken:value];
             } 
         }
-        
-        
     }
     return [iRet autorelease];
 }
@@ -448,6 +444,7 @@
     [iRet release];
     return aRet;
 }
+
 //对个人空间发表评论
 + (ApiResult *)uc_comment_add:(int)userId
                       content:(NSString *)content{
@@ -468,6 +465,7 @@
     }
     return [iRet autorelease];
 }
+
 //查看个人空间评论
 + (NSMutableArray *)uc_comment_list:(int)number size:(int)size
 {
@@ -551,7 +549,7 @@
     NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
                             maId, @"codeid",
                             [NSString valueOf:[Api userId]], @"commentUserId",
-                            [Api nikeName], @"commentUserName",
+                            [Api nikeName], @"commentName",
                             content, @"commentContent",
                             date, @"commentDate",
                             nil];

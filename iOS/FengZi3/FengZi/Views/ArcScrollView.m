@@ -2,7 +2,6 @@
 //  ArcScrollView.m
 //  FengZi
 //
-
 //  Copyright (c) 2011年 iTotemStudio. All rights reserved.
 //
 
@@ -212,7 +211,7 @@
     [self resetScrollContent:NO];
 }
 
--(void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
     [self resetScrollContent:NO];
 }
 
@@ -225,7 +224,7 @@
 #pragma mark -
 #pragma mark ThumbButtonViewDelegate
 
--(void)thumbDidClick:(UIButton*)btn{
+- (void)thumbDidClick:(UIButton*)btn{
     _goBtn.enabled = NO;
     _lastSelectedIndex = btn.tag - 2000;
     int tmp = _lastSelectedIndex - _curSelectedIndex;

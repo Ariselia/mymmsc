@@ -7,19 +7,6 @@
          shouldBeEnabled = "Yes"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
-         filePath = "FengZi/Decode/Result/DecodeCardViewControlle.m"
-         timestampString = "362960890.365607"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "110"
-         endingLineNumber = "110"
-         landmarkName = "-viewDidLoad"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "Yes"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
          filePath = "FengZi/RichMedia/RMRide.m"
          timestampString = "362937563.945951"
          startingColumnNumber = "9223372036854775807"
@@ -72,19 +59,6 @@
          shouldBeEnabled = "Yes"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
-         filePath = "FengZi/Api/UIViewController+Utils.m"
-         timestampString = "363088698.243577"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "286"
-         endingLineNumber = "286"
-         landmarkName = "-chooseShowController:isSave:"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "Yes"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
          filePath = "FengZi/Decode/Result/DecodeBusinessViewController.m"
          timestampString = "363063547.938436"
          startingColumnNumber = "9223372036854775807"
@@ -115,19 +89,6 @@
          timestampString = "363088698.243577"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "400"
-         endingLineNumber = "400"
-         landmarkName = "-chooseShowController:isSave:"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "Yes"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         filePath = "FengZi/Api/UIViewController+Utils.m"
-         timestampString = "363088698.243577"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
          startingLineNumber = "192"
          endingLineNumber = "192"
          landmarkName = "-jumpRichMedia:content:"
@@ -137,65 +98,13 @@
          shouldBeEnabled = "Yes"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
-         filePath = "../FengZi-Core/FengZi/Api+Category.m"
-         timestampString = "363089063.579594"
+         filePath = "FengZi/Decode/Result/DecodeBusinessViewController.m"
+         timestampString = "363160276.382968"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "648"
-         endingLineNumber = "648"
-         landmarkName = "+parseV3Common:"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "Yes"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         filePath = "../FengZi-Core/FengZi/Api+Category.m"
-         timestampString = "363089239.155193"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "681"
-         endingLineNumber = "681"
-         landmarkName = "+parseV3Kma:timeout:"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "Yes"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         filePath = "../FengZi-Core/FengZi/Api+Category.m"
-         timestampString = "363089789.883979"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "688"
-         endingLineNumber = "688"
-         landmarkName = "+parseV3Kma:timeout:"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "Yes"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         filePath = "FengZi/Api/UIViewController+Utils.m"
-         timestampString = "363109248.569537"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "264"
-         endingLineNumber = "264"
-         landmarkName = "-chooseShowController:isSave:"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "Yes"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         filePath = "../FengZi-Core/FengZi/Api+Category.m"
-         timestampString = "363133181.58548"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "696"
-         endingLineNumber = "696"
-         landmarkName = "+parseV3Kma:timeout:"
+         startingLineNumber = "113"
+         endingLineNumber = "113"
+         landmarkName = "-saveHistory"
          landmarkType = "5">
       </FileBreakpoint>
    </FileBreakpoints>

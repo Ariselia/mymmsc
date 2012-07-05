@@ -182,14 +182,6 @@
     return  dateStr;
 }
 
-- (NSString *)getString16:(int)type {  
-    type = type + 1;
-    unsigned char typeUn = (unsigned char)type;
-    NSString *type16 = [NSString stringWithFormat:@"%02X", typeUn];
-    return type16;    
-}
-
-
 - (BOOL)isHaveString:(NSString *)content param:(NSString *)param
 {
     NSRange range = [content rangeOfString: param];

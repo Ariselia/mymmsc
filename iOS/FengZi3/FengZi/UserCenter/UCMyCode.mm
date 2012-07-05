@@ -406,7 +406,7 @@ static int xTimes = -1;
     
     
         cell.textLabel.font = font;
-        cell.textLabel.text = [NSString stringWithFormat:@"%@  %@%@", [obj title], [obj createTime], iRow == indexPath.row ? @"\n\n\n\n\n" : @""];
+        cell.textLabel.text = [NSString stringWithFormat:@"%@  %@%@", [iOSApi urlDecode:[obj title]], [obj createTime], iRow == indexPath.row ? @"\n\n\n\n\n" : @""];
         /*
         cell.selectionStyle = UITableViewCellSelectionStyleGray;
         cell.accessoryType = UITableViewCellAccessoryNone;
