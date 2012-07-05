@@ -8,7 +8,7 @@
 
 #import "EncodePhoneViewController.h"
 #import "EncodeEditViewController.h"
-#import <FengZi/Api+Category.h>
+#import "Api+Category.h"
 #import "AddressBookUtils.h"
 
 @implementation EncodePhoneViewController
