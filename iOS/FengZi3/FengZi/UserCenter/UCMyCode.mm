@@ -402,7 +402,7 @@ static int xTimes = -1;
         CodeInfo *obj = [items objectAtIndex: pos];
     //cell.imageView.image = [[DATA_ENV getTableImage:(BusinessType)(obj.type - 1)]toSize:CGSizeMake(50, 48)];
     
-      cell.imageView.image = [DATA_ENV getTableImage:(BusinessType)(obj.type - 1)];
+      cell.imageView.image = [DATA_ENV getTableImage:(BusinessType)(obj.type)];
     
     
         cell.textLabel.font = font;

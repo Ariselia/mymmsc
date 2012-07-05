@@ -435,7 +435,7 @@ static NSString *kma_id = nil;
     NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
                             [NSString valueOf:[Api userId]], @"userid",
                             pid, @"codeid",
-                            [NSString valueOf:type+17], @"type",
+                            [NSString valueOf:type+16], @"type",
                             content, @"content",
                             title,@"title",
                             nil];

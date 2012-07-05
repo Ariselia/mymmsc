@@ -140,4 +140,5 @@
     [_titleField release];
     [super dealloc];
 }
+
 @end

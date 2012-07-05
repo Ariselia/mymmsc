@@ -183,8 +183,7 @@ static NSString *s_luckyId = nil;
         if (bGoto) {
             bRet = YES;
         }
-    }
-    
+    }    
     return bRet;
 }
 
