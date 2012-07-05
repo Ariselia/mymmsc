@@ -6,7 +6,7 @@
 //  Copyright (c) 2012年 ifengzi.cn. All rights reserved.
 //
 
-#import <FengZi/Api.h>
+#import "Api.h"
 
 @interface Api (Style)
 

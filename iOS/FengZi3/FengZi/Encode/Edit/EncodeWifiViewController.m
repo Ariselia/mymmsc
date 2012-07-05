@@ -8,7 +8,7 @@
 
 #import "EncodeWifiViewController.h"
 #import "EncodeEditViewController.h"
-#import <FengZi/Api+Category.h>
+#import "Api+Category.h"
 
 @implementation EncodeWifiViewController
 

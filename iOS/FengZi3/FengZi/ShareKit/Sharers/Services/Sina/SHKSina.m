@@ -7,7 +7,7 @@
 //
 
 #import "SHKSina.h"
-#import <FengZi/PseudoBase64.h>
+#import "PseudoBase64.h"
 
 @implementation SHKSina
 

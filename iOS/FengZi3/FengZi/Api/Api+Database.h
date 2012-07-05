@@ -8,7 +8,7 @@
 
 //====================================< 本地数据库 - 接口 >====================================
 #import "sqlite3.h"
-#import <FengZi/Api+Category.h>
+#import "Api+Category.h"
 
 @class EFileCardInfo;
 @class EFileMemberInfo;

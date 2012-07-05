@@ -3,10 +3,10 @@
 //  FengZi
 //
 //  Created by  on 12-2-12.
-//  Copyright (c) 2012年 iTotemStudio. All rights reserved.
+//  Copyright (c) 2012年 fengxiafei.com. All rights reserved.
 //
 
-#import <FengZi/Api.h>
+#import "Api.h"
 
 @interface UIViewController (Utils)
 

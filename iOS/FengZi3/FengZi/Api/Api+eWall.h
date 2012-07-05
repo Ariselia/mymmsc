@@ -6,8 +6,8 @@
 //  Copyright (c) 2012年 ifengzi.cn. All rights reserved.
 //
 
-#import <FengZi/Api+Category.h>
-#import <FengZi/BusCategory.h>
+#import "Api+Category.h"
+#import "BusCategory.h"
 
 @interface EWall : NSObject{
     //

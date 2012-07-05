@@ -8,8 +8,9 @@
 
 #import "UCMyCode.h"
 #import "Api+UserCenter.h"
-#import <FengZi/BusDecoder.h>
-#import <FengZi/BusCategory.h>
+#import "BusDecoder.h"
+#import "BusCategory.h"
+
 #import "UCKmaViewController.h"
 #import "UCKmaViewController.h"
 #import "EncodeAppUrlViewController.h"
@@ -28,7 +29,6 @@
 
 #import "DecodeCardViewControlle.h"
 #import "DecodeViewController.h"
-#import <FengZi/BusDecoder.h>
 #import "DecodeBusinessViewController.h"
 
 #import <QRCode/QREncoder.h>

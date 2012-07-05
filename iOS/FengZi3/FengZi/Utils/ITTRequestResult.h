@@ -1,9 +1,9 @@
 //
 //  HHRequestResult.h
 //
-//  Copyright 2010 Apple Inc. All rights reserved.
+//  Copyright 2010 fengxiafei.com. All rights reserved.
 //
-#import <FengZi/Api+Category.h>
+#import "Api+Category.h"
 
 @interface ITTRequestResult : NSObject {
     NSNumber *_code;

@@ -7,7 +7,7 @@
 
 #import "AppDelegate.h"
 #import "TabBarController.h"
-#import <FengZi/PseudoBase64.h>
+#import "PseudoBase64.h"
 
 @implementation AppDelegate
 

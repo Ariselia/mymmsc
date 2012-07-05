@@ -5,7 +5,7 @@
 //
 
 #import "CONSTS.h"
-#import <FengZi/Api+Category.h>
+#import "Api+Category.h"
 
 @interface DataEnvironment : NSObject {
     NSString *_urlRequestHost;

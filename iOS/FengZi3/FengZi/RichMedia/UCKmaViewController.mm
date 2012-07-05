@@ -25,11 +25,12 @@
 #import "UCCreateCode.h"
 #import "UCRichMedia.h"
 #import "DecodeCardViewControlle.h"
-#import <FengZi/BusDecoder.h>
-#import <FengZi/BusCategory.h>
 #import "DecodeBusinessViewController.h"
 #import <QRCode/QREncoder.h>
 #import <QRCode/DataMatrix.h>
+
+#import "BusDecoder.h"
+#import "BusCategory.h"
 
 @implementation UCKmaViewController
 

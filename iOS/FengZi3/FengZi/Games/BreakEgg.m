@@ -7,7 +7,7 @@
 //
 
 #import "BreakEgg.h"
-#import <FengZi/Api.h>
+#import "Api.h"
 #import "EggReward.h"
 
 @implementation BreakEgg

@@ -7,7 +7,7 @@
 //
 
 #import "EggReward.h"
-#import <FengZi/Api.h>
+#import "Api.h"
 
 @interface EggReward ()
 

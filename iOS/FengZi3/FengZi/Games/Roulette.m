@@ -8,7 +8,7 @@
 
 #import "Roulette.h"
 #import "EggReward.h"
-#import <FengZi/Api.h>
+#import "Api.h"
 
 @interface Roulette ()
 {
