@@ -536,12 +536,12 @@
         item.title = [_contentArray objectAtIndex:0];
         item.toRecipients = [NSArray arrayWithObjects:[_contentArray objectAtIndex:1], nil];
         item.text = [_contentArray objectAtIndex:2];
-    }else if ([_category.type isEqualToString:CATEGORY_SCHEDULE]) {
+    } else if ([_category.type isEqualToString:CATEGORY_SCHEDULE]) {
         item.title = [_contentArray objectAtIndex:1];
         item.text = [_contentArray objectAtIndex:2];
-    }else if ([_category.type isEqualToString:CATEGORY_TEXT]) {
+    } else if ([_category.type isEqualToString:CATEGORY_TEXT]) {
         item.text = [_contentArray objectAtIndex:0];
-    }else if ([_category.type isEqualToString:CATEGORY_ENCTEXT]) {
+    } else if ([_category.type isEqualToString:CATEGORY_ENCTEXT]) {
         item.text = [_contentArray objectAtIndex:1];
     }
     [SHKMail shareItem:item];
