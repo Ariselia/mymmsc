@@ -630,7 +630,7 @@
     [_tableView release];
     [_favBtn release];
     [_headerView release];
-    //IOSAPI_RELEASE(_object);
+    IOSAPI_RELEASE(_object);
     //[_object release];
     [super dealloc];
 }
