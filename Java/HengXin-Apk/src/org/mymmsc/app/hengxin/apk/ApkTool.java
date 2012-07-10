@@ -143,9 +143,9 @@ public class ApkTool implements ApkRepackage {
 				NodeList list2 = xp.query(node, exp);
 				if (list2 != null && list2.getLength() >= 2) {
 					rmNode = list2.item(list2.getLength() - 1);
-					// rmNode.getParentNode().removeChild(rmNode);
-					e = (Element) rmNode;
-					e.setAttribute("android:name", "android.intent.action.VIEW");
+					rmNode.getParentNode().removeChild(rmNode);
+					//e = (Element) rmNode;
+					//e.setAttribute("android:name", "android.intent.action.VIEW");
 				}
 				String name = xp.valueOf(node, "android:name");
 				System.out.println("name = " + name);
@@ -185,8 +185,7 @@ public class ApkTool implements ApkRepackage {
 					xp.output(xmlFile, "utf-8");
 					pkg = xp.valueOf(root, "package");
 					System.out.println("package = " + pkg);
-					FileApi.copyFile(new File(xmlFile), new File(xmlFile
-							+ ".bak"));
+					//FileApi.copyFile(new File(xmlFile), new File(xmlFile	+ ".bak"));
 					FileApi.copyDirectiory(RootPath + "/smali", apkDir + "/smali");
 					String smaliFile = apkDir + "/smali/com/hengxin/log/main/HengxinMainActivity.smali";
 					Templator tpl = new Templator(smaliFile, "utf-8");

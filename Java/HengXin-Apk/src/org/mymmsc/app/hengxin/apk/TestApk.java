@@ -156,8 +156,8 @@ public class TestApk {
 	*/
 	
 	public static void main(String[] args) {
-		String dirName = "/Users/wangfeng/temp/apk";
-		String apkname = dirName + "/" + "Android21_2.5.2.apk";
+		String dirName = "/Users/wangfeng/Downloads";
+		String apkname = dirName + "/" + "海豚浏览器.apk";
 		byte[] data = FileApi.read(apkname);
 		if (data != null) {
 			ApkTool at = new ApkTool();
