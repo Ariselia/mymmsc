@@ -61,6 +61,8 @@ public class ApkTool implements ApkRepackage {
 			bRet = true;
 		} catch (AndrolibException e) {
 			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 		return bRet;
 	}
@@ -199,6 +201,8 @@ public class ApkTool implements ApkRepackage {
 				if (result) {
 					oRet = FileApi.read(apkNew);
 				}
+			} else {
+				System.out.println("failed!");
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
