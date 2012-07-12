@@ -3,6 +3,6 @@
 	<classpathentry excluding="**/.svn**" including="**" kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/mymmsc-api"/>
-	<classpathentry exported="true" kind="lib" path="build/ext"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/hengxin-apk"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
