@@ -48,14 +48,14 @@ public class SmaliMod {
         } else {
             InputStreamReader reader =
                 new InputStreamReader(smaliStream, "UTF-8");
-
             lexer = new smaliFlexLexer(reader);
             tokens = new CommonTokenStream((TokenSource)lexer);
+            // 增加关闭流的动作 [wangfeng@2012-7-12 上午12:24:19]
+            reader.close();
         }
 
         if (printTokens) {
             tokens.getTokens();
-
             for (int i=0; i<tokens.size(); i++) {
                 Token token = tokens.get(i);
                 if (token.getChannel() == smaliLexer.HIDDEN) {
@@ -76,10 +76,8 @@ public class SmaliMod {
         }
 
         CommonTree t = (CommonTree) result.getTree();
-
         CommonTreeNodeStream treeStream = new CommonTreeNodeStream(t);
         treeStream.setTokenStream(tokens);
-
         smaliTreeWalker dexGen = new smaliTreeWalker(treeStream);
 
         dexGen.dexFile = dexFile;

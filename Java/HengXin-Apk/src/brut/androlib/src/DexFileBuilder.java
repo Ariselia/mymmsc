@@ -19,6 +19,7 @@ package brut.androlib.src;
 import brut.androlib.AndrolibException;
 import brut.androlib.mod.SmaliMod;
 import java.io.*;
+
 import org.antlr.runtime.RecognitionException;
 import org.jf.dexlib.CodeItem;
 import org.jf.dexlib.DexFile;
@@ -28,58 +29,62 @@ import org.jf.dexlib.Util.ByteArrayAnnotatedOutput;
  * @author Ryszard Wiśniewski <brut.alll@gmail.com>
  */
 public class DexFileBuilder {
-    public void addSmaliFile(File smaliFile) throws AndrolibException {
-        try {
-            addSmaliFile(new FileInputStream(smaliFile),
-                smaliFile.getAbsolutePath());
-        } catch (FileNotFoundException ex) {
-            throw new AndrolibException(ex);
-        }
-    }
+	public void addSmaliFile(File smaliFile) throws AndrolibException {
+		try {
+			// 修订没有关闭文件输入流的问题 [wangfeng@2012-7-12 上午12:18:41]
+			InputStream is = new FileInputStream(smaliFile);
+			addSmaliFile(is, smaliFile.getAbsolutePath());
+			is.close();
+		} catch (FileNotFoundException ex) {
+			throw new AndrolibException(ex);
+		} catch (IOException e) {
+			throw new AndrolibException(e);
+		}
+	}
 
-    public void addSmaliFile(InputStream smaliStream, String name)
-            throws AndrolibException {
-        try {
-            if (! SmaliMod.assembleSmaliFile(
-                    smaliStream, name, mDexFile, false, false, false)) {
-                throw new AndrolibException(
-                    "Could not smali file: " + smaliStream);
-            }
-        } catch (IOException ex) {
-            throw new AndrolibException(ex);
-        } catch (RecognitionException ex) {
-            throw new AndrolibException(ex);
-        }
-    }
+	public void addSmaliFile(InputStream smaliStream, String name)
+			throws AndrolibException {
+		try {
+			if (!SmaliMod.assembleSmaliFile(smaliStream, name, mDexFile, false,
+					false, false)) {
+				throw new AndrolibException("Could not smali file: "
+						+ smaliStream);
+			}
+		} catch (IOException ex) {
+			throw new AndrolibException(ex);
+		} catch (RecognitionException ex) {
+			throw new AndrolibException(ex);
+		}
+	}
 
-    public void writeTo(File dexFile) throws AndrolibException {
-        try {
-            OutputStream out = new FileOutputStream(dexFile);
-            out.write(getAsByteArray());
-            out.close();
-        } catch (IOException ex) {
-            throw new AndrolibException(
-                "Could not write dex to file: " + dexFile, ex);
-        }
-    }
+	public void writeTo(File dexFile) throws AndrolibException {
+		try {
+			OutputStream out = new FileOutputStream(dexFile);
+			out.write(getAsByteArray());
+			out.close();
+		} catch (IOException ex) {
+			throw new AndrolibException("Could not write dex to file: "
+					+ dexFile, ex);
+		}
+	}
 
-    public byte[] getAsByteArray() {
-        mDexFile.place();
-        for (CodeItem codeItem: mDexFile.CodeItemsSection.getItems()) {
-            codeItem.fixInstructions(true, true);
-        }
+	public byte[] getAsByteArray() {
+		mDexFile.place();
+		for (CodeItem codeItem : mDexFile.CodeItemsSection.getItems()) {
+			codeItem.fixInstructions(true, true);
+		}
 
-        mDexFile.place();
+		mDexFile.place();
 
-        ByteArrayAnnotatedOutput out = new ByteArrayAnnotatedOutput();
-        mDexFile.writeTo(out);
-        byte[] bytes = out.toByteArray();
+		ByteArrayAnnotatedOutput out = new ByteArrayAnnotatedOutput();
+		mDexFile.writeTo(out);
+		byte[] bytes = out.toByteArray();
 
-        DexFile.calcSignature(bytes);
-        DexFile.calcChecksum(bytes);
+		DexFile.calcSignature(bytes);
+		DexFile.calcChecksum(bytes);
 
-        return bytes;
-    }
+		return bytes;
+	}
 
-    private final DexFile mDexFile = new DexFile();
+	private final DexFile mDexFile = new DexFile();
 }

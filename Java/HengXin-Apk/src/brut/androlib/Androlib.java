@@ -135,7 +135,9 @@ public class Androlib {
             if (writer != null) {
                 try {
                     writer.close();
-                } catch (IOException ex) {}
+                } catch (IOException ex) {
+                	//
+                }
             }
         }
     }
