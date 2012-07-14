@@ -21,7 +21,7 @@ import brut.util.OS;
  * @author wangfeng
  * 
  */
-public class ApkDecoder {
+public class ApkDecoder2 {
 	public final static short DECODE_SOURCES_NONE = 0x0000;
 	public final static short DECODE_SOURCES_SMALI = 0x0001;
 	public final static short DECODE_SOURCES_JAVA = 0x0002;
@@ -38,15 +38,15 @@ public class ApkDecoder {
 	private String mFrameTag;
 	private boolean mKeepBrokenResources = false;
 
-	public ApkDecoder(File apkFile) {
+	public ApkDecoder2(File apkFile) {
 		setApkFile(apkFile);
 	}
 
-	public ApkDecoder() {
+	public ApkDecoder2() {
 		this(new Androlib());
 	}
 
-	public ApkDecoder(Androlib androlib)
+	public ApkDecoder2(Androlib androlib)
 	{
 	this.mDebug = false;
 	 this.mForceDelete = false;
