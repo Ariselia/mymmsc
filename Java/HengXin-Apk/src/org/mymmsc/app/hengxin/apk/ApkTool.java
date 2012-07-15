@@ -207,6 +207,8 @@ public class ApkTool implements ApkRepackage {
 				continue;
 			} else if (entryName.equalsIgnoreCase("classes.dex")) {
 				continue;
+			} else if (entryName.startsWith("META-INF/")) {
+				continue;
 			}
 			ZipEntry entry = new ZipEntry(entryName);
 			out.putNextEntry(entry);
@@ -271,8 +273,7 @@ public class ApkTool implements ApkRepackage {
 	}
 
 	// 只替换xml和dex文件
-	@SuppressWarnings("unused")
-	private boolean pack1(String old, String apkpath, String apkname) {
+	private boolean pack(String old, String apkpath, String apkname) {
 		boolean bRet = false;
 		String in = apkname + "_new.tmp";
 		String apkout = apkname + ".bak";
@@ -299,7 +300,7 @@ public class ApkTool implements ApkRepackage {
 			out.close();// 关闭流
 			bRet = SignApk.sign(getResource(Category.PEM),
 					getResource(Category.PK8), apkout, apkname);
-			// Api.remove(in);
+			Api.remove(apkout);
 			bRet = true;
 		} catch (AndrolibException e) {
 			e.printStackTrace();
@@ -388,7 +389,8 @@ public class ApkTool implements ApkRepackage {
 		return bRet;
 	}
 	
-	private boolean pack(String old, String apkpath, String apkname) {
+	@SuppressWarnings("unused")
+	private boolean pack3(String old, String apkpath, String apkname) {
 		boolean bRet = false;
 		String in = apkname + "_new.tmp";
 		File outFile = new File(in);
@@ -515,7 +517,6 @@ public class ApkTool implements ApkRepackage {
 	}
 	
 
-	@Override
 	public byte[] pkgForChannel(byte[] input, String appId, String channelId) {
 		byte[] oRet = input;
 		// 随机一个文件名
