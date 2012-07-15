@@ -26,6 +26,5 @@ public class TestApk {
 			ApkTool at = new ApkTool();
 			at.pkgForChannel(data, "123", "mymmsc");
 		}
-		
 	}
 }

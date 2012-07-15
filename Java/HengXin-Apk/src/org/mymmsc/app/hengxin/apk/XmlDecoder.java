@@ -56,7 +56,11 @@ import brut.util.Jar;
  * 
  */
 public class XmlDecoder {
-	
+	public static boolean sKeepBroken = false;
+
+	private final static Logger LOGGER = Logger
+			.getLogger(AndrolibResources.class.getName());
+
 	public ResTable getResTable(ExtFile apkFile) throws AndrolibException {
 		ResTable resTable = new ResTable();
 		loadMainPkg(resTable, apkFile);
@@ -137,7 +141,6 @@ public class XmlDecoder {
 		}
 	}
 
-	
 	@SuppressWarnings("unchecked")
 	public boolean detectWhetherAppIsFramework(File appDir)
 			throws AndrolibException {
@@ -409,9 +412,4 @@ public class XmlDecoder {
 		}
 	}
 
-	// TODO: dirty static hack. I have to refactor decoding mechanisms.
-	public static boolean sKeepBroken = false;
-
-	private final static Logger LOGGER = Logger
-			.getLogger(AndrolibResources.class.getName());
 }

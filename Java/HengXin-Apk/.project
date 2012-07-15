@@ -20,11 +20,4 @@
 		<nature>org.eclipse.wst.common.project.facet.core.nature</nature>
 		<nature>org.eclipse.jdt.core.javanature</nature>
 	</natures>
-	<linkedResources>
-		<link>
-			<name>ext</name>
-			<type>2</type>
-			<location>/Users/wangfeng/projects/wangfeng-apps/Java/HengXin-Apk/build/ext</location>
-		</link>
-	</linkedResources>
 </projectDescription>

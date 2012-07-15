@@ -47,6 +47,7 @@ import sun.security.x509.X500Name;
 
 public class SignApk {
 
+	@SuppressWarnings("unused")
 	private static X509Certificate readPublicKey(File file) throws IOException,
 			GeneralSecurityException {
 		FileInputStream input = new FileInputStream(file);
@@ -112,6 +113,7 @@ public class SignApk {
 		return null;
 	}
 
+	@SuppressWarnings("unused")
 	private static PrivateKey readPrivateKey(File file) throws IOException,
 			GeneralSecurityException {
 		DataInputStream input = new DataInputStream(new FileInputStream(file));
@@ -332,55 +334,6 @@ public class SignApk {
 		}
 		
 		return bRet;
-	}
-
-	public static void main(String[] args) {
-		if (args.length != 4) {
-			System.err
-					.println("Usage: signapk publickey.x509[.pem] privatekey.pk8 input.jar output.jar");
-
-			System.exit(2);
-		}
-
-		JarFile inputJar = null;
-		JarOutputStream outputJar = null;
-		try {
-			X509Certificate publicKey = readPublicKey(new File(args[0]));
-			PrivateKey privateKey = readPrivateKey(new File(args[1]));
-			inputJar = new JarFile(new File(args[2]), false);
-			outputJar = new JarOutputStream(new FileOutputStream(args[3]));
-			outputJar.setLevel(9);
-
-			Manifest manifest = addDigestsToManifest(inputJar);
-			manifest.getEntries().remove("META-INF/CERT.SF");
-			manifest.getEntries().remove("META-INF/CERT.RSA");
-			outputJar.putNextEntry(new JarEntry("META-INF/MANIFEST.MF"));
-			manifest.write(outputJar);
-
-			Signature signature = Signature.getInstance("SHA1withRSA");
-			signature.initSign(privateKey);
-			outputJar.putNextEntry(new JarEntry("META-INF/CERT.SF"));
-			writeSignatureFile(manifest, new SignatureOutputStream(outputJar,
-					signature));
-
-			outputJar.putNextEntry(new JarEntry("META-INF/CERT.RSA"));
-			writeSignatureBlock(signature, publicKey, outputJar);
-
-			copyFiles(manifest, inputJar, outputJar);
-		} catch (Exception e) {
-			e.printStackTrace();
-			System.exit(1);
-		} finally {
-			try {
-				if (inputJar != null)
-					inputJar.close();
-				if (outputJar != null)
-					outputJar.close();
-			} catch (IOException e) {
-				e.printStackTrace();
-				System.exit(1);
-			}
-		}
 	}
 
 	private static class SignatureOutputStream extends FilterOutputStream {
