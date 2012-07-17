@@ -31,7 +31,7 @@
 #import "SHKActionSheet.h"
 #import "SHKOfflineSharer.h"
 #import "SFHFKeychainUtils.h"
-#import "Reachability.h"
+#import <iOSApi/Reachability.h>
 //#import <objc/Object.h>
 //#import </usr/include/objc/objc-class.h>
 #import <MessageUI/MessageUI.h>

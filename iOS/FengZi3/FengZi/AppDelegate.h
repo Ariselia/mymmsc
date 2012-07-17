@@ -7,8 +7,9 @@
 
 #import <UIKit/UIKit.h>
 #import "ITTDataRequest.h"
-#import "Reachability.h"
+#import <iOSApi/Reachability.h>
 #import <CoreLocation/CoreLocation.h>
+
 //摇晃手机加入
 #import "PaintingWindow.h"
 @interface AppDelegate : UIResponder <UIApplicationDelegate,CLLocationManagerDelegate,DataRequestDelegate,UIAlertViewDelegate>{

@@ -7,7 +7,7 @@
 
 #import <Foundation/Foundation.h>
 #import "ITTRequestResult.h"
-#import "ASIFormDataRequest.h"
+#import <iOSApi/ASIFormDataRequest.h>
 #import "ITTBaseDataRequest.h"
 
 /**

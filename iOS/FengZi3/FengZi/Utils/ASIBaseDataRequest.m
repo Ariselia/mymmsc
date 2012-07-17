@@ -7,7 +7,7 @@
 //
 
 #import "ASIBaseDataRequest.h"
-#import "ASIFormDataRequest.h"
+#import <iOSApi/ASIFormDataRequest.h>
 #import "CJSONDeserializer.h"
 //#import "ITTNetworkTrafficManager.h"
 

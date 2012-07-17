@@ -46,19 +46,6 @@
          shouldBeEnabled = "Yes"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
-         filePath = "FengZi/Decode/Result/DecodeBusinessViewController.m"
-         timestampString = "363063547.938436"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "171"
-         endingLineNumber = "171"
-         landmarkName = "-getStringFromString:"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "Yes"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
          filePath = "FengZi/Api/UIViewController+Utils.m"
          timestampString = "363088698.243577"
          startingColumnNumber = "9223372036854775807"

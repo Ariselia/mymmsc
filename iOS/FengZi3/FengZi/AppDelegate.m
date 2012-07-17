@@ -92,7 +92,7 @@
     //        DATA_ENV.hasNetWork = YES;
     if(![USER_DEFAULT boolForKey:@"MobileInfoSended"]){
         NSString *netName;
-        if ([hostReach isReachableViaWWAN] == kReachableViaWWAN) {
+        if ([hostReach currentReachabilityStatus] == ReachableViaWWAN) {
             netName = @"2G/3G";
         }else{
             netName = @"WIFI";
