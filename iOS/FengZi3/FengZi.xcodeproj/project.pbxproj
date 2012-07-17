@@ -657,7 +657,6 @@
 		3E11F1E914726C3700ACC436 /* ASIHTTPRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E11F1DA14726C3700ACC436 /* ASIHTTPRequest.m */; };
 		3E11F1EA14726C3700ACC436 /* ASIInputStream.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E11F1DE14726C3700ACC436 /* ASIInputStream.m */; };
 		3E11F1EB14726C3700ACC436 /* ASINetworkQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E11F1E014726C3700ACC436 /* ASINetworkQueue.m */; };
-		3E11F1EC14726C3700ACC436 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E11F1E314726C3700ACC436 /* Reachability.m */; };
 		3E11F20414726C4900ACC436 /* CDataScanner.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E11F1EF14726C4900ACC436 /* CDataScanner.m */; };
 		3E11F20514726C4900ACC436 /* CDataScanner_Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E11F1F214726C4900ACC436 /* CDataScanner_Extensions.m */; };
 		3E11F20614726C4900ACC436 /* NSCharacterSet_Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E11F1F414726C4900ACC436 /* NSCharacterSet_Extensions.m */; };
@@ -922,6 +921,7 @@
 		0A0F00D115A6534200CF9BED /* NotePLogService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NotePLogService.m; sourceTree = "<group>"; };
 		0A0F00D215A6534200CF9BED /* PseudoBase64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PseudoBase64.h; sourceTree = "<group>"; };
 		0A0F00D315A6534200CF9BED /* PseudoBase64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PseudoBase64.m; sourceTree = "<group>"; };
+		0A0F00EE15A67ABD00CF9BED /* zh-Hant-TW */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant-TW"; path = "/Users/wangfeng/projects/wangfeng-apps/iOS/FengZi3/FengZi/zh-Hant-TW.lproj/InfoPlist.strings"; sourceTree = "<absolute>"; };
 		0A193AEF1594947E002E6835 /* Api+Database.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Api+Database.h"; sourceTree = "<group>"; };
 		0A193AF01594947E002E6835 /* Api+Database.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Api+Database.m"; sourceTree = "<group>"; };
 		0A193AF11594947E002E6835 /* Api+eBuy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Api+eBuy.h"; sourceTree = "<group>"; };
@@ -1740,8 +1740,6 @@
 		3E11F1DF14726C3700ACC436 /* ASINetworkQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASINetworkQueue.h; sourceTree = "<group>"; };
 		3E11F1E014726C3700ACC436 /* ASINetworkQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASINetworkQueue.m; sourceTree = "<group>"; };
 		3E11F1E114726C3700ACC436 /* ASIProgressDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASIProgressDelegate.h; sourceTree = "<group>"; };
-		3E11F1E214726C3700ACC436 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
-		3E11F1E314726C3700ACC436 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 		3E11F1EE14726C4900ACC436 /* CDataScanner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CDataScanner.h; sourceTree = "<group>"; };
 		3E11F1EF14726C4900ACC436 /* CDataScanner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CDataScanner.m; sourceTree = "<group>"; };
 		3E11F1F114726C4900ACC436 /* CDataScanner_Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CDataScanner_Extensions.h; sourceTree = "<group>"; };
@@ -3063,8 +3061,6 @@
 				3E11F1DF14726C3700ACC436 /* ASINetworkQueue.h */,
 				3E11F1E014726C3700ACC436 /* ASINetworkQueue.m */,
 				3E11F1E114726C3700ACC436 /* ASIProgressDelegate.h */,
-				3E11F1E214726C3700ACC436 /* Reachability.h */,
-				3E11F1E314726C3700ACC436 /* Reachability.m */,
 			);
 			path = ASIHttpRequest;
 			sourceTree = "<group>";
@@ -4576,7 +4572,6 @@
 				3E11F1E914726C3700ACC436 /* ASIHTTPRequest.m in Sources */,
 				3E11F1EA14726C3700ACC436 /* ASIInputStream.m in Sources */,
 				3E11F1EB14726C3700ACC436 /* ASINetworkQueue.m in Sources */,
-				3E11F1EC14726C3700ACC436 /* Reachability.m in Sources */,
 				3E11F20414726C4900ACC436 /* CDataScanner.m in Sources */,
 				3E11F20514726C4900ACC436 /* CDataScanner_Extensions.m in Sources */,
 				3E11F20614726C4900ACC436 /* NSCharacterSet_Extensions.m in Sources */,
@@ -4819,6 +4814,7 @@
 			children = (
 				3E11F1351472686900ACC436 /* en */,
 				B8F31B2614E357860081DD59 /* zh-Hans */,
+				0A0F00EE15A67ABD00CF9BED /* zh-Hant-TW */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
