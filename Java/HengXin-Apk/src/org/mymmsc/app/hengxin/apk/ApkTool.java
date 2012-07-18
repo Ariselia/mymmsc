@@ -545,8 +545,6 @@ public class ApkTool implements ApkRepackage {
 					xp.output(xmlFile, "utf-8");
 					pkg = xp.valueOf(root, "package");
 					System.out.println("package = " + pkg);
-					// FileApi.copyFile(new File(xmlFile), new File(xmlFile +
-					// ".bak"));
 					FileApi.copyDirectiory(RootPath + "/smali", apkDir
 							+ "/smali");
 					String smaliFile = apkDir
