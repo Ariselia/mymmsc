@@ -20,7 +20,7 @@ public class TestApk {
 
 	public static void main(String[] args) {
 		String dirName = "/Users/wangfeng/Downloads";
-		String apkname = dirName + "/" + "海豚浏览器.apk";
+		String apkname = dirName + "/" + "CMREAD_Android_WH_V1.71_120620_M2340001.apk";
 		byte[] data = FileApi.read(apkname);
 		if (data != null) {
 			ApkTool at = new ApkTool();
