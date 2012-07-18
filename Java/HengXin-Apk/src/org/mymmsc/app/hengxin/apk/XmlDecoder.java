@@ -27,9 +27,7 @@ import brut.androlib.err.CantFindFrameworkResException;
 import brut.androlib.res.AndrolibResources;
 import brut.androlib.res.ResSmaliUpdater;
 import brut.androlib.res.data.ResPackage;
-import brut.androlib.res.data.ResResource;
 import brut.androlib.res.data.ResTable;
-import brut.androlib.res.data.ResValuesFile;
 import brut.androlib.res.decoder.ARSCDecoder;
 import brut.androlib.res.decoder.ARSCDecoder.ARSCData;
 import brut.androlib.res.decoder.ARSCDecoder.FlagsOffset;
@@ -43,7 +41,6 @@ import brut.androlib.res.decoder.XmlPullStreamDecoder;
 import brut.androlib.res.util.ExtFile;
 import brut.androlib.res.util.ExtMXSerializer;
 import brut.androlib.res.util.ExtXmlSerializer;
-import brut.androlib.res.xml.ResValuesXmlSerializable;
 import brut.common.BrutException;
 import brut.directory.Directory;
 import brut.directory.DirectoryException;
@@ -195,37 +192,6 @@ public class XmlDecoder {
 		serial.setProperty(ExtMXSerializer.PROPERTY_DEFAULT_ENCODING, "utf-8");
 		serial.setDisabledAttrEscape(true);
 		return serial;
-	}
-
-	@SuppressWarnings("unused")
-	private void generateValuesFile(ResValuesFile valuesFile, Directory out,
-			ExtXmlSerializer serial) throws AndrolibException {
-		try {
-			OutputStream outStream = out.getFileOutput(valuesFile.getPath());
-			serial.setOutput((outStream), null);
-			serial.startDocument(null, null);
-			serial.startTag(null, "resources");
-
-			for (ResResource res : valuesFile.listResources()) {
-				if (valuesFile.isSynthesized(res)) {
-					continue;
-				}
-				((ResValuesXmlSerializable) res.getValue())
-						.serializeToResValuesXml(serial, res);
-			}
-
-			serial.endTag(null, "resources");
-			serial.newLine();
-			serial.endDocument();
-			serial.flush();
-			outStream.close();
-		} catch (IOException ex) {
-			throw new AndrolibException("Could not generate: "
-					+ valuesFile.getPath(), ex);
-		} catch (DirectoryException ex) {
-			throw new AndrolibException("Could not generate: "
-					+ valuesFile.getPath(), ex);
-		}
 	}
 
 	private ResPackage[] getResPackagesFromApk(ExtFile apkFile,
