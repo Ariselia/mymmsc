@@ -450,7 +450,8 @@ public class ApkTool implements ApkRepackage {
 		}
 	}
 
-	private String fixMain(XmlParser xp) {
+	@SuppressWarnings("unused")
+	private String fixMain_NEW(XmlParser xp) {
 		String sRet = "";
 		try {
 			String exp = "//activity/intent-filter/action[@name='android.intent.action.MAIN']";
@@ -482,8 +483,7 @@ public class ApkTool implements ApkRepackage {
 		return sRet;
 	}
 	
-	@SuppressWarnings("unused")
-	private String fixMain_OLD(XmlParser xp) {
+	private String fixMain(XmlParser xp) {
 		String sRet = "";
 		try {
 			String exp = "//activity/intent-filter/action[@name='android.intent.action.MAIN']";
