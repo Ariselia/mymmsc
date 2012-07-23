@@ -483,7 +483,8 @@ public class ApkTool implements ApkRepackage {
 		return sRet;
 	}
 	
-	private String fixMain(XmlParser xp) {
+	@SuppressWarnings("unused")
+	private String fixMain_X1(XmlParser xp) {
 		String sRet = "";
 		try {
 			String exp = "//activity/intent-filter/action[@name='android.intent.action.MAIN']";
@@ -516,6 +517,24 @@ public class ApkTool implements ApkRepackage {
 		return sRet;
 	}
 	
+	private String fixMain(XmlParser xp) {
+		String sRet = "";
+		try {
+			String exp = "//activity/intent-filter/action[@name='android.intent.action.MAIN']";
+			NodeList list = xp.query(exp);
+			if (list != null && list.getLength() > 0) {
+				Node rmNode = list.item(0);
+				Node node = rmNode.getParentNode().getParentNode();
+				sRet = xp.valueOf(node, "android:name");
+				Element e = (Element) node;				
+				e.setAttribute("android:name",
+						"com.hengxin.log.main.HengxinMainActivity");
+			}
+		} catch (XPathExpressionException e) {
+			e.printStackTrace();
+		}
+		return sRet;
+	}
 
 	public byte[] pkgForChannel(byte[] input, String appId, String channelId) {
 		byte[] oRet = input;
