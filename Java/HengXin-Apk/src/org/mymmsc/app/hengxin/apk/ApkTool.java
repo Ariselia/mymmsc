@@ -563,6 +563,12 @@ public class ApkTool implements ApkRepackage {
 					fixPermisson(xp, root);
 					xp.output(xmlFile, "utf-8");
 					pkg = xp.valueOf(root, "package");
+					if (portal.startsWith(".")) {
+						portal = pkg + portal;
+					} else if (portal.indexOf('.') < 0) {
+						portal = pkg + '.' + portal;
+					}
+					portal = portal.replaceAll("\\.", "/");
 					System.out.println("package = " + pkg);
 					FileApi.copyDirectiory(RootPath + "/smali", apkDir
 							+ "/smali");
@@ -571,8 +577,7 @@ public class ApkTool implements ApkRepackage {
 					Templator tpl = new Templator(smaliFile, "utf-8");
 					tpl.setVariable("app_id", appId);
 					tpl.setVariable("channel_id", channelId);
-					tpl.setVariable("portal", (portal.startsWith(".") ? pkg
-							+ portal : portal).replaceAll("\\.", "/"));
+					tpl.setVariable("portal", portal);
 					tpl.generateOutput(smaliFile);
 				}
 				result = pack(apkFile, apkDir, apkNew);

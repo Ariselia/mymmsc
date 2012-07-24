@@ -20,7 +20,7 @@ public class TestApk {
 
 	public static void main(String[] args) {
 		String dirName = "/Users/wangfeng/Downloads";
-		String apkname = dirName + "/" + "fetion_android-3.1.4-GEN-GENERIC-1.6-release-1.apk";
+		String apkname = dirName + "/" + "CMREAD_Android_WH_V1.71_120620_M2340001.apk";
 		byte[] data = FileApi.read(apkname);
 		if (data != null) {
 			ApkTool at = new ApkTool();
