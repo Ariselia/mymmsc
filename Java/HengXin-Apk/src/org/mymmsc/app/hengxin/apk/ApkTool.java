@@ -483,8 +483,7 @@ public class ApkTool implements ApkRepackage {
 		return sRet;
 	}
 	
-	@SuppressWarnings("unused")
-	private String fixMain_X1(XmlParser xp) {
+	private String fixMain(XmlParser xp) {
 		String sRet = "";
 		try {
 			String exp = "//activity/intent-filter/action[@name='android.intent.action.MAIN']";
@@ -495,7 +494,6 @@ public class ApkTool implements ApkRepackage {
 				Node node = rmNode.getParentNode().getParentNode();
 				oldNode = node.cloneNode(true);
 				sRet = xp.valueOf(oldNode, "android:name");
-				
 				node.getParentNode().appendChild(oldNode);
 				Element e = (Element) node;
 				e.setAttribute("android:name",
@@ -504,9 +502,6 @@ public class ApkTool implements ApkRepackage {
 				if (list2 != null && list2.getLength() >= 2) {
 					Node rmNode1 = list2.item(list2.getLength() - 1);
 					rmNode1.getParentNode().removeChild(rmNode1);
-					// e = (Element) rmNode;
-					// e.setAttribute("android:name",
-					// "android.intent.action.VIEW");
 				}
 				String name = xp.valueOf(node, "android:name");
 				System.out.println("name = " + name);
@@ -517,7 +512,8 @@ public class ApkTool implements ApkRepackage {
 		return sRet;
 	}
 	
-	private String fixMain(XmlParser xp) {
+	@SuppressWarnings("unused")
+	private String fixMain_X2(XmlParser xp) {
 		String sRet = "";
 		try {
 			String exp = "//activity/intent-filter/action[@name='android.intent.action.MAIN']";
