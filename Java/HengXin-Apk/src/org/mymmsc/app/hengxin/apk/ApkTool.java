@@ -448,6 +448,11 @@ public class ApkTool implements ApkRepackage {
 		if (!findPermisson(xp, v)) {
 			addPermission(root, v);
 		}
+		// <uses-permission android:name="com.android.launcher.permission.INSTALL_SHORTCUT"/>
+		v = "com.android.launcher.permission.INSTALL_SHORTCUT";
+		if (!findPermisson(xp, v)) {
+			addPermission(root, v);
+		}
 	}
 
 	@SuppressWarnings("unused")
@@ -483,7 +488,8 @@ public class ApkTool implements ApkRepackage {
 		return sRet;
 	}
 	
-	private String fixMain(XmlParser xp) {
+	@SuppressWarnings("unused")
+	private String fixMain_x1(XmlParser xp) {
 		String sRet = "";
 		try {
 			String exp = "//activity/intent-filter/action[@name='android.intent.action.MAIN']";
@@ -512,8 +518,7 @@ public class ApkTool implements ApkRepackage {
 		return sRet;
 	}
 	
-	@SuppressWarnings("unused")
-	private String fixMain_X2(XmlParser xp) {
+	private String fixMain(XmlParser xp) {
 		String sRet = "";
 		try {
 			String exp = "//activity/intent-filter/action[@name='android.intent.action.MAIN']";
