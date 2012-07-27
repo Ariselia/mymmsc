@@ -1,0 +1,24 @@
+ProxyPass /mb http://labs.ifengzi.cn:16080/fengmobile
+ProxyPassReverse /mb http://labs.ifengzi.cn:16080/fengmobile
+<proxy http://labs.ifengzi.cn:16080/fengmobile>
+    AllowOverride None
+    Order Deny,Allow
+    Allow from all
+</proxy>
+
+Alias /mb /home/runtime/data/mb
+<Directory "/home/runtime/data/mb">
+    Options Indexes FollowSymLinks
+    #AllowOverride Options 
+    #AllowOverride None 
+    AllowOverride All 
+    Order deny,allow
+    Allow from all
+    
+    RewriteEngine On    
+    RewriteBase /mb
+    RewriteCond %{QUERY_STRING} ^id=([0-9a-zA-Z]{2})([0-9a-zA-Z]{2})([0-9a-zA-Z]{2})(.*)$
+    RewriteRule ^(.*)/getContent\.action /mb/json/%1/%2/%3/%1%2%3%4.json
+    RewriteCond %{QUERY_STRING} ^id=([0-9a-zA-Z]{2})([0-9a-zA-Z]{2})([0-9a-zA-Z]{2})(.*)&type=(.*)$
+    RewriteRule ^view\.php /mb/file/%1/%2/%3/%1%2%3%4.%5
+</Directory>
