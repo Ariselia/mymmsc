@@ -268,7 +268,7 @@ static NSString *s_luckyId = nil;
         url = @"";
     }
     // 个人中心, 商城类跳转
-    if ([self jumpDigital:url] ) {
+    if ([self jumpDigital:input] ) {
         return;
     }
     BusCategory *category = [BusDecoder classify:input];

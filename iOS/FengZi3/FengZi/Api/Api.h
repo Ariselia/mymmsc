@@ -58,12 +58,12 @@
 #define API_URL_RIDE         @"http://m.ifengzi.cn/sfc/fx/facade"
 
 // 数字商城
-#define API_URL_ESHOP        @"http://apps.ifengzi.cn/eshop"
+#define API_URL_ESHOP        @"http://app.ifengzi.cn/eshop"
 // 数字商城二维码前缀
 #define API_QRCODE_ESHOP     API_URL_ESHOP "/info.action"
 
 // 电子商城
-#define API_URL_EBUY         @"http://apps.ifengzi.cn/ebuy"
+#define API_URL_EBUY         @"http://app.ifengzi.cn/ebuy"
 
 // 电子蜂夹
 #define API_URL_EFILE        @"http://220.231.48.34:38090/mobile/fx"
