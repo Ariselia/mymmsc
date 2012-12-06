@@ -1,0 +1,324 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		0AC3D8A9167050CE00D3F4BC /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0AC3D8A8167050CE00D3F4BC /* Default-568h@2x.png */; };
+		26668B8615AFEA83005B82A6 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 26668B8515AFEA83005B82A6 /* UIKit.framework */; };
+		26668B8815AFEA83005B82A6 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 26668B8715AFEA83005B82A6 /* Foundation.framework */; };
+		26668B8A15AFEA83005B82A6 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 26668B8915AFEA83005B82A6 /* CoreGraphics.framework */; };
+		26668B9015AFEA83005B82A6 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 26668B8E15AFEA83005B82A6 /* InfoPlist.strings */; };
+		26668B9215AFEA83005B82A6 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 26668B9115AFEA83005B82A6 /* main.m */; };
+		26668B9615AFEA83005B82A6 /* LameMp3RecorderAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 26668B9515AFEA83005B82A6 /* LameMp3RecorderAppDelegate.m */; };
+		26668B9915AFEA83005B82A6 /* LameMp3RecorderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 26668B9815AFEA83005B82A6 /* LameMp3RecorderViewController.m */; };
+		26668B9C15AFEA83005B82A6 /* LameMp3RecorderViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 26668B9A15AFEA83005B82A6 /* LameMp3RecorderViewController.xib */; };
+		26668BA515AFEB05005B82A6 /* libmp3lame.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 26668BA415AFEB05005B82A6 /* libmp3lame.a */; };
+		26668BA715AFECEF005B82A6 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 26668BA615AFECEF005B82A6 /* AVFoundation.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		0AC3D8A8167050CE00D3F4BC /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		26668B8115AFEA83005B82A6 /* LameMp3Recorder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LameMp3Recorder.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		26668B8515AFEA83005B82A6 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		26668B8715AFEA83005B82A6 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		26668B8915AFEA83005B82A6 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		26668B8D15AFEA83005B82A6 /* LameMp3Recorder-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "LameMp3Recorder-Info.plist"; sourceTree = "<group>"; };
+		26668B8F15AFEA83005B82A6 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		26668B9115AFEA83005B82A6 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		26668B9315AFEA83005B82A6 /* LameMp3Recorder-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "LameMp3Recorder-Prefix.pch"; sourceTree = "<group>"; };
+		26668B9415AFEA83005B82A6 /* LameMp3RecorderAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LameMp3RecorderAppDelegate.h; sourceTree = "<group>"; };
+		26668B9515AFEA83005B82A6 /* LameMp3RecorderAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LameMp3RecorderAppDelegate.m; sourceTree = "<group>"; };
+		26668B9715AFEA83005B82A6 /* LameMp3RecorderViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LameMp3RecorderViewController.h; sourceTree = "<group>"; };
+		26668B9815AFEA83005B82A6 /* LameMp3RecorderViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LameMp3RecorderViewController.m; sourceTree = "<group>"; };
+		26668B9B15AFEA83005B82A6 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/LameMp3RecorderViewController.xib; sourceTree = "<group>"; };
+		26668BA315AFEAEC005B82A6 /* lame.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = lame.h; sourceTree = "<group>"; };
+		26668BA415AFEB05005B82A6 /* libmp3lame.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libmp3lame.a; sourceTree = "<group>"; };
+		26668BA615AFECEF005B82A6 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		26668B7E15AFEA83005B82A6 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				26668BA715AFECEF005B82A6 /* AVFoundation.framework in Frameworks */,
+				26668B8615AFEA83005B82A6 /* UIKit.framework in Frameworks */,
+				26668B8815AFEA83005B82A6 /* Foundation.framework in Frameworks */,
+				26668B8A15AFEA83005B82A6 /* CoreGraphics.framework in Frameworks */,
+				26668BA515AFEB05005B82A6 /* libmp3lame.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		26668B7615AFEA83005B82A6 = {
+			isa = PBXGroup;
+			children = (
+				0AC3D8A8167050CE00D3F4BC /* Default-568h@2x.png */,
+				26668B8B15AFEA83005B82A6 /* LameMp3Recorder */,
+				26668B8415AFEA83005B82A6 /* Frameworks */,
+				26668B8215AFEA83005B82A6 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		26668B8215AFEA83005B82A6 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				26668B8115AFEA83005B82A6 /* LameMp3Recorder.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		26668B8415AFEA83005B82A6 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				26668BA615AFECEF005B82A6 /* AVFoundation.framework */,
+				26668B8515AFEA83005B82A6 /* UIKit.framework */,
+				26668B8715AFEA83005B82A6 /* Foundation.framework */,
+				26668B8915AFEA83005B82A6 /* CoreGraphics.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		26668B8B15AFEA83005B82A6 /* LameMp3Recorder */ = {
+			isa = PBXGroup;
+			children = (
+				26668BA215AFEACD005B82A6 /* Lame */,
+				26668B9415AFEA83005B82A6 /* LameMp3RecorderAppDelegate.h */,
+				26668B9515AFEA83005B82A6 /* LameMp3RecorderAppDelegate.m */,
+				26668B9715AFEA83005B82A6 /* LameMp3RecorderViewController.h */,
+				26668B9815AFEA83005B82A6 /* LameMp3RecorderViewController.m */,
+				26668B9A15AFEA83005B82A6 /* LameMp3RecorderViewController.xib */,
+				26668B8C15AFEA83005B82A6 /* Supporting Files */,
+			);
+			path = LameMp3Recorder;
+			sourceTree = "<group>";
+		};
+		26668B8C15AFEA83005B82A6 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				26668B8D15AFEA83005B82A6 /* LameMp3Recorder-Info.plist */,
+				26668B8E15AFEA83005B82A6 /* InfoPlist.strings */,
+				26668B9115AFEA83005B82A6 /* main.m */,
+				26668B9315AFEA83005B82A6 /* LameMp3Recorder-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		26668BA215AFEACD005B82A6 /* Lame */ = {
+			isa = PBXGroup;
+			children = (
+				26668BA415AFEB05005B82A6 /* libmp3lame.a */,
+				26668BA315AFEAEC005B82A6 /* lame.h */,
+			);
+			name = Lame;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		26668B8015AFEA83005B82A6 /* LameMp3Recorder */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 26668B9F15AFEA83005B82A6 /* Build configuration list for PBXNativeTarget "LameMp3Recorder" */;
+			buildPhases = (
+				26668B7D15AFEA83005B82A6 /* Sources */,
+				26668B7E15AFEA83005B82A6 /* Frameworks */,
+				26668B7F15AFEA83005B82A6 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = LameMp3Recorder;
+			productName = LameMp3Recorder;
+			productReference = 26668B8115AFEA83005B82A6 /* LameMp3Recorder.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		26668B7815AFEA83005B82A6 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				CLASSPREFIX = LameMp3Recorder;
+				LastUpgradeCheck = 0430;
+				ORGANIZATIONNAME = txtws.com;
+			};
+			buildConfigurationList = 26668B7B15AFEA83005B82A6 /* Build configuration list for PBXProject "LameMp3Recorder" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 26668B7615AFEA83005B82A6;
+			productRefGroup = 26668B8215AFEA83005B82A6 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				26668B8015AFEA83005B82A6 /* LameMp3Recorder */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		26668B7F15AFEA83005B82A6 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				26668B9015AFEA83005B82A6 /* InfoPlist.strings in Resources */,
+				26668B9C15AFEA83005B82A6 /* LameMp3RecorderViewController.xib in Resources */,
+				0AC3D8A9167050CE00D3F4BC /* Default-568h@2x.png in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		26668B7D15AFEA83005B82A6 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				26668B9215AFEA83005B82A6 /* main.m in Sources */,
+				26668B9615AFEA83005B82A6 /* LameMp3RecorderAppDelegate.m in Sources */,
+				26668B9915AFEA83005B82A6 /* LameMp3RecorderViewController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		26668B8E15AFEA83005B82A6 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				26668B8F15AFEA83005B82A6 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		26668B9A15AFEA83005B82A6 /* LameMp3RecorderViewController.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				26668B9B15AFEA83005B82A6 /* en */,
+			);
+			name = LameMp3RecorderViewController.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		26668B9D15AFEA83005B82A6 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		26668B9E15AFEA83005B82A6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		26668BA015AFEA83005B82A6 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "LameMp3Recorder/LameMp3Recorder-Prefix.pch";
+				INFOPLIST_FILE = "LameMp3Recorder/LameMp3Recorder-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/LameMp3Recorder\"",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
+				VALID_ARCHS = armv7;
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		26668BA115AFEA83005B82A6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "LameMp3Recorder/LameMp3Recorder-Prefix.pch";
+				INFOPLIST_FILE = "LameMp3Recorder/LameMp3Recorder-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/LameMp3Recorder\"",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
+				VALID_ARCHS = armv7;
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		26668B7B15AFEA83005B82A6 /* Build configuration list for PBXProject "LameMp3Recorder" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				26668B9D15AFEA83005B82A6 /* Debug */,
+				26668B9E15AFEA83005B82A6 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		26668B9F15AFEA83005B82A6 /* Build configuration list for PBXNativeTarget "LameMp3Recorder" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				26668BA015AFEA83005B82A6 /* Debug */,
+				26668BA115AFEA83005B82A6 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 26668B7815AFEA83005B82A6 /* Project object */;
+}
